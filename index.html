@@ -641,6 +641,46 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 /* ====== STREAK FLAME ====== */
 .streak-flame{display:inline-block;animation:flameWiggle 1s ease-in-out infinite}
 @keyframes flameWiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* BOOK PAGE */
+.book-page{position:fixed;inset:0;z-index:9997;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  --s:42px;--c1:#815d89;--c2:#000000;--c3:#3e2b40;--_g:var(--c3) 0 120deg,#0000 0;
+  background:conic-gradient(from -60deg at 50% calc(100%/3),var(--_g)),conic-gradient(from 120deg at 50% calc(200%/3),var(--_g)),conic-gradient(from 60deg at calc(200%/3),var(--c3) 60deg,var(--c2) 0 120deg,#0000 0),conic-gradient(from 180deg at calc(100%/3),var(--c1) 60deg,var(--_g)),linear-gradient(90deg,var(--c1) calc(100%/6),var(--c2) 0 50%,var(--c1) 0 calc(500%/6),var(--c2) 0);background-size:calc(1.732*var(--s)) var(--s);
+  animation:bookFadeIn .5s ease}
+@keyframes bookFadeIn{from{opacity:0}to{opacity:1}}
+.book-title{font-family:'Tanker',sans-serif;font-size:3rem;color:#fff;letter-spacing:6px;text-shadow:0 0 30px rgba(129,93,137,.5);margin-bottom:2rem}
+
+.custom-ui-switch,.custom-ui-switch *,.custom-ui-switch *:before,.custom-ui-switch *:after{box-sizing:border-box;transition:all .5s ease}
+.custom-ui-switch{position:relative;width:27vmin;height:9vmin;display:inline-flex;align-items:center;justify-content:center;font-family:Arial,Helvetica,sans-serif;cursor:pointer;margin-top:5.4vmin;-webkit-user-select:none;-moz-user-select:none;user-select:none}
+.custom-ui-switch input[type="checkbox"]{display:none}
+.custom-ui-switch .switch-body{position:absolute;width:100%;height:100%;background:#616774;border-radius:4.5vmin;box-shadow:0 0 .09vmin .09vmin #0006,0 -4px .45vmin .009vmin #000d,0 0 .45vmin .09vmin #fff8,0 -4px .9vmin .09vmin #000c}
+.custom-ui-switch .track{position:absolute;width:100%;height:100%;border-radius:4.5vmin;overflow:hidden;background:#191e1e;box-shadow:0 1.5vmin 2.25vmin 0 #000 inset}
+.custom-ui-switch .thumb{position:absolute;width:8.1vmin;height:8.1vmin;top:.4725vmin;left:.495vmin;background:linear-gradient(180deg,#3f4447,#262727);border-radius:4.5vmin;box-shadow:-.18vmin .18vmin .15vmin 0 #fff2 inset,0 0 .45vmin .09vmin #000c;display:flex;align-items:center;justify-content:center;z-index:1;overflow:hidden}
+.custom-ui-switch input[type="checkbox"]:checked~.switch-body .thumb{left:calc(100% - 8.5928vmin)}
+.custom-ui-switch .thumb:before{content:"";position:absolute;background:#2c3133;width:.375vmin;height:3.333vmin;border-radius:4.5vmin;box-shadow:.9vmin 0 0 0 #2c3133,-.9vmin 0 0 0 #2c3133;filter:drop-shadow(0 1px 2px #000) drop-shadow(0 -1px 0 #fff4) blur(.65px)}
+.custom-ui-switch .thumb:after{content:"";position:absolute;width:100%;height:100%;border-radius:4.5vmin;animation:shine-thumb-off .5s ease forwards}
+.custom-ui-switch input[type="checkbox"]:checked~.switch-body .thumb:after{animation:shine-thumb-on .5s ease forwards}
+@keyframes shine-thumb-on{0%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#f50000 5vmin)}50%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#666 5vmin)}100%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#4caf50 5vmin)}}
+@keyframes shine-thumb-off{0%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#4caf50 5vmin)}50%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#666 5vmin)}100%{background:radial-gradient(circle at 50% 55%,#fff0 4vmin,#f50000 5vmin)}}
+.custom-ui-switch .track-top,.custom-ui-switch .track-bot{position:absolute;width:120%;height:2vmin;left:-10%;top:-1.8vmin;transform-origin:22% 100%;transform:rotate(5deg);display:flex;align-items:center;justify-content:space-evenly;opacity:.85;animation:t-top-l .5s ease reverse forwards}
+.custom-ui-switch .track span span{background:linear-gradient(0deg,#fff8,#fff0),linear-gradient(180deg,#222,#666);width:2.8125vmin;height:2.25vmin;display:inline-flex;border-radius:0 0 .5625vmin .5625vmin;box-shadow:0 0 1px 0 #fff}
+.custom-ui-switch .track-bot span{background:linear-gradient(180deg,#fff8,#fff0),linear-gradient(0deg,#222,#666)!important;border-radius:.5625vmin .5625vmin 0 0!important}
+.custom-ui-switch .track-bot{top:inherit;bottom:-2vmin;transform:rotate(-5deg);animation:t-bot-l .5s ease reverse forwards}
+.custom-ui-switch input[type="checkbox"]:checked~.switch-body .track .track-top{animation:t-top-r .5s ease forwards}
+@keyframes t-top-r{0%{transform:rotate(5deg);transform-origin:22% 100%}50%{transform:rotate(0);transform-origin:22% 100%}50.01%{transform:rotate(0);transform-origin:78% 100%}100%{transform:rotate(-5deg);transform-origin:78% 100%}}
+@keyframes t-top-l{0%{transform:rotate(5deg);transform-origin:22% 100%}50%{transform:rotate(0);transform-origin:22% 100%}50.01%{transform:rotate(0);transform-origin:78% 100%}100%{transform:rotate(-5deg);transform-origin:78% 100%}}
+.custom-ui-switch input[type="checkbox"]:checked~.switch-body .track .track-bot{animation:t-bot-r .5s ease forwards}
+@keyframes t-bot-r{0%{transform:rotate(-5deg);transform-origin:22% 100%}50%{transform:rotate(0);transform-origin:22% 100%}50.01%{transform:rotate(0);transform-origin:78% 100%}100%{transform:rotate(5deg);transform-origin:78% 100%}}
+@keyframes t-bot-l{0%{transform:rotate(-5deg);transform-origin:22% 100%}50%{transform:rotate(0);transform-origin:22% 100%}50.01%{transform:rotate(0);transform-origin:78% 100%}100%{transform:rotate(5deg);transform-origin:78% 100%}}
+.custom-ui-switch .lights{position:absolute;width:100%;height:2.571vmin;top:-5.4vmin;display:flex;justify-content:space-between;padding:0 3vmin;z-index:1;pointer-events:none}
+.custom-ui-switch .lights span{background:#121212;position:relative;width:2.571vmin;height:2.571vmin;border-radius:4.5vmin;box-shadow:0 0 .09vmin .09vmin #0008,0 -4px .45vmin .009vmin #000,0 2px .45vmin .009vmin #fff8,0 0 .225vmin .36vmin #000;display:flex;align-items:center;justify-content:center}
+.custom-ui-switch .lights span:before{content:"RETOUR";font-size:1.6vmin;text-align:center;width:200%;position:absolute;top:-3.103vmin;left:-50%;color:#ffffff3d;text-shadow:0 -2px 2px #0008,0 1px 2px #fff4;background:-webkit-linear-gradient(90deg,#0000003b 25%,#f50000 75%);-webkit-background-clip:text;-webkit-text-fill-color:#71717170}
+.custom-ui-switch .lights span+span:before{content:"BOOK"}
+.custom-ui-switch .light-off:after{box-shadow:0 0 1.8vmin 0 #f50000,0 0 1.5vmin .225vmin #f50000 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff8 1.5vmin 1.5vmin)}
+.custom-ui-switch .lights span:after{content:"";width:calc(100% - .3vmin);height:calc(100% - .3vmin);position:absolute;border-radius:4.5vmin;box-shadow:0 0 .09vmin .09vmin #0008 inset,0 -4px .45vmin .009vmin #000 inset,0 2px .45vmin .009vmin #fff8 inset,0 0 .225vmin .18vmin #000 inset}
+.custom-ui-switch input[type="checkbox"]:checked~.lights .light-off:after{box-shadow:0 0 1.5vmin 0 #f5000020,0 0 1.5vmin .225vmin #f5000020 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
+.custom-ui-switch .light-on:after{box-shadow:0 0 1.5vmin 0 #00f56d20,0 0 1.5vmin .225vmin #00f56d20 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
+.custom-ui-switch input[type="checkbox"]:checked~.lights .light-on:after{box-shadow:0 0 1.8vmin 0 #4caf50,0 0 1.5vmin .225vmin #4caf50 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff2 1.5vmin 1.5vmin)}
 </style>
 </head>
 <body>
@@ -2701,18 +2741,41 @@ function getProgress(badge,vendor){
 // ========================================
 let notesSubTab='scripts';
 function renderNotes(container){
-  let html=`<div style="padding:20px 24px">
-    <div style="display:flex;gap:0;margin-bottom:24px;position:relative">
-      <button onclick="notesSubTab='scripts';renderNotes(document.getElementById('tabContent'))" style="flex:1;padding:12px;background:none;border:none;color:${notesSubTab==='scripts'?'#fff':'var(--gray)'};font-weight:${notesSubTab==='scripts'?'700':'400'};font-size:.85rem;cursor:pointer;transition:.3s">Scripts</button>
-      <button onclick="notesSubTab='rappels';renderNotes(document.getElementById('tabContent'))" style="flex:1;padding:12px;background:none;border:none;color:${notesSubTab==='rappels'?'#fff':'var(--gray)'};font-weight:${notesSubTab==='rappels'?'700':'400'};font-size:.85rem;cursor:pointer;transition:.3s">Rappels</button>
-      <div style="position:absolute;bottom:0;left:${notesSubTab==='scripts'?'0':'50%'};width:50%;height:3px;background:linear-gradient(90deg,#d946ef,#7c3aed);border-radius:3px;transition:left .3s ease"></div>
-      <div style="position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--s3)"></div>
-    </div>
-    <div id="notesContent"></div>
-  </div>`;
-  container.innerHTML=html;
-  if(notesSubTab==='scripts') renderScriptsContent(document.getElementById('notesContent'));
-  else renderRemindersContent(document.getElementById('notesContent'));
+  // Show Book fullscreen page
+  let existing=document.getElementById('bookPage');
+  if(existing)existing.remove();
+  const page=document.createElement('div');
+  page.id='bookPage';
+  page.className='book-page';
+  page.innerHTML=`
+    <div class="book-title">BOOK</div>
+    <label class="custom-ui-switch">
+      <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
+      <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
+      <div class="switch-body">
+        <div class="track">
+          <span class="track-top"><span></span><span></span><span></span><span></span><span></span></span>
+          <span class="track-bot"><span></span><span></span><span></span><span></span><span></span></span>
+        </div>
+        <div class="thumb"></div>
+      </div>
+    </label>
+    <div style="margin-top:3rem;color:rgba(255,255,255,.4);font-size:.75rem;letter-spacing:2px">BASCULER POUR REVENIR</div>
+  `;
+  document.body.appendChild(page);
+  // Hide main app
+  document.getElementById('app').style.display='none';
+  container.innerHTML='';
+}
+function handleBookSwitch(el){
+  if(!el.checked){
+    setTimeout(function(){
+      const bp=document.getElementById('bookPage');
+      if(bp)bp.remove();
+      document.getElementById('app').style.display='block';
+      switchTab('prospects');
+    },600);
+  }
 }
 
 function renderScriptsContent(container){
