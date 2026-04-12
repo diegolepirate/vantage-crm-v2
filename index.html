@@ -3147,14 +3147,16 @@ function previewUniTpl(id){
 function closeUniRPanel(){
   uniSelected=null;
   var rp=document.getElementById('uniRPanel');
-  if(rp)rp.style.display='none';
+  if(rp){
+    rp.style.display='flex';
+    rp.innerHTML='<div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div>';
+  }
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
   highlightUniNode();
 }
 function updateUniRPanel(){
   var rp=document.getElementById('uniRPanel');
-  if(!uniSelected){rp.style.display='none';return}
-  rp.style.display='flex';
+  if(!uniSelected){rp.innerHTML='<div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div>';return}
   var t=uniSelected;
   var inCompare=compareList.indexOf(t.id)>=0;
 
