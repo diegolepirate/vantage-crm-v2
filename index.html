@@ -6,7 +6,8 @@
 <title>Vantage CRM - Sales Pipeline</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=tanker@400&f[]=boxing@400&f[]=alpino@400,700,900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Supabase CDN removed for demo -->
+<script src="fake-data.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -643,6 +644,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 </style>
 </head>
 <body>
+<div id="demo-banner" style="background:linear-gradient(90deg,rgba(232,121,249,0.15),rgba(103,232,249,0.15));border-bottom:1px solid rgba(232,121,249,0.2);padding:8px 20px;text-align:center;font-size:11px;font-family:monospace;color:rgba(232,121,249,0.8);letter-spacing:1px;position:relative;z-index:9999">🎮 VERSION DÉMO — Données fictives — Vantage CRM Portfolio</div>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
@@ -709,11 +711,211 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 
 <script>
 // ========================================
-// SUPABASE INIT
 // ========================================
-const SUPABASE_URL='https://cckrdgnnufnxfuspihst.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNja3JkZ25udWZueGZ1c3BpaHN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MzcyODksImV4cCI6MjA5MTMxMzI4OX0.Fwrmg_k2epYfLOsFgJZYel8-UC1Npm6IUN0LFoiSQ2U';
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+// MOCK SUPABASE FOR DEMO
+// ========================================
+const SUPABASE_URL='DEMO';
+const SUPABASE_KEY='DEMO';
+
+function _getTable(name){
+  var map={
+    'prospects':FAKE_PROSPECTS,'clients':FAKE_CLIENTS,'projects':FAKE_PROJECTS,
+    'call_history':FAKE_CALLS,'vendor_stats':FAKE_VENDOR_STATS,'reminders':FAKE_REMINDERS,
+    'blacklist':FAKE_BLACKLIST,'vendor_scripts':FAKE_SCRIPTS,'vendor_badges':FAKE_VENDOR_BADGES,
+    'prospect_history':FAKE_PROSPECT_HISTORY,'project_objectives':FAKE_PROJECT_OBJECTIVES,
+    'activity_log':FAKE_ACTIVITY_LOG,'badges':FAKE_BADGES
+  };
+  return map[name]||[];
+}
+function _nextId(arr){return arr.length?Math.max(...arr.map(function(x){return x.id||0}))+1:1}
+
+class MockQuery{
+  constructor(table){
+    this._table=table;
+    this._data=_getTable(table);
+    this._filters=[];
+    this._orderCol=null;this._orderAsc=true;
+    this._limitN=null;
+    this._selectFields=null;
+    this._countMode=false;
+    this._headOnly=false;
+    this._singleMode=false;
+    this._maybeMode=false;
+    this._insertData=null;
+    this._updateData=null;
+    this._deleteMode=false;
+    this._upsertData=null;
+    this._upsertConflict=null;
+    this._rangeFrom=null;this._rangeTo=null;
+  }
+  select(fields,opts){
+    if(fields&&fields!=='*'){this._selectFields=fields.split(',').map(function(s){return s.trim()})}
+    if(opts&&opts.count)this._countMode=true;
+    if(opts&&opts.head)this._headOnly=true;
+    return this;
+  }
+  eq(col,val){this._filters.push(function(r){return r[col]===val});return this}
+  neq(col,val){this._filters.push(function(r){return r[col]!==val});return this}
+  gt(col,val){this._filters.push(function(r){return r[col]>val});return this}
+  gte(col,val){this._filters.push(function(r){return r[col]>=val});return this}
+  lt(col,val){this._filters.push(function(r){return r[col]<val});return this}
+  lte(col,val){this._filters.push(function(r){return r[col]<=val});return this}
+  in(col,vals){this._filters.push(function(r){return vals.indexOf(r[col])>=0});return this}
+  is(col,val){this._filters.push(function(r){return (val===null)?(r[col]===null||r[col]===undefined):r[col]===val});return this}
+  not(col,op,val){
+    if(op==='eq')this._filters.push(function(r){return r[col]!==val});
+    else if(op==='in')this._filters.push(function(r){return val.indexOf(r[col])<0});
+    else if(op==='is')this._filters.push(function(r){return (val===null)?(r[col]!==null&&r[col]!==undefined):r[col]!==val});
+    return this;
+  }
+  or(expr){
+    var parts=[];var depth=0;var cur='';
+    for(var i=0;i<expr.length;i++){
+      if(expr[i]==='('||expr[i]===')')depth+=expr[i]==='('?1:-1;
+      if(expr[i]===','&&depth===0){parts.push(cur);cur=''}
+      else cur+=expr[i];
+    }
+    if(cur)parts.push(cur);
+    var fns=parts.map(function(p){
+      var m;
+      if(m=p.match(/^(\w+)\.ilike\.%(.+)%$/i))return function(r){return r[m[1]]&&r[m[1]].toLowerCase().indexOf(m[2].toLowerCase())>=0};
+      if(m=p.match(/^(\w+)\.eq\.(.*)$/))return function(r){return String(r[m[1]]||'')===m[2]};
+      if(m=p.match(/^(\w+)\.neq\.(.*)$/))return function(r){return String(r[m[1]]||'')!==m[2]};
+      if(m=p.match(/^(\w+)\.is\.null$/))return function(r){return r[m[1]]===null||r[m[1]]===undefined||r[m[1]]===''};
+      if(m=p.match(/^(\w+)\.is\.(.+)$/))return function(r){return r[m[1]]===m[2]};
+      return function(){return true};
+    });
+    this._filters.push(function(r){return fns.some(function(fn){return fn(r)})});
+    return this;
+  }
+  ilike(col,pattern){
+    var p=pattern.replace(/%/g,'').toLowerCase();
+    this._filters.push(function(r){return r[col]&&r[col].toLowerCase().indexOf(p)>=0});
+    return this;
+  }
+  order(col,opts){this._orderCol=col;this._orderAsc=opts?opts.ascending!==false:true;return this}
+  limit(n){this._limitN=n;return this}
+  range(from,to){this._rangeFrom=from;this._rangeTo=to;return this}
+  single(){this._singleMode=true;return this}
+  maybeSingle(){this._maybeMode=true;return this}
+  insert(rows){
+    this._insertData=Array.isArray(rows)?rows:[rows];
+    return this;
+  }
+  update(obj){this._updateData=obj;return this}
+  delete(){this._deleteMode=true;return this}
+  upsert(data,opts){
+    this._upsertData=Array.isArray(data)?data:[data];
+    this._upsertConflict=opts&&opts.onConflict?opts.onConflict.split(',').map(function(s){return s.trim()}):['id'];
+    return this;
+  }
+  _resolve(){
+    var arr=this._data;
+    var table=this._table;
+    var tableRef=_getTable(table);
+
+    // INSERT
+    if(this._insertData){
+      var inserted=[];
+      for(var ii=0;ii<this._insertData.length;ii++){
+        var item=this._insertData[ii];
+        var row=Object.assign({},item);
+        if(!row.id)row.id=_nextId(tableRef);
+        if(!row.created_at)row.created_at=new Date().toISOString();
+        if(!row.updated_at)row.updated_at=new Date().toISOString();
+        tableRef.push(row);
+        inserted.push(row);
+      }
+      return{data:inserted,error:null,count:inserted.length};
+    }
+
+    // UPSERT
+    if(this._upsertData){
+      var result=[];
+      for(var ii=0;ii<this._upsertData.length;ii++){
+        var item=this._upsertData[ii];
+        var keys=this._upsertConflict;
+        var existing=tableRef.find(function(r){return keys.every(function(k){return r[k]===item[k]})});
+        if(existing){Object.assign(existing,item);result.push(existing)}
+        else{var row=Object.assign({},item);if(!row.id)row.id=_nextId(tableRef);tableRef.push(row);result.push(row)}
+      }
+      return{data:result,error:null,count:result.length};
+    }
+
+    // UPDATE
+    if(this._updateData){
+      var filtered=arr;
+      for(var fi=0;fi<this._filters.length;fi++)filtered=filtered.filter(this._filters[fi]);
+      for(var ri=0;ri<filtered.length;ri++)Object.assign(filtered[ri],this._updateData);
+      return{data:filtered,error:null,count:filtered.length};
+    }
+
+    // DELETE
+    if(this._deleteMode){
+      var filtered=arr;
+      for(var fi=0;fi<this._filters.length;fi++)filtered=filtered.filter(this._filters[fi]);
+      var ids=new Set(filtered.map(function(r){return r.id}));
+      var ref=_getTable(table);
+      for(var i=ref.length-1;i>=0;i--){if(ids.has(ref[i].id))ref.splice(i,1)}
+      return{data:filtered,error:null,count:filtered.length};
+    }
+
+    // SELECT
+    var result=arr.slice();
+    for(var fi=0;fi<this._filters.length;fi++)result=result.filter(this._filters[fi]);
+    if(this._orderCol){
+      var col=this._orderCol,asc=this._orderAsc;
+      result.sort(function(a,b){var va=a[col]||'',vb=b[col]||'';return va<vb?(asc?-1:1):va>vb?(asc?1:-1):0});
+    }
+    if(this._rangeFrom!==null){result=result.slice(this._rangeFrom,this._rangeTo+1)}
+    if(this._limitN!==null)result=result.slice(0,this._limitN);
+
+    var count=this._countMode?result.length:null;
+
+    if(this._selectFields){
+      var fields=this._selectFields;
+      result=result.map(function(r){var o={};fields.forEach(function(f){o[f]=r[f]});return o});
+    }
+
+    if(this._headOnly)return{data:null,error:null,count:count};
+    if(this._singleMode)return{data:result[0]||null,error:result.length?null:{message:'not found'},count:count};
+    if(this._maybeMode)return{data:result[0]||null,error:null,count:count};
+    return{data:result,error:null,count:count};
+  }
+  then(resolve,reject){
+    try{resolve(this._resolve())}catch(e){if(reject)reject(e);else resolve({data:null,error:{message:e.message},count:null})}
+  }
+  catch(fn){return this}
+}
+
+const sb={
+  from:function(table){return new MockQuery(table)},
+  rpc:function(name,params){
+    if(name==='get_distinct_regions'){
+      var counts={};
+      FAKE_PROSPECTS.forEach(function(p){if(!p.blacklisted){counts[p.region]=(counts[p.region]||0)+1}});
+      var data=Object.keys(counts).map(function(r){return{region:r,count:counts[r]}});
+      return{then:function(resolve){resolve({data:data,error:null})},catch:function(){return this}};
+    }
+    if(name==='get_owner_counts'){
+      var vendor=params&&params.current_vendor||'';
+      var owned=FAKE_PROSPECTS.filter(function(p){return p.vendeur===vendor&&!p.blacklisted}).length;
+      var data=[{owner_count:owned}];
+      return{then:function(resolve){resolve({data:data,error:null})},catch:function(){return this}};
+    }
+    return{then:function(resolve){resolve({data:[],error:null})},catch:function(){return this}};
+  },
+  channel:function(){
+    var ch={on:function(){return ch},subscribe:function(){return ch},unsubscribe:function(){return ch}};
+    return ch;
+  },
+  auth:{
+    getUser:function(){return Promise.resolve({data:{user:null},error:null})},
+    signIn:function(){return Promise.resolve({data:null,error:null})},
+    signOut:function(){return Promise.resolve({data:null,error:null})}
+  }
+};
+
 
 // ========================================
 // STATE
@@ -1021,7 +1223,7 @@ function loginAdmin(){
     return;
   }
   const pw=document.getElementById('adminPw').value;
-  if(pw==='Dido971$'){
+  if(true /* demo mode */){
     currentUser='Admin';
     isAdmin=true;
     adminAttempts=0;
