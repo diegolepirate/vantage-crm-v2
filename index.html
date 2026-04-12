@@ -686,6 +686,49 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .custom-ui-switch .light-on:after{box-shadow:0 0 1.5vmin 0 #00f56d20,0 0 1.5vmin .225vmin #00f56d20 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-on:after{box-shadow:0 0 1.8vmin 0 #4caf50,0 0 1.5vmin .225vmin #4caf50 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff2 1.5vmin 1.5vmin)}
 
+/* ====== FANTASY MAP ====== */
+#fantasyMapApp{position:absolute;inset:0;top:100px;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease;display:flex;flex-direction:column;overflow:hidden}
+.fmap-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.85);backdrop-filter:blur(12px);flex-shrink:0;z-index:10}
+.fmap-topbar-logo{display:flex;align-items:center;gap:10px}
+.fmap-topbar-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#D4AF37,#20B2AA);display:flex;align-items:center;justify-content:center;font-size:14px}
+.fmap-topbar-title{font-size:15px;font-weight:600;letter-spacing:.25em;color:#fff;font-family:'Cormorant Garamond',serif}
+.fmap-stats{display:flex;gap:16px;font-size:11px;color:rgba(255,255,255,.45)}
+.fmap-stats span{display:flex;align-items:center;gap:4px}
+.fmap-body{flex:1;display:flex;overflow:hidden}
+.fmap-container{flex:1;position:relative;overflow:hidden;background:#0a0a0f}
+.fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none}
+.fmap-dark-overlay{position:absolute;inset:0;background:rgba(26,35,50,.15);z-index:2;pointer-events:none}
+.fmap-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.03) 1px,transparent 1px);background-size:50px 50px;z-index:3;pointer-events:none}
+.fmap-zones{position:absolute;inset:0;z-index:4}
+.fmap-zone{position:absolute;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s ease-out}
+.fmap-zone-circle{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease-out;border:2px solid transparent;position:relative}
+.fmap-zone:hover .fmap-zone-circle{transform:scale(1.25);border-color:rgba(212,175,55,.6);filter:drop-shadow(0 0 20px #D4AF37) drop-shadow(0 0 40px var(--zc))}
+.fmap-zone.selected .fmap-zone-circle{transform:scale(1.3);border-color:#D4AF37;filter:drop-shadow(0 0 25px #D4AF37) drop-shadow(0 0 50px var(--zc))}
+.fmap-zone-icon{font-size:28px;z-index:2;transition:transform .3s;filter:drop-shadow(0 2px 6px rgba(0,0,0,.7))}
+.fmap-zone:hover .fmap-zone-icon{transform:scale(1.15)}
+.fmap-zone-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--zc);opacity:0;animation:fmapPulse 2s infinite}
+.fmap-zone:hover .fmap-zone-pulse,.fmap-zone.selected .fmap-zone-pulse{opacity:1}
+@keyframes fmapPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+.fmap-zone-label{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,15,.92);color:#D4AF37;padding:5px 14px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1px;white-space:nowrap;border:1px solid rgba(212,175,55,.4);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translateX(-50%) translateY(4px);backdrop-filter:blur(8px)}
+.fmap-zone:hover .fmap-zone-label{opacity:1;transform:translateX(-50%) translateY(0)}
+.fmap-zone-label:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(212,175,55,.4)}
+.fmap-rpanel{width:280px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.88);backdrop-filter:blur(12px);overflow-y:auto;transition:all .3s}
+.fmap-rpanel::-webkit-scrollbar{display:none}
+.fmap-rpanel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:rgba(255,255,255,.25);padding:30px;gap:16px}
+.fmap-rpanel-empty svg{width:48px;height:48px;opacity:.2}
+.fmap-zone-detail{padding:20px}
+.fmap-zone-detail h2{font-size:22px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:6px 0 4px}
+.fmap-zone-detail .fmap-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-top:12px}
+.fmap-zone-tpls{margin-top:20px}
+.fmap-zone-tpls h3{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.fmap-tpl-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .3s;border:1px solid transparent;margin-bottom:4px}
+.fmap-tpl-card:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.fmap-tpl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.fmap-tpl-name{font-size:13px;color:rgba(255,255,255,.8)}
+.fmap-tpl-sub{font-size:11px;color:rgba(255,255,255,.3)}
+.fmap-explore-btn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(90deg,#20B2AA,#1a8a84);color:#fff;font-weight:700;font-size:13px;border:none;cursor:pointer;margin-top:16px;transition:all .3s;letter-spacing:.5px}
+.fmap-explore-btn:hover{box-shadow:0 0 20px rgba(32,178,170,.4)}
+
 /* ====== UNIVERSE TEMPLATES ====== */
 #universeApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
 #universeApp *{box-sizing:border-box}
@@ -2828,7 +2871,7 @@ function renderNotes(container){
   page.innerHTML=`
     <div class="book-buttons">
       <button class="book-btn" onclick="showUniverseTemplates()">UNIVERSE</button>
-      <button class="book-btn">BOUTON 2</button>
+      <button class="book-btn" onclick="showFantasyMap()">MAP</button>
       <button class="book-btn">BOUTON 3</button>
     </div>
     <div style="position:absolute;top:50px;right:24px;display:flex;align-items:center;gap:20px;z-index:10">
@@ -2855,6 +2898,7 @@ function handleBookSwitch(el){
   if(!el.checked){
     setTimeout(function(){
       if(uniCy){uniCy.destroy();uniCy=null;}
+      var fmEl=document.getElementById('fantasyMapApp');if(fmEl)fmEl.remove();
       const bp=document.getElementById('bookPage');
       if(bp)bp.remove();
       document.getElementById('app').style.display='block';
@@ -2865,6 +2909,7 @@ function handleBookSwitch(el){
 
 function showUniverseTemplates(){
   uniSelected=null;uniSearch='';uniExpanded={};
+  var fmEl=document.getElementById('fantasyMapApp');if(fmEl)fmEl.remove();
   var ex=document.getElementById('universeApp');
   if(ex)ex.remove();
   var bp=document.getElementById('bookPage');
@@ -3017,6 +3062,100 @@ function highlightUniNode(){
 function bindUniverseEvents(){
   var inp=document.getElementById('uniSearchInput');
   if(inp)inp.addEventListener('input',function(){uniSearch=this.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar()});
+}
+
+// ====== FANTASY MAP MODULE ======
+var MAP_ZONES=[
+  {id:'city',name:'City Center',icon:'\u{1F3F0}',desc:'The dense medieval city — fortified walls, bustling markets, and towering cathedrals. Home to Agency & Corporate templates.',color:'#D4AF37',cx:46,cy:58,templates:['1','3']},
+  {id:'forest',name:'North Forest',icon:'\u{1F332}',desc:'Ancient woodlands shrouded in mist. Organic, nature-inspired designs thrive here.',color:'#4CAF50',cx:22,cy:18,templates:['6']},
+  {id:'bay',name:'East Bay',icon:'\u{26F5}',desc:'Crystal-clear waters and hidden coves. Perfect for E-Commerce and luxury brand templates.',color:'#00D9FF',cx:72,cy:28,templates:['5','7','9']},
+  {id:'farm',name:'South Farmland',icon:'\u{1F33E}',desc:'Golden fields stretching to the horizon. Simple, honest designs for Services and local businesses.',color:'#CD853F',cx:40,cy:85,templates:['2','10']},
+  {id:'islands',name:'Mystical Islands',icon:'\u{1F3DD}',desc:'Scattered archipelago of enchanted isles. Experimental and creative templates find their home here.',color:'#87CEEB',cx:82,cy:52,templates:['8']},
+  {id:'magic',name:'Purple Magic Zone',icon:'\u{2728}',desc:'A realm of arcane energy and wonder. Where the most innovative Tech & SaaS templates are forged.',color:'#9370DB',cx:55,cy:42,templates:['4']},
+  {id:'harbor',name:'West Harbor',icon:'\u{26F4}',desc:'The gateway port connecting all trade routes. Multi-purpose templates for every need.',color:'#20B2AA',cx:15,cy:52,templates:['2','6']},
+  {id:'mountain',name:'Mountain Pass',icon:'\u{26F0}',desc:'Treacherous peaks with breathtaking views. High-performance templates built for speed.',color:'#808080',cx:45,cy:6,templates:['4','8']},
+  {id:'valley',name:'Secret Valley',icon:'\u{1F5DD}',desc:'A hidden gem known only to the initiated. Premium exclusive templates await.',color:'#FF1493',cx:12,cy:78,templates:['3','7']},
+  {id:'trading',name:'Trading Post',icon:'\u{1F3EA}',desc:'The crossroads of commerce. Where all categories converge and deals are struck.',color:'#FFD700',cx:52,cy:50,templates:['1','5','10']}
+];
+var fmapSelectedZone=null;
+
+function showFantasyMap(){
+  // Remove universe if open
+  var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
+  if(uniCy){uniCy.destroy();uniCy=null}
+  // Remove existing map
+  var ex=document.getElementById('fantasyMapApp');if(ex)ex.remove();
+  var bp=document.getElementById('bookPage');if(!bp)return;
+  fmapSelectedZone=null;
+  var div=document.createElement('div');
+  div.id='fantasyMapApp';
+  div.innerHTML=buildFantasyMapHTML();
+  bp.appendChild(div);
+}
+
+function buildFantasyMapHTML(){
+  var zonesHTML=MAP_ZONES.map(function(z){
+    return '<div class="fmap-zone" data-zone="'+z.id+'" style="left:'+z.cx+'%;top:'+z.cy+'%;transform:translate(-50%,-50%);--zc:'+z.color+'" onclick="selectMapZone(\''+z.id+'\')">'
+      +'<div class="fmap-zone-label">'+z.name+'</div>'
+      +'<div class="fmap-zone-circle" style="background:radial-gradient(circle,'+z.color+'40 0%,'+z.color+'10 60%,transparent 70%)">'
+      +'<div class="fmap-zone-pulse" style="--zc:'+z.color+'"></div>'
+      +'<span class="fmap-zone-icon">'+z.icon+'</span>'
+      +'</div></div>';
+  }).join('');
+
+  var statsHTML=MAP_ZONES.length+' Zones &bull; '+UNI_TEMPLATES.length+' Templates';
+
+  return '<div class="fmap-topbar">'
+    +'<div class="fmap-topbar-logo"><div class="fmap-topbar-icon">\u{1F5FA}</div><div class="fmap-topbar-title">REALM MAP</div></div>'
+    +'<div class="fmap-stats"><span>'+statsHTML+'</span></div>'
+    +'</div>'
+    +'<div class="fmap-body">'
+    +'<div class="fmap-container">'
+    +'<img class="fmap-img" src="oDPf6.jpg" alt="Fantasy Map">'
+    +'<div class="fmap-dark-overlay"></div>'
+    +'<div class="fmap-grid-overlay"></div>'
+    +'<div class="fmap-zones">'+zonesHTML+'</div>'
+    +'</div>'
+    +'<div class="fmap-rpanel" id="fmapRPanel"><div class="fmap-rpanel-empty"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span style="font-size:13px">Click a zone on the map<br>to explore its templates</span></div></div>'
+    +'</div>';
+}
+
+function selectMapZone(zoneId){
+  fmapSelectedZone=MAP_ZONES.find(function(z){return z.id===zoneId})||null;
+  // Update selected class
+  document.querySelectorAll('.fmap-zone').forEach(function(el){
+    el.classList.toggle('selected',el.dataset.zone===zoneId);
+  });
+  updateMapRPanel();
+}
+
+function updateMapRPanel(){
+  var rp=document.getElementById('fmapRPanel');
+  if(!fmapSelectedZone){rp.innerHTML='<div class="fmap-rpanel-empty"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span style="font-size:13px">Click a zone on the map<br>to explore its templates</span></div>';return}
+  var z=fmapSelectedZone;
+  var tpls=z.templates.map(function(tid){return UNI_TEMPLATES.find(function(t){return t.id===tid})}).filter(Boolean);
+  var tplHTML=tpls.map(function(t){
+    return '<div class="fmap-tpl-card" ondblclick="previewUniTpl(\''+t.id+'\')">'
+      +'<span class="fmap-tpl-dot" style="background:'+UNI_TIER_COLORS[t.tier]+'"></span>'
+      +'<div style="flex:1;min-width:0"><div class="fmap-tpl-name">'+t.name+'</div><div class="fmap-tpl-sub">'+t.subcategory+' &bull; '+t.tier+'</div></div>'
+      +'</div>';
+  }).join('');
+
+  rp.innerHTML='<div class="fmap-zone-detail">'
+    +'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:32px">'+z.icon+'</span><div><div style="font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px">Zone</div><h2 style="color:'+z.color+'">'+z.name+'</h2></div></div>'
+    +'<div class="fmap-desc">'+z.desc+'</div>'
+    +'<div class="fmap-zone-tpls"><h3>Templates in this zone ('+tpls.length+')</h3>'+tplHTML+'</div>'
+    +'<button class="fmap-explore-btn" onclick="exploreZoneInUniverse(\''+z.id+'\')">Explore in Universe Graph</button>'
+    +'</div>';
+}
+
+function exploreZoneInUniverse(zoneId){
+  var z=MAP_ZONES.find(function(zz){return zz.id===zoneId});
+  if(!z||!z.templates.length)return;
+  // Remove map, open universe, select first template of zone
+  var mapEl=document.getElementById('fantasyMapApp');if(mapEl)mapEl.remove();
+  showUniverseTemplates();
+  setTimeout(function(){selectUniTpl(z.templates[0])},500);
 }
 
 function renderScriptsContent(container){
