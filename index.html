@@ -730,7 +730,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-info-close:hover{background:rgba(239,68,68,.15);color:#ef4444}
 
 /* ====== UNIVERSE TEMPLATES (VVD Enhanced) ====== */
-#universeApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
+#universeApp{position:absolute;inset:0;top:100px;display:flex;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
 #universeApp *{box-sizing:border-box}
 .uni-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.8);backdrop-filter:blur(12px);flex-shrink:0}
 .uni-topbar .uni-logo{display:flex;align-items:center;gap:10px}
@@ -3012,12 +3012,7 @@ function showUniverseTemplates(){
 }
 
 function buildUniverseHTML(){
-  return '<div class="uni-topbar">'
-    +'<div class="uni-logo"><div class="uni-logo-icon">U</div><div class="uni-logo-text">UNIVERSE</div></div>'
-    +'<div class="uni-search"><input id="uniSearchInput" type="text" placeholder="Search templates, tags, tech..."></div>'
-    +'<div class="uni-nav"><span onclick="showCompareView()">Compare</span><span class="uni-fav-count" id="uniFavCount">'+uniFavorites.length+'</span></div>'
-    +'</div>'
-    +'<div class="uni-body">'
+  return '<div class="uni-body">'
     +'<div class="uni-sidebar" id="uniSidebar">'+buildUniSidebar()+'</div>'
     +'<div class="uni-graph"><div id="cyContainer"></div>'
     +'<div class="uni-legend">'+UNI_CATEGORIES.map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')+'</div>'
@@ -3029,7 +3024,7 @@ function buildUniverseHTML(){
 function buildUniSidebar(){
   var q=uniSearch.toLowerCase();
   var filtered=UNI_TEMPLATES.filter(function(t){return !q||t.name.toLowerCase().indexOf(q)>=0||t.category.toLowerCase().indexOf(q)>=0||t.subcategory.toLowerCase().indexOf(q)>=0||(t.tags&&t.tags.some(function(tg){return tg.indexOf(q)>=0}))||(t.technologies&&t.technologies.some(function(tc){return tc.toLowerCase().indexOf(q)>=0}))});
-  var html='<div class="uni-sidebar-title">Template Library</div>';
+  var html='<div style="padding:10px 12px 6px"><input id="uniSearchInput" type="text" placeholder="Search..." value="'+uniSearch+'" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:12px;color:#fff;outline:none;font-family:Inter,sans-serif"></div><div class="uni-sidebar-title">Template Library</div>';
   // Activity feed at bottom
   UNI_CATEGORIES.forEach(function(cat){
     var items=filtered.filter(function(t){return t.category===cat});
@@ -3189,8 +3184,8 @@ function highlightUniNode(){
 }
 
 function bindUniverseEvents(){
-  var inp=document.getElementById('uniSearchInput');
-  if(inp)inp.addEventListener('input',function(){uniSearch=this.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar()});
+  var sb=document.getElementById('uniSidebar');
+  if(sb)sb.addEventListener('input',function(e){if(e.target.id==='uniSearchInput'){uniSearch=e.target.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar();var ni=document.getElementById('uniSearchInput');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length)}}});
 }
 
 // ====== COMPARE VIEW ======
