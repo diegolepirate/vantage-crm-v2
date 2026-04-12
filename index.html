@@ -689,7 +689,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 /* ====== FANTASY MAP ====== */
 /* ====== FANTASY MAP ====== */
 .fmap-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);animation:bookFadeIn .3s ease}
-.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(90deg);z-index:9999;width:min(55vh,90vw);height:92vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
+.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(90deg);z-index:9999;width:min(110vh,95vw);height:95vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
 @keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) rotate(90deg) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) rotate(90deg) scale(1)}}
 .fmap-card-inner{position:absolute;inset:2px;border-radius:14px;background:#0d0d12;overflow:hidden;z-index:1;display:flex;flex-direction:column}
 .fmap-card-glow{position:absolute;width:140%;height:140%;top:-20%;left:-20%;background:conic-gradient(from 0deg,#D4AF37,#20B2AA,#9370DB,#FF6B6B,#D4AF37);animation:fmapGlowSpin 6s linear infinite;filter:blur(50px);opacity:.35;z-index:0}
@@ -714,8 +714,8 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-zone-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease-out;border:2px solid transparent;position:relative;background:radial-gradient(circle,rgba(0,0,0,.35) 0%,transparent 70%)}
 .fmap-zone:hover .fmap-zone-circle{transform:scale(1.35);border-color:rgba(212,175,55,.5);filter:drop-shadow(0 0 16px var(--zc)) drop-shadow(0 0 30px var(--zc))}
 .fmap-zone.selected .fmap-zone-circle{transform:scale(1.4);border-color:#D4AF37;filter:drop-shadow(0 0 20px #D4AF37) drop-shadow(0 0 40px var(--zc))}
-.fmap-zone-icon{font-size:24px;z-index:2;transition:transform .3s;filter:drop-shadow(0 2px 8px rgba(0,0,0,.8))}
-.fmap-zone:hover .fmap-zone-icon{transform:scale(1.15)}
+.fmap-zone-icon{font-size:24px;z-index:2;transition:transform .3s;filter:drop-shadow(0 2px 8px rgba(0,0,0,.8));transform:rotate(-90deg)}
+.fmap-zone:hover .fmap-zone-icon{transform:rotate(-90deg) scale(1.15)}
 .fmap-zone-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--zc);opacity:0;animation:fmapPulse 2.5s infinite}
 .fmap-zone-pulse2{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--zc);opacity:0;animation:fmapPulse 2.5s 1.2s infinite}
 .fmap-zone:hover .fmap-zone-pulse,.fmap-zone.selected .fmap-zone-pulse,.fmap-zone:hover .fmap-zone-pulse2,.fmap-zone.selected .fmap-zone-pulse2{opacity:1}
@@ -3118,7 +3118,7 @@ function buildFmapInner(){
     return '<div class="fmap-region" id="fmapRegion-'+z.id+'" style="left:calc('+z.cx+'% - '+z.rx+'%);top:calc('+z.cy+'% - '+z.ry+'%);width:'+(z.rx*2)+'%;height:'+(z.ry*2)+'%;background:'+z.color+';opacity:0"></div>';
   }).join('');
   return '<div class="fmap-map-area" id="fmapMapArea">'
-    +'<button class="fmap-close-btn" style="position:absolute;top:10px;right:10px;z-index:20;transform:rotate(-90deg)" onclick="closeFantasyMap()">\u2715</button>'
+    +'<button class="fmap-close-btn" style="position:absolute;top:10px;left:10px;z-index:20;transform:rotate(-90deg)" onclick="closeFantasyMap()">\u2715</button>'
     +'<img class="fmap-img" src="oDPf6.jpg" alt="Fantasy Map">'
     +'<div class="fmap-dark-overlay"></div>'
     +'<div class="fmap-grid-overlay"></div>'
