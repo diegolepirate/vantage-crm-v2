@@ -3137,56 +3137,33 @@ function previewUniTpl(id){
   if(uniPreview)showUniPreviewModal();
 }
 
+function closeUniRPanel(){
+  uniSelected=null;
+  var rp=document.getElementById('uniRPanel');
+  if(rp)rp.style.display='none';
+  document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
+  highlightUniNode();
+}
 function updateUniRPanel(){
   var rp=document.getElementById('uniRPanel');
-  if(!uniSelected){rp.innerHTML='<div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div>';return}
+  if(!uniSelected){rp.style.display='none';return}
+  rp.style.display='';
   var t=uniSelected;
-  var fav=uniFavorites.indexOf(t.id)>=0;
-  var links=getAutoLinks(t);
   var inCompare=compareList.indexOf(t.id)>=0;
 
-  var html='<div style="padding:16px">';
-  // Header
-  html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span class="uni-cat-dot" style="background:'+UNI_CAT_COLORS[t.category]+'"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">'+t.category+'</span></div>';
-  html+='<h2>'+t.name+'</h2>';
-  html+='<div style="font-size:11px;color:rgba(255,255,255,.3)">'+t.subcategory+'</div>';
-  // Tier + Stats
-  html+='<div style="display:flex;align-items:center;gap:10px;margin-top:10px"><span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span>';
-  html+='<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.4)">'+t.difficulty+'</span></div>';
-  // Stats row
-  html+='<div class="uni-stats-row"><div class="uni-stat">\u{1F441} '+t.views+'</div><div class="uni-stat">\u2605 '+t.favs+'</div><div class="uni-stat">\u{1F517} '+links.length+'</div></div>';
-  // Description
-  html+='<div class="uni-section-label">Description</div><div class="uni-desc">'+t.description+'</div>';
-  // Features
-  if(t.features&&t.features.length){
-    html+='<div class="uni-section-label">Features</div><div style="display:flex;flex-direction:column;gap:4px">';
-    t.features.forEach(function(f){html+='<div style="font-size:12px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px"><span style="color:#4ADE80">&#10003;</span>'+f+'</div>'});
-    html+='</div>';
-  }
+  var html='<div style="padding:20px">';
+  // Category dot + name
+  html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="uni-cat-dot" style="background:'+UNI_CAT_COLORS[t.category]+'"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">'+t.category+'</span></div>';
+  html+='<h2 style="margin:0 0 4px;font-size:20px">'+t.name+'</h2>';
   // Technologies
-  html+='<div class="uni-section-label">Technologies</div><div class="uni-techs">';
+  html+='<div class="uni-techs" style="margin-top:12px">';
   t.technologies.forEach(function(tc){html+='<span class="uni-tech-tag">'+tc+'</span>'});
   html+='</div>';
-  // Related templates (auto-links)
-  if(links.length){
-    html+='<div class="uni-section-label">Connections ('+links.length+')</div>';
-    links.forEach(function(l){
-      html+='<div class="uni-related-item" onclick="selectUniTpl(\''+l.template.id+'\')">';
-      html+='<span style="width:6px;height:6px;border-radius:50%;background:'+UNI_REL_COLORS[l.type]+';flex-shrink:0"></span>';
-      html+='<div style="flex:1;min-width:0"><div style="font-size:12px;color:rgba(255,255,255,.7)">'+l.template.name+'</div><div style="font-size:10px;color:rgba(255,255,255,.3)">'+l.label+'</div></div>';
-      html+='<div class="uni-strength-bar"><div class="uni-strength-fill" style="width:'+l.strength*10+'%"></div></div>';
-      html+='</div>';
-    });
-  }
-  // URL
-  html+='<div class="uni-section-label">Website</div><a class="uni-url" href="'+t.url+'" target="_blank">'+t.url+'</a>';
   // Actions
-  html+='<div style="display:flex;gap:8px;margin-top:16px">';
-  html+='<button class="uni-preview-btn" style="flex:1" onclick="previewUniTpl(\''+t.id+'\')">Preview</button>';
-  html+='<button style="flex:1;padding:10px;border-radius:8px;background:'+(fav?'rgba(212,175,55,.15)':'rgba(255,255,255,.05)')+';border:1px solid '+(fav?'rgba(212,175,55,.3)':'rgba(255,255,255,.08)')+';color:'+(fav?'#D4AF37':'rgba(255,255,255,.5)')+';cursor:pointer;font-size:13px;font-weight:600;transition:all .2s" onclick="toggleFavorite(\''+t.id+'\');updateUniRPanel()">'+(fav?'\u2605 Saved':'\u2606 Save')+'</button>';
-  html+='</div>';
-  html+='<button style="width:100%;padding:8px;border-radius:8px;background:'+(inCompare?'rgba(0,217,255,.1)':'rgba(255,255,255,.03)')+';border:1px solid '+(inCompare?'rgba(0,217,255,.3)':'rgba(255,255,255,.06)')+';color:'+(inCompare?'#00D9FF':'rgba(255,255,255,.4)')+';cursor:pointer;font-size:12px;margin-top:6px;transition:all .2s" onclick="toggleCompare(\''+t.id+'\')">'+(inCompare?'&#10003; In comparison':'+ Add to compare')+'</button>';
-  html+='</div>';
+  html+='<div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">';
+  html+='<button class="uni-preview-btn" onclick="previewUniTpl(\''+t.id+'\')">Preview</button>';
+  html+='<button style="width:100%;padding:10px;border-radius:8px;background:'+(inCompare?'rgba(0,217,255,.1)':'rgba(255,255,255,.03)')+';border:1px solid '+(inCompare?'rgba(0,217,255,.3)':'rgba(255,255,255,.06)')+';color:'+(inCompare?'#00D9FF':'rgba(255,255,255,.4)')+';cursor:pointer;font-size:12px;transition:all .2s" onclick="toggleCompare(\''+t.id+'\')">'+(inCompare?'&#10003; In comparison':'+ Add to compare')+'</button>';
+  html+='</div></div>';
   rp.innerHTML=html;
 }
 
@@ -3435,6 +3412,9 @@ function initUniverseGraph(){
   });
   uniCy.on('tap','node[type="template"]',function(evt){
     selectUniTpl(evt.target.data('id').replace('tpl-',''));
+  });
+  uniCy.on('tap',function(evt){
+    if(evt.target===uniCy)closeUniRPanel();
   });
   uniCy.on('dbltap','node[type="template"]',function(evt){
     previewUniTpl(evt.target.data('id').replace('tpl-',''));
