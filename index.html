@@ -766,6 +766,7 @@ class MockQuery{
     if(op==='eq')this._filters.push(function(r){return r[col]!==val});
     else if(op==='in')this._filters.push(function(r){return val.indexOf(r[col])<0});
     else if(op==='is')this._filters.push(function(r){return (val===null)?(r[col]!==null&&r[col]!==undefined):r[col]!==val});
+    else if(op==='cs'){this._filters.push(function(r){var arr=r[col];if(!arr||!Array.isArray(arr))return true;try{var v=JSON.parse(val);return!v.some(function(x){return arr.indexOf(x)>=0})}catch(e){return arr.indexOf(val)<0}})}
     return this;
   }
   or(expr){
@@ -894,7 +895,7 @@ const sb={
     if(name==='get_distinct_regions'){
       var counts={};
       FAKE_PROSPECTS.forEach(function(p){if(!p.blacklisted){counts[p.region]=(counts[p.region]||0)+1}});
-      var data=Object.keys(counts).map(function(r){return{region:r,count:counts[r]}});
+      var data=Object.keys(counts).map(function(r){return{region:r,total:counts[r]}});
       return{then:function(resolve){resolve({data:data,error:null})},catch:function(){return this}};
     }
     if(name==='get_owner_counts'){

@@ -63,8 +63,8 @@
       FAKE_CLIENTS.push({
         id:cid++, prospect_id:p.id, nom:p.nom, numero:p.numero,
         email:p.email, instagram:p.instagram, facebook:'',
-        region:p.region, famille:p.famille, vendor_name:p.vendeur,
-        site_status:p.status, project_id:null, hidden_by:'', notes:p.notes,
+        region:p.region, famille:p.famille, vendor_name:p.vendeur,business_name:p.nom,contact_name:['Nikos','Maria','Dimitris','Elena','Kostas','Sofia','Yannis','Anna','Giorgos','Katerina'][Math.floor(Math.random()*10)]+' '+['Papadopoulos','Nikolaou','Georgiou','Vasileiou','Konstantinou','Alexiou','Karagiannis','Makris','Pappas','Christodoulou'][Math.floor(Math.random()*10)],sale_price:[350,450,500,600,750,900][Math.floor(Math.random()*6)],
+        site_status:p.status, project_id:null, hidden_by:[], notes:p.notes,with_maintenance:Math.random()>0.7,delivery_notes:'',
         created_at:p.created_at, updated_at:p.updated_at
       });
     }
