@@ -687,48 +687,55 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-on:after{box-shadow:0 0 1.8vmin 0 #4caf50,0 0 1.5vmin .225vmin #4caf50 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff2 1.5vmin 1.5vmin)}
 
 /* ====== FANTASY MAP ====== */
-#fantasyMapApp{position:absolute;inset:0;top:100px;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease;display:flex;flex-direction:column;overflow:hidden}
-.fmap-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.85);backdrop-filter:blur(12px);flex-shrink:0;z-index:10}
-.fmap-topbar-logo{display:flex;align-items:center;gap:10px}
-.fmap-topbar-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#D4AF37,#20B2AA);display:flex;align-items:center;justify-content:center;font-size:14px}
-.fmap-topbar-title{font-size:15px;font-weight:600;letter-spacing:.25em;color:#fff;font-family:'Cormorant Garamond',serif}
-.fmap-stats{display:flex;gap:16px;font-size:11px;color:rgba(255,255,255,.45)}
-.fmap-stats span{display:flex;align-items:center;gap:4px}
-.fmap-body{flex:1;display:flex;overflow:hidden}
-.fmap-container{flex:1;position:relative;overflow:hidden;background:#0a0a0f}
-.fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none}
-.fmap-dark-overlay{position:absolute;inset:0;background:rgba(26,35,50,.15);z-index:2;pointer-events:none}
-.fmap-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.03) 1px,transparent 1px);background-size:50px 50px;z-index:3;pointer-events:none}
+/* ====== FANTASY MAP ====== */
+.fmap-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);animation:bookFadeIn .3s ease}
+.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;width:92vw;height:88vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
+@keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.fmap-card-inner{position:absolute;inset:2px;border-radius:14px;background:#0d0d12;overflow:hidden;z-index:1;display:flex;flex-direction:column}
+.fmap-card-glow{position:absolute;width:140%;height:140%;top:-20%;left:-20%;background:conic-gradient(from 0deg,#D4AF37,#20B2AA,#9370DB,#FF6B6B,#D4AF37);animation:fmapGlowSpin 6s linear infinite;filter:blur(50px);opacity:.35;z-index:0}
+@keyframes fmapGlowSpin{to{transform:rotate(360deg)}}
+.fmap-header{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(10,10,10,.9);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10;backdrop-filter:blur(10px)}
+.fmap-header-left{display:flex;align-items:center;gap:10px}
+.fmap-header-icon{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#D4AF37,#20B2AA);display:flex;align-items:center;justify-content:center;font-size:13px}
+.fmap-header-title{font-size:14px;font-weight:600;letter-spacing:.25em;color:#fff;font-family:'Cormorant Garamond',serif}
+.fmap-close-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
+.fmap-close-btn:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#ef4444}
+.fmap-map-area{flex:1;position:relative;overflow:hidden;background:#0a0a0f}
+.fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none;animation:fmapFloat 20s ease-in-out infinite}
+@keyframes fmapFloat{0%,100%{transform:scale(1.02) translate(0,0)}25%{transform:scale(1.03) translate(-0.5%,-0.3%)}50%{transform:scale(1.02) translate(0.3%,0.5%)}75%{transform:scale(1.03) translate(0.4%,-0.4%)}}
+.fmap-dark-overlay{position:absolute;inset:0;background:rgba(26,35,50,.12);z-index:2;pointer-events:none}
+.fmap-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.025) 1px,transparent 1px);background-size:50px 50px;z-index:3;pointer-events:none}
+.fmap-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.5) 100%)}
+.fmap-fog{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.12;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");animation:fmapFogDrift 30s linear infinite}
+@keyframes fmapFogDrift{to{background-position:400px 200px}}
 .fmap-zones{position:absolute;inset:0;z-index:4}
-.fmap-zone{position:absolute;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s ease-out}
-.fmap-zone-circle{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease-out;border:2px solid transparent;position:relative}
-.fmap-zone:hover .fmap-zone-circle{transform:scale(1.25);border-color:rgba(212,175,55,.6);filter:drop-shadow(0 0 20px #D4AF37) drop-shadow(0 0 40px var(--zc))}
-.fmap-zone.selected .fmap-zone-circle{transform:scale(1.3);border-color:#D4AF37;filter:drop-shadow(0 0 25px #D4AF37) drop-shadow(0 0 50px var(--zc))}
-.fmap-zone-icon{font-size:28px;z-index:2;transition:transform .3s;filter:drop-shadow(0 2px 6px rgba(0,0,0,.7))}
+.fmap-region{position:absolute;border-radius:35%;opacity:0;transition:opacity .5s;pointer-events:none;mix-blend-mode:soft-light}
+.fmap-region.visible{opacity:1}
+.fmap-zone{position:absolute;cursor:pointer;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s ease-out}
+.fmap-zone-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease-out;border:2px solid transparent;position:relative;background:radial-gradient(circle,rgba(0,0,0,.35) 0%,transparent 70%)}
+.fmap-zone:hover .fmap-zone-circle{transform:scale(1.35);border-color:rgba(212,175,55,.5);filter:drop-shadow(0 0 16px var(--zc)) drop-shadow(0 0 30px var(--zc))}
+.fmap-zone.selected .fmap-zone-circle{transform:scale(1.4);border-color:#D4AF37;filter:drop-shadow(0 0 20px #D4AF37) drop-shadow(0 0 40px var(--zc))}
+.fmap-zone-icon{font-size:24px;z-index:2;transition:transform .3s;filter:drop-shadow(0 2px 8px rgba(0,0,0,.8))}
 .fmap-zone:hover .fmap-zone-icon{transform:scale(1.15)}
-.fmap-zone-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--zc);opacity:0;animation:fmapPulse 2s infinite}
-.fmap-zone:hover .fmap-zone-pulse,.fmap-zone.selected .fmap-zone-pulse{opacity:1}
-@keyframes fmapPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
-.fmap-zone-label{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,10,15,.92);color:#D4AF37;padding:5px 14px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1px;white-space:nowrap;border:1px solid rgba(212,175,55,.4);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translateX(-50%) translateY(4px);backdrop-filter:blur(8px)}
+.fmap-zone-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--zc);opacity:0;animation:fmapPulse 2.5s infinite}
+.fmap-zone-pulse2{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--zc);opacity:0;animation:fmapPulse 2.5s 1.2s infinite}
+.fmap-zone:hover .fmap-zone-pulse,.fmap-zone.selected .fmap-zone-pulse,.fmap-zone:hover .fmap-zone-pulse2,.fmap-zone.selected .fmap-zone-pulse2{opacity:1}
+@keyframes fmapPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.8);opacity:0}}
+.fmap-zone-label{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:rgba(8,8,12,.94);color:#D4AF37;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap;border:1px solid rgba(212,175,55,.35);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;backdrop-filter:blur(10px);font-family:'Inter',sans-serif}
 .fmap-zone:hover .fmap-zone-label{opacity:1;transform:translateX(-50%) translateY(0)}
-.fmap-zone-label:after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(212,175,55,.4)}
-.fmap-rpanel{width:280px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.88);backdrop-filter:blur(12px);overflow-y:auto;transition:all .3s}
-.fmap-rpanel::-webkit-scrollbar{display:none}
-.fmap-rpanel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:rgba(255,255,255,.25);padding:30px;gap:16px}
-.fmap-rpanel-empty svg{width:48px;height:48px;opacity:.2}
-.fmap-zone-detail{padding:20px}
-.fmap-zone-detail h2{font-size:22px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:6px 0 4px}
-.fmap-zone-detail .fmap-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-top:12px}
-.fmap-zone-tpls{margin-top:20px}
-.fmap-zone-tpls h3{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
-.fmap-tpl-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:all .3s;border:1px solid transparent;margin-bottom:4px}
-.fmap-tpl-card:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
-.fmap-tpl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.fmap-tpl-name{font-size:13px;color:rgba(255,255,255,.8)}
-.fmap-tpl-sub{font-size:11px;color:rgba(255,255,255,.3)}
-.fmap-explore-btn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(90deg,#20B2AA,#1a8a84);color:#fff;font-weight:700;font-size:13px;border:none;cursor:pointer;margin-top:16px;transition:all .3s;letter-spacing:.5px}
-.fmap-explore-btn:hover{box-shadow:0 0 20px rgba(32,178,170,.4)}
-
+.fmap-zone-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(212,175,55,.35)}
+.fmap-info-popup{position:absolute;z-index:20;width:260px;background:rgba(13,13,18,.95);border:1px solid rgba(212,175,55,.2);border-radius:12px;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fmapPopIn .3s cubic-bezier(.22,1,.36,1);overflow:hidden;font-family:'Inter',sans-serif}
+@keyframes fmapPopIn{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.fmap-info-header{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+.fmap-info-header h3{font-size:16px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:0}
+.fmap-info-header p{font-size:11px;color:rgba(255,255,255,.4);margin:2px 0 0}
+.fmap-info-body{padding:12px 16px 16px}
+.fmap-info-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:12px}
+.fmap-info-tpls{display:flex;flex-direction:column;gap:4px}
+.fmap-info-tpl{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;transition:background .2s;cursor:pointer;font-size:12px;color:rgba(255,255,255,.7)}
+.fmap-info-tpl:hover{background:rgba(255,255,255,.05)}
+.fmap-info-close{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.05);border:none;color:rgba(255,255,255,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s}
+.fmap-info-close:hover{background:rgba(239,68,68,.15);color:#ef4444}
 /* ====== UNIVERSE TEMPLATES ====== */
 #universeApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
 #universeApp *{box-sizing:border-box}
@@ -2898,7 +2905,7 @@ function handleBookSwitch(el){
   if(!el.checked){
     setTimeout(function(){
       if(uniCy){uniCy.destroy();uniCy=null;}
-      var fmEl=document.getElementById('fantasyMapApp');if(fmEl)fmEl.remove();
+      closeFantasyMap();
       const bp=document.getElementById('bookPage');
       if(bp)bp.remove();
       document.getElementById('app').style.display='block';
@@ -2909,7 +2916,7 @@ function handleBookSwitch(el){
 
 function showUniverseTemplates(){
   uniSelected=null;uniSearch='';uniExpanded={};
-  var fmEl=document.getElementById('fantasyMapApp');if(fmEl)fmEl.remove();
+  closeFantasyMap();
   var ex=document.getElementById('universeApp');
   if(ex)ex.remove();
   var bp=document.getElementById('bookPage');
@@ -3066,96 +3073,103 @@ function bindUniverseEvents(){
 
 // ====== FANTASY MAP MODULE ======
 var MAP_ZONES=[
-  {id:'city',name:'City Center',icon:'\u{1F3F0}',desc:'The dense medieval city — fortified walls, bustling markets, and towering cathedrals. Home to Agency & Corporate templates.',color:'#D4AF37',cx:46,cy:58,templates:['1','3']},
-  {id:'forest',name:'North Forest',icon:'\u{1F332}',desc:'Ancient woodlands shrouded in mist. Organic, nature-inspired designs thrive here.',color:'#4CAF50',cx:22,cy:18,templates:['6']},
-  {id:'bay',name:'East Bay',icon:'\u{26F5}',desc:'Crystal-clear waters and hidden coves. Perfect for E-Commerce and luxury brand templates.',color:'#00D9FF',cx:72,cy:28,templates:['5','7','9']},
-  {id:'farm',name:'South Farmland',icon:'\u{1F33E}',desc:'Golden fields stretching to the horizon. Simple, honest designs for Services and local businesses.',color:'#CD853F',cx:40,cy:85,templates:['2','10']},
-  {id:'islands',name:'Mystical Islands',icon:'\u{1F3DD}',desc:'Scattered archipelago of enchanted isles. Experimental and creative templates find their home here.',color:'#87CEEB',cx:82,cy:52,templates:['8']},
-  {id:'magic',name:'Purple Magic Zone',icon:'\u{2728}',desc:'A realm of arcane energy and wonder. Where the most innovative Tech & SaaS templates are forged.',color:'#9370DB',cx:55,cy:42,templates:['4']},
-  {id:'harbor',name:'West Harbor',icon:'\u{26F4}',desc:'The gateway port connecting all trade routes. Multi-purpose templates for every need.',color:'#20B2AA',cx:15,cy:52,templates:['2','6']},
-  {id:'mountain',name:'Mountain Pass',icon:'\u{26F0}',desc:'Treacherous peaks with breathtaking views. High-performance templates built for speed.',color:'#808080',cx:45,cy:6,templates:['4','8']},
-  {id:'valley',name:'Secret Valley',icon:'\u{1F5DD}',desc:'A hidden gem known only to the initiated. Premium exclusive templates await.',color:'#FF1493',cx:12,cy:78,templates:['3','7']},
-  {id:'trading',name:'Trading Post',icon:'\u{1F3EA}',desc:'The crossroads of commerce. Where all categories converge and deals are struck.',color:'#FFD700',cx:52,cy:50,templates:['1','5','10']}
+  {id:'city',name:'City Center',icon:'\u{1F3F0}',desc:'The dense medieval city \u2014 fortified walls, bustling markets, towering cathedrals.',color:'#D4AF37',cx:46,cy:58,rx:22,ry:18,templates:['1','3']},
+  {id:'forest',name:'North Forest',icon:'\u{1F332}',desc:'Ancient woodlands shrouded in mist. Organic, nature-inspired designs.',color:'#4CAF50',cx:22,cy:18,rx:18,ry:14,templates:['6']},
+  {id:'bay',name:'East Bay',icon:'\u{26F5}',desc:'Crystal-clear waters and hidden coves. E-Commerce and luxury brands.',color:'#00D9FF',cx:72,cy:28,rx:16,ry:20,templates:['5','7','9']},
+  {id:'farm',name:'South Farmland',icon:'\u{1F33E}',desc:'Golden fields stretching to the horizon. Services and local businesses.',color:'#CD853F',cx:40,cy:85,rx:20,ry:10,templates:['2','10']},
+  {id:'islands',name:'Mystical Islands',icon:'\u{1F3DD}',desc:'Scattered archipelago of enchanted isles. Experimental templates.',color:'#87CEEB',cx:82,cy:52,rx:12,ry:15,templates:['8']},
+  {id:'magic',name:'Purple Magic Zone',icon:'\u{2728}',desc:'A realm of arcane energy. Innovative Tech and SaaS templates.',color:'#9370DB',cx:55,cy:42,rx:14,ry:12,templates:['4']},
+  {id:'harbor',name:'West Harbor',icon:'\u{26F4}',desc:'The gateway port connecting all trade routes.',color:'#20B2AA',cx:15,cy:52,rx:12,ry:16,templates:['2','6']},
+  {id:'mountain',name:'Mountain Pass',icon:'\u{26F0}',desc:'Treacherous peaks with breathtaking views. High-performance templates.',color:'#808080',cx:45,cy:6,rx:24,ry:8,templates:['4','8']},
+  {id:'valley',name:'Secret Valley',icon:'\u{1F5DD}',desc:'A hidden gem. Premium exclusive templates await.',color:'#FF1493',cx:12,cy:78,rx:10,ry:12,templates:['3','7']},
+  {id:'trading',name:'Trading Post',icon:'\u{1F3EA}',desc:'The crossroads of commerce. All categories converge here.',color:'#FFD700',cx:52,cy:50,rx:10,ry:10,templates:['1','5','10']}
 ];
 var fmapSelectedZone=null;
 
 function showFantasyMap(){
-  // Remove universe if open
   var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
   if(uniCy){uniCy.destroy();uniCy=null}
-  // Remove existing map
-  var ex=document.getElementById('fantasyMapApp');if(ex)ex.remove();
-  var bp=document.getElementById('bookPage');if(!bp)return;
-  fmapSelectedZone=null;
-  var div=document.createElement('div');
-  div.id='fantasyMapApp';
-  div.innerHTML=buildFantasyMapHTML();
-  bp.appendChild(div);
+  closeFantasyMap();
+  var ov=document.createElement('div');ov.id='fmapOverlay';ov.className='fmap-overlay';
+  ov.onclick=function(){closeFantasyMap()};
+  document.body.appendChild(ov);
+  var card=document.createElement('div');card.id='fmapCard';card.className='fmap-card';
+  card.onclick=function(e){e.stopPropagation()};
+  card.innerHTML='<div class="fmap-card-glow"></div><div class="fmap-card-inner">'+buildFmapInner()+'</div>';
+  document.body.appendChild(card);
 }
 
-function buildFantasyMapHTML(){
+function closeFantasyMap(){
+  fmapSelectedZone=null;
+  var ov=document.getElementById('fmapOverlay');if(ov)ov.remove();
+  var cd=document.getElementById('fmapCard');if(cd)cd.remove();
+}
+
+function buildFmapInner(){
   var zonesHTML=MAP_ZONES.map(function(z){
-    return '<div class="fmap-zone" data-zone="'+z.id+'" style="left:'+z.cx+'%;top:'+z.cy+'%;transform:translate(-50%,-50%);--zc:'+z.color+'" onclick="selectMapZone(\''+z.id+'\')">'
+    return '<div class="fmap-zone" data-zone="'+z.id+'" style="left:'+z.cx+'%;top:'+z.cy+'%;transform:translate(-50%,-50%);--zc:'+z.color+'" onclick="selectMapZone(\''+z.id+'\',event)">'
       +'<div class="fmap-zone-label">'+z.name+'</div>'
-      +'<div class="fmap-zone-circle" style="background:radial-gradient(circle,'+z.color+'40 0%,'+z.color+'10 60%,transparent 70%)">'
+      +'<div class="fmap-zone-circle">'
       +'<div class="fmap-zone-pulse" style="--zc:'+z.color+'"></div>'
+      +'<div class="fmap-zone-pulse2" style="--zc:'+z.color+'"></div>'
       +'<span class="fmap-zone-icon">'+z.icon+'</span>'
       +'</div></div>';
   }).join('');
-
-  var statsHTML=MAP_ZONES.length+' Zones &bull; '+UNI_TEMPLATES.length+' Templates';
-
-  return '<div class="fmap-topbar">'
-    +'<div class="fmap-topbar-logo"><div class="fmap-topbar-icon">\u{1F5FA}</div><div class="fmap-topbar-title">REALM MAP</div></div>'
-    +'<div class="fmap-stats"><span>'+statsHTML+'</span></div>'
+  var regionsHTML=MAP_ZONES.map(function(z){
+    return '<div class="fmap-region" id="fmapRegion-'+z.id+'" style="left:calc('+z.cx+'% - '+z.rx+'%);top:calc('+z.cy+'% - '+z.ry+'%);width:'+(z.rx*2)+'%;height:'+(z.ry*2)+'%;background:'+z.color+';opacity:0"></div>';
+  }).join('');
+  return '<div class="fmap-header">'
+    +'<div class="fmap-header-left"><div class="fmap-header-icon">\u{1F5FA}</div><div class="fmap-header-title">REALM MAP</div></div>'
+    +'<div style="display:flex;align-items:center;gap:14px"><span style="font-size:11px;color:rgba(255,255,255,.35)">'+MAP_ZONES.length+' Zones</span>'
+    +'<button class="fmap-close-btn" onclick="closeFantasyMap()">\u2715</button></div>'
     +'</div>'
-    +'<div class="fmap-body">'
-    +'<div class="fmap-container">'
+    +'<div class="fmap-map-area" id="fmapMapArea">'
     +'<img class="fmap-img" src="oDPf6.jpg" alt="Fantasy Map">'
     +'<div class="fmap-dark-overlay"></div>'
     +'<div class="fmap-grid-overlay"></div>'
-    +'<div class="fmap-zones">'+zonesHTML+'</div>'
-    +'</div>'
-    +'<div class="fmap-rpanel" id="fmapRPanel"><div class="fmap-rpanel-empty"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span style="font-size:13px">Click a zone on the map<br>to explore its templates</span></div></div>'
+    +'<div class="fmap-vignette"></div>'
+    +'<div class="fmap-fog"></div>'
+    +'<div class="fmap-zones">'+regionsHTML+zonesHTML+'</div>'
     +'</div>';
 }
 
-function selectMapZone(zoneId){
-  fmapSelectedZone=MAP_ZONES.find(function(z){return z.id===zoneId})||null;
-  // Update selected class
-  document.querySelectorAll('.fmap-zone').forEach(function(el){
-    el.classList.toggle('selected',el.dataset.zone===zoneId);
+function selectMapZone(zoneId,evt){
+  var wasSelected=fmapSelectedZone&&fmapSelectedZone.id===zoneId;
+  var pp=document.getElementById('fmapInfoPopup');if(pp)pp.remove();
+  MAP_ZONES.forEach(function(z){
+    var reg=document.getElementById('fmapRegion-'+z.id);
+    if(reg)reg.style.opacity=(z.id===zoneId&&!wasSelected)?'0.35':'0';
   });
-  updateMapRPanel();
-}
-
-function updateMapRPanel(){
-  var rp=document.getElementById('fmapRPanel');
-  if(!fmapSelectedZone){rp.innerHTML='<div class="fmap-rpanel-empty"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><span style="font-size:13px">Click a zone on the map<br>to explore its templates</span></div>';return}
+  document.querySelectorAll('.fmap-zone').forEach(function(el){
+    el.classList.toggle('selected',el.dataset.zone===zoneId&&!wasSelected);
+  });
+  if(wasSelected){fmapSelectedZone=null;return}
+  fmapSelectedZone=MAP_ZONES.find(function(z){return z.id===zoneId})||null;
+  if(!fmapSelectedZone)return;
   var z=fmapSelectedZone;
+  var mapArea=document.getElementById('fmapMapArea');
+  var rect=mapArea.getBoundingClientRect();
+  var px=evt.clientX-rect.left+16,py=evt.clientY-rect.top-80;
+  if(px+270>rect.width)px=px-286;
+  if(py<10)py=evt.clientY-rect.top+16;
   var tpls=z.templates.map(function(tid){return UNI_TEMPLATES.find(function(t){return t.id===tid})}).filter(Boolean);
   var tplHTML=tpls.map(function(t){
-    return '<div class="fmap-tpl-card" ondblclick="previewUniTpl(\''+t.id+'\')">'
-      +'<span class="fmap-tpl-dot" style="background:'+UNI_TIER_COLORS[t.tier]+'"></span>'
-      +'<div style="flex:1;min-width:0"><div class="fmap-tpl-name">'+t.name+'</div><div class="fmap-tpl-sub">'+t.subcategory+' &bull; '+t.tier+'</div></div>'
-      +'</div>';
+    return '<div class="fmap-info-tpl" ondblclick="previewUniTpl(\''+t.id+'\')"><span style="width:5px;height:5px;border-radius:50%;background:'+UNI_TIER_COLORS[t.tier]+';flex-shrink:0;display:inline-block"></span> '+t.name+' <span style="color:rgba(255,255,255,.3);font-size:10px">'+t.tier+'</span></div>';
   }).join('');
-
-  rp.innerHTML='<div class="fmap-zone-detail">'
-    +'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:32px">'+z.icon+'</span><div><div style="font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px">Zone</div><h2 style="color:'+z.color+'">'+z.name+'</h2></div></div>'
-    +'<div class="fmap-desc">'+z.desc+'</div>'
-    +'<div class="fmap-zone-tpls"><h3>Templates in this zone ('+tpls.length+')</h3>'+tplHTML+'</div>'
-    +'<button class="fmap-explore-btn" onclick="exploreZoneInUniverse(\''+z.id+'\')">Explore in Universe Graph</button>'
-    +'</div>';
+  var popup=document.createElement('div');popup.id='fmapInfoPopup';popup.className='fmap-info-popup';
+  popup.style.left=px+'px';popup.style.top=py+'px';
+  popup.onclick=function(e){e.stopPropagation()};
+  popup.innerHTML='<button class="fmap-info-close" onclick="closeFmapPopup()">\u2715</button>'
+    +'<div class="fmap-info-header"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:24px">'+z.icon+'</span><div><h3 style="color:'+z.color+'">'+z.name+'</h3><p style="font-size:11px;color:rgba(255,255,255,.4);margin:2px 0 0">'+z.templates.length+' templates</p></div></div></div>'
+    +'<div class="fmap-info-body"><div class="fmap-info-desc">'+z.desc+'</div><div class="fmap-info-tpls">'+tplHTML+'</div></div>';
+  mapArea.appendChild(popup);
 }
 
-function exploreZoneInUniverse(zoneId){
-  var z=MAP_ZONES.find(function(zz){return zz.id===zoneId});
-  if(!z||!z.templates.length)return;
-  // Remove map, open universe, select first template of zone
-  var mapEl=document.getElementById('fantasyMapApp');if(mapEl)mapEl.remove();
-  showUniverseTemplates();
-  setTimeout(function(){selectUniTpl(z.templates[0])},500);
+function closeFmapPopup(){
+  var pp=document.getElementById('fmapInfoPopup');if(pp)pp.remove();
+  fmapSelectedZone=null;
+  MAP_ZONES.forEach(function(z){var reg=document.getElementById('fmapRegion-'+z.id);if(reg)reg.style.opacity='0'});
+  document.querySelectorAll('.fmap-zone').forEach(function(el){el.classList.remove('selected')});
 }
 
 function renderScriptsContent(container){
