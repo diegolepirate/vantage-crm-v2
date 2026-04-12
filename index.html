@@ -689,7 +689,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 /* ====== FANTASY MAP ====== */
 /* ====== FANTASY MAP ====== */
 .fmap-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);animation:bookFadeIn .3s ease}
-.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;width:92vw;height:88vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
+.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;width:min(55vh,90vw);height:92vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
 @keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .fmap-card-inner{position:absolute;inset:2px;border-radius:14px;background:#0d0d12;overflow:hidden;z-index:1;display:flex;flex-direction:column}
 .fmap-card-glow{position:absolute;width:140%;height:140%;top:-20%;left:-20%;background:conic-gradient(from 0deg,#D4AF37,#20B2AA,#9370DB,#FF6B6B,#D4AF37);animation:fmapGlowSpin 6s linear infinite;filter:blur(50px);opacity:.35;z-index:0}
@@ -701,8 +701,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-close-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
 .fmap-close-btn:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#ef4444}
 .fmap-map-area{flex:1;position:relative;overflow:hidden;background:#0a0a0f}
-.fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none;animation:fmapFloat 20s ease-in-out infinite}
-@keyframes fmapFloat{0%,100%{transform:scale(1.02) translate(0,0)}25%{transform:scale(1.03) translate(-0.5%,-0.3%)}50%{transform:scale(1.02) translate(0.3%,0.5%)}75%{transform:scale(1.03) translate(0.4%,-0.4%)}}
+.fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none}
 .fmap-dark-overlay{position:absolute;inset:0;background:rgba(26,35,50,.12);z-index:2;pointer-events:none}
 .fmap-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.025) 1px,transparent 1px);background-size:50px 50px;z-index:3;pointer-events:none}
 .fmap-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.5) 100%)}
