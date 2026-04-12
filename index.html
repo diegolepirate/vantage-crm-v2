@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d1117;--s1:#161b22;--s2:#21262d;--s3:#30363d;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#db6d28;--purple:#bc8cff;--white:#e6edf3;--gray:#8b949e;--dim:rgba(240,246,252,.04)}
@@ -684,6 +685,62 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-off:after{box-shadow:0 0 1.5vmin 0 #f5000020,0 0 1.5vmin .225vmin #f5000020 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
 .custom-ui-switch .light-on:after{box-shadow:0 0 1.5vmin 0 #00f56d20,0 0 1.5vmin .225vmin #00f56d20 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-on:after{box-shadow:0 0 1.8vmin 0 #4caf50,0 0 1.5vmin .225vmin #4caf50 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff2 1.5vmin 1.5vmin)}
+
+/* ====== UNIVERSE TEMPLATES ====== */
+#universeApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
+#universeApp *{box-sizing:border-box}
+.uni-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.8);backdrop-filter:blur(12px);flex-shrink:0}
+.uni-topbar .uni-logo{display:flex;align-items:center;gap:10px}
+.uni-topbar .uni-logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#D4AF37,#00D9FF);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#000}
+.uni-topbar .uni-logo-text{font-size:15px;font-weight:600;letter-spacing:.3em;color:#fff;font-family:'Cormorant Garamond',serif}
+.uni-search{flex:1;max-width:360px;margin:0 30px}
+.uni-search input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;font-size:13px;color:#fff;outline:none;transition:border .3s}
+.uni-search input:focus{border-color:rgba(212,175,55,.5)}
+.uni-search input::placeholder{color:rgba(255,255,255,.3)}
+.uni-nav{display:flex;gap:20px;font-size:13px;color:rgba(255,255,255,.5)}
+.uni-nav span{cursor:pointer;transition:color .3s}
+.uni-nav span:hover{color:#D4AF37}
+.uni-body{flex:1;display:flex;overflow:hidden}
+.uni-sidebar{width:260px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto}
+.uni-sidebar::-webkit-scrollbar{display:none}
+.uni-sidebar-title{font-size:10px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;padding:14px 16px 8px}
+.uni-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .3s;font-size:13px}
+.uni-cat-btn:hover{background:rgba(255,255,255,.05)}
+.uni-cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.uni-cat-arrow{width:14px;height:14px;transition:transform .3s;color:rgba(255,255,255,.3)}
+.uni-cat-arrow.open{transform:rotate(180deg)}
+.uni-tpl-item{display:flex;align-items:center;gap:10px;padding:7px 12px;margin-left:14px;border-radius:8px;cursor:pointer;transition:all .3s;border:1px solid transparent}
+.uni-tpl-item:hover{background:rgba(255,255,255,.05)}
+.uni-tpl-item.selected{background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.3)}
+.uni-tpl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.uni-tpl-name{font-size:13px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uni-tpl-sub{font-size:11px;color:rgba(255,255,255,.3)}
+.uni-tier-badge{font-size:9px;padding:2px 6px;border-radius:10px;text-transform:uppercase;font-weight:600;letter-spacing:.5px;flex-shrink:0}
+.uni-graph{flex:1;position:relative;background:#0a0a0f;background-image:radial-gradient(circle at 1px 1px,rgba(212,175,55,.06) 1px,transparent 0);background-size:30px 30px}
+#cyContainer{width:100%;height:100%}
+.uni-legend{position:absolute;bottom:12px;left:12px;display:flex;gap:12px;font-size:11px;color:rgba(255,255,255,.4)}
+.uni-legend-dot{width:8px;height:8px;border-radius:50%;margin-right:4px;display:inline-block;vertical-align:middle}
+.uni-rpanel{width:250px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;padding:18px}
+.uni-rpanel::-webkit-scrollbar{display:none}
+.uni-rpanel-empty{display:flex;align-items:center;justify-content:center;height:100%;text-align:center;color:rgba(255,255,255,.3);font-size:13px;padding:20px}
+.uni-rpanel h2{font-size:18px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:4px 0}
+.uni-rpanel .uni-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;margin-top:12px}
+.uni-rpanel .uni-techs{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.uni-rpanel .uni-tech-tag{font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.05)}
+.uni-rpanel .uni-url{font-size:12px;color:#00D9FF;word-break:break-all;margin-top:12px;display:block}
+.uni-rpanel .uni-url:hover{text-decoration:underline}
+.uni-preview-btn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(90deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:13px;border:none;cursor:pointer;margin-top:16px;transition:all .3s}
+.uni-preview-btn:hover{box-shadow:0 0 20px rgba(212,175,55,.3)}
+/* Preview modal */
+.uni-modal-bg{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(4px)}
+.uni-modal{width:90vw;height:85vh;background:#0d0d12;border-radius:16px;border:1px solid rgba(255,255,255,.1);overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,.5);animation:uniScaleIn .3s ease}
+@keyframes uniScaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.uni-modal-header{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.05);background:#0a0a0a}
+.uni-modal-dots{display:flex;gap:6px}
+.uni-modal-dots span{width:12px;height:12px;border-radius:50%}
+.uni-modal-close{color:rgba(255,255,255,.4);cursor:pointer;background:none;border:none;font-size:18px}
+.uni-modal-close:hover{color:#fff}
+.uni-modal iframe{width:100%;height:calc(100% - 44px);border:none;background:#fff}
 </style>
 </head>
 <body>
@@ -2743,8 +2800,26 @@ function getProgress(badge,vendor){
 // 6. SCRIPTS TAB
 // ========================================
 let notesSubTab='scripts';
+
+// ====== UNIVERSE TEMPLATES DATA ======
+var UNI_TEMPLATES=[
+  {id:'1',name:'Obys Agency',category:'Agency',subcategory:'Design',url:'https://aim.obys.agency/',tier:'premium',description:'Award-winning creative agency with bold animations',technologies:['GSAP','WebGL','Three.js']},
+  {id:'2',name:'Champions4Good',category:'Services',subcategory:'Non-Profit',url:'https://www.champions4good.club/',tier:'classic',description:'Community-driven platform for social impact',technologies:['React','Tailwind']},
+  {id:'3',name:'MescuBook',category:'Agency',subcategory:'Portfolio',url:'https://mescubook.com/',tier:'premium',description:'Creative portfolio with immersive storytelling',technologies:['Next.js','Framer Motion']},
+  {id:'4',name:'Ecavo',category:'Tech',subcategory:'SaaS',url:'https://ecavo.in/',tier:'classic',description:'Modern SaaS platform with clean UI',technologies:['React','Node.js']},
+  {id:'5',name:'Nivis Gear',category:'E-Commerce',subcategory:'Fashion',url:'https://www.nivisgear.com/',tier:'premium',description:'Premium fashion e-commerce with stunning product displays',technologies:['Shopify','Liquid']},
+  {id:'6',name:'Core Atelier',category:'Services',subcategory:'Fitness',url:'https://coreatelierpilates.com/',tier:'free',description:'Elegant pilates studio website',technologies:['WordPress','CSS']},
+  {id:'7',name:'Michael Stars',category:'E-Commerce',subcategory:'Luxury',url:'https://www.michaelstars.com/',tier:'premium',description:'Luxury fashion brand with refined aesthetics',technologies:['Shopify Plus','React']},
+  {id:'8',name:'Drop Edition',category:'Tech',subcategory:'Media',url:'https://dropedition.com/',tier:'classic',description:'Digital publishing platform',technologies:['Vue.js','Firebase']},
+  {id:'9',name:'Elev8 H2O',category:'E-Commerce',subcategory:'Beverage',url:'https://elev8h2o.shop/',tier:'free',description:'Modern beverage brand with vibrant design',technologies:['Shopify','JavaScript']},
+  {id:'10',name:'Festivent',category:'Services',subcategory:'Events',url:'https://festivent.ca/',tier:'classic',description:'Event planning platform with interactive features',technologies:['React','Tailwind','Supabase']}
+];
+var UNI_CATEGORIES=['Agency','E-Commerce','Services','Tech'];
+var UNI_CAT_COLORS={'Agency':'#D4AF37','E-Commerce':'#00D9FF','Services':'#FF6B6B','Tech':'#7C3AED'};
+var UNI_TIER_COLORS={free:'#4ADE80',classic:'#60A5FA',premium:'#D4AF37'};
+var uniSelected=null,uniPreview=null,uniExpanded={},uniSearch='',uniCy=null;
+
 function renderNotes(container){
-  // Show Book fullscreen page
   let existing=document.getElementById('bookPage');
   if(existing)existing.remove();
   const page=document.createElement('div');
@@ -2752,7 +2827,7 @@ function renderNotes(container){
   page.className='book-page';
   page.innerHTML=`
     <div class="book-buttons">
-      <button class="book-btn">BOUTON 1</button>
+      <button class="book-btn" onclick="showUniverseTemplates()">UNIVERSE</button>
       <button class="book-btn">BOUTON 2</button>
       <button class="book-btn">BOUTON 3</button>
     </div>
@@ -2773,19 +2848,175 @@ function renderNotes(container){
     </div>
   `;
   document.body.appendChild(page);
-  // Hide main app
   document.getElementById('app').style.display='none';
   container.innerHTML='';
 }
 function handleBookSwitch(el){
   if(!el.checked){
     setTimeout(function(){
+      if(uniCy){uniCy.destroy();uniCy=null;}
       const bp=document.getElementById('bookPage');
       if(bp)bp.remove();
       document.getElementById('app').style.display='block';
       switchTab('prospects');
     },600);
   }
+}
+
+function showUniverseTemplates(){
+  uniSelected=null;uniSearch='';uniExpanded={};
+  var ex=document.getElementById('universeApp');
+  if(ex)ex.remove();
+  var bp=document.getElementById('bookPage');
+  if(!bp)return;
+  var div=document.createElement('div');
+  div.id='universeApp';
+  div.innerHTML=buildUniverseHTML();
+  bp.appendChild(div);
+  initUniverseGraph();
+  bindUniverseEvents();
+}
+
+function buildUniverseHTML(){
+  return `
+  <div class="uni-topbar">
+    <div class="uni-logo"><div class="uni-logo-icon">U</div><div class="uni-logo-text">UNIVERSE</div></div>
+    <div class="uni-search"><input id="uniSearchInput" type="text" placeholder="Search templates..."></div>
+    <div class="uni-nav"><span>Templates</span><span>Categories</span><span>Premium</span></div>
+  </div>
+  <div class="uni-body">
+    <div class="uni-sidebar" id="uniSidebar">${buildUniSidebar()}</div>
+    <div class="uni-graph">
+      <div id="cyContainer"></div>
+      <div class="uni-legend">${UNI_CATEGORIES.map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')}</div>
+    </div>
+    <div class="uni-rpanel" id="uniRPanel"><div class="uni-rpanel-empty">Select a template to view details</div></div>
+  </div>`;
+}
+
+function buildUniSidebar(){
+  var q=uniSearch.toLowerCase();
+  var filtered=UNI_TEMPLATES.filter(function(t){return !q||t.name.toLowerCase().indexOf(q)>=0||t.category.toLowerCase().indexOf(q)>=0||t.subcategory.toLowerCase().indexOf(q)>=0});
+  var html='<div class="uni-sidebar-title">Template Library</div>';
+  UNI_CATEGORIES.forEach(function(cat){
+    var items=filtered.filter(function(t){return t.category===cat});
+    var open=uniExpanded[cat];
+    html+='<div style="padding:0 8px;margin-bottom:4px"><button class="uni-cat-btn" onclick="toggleUniCat(\''+cat+'\')">';
+    html+='<span style="display:flex;align-items:center;gap:8px"><span class="uni-cat-dot" style="background:'+UNI_CAT_COLORS[cat]+'"></span>'+cat+' <span style="font-size:11px;color:rgba(255,255,255,.3)">('+items.length+')</span></span>';
+    html+='<svg class="uni-cat-arrow'+(open?' open':'')+'" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+    html+='</button>';
+    if(open){
+      items.forEach(function(t){
+        var sel=uniSelected&&uniSelected.id===t.id;
+        html+='<div class="uni-tpl-item'+(sel?' selected':'')+'" onclick="selectUniTpl(\''+t.id+'\')" ondblclick="previewUniTpl(\''+t.id+'\')">';
+        html+='<span class="uni-tpl-dot" style="background:'+UNI_TIER_COLORS[t.tier]+'"></span>';
+        html+='<div style="flex:1;min-width:0"><div class="uni-tpl-name">'+t.name+'</div><div class="uni-tpl-sub">'+t.subcategory+'</div></div>';
+        html+='<span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span>';
+        html+='</div>';
+      });
+    }
+    html+='</div>';
+  });
+  return html;
+}
+
+function toggleUniCat(cat){uniExpanded[cat]=!uniExpanded[cat];document.getElementById('uniSidebar').innerHTML=buildUniSidebar()}
+function selectUniTpl(id){
+  uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
+  document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
+  updateUniRPanel();
+  highlightUniNode();
+}
+function previewUniTpl(id){
+  uniPreview=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
+  if(uniPreview)showUniPreviewModal();
+}
+
+function updateUniRPanel(){
+  var rp=document.getElementById('uniRPanel');
+  if(!uniSelected){rp.innerHTML='<div class="uni-rpanel-empty">Select a template to view details</div>';return}
+  var t=uniSelected;
+  rp.innerHTML=`
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span class="uni-cat-dot" style="background:${UNI_CAT_COLORS[t.category]}"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">${t.category}</span></div>
+    <h2>${t.name}</h2>
+    <div style="font-size:11px;color:rgba(255,255,255,.3)">${t.subcategory}</div>
+    <div style="margin-top:12px"><span class="uni-tier-badge" style="background:${UNI_TIER_COLORS[t.tier]}20;color:${UNI_TIER_COLORS[t.tier]}">${t.tier}</span></div>
+    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Description</div><div class="uni-desc">${t.description}</div></div>
+    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Technologies</div><div class="uni-techs">${t.technologies.map(function(x){return '<span class="uni-tech-tag">'+x+'</span>'}).join('')}</div></div>
+    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Website</div><a class="uni-url" href="${t.url}" target="_blank">${t.url}</a></div>
+    <button class="uni-preview-btn" onclick="previewUniTpl('${t.id}')">Preview Template</button>
+  `;
+}
+
+function showUniPreviewModal(){
+  var ex=document.getElementById('uniModal');if(ex)ex.remove();
+  var t=uniPreview;if(!t)return;
+  var m=document.createElement('div');m.id='uniModal';m.className='uni-modal-bg';
+  m.onclick=function(e){if(e.target===m){m.remove();uniPreview=null}};
+  m.innerHTML=`<div class="uni-modal" onclick="event.stopPropagation()">
+    <div class="uni-modal-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById('uniModal').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div>
+        <span style="font-size:13px;color:rgba(255,255,255,.5)">${t.name}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <a href="${t.url}" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);text-decoration:none">Open in new tab</a>
+        <button class="uni-modal-close" onclick="document.getElementById('uniModal').remove()">&#10005;</button>
+      </div>
+    </div>
+    <iframe src="${t.url}" title="${t.name}" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+function initUniverseGraph(){
+  if(uniCy){uniCy.destroy();uniCy=null}
+  var el=document.getElementById('cyContainer');if(!el)return;
+  var elements=[];
+  UNI_CATEGORIES.forEach(function(cat){elements.push({data:{id:'cat-'+cat,label:cat,type:'category'}})});
+  UNI_TEMPLATES.forEach(function(t){
+    elements.push({data:{id:'tpl-'+t.id,label:t.name,type:'template',tier:t.tier,category:t.category}});
+    elements.push({data:{source:'cat-'+t.category,target:'tpl-'+t.id}});
+  });
+  uniCy=cytoscape({
+    container:el,elements:elements,
+    style:[
+      {selector:'node[type="category"]',style:{'background-color':function(e){return UNI_CAT_COLORS[e.data('label')]||'#D4AF37'},label:'data(label)',width:60,height:60,color:'#fff','text-valign':'center','text-halign':'center','font-size':'10px','font-weight':'bold','font-family':'Inter,sans-serif','text-wrap':'wrap','text-max-width':'55px','border-width':2,'border-color':'#ffffff20'}},
+      {selector:'node[type="template"]',style:{'background-color':function(e){return UNI_TIER_COLORS[e.data('tier')]||'#60A5FA'},label:'data(label)',width:40,height:40,color:'#ffffffcc','text-valign':'bottom','text-halign':'center','font-size':'8px','font-family':'Inter,sans-serif','text-margin-y':8,'border-width':2,'border-color':'#ffffff10'}},
+      {selector:'edge',style:{width:1.5,'line-color':'#ffffff15','curve-style':'bezier',opacity:0.6}},
+      {selector:'node:active',style:{'overlay-opacity':0}},
+      {selector:'.highlighted',style:{'border-width':3,'border-color':'#D4AF37','background-color':'#D4AF37'}}
+    ],
+    layout:{name:'cose',padding:50,nodeRepulsion:function(){return 8000},idealEdgeLength:function(){return 120},gravity:0.3,animate:true,animationDuration:800},
+    userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false
+  });
+  uniCy.on('tap','node[type="template"]',function(evt){
+    var nid=evt.target.data('id').replace('tpl-','');
+    selectUniTpl(nid);
+  });
+  uniCy.on('dbltap','node[type="template"]',function(evt){
+    var nid=evt.target.data('id').replace('tpl-','');
+    previewUniTpl(nid);
+  });
+  uniCy.on('mouseover','node',function(evt){
+    evt.target.style({'border-width':3,'border-color':'#D4AF37'});
+    el.style.cursor='pointer';
+  });
+  uniCy.on('mouseout','node',function(evt){
+    evt.target.style({'border-width':2,'border-color':evt.target.data('type')==='category'?'#ffffff20':'#ffffff10'});
+    el.style.cursor='default';
+  });
+}
+
+function highlightUniNode(){
+  if(!uniCy)return;
+  uniCy.nodes().removeClass('highlighted');
+  if(uniSelected)uniCy.$('#tpl-'+uniSelected.id).addClass('highlighted');
+}
+
+function bindUniverseEvents(){
+  var inp=document.getElementById('uniSearchInput');
+  if(inp)inp.addEventListener('input',function(){uniSearch=this.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar()});
 }
 
 function renderScriptsContent(container){
