@@ -674,8 +674,8 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 @keyframes t-bot-l{0%{transform:rotate(-5deg);transform-origin:22% 100%}50%{transform:rotate(0);transform-origin:22% 100%}50.01%{transform:rotate(0);transform-origin:78% 100%}100%{transform:rotate(5deg);transform-origin:78% 100%}}
 .custom-ui-switch .lights{position:absolute;width:100%;height:2.571vmin;top:-5.4vmin;display:flex;justify-content:space-between;padding:0 3vmin;z-index:1;pointer-events:none}
 .custom-ui-switch .lights span{background:#121212;position:relative;width:2.571vmin;height:2.571vmin;border-radius:4.5vmin;box-shadow:0 0 .09vmin .09vmin #0008,0 -4px .45vmin .009vmin #000,0 2px .45vmin .009vmin #fff8,0 0 .225vmin .36vmin #000;display:flex;align-items:center;justify-content:center}
-.custom-ui-switch .lights span:before{content:"RETOUR";font-size:1.6vmin;text-align:center;width:200%;position:absolute;top:-3.103vmin;left:-50%;color:#ffffff3d;text-shadow:0 -2px 2px #0008,0 1px 2px #fff4;background:-webkit-linear-gradient(90deg,#0000003b 25%,#f50000 75%);-webkit-background-clip:text;-webkit-text-fill-color:#71717170}
-.custom-ui-switch .lights span+span:before{content:"BOOK"}
+.custom-ui-switch .lights span:before{content:"";font-size:1.6vmin;text-align:center;width:200%;position:absolute;top:-3.103vmin;left:-50%;color:#ffffff3d;text-shadow:0 -2px 2px #0008,0 1px 2px #fff4;background:-webkit-linear-gradient(90deg,#0000003b 25%,#f50000 75%);-webkit-background-clip:text;-webkit-text-fill-color:#71717170}
+.custom-ui-switch .lights span+span:before{content:""}
 .custom-ui-switch .light-off:after{box-shadow:0 0 1.8vmin 0 #f50000,0 0 1.5vmin .225vmin #f50000 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff8 1.5vmin 1.5vmin)}
 .custom-ui-switch .lights span:after{content:"";width:calc(100% - .3vmin);height:calc(100% - .3vmin);position:absolute;border-radius:4.5vmin;box-shadow:0 0 .09vmin .09vmin #0008 inset,0 -4px .45vmin .009vmin #000 inset,0 2px .45vmin .009vmin #fff8 inset,0 0 .225vmin .18vmin #000 inset}
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-off:after{box-shadow:0 0 1.5vmin 0 #f5000020,0 0 1.5vmin .225vmin #f5000020 inset;background:radial-gradient(circle at 50% 32%,#fff5 0 .225vmin,#000 1.5vmin 1.5vmin)}
@@ -2748,19 +2748,21 @@ function renderNotes(container){
   page.id='bookPage';
   page.className='book-page';
   page.innerHTML=`
-    <div class="book-title">BOOK</div>
-    <label class="custom-ui-switch">
-      <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
-      <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
-      <div class="switch-body">
-        <div class="track">
-          <span class="track-top"><span></span><span></span><span></span><span></span><span></span></span>
-          <span class="track-bot"><span></span><span></span><span></span><span></span><span></span></span>
+    <div style="position:absolute;top:24px;right:24px;display:flex;align-items:center;gap:16px;z-index:10">
+      <span style="font-family:'Tanker',sans-serif;font-size:1.1rem;color:#f44;letter-spacing:3px">RETOUR</span>
+      <label class="custom-ui-switch" style="margin-top:0">
+        <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
+        <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
+        <div class="switch-body">
+          <div class="track">
+            <span class="track-top"><span></span><span></span><span></span><span></span><span></span></span>
+            <span class="track-bot"><span></span><span></span><span></span><span></span><span></span></span>
+          </div>
+          <div class="thumb"></div>
         </div>
-        <div class="thumb"></div>
-      </div>
-    </label>
-    <div style="margin-top:3rem;color:rgba(255,255,255,.4);font-size:.75rem;letter-spacing:2px">BASCULER POUR REVENIR</div>
+      </label>
+      <span style="font-family:'Tanker',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:3px">BOOK</span>
+    </div>
   `;
   document.body.appendChild(page);
   // Hide main app
