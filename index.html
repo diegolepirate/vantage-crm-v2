@@ -3133,12 +3133,9 @@ function focusUniNode(id){
 }
 function selectUniTpl(id){
   uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
-  var rp=document.getElementById('uniRPanel');
-  alert('selectUniTpl id='+id+' found='+(uniSelected?uniSelected.name:'NULL')+' rPanel='+(rp?'EXISTS':'MISSING')+' display='+( rp?rp.style.display:'N/A'));
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
   updateUniRPanel();
   highlightUniNode();
-  alert('AFTER updateUniRPanel display='+document.getElementById('uniRPanel').style.display+' innerHTML_len='+document.getElementById('uniRPanel').innerHTML.length);
 }
 function previewUniTpl(id){
   uniPreview=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
@@ -3471,6 +3468,16 @@ function highlightUniNode(){
 function bindUniverseEvents(){
   var sb=document.getElementById('uniSidebar');
   if(sb)sb.addEventListener('input',function(e){if(e.target.id==='uniSearchInput'){uniSearch=e.target.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar();var ni=document.getElementById('uniSearchInput');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length)}}});
+  document.addEventListener('click',function(e){
+    if(!uniSelected)return;
+    var rp=document.getElementById('uniRPanel');
+    if(rp&&rp.contains(e.target))return;
+    var sidebar=document.getElementById('uniSidebar');
+    if(sidebar&&sidebar.contains(e.target))return;
+    var cy=document.getElementById('cyContainer');
+    if(cy&&cy.contains(e.target))return;
+    closeUniRPanel();
+  });
 }
 
 // ====== COMPARE VIEW ======
