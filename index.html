@@ -3438,11 +3438,13 @@ function initUniverseGraph(){
     layout:{name:'cose',padding:50,nodeRepulsion:function(){return 9000},idealEdgeLength:function(){return 130},gravity:0.25,animate:true,animationDuration:800},
     userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false
   });
+  var _uniNodeTapped=0;
   uniCy.on('tap','node[type="template"]',function(evt){
+    _uniNodeTapped=Date.now();
     selectUniTpl(evt.target.data('id').replace('tpl-',''));
   });
   uniCy.on('tap',function(evt){
-    if(evt.target===uniCy)closeUniRPanel();
+    if(evt.target===uniCy&&Date.now()-_uniNodeTapped>100)closeUniRPanel();
   });
   uniCy.on('dbltap','node[type="template"]',function(evt){
     previewUniTpl(evt.target.data('id').replace('tpl-',''));
