@@ -3132,10 +3132,13 @@ function focusUniNode(id){
   if(node&&node.length){uniCy.animate({center:{eles:node},zoom:uniCy.zoom()},{duration:400})}
 }
 function selectUniTpl(id){
+  console.log('selectUniTpl called with',id,'found:',UNI_TEMPLATES.some(function(t){return t.id===id}));
   uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
+  console.log('uniSelected=',uniSelected?uniSelected.name:'null');
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
   updateUniRPanel();
   highlightUniNode();
+  console.log('rPanel display=',document.getElementById('uniRPanel').style.display);
 }
 function previewUniTpl(id){
   uniPreview=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
@@ -3439,9 +3442,13 @@ function initUniverseGraph(){
     userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false
   });
   uniCy.on('tap',function(evt){
+    console.log('TAP',evt.target===uniCy?'BACKGROUND':evt.target.data());
     if(evt.target===uniCy){closeUniRPanel();return}
     var d=evt.target.data();
-    if(d&&d.type==='template'){selectUniTpl(d.id.replace('tpl-',''))}
+    if(d&&d.type==='template'){
+      console.log('SELECT',d.id);
+      selectUniTpl(d.id.replace('tpl-',''));
+    }
   });
   uniCy.on('dbltap','node[type="template"]',function(evt){
     previewUniTpl(evt.target.data('id').replace('tpl-',''));
