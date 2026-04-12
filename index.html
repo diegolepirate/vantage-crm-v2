@@ -3190,16 +3190,219 @@ function updateUniRPanel(){
   rp.innerHTML=html;
 }
 
+// ====== TEMPLATE HTML GENERATOR ======
+var TPL_PALETTES={
+  'Agency':      {bg:'#0a0a0f',fg:'#fff',accent:'#D4AF37',accent2:'#B8860B',grad:'linear-gradient(135deg,#0a0a0f,#1a1a2e)',hero:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200',card:'rgba(255,255,255,.03)'},
+  'E-Commerce':  {bg:'#0f0f14',fg:'#fff',accent:'#00D9FF',accent2:'#0099cc',grad:'linear-gradient(135deg,#0f0f14,#0a1628)',hero:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200',card:'rgba(0,217,255,.04)'},
+  'Services':    {bg:'#0c0a14',fg:'#fff',accent:'#7C3AED',accent2:'#6D28D9',grad:'linear-gradient(135deg,#0c0a14,#1a0f2e)',hero:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200',card:'rgba(124,58,237,.04)'},
+  'Food & Beverage':{bg:'#0f0a08',fg:'#fff',accent:'#FF6B6B',accent2:'#cc4444',grad:'linear-gradient(135deg,#0f0a08,#2a1510)',hero:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200',card:'rgba(255,107,107,.04)'},
+  'Health & Wellness':{bg:'#080f0a',fg:'#fff',accent:'#4ADE80',accent2:'#22c55e',grad:'linear-gradient(135deg,#080f0a,#0a2014)',hero:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200',card:'rgba(74,222,128,.04)'}
+};
+var TPL_HEROES={
+  'Noir Studio':'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200',
+  'Pulse Creative':'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200',
+  'Atelier Lumiere':'https://images.unsplash.com/photo-1493421419110-74f4e85ba126?w=1200',
+  'Vortex Digital':'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200',
+  'Forma Architects':'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200',
+  'Chromatic Labs':'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=1200',
+  'Summit Strategy':'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200',
+  'Pixel Forge':'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1200',
+  'Velvet & Stone':'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200',
+  'TechNova Shop':'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200',
+  'Maison Dore':'https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200',
+  'Artisan Goods':'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=1200',
+  'Botanica':'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200',
+  'Chrono Watches':'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=1200',
+  'Neon Streetwear':'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1200',
+  'Pure Essence':'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1200',
+  'Apex Consulting':'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200',
+  'CloudSync SaaS':'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200',
+  'DevForge':'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200',
+  'Elena Portfolio':'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200',
+  'LegalEdge':'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200',
+  'Quantum Analytics':'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200',
+  'Marco Creative':'https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?w=1200',
+  'FinTrack Pro':'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=1200',
+  'Ember Grill':'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200',
+  'Brew Culture':'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200',
+  'Sakura Sushi':'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1200',
+  'Flour & Fire':'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200',
+  'Verde Kitchen':'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1200',
+  'Midnight Lounge':'https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=1200',
+  'Dolce Vita':'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=1200',
+  'Harvest Table':'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200',
+  'Glow Cosmetics':'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200',
+  'ZenFlow Yoga':'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200',
+  'Iron Republic':'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200',
+  'Serenity Spa':'https://images.unsplash.com/photo-1540555700478-4be289fbec6f?w=1200',
+  'VitalCare Clinic':'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200',
+  'Aura Wellness':'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200',
+  'Derma Science':'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200',
+  'BioFit Lab':'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=1200'
+};
+var TPL_TAGLINES={
+  'Noir Studio':'Where darkness meets design excellence',
+  'Pulse Creative':'Bold ideas. Bolder execution.',
+  'Atelier Lumiere':'Illuminating brands with timeless elegance',
+  'Vortex Digital':'Redefining digital frontiers',
+  'Forma Architects':'Shaping spaces that inspire',
+  'Chromatic Labs':'Where color becomes experience',
+  'Summit Strategy':'Data-driven growth, measurable results',
+  'Pixel Forge':'Crafting digital perfection, pixel by pixel',
+  'Velvet & Stone':'Luxury redefined for the modern era',
+  'TechNova Shop':'Tomorrow\'s technology, today',
+  'Maison Dore':'Haute couture meets digital commerce',
+  'Artisan Goods':'Handcrafted with love, delivered with care',
+  'Botanica':'Bringing nature into your home',
+  'Chrono Watches':'Time is the ultimate luxury',
+  'Neon Streetwear':'Street culture. Elevated.',
+  'Pure Essence':'Your skin deserves the purest care',
+  'Apex Consulting':'Strategic insights that transform businesses',
+  'CloudSync SaaS':'Your data, everywhere, always in sync',
+  'DevForge':'Build faster. Ship smarter.',
+  'Elena Portfolio':'Creative vision brought to life',
+  'LegalEdge':'Justice with a modern approach',
+  'Quantum Analytics':'See the future in your data',
+  'Marco Creative':'Capturing moments that matter',
+  'FinTrack Pro':'Your finances, simplified and secured',
+  'Ember Grill':'Where fire meets culinary artistry',
+  'Brew Culture':'Every cup tells a story',
+  'Sakura Sushi':'The art of Japanese cuisine',
+  'Flour & Fire':'Artisan bread, baked with passion',
+  'Verde Kitchen':'From our farm to your table',
+  'Midnight Lounge':'Where the night comes alive',
+  'Dolce Vita':'Sweet moments, Italian tradition',
+  'Harvest Table':'Nourishing body and soul, naturally',
+  'Glow Cosmetics':'Reveal your inner radiance',
+  'ZenFlow Yoga':'Find your balance, find yourself',
+  'Iron Republic':'Forge your strongest self',
+  'Serenity Spa':'Escape. Relax. Transform.',
+  'VitalCare Clinic':'Your health, our mission',
+  'Aura Wellness':'Harmonize mind, body and spirit',
+  'Derma Science':'Science-backed skin transformation',
+  'BioFit Lab':'Optimize your human performance'
+};
+
+function generateTemplateHTML(t){
+  var p=TPL_PALETTES[t.category]||TPL_PALETTES['Agency'];
+  var heroImg=TPL_HEROES[t.name]||p.hero;
+  var tagline=TPL_TAGLINES[t.name]||t.description;
+  var ac=p.accent,ac2=p.accent2;
+  var navItems=[];
+  if(t.category==='Agency')navItems=['Work','About','Services','Contact'];
+  else if(t.category==='E-Commerce')navItems=['Shop','Collections','About','Cart'];
+  else if(t.category==='Services')navItems=['Features','Pricing','About','Contact'];
+  else if(t.category==='Food & Beverage')navItems=['Menu','Reservations','About','Contact'];
+  else navItems=['Services','About','Testimonials','Book Now'];
+
+  var featHTML='';
+  if(t.features)t.features.forEach(function(f,i){
+    featHTML+='<div style="background:'+p.card+';backdrop-filter:blur(20px);border:1px solid '+ac+'15;border-radius:16px;padding:32px;transition:all .4s;cursor:default" onmouseenter="this.style.transform=\'translateY(-8px)\';this.style.borderColor=\''+ac+'40\';this.style.boxShadow=\'0 20px 40px '+ac+'15\'" onmouseleave="this.style.transform=\'none\';this.style.borderColor=\''+ac+'15\';this.style.boxShadow=\'none\'"><div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,'+ac+','+ac2+');display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px">'+(i===0?'\u2726':i===1?'\u2728':i===2?'\u2605':'\u2761')+'</div><h3 style="font-size:18px;margin:0 0 8px;color:#fff">'+f+'</h3><p style="font-size:13px;color:rgba(255,255,255,.4);margin:0;line-height:1.6">Premium feature designed to elevate your experience.</p></div>';
+  });
+
+  var techHTML='';
+  if(t.technologies)t.technologies.forEach(function(tc){
+    techHTML+='<span style="padding:8px 20px;border-radius:99px;border:1px solid '+ac+'30;color:'+ac+';font-size:13px;background:'+ac+'08;transition:all .3s" onmouseenter="this.style.background=\''+ac+'20\'" onmouseleave="this.style.background=\''+ac+'08\'">'+tc+'</span>';
+  });
+
+  var statsSection='';
+  if(t.category==='E-Commerce'){
+    statsSection='<section style="padding:80px 60px;text-align:center"><h2 style="font-size:36px;color:#fff;margin:0 0 48px">Trusted by Thousands</h2><div style="display:flex;justify-content:center;gap:60px;flex-wrap:wrap"><div><div style="font-size:48px;font-weight:800;color:'+ac+'">15K+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Happy Customers</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">4.9</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Average Rating</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">50+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Countries</div></div></div></section>';
+  } else if(t.category==='Agency'){
+    statsSection='<section style="padding:80px 60px;text-align:center"><h2 style="font-size:36px;color:#fff;margin:0 0 48px">Our Impact</h2><div style="display:flex;justify-content:center;gap:60px;flex-wrap:wrap"><div><div style="font-size:48px;font-weight:800;color:'+ac+'">200+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Projects Delivered</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">50+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Awards Won</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">98%</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Client Satisfaction</div></div></div></section>';
+  } else if(t.category==='Services'){
+    statsSection='<section style="padding:80px 60px;text-align:center"><h2 style="font-size:36px;color:#fff;margin:0 0 48px">Why Choose Us</h2><div style="display:flex;justify-content:center;gap:60px;flex-wrap:wrap"><div><div style="font-size:48px;font-weight:800;color:'+ac+'">10M+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Users Worldwide</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">99.9%</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Uptime</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">24/7</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Support</div></div></div></section>';
+  } else if(t.category==='Food & Beverage'){
+    statsSection='<section style="padding:80px 60px;text-align:center"><h2 style="font-size:36px;color:#fff;margin:0 0 48px">Our Story in Numbers</h2><div style="display:flex;justify-content:center;gap:60px;flex-wrap:wrap"><div><div style="font-size:48px;font-weight:800;color:'+ac+'">12</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Years of Passion</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">30+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Signature Dishes</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">4.8</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Google Rating</div></div></div></section>';
+  } else {
+    statsSection='<section style="padding:80px 60px;text-align:center"><h2 style="font-size:36px;color:#fff;margin:0 0 48px">Wellness in Numbers</h2><div style="display:flex;justify-content:center;gap:60px;flex-wrap:wrap"><div><div style="font-size:48px;font-weight:800;color:'+ac+'">5K+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Happy Clients</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">15+</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Expert Practitioners</div></div><div><div style="font-size:48px;font-weight:800;color:'+ac+'">98%</div><div style="color:rgba(255,255,255,.4);font-size:14px;margin-top:4px">Would Recommend</div></div></div></section>';
+  }
+
+  var ctaText=t.category==='E-Commerce'?'Shop Now':t.category==='Food & Beverage'?'Reserve a Table':t.category==='Health & Wellness'?'Book a Session':t.category==='Services'?'Get Started':'View Our Work';
+  var ctaText2=t.category==='E-Commerce'?'View Collections':'Learn More';
+
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>'+t.name+'</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">'
+    +'<style>'
+    +'*{margin:0;padding:0;box-sizing:border-box}'
+    +'html{scroll-behavior:smooth}'
+    +'body{background:'+p.bg+';color:'+p.fg+';font-family:Inter,sans-serif;overflow-x:hidden}'
+    +'::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:'+ac+'40;border-radius:4px}'
+    +'@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}'
+    +'@keyframes glow{0%,100%{box-shadow:0 0 20px '+ac+'20}50%{box-shadow:0 0 40px '+ac+'40}}'
+    +'@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}'
+    +'@keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}'
+    +'@keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}'
+    +'.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,'+ac+'15,transparent 70%);filter:blur(80px);animation:float 8s ease-in-out infinite}'
+    +'</style></head><body>'
+    // NAV
+    +'<nav style="position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:'+p.bg+'80;border-bottom:1px solid rgba(255,255,255,.05)">'
+    +'<div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700;color:'+ac+'">'+t.name+'</div>'
+    +'<div style="display:flex;gap:32px;align-items:center">'
+    +navItems.map(function(n){return '<a href="#" style="color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.5px;transition:color .3s" onmouseenter="this.style.color=\''+ac+'\'" onmouseleave="this.style.color=\'rgba(255,255,255,.5)\'">'+n+'</a>'}).join('')
+    +'<a href="#" style="padding:10px 24px;border-radius:99px;background:'+ac+';color:'+p.bg+';font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;animation:glow 3s infinite" onmouseenter="this.style.transform=\'scale(1.05)\'" onmouseleave="this.style.transform=\'none\'">'+ctaText+'</a>'
+    +'</div></nav>'
+    // HERO
+    +'<section style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px 60px 80px">'
+    +'<div class="hero-glow" style="top:-200px;right:-200px"></div>'
+    +'<div class="hero-glow" style="bottom:-300px;left:-200px;animation-delay:4s"></div>'
+    +'<div style="position:relative;z-index:2;max-width:600px;animation:fadeUp 1s ease-out">'
+    +'<div style="display:inline-block;padding:6px 16px;border-radius:99px;border:1px solid '+ac+'30;color:'+ac+';font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;background:'+ac+'08">'+t.subcategory+'</div>'
+    +'<h1 style="font-family:Playfair Display,serif;font-size:clamp(40px,6vw,72px);line-height:1.1;font-weight:800;margin-bottom:24px;background:linear-gradient(135deg,#fff,'+ac+');-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradMove 6s ease infinite">'+t.name+'</h1>'
+    +'<p style="font-size:18px;line-height:1.7;color:rgba(255,255,255,.5);margin-bottom:40px;max-width:480px">'+tagline+'</p>'
+    +'<div style="display:flex;gap:16px;flex-wrap:wrap">'
+    +'<a href="#" style="padding:16px 36px;border-radius:99px;background:linear-gradient(135deg,'+ac+','+ac2+');color:'+p.bg+';font-size:15px;font-weight:700;text-decoration:none;transition:all .4s;display:inline-flex;align-items:center;gap:8px" onmouseenter="this.style.transform=\'translateY(-3px)\';this.style.boxShadow=\'0 16px 40px '+ac+'40\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'none\'">'+ctaText+' <span style="font-size:18px">\u2192</span></a>'
+    +'<a href="#" style="padding:16px 36px;border-radius:99px;border:1px solid rgba(255,255,255,.15);color:#fff;font-size:15px;font-weight:500;text-decoration:none;transition:all .3s;backdrop-filter:blur(10px)" onmouseenter="this.style.borderColor=\''+ac+'\';this.style.color=\''+ac+'\'" onmouseleave="this.style.borderColor=\'rgba(255,255,255,.15)\';this.style.color=\'#fff\'">'+ctaText2+'</a>'
+    +'</div></div>'
+    +'<div style="position:relative;z-index:2;flex:1;display:flex;justify-content:center;animation:fadeUp 1s ease-out .3s both">'
+    +'<div style="width:90%;max-width:500px;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 80px rgba(0,0,0,.5)">'
+    +'<img src="'+heroImg+'" style="width:100%;height:100%;object-fit:cover" alt="'+t.name+'">'
+    +'</div></div></section>'
+    // FEATURES
+    +'<section style="padding:100px 60px"><div style="text-align:center;margin-bottom:64px;animation:fadeUp .8s ease-out">'
+    +'<div style="color:'+ac+';font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px">Features</div>'
+    +'<h2 style="font-family:Playfair Display,serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:#fff">What Makes Us Special</h2></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1100px;margin:0 auto">'+featHTML+'</div></section>'
+    // STATS
+    +statsSection
+    // TECH
+    +'<section style="padding:80px 60px;text-align:center">'
+    +'<div style="color:'+ac+';font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px">Built With</div>'
+    +'<h2 style="font-family:Playfair Display,serif;font-size:32px;font-weight:700;color:#fff;margin-bottom:40px">Technologies</h2>'
+    +'<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'+techHTML+'</div></section>'
+    // CTA
+    +'<section style="padding:100px 60px;text-align:center;position:relative;overflow:hidden">'
+    +'<div class="hero-glow" style="top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px"></div>'
+    +'<div style="position:relative;z-index:2">'
+    +'<h2 style="font-family:Playfair Display,serif;font-size:clamp(32px,5vw,56px);font-weight:800;color:#fff;margin-bottom:24px">Ready to Get Started?</h2>'
+    +'<p style="font-size:16px;color:rgba(255,255,255,.4);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto">'+t.description+'</p>'
+    +'<a href="#" style="padding:18px 48px;border-radius:99px;background:linear-gradient(135deg,'+ac+','+ac2+');color:'+p.bg+';font-size:16px;font-weight:700;text-decoration:none;display:inline-block;transition:all .4s;animation:glow 3s infinite" onmouseenter="this.style.transform=\'scale(1.05)\'" onmouseleave="this.style.transform=\'none\'">'+ctaText+'</a>'
+    +'</div></section>'
+    // FOOTER
+    +'<footer style="padding:48px 60px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">'
+    +'<div style="font-family:Playfair Display,serif;font-size:18px;color:'+ac+'">'+t.name+'</div>'
+    +'<div style="color:rgba(255,255,255,.3);font-size:12px">\u00A9 2026 '+t.name+'. All rights reserved. \u2014 Template by Vantage Design</div>'
+    +'</footer>'
+    +'</body></html>';
+}
+
 function showUniPreviewModal(){
   var ex=document.getElementById('uniModal');if(ex)ex.remove();
   var t=uniPreview;if(!t)return;
   var m=document.createElement('div');m.id='uniModal';m.className='uni-modal-bg';
   m.onclick=function(e){if(e.target===m){m.remove();uniPreview=null}};
-  m.innerHTML='<div class="uni-modal" onclick="event.stopPropagation()">'
-    +'<div class="uni-modal-header"><div style="display:flex;align-items:center;gap:10px"><div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById(\'uniModal\').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div><span style="font-size:13px;color:rgba(255,255,255,.5)">'+t.name+'</span></div>'
-    +'<div style="display:flex;align-items:center;gap:10px"><a href="'+t.url+'" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);text-decoration:none">Open in new tab</a>'
-    +'<button class="uni-modal-close" onclick="document.getElementById(\'uniModal\').remove()">&#10005;</button></div></div>'
-    +'<iframe src="'+t.url+'" title="'+t.name+'" sandbox="allow-scripts allow-same-origin allow-popups"></iframe></div>';
+  var modalDiv=document.createElement('div');
+  modalDiv.className='uni-modal';
+  modalDiv.onclick=function(e){e.stopPropagation()};
+  modalDiv.innerHTML='<div class="uni-modal-header"><div style="display:flex;align-items:center;gap:10px"><div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById(\'uniModal\').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div><span style="font-size:13px;color:rgba(255,255,255,.5)">'+t.name+' \u2014 '+t.subcategory+'</span></div>'
+    +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)">'+t.category+'</span>'
+    +'<button class="uni-modal-close" onclick="document.getElementById(\'uniModal\').remove()">&#10005;</button></div></div>';
+  var iframe=document.createElement('iframe');
+  iframe.title=t.name;
+  iframe.sandbox='allow-scripts';
+  iframe.srcdoc=generateTemplateHTML(t);
+  modalDiv.appendChild(iframe);
+  m.appendChild(modalDiv);
   document.body.appendChild(m);
 }
 
