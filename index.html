@@ -3442,11 +3442,11 @@ function initUniverseGraph(){
     userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false
   });
   uniCy.on('tap',function(evt){
-    console.log('TAP',evt.target===uniCy?'BACKGROUND':evt.target.data());
-    if(evt.target===uniCy){closeUniRPanel();return}
-    var d=evt.target.data();
+    var isBackground=evt.target===uniCy;
+    var d=isBackground?null:evt.target.data();
+    alert('TAP: '+(isBackground?'BACKGROUND':d.type+' '+d.id));
+    if(isBackground){closeUniRPanel();return}
     if(d&&d.type==='template'){
-      console.log('SELECT',d.id);
       selectUniTpl(d.id.replace('tpl-',''));
     }
   });
