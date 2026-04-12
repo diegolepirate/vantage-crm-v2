@@ -689,8 +689,8 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 /* ====== FANTASY MAP ====== */
 /* ====== FANTASY MAP ====== */
 .fmap-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);animation:bookFadeIn .3s ease}
-.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;width:min(55vh,90vw);height:92vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
-@keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(90deg);z-index:9999;width:min(55vh,90vw);height:92vh;border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
+@keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) rotate(90deg) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) rotate(90deg) scale(1)}}
 .fmap-card-inner{position:absolute;inset:2px;border-radius:14px;background:#0d0d12;overflow:hidden;z-index:1;display:flex;flex-direction:column}
 .fmap-card-glow{position:absolute;width:140%;height:140%;top:-20%;left:-20%;background:conic-gradient(from 0deg,#D4AF37,#20B2AA,#9370DB,#FF6B6B,#D4AF37);animation:fmapGlowSpin 6s linear infinite;filter:blur(50px);opacity:.35;z-index:0}
 @keyframes fmapGlowSpin{to{transform:rotate(360deg)}}
@@ -700,7 +700,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-header-title{font-size:14px;font-weight:600;letter-spacing:.25em;color:#fff;font-family:'Cormorant Garamond',serif}
 .fmap-close-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
 .fmap-close-btn:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#ef4444}
-.fmap-map-area{flex:1;position:relative;overflow:hidden;background:#0a0a0f}
+.fmap-map-area{flex:1;position:relative;overflow:hidden;background:#0a0a0f;border-radius:14px}
 .fmap-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;pointer-events:none}
 .fmap-dark-overlay{position:absolute;inset:0;background:rgba(26,35,50,.12);z-index:2;pointer-events:none}
 .fmap-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.025) 1px,transparent 1px);background-size:50px 50px;z-index:3;pointer-events:none}
@@ -720,10 +720,10 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-zone-pulse2{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--zc);opacity:0;animation:fmapPulse 2.5s 1.2s infinite}
 .fmap-zone:hover .fmap-zone-pulse,.fmap-zone.selected .fmap-zone-pulse,.fmap-zone:hover .fmap-zone-pulse2,.fmap-zone.selected .fmap-zone-pulse2{opacity:1}
 @keyframes fmapPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.8);opacity:0}}
-.fmap-zone-label{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px);background:rgba(8,8,12,.94);color:#D4AF37;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap;border:1px solid rgba(212,175,55,.35);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;backdrop-filter:blur(10px);font-family:'Inter',sans-serif}
-.fmap-zone:hover .fmap-zone-label{opacity:1;transform:translateX(-50%) translateY(0)}
+.fmap-zone-label{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(6px) rotate(-90deg);background:rgba(8,8,12,.94);color:#D4AF37;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap;border:1px solid rgba(212,175,55,.35);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;backdrop-filter:blur(10px);font-family:'Inter',sans-serif}
+.fmap-zone:hover .fmap-zone-label{opacity:1;transform:translateX(-50%) translateY(0) rotate(-90deg)}
 .fmap-zone-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(212,175,55,.35)}
-.fmap-info-popup{position:absolute;z-index:20;width:260px;background:rgba(13,13,18,.95);border:1px solid rgba(212,175,55,.2);border-radius:12px;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fmapPopIn .3s cubic-bezier(.22,1,.36,1);overflow:hidden;font-family:'Inter',sans-serif}
+.fmap-info-popup{position:absolute;z-index:20;width:260px;background:rgba(13,13,18,.95);border:1px solid rgba(212,175,55,.2);border-radius:12px;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fmapPopIn .3s cubic-bezier(.22,1,.36,1);overflow:hidden;font-family:'Inter',sans-serif;transform:rotate(-90deg);transform-origin:top left}
 @keyframes fmapPopIn{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 .fmap-info-header{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
 .fmap-info-header h3{font-size:16px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:0}
@@ -3117,12 +3117,8 @@ function buildFmapInner(){
   var regionsHTML=MAP_ZONES.map(function(z){
     return '<div class="fmap-region" id="fmapRegion-'+z.id+'" style="left:calc('+z.cx+'% - '+z.rx+'%);top:calc('+z.cy+'% - '+z.ry+'%);width:'+(z.rx*2)+'%;height:'+(z.ry*2)+'%;background:'+z.color+';opacity:0"></div>';
   }).join('');
-  return '<div class="fmap-header">'
-    +'<div class="fmap-header-left"><div class="fmap-header-icon">\u{1F5FA}</div><div class="fmap-header-title">REALM MAP</div></div>'
-    +'<div style="display:flex;align-items:center;gap:14px"><span style="font-size:11px;color:rgba(255,255,255,.35)">'+MAP_ZONES.length+' Zones</span>'
-    +'<button class="fmap-close-btn" onclick="closeFantasyMap()">\u2715</button></div>'
-    +'</div>'
-    +'<div class="fmap-map-area" id="fmapMapArea">'
+  return '<div class="fmap-map-area" id="fmapMapArea">'
+    +'<button class="fmap-close-btn" style="position:absolute;top:10px;right:10px;z-index:20;transform:rotate(-90deg)" onclick="closeFantasyMap()">\u2715</button>'
     +'<img class="fmap-img" src="oDPf6.jpg" alt="Fantasy Map">'
     +'<div class="fmap-dark-overlay"></div>'
     +'<div class="fmap-grid-overlay"></div>'
