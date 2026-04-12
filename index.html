@@ -3131,9 +3131,7 @@ function focusUniNode(id){
   var node=uniCy.getElementById('tpl-'+id);
   if(node&&node.length){uniCy.animate({center:{eles:node},zoom:uniCy.zoom()},{duration:400})}
 }
-var _uniJustSelected=0;
 function selectUniTpl(id){
-  _uniJustSelected=Date.now();
   uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
   updateUniRPanel();
@@ -3160,7 +3158,8 @@ function updateUniRPanel(){
   var t=uniSelected;
   var inCompare=compareList.indexOf(t.id)>=0;
 
-  var html='<div style="padding:20px">';
+  var html='<div style="padding:20px;position:relative">';
+  html+='<button onclick="closeUniRPanel()" style="position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(255,255,255,.3);font-size:18px;cursor:pointer;padding:4px 8px;line-height:1;transition:color .2s" onmouseover="this.style.color=\'#fff\'" onmouseout="this.style.color=\'rgba(255,255,255,.3)\'">&times;</button>';
   // Category dot + name
   html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="uni-cat-dot" style="background:'+UNI_CAT_COLORS[t.category]+'"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">'+t.category+'</span></div>';
   html+='<h2 style="margin:0 0 4px;font-size:20px">'+t.name+'</h2>';
@@ -3472,13 +3471,6 @@ function highlightUniNode(){
 function bindUniverseEvents(){
   var sb=document.getElementById('uniSidebar');
   if(sb)sb.addEventListener('input',function(e){if(e.target.id==='uniSearchInput'){uniSearch=e.target.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar();var ni=document.getElementById('uniSearchInput');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length)}}});
-  document.addEventListener('click',function(e){
-    if(Date.now()-_uniJustSelected<300)return;
-    if(!uniSelected)return;
-    var rp=document.getElementById('uniRPanel');
-    if(rp&&rp.contains(e.target))return;
-    closeUniRPanel();
-  });
 }
 
 // ====== COMPARE VIEW ======
