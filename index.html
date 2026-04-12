@@ -3106,7 +3106,7 @@ function buildUniSidebar(){
       items.forEach(function(t){
         var sel=uniSelected&&uniSelected.id===t.id;
         var fav=uniFavorites.indexOf(t.id)>=0;
-        html+='<div class="uni-tpl-item'+(sel?' selected':'')+'" onclick="selectUniTpl(\''+t.id+'\')" ondblclick="previewUniTpl(\''+t.id+'\')">';
+        html+='<div class="uni-tpl-item'+(sel?' selected':'')+'" onclick="focusUniNode(\''+t.id+'\')" ondblclick="previewUniTpl(\''+t.id+'\')">';
         html+='<span class="uni-tpl-dot" style="background:'+UNI_TIER_COLORS[t.tier]+'"></span>';
         html+='<div style="flex:1;min-width:0"><div class="uni-tpl-name">'+t.name+'</div><div class="uni-tpl-sub">'+t.subcategory+'</div></div>';
         html+='<button class="uni-fav-btn'+(fav?' active':'')+'" onclick="event.stopPropagation();toggleFavorite(\''+t.id+'\')">'+(fav?'\u2605':'\u2606')+'</button>';
@@ -3126,6 +3126,11 @@ function buildUniSidebar(){
 }
 
 function toggleUniCat(cat){uniExpanded[cat]=!uniExpanded[cat];document.getElementById('uniSidebar').innerHTML=buildUniSidebar()}
+function focusUniNode(id){
+  if(!uniCy)return;
+  var node=uniCy.getElementById('tpl-'+id);
+  if(node&&node.length){uniCy.animate({center:{eles:node},zoom:uniCy.zoom()},{duration:400})}
+}
 function selectUniTpl(id){
   uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
