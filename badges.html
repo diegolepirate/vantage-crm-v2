@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vantage Crew — Badges</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.tailwindcss.com" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#080812}
+::-webkit-scrollbar-thumb{background:#1a1a3a;border-radius:3px}
+body{background:#080812;color:#e0e0e0;font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(8,8,18,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 24px}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.header-name{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:700;color:#fff}
+.header-stat{font-size:.8rem;color:rgba(255,255,255,.5)}
+.header-stat b{color:#ffd700}
+.progress-wrap{flex:1;min-width:200px;max-width:400px;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.progress-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,#b8860b,#ffd700);transition:width 1.5s cubic-bezier(.22,1,.36,1);width:0}
+.rarity-counts{display:flex;gap:12px;font-size:.65rem;font-weight:600;letter-spacing:.05em}
+.rc{display:flex;align-items:center;gap:4px}
+
+/* TABS */
+.tabs{position:sticky;top:58px;z-index:99;background:rgba(8,8,18,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs-inner{max-width:1400px;margin:0 auto;display:flex;gap:0}
+.tab{padding:14px 22px;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;color:rgba(255,255,255,.35);border-bottom:2px solid transparent;transition:.25s;white-space:nowrap;user-select:none}
+.tab:hover{color:rgba(255,255,255,.6)}
+.tab.active{color:#ffd700;border-bottom-color:#ffd700}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:24px}
+.family-section{margin-bottom:48px;display:none}
+.family-section.visible{display:block}
+.family-title{font-family:'Cinzel',serif;font-size:1.6rem;font-weight:900;margin-bottom:8px;opacity:0;transform:translateX(-40px);transition:.6s cubic-bezier(.22,1,.36,1)}
+.family-title.show{opacity:1;transform:translateX(0)}
+.family-sub{font-size:.75rem;color:rgba(255,255,255,.3);margin-bottom:24px;opacity:0;transform:translateX(-20px);transition:.5s .1s cubic-bezier(.22,1,.36,1)}
+.family-sub.show{opacity:1;transform:translateX(0)}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:16px}
+
+/* BADGE CARD */
+.badge-card{position:relative;min-height:225px;display:flex;flex-direction:column;align-items:center;padding:20px 10px 14px;border-radius:8px;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;opacity:0;transform:translateY(30px) scale(.85);cursor:default}
+.badge-card.show{opacity:1;transform:translateY(0) scale(1)}
+.badge-card.unlocked:hover{transform:translateY(-4px) scale(1.04)}
+
+/* Frame SVG */
+.badge-frame{position:absolute;inset:0;pointer-events:none}
+
+/* Icon */
+.badge-icon{width:72px;height:72px;margin-bottom:10px;position:relative;z-index:2;transition:.3s}
+.badge-card.locked .badge-icon{filter:grayscale(100%) brightness(.4);opacity:.35}
+.badge-card.locked::before{content:'';position:absolute;inset:0;background:rgba(8,8,18,.45);border-radius:8px;z-index:1}
+
+/* Lock overlay */
+.lock-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);z-index:5;opacity:.6}
+
+/* Text */
+.badge-name{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;text-align:center;line-height:1.3;margin-bottom:4px;z-index:2;min-height:32px;display:flex;align-items:center}
+.badge-desc{font-size:.6rem;color:rgba(255,255,255,.4);text-align:center;line-height:1.3;z-index:2;min-height:28px}
+.badge-pts{font-size:.6rem;font-weight:800;letter-spacing:.1em;margin-top:4px;z-index:2}
+.badge-rarity{font-size:.5rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-top:2px;z-index:2}
+
+/* Shimmer for unlocked */
+.badge-card.unlocked::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transform:skewX(-15deg);transition:none;z-index:3;pointer-events:none}
+.badge-card.unlocked:hover::after{animation:shimmer .8s ease}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+
+/* Rarity glow on hover */
+.badge-card.unlocked.r-common:hover{box-shadow:0 0 20px rgba(196,163,90,.15)}
+.badge-card.unlocked.r-rare:hover{box-shadow:0 0 20px rgba(77,166,232,.2)}
+.badge-card.unlocked.r-epic:hover{box-shadow:0 0 20px rgba(165,112,232,.2)}
+.badge-card.unlocked.r-legendary:hover{box-shadow:0 0 25px rgba(255,215,0,.2)}
+.badge-card.unlocked.r-mythic:hover{box-shadow:0 0 30px rgba(255,69,0,.25)}
+
+/* Colors */
+.c-common{color:#C4A35A}.c-rare{color:#4da6e8}.c-epic{color:#a570e8}.c-legendary{color:#ffd700}.c-mythic{color:#ff4500}
+
+/* Responsive */
+@media(max-width:600px){
+  .badge-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+  .header-inner{gap:10px}
+  .family-title{font-size:1.2rem}
+}
+
+/* All tab */
+.family-section.all-visible{display:block}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-name">Vendeur 1</div>
+    <div class="header-stat"><b id="unlockCount">12</b> / 100 badges</div>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="header-stat"><b id="totalPts">685</b> pts</div>
+    <div class="rarity-counts" id="rarityCounts"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner" id="tabsBar">
+    <div class="tab active" data-tab="all">🏛️ TOUT</div>
+    <div class="tab" data-tab="appels">📞 APPELS</div>
+    <div class="tab" data-tab="ventes">💰 VENTES</div>
+    <div class="tab" data-tab="conquete">⚔️ CONQUÊTE</div>
+    <div class="tab" data-tab="streak">🔥 STREAK</div>
+    <div class="tab" data-tab="elite">👑 ÉLITE</div>
+  </div>
+</div>
+
+<div class="main" id="mainContent"></div>
+
+<script>
+// ========== BADGE DATA ==========
+const BADGES=[
+// FAMILY 1: APPELS (1-20)
+{id:1,name:'Premier Mot',desc:'1er appel passé',pts:20,rarity:'common',family:'appels',unlocked:true},
+{id:2,name:'Bavard',desc:'15 appels passés',pts:35,rarity:'common',family:'appels',unlocked:true},
+{id:3,name:'Crieur Public',desc:'30 appels passés',pts:50,rarity:'common',family:'appels',unlocked:true},
+{id:4,name:'Téléphoniste',desc:'50 appels passés',pts:60,rarity:'rare',family:'appels',unlocked:true},
+{id:5,name:'Voix Affûtée',desc:'100 appels passés',pts:80,rarity:'rare',family:'appels',unlocked:true},
+{id:6,name:'Voix de Guerre',desc:'200 appels passés',pts:100,rarity:'rare',family:'appels',unlocked:false},
+{id:7,name:'Écho des Montagnes',desc:'350 appels passés',pts:150,rarity:'epic',family:'appels',unlocked:false},
+{id:8,name:'Maître des Ondes',desc:'500 appels passés',pts:180,rarity:'epic',family:'appels',unlocked:false},
+{id:9,name:'Seigneur du Signal',desc:'750 appels passés',pts:250,rarity:'legendary',family:'appels',unlocked:false},
+{id:10,name:'Voix des Dieux',desc:'1000 appels passés',pts:350,rarity:'legendary',family:'appels',unlocked:false},
+{id:11,name:'Lève-tôt',desc:'5 appels avant 9h',pts:25,rarity:'common',family:'appels',unlocked:true},
+{id:12,name:'Noctambule',desc:'5 appels après 20h',pts:25,rarity:'common',family:'appels',unlocked:false},
+{id:13,name:'Sniper',desc:'3 appels conclus en 1h',pts:60,rarity:'rare',family:'appels',unlocked:true},
+{id:14,name:'Mitrailleur',desc:'20 appels en une journée',pts:90,rarity:'rare',family:'appels',unlocked:false},
+{id:15,name:'Tempête',desc:'30 appels en une journée',pts:150,rarity:'epic',family:'appels',unlocked:false},
+{id:16,name:'Ouragan',desc:'50 appels en une journée',pts:200,rarity:'epic',family:'appels',unlocked:false},
+{id:17,name:'Rappel Éclair',desc:'Rappeler < 1h après refus',pts:40,rarity:'rare',family:'appels',unlocked:true},
+{id:18,name:'Persévérant',desc:'10 rappels même prospect',pts:70,rarity:'rare',family:'appels',unlocked:false},
+{id:19,name:'Chasseur de Lundi',desc:'10 appels chaque lundi',pts:80,rarity:'rare',family:'appels',unlocked:false},
+{id:20,name:'Guerrier du Samedi',desc:'15 appels un samedi',pts:100,rarity:'epic',family:'appels',unlocked:false},
+// FAMILY 2: VENTES (21-40)
+{id:21,name:'Première Prise',desc:'1ère vente conclue',pts:40,rarity:'common',family:'ventes',unlocked:true},
+{id:22,name:'Débutant Prometteur',desc:'3 ventes conclues',pts:60,rarity:'common',family:'ventes',unlocked:true},
+{id:23,name:'Chasseur',desc:'5 ventes conclues',pts:80,rarity:'common',family:'ventes',unlocked:true},
+{id:24,name:'Vendeur',desc:'10 ventes conclues',pts:100,rarity:'rare',family:'ventes',unlocked:false},
+{id:25,name:'Marchand',desc:'20 ventes conclues',pts:150,rarity:'rare',family:'ventes',unlocked:false},
+{id:26,name:'Négociant',desc:'35 ventes conclues',pts:200,rarity:'rare',family:'ventes',unlocked:false},
+{id:27,name:'Marchand d\'Or',desc:'50 ventes conclues',pts:250,rarity:'epic',family:'ventes',unlocked:false},
+{id:28,name:'Grand Marchand',desc:'75 ventes conclues',pts:300,rarity:'epic',family:'ventes',unlocked:false},
+{id:29,name:'Baron des Contrats',desc:'100 ventes conclues',pts:400,rarity:'legendary',family:'ventes',unlocked:false},
+{id:30,name:'Duc du Commerce',desc:'150 ventes conclues',pts:500,rarity:'legendary',family:'ventes',unlocked:false},
+{id:31,name:'Roi du Commerce',desc:'250 ventes conclues',pts:700,rarity:'mythic',family:'ventes',unlocked:false},
+{id:32,name:'Sang Froid',desc:'Closer en < 5 min',pts:80,rarity:'epic',family:'ventes',unlocked:false},
+{id:33,name:'Triple Kill',desc:'3 ventes en 1 journée',pts:120,rarity:'epic',family:'ventes',unlocked:false},
+{id:34,name:'Penta Kill',desc:'5 ventes en 1 journée',pts:200,rarity:'legendary',family:'ventes',unlocked:false},
+{id:35,name:'Semaine Parfaite',desc:'1 vente/jour pendant 7j',pts:180,rarity:'epic',family:'ventes',unlocked:false},
+{id:36,name:'Mois d\'Or',desc:'30 ventes en 1 mois',pts:350,rarity:'legendary',family:'ventes',unlocked:false},
+{id:37,name:'Conversion Rapide',desc:'5 ventes jour du contact',pts:100,rarity:'rare',family:'ventes',unlocked:false},
+{id:38,name:'Séducteur',desc:'10 hésitants convertis',pts:150,rarity:'epic',family:'ventes',unlocked:false},
+{id:39,name:'Tarif Premium',desc:'Vente au tarif max 10x',pts:200,rarity:'legendary',family:'ventes',unlocked:false},
+{id:40,name:'Sans Remise',desc:'20 ventes sans réduction',pts:250,rarity:'legendary',family:'ventes',unlocked:false},
+// FAMILY 3: CONQUÊTE (41-60)
+{id:41,name:'Éclaireur',desc:'1ère ville ciblée',pts:25,rarity:'common',family:'conquete',unlocked:true},
+{id:42,name:'Cartographe',desc:'3 villes ciblées',pts:40,rarity:'common',family:'conquete',unlocked:false},
+{id:43,name:'Stratège',desc:'Actif dans 2 villes',pts:50,rarity:'common',family:'conquete',unlocked:false},
+{id:44,name:'Commandant',desc:'Actif dans 4 villes',pts:80,rarity:'rare',family:'conquete',unlocked:false},
+{id:45,name:'Seigneur de Crète',desc:'5 ventes à Héraklion',pts:120,rarity:'epic',family:'conquete',unlocked:false},
+{id:46,name:'Seigneur d\'Athènes',desc:'5 ventes à Athènes',pts:120,rarity:'epic',family:'conquete',unlocked:false},
+{id:47,name:'Conquérant',desc:'3 villes avec 5+ ventes',pts:200,rarity:'epic',family:'conquete',unlocked:false},
+{id:48,name:'Grand Conquérant',desc:'5 villes avec 5+ ventes',pts:300,rarity:'legendary',family:'conquete',unlocked:false},
+{id:49,name:'Seigneur des Îles',desc:'Rhodes+Mykonos+Santorin',pts:350,rarity:'legendary',family:'conquete',unlocked:false},
+{id:50,name:'Seigneur du Nord',desc:'Thessalonique + Kavala',pts:300,rarity:'legendary',family:'conquete',unlocked:false},
+{id:51,name:'Amiral de l\'Égée',desc:'5 îles conquises',pts:400,rarity:'legendary',family:'conquete',unlocked:false},
+{id:52,name:'Maître de l\'Égée',desc:'8 villes conquises',pts:650,rarity:'mythic',family:'conquete',unlocked:false},
+{id:53,name:'Pionnier',desc:'1ère vente dans une ville',pts:30,rarity:'common',family:'conquete',unlocked:false},
+{id:54,name:'Défricheur',desc:'1er vendeur sur 3 villes',pts:100,rarity:'rare',family:'conquete',unlocked:false},
+{id:55,name:'Dominateur',desc:'Top vendeur d\'une ville',pts:150,rarity:'epic',family:'conquete',unlocked:false},
+{id:56,name:'Seigneur Incontesté',desc:'Top vendeur de 3 villes',pts:300,rarity:'legendary',family:'conquete',unlocked:false},
+{id:57,name:'Expansion Rapide',desc:'3 villes en 1 semaine',pts:150,rarity:'epic',family:'conquete',unlocked:false},
+{id:58,name:'Colonie',desc:'10 ventes dans une ville',pts:200,rarity:'epic',family:'conquete',unlocked:false},
+{id:59,name:'Métropole',desc:'25 ventes dans une ville',pts:350,rarity:'legendary',family:'conquete',unlocked:false},
+{id:60,name:'Empire',desc:'50 ventes dans une ville',pts:600,rarity:'mythic',family:'conquete',unlocked:false},
+// FAMILY 4: STREAK (61-80)
+{id:61,name:'Régulier',desc:'3 jours consécutifs',pts:30,rarity:'common',family:'streak',unlocked:false},
+{id:62,name:'Habitué',desc:'5 jours consécutifs',pts:45,rarity:'common',family:'streak',unlocked:false},
+{id:63,name:'Assidu',desc:'7 jours consécutifs',pts:60,rarity:'common',family:'streak',unlocked:false},
+{id:64,name:'En Feu',desc:'10 jours consécutifs',pts:80,rarity:'rare',family:'streak',unlocked:false},
+{id:65,name:'Inépuisable',desc:'14 jours consécutifs',pts:120,rarity:'rare',family:'streak',unlocked:false},
+{id:66,name:'Infatigable',desc:'21 jours consécutifs',pts:150,rarity:'epic',family:'streak',unlocked:false},
+{id:67,name:'Acharné',desc:'30 jours consécutifs',pts:200,rarity:'epic',family:'streak',unlocked:false},
+{id:68,name:'Machine de Guerre',desc:'45 jours consécutifs',pts:300,rarity:'legendary',family:'streak',unlocked:false},
+{id:69,name:'Implacable',desc:'60 jours consécutifs',pts:450,rarity:'legendary',family:'streak',unlocked:false},
+{id:70,name:'Légende Vivante',desc:'90 jours consécutifs',pts:600,rarity:'mythic',family:'streak',unlocked:false},
+{id:71,name:'Warrior du Lundi',desc:'4 lundis de suite',pts:50,rarity:'rare',family:'streak',unlocked:false},
+{id:72,name:'Week-End Warrior',desc:'3 ventes un week-end',pts:100,rarity:'epic',family:'streak',unlocked:false},
+{id:73,name:'Pas de Vacances',desc:'Actif 3 jours fériés',pts:80,rarity:'rare',family:'streak',unlocked:false},
+{id:74,name:'Premier de Cordée',desc:'1er appel du jour 10x',pts:70,rarity:'rare',family:'streak',unlocked:false},
+{id:75,name:'Dernier Debout',desc:'Dernier appel du soir 10x',pts:70,rarity:'rare',family:'streak',unlocked:false},
+{id:76,name:'Comeback Kid',desc:'Retour après 7j off',pts:40,rarity:'common',family:'streak',unlocked:false},
+{id:77,name:'Phénix',desc:'Retour après 30j off',pts:80,rarity:'rare',family:'streak',unlocked:false},
+{id:78,name:'Constance',desc:'50 appels/sem × 4 sem',pts:180,rarity:'epic',family:'streak',unlocked:false},
+{id:79,name:'Rythme de Croisière',desc:'20 appels/j × 10j',pts:150,rarity:'epic',family:'streak',unlocked:false},
+{id:80,name:'Métronome',desc:'10 appels/j × 14j exact',pts:250,rarity:'legendary',family:'streak',unlocked:false},
+// FAMILY 5: ÉLITE (81-100)
+{id:81,name:'Rookie',desc:'Compléter son profil',pts:10,rarity:'common',family:'elite',unlocked:true},
+{id:82,name:'Explorateur',desc:'Visiter tous les onglets',pts:10,rarity:'common',family:'elite',unlocked:false},
+{id:83,name:'Premier Pas',desc:'1ère semaine complète',pts:30,rarity:'common',family:'elite',unlocked:false},
+{id:84,name:'Initié',desc:'Débloquer 10 badges',pts:50,rarity:'rare',family:'elite',unlocked:true},
+{id:85,name:'Collectionneur',desc:'Débloquer 25 badges',pts:100,rarity:'rare',family:'elite',unlocked:false},
+{id:86,name:'Archiviste',desc:'Débloquer 50 badges',pts:200,rarity:'epic',family:'elite',unlocked:false},
+{id:87,name:'L\'Inébranlable',desc:'50 refus sans abandon',pts:200,rarity:'legendary',family:'elite',unlocked:false},
+{id:88,name:'Blindé',desc:'100 refus sans abandon',pts:350,rarity:'legendary',family:'elite',unlocked:false},
+{id:89,name:'Mur d\'Acier',desc:'200 refus sans abandon',pts:500,rarity:'mythic',family:'elite',unlocked:false},
+{id:90,name:'Meilleur du Mois',desc:'Top vendeur 1 mois',pts:300,rarity:'legendary',family:'elite',unlocked:false},
+{id:91,name:'Meilleur du Trimestre',desc:'Top vendeur 3 mois',pts:500,rarity:'mythic',family:'elite',unlocked:false},
+{id:92,name:'Dieu de la Vente',desc:'Top 2 mois de suite',pts:600,rarity:'mythic',family:'elite',unlocked:false},
+{id:93,name:'Mentor',desc:'Aider un collègue',pts:80,rarity:'rare',family:'elite',unlocked:false},
+{id:94,name:'Team Player',desc:'Objectif équipe 3x',pts:150,rarity:'epic',family:'elite',unlocked:false},
+{id:95,name:'Leader',desc:'Top leaderboard 1 sem',pts:200,rarity:'legendary',family:'elite',unlocked:false},
+{id:96,name:'Sang Froid Total',desc:'Closer 3x en < 5 min',pts:250,rarity:'legendary',family:'elite',unlocked:false},
+{id:97,name:'Le Fantôme',desc:'10 ventes sans note',pts:100,rarity:'epic',family:'elite',unlocked:false},
+{id:98,name:'Ghost Mode',desc:'Actif dimanche 5x',pts:80,rarity:'rare',family:'elite',unlocked:false},
+{id:99,name:'L\'Élu',desc:'Tous badges d\'une famille',pts:400,rarity:'mythic',family:'elite',unlocked:false},
+{id:100,name:'Le Maître',desc:'80+ badges débloqués',pts:1000,rarity:'mythic',family:'elite',unlocked:false}
+];
+
+const FAMILIES={
+  appels:{label:'📞 Appels',sub:'Maîtrise du téléphone — chaque appel forge la légende'},
+  ventes:{label:'💰 Ventes',sub:'L\'art de conclure — du novice au roi du commerce'},
+  conquete:{label:'⚔️ Conquête',sub:'Territoires grecs — chaque ville est une bataille'},
+  streak:{label:'🔥 Streak & Régularité',sub:'La constance est la mère de toutes les victoires'},
+  elite:{label:'👑 Élite & Exploits',sub:'Réservé aux légendes — les exploits qui marquent l\'histoire'}
+};
+
+const RARITY_META={
+  common:{label:'COMMUN',border:'#8B6914',hi:'#C4A35A',tint:'rgba(139,105,20,0.05)'},
+  rare:{label:'RARE',border:'#1a6ea8',hi:'#4da6e8',tint:'rgba(26,110,168,0.08)'},
+  epic:{label:'ÉPIQUE',border:'#6b35b5',hi:'#a570e8',tint:'rgba(107,53,181,0.08)'},
+  legendary:{label:'LÉGENDAIRE',border:'#b8860b',hi:'#ffd700',tint:'rgba(184,134,11,0.10)'},
+  mythic:{label:'MYTHIQUE',border:'#8b0000',hi:'#ff4500',tint:'rgba(255,69,0,0.10)'}
+};
+
+// ========== SVG ICONS ==========
+function makeGrad(id,c1,c2,c3){return `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="50%" stop-color="${c2}"/><stop offset="100%" stop-color="${c3}"/></linearGradient>`}
+function radGrad(id,c1,c2){return `<radialGradient id="${id}" cx="50%" cy="40%"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></radialGradient>`}
+
+const ICONS={};
+// Appels 1-20
+ICONS[1]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg1','rgba(196,163,90,.25)','transparent')}${makeGrad('ph1','#C4A35A','#8B6914','#6a5010')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg1)"/><path d="M22 42c5.5-3 8-8 8-14v-4c0-2 1-3 3-3h2c2 0 3 1 3 3v4c0 6 2.5 11 8 14" stroke="url(#ph1)" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="20" y="16" width="8" height="12" rx="4" fill="#C4A35A"/><rect x="21" y="17" width="3" height="5" rx="1.5" fill="rgba(255,255,255,.4)"/><rect x="36" y="16" width="8" height="12" rx="4" fill="#C4A35A"/><rect x="37" y="17" width="3" height="5" rx="1.5" fill="rgba(255,255,255,.4)"/><path d="M28 44h8v4a4 4 0 01-8 0v-4z" fill="#8B6914"/><path d="M28 44h8v1.5h-8z" fill="rgba(255,255,255,.3)"/><circle cx="32" cy="36" r="2" fill="#C4A35A"/><circle cx="31.5" cy="35.5" r=".8" fill="rgba(255,255,255,.6)"/>`;
+ICONS[2]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg2','rgba(196,163,90,.2)','transparent')}${makeGrad('sp2','#e8d5a0','#C4A35A','#8B6914')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg2)"/><path d="M16 20h32v28a4 4 0 01-4 4H20a4 4 0 01-4-4V20z" fill="#1a1428" stroke="#C4A35A" stroke-width="1.5"/><path d="M16 20h32v3H16z" fill="#C4A35A"/><path d="M16 20h32v1.5H16z" fill="rgba(255,255,255,.4)"/><path d="M22 28h6M22 32h10M22 36h8M22 40h12" stroke="#C4A35A" stroke-width="1.5" stroke-linecap="round" opacity=".7"/><path d="M36 28l2 2 4-5" stroke="#C4A35A" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="44" cy="14" r="6" fill="#C4A35A"/><circle cx="44" cy="14" r="6" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1"/><text x="44" y="17" text-anchor="middle" fill="#1a1428" font-size="8" font-weight="900">15</text>`;
+ICONS[3]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg3','rgba(196,163,90,.2)','transparent')}${makeGrad('mg3','#e8c860','#C4A35A','#8B6914')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg3)"/><path d="M18 24l14-10 14 10" fill="none" stroke="#C4A35A" stroke-width="2"/><path d="M32 14l-4 3v8l4-3 4 3v-8z" fill="url(#mg3)"/><path d="M28 17l4-3" stroke="rgba(255,255,255,.5)" stroke-width="1"/><rect x="18" y="24" width="28" height="6" rx="1" fill="#C4A35A"/><rect x="18" y="24" width="28" height="2" rx="1" fill="rgba(255,255,255,.35)"/><path d="M22 30v18h20V30" fill="#1a1428" stroke="#8B6914" stroke-width="1"/><path d="M26 34h4v8h-4z" fill="#C4A35A" opacity=".5"/><path d="M34 34h4v5h-4z" fill="#C4A35A" opacity=".5"/><path d="M22 48h20v3H22z" fill="#C4A35A"/><path d="M22 48h20v1.2H22z" fill="rgba(255,255,255,.3)"/><circle cx="30" cy="38" r=".8" fill="#e8d060"/>`;
+ICONS[4]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg4','rgba(77,166,232,.2)','transparent')}${makeGrad('ph4','#4da6e8','#1a6ea8','#104a78')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg4)"/><rect x="14" y="20" width="36" height="24" rx="4" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><rect x="14" y="20" width="36" height="4" rx="2" fill="#1a6ea8"/><rect x="14" y="20" width="36" height="2" rx="1" fill="rgba(255,255,255,.3)"/><circle cx="20" cy="22" r="1" fill="#4da6e8"/><circle cx="24" cy="22" r="1" fill="#4da6e8"/><circle cx="28" cy="22" r="1" fill="#4da6e8"/><path d="M20 28h10M20 32h14M20 36h8" stroke="#4da6e8" stroke-width="1.2" stroke-linecap="round" opacity=".5"/><path d="M36 30a6 6 0 110 12h-2l-3 4v-4a6 6 0 01-1-12h6z" fill="url(#ph4)"/><path d="M33 34h4M33 37h6" stroke="rgba(255,255,255,.5)" stroke-width="1" stroke-linecap="round"/><path d="M52 16c-2-4-6-4-6-4" stroke="#4da6e8" stroke-width="1.5" fill="none" opacity=".5"/>`;
+ICONS[5]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg5','rgba(77,166,232,.25)','transparent')}${makeGrad('sw5','#6bc0f0','#4da6e8','#1a6ea8')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg5)"/><path d="M32 10v6M22 14l3 5M42 14l-3 5" stroke="#4da6e8" stroke-width="2" stroke-linecap="round"/><path d="M20 22c0 0 4-2 12-2s12 2 12 2v6c0 0-4 2-12 2s-12-2-12-2v-6z" fill="url(#sw5)" stroke="#1a6ea8" stroke-width="1"/><path d="M20 22c0 0 4-2 12-2s12 2 12 2" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><path d="M32 30v10" stroke="#4da6e8" stroke-width="3" stroke-linecap="round"/><path d="M26 42c0-3 3-5 6-5s6 2 6 5" fill="#1a6ea8"/><path d="M26 42h12v6a6 6 0 01-12 0v-6z" fill="url(#sw5)"/><path d="M26 42h12v2H26z" fill="rgba(255,255,255,.3)"/><circle cx="29" cy="46" r="1.5" fill="rgba(255,255,255,.2)"/><circle cx="35" cy="46" r="1" fill="rgba(255,255,255,.15)"/>`;
+ICONS[6]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg6','rgba(77,166,232,.2)','transparent')}${makeGrad('sh6','#4da6e8','#2a7ab8','#1a5a88')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg6)"/><path d="M16 48l16-28 16 28z" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><path d="M16 48l16-28 4 7-12 21z" fill="rgba(77,166,232,.15)"/><path d="M32 20l2.5 4.5" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/><circle cx="32" cy="36" r="6" fill="url(#sh6)" stroke="#1a6ea8" stroke-width="1"/><circle cx="32" cy="36" r="6" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/><path d="M32 30v3l2 2" stroke="#0d1a2e" stroke-width="1.5" stroke-linecap="round"/><circle cx="32" cy="36" r="1" fill="#0d1a2e"/><path d="M24 46h16" stroke="#4da6e8" stroke-width="1.2" stroke-linecap="round" opacity=".5"/><circle cx="20" cy="16" r="2" fill="#4da6e8" opacity=".3"/><circle cx="44" cy="18" r="1.5" fill="#4da6e8" opacity=".2"/>`;
+ICONS[7]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg7','rgba(165,112,232,.25)','transparent')}${makeGrad('mt7','#c8a0f0','#a570e8','#6b35b5')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg7)"/><path d="M10 40c8-4 14-12 22-20 8-8 14-10 22-8" stroke="#a570e8" stroke-width="1.5" fill="none" opacity=".4"/><path d="M16 42l4-12 6 8 6-16 6 12 6-8 4 10" fill="none" stroke="url(#mt7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 42l4-12 2 2.7" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="42" r="3" fill="#a570e8"/><circle cx="15.5" cy="41" r="1" fill="rgba(255,255,255,.5)"/><circle cx="48" cy="36" r="3" fill="#a570e8"/><circle cx="47.5" cy="35" r="1" fill="rgba(255,255,255,.5)"/><path d="M28 14c2-2 4-4 8-3" stroke="#a570e8" stroke-width="1" fill="none" opacity=".3"/><circle cx="32" cy="22" r="4" fill="#6b35b5" stroke="#a570e8" stroke-width="1"/><text x="32" y="25" text-anchor="middle" fill="#c8a0f0" font-size="6" font-weight="900">∞</text>`;
+ICONS[8]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg8','rgba(165,112,232,.3)','transparent')}${makeGrad('wv8','#c090f0','#a570e8','#7040c0')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg8)"/><rect x="22" y="28" width="20" height="18" rx="3" fill="#1a0a2e" stroke="#a570e8" stroke-width="1.5"/><rect x="22" y="28" width="20" height="3" rx="1.5" fill="#6b35b5"/><rect x="22" y="28" width="20" height="1.5" rx=".75" fill="rgba(255,255,255,.3)"/><circle cx="32" cy="22" r="8" fill="none" stroke="url(#wv8)" stroke-width="2"/><circle cx="32" cy="22" r="5" fill="none" stroke="#a570e8" stroke-width="1.5"/><circle cx="32" cy="22" r="2" fill="#a570e8"/><circle cx="31" cy="21" r=".8" fill="rgba(255,255,255,.6)"/><path d="M18 22c-2-6 2-14 14-14s16 8 14 14" stroke="#a570e8" stroke-width="1" fill="none" opacity=".3"/><path d="M26 34h4M26 37h6M26 40h3" stroke="#a570e8" stroke-width="1" stroke-linecap="round" opacity=".5"/><path d="M38 34v8" stroke="#a570e8" stroke-width="1" opacity=".3"/><circle cx="44" cy="16" r="1.5" fill="#a570e8" opacity=".4"/><circle cx="20" cy="18" r="1" fill="#a570e8" opacity=".3"/>`;
+ICONS[9]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg9','rgba(255,215,0,.2)','transparent')}${makeGrad('tw9','#ffe066','#ffd700','#b8860b')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg9)"/><rect x="28" y="8" width="8" height="40" rx="2" fill="#1a1400" stroke="#b8860b" stroke-width="1"/><rect x="28" y="8" width="3" height="40" rx="1" fill="rgba(255,215,0,.15)"/><circle cx="32" cy="8" r="6" fill="url(#tw9)" stroke="#b8860b" stroke-width="1"/><circle cx="32" cy="8" r="3" fill="#1a1400"/><circle cx="32" cy="8" r="1.5" fill="#ffd700"/><circle cx="31" cy="7" r=".6" fill="rgba(255,255,255,.7)"/><path d="M14 20c6-4 12-2 18 0s12 4 18 0" stroke="#ffd700" stroke-width="1" fill="none" opacity=".4"/><path d="M14 28c6-4 12-2 18 0s12 4 18 0" stroke="#ffd700" stroke-width="1" fill="none" opacity=".3"/><path d="M14 36c6-4 12-2 18 0s12 4 18 0" stroke="#ffd700" stroke-width="1" fill="none" opacity=".2"/><rect x="24" y="48" width="16" height="6" rx="3" fill="url(#tw9)"/><rect x="24" y="48" width="16" height="2" rx="1" fill="rgba(255,255,255,.4)"/>`;
+ICONS[10]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg10','rgba(255,215,0,.3)','transparent')}${makeGrad('gd10','#fff4b0','#ffd700','#b8860b')}<radialGradient id="aura10"><stop offset="0%" stop-color="rgba(255,215,0,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><ellipse cx="32" cy="32" rx="30" ry="30" fill="url(#aura10)"/><path d="M32 8l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" fill="url(#gd10)"/><path d="M32 8l1 3" stroke="rgba(255,255,255,.6)" stroke-width="1"/><path d="M20 20c4 0 8 4 12 12s8 12 12 12" stroke="#ffd700" stroke-width="2" fill="none" opacity=".3"/><ellipse cx="32" cy="36" rx="14" ry="10" fill="none" stroke="#ffd700" stroke-width="1.5" opacity=".5"/><path d="M26 32a8 8 0 0112 0" stroke="url(#gd10)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="28" cy="34" r="3" fill="#ffd700" opacity=".8"/><circle cx="27.5" cy="33.5" r="1" fill="rgba(255,255,255,.5)"/><circle cx="36" cy="34" r="3" fill="#ffd700" opacity=".8"/><circle cx="35.5" cy="33.5" r="1" fill="rgba(255,255,255,.5)"/><path d="M30 40c1 2 3 2 4 0" stroke="#b8860b" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M16 12l3 2M48 12l-3 2M12 24l4 1M52 24l-4 1" stroke="#ffd700" stroke-width="1" opacity=".4"/>`;
+// 11-20
+ICONS[11]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg11','rgba(196,163,90,.2)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg11)"/><circle cx="32" cy="28" r="14" fill="#1a1400" stroke="#C4A35A" stroke-width="1.5"/><circle cx="32" cy="28" r="14" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3"/><path d="M32 16v12l8 5" stroke="#C4A35A" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="32" cy="28" r="2" fill="#C4A35A"/><circle cx="31.5" cy="27.5" r=".7" fill="rgba(255,255,255,.5)"/><path d="M24 44l4-4M40 44l-4-4" stroke="#C4A35A" stroke-width="1.5" stroke-linecap="round"/><circle cx="28" cy="48" r="3" fill="#C4A35A" opacity=".5"/><circle cx="36" cy="48" r="3" fill="#C4A35A" opacity=".5"/><path d="M20 10c2 2 6 2 8-1" stroke="#e8c860" stroke-width="1.5" fill="none" opacity=".6"/><circle cx="18" cy="8" r="4" fill="#e8c860" opacity=".3"/>`;
+ICONS[12]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg12','rgba(196,163,90,.15)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg12)"/><path d="M42 14A14 14 0 0018 28a10 10 0 0010 10" stroke="#C4A35A" stroke-width="2" fill="none"/><circle cx="32" cy="14" r="3" fill="#C4A35A" opacity=".8"/><path d="M22 30c-3-2-4-6-3-10" stroke="rgba(255,255,255,.2)" stroke-width="1"/><path d="M24 42h16v6H24z" fill="#1a1400" stroke="#C4A35A" stroke-width="1" rx="2"/><path d="M26 44h12" stroke="#C4A35A" stroke-width="1" opacity=".4"/><path d="M26 46h8" stroke="#C4A35A" stroke-width="1" opacity=".3"/><circle cx="44" cy="20" r="2" fill="#C4A35A" opacity=".4"/><circle cx="46" cy="24" r="1" fill="#C4A35A" opacity=".3"/><circle cx="20" cy="18" r="1.5" fill="#C4A35A" opacity=".2"/>`;
+ICONS[13]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg13','rgba(77,166,232,.2)','transparent')}${makeGrad('cr13','#6bc0f0','#4da6e8','#1a6ea8')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg13)"/><circle cx="32" cy="28" r="16" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><circle cx="32" cy="28" r="12" fill="none" stroke="#1a6ea8" stroke-width="1" opacity=".5"/><circle cx="32" cy="28" r="8" fill="none" stroke="#1a6ea8" stroke-width="1" opacity=".3"/><circle cx="32" cy="28" r="3" fill="#f44"/><circle cx="31" cy="27" r="1" fill="rgba(255,255,255,.5)"/><line x1="32" y1="12" x2="32" y2="16" stroke="#4da6e8" stroke-width="1" opacity=".5"/><line x1="32" y1="40" x2="32" y2="44" stroke="#4da6e8" stroke-width="1" opacity=".5"/><line x1="16" y1="28" x2="20" y2="28" stroke="#4da6e8" stroke-width="1" opacity=".5"/><line x1="44" y1="28" x2="48" y2="28" stroke="#4da6e8" stroke-width="1" opacity=".5"/><text x="32" y="54" text-anchor="middle" fill="#4da6e8" font-size="7" font-weight="700" font-family="Inter">×3</text>`;
+ICONS[14]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg14','rgba(77,166,232,.2)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg14)"/><rect x="14" y="20" width="8" height="28" rx="2" fill="#1a6ea8" opacity=".6"/><rect x="24" y="14" width="8" height="34" rx="2" fill="#4da6e8" opacity=".7"/><rect x="34" y="18" width="8" height="30" rx="2" fill="#1a6ea8" opacity=".6"/><rect x="44" y="10" width="8" height="38" rx="2" fill="#4da6e8"/><rect x="44" y="10" width="8" height="3" rx="1" fill="rgba(255,255,255,.3)"/><rect x="24" y="14" width="8" height="3" rx="1" fill="rgba(255,255,255,.3)"/><path d="M10 52h44" stroke="#4da6e8" stroke-width="1" opacity=".3"/><text x="32" y="58" text-anchor="middle" fill="#4da6e8" font-size="6" font-weight="700">×20</text>`;
+ICONS[15]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg15','rgba(165,112,232,.2)','transparent')}${makeGrad('lt15','#c8a0f0','#a570e8','#6b35b5')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg15)"/><path d="M32 10c-10 4-18 14-18 26h36c0-12-8-22-18-26z" fill="#1a0a2e" stroke="#a570e8" stroke-width="1"/><path d="M32 10c-4 2-8 6-10 12" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/><path d="M20 28c4-2 8 0 12 2s8 4 12 2" stroke="#a570e8" stroke-width="1.5" fill="none" opacity=".5"/><path d="M18 34c5-2 9 0 14 2s9 4 14 2" stroke="#a570e8" stroke-width="1" fill="none" opacity=".3"/><path d="M14 36h36v4H14z" fill="url(#lt15)"/><path d="M14 36h36v1.5H14z" fill="rgba(255,255,255,.3)"/><path d="M28 42h8l2 8H26z" fill="#6b35b5"/><path d="M28 42h8v2h-8z" fill="rgba(255,255,255,.2)"/><circle cx="32" cy="18" r="2" fill="#a570e8" opacity=".5"/><path d="M30 18l4 0" stroke="rgba(255,255,255,.3)" stroke-width="1"/>`;
+ICONS[16]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg16','rgba(165,112,232,.25)','transparent')}${makeGrad('hr16','#d090f8','#a570e8','#5020a0')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg16)"/><path d="M32 8c-6 8-20 16-20 30h40c0-14-14-22-20-30z" fill="url(#hr16)" opacity=".3"/><path d="M32 12c-4 6-14 12-16 24" stroke="rgba(255,255,255,.15)" stroke-width="1"/><circle cx="32" cy="28" r="12" fill="#1a0a2e" stroke="#a570e8" stroke-width="2"/><path d="M28 24c0 0 2-2 4-2s4 2 4 2v6c0 2-2 4-4 4s-4-2-4-4v-6z" fill="url(#hr16)"/><path d="M28 24c0 0 2-2 4-2" stroke="rgba(255,255,255,.4)" stroke-width="1"/><path d="M30 32v4M34 32v4" stroke="#a570e8" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="14" r="2" fill="#a570e8" opacity=".3"/><circle cx="44" cy="14" r="2" fill="#a570e8" opacity=".3"/><circle cx="14" cy="24" r="1.5" fill="#a570e8" opacity=".2"/><circle cx="50" cy="24" r="1.5" fill="#a570e8" opacity=".2"/><text x="32" y="56" text-anchor="middle" fill="#a570e8" font-size="6" font-weight="800">×50</text>`;
+ICONS[17]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg17','rgba(77,166,232,.15)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg17)"/><polygon points="32,8 36,22 50,22 38,30 42,44 32,36 22,44 26,30 14,22 28,22" fill="none" stroke="#4da6e8" stroke-width="1.5"/><polygon points="32,8 36,22 50,22 38,30 42,44 32,36 22,44 26,30 14,22 28,22" fill="#1a6ea8" opacity=".3"/><path d="M32 8l2 7" stroke="rgba(255,255,255,.4)" stroke-width="1"/><circle cx="32" cy="28" r="6" fill="#4da6e8" opacity=".6"/><path d="M29 28l2 2 4-4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M32 44v8" stroke="#4da6e8" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 3"/>`;
+ICONS[18]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg18','rgba(77,166,232,.15)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg18)"/><path d="M20 18a14 14 0 0124 0" stroke="#4da6e8" stroke-width="2" fill="none"/><path d="M44 18v6a12 12 0 01-24 0v-6" stroke="#4da6e8" stroke-width="1.5" fill="none"/><path d="M32 36v6" stroke="#4da6e8" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="46" r="4" fill="#1a6ea8" stroke="#4da6e8" stroke-width="1"/><text x="32" y="49" text-anchor="middle" fill="#4da6e8" font-size="6" font-weight="900">10</text><path d="M24 14l-4-4M40 14l4-4" stroke="#4da6e8" stroke-width="1.5" stroke-linecap="round" opacity=".5"/><circle cx="28" cy="24" r="2" fill="#4da6e8" opacity=".4"/><circle cx="36" cy="24" r="2" fill="#4da6e8" opacity=".4"/>`;
+ICONS[19]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg19','rgba(77,166,232,.15)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg19)"/><rect x="14" y="12" width="36" height="36" rx="4" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1"/><rect x="14" y="12" width="36" height="8" rx="2" fill="#1a6ea8"/><rect x="14" y="12" width="36" height="3" rx="1" fill="rgba(255,255,255,.25)"/><text x="32" y="18" text-anchor="middle" fill="#fff" font-size="6" font-weight="700" font-family="Cinzel">LUN</text><path d="M20 26h6v6h-6zM28 26h6v6h-6zM36 26h6v6h-6zM20 34h6v6h-6zM28 34h6v6h-6z" fill="#1a6ea8" opacity=".4" rx="1"/><path d="M28 26h6v6h-6z" fill="#4da6e8" opacity=".6"/><path d="M29 28l2 2 3-3" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+ICONS[20]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg20','rgba(165,112,232,.2)','transparent')}${makeGrad('sat20','#c8a0f0','#a570e8','#6b35b5')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg20)"/><circle cx="32" cy="26" r="14" fill="#1a0a2e" stroke="#a570e8" stroke-width="1.5"/><text x="32" y="22" text-anchor="middle" fill="#a570e8" font-size="5" font-weight="700">SAM</text><text x="32" y="32" text-anchor="middle" fill="url(#sat20)" font-size="12" font-weight="900" font-family="Cinzel">15</text><path d="M22 44l4-2 4 3 4-3 4 3 4-3 4 2" stroke="#a570e8" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="18" cy="16" r="2" fill="#a570e8" opacity=".3"/><circle cx="46" cy="16" r="2" fill="#a570e8" opacity=".3"/>`;
+
+// VENTES 21-40 - Gold/treasure theme
+ICONS[21]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg21','rgba(196,163,90,.2)','transparent')}${makeGrad('coin21','#ffe066','#ffd700','#b8860b')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg21)"/><circle cx="32" cy="30" r="14" fill="url(#coin21)" stroke="#8B6914" stroke-width="2"/><circle cx="32" cy="30" r="11" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1"/><circle cx="32" cy="30" r="14" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="1" transform="translate(1,1)"/><text x="32" y="35" text-anchor="middle" fill="#6a4e10" font-size="14" font-weight="900" font-family="Cinzel">€</text><path d="M20 30c0-2 2-6 6-8" stroke="rgba(255,255,255,.4)" stroke-width="1.5" fill="none"/><path d="M26 48l6-4 6 4" stroke="#C4A35A" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+ICONS[22]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg22','rgba(196,163,90,.2)','transparent')}${makeGrad('ch22','#C4A35A','#8B6914','#5a3e0a')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg22)"/><path d="M14 32h36v14a4 4 0 01-4 4H18a4 4 0 01-4-4V32z" fill="#5a3e0a" stroke="#C4A35A" stroke-width="1.5"/><path d="M14 32h36v3H14z" fill="rgba(255,255,255,.2)"/><path d="M12 28h40v6H12z" fill="url(#ch22)" rx="2"/><path d="M12 28h40v2H12z" fill="rgba(255,255,255,.3)"/><rect x="28" y="26" width="8" height="10" rx="2" fill="#C4A35A" stroke="#8B6914" stroke-width="1"/><circle cx="32" cy="31" r="2" fill="#8B6914"/><circle cx="31.5" cy="30.5" r=".7" fill="rgba(255,255,255,.4)"/><circle cx="20" cy="40" r="3" fill="#ffd700" opacity=".6"/><circle cx="26" cy="42" r="2" fill="#ffd700" opacity=".4"/><circle cx="38" cy="40" r="2.5" fill="#ffd700" opacity=".5"/><circle cx="44" cy="42" r="2" fill="#ffd700" opacity=".3"/>`;
+ICONS[23]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg23','rgba(196,163,90,.2)','transparent')}${makeGrad('bw23','#d0c090','#a08050','#604020')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg23)"/><path d="M32 12l-16 20h10v18h12V32h10z" fill="url(#bw23)" stroke="#C4A35A" stroke-width="1.5"/><path d="M32 12l-8 10" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><path d="M26 32h12v18H26z" fill="#1a1400" stroke="#8B6914" stroke-width=".5"/><path d="M30 38h4v12h-4z" fill="#C4A35A" opacity=".4"/><circle cx="35" cy="44" r="1" fill="#C4A35A"/><path d="M22 28l10-12" stroke="rgba(255,255,255,.15)" stroke-width="2"/>`;
+ICONS[24]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg24','rgba(77,166,232,.2)','transparent')}${makeGrad('hd24','#6bc0f0','#4da6e8','#1a6ea8')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg24)"/><path d="M18 36c0 0 4-8 14-8s14 8 14 8" stroke="#4da6e8" stroke-width="2" fill="none"/><path d="M24 28l8-6 8 6" fill="url(#hd24)" stroke="#1a6ea8" stroke-width="1"/><path d="M24 28l4-3" stroke="rgba(255,255,255,.35)" stroke-width="1"/><path d="M18 36l4 12h20l4-12" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><path d="M18 36h28v2H18z" fill="rgba(77,166,232,.2)"/><circle cx="28" cy="42" r="3" fill="#4da6e8" opacity=".5"/><circle cx="36" cy="44" r="2" fill="#4da6e8" opacity=".4"/><path d="M30 42l1.5 1.5 3-3" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>`;
+// Continue with simplified but detailed icons for 25-100
+ICONS[25]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg25','rgba(77,166,232,.2)','transparent')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg25)"/><path d="M16 44V24l16-10 16 10v20l-16 10z" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><path d="M16 24l16 10 16-10" fill="none" stroke="#4da6e8" stroke-width="1" opacity=".5"/><path d="M32 34v20" stroke="#4da6e8" stroke-width="1" opacity=".5"/><path d="M16 24l16-10 4 2.5" stroke="rgba(255,255,255,.3)" stroke-width="1"/><circle cx="32" cy="28" r="5" fill="#4da6e8" opacity=".5"/><text x="32" y="31" text-anchor="middle" fill="#fff" font-size="7" font-weight="900">20</text>`;
+ICONS[26]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg26','rgba(77,166,232,.2)','transparent')}${makeGrad('sc26','#80c8f0','#4da6e8','#1a6ea8')}</defs><ellipse cx="32" cy="32" rx="26" ry="26" fill="url(#bg26)"/><rect x="16" y="14" width="32" height="40" rx="3" fill="#0d1a2e" stroke="#4da6e8" stroke-width="1.5"/><rect x="16" y="14" width="32" height="6" rx="2" fill="url(#sc26)"/><rect x="16" y="14" width="32" height="2.5" rx="1" fill="rgba(255,255,255,.3)"/><path d="M22 26h20M22 30h16M22 34h18M22 38h12" stroke="#4da6e8" stroke-width="1" stroke-linecap="round" opacity=".4"/><circle cx="40" cy="44" r="5" fill="#4da6e8"/><path d="M38 44l2 2 3-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+// For badges 27-100, create varied but detailed icons
+ICONS[27]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg27','rgba(165,112,232,.2)','transparent')}${makeGrad('g27','#ffe066','#ffd700','#b8860b')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg27)"/><path d="M20 22l12-10 12 10v22a4 4 0 01-4 4H24a4 4 0 01-4-4V22z" fill="#1a1400" stroke="#ffd700" stroke-width="1.5"/><path d="M20 22l12-10 3 2.5" stroke="rgba(255,255,255,.3)" stroke-width="1"/><circle cx="32" cy="30" r="8" fill="#b8860b" stroke="#ffd700" stroke-width="1.5"/><text x="32" y="34" text-anchor="middle" fill="#ffe066" font-size="10" font-weight="900" font-family="Cinzel">50</text><path d="M26 42h12v4H26z" fill="#ffd700" opacity=".4" rx="2"/><circle cx="32" cy="44" r="1.5" fill="#ffd700"/>`;
+ICONS[28]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg28','rgba(165,112,232,.25)','transparent')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg28)"/><rect x="12" y="18" width="40" height="30" rx="4" fill="#1a0a2e" stroke="#a570e8" stroke-width="1.5"/><rect x="12" y="18" width="40" height="5" rx="2" fill="#6b35b5"/><rect x="12" y="18" width="40" height="2" rx="1" fill="rgba(255,255,255,.3)"/><circle cx="32" cy="34" r="8" fill="#6b35b5" opacity=".5"/><text x="32" y="38" text-anchor="middle" fill="#c8a0f0" font-size="10" font-weight="900">75</text><path d="M18 50l4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2" stroke="#a570e8" stroke-width="1.5" fill="none" opacity=".5"/>`;
+ICONS[29]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg29','rgba(255,215,0,.2)','transparent')}${makeGrad('cr29','#ffe066','#ffd700','#b8860b')}</defs><ellipse cx="32" cy="30" rx="28" ry="28" fill="url(#bg29)"/><path d="M18 32h28v16a4 4 0 01-4 4H22a4 4 0 01-4-4V32z" fill="#2a1a00" stroke="#ffd700" stroke-width="1.5"/><path d="M18 32h28v3H18z" fill="rgba(255,215,0,.3)"/><rect x="16" y="28" width="32" height="6" rx="2" fill="url(#cr29)"/><rect x="16" y="28" width="32" height="2.5" rx="1" fill="rgba(255,255,255,.35)"/><path d="M24 18v10M32 14v14M40 18v10" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="16" r="3" fill="#ffd700"/><circle cx="23.5" cy="15.5" r="1" fill="rgba(255,255,255,.5)"/><circle cx="32" cy="12" r="3.5" fill="#ffd700"/><circle cx="31.5" cy="11.5" r="1.2" fill="rgba(255,255,255,.5)"/><circle cx="40" cy="16" r="3" fill="#ffd700"/><circle cx="39.5" cy="15.5" r="1" fill="rgba(255,255,255,.5)"/><circle cx="28" cy="40" r="2.5" fill="#ffd700" opacity=".5"/><circle cx="36" cy="42" r="2" fill="#ffd700" opacity=".4"/>`;
+ICONS[30]=`<svg viewBox="0 0 64 64"><defs>${radGrad('bg30','rgba(255,215,0,.25)','transparent')}${makeGrad('g30','#fff4b0','#ffd700','#b8860b')}</defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#bg30)"/><path d="M20 14h24l4 6H16z" fill="url(#g30)" stroke="#b8860b" stroke-width="1"/><path d="M20 14h24l1 2H19z" fill="rgba(255,255,255,.3)"/><path d="M16 20h32v3H16z" fill="#ffd700"/><path d="M16 20h32v1.5H16z" fill="rgba(255,255,255,.3)"/><circle cx="32" cy="21.5" r="2" fill="#b8860b"/><circle cx="24" cy="21.5" r="1.5" fill="#b8860b" opacity=".6"/><circle cx="40" cy="21.5" r="1.5" fill="#b8860b" opacity=".6"/><path d="M18 23v24a4 4 0 004 4h20a4 4 0 004-4V23" fill="#1a1400" stroke="#b8860b" stroke-width="1"/><text x="32" y="40" text-anchor="middle" fill="url(#g30)" font-size="12" font-weight="900" font-family="Cinzel">150</text>`;
+
+// For remaining badges 31-100, generate them in a loop-friendly way
+const defaultSvgs={
+  31:`<svg viewBox="0 0 64 64"><defs><radialGradient id="m31"><stop offset="0%" stop-color="rgba(255,69,0,.3)"/><stop offset="100%" stop-color="transparent"/></radialGradient>${makeGrad('c31','#ff8040','#ff4500','#8b0000')}</defs><ellipse cx="32" cy="32" rx="30" ry="30" fill="url(#m31)"/><path d="M22 12h20l4 8H18z" fill="url(#c31)"/><path d="M22 12h20l1 3H21z" fill="rgba(255,255,255,.3)"/><path d="M18 20h28v4H18z" fill="#ff4500"/><path d="M18 20h28v1.5H18z" fill="rgba(255,255,255,.4)"/><path d="M20 24v22a4 4 0 004 4h16a4 4 0 004-4V24" fill="#1a0800" stroke="#ff4500" stroke-width="1.5"/><circle cx="26" cy="20" r="2" fill="#ff8040"/><circle cx="32" cy="18" r="2.5" fill="#ffd700"/><circle cx="31.5" cy="17.5" r="1" fill="rgba(255,255,255,.5)"/><circle cx="38" cy="20" r="2" fill="#ff8040"/><text x="32" y="40" text-anchor="middle" fill="#ff4500" font-size="8" font-weight="900" font-family="Cinzel">ROI</text><path d="M24 46h16" stroke="#ff4500" stroke-width="1" opacity=".3"/>`,
+};
+
+// Generate simple but themed icons for remaining badges
+function genIcon(b){
+  if(ICONS[b.id]) return ICONS[b.id];
+  if(defaultSvgs[b.id]) return defaultSvgs[b.id];
+  const rm=RARITY_META[b.rarity];
+  const c=rm.hi, c2=rm.border;
+  const bgO=b.rarity==='mythic'?'.3':b.rarity==='legendary'?'.2':'.15';
+  // Themed icons by family
+  const fam=b.family;
+  let inner='';
+  if(fam==='appels'){
+    inner=`<path d="M24 20c0-4 4-8 8-8s8 4 8 8v8c0 4-4 8-8 8s-8-4-8-8v-8z" fill="${c2}" stroke="${c}" stroke-width="1.5"/><path d="M24 20c0-4 4-8 8-8 1 0 2 .2 3 .5" stroke="rgba(255,255,255,.3)" stroke-width="1" fill="none"/><circle cx="32" cy="24" r="4" fill="${c}" opacity=".5"/><path d="M30 24l1.5 1.5 3-3" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M26 40h12v6a6 6 0 01-12 0v-6z" fill="${c2}"/><path d="M26 40h12v2H26z" fill="rgba(255,255,255,.2)"/>`;
+  } else if(fam==='ventes'){
+    inner=`<rect x="16" y="22" width="32" height="24" rx="4" fill="#1a1400" stroke="${c}" stroke-width="1.5"/><rect x="16" y="22" width="32" height="4" rx="2" fill="${c2}"/><rect x="16" y="22" width="32" height="2" rx="1" fill="rgba(255,255,255,.3)"/><circle cx="32" cy="36" r="6" fill="${c}" opacity=".6"/><text x="32" y="39" text-anchor="middle" fill="#fff" font-size="8" font-weight="900">€</text><path d="M22 48h20" stroke="${c}" stroke-width="1" opacity=".3"/>`;
+  } else if(fam==='conquete'){
+    inner=`<path d="M32 10v34" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/><path d="M32 10l16 8v10l-16-6z" fill="${c2}" stroke="${c}" stroke-width="1"/><path d="M32 10l8 4" stroke="rgba(255,255,255,.3)" stroke-width="1"/><path d="M32 22l16 0" stroke="${c}" stroke-width="1" opacity=".3"/><circle cx="32" cy="48" r="4" fill="${c2}" stroke="${c}" stroke-width="1"/><circle cx="32" cy="48" r="1.5" fill="${c}"/>`;
+  } else if(fam==='streak'){
+    inner=`<path d="M32 8c-6 10-14 16-14 26a14 14 0 0028 0c0-10-8-16-14-26z" fill="${c2}" opacity=".6" stroke="${c}" stroke-width="1.5"/><path d="M32 8c-2 4-6 8-8 14" stroke="rgba(255,255,255,.2)" stroke-width="1.5" fill="none"/><path d="M32 18c-3 6-8 10-8 16a8 8 0 0016 0c0-6-5-10-8-16z" fill="${c}" opacity=".5"/><path d="M32 28c-2 4-4 6-4 10a4 4 0 008 0c0-4-2-6-4-10z" fill="${c}" opacity=".7"/><circle cx="32" cy="38" r="2" fill="rgba(255,255,255,.4)"/>`;
+  } else {
+    inner=`<polygon points="32,8 38,24 54,24 42,34 46,50 32,42 18,50 22,34 10,24 26,24" fill="${c2}" opacity=".4" stroke="${c}" stroke-width="1.5"/><polygon points="32,14 36,24 46,24 38,30 41,40 32,34 23,40 26,30 18,24 28,24" fill="${c}" opacity=".5"/><circle cx="32" cy="28" r="4" fill="${c}"/><circle cx="31" cy="27" r="1.5" fill="rgba(255,255,255,.4)"/>`;
+  }
+  return `<svg viewBox="0 0 64 64"><defs><radialGradient id="gbg${b.id}"><stop offset="0%" stop-color="${c}" stop-opacity="${bgO}"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><ellipse cx="32" cy="32" rx="28" ry="28" fill="url(#gbg${b.id})"/>${inner}`;
+}
+
+// ========== FRAME SVG ==========
+function framesvg(r){
+  const m=RARITY_META[r];
+  const c=m.border, h=m.hi;
+  let extra='';
+  if(r==='legendary'){
+    extra=`<path d="M32 -2l4 8h-8z" fill="${h}" stroke="${c}" stroke-width=".5"/><circle cx="32" cy="2" r="1.5" fill="rgba(255,255,255,.5)"/>`;
+  }
+  if(r==='mythic'){
+    extra=`<path d="M32 -4l5 10h-10z" fill="${h}" stroke="${c}" stroke-width=".5"/><circle cx="32" cy="0" r="2" fill="rgba(255,255,255,.4)"/><circle cx="6" cy="6" r="3" fill="${h}" opacity=".4"/><circle cx="154" cy="6" r="3" fill="${h}" opacity=".4"/><circle cx="6" cy="214" r="3" fill="${h}" opacity=".4"/><circle cx="154" cy="214" r="3" fill="${h}" opacity=".4"/>`;
+  }
+  return `<svg class="badge-frame" viewBox="0 0 160 220" preserveAspectRatio="none"><rect x="2" y="2" width="156" height="216" rx="6" fill="none" stroke="${c}" stroke-width="1.5"/><rect x="8" y="8" width="144" height="204" rx="4" fill="none" stroke="${c}" stroke-width=".5" opacity=".4"/><polygon points="0,0 8,4 4,8" fill="${h}" opacity=".7"/><polygon points="160,0 152,4 156,8" fill="${h}" opacity=".7"/><polygon points="0,220 8,216 4,212" fill="${h}" opacity=".7"/><polygon points="160,220 152,216 156,212" fill="${h}" opacity=".7"/><polygon points="80,0 84,5 80,4 76,5" fill="${h}" opacity=".5"/><polygon points="80,220 84,215 80,216 76,215" fill="${h}" opacity=".5"/><polygon points="0,110 5,106 4,110 5,114" fill="${h}" opacity=".5"/><polygon points="160,110 155,106 156,110 155,114" fill="${h}" opacity=".5"/>${extra}</svg>`;
+}
+
+// ========== LOCK ICON ==========
+const LOCK_SVG=`<svg class="lock-icon" viewBox="0 0 24 24" width="28" height="28"><rect x="5" y="11" width="14" height="11" rx="2" fill="#2a2a3a" stroke="#555" stroke-width="1.5"/><rect x="5" y="11" width="14" height="3" rx="1" fill="rgba(255,255,255,.08)"/><path d="M8 11V7a4 4 0 018 0v4" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="#666"/><path d="M12 17.5v2" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+
+// ========== RENDER ==========
+let currentTab='all';
+
+function render(){
+  const main=document.getElementById('mainContent');
+  const unlocked=BADGES.filter(b=>b.unlocked);
+  const totalPts=unlocked.reduce((s,b)=>s+b.pts,0);
+
+  // Header
+  document.getElementById('unlockCount').textContent=unlocked.length;
+  document.getElementById('totalPts').textContent=totalPts;
+  setTimeout(()=>{document.getElementById('progressBar').style.width=(unlocked.length)+'%'},100);
+
+  // Rarity counts
+  const rc=document.getElementById('rarityCounts');
+  const rarities=['common','rare','epic','legendary','mythic'];
+  rc.innerHTML=rarities.map(r=>{
+    const total=BADGES.filter(b=>b.rarity===r).length;
+    const got=BADGES.filter(b=>b.rarity===r&&b.unlocked).length;
+    const m=RARITY_META[r];
+    return `<div class="rc"><span style="color:${m.hi}">${got}/${total}</span> <span style="color:rgba(255,255,255,.3)">${m.label}</span></div>`;
+  }).join('');
+
+  // Build sections
+  let html='';
+  const familyKeys=Object.keys(FAMILIES);
+  familyKeys.forEach(fk=>{
+    const f=FAMILIES[fk];
+    const badges=BADGES.filter(b=>b.family===fk);
+    const vis=(currentTab==='all'||currentTab===fk)?'visible':'';
+    const allVis=currentTab==='all'?'all-visible':'';
+    html+=`<div class="family-section ${vis} ${allVis}" data-family="${fk}">`;
+    html+=`<div class="family-title" data-reveal>${f.label}</div>`;
+    html+=`<div class="family-sub" data-reveal>${f.sub}</div>`;
+    html+=`<div class="badge-grid">`;
+    badges.forEach(b=>{
+      const rm=RARITY_META[b.rarity];
+      const state=b.unlocked?'unlocked':'locked';
+      const rc='r-'+b.rarity;
+      const icon=genIcon(b);
+      const closeSvg=icon.includes('</svg>')?'':'</svg>';
+      html+=`<div class="badge-card ${state} ${rc}" style="background:linear-gradient(145deg,#12122e,#0d0d20);${b.unlocked?'':''}">`;
+      html+=framesvg(b.rarity);
+      html+=`<div class="badge-icon">${icon}${closeSvg}</div>`;
+      if(!b.unlocked) html+=LOCK_SVG;
+      html+=`<div class="badge-name" style="color:${b.unlocked?rm.hi:'rgba(255,255,255,.25)'}">${b.name}</div>`;
+      html+=`<div class="badge-desc">${b.desc}</div>`;
+      html+=`<div class="badge-pts" style="color:${rm.hi}">+${b.pts} pts</div>`;
+      html+=`<div class="badge-rarity c-${b.rarity}">${rm.label}</div>`;
+      html+=`</div>`;
+    });
+    html+=`</div></div>`;
+  });
+  main.innerHTML=html;
+  initObserver();
+}
+
+// ========== TABS ==========
+document.getElementById('tabsBar').addEventListener('click',e=>{
+  const tab=e.target.closest('.tab');
+  if(!tab)return;
+  currentTab=tab.dataset.tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===tab));
+  render();
+});
+
+// ========== INTERSECTION OBSERVER ==========
+function initObserver(){
+  const cards=document.querySelectorAll('.badge-card');
+  const titles=document.querySelectorAll('[data-reveal]');
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        const idx=Array.from(e.target.parentElement.children).indexOf(e.target);
+        setTimeout(()=>e.target.classList.add('show'), idx*60);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  cards.forEach(c=>obs.observe(c));
+
+  const titleObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('show');titleObs.unobserve(e.target)}
+    });
+  },{threshold:0.2});
+  titles.forEach(t=>titleObs.observe(t));
+}
+
+// Init
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Village — Carte de Conquête</title>
+<link href="https://api.fontshare.com/v2/css?f[]=tanker@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#fff;font-family:'Tanker',sans-serif;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+.topbar{padding:12px 24px;background:rgba(10,10,15,.9);border-bottom:1px solid rgba(201,168,76,.2);display:flex;align-items:center;gap:16px;z-index:10}
+.topbar h1{font-size:1.2rem;letter-spacing:2px;color:#C9A84C}
+.topbar .region-name{font-size:.9rem;color:rgba(255,255,255,.7);font-family:Arial,sans-serif;font-weight:400}
+.topbar .badge{padding:3px 10px;border-radius:6px;font-size:.7rem;font-weight:700;font-family:Arial,sans-serif}
+.back-btn{background:none;border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.75rem;font-family:Arial,sans-serif;transition:.2s;margin-left:auto}
+.back-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4)}
+.stats-bar{padding:8px 24px;background:rgba(10,10,15,.7);border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:20px;font-family:Arial,sans-serif;font-size:.7rem}
+.stats-bar .st{color:rgba(255,255,255,.5)}.stats-bar .st b{color:#fff}
+
+.scene-wrap{flex:1;overflow:hidden;position:relative;cursor:grab}
+.scene-wrap.dragging{cursor:grabbing}
+.scene{position:absolute;width:1600px;height:1000px;left:50%;top:50%;transform-origin:center center;image-rendering:pixelated}
+
+/* Ground */
+.ground{position:absolute;inset:0;background:#4a7c3f}
+.path{position:absolute;background:#c4a265;border-radius:4px}
+.dirt{position:absolute;background:#8b7355;border-radius:50%;opacity:.4}
+
+/* Pixel items */
+.px-item{position:absolute;image-rendering:pixelated;transition:transform .2s}
+.px-item:hover{transform:scale(1.1);z-index:100}
+.px-item img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+
+/* Prospect dots on houses */
+.prospect-dot{position:absolute;width:8px;height:8px;border-radius:50%;bottom:-4px;left:50%;transform:translateX(-50%);animation:dotPulse 2s ease infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 4px var(--dc)}50%{box-shadow:0 0 12px var(--dc)}}
+
+/* Info tooltip */
+.village-info{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(10,10,15,.9);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:12px 20px;font-family:Arial,sans-serif;font-size:.75rem;color:rgba(255,255,255,.7);display:flex;gap:16px;align-items:center;z-index:20;white-space:nowrap}
+.village-info .vi-num{font-size:1.4rem;font-weight:900;color:#C9A84C;font-family:'Tanker',sans-serif}
+
+/* Water */
+.water{position:absolute;background:linear-gradient(135deg,#2a6090,#1a4060);border-radius:40%;opacity:.6;animation:waterShimmer 4s ease infinite}
+@keyframes waterShimmer{0%,100%{opacity:.5}50%{opacity:.7}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>VILLAGE</h1>
+  <span class="region-name" id="regionName">—</span>
+  <span class="badge" id="regionBadge" style="background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)">PETIT</span>
+  <button class="back-btn" onclick="window.close();window.opener||history.back()">← Retour à la carte</button>
+</div>
+<div class="stats-bar" id="statsBar">
+  <span class="st">Prospects: <b id="stTotal">—</b></span>
+  <span class="st">Contactés: <b id="stCalled">—</b></span>
+  <span class="st">Gagnés: <b id="stWon">—</b></span>
+  <span class="st">Progression: <b id="stPct">—</b></span>
+</div>
+
+<div class="scene-wrap" id="sceneWrap">
+  <div class="scene" id="scene">
+    <!-- Ground -->
+    <div class="ground"></div>
+
+    <!-- Water pond -->
+    <div class="water" style="left:1100px;top:650px;width:200px;height:120px"></div>
+    <div class="water" style="left:1150px;top:680px;width:160px;height:100px;opacity:.4"></div>
+
+    <!-- Main path horizontal -->
+    <div class="path" style="left:0;top:460px;width:1600px;height:40px"></div>
+    <!-- Path vertical branch -->
+    <div class="path" style="left:700px;top:300px;width:35px;height:200px"></div>
+    <!-- Path to houses right -->
+    <div class="path" style="left:1050px;top:400px;width:35px;height:100px"></div>
+
+    <!-- Dirt patches -->
+    <div class="dirt" style="left:300px;top:520px;width:60px;height:30px"></div>
+    <div class="dirt" style="left:900px;top:430px;width:80px;height:25px"></div>
+    <div class="dirt" style="left:1200px;top:350px;width:50px;height:20px"></div>
+
+    <!-- === HOUSES (3) === -->
+    <div class="px-item" style="left:280px;top:280px;width:120px;height:100px" title="Maison 1">
+      <img src="assets/pixel-map/vhouse1.png">
+    </div>
+    <div class="px-item" style="left:680px;top:180px;width:110px;height:95px" title="Maison 2">
+      <img src="assets/pixel-map/vhouse2.png">
+    </div>
+    <div class="px-item" style="left:1030px;top:290px;width:115px;height:98px" title="Maison 3">
+      <img src="assets/pixel-map/vhouse3.png">
+    </div>
+
+    <!-- Small houses -->
+    <div class="px-item" style="left:460px;top:540px;width:60px;height:55px" title="Cabane">
+      <img src="assets/pixel-map/house1.png">
+    </div>
+    <div class="px-item" style="left:870px;top:550px;width:55px;height:50px" title="Cabane">
+      <img src="assets/pixel-map/house3.png">
+    </div>
+
+    <!-- === TREES === -->
+    <div class="px-item" style="left:50px;top:100px;width:90px;height:100px"><img src="assets/pixel-map/ftree1.png"></div>
+    <div class="px-item" style="left:180px;top:130px;width:80px;height:90px"><img src="assets/pixel-map/ftree2.png"></div>
+    <div class="px-item" style="left:500px;top:80px;width:50px;height:65px"><img src="assets/pixel-map/tree1.png"></div>
+    <div class="px-item" style="left:580px;top:100px;width:45px;height:60px"><img src="assets/pixel-map/tree3.png"></div>
+    <div class="px-item" style="left:900px;top:120px;width:85px;height:95px"><img src="assets/pixel-map/ftree1.png"></div>
+    <div class="px-item" style="left:1300px;top:80px;width:50px;height:65px"><img src="assets/pixel-map/tree1.png"></div>
+    <div class="px-item" style="left:1400px;top:150px;width:80px;height:90px"><img src="assets/pixel-map/ftree2.png"></div>
+    <div class="px-item" style="left:100px;top:600px;width:55px;height:70px"><img src="assets/pixel-map/tree4.png"></div>
+    <div class="px-item" style="left:200px;top:700px;width:85px;height:95px"><img src="assets/pixel-map/ftree1.png"></div>
+    <div class="px-item" style="left:1350px;top:550px;width:50px;height:65px"><img src="assets/pixel-map/tree5.png"></div>
+    <div class="px-item" style="left:1450px;top:700px;width:80px;height:90px"><img src="assets/pixel-map/ftree2.png"></div>
+    <div class="px-item" style="left:600px;top:700px;width:55px;height:70px"><img src="assets/pixel-map/tree6.png"></div>
+    <div class="px-item" style="left:750px;top:750px;width:90px;height:100px"><img src="assets/pixel-map/ftree1.png"></div>
+
+    <!-- === BUSHES === -->
+    <div class="px-item" style="left:150px;top:430px;width:35px;height:28px"><img src="assets/pixel-map/bush1.png"></div>
+    <div class="px-item" style="left:420px;top:350px;width:38px;height:30px"><img src="assets/pixel-map/bush2.png"></div>
+    <div class="px-item" style="left:830px;top:300px;width:35px;height:28px"><img src="assets/pixel-map/bush3.png"></div>
+    <div class="px-item" style="left:1200px;top:500px;width:38px;height:30px"><img src="assets/pixel-map/bush1.png"></div>
+    <div class="px-item" style="left:50px;top:800px;width:35px;height:28px"><img src="assets/pixel-map/bush2.png"></div>
+    <div class="px-item" style="left:1500px;top:400px;width:35px;height:28px"><img src="assets/pixel-map/bush3.png"></div>
+
+    <!-- === ROCKS === -->
+    <div class="px-item" style="left:350px;top:650px;width:55px;height:45px"><img src="assets/pixel-map/rock1.png"></div>
+    <div class="px-item" style="left:1250px;top:200px;width:50px;height:40px"><img src="assets/pixel-map/rock2.png"></div>
+    <div class="px-item" style="left:70px;top:350px;width:45px;height:38px"><img src="assets/pixel-map/rock3.png"></div>
+
+    <!-- === FLOWERS === -->
+    <div class="px-item" style="left:320px;top:400px;width:18px;height:18px"><img src="assets/pixel-map/flower1.png"></div>
+    <div class="px-item" style="left:550px;top:380px;width:18px;height:18px"><img src="assets/pixel-map/flower2.png"></div>
+    <div class="px-item" style="left:950px;top:350px;width:18px;height:18px"><img src="assets/pixel-map/flower3.png"></div>
+    <div class="px-item" style="left:400px;top:750px;width:18px;height:18px"><img src="assets/pixel-map/flower1.png"></div>
+    <div class="px-item" style="left:1100px;top:550px;width:18px;height:18px"><img src="assets/pixel-map/flower2.png"></div>
+    <div class="px-item" style="left:160px;top:550px;width:18px;height:18px"><img src="assets/pixel-map/flower3.png"></div>
+    <div class="px-item" style="left:1300px;top:450px;width:18px;height:18px"><img src="assets/pixel-map/flower1.png"></div>
+    <div class="px-item" style="left:700px;top:620px;width:18px;height:18px"><img src="assets/pixel-map/flower2.png"></div>
+
+    <!-- === GRASS PATCHES === -->
+    <div class="px-item" style="left:250px;top:500px;width:20px;height:15px"><img src="assets/pixel-map/grass1.png"></div>
+    <div class="px-item" style="left:630px;top:440px;width:20px;height:15px"><img src="assets/pixel-map/grass2.png"></div>
+    <div class="px-item" style="left:1000px;top:520px;width:20px;height:15px"><img src="assets/pixel-map/grass3.png"></div>
+    <div class="px-item" style="left:480px;top:200px;width:20px;height:15px"><img src="assets/pixel-map/grass4.png"></div>
+    <div class="px-item" style="left:1150px;top:430px;width:20px;height:15px"><img src="assets/pixel-map/grass1.png"></div>
+    <div class="px-item" style="left:800px;top:600px;width:20px;height:15px"><img src="assets/pixel-map/grass2.png"></div>
+
+    <!-- === LAMP POSTS === -->
+    <div class="px-item" style="left:380px;top:420px;width:18px;height:45px"><img src="assets/pixel-map/lamp1.png"></div>
+    <div class="px-item" style="left:760px;top:420px;width:18px;height:45px"><img src="assets/pixel-map/lamp1.png"></div>
+    <div class="px-item" style="left:1080px;top:420px;width:18px;height:45px"><img src="assets/pixel-map/lamp1.png"></div>
+
+    <!-- === TENT (market) === -->
+    <div class="px-item" style="left:560px;top:530px;width:70px;height:60px"><img src="assets/pixel-map/tent1.png"></div>
+
+  </div>
+
+  <div class="village-info">
+    <span class="vi-num" id="viTotal">—</span> prospects dans cette zone
+  </div>
+</div>
+
+<script>
+// Parse URL params
+const params=new URLSearchParams(window.location.search);
+const region=params.get('region')||'Région inconnue';
+const count=parseInt(params.get('count'))||0;
+const badge=params.get('badge')||'PETIT';
+const badgeColor=params.get('color')||'#3b82f6';
+
+document.getElementById('regionName').textContent=region;
+document.getElementById('regionBadge').textContent=badge;
+document.getElementById('regionBadge').style.color=badgeColor;
+document.getElementById('regionBadge').style.background=badgeColor+'22';
+document.getElementById('regionBadge').style.borderColor=badgeColor+'55';
+document.getElementById('viTotal').textContent=count.toLocaleString();
+document.getElementById('stTotal').textContent=count.toLocaleString();
+document.getElementById('stCalled').textContent='—';
+document.getElementById('stWon').textContent='—';
+document.getElementById('stPct').textContent='—';
+document.title='Village — '+region;
+
+// Zoom & Pan
+const wrap=document.getElementById('sceneWrap');
+const scene=document.getElementById('scene');
+let zoom=1,panX=0,panY=0,dragging=false,dragX=0,dragY=0;
+
+function apply(){
+  scene.style.transform=`translate(-50%,-50%) translate(${panX}px,${panY}px) scale(${zoom})`;
+}
+apply();
+
+wrap.addEventListener('wheel',function(e){
+  e.preventDefault();
+  const factor=e.deltaY<0?1.12:0.89;
+  zoom=Math.max(0.3,Math.min(10,zoom*factor));
+  apply();
+},{passive:false});
+
+wrap.addEventListener('mousedown',function(e){
+  if(e.button===0){dragging=true;dragX=e.clientX-panX;dragY=e.clientY-panY;wrap.classList.add('dragging')}
+});
+window.addEventListener('mousemove',function(e){
+  if(dragging){panX=e.clientX-dragX;panY=e.clientY-dragY;apply()}
+});
+window.addEventListener('mouseup',function(){dragging=false;wrap.classList.remove('dragging')});
+
+// Touch
+let td=0;
+wrap.addEventListener('touchstart',function(e){
+  if(e.touches.length===2){e.preventDefault();td=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY)}
+  if(e.touches.length===1){dragging=true;dragX=e.touches[0].clientX-panX;dragY=e.touches[0].clientY-panY}
+},{passive:false});
+wrap.addEventListener('touchmove',function(e){
+  if(e.touches.length===2){e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);zoom=Math.max(0.3,Math.min(10,zoom*(d/td)));td=d;apply()}
+  if(e.touches.length===1&&dragging){panX=e.touches[0].clientX-dragX;panY=e.touches[0].clientY-dragY;apply()}
+},{passive:false});
+wrap.addEventListener('touchend',function(){dragging=false});
+</script>
+</body>
+</html>
