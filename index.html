@@ -687,17 +687,12 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .custom-ui-switch input[type="checkbox"]:checked~.lights .light-on:after{box-shadow:0 0 1.8vmin 0 #4caf50,0 0 1.5vmin .225vmin #4caf50 inset,0 -.225vmin .45vmin .45vmin #000 inset;background:radial-gradient(circle at 50% 32%,#fff 0 .225vmin,#fff2 1.5vmin 1.5vmin)}
 
 /* ====== FANTASY MAP ====== */
-/* ====== FANTASY MAP ====== */
 .fmap-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);animation:bookFadeIn .3s ease}
 .fmap-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;width:min(95vw,115vh);height:min(74vw,90vh);border-radius:16px;overflow:hidden;background:#3d3c3d;animation:fmapCardIn .5s cubic-bezier(.22,1,.36,1)}
 @keyframes fmapCardIn{from{opacity:0;transform:translate(-50%,-50%) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .fmap-card-inner{position:absolute;inset:2px;border-radius:14px;background:#0d0d12;overflow:hidden;z-index:1;display:flex;flex-direction:column}
 .fmap-card-glow{position:absolute;width:140%;height:140%;top:-20%;left:-20%;background:conic-gradient(from 0deg,#D4AF37,#20B2AA,#9370DB,#FF6B6B,#D4AF37);animation:fmapGlowSpin 6s linear infinite;filter:blur(50px);opacity:.35;z-index:0}
 @keyframes fmapGlowSpin{to{transform:rotate(360deg)}}
-.fmap-header{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(10,10,10,.9);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10;backdrop-filter:blur(10px)}
-.fmap-header-left{display:flex;align-items:center;gap:10px}
-.fmap-header-icon{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#D4AF37,#20B2AA);display:flex;align-items:center;justify-content:center;font-size:13px}
-.fmap-header-title{font-size:14px;font-weight:600;letter-spacing:.25em;color:#fff;font-family:'Cormorant Garamond',serif}
 .fmap-close-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s}
 .fmap-close-btn:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.3);color:#ef4444}
 .fmap-map-area{flex:1;position:relative;overflow:hidden;background:#0a0a0f;border-radius:14px}
@@ -709,7 +704,6 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 @keyframes fmapFogDrift{to{background-position:400px 200px}}
 .fmap-zones{position:absolute;inset:0;z-index:4}
 .fmap-region{position:absolute;border-radius:35%;opacity:0;transition:opacity .5s;pointer-events:none;mix-blend-mode:soft-light}
-.fmap-region.visible{opacity:1}
 .fmap-zone{position:absolute;cursor:pointer;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .3s ease-out}
 .fmap-zone-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease-out;border:2px solid transparent;position:relative;background:radial-gradient(circle,rgba(0,0,0,.35) 0%,transparent 70%)}
 .fmap-zone:hover .fmap-zone-circle{transform:scale(1.35);border-color:rgba(212,175,55,.5);filter:drop-shadow(0 0 16px var(--zc)) drop-shadow(0 0 30px var(--zc))}
@@ -727,7 +721,6 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 @keyframes fmapPopIn{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 .fmap-info-header{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
 .fmap-info-header h3{font-size:16px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:0}
-.fmap-info-header p{font-size:11px;color:rgba(255,255,255,.4);margin:2px 0 0}
 .fmap-info-body{padding:12px 16px 16px}
 .fmap-info-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:12px}
 .fmap-info-tpls{display:flex;flex-direction:column;gap:4px}
@@ -735,7 +728,8 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .fmap-info-tpl:hover{background:rgba(255,255,255,.05)}
 .fmap-info-close{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.05);border:none;color:rgba(255,255,255,.4);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s}
 .fmap-info-close:hover{background:rgba(239,68,68,.15);color:#ef4444}
-/* ====== UNIVERSE TEMPLATES ====== */
+
+/* ====== UNIVERSE TEMPLATES (VVD Enhanced) ====== */
 #universeApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
 #universeApp *{box-sizing:border-box}
 .uni-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.8);backdrop-filter:blur(12px);flex-shrink:0}
@@ -746,11 +740,12 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .uni-search input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;font-size:13px;color:#fff;outline:none;transition:border .3s}
 .uni-search input:focus{border-color:rgba(212,175,55,.5)}
 .uni-search input::placeholder{color:rgba(255,255,255,.3)}
-.uni-nav{display:flex;gap:20px;font-size:13px;color:rgba(255,255,255,.5)}
-.uni-nav span{cursor:pointer;transition:color .3s}
+.uni-nav{display:flex;gap:16px;font-size:12px;color:rgba(255,255,255,.5);align-items:center}
+.uni-nav span{cursor:pointer;transition:color .3s;padding:4px 8px;border-radius:6px}
 .uni-nav span:hover{color:#D4AF37}
+.uni-nav .uni-fav-count{background:rgba(212,175,55,.15);color:#D4AF37;font-weight:700;padding:3px 10px;border-radius:12px;font-size:11px}
 .uni-body{flex:1;display:flex;overflow:hidden}
-.uni-sidebar{width:260px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto}
+.uni-sidebar{width:260px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;display:flex;flex-direction:column}
 .uni-sidebar::-webkit-scrollbar{display:none}
 .uni-sidebar-title{font-size:10px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;padding:14px 16px 8px}
 .uni-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .3s;font-size:13px}
@@ -759,27 +754,67 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .uni-cat-arrow{width:14px;height:14px;transition:transform .3s;color:rgba(255,255,255,.3)}
 .uni-cat-arrow.open{transform:rotate(180deg)}
 .uni-tpl-item{display:flex;align-items:center;gap:10px;padding:7px 12px;margin-left:14px;border-radius:8px;cursor:pointer;transition:all .3s;border:1px solid transparent}
-.uni-tpl-item:hover{background:rgba(255,255,255,.05)}
+.uni-tpl-item:hover{background:rgba(255,255,255,.05);transform:translateX(2px)}
 .uni-tpl-item.selected{background:rgba(212,175,55,.1);border-color:rgba(212,175,55,.3)}
 .uni-tpl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .uni-tpl-name{font-size:13px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .uni-tpl-sub{font-size:11px;color:rgba(255,255,255,.3)}
 .uni-tier-badge{font-size:9px;padding:2px 6px;border-radius:10px;text-transform:uppercase;font-weight:600;letter-spacing:.5px;flex-shrink:0}
+.uni-fav-btn{width:20px;height:20px;border:none;background:none;cursor:pointer;font-size:14px;opacity:.4;transition:all .2s;flex-shrink:0;padding:0}
+.uni-fav-btn:hover{opacity:.8;transform:scale(1.2)}
+.uni-fav-btn.active{opacity:1}
 .uni-graph{flex:1;position:relative;background:#0a0a0f;background-image:radial-gradient(circle at 1px 1px,rgba(212,175,55,.06) 1px,transparent 0);background-size:30px 30px}
 #cyContainer{width:100%;height:100%}
 .uni-legend{position:absolute;bottom:12px;left:12px;display:flex;gap:12px;font-size:11px;color:rgba(255,255,255,.4)}
 .uni-legend-dot{width:8px;height:8px;border-radius:50%;margin-right:4px;display:inline-block;vertical-align:middle}
-.uni-rpanel{width:250px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;padding:18px}
+.uni-rpanel{width:280px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;padding:0;display:flex;flex-direction:column}
 .uni-rpanel::-webkit-scrollbar{display:none}
-.uni-rpanel-empty{display:flex;align-items:center;justify-content:center;height:100%;text-align:center;color:rgba(255,255,255,.3);font-size:13px;padding:20px}
+.uni-rpanel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;color:rgba(255,255,255,.3);font-size:13px;padding:20px;gap:12px}
 .uni-rpanel h2{font-size:18px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:4px 0}
-.uni-rpanel .uni-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;margin-top:12px}
-.uni-rpanel .uni-techs{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
-.uni-rpanel .uni-tech-tag{font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.05)}
-.uni-rpanel .uni-url{font-size:12px;color:#00D9FF;word-break:break-all;margin-top:12px;display:block}
+.uni-rpanel .uni-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;margin-top:10px}
+.uni-rpanel .uni-techs{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.uni-rpanel .uni-tech-tag{font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.05);transition:all .2s}
+.uni-rpanel .uni-tech-tag:hover{border-color:rgba(212,175,55,.3);color:#D4AF37}
+.uni-rpanel .uni-url{font-size:12px;color:#00D9FF;word-break:break-all;margin-top:10px;display:block}
 .uni-rpanel .uni-url:hover{text-decoration:underline}
-.uni-preview-btn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(90deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:13px;border:none;cursor:pointer;margin-top:16px;transition:all .3s}
-.uni-preview-btn:hover{box-shadow:0 0 20px rgba(212,175,55,.3)}
+.uni-preview-btn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(90deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:13px;border:none;cursor:pointer;margin-top:14px;transition:all .3s}
+.uni-preview-btn:hover{box-shadow:0 0 20px rgba(212,175,55,.3);transform:translateY(-1px)}
+.uni-section-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px}
+.uni-related-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:all .2s;font-size:12px;color:rgba(255,255,255,.6)}
+.uni-related-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.uni-strength-bar{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden;flex-shrink:0}
+.uni-strength-fill{height:100%;border-radius:2px;background:#D4AF37}
+.uni-stats-row{display:flex;gap:12px;margin-top:12px}
+.uni-stat{display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.4)}
+.uni-activity-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:11px;color:rgba(255,255,255,.5)}
+.uni-activity-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+
+/* ====== COMPARE VIEW ====== */
+#compareApp{position:absolute;inset:0;top:100px;display:flex;flex-direction:column;font-family:'Inter',sans-serif;color:#fff;animation:bookFadeIn .4s ease}
+.cmp-topbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,10,10,.8);backdrop-filter:blur(12px);flex-shrink:0}
+.cmp-grid{flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:20px;overflow-y:auto;align-content:start}
+.cmp-grid::-webkit-scrollbar{display:none}
+.cmp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
+.cmp-card:hover{border-color:rgba(212,175,55,.3);transform:translateY(-3px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.cmp-card-glow{position:absolute;top:-50%;right:-50%;width:100%;height:100%;border-radius:50%;filter:blur(60px);opacity:0;transition:opacity .3s;pointer-events:none}
+.cmp-card:hover .cmp-card-glow{opacity:.08}
+.cmp-card h3{font-size:16px;font-weight:600;font-family:'Cormorant Garamond',serif;margin:0 0 4px}
+.cmp-card-cat{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.cmp-card-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:14px}
+.cmp-card-techs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.cmp-card-tech{font-size:10px;padding:3px 7px;border-radius:4px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.45)}
+.cmp-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid rgba(255,255,255,.05)}
+.cmp-card-stats{display:flex;gap:12px;font-size:11px;color:rgba(255,255,255,.35)}
+.cmp-remove-btn{width:26px;height:26px;border-radius:6px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#ef4444;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s}
+.cmp-remove-btn:hover{background:rgba(239,68,68,.2)}
+.cmp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;color:rgba(255,255,255,.25);gap:16px;text-align:center;padding:40px}
+.cmp-add-btn{padding:8px 20px;border-radius:8px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);color:#D4AF37;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+.cmp-add-btn:hover{background:rgba(212,175,55,.2)}
+.cmp-table{width:100%;border-collapse:collapse;margin:0 20px 20px;font-size:12px}
+.cmp-table th{text-align:left;padding:10px 14px;color:rgba(255,255,255,.35);font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,.05)}
+.cmp-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.03);color:rgba(255,255,255,.6)}
+.cmp-table tr:hover td{background:rgba(255,255,255,.02)}
+
 /* Preview modal */
 .uni-modal-bg{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.8);backdrop-filter:blur(4px)}
 .uni-modal{width:90vw;height:85vh;background:#0d0d12;border-radius:16px;border:1px solid rgba(255,255,255,.1);overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,.5);animation:uniScaleIn .3s ease}
@@ -2851,22 +2886,51 @@ function getProgress(badge,vendor){
 let notesSubTab='scripts';
 
 // ====== UNIVERSE TEMPLATES DATA ======
+// ====== UNIVERSE TEMPLATES DATA (VVD Enhanced) ======
 var UNI_TEMPLATES=[
-  {id:'1',name:'Obys Agency',category:'Agency',subcategory:'Design',url:'https://aim.obys.agency/',tier:'premium',description:'Award-winning creative agency with bold animations',technologies:['GSAP','WebGL','Three.js']},
-  {id:'2',name:'Champions4Good',category:'Services',subcategory:'Non-Profit',url:'https://www.champions4good.club/',tier:'classic',description:'Community-driven platform for social impact',technologies:['React','Tailwind']},
-  {id:'3',name:'MescuBook',category:'Agency',subcategory:'Portfolio',url:'https://mescubook.com/',tier:'premium',description:'Creative portfolio with immersive storytelling',technologies:['Next.js','Framer Motion']},
-  {id:'4',name:'Ecavo',category:'Tech',subcategory:'SaaS',url:'https://ecavo.in/',tier:'classic',description:'Modern SaaS platform with clean UI',technologies:['React','Node.js']},
-  {id:'5',name:'Nivis Gear',category:'E-Commerce',subcategory:'Fashion',url:'https://www.nivisgear.com/',tier:'premium',description:'Premium fashion e-commerce with stunning product displays',technologies:['Shopify','Liquid']},
-  {id:'6',name:'Core Atelier',category:'Services',subcategory:'Fitness',url:'https://coreatelierpilates.com/',tier:'free',description:'Elegant pilates studio website',technologies:['WordPress','CSS']},
-  {id:'7',name:'Michael Stars',category:'E-Commerce',subcategory:'Luxury',url:'https://www.michaelstars.com/',tier:'premium',description:'Luxury fashion brand with refined aesthetics',technologies:['Shopify Plus','React']},
-  {id:'8',name:'Drop Edition',category:'Tech',subcategory:'Media',url:'https://dropedition.com/',tier:'classic',description:'Digital publishing platform',technologies:['Vue.js','Firebase']},
-  {id:'9',name:'Elev8 H2O',category:'E-Commerce',subcategory:'Beverage',url:'https://elev8h2o.shop/',tier:'free',description:'Modern beverage brand with vibrant design',technologies:['Shopify','JavaScript']},
-  {id:'10',name:'Festivent',category:'Services',subcategory:'Events',url:'https://festivent.ca/',tier:'classic',description:'Event planning platform with interactive features',technologies:['React','Tailwind','Supabase']}
+  {id:'1',name:'Obys Agency',category:'Agency',subcategory:'Design',url:'https://aim.obys.agency/',tier:'premium',description:'Award-winning creative agency with bold animations and immersive transitions.',technologies:['GSAP','WebGL','Three.js'],tags:['animation','3d','creative'],features:['Scroll animations','WebGL effects','Custom cursor'],views:2840,favs:312,difficulty:'advanced'},
+  {id:'2',name:'Champions4Good',category:'Services',subcategory:'Non-Profit',url:'https://www.champions4good.club/',tier:'classic',description:'Community-driven platform for social impact with clean modern UI.',technologies:['React','Tailwind'],tags:['community','social','clean'],features:['Donation system','Event calendar','Member profiles'],views:1560,favs:189,difficulty:'beginner'},
+  {id:'3',name:'MescuBook',category:'Agency',subcategory:'Portfolio',url:'https://mescubook.com/',tier:'premium',description:'Creative portfolio with immersive storytelling and page transitions.',technologies:['Next.js','Framer Motion'],tags:['portfolio','storytelling','creative'],features:['Page transitions','Parallax','Custom loader'],views:3210,favs:405,difficulty:'intermediate'},
+  {id:'4',name:'Ecavo',category:'Tech',subcategory:'SaaS',url:'https://ecavo.in/',tier:'classic',description:'Modern SaaS platform with clean UI, dashboards and data visualization.',technologies:['React','Node.js'],tags:['saas','dashboard','data'],features:['Dashboard','API integration','Analytics'],views:2100,favs:267,difficulty:'intermediate'},
+  {id:'5',name:'Nivis Gear',category:'E-Commerce',subcategory:'Fashion',url:'https://www.nivisgear.com/',tier:'premium',description:'Premium fashion e-commerce with stunning product displays and filtering.',technologies:['Shopify','Liquid'],tags:['fashion','ecommerce','luxury'],features:['Product filter','Quick view','Size guide'],views:1890,favs:234,difficulty:'intermediate'},
+  {id:'6',name:'Core Atelier',category:'Services',subcategory:'Fitness',url:'https://coreatelierpilates.com/',tier:'free',description:'Elegant pilates studio website with booking system and class schedules.',technologies:['WordPress','CSS'],tags:['fitness','booking','elegant'],features:['Booking system','Schedule','Testimonials'],views:980,favs:112,difficulty:'beginner'},
+  {id:'7',name:'Michael Stars',category:'E-Commerce',subcategory:'Luxury',url:'https://www.michaelstars.com/',tier:'premium',description:'Luxury fashion brand with refined aesthetics and premium feel.',technologies:['Shopify Plus','React'],tags:['luxury','fashion','premium'],features:['Lookbook','Wishlist','Size recommender'],views:2450,favs:298,difficulty:'advanced'},
+  {id:'8',name:'Drop Edition',category:'Tech',subcategory:'Media',url:'https://dropedition.com/',tier:'classic',description:'Digital publishing platform with content management and subscriptions.',technologies:['Vue.js','Firebase'],tags:['media','publishing','content'],features:['CMS','Subscription','Newsletter'],views:1340,favs:156,difficulty:'intermediate'},
+  {id:'9',name:'Elev8 H2O',category:'E-Commerce',subcategory:'Beverage',url:'https://elev8h2o.shop/',tier:'free',description:'Modern beverage brand with vibrant design and product showcase.',technologies:['Shopify','JavaScript'],tags:['beverage','product','vibrant'],features:['Product showcase','Reviews','Bundle deals'],views:760,favs:89,difficulty:'beginner'},
+  {id:'10',name:'Festivent',category:'Services',subcategory:'Events',url:'https://festivent.ca/',tier:'classic',description:'Event planning platform with interactive features and ticketing.',technologies:['React','Tailwind','Supabase'],tags:['events','ticketing','interactive'],features:['Ticketing','Event map','Countdown'],views:1780,favs:201,difficulty:'intermediate'}
 ];
+
+// Relationships with strength
+var UNI_RELATIONSHIPS=[
+  {from:'1',to:'3',type:'similar',strength:9,label:'Same agency style'},
+  {from:'1',to:'7',type:'inspired_by',strength:6,label:'Premium aesthetics'},
+  {from:'2',to:'10',type:'related',strength:7,label:'Community features'},
+  {from:'2',to:'6',type:'complements',strength:5,label:'Service platforms'},
+  {from:'3',to:'8',type:'related',strength:4,label:'Content-focused'},
+  {from:'4',to:'8',type:'similar',strength:8,label:'Tech platforms'},
+  {from:'5',to:'7',type:'similar',strength:9,label:'Fashion e-commerce'},
+  {from:'5',to:'9',type:'related',strength:6,label:'E-commerce siblings'},
+  {from:'6',to:'10',type:'complements',strength:5,label:'Booking + Events'},
+  {from:'7',to:'9',type:'related',strength:4,label:'Shopify ecosystem'},
+  {from:'4',to:'10',type:'related',strength:5,label:'React + Supabase'}
+];
+
+// Activity log (fake)
+var UNI_ACTIVITY=[
+  {action:'linked',entity:'Obys Agency',target:'MescuBook',color:'#D4AF37',time:'2m ago'},
+  {action:'created',entity:'Elev8 H2O',target:'',color:'#4ADE80',time:'15m ago'},
+  {action:'updated',entity:'Ecavo',target:'',color:'#60A5FA',time:'1h ago'},
+  {action:'linked',entity:'Nivis Gear',target:'Michael Stars',color:'#D4AF37',time:'2h ago'},
+  {action:'favorited',entity:'MescuBook',target:'',color:'#FF6B6B',time:'3h ago'}
+];
+
 var UNI_CATEGORIES=['Agency','E-Commerce','Services','Tech'];
 var UNI_CAT_COLORS={'Agency':'#D4AF37','E-Commerce':'#00D9FF','Services':'#FF6B6B','Tech':'#7C3AED'};
 var UNI_TIER_COLORS={free:'#4ADE80',classic:'#60A5FA',premium:'#D4AF37'};
+var UNI_REL_COLORS={similar:'#D4AF37',related:'#00D9FF',complements:'#4ADE80',inspired_by:'#FF6B6B'};
 var uniSelected=null,uniPreview=null,uniExpanded={},uniSearch='',uniCy=null;
+var uniFavorites=[];
+var compareList=[];
 
 function renderNotes(container){
   let existing=document.getElementById('bookPage');
@@ -2878,7 +2942,7 @@ function renderNotes(container){
     <div class="book-buttons">
       <button class="book-btn" onclick="showUniverseTemplates()">UNIVERSE</button>
       <button class="book-btn" onclick="showFantasyMap()">MAP</button>
-      <button class="book-btn">BOUTON 3</button>
+      <button class="book-btn" onclick="showCompareView()">COMPARE</button>
     </div>
     <div style="position:absolute;top:50px;right:24px;display:flex;align-items:center;gap:20px;z-index:10">
       <span style="font-family:'Tanker',sans-serif;font-size:1.4rem;color:#f44;letter-spacing:4px;text-shadow:0 0 12px rgba(255,68,68,.6),0 0 30px rgba(255,68,68,.3)">RETOUR</span>
@@ -2913,15 +2977,34 @@ function handleBookSwitch(el){
   }
 }
 
+// ====== FAVORITES ======
+function toggleFavorite(id){
+  var idx=uniFavorites.indexOf(id);
+  if(idx>=0)uniFavorites.splice(idx,1);else uniFavorites.push(id);
+  if(document.getElementById('uniSidebar'))document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
+  if(uniSelected&&uniSelected.id===id)updateUniRPanel();
+  updateFavCount();
+}
+function updateFavCount(){var el=document.getElementById('uniFavCount');if(el)el.textContent=uniFavorites.length}
+
+// ====== AUTO-LINKING ENGINE ======
+function getAutoLinks(template){
+  var links=UNI_RELATIONSHIPS.filter(function(r){return r.from===template.id||r.to===template.id});
+  return links.map(function(r){
+    var otherId=r.from===template.id?r.to:r.from;
+    var other=UNI_TEMPLATES.find(function(t){return t.id===otherId});
+    return {template:other,type:r.type,strength:r.strength,label:r.label};
+  }).filter(function(l){return l.template});
+}
+
+// ====== UNIVERSE TEMPLATES (Enhanced) ======
 function showUniverseTemplates(){
   uniSelected=null;uniSearch='';uniExpanded={};
   closeFantasyMap();
-  var ex=document.getElementById('universeApp');
-  if(ex)ex.remove();
-  var bp=document.getElementById('bookPage');
-  if(!bp)return;
-  var div=document.createElement('div');
-  div.id='universeApp';
+  var cmp=document.getElementById('compareApp');if(cmp)cmp.remove();
+  var ex=document.getElementById('universeApp');if(ex)ex.remove();
+  var bp=document.getElementById('bookPage');if(!bp)return;
+  var div=document.createElement('div');div.id='universeApp';
   div.innerHTML=buildUniverseHTML();
   bp.appendChild(div);
   initUniverseGraph();
@@ -2929,26 +3012,25 @@ function showUniverseTemplates(){
 }
 
 function buildUniverseHTML(){
-  return `
-  <div class="uni-topbar">
-    <div class="uni-logo"><div class="uni-logo-icon">U</div><div class="uni-logo-text">UNIVERSE</div></div>
-    <div class="uni-search"><input id="uniSearchInput" type="text" placeholder="Search templates..."></div>
-    <div class="uni-nav"><span>Templates</span><span>Categories</span><span>Premium</span></div>
-  </div>
-  <div class="uni-body">
-    <div class="uni-sidebar" id="uniSidebar">${buildUniSidebar()}</div>
-    <div class="uni-graph">
-      <div id="cyContainer"></div>
-      <div class="uni-legend">${UNI_CATEGORIES.map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')}</div>
-    </div>
-    <div class="uni-rpanel" id="uniRPanel"><div class="uni-rpanel-empty">Select a template to view details</div></div>
-  </div>`;
+  return '<div class="uni-topbar">'
+    +'<div class="uni-logo"><div class="uni-logo-icon">U</div><div class="uni-logo-text">UNIVERSE</div></div>'
+    +'<div class="uni-search"><input id="uniSearchInput" type="text" placeholder="Search templates, tags, tech..."></div>'
+    +'<div class="uni-nav"><span onclick="showCompareView()">Compare</span><span class="uni-fav-count" id="uniFavCount">'+uniFavorites.length+'</span></div>'
+    +'</div>'
+    +'<div class="uni-body">'
+    +'<div class="uni-sidebar" id="uniSidebar">'+buildUniSidebar()+'</div>'
+    +'<div class="uni-graph"><div id="cyContainer"></div>'
+    +'<div class="uni-legend">'+UNI_CATEGORIES.map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')+'</div>'
+    +'</div>'
+    +'<div class="uni-rpanel" id="uniRPanel"><div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div></div>'
+    +'</div>';
 }
 
 function buildUniSidebar(){
   var q=uniSearch.toLowerCase();
-  var filtered=UNI_TEMPLATES.filter(function(t){return !q||t.name.toLowerCase().indexOf(q)>=0||t.category.toLowerCase().indexOf(q)>=0||t.subcategory.toLowerCase().indexOf(q)>=0});
+  var filtered=UNI_TEMPLATES.filter(function(t){return !q||t.name.toLowerCase().indexOf(q)>=0||t.category.toLowerCase().indexOf(q)>=0||t.subcategory.toLowerCase().indexOf(q)>=0||(t.tags&&t.tags.some(function(tg){return tg.indexOf(q)>=0}))||(t.technologies&&t.technologies.some(function(tc){return tc.toLowerCase().indexOf(q)>=0}))});
   var html='<div class="uni-sidebar-title">Template Library</div>';
+  // Activity feed at bottom
   UNI_CATEGORIES.forEach(function(cat){
     var items=filtered.filter(function(t){return t.category===cat});
     var open=uniExpanded[cat];
@@ -2959,15 +3041,23 @@ function buildUniSidebar(){
     if(open){
       items.forEach(function(t){
         var sel=uniSelected&&uniSelected.id===t.id;
+        var fav=uniFavorites.indexOf(t.id)>=0;
         html+='<div class="uni-tpl-item'+(sel?' selected':'')+'" onclick="selectUniTpl(\''+t.id+'\')" ondblclick="previewUniTpl(\''+t.id+'\')">';
         html+='<span class="uni-tpl-dot" style="background:'+UNI_TIER_COLORS[t.tier]+'"></span>';
         html+='<div style="flex:1;min-width:0"><div class="uni-tpl-name">'+t.name+'</div><div class="uni-tpl-sub">'+t.subcategory+'</div></div>';
+        html+='<button class="uni-fav-btn'+(fav?' active':'')+'" onclick="event.stopPropagation();toggleFavorite(\''+t.id+'\')">'+(fav?'\u2605':'\u2606')+'</button>';
         html+='<span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span>';
         html+='</div>';
       });
     }
     html+='</div>';
   });
+  // Activity feed
+  html+='<div style="margin-top:auto;border-top:1px solid rgba(255,255,255,.05);padding:12px 16px"><div class="uni-sidebar-title" style="padding:0 0 8px">Recent Activity</div>';
+  UNI_ACTIVITY.forEach(function(a){
+    html+='<div class="uni-activity-item"><div class="uni-activity-dot" style="background:'+a.color+'"></div><div><span style="color:rgba(255,255,255,.7)">'+a.action+'</span> '+a.entity+(a.target?' &rarr; '+a.target:'')+'<div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px">'+a.time+'</div></div></div>';
+  });
+  html+='</div>';
   return html;
 }
 
@@ -2985,18 +3075,55 @@ function previewUniTpl(id){
 
 function updateUniRPanel(){
   var rp=document.getElementById('uniRPanel');
-  if(!uniSelected){rp.innerHTML='<div class="uni-rpanel-empty">Select a template to view details</div>';return}
+  if(!uniSelected){rp.innerHTML='<div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div>';return}
   var t=uniSelected;
-  rp.innerHTML=`
-    <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span class="uni-cat-dot" style="background:${UNI_CAT_COLORS[t.category]}"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">${t.category}</span></div>
-    <h2>${t.name}</h2>
-    <div style="font-size:11px;color:rgba(255,255,255,.3)">${t.subcategory}</div>
-    <div style="margin-top:12px"><span class="uni-tier-badge" style="background:${UNI_TIER_COLORS[t.tier]}20;color:${UNI_TIER_COLORS[t.tier]}">${t.tier}</span></div>
-    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Description</div><div class="uni-desc">${t.description}</div></div>
-    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Technologies</div><div class="uni-techs">${t.technologies.map(function(x){return '<span class="uni-tech-tag">'+x+'</span>'}).join('')}</div></div>
-    <div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Website</div><a class="uni-url" href="${t.url}" target="_blank">${t.url}</a></div>
-    <button class="uni-preview-btn" onclick="previewUniTpl('${t.id}')">Preview Template</button>
-  `;
+  var fav=uniFavorites.indexOf(t.id)>=0;
+  var links=getAutoLinks(t);
+  var inCompare=compareList.indexOf(t.id)>=0;
+
+  var html='<div style="padding:16px">';
+  // Header
+  html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span class="uni-cat-dot" style="background:'+UNI_CAT_COLORS[t.category]+'"></span><span style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">'+t.category+'</span></div>';
+  html+='<h2>'+t.name+'</h2>';
+  html+='<div style="font-size:11px;color:rgba(255,255,255,.3)">'+t.subcategory+'</div>';
+  // Tier + Stats
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-top:10px"><span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span>';
+  html+='<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.4)">'+t.difficulty+'</span></div>';
+  // Stats row
+  html+='<div class="uni-stats-row"><div class="uni-stat">\u{1F441} '+t.views+'</div><div class="uni-stat">\u2605 '+t.favs+'</div><div class="uni-stat">\u{1F517} '+links.length+'</div></div>';
+  // Description
+  html+='<div class="uni-section-label">Description</div><div class="uni-desc">'+t.description+'</div>';
+  // Features
+  if(t.features&&t.features.length){
+    html+='<div class="uni-section-label">Features</div><div style="display:flex;flex-direction:column;gap:4px">';
+    t.features.forEach(function(f){html+='<div style="font-size:12px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px"><span style="color:#4ADE80">&#10003;</span>'+f+'</div>'});
+    html+='</div>';
+  }
+  // Technologies
+  html+='<div class="uni-section-label">Technologies</div><div class="uni-techs">';
+  t.technologies.forEach(function(tc){html+='<span class="uni-tech-tag">'+tc+'</span>'});
+  html+='</div>';
+  // Related templates (auto-links)
+  if(links.length){
+    html+='<div class="uni-section-label">Connections ('+links.length+')</div>';
+    links.forEach(function(l){
+      html+='<div class="uni-related-item" onclick="selectUniTpl(\''+l.template.id+'\')">';
+      html+='<span style="width:6px;height:6px;border-radius:50%;background:'+UNI_REL_COLORS[l.type]+';flex-shrink:0"></span>';
+      html+='<div style="flex:1;min-width:0"><div style="font-size:12px;color:rgba(255,255,255,.7)">'+l.template.name+'</div><div style="font-size:10px;color:rgba(255,255,255,.3)">'+l.label+'</div></div>';
+      html+='<div class="uni-strength-bar"><div class="uni-strength-fill" style="width:'+l.strength*10+'%"></div></div>';
+      html+='</div>';
+    });
+  }
+  // URL
+  html+='<div class="uni-section-label">Website</div><a class="uni-url" href="'+t.url+'" target="_blank">'+t.url+'</a>';
+  // Actions
+  html+='<div style="display:flex;gap:8px;margin-top:16px">';
+  html+='<button class="uni-preview-btn" style="flex:1" onclick="previewUniTpl(\''+t.id+'\')">Preview</button>';
+  html+='<button style="flex:1;padding:10px;border-radius:8px;background:'+(fav?'rgba(212,175,55,.15)':'rgba(255,255,255,.05)')+';border:1px solid '+(fav?'rgba(212,175,55,.3)':'rgba(255,255,255,.08)')+';color:'+(fav?'#D4AF37':'rgba(255,255,255,.5)')+';cursor:pointer;font-size:13px;font-weight:600;transition:all .2s" onclick="toggleFavorite(\''+t.id+'\');updateUniRPanel()">'+(fav?'\u2605 Saved':'\u2606 Save')+'</button>';
+  html+='</div>';
+  html+='<button style="width:100%;padding:8px;border-radius:8px;background:'+(inCompare?'rgba(0,217,255,.1)':'rgba(255,255,255,.03)')+';border:1px solid '+(inCompare?'rgba(0,217,255,.3)':'rgba(255,255,255,.06)')+';color:'+(inCompare?'#00D9FF':'rgba(255,255,255,.4)')+';cursor:pointer;font-size:12px;margin-top:6px;transition:all .2s" onclick="toggleCompare(\''+t.id+'\')">'+(inCompare?'&#10003; In comparison':'+ Add to compare')+'</button>';
+  html+='</div>';
+  rp.innerHTML=html;
 }
 
 function showUniPreviewModal(){
@@ -3004,19 +3131,11 @@ function showUniPreviewModal(){
   var t=uniPreview;if(!t)return;
   var m=document.createElement('div');m.id='uniModal';m.className='uni-modal-bg';
   m.onclick=function(e){if(e.target===m){m.remove();uniPreview=null}};
-  m.innerHTML=`<div class="uni-modal" onclick="event.stopPropagation()">
-    <div class="uni-modal-header">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById('uniModal').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div>
-        <span style="font-size:13px;color:rgba(255,255,255,.5)">${t.name}</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <a href="${t.url}" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);text-decoration:none">Open in new tab</a>
-        <button class="uni-modal-close" onclick="document.getElementById('uniModal').remove()">&#10005;</button>
-      </div>
-    </div>
-    <iframe src="${t.url}" title="${t.name}" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-  </div>`;
+  m.innerHTML='<div class="uni-modal" onclick="event.stopPropagation()">'
+    +'<div class="uni-modal-header"><div style="display:flex;align-items:center;gap:10px"><div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById(\'uniModal\').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div><span style="font-size:13px;color:rgba(255,255,255,.5)">'+t.name+'</span></div>'
+    +'<div style="display:flex;align-items:center;gap:10px"><a href="'+t.url+'" target="_blank" style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);text-decoration:none">Open in new tab</a>'
+    +'<button class="uni-modal-close" onclick="document.getElementById(\'uniModal\').remove()">&#10005;</button></div></div>'
+    +'<iframe src="'+t.url+'" title="'+t.name+'" sandbox="allow-scripts allow-same-origin allow-popups"></iframe></div>';
   document.body.appendChild(m);
 }
 
@@ -3026,28 +3145,32 @@ function initUniverseGraph(){
   var elements=[];
   UNI_CATEGORIES.forEach(function(cat){elements.push({data:{id:'cat-'+cat,label:cat,type:'category'}})});
   UNI_TEMPLATES.forEach(function(t){
-    elements.push({data:{id:'tpl-'+t.id,label:t.name,type:'template',tier:t.tier,category:t.category}});
-    elements.push({data:{source:'cat-'+t.category,target:'tpl-'+t.id}});
+    elements.push({data:{id:'tpl-'+t.id,label:t.name,type:'template',tier:t.tier,category:t.category,views:t.views||0}});
+    elements.push({data:{source:'cat-'+t.category,target:'tpl-'+t.id,etype:'category'}});
   });
+  // Add relationship edges
+  UNI_RELATIONSHIPS.forEach(function(r){
+    elements.push({data:{id:'rel-'+r.from+'-'+r.to,source:'tpl-'+r.from,target:'tpl-'+r.to,etype:'relationship',strength:r.strength,reltype:r.type}});
+  });
+
   uniCy=cytoscape({
     container:el,elements:elements,
     style:[
-      {selector:'node[type="category"]',style:{'background-color':function(e){return UNI_CAT_COLORS[e.data('label')]||'#D4AF37'},label:'data(label)',width:60,height:60,color:'#fff','text-valign':'center','text-halign':'center','font-size':'10px','font-weight':'bold','font-family':'Inter,sans-serif','text-wrap':'wrap','text-max-width':'55px','border-width':2,'border-color':'#ffffff20'}},
-      {selector:'node[type="template"]',style:{'background-color':function(e){return UNI_TIER_COLORS[e.data('tier')]||'#60A5FA'},label:'data(label)',width:40,height:40,color:'#ffffffcc','text-valign':'bottom','text-halign':'center','font-size':'8px','font-family':'Inter,sans-serif','text-margin-y':8,'border-width':2,'border-color':'#ffffff10'}},
-      {selector:'edge',style:{width:1.5,'line-color':'#ffffff15','curve-style':'bezier',opacity:0.6}},
+      {selector:'node[type="category"]',style:{'background-color':function(e){return UNI_CAT_COLORS[e.data('label')]||'#D4AF37'},label:'data(label)',width:65,height:65,color:'#fff','text-valign':'center','text-halign':'center','font-size':'10px','font-weight':'bold','font-family':'Inter,sans-serif','text-wrap':'wrap','text-max-width':'55px','border-width':2,'border-color':'#ffffff20'}},
+      {selector:'node[type="template"]',style:{'background-color':function(e){return UNI_TIER_COLORS[e.data('tier')]||'#60A5FA'},label:'data(label)',width:function(e){return 30+Math.min((e.data('views')||0)/100,20)},height:function(e){return 30+Math.min((e.data('views')||0)/100,20)},color:'#ffffffcc','text-valign':'bottom','text-halign':'center','font-size':'8px','font-family':'Inter,sans-serif','text-margin-y':8,'border-width':2,'border-color':'#ffffff10'}},
+      {selector:'edge[etype="category"]',style:{width:1.5,'line-color':'#ffffff10','curve-style':'bezier',opacity:0.4}},
+      {selector:'edge[etype="relationship"]',style:{width:function(e){return Math.max(1,e.data('strength')/3)},'line-color':function(e){return UNI_REL_COLORS[e.data('reltype')]||'#D4AF37'},'curve-style':'bezier',opacity:0.5,'line-style':'solid'}},
       {selector:'node:active',style:{'overlay-opacity':0}},
-      {selector:'.highlighted',style:{'border-width':3,'border-color':'#D4AF37','background-color':'#D4AF37'}}
+      {selector:'.highlighted',style:{'border-width':3,'border-color':'#D4AF37'}}
     ],
-    layout:{name:'cose',padding:50,nodeRepulsion:function(){return 8000},idealEdgeLength:function(){return 120},gravity:0.3,animate:true,animationDuration:800},
+    layout:{name:'cose',padding:50,nodeRepulsion:function(){return 9000},idealEdgeLength:function(){return 130},gravity:0.25,animate:true,animationDuration:800},
     userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false
   });
   uniCy.on('tap','node[type="template"]',function(evt){
-    var nid=evt.target.data('id').replace('tpl-','');
-    selectUniTpl(nid);
+    selectUniTpl(evt.target.data('id').replace('tpl-',''));
   });
   uniCy.on('dbltap','node[type="template"]',function(evt){
-    var nid=evt.target.data('id').replace('tpl-','');
-    previewUniTpl(nid);
+    previewUniTpl(evt.target.data('id').replace('tpl-',''));
   });
   uniCy.on('mouseover','node',function(evt){
     evt.target.style({'border-width':3,'border-color':'#D4AF37'});
@@ -3070,24 +3193,91 @@ function bindUniverseEvents(){
   if(inp)inp.addEventListener('input',function(){uniSearch=this.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar()});
 }
 
+// ====== COMPARE VIEW ======
+function toggleCompare(id){
+  var idx=compareList.indexOf(id);
+  if(idx>=0)compareList.splice(idx,1);else if(compareList.length<4)compareList.push(id);
+  if(uniSelected)updateUniRPanel();
+}
+
+function showCompareView(){
+  closeFantasyMap();
+  if(uniCy){uniCy.destroy();uniCy=null}
+  var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
+  var ex=document.getElementById('compareApp');if(ex)ex.remove();
+  var bp=document.getElementById('bookPage');if(!bp)return;
+  var div=document.createElement('div');div.id='compareApp';
+  div.innerHTML=buildCompareHTML();
+  bp.appendChild(div);
+}
+
+function buildCompareHTML(){
+  var tpls=compareList.map(function(id){return UNI_TEMPLATES.find(function(t){return t.id===id})}).filter(Boolean);
+  var html='<div class="cmp-topbar">'
+    +'<div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#00D9FF,#9370DB);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#000">C</div><span style="font-size:15px;font-weight:600;letter-spacing:.25em;font-family:Cormorant Garamond,serif;color:#fff">COMPARE</span></div>'
+    +'<div style="display:flex;align-items:center;gap:12px"><span style="font-size:11px;color:rgba(255,255,255,.35)">'+tpls.length+'/4 templates</span><button class="cmp-add-btn" onclick="showUniverseTemplates()">+ Add from Universe</button></div>'
+    +'</div>';
+
+  if(tpls.length===0){
+    html+='<div class="cmp-empty"><span style="font-size:48px;opacity:.2">&#9878;</span><div style="font-size:15px;color:rgba(255,255,255,.4)">No templates to compare</div><div style="font-size:12px;color:rgba(255,255,255,.25)">Add templates from Universe view</div><button class="cmp-add-btn" onclick="showUniverseTemplates()">Open Universe</button></div>';
+    return html;
+  }
+
+  // Cards grid
+  html+='<div class="cmp-grid">';
+  tpls.forEach(function(t){
+    html+='<div class="cmp-card"><div class="cmp-card-glow" style="background:'+UNI_CAT_COLORS[t.category]+'"></div>';
+    html+='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><div class="cmp-card-cat" style="color:'+UNI_CAT_COLORS[t.category]+'">'+t.category+' &bull; '+t.subcategory+'</div><h3>'+t.name+'</h3></div>';
+    html+='<button class="cmp-remove-btn" onclick="toggleCompare(\''+t.id+'\');showCompareView()">&#10005;</button></div>';
+    html+='<div class="cmp-card-desc">'+t.description+'</div>';
+    html+='<div class="cmp-card-techs">';
+    t.technologies.forEach(function(tc){html+='<span class="cmp-card-tech">'+tc+'</span>'});
+    html+='</div>';
+    if(t.features){html+='<div style="margin-bottom:12px">';t.features.forEach(function(f){html+='<div style="font-size:11px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:4px;margin-bottom:2px"><span style="color:#4ADE80;font-size:10px">&#10003;</span>'+f+'</div>'});html+='</div>';}
+    html+='<div class="cmp-card-footer"><div class="cmp-card-stats"><span>\u{1F441} '+t.views+'</span><span>\u2605 '+t.favs+'</span></div>';
+    html+='<span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // Comparison table
+  if(tpls.length>=2){
+    html+='<div style="padding:0 20px 20px;overflow-x:auto"><table class="cmp-table"><thead><tr><th>Aspect</th>';
+    tpls.forEach(function(t){html+='<th style="color:'+UNI_CAT_COLORS[t.category]+'">'+t.name+'</th>'});
+    html+='</tr></thead><tbody>';
+    html+='<tr><td>Category</td>';tpls.forEach(function(t){html+='<td>'+t.category+'</td>'});html+='</tr>';
+    html+='<tr><td>Tier</td>';tpls.forEach(function(t){html+='<td><span class="uni-tier-badge" style="background:'+UNI_TIER_COLORS[t.tier]+'20;color:'+UNI_TIER_COLORS[t.tier]+'">'+t.tier+'</span></td>'});html+='</tr>';
+    html+='<tr><td>Difficulty</td>';tpls.forEach(function(t){html+='<td>'+t.difficulty+'</td>'});html+='</tr>';
+    html+='<tr><td>Technologies</td>';tpls.forEach(function(t){html+='<td>'+t.technologies.join(', ')+'</td>'});html+='</tr>';
+    html+='<tr><td>Views</td>';tpls.forEach(function(t){html+='<td>'+t.views+'</td>'});html+='</tr>';
+    html+='<tr><td>Favorites</td>';tpls.forEach(function(t){html+='<td>'+t.favs+'</td>'});html+='</tr>';
+    var allConnections=tpls.map(function(t){return getAutoLinks(t).length});
+    html+='<tr><td>Connections</td>';allConnections.forEach(function(c){html+='<td>'+c+'</td>'});html+='</tr>';
+    html+='</tbody></table></div>';
+  }
+
+  return html;
+}
+
 // ====== FANTASY MAP MODULE ======
 var MAP_ZONES=[
-  {id:'city',name:'City Center',icon:'\u{1F3F0}',desc:'The dense medieval city \u2014 fortified walls, bustling markets, towering cathedrals.',color:'#D4AF37',cx:46,cy:58,rx:22,ry:18,templates:['1','3']},
-  {id:'forest',name:'North Forest',icon:'\u{1F332}',desc:'Ancient woodlands shrouded in mist. Organic, nature-inspired designs.',color:'#4CAF50',cx:22,cy:18,rx:18,ry:14,templates:['6']},
-  {id:'bay',name:'East Bay',icon:'\u{26F5}',desc:'Crystal-clear waters and hidden coves. E-Commerce and luxury brands.',color:'#00D9FF',cx:72,cy:28,rx:16,ry:20,templates:['5','7','9']},
-  {id:'farm',name:'South Farmland',icon:'\u{1F33E}',desc:'Golden fields stretching to the horizon. Services and local businesses.',color:'#CD853F',cx:40,cy:85,rx:20,ry:10,templates:['2','10']},
-  {id:'islands',name:'Mystical Islands',icon:'\u{1F3DD}',desc:'Scattered archipelago of enchanted isles. Experimental templates.',color:'#87CEEB',cx:82,cy:52,rx:12,ry:15,templates:['8']},
-  {id:'magic',name:'Purple Magic Zone',icon:'\u{2728}',desc:'A realm of arcane energy. Innovative Tech and SaaS templates.',color:'#9370DB',cx:55,cy:42,rx:14,ry:12,templates:['4']},
-  {id:'harbor',name:'West Harbor',icon:'\u{26F4}',desc:'The gateway port connecting all trade routes.',color:'#20B2AA',cx:15,cy:52,rx:12,ry:16,templates:['2','6']},
-  {id:'mountain',name:'Mountain Pass',icon:'\u{26F0}',desc:'Treacherous peaks with breathtaking views. High-performance templates.',color:'#808080',cx:45,cy:6,rx:24,ry:8,templates:['4','8']},
-  {id:'valley',name:'Secret Valley',icon:'\u{1F5DD}',desc:'A hidden gem. Premium exclusive templates await.',color:'#FF1493',cx:12,cy:78,rx:10,ry:12,templates:['3','7']},
-  {id:'trading',name:'Trading Post',icon:'\u{1F3EA}',desc:'The crossroads of commerce. All categories converge here.',color:'#FFD700',cx:52,cy:50,rx:10,ry:10,templates:['1','5','10']}
+  {id:'city',name:'City Center',icon:'\u{1F3F0}',desc:'The dense medieval city \u2014 fortified walls, bustling markets, towering cathedrals.',color:'#D4AF37',cx:42,cy:46,rx:18,ry:22,templates:['1','3']},
+  {id:'forest',name:'North Forest',icon:'\u{1F332}',desc:'Ancient woodlands shrouded in mist. Organic, nature-inspired designs.',color:'#4CAF50',cx:82,cy:22,rx:14,ry:18,templates:['6']},
+  {id:'bay',name:'East Bay',icon:'\u{26F5}',desc:'Crystal-clear waters and hidden coves. E-Commerce and luxury brands.',color:'#00D9FF',cx:72,cy:72,rx:20,ry:16,templates:['5','7','9']},
+  {id:'farm',name:'South Farmland',icon:'\u{1F33E}',desc:'Golden fields stretching to the horizon. Services and local businesses.',color:'#CD853F',cx:15,cy:40,rx:10,ry:20,templates:['2','10']},
+  {id:'islands',name:'Mystical Islands',icon:'\u{1F3DD}',desc:'Scattered archipelago of enchanted isles. Experimental templates.',color:'#87CEEB',cx:48,cy:82,rx:15,ry:12,templates:['8']},
+  {id:'magic',name:'Purple Magic Zone',icon:'\u{2728}',desc:'A realm of arcane energy. Innovative Tech and SaaS templates.',color:'#9370DB',cx:58,cy:55,rx:12,ry:14,templates:['4']},
+  {id:'harbor',name:'West Harbor',icon:'\u{26F4}',desc:'The gateway port connecting all trade routes.',color:'#20B2AA',cx:48,cy:15,rx:16,ry:12,templates:['2','6']},
+  {id:'mountain',name:'Mountain Pass',icon:'\u{26F0}',desc:'Treacherous peaks with breathtaking views. High-performance templates.',color:'#808080',cx:94,cy:45,rx:8,ry:24,templates:['4','8']},
+  {id:'valley',name:'Secret Valley',icon:'\u{1F5DD}',desc:'A hidden gem. Premium exclusive templates await.',color:'#FF1493',cx:22,cy:12,rx:12,ry:10,templates:['3','7']},
+  {id:'trading',name:'Trading Post',icon:'\u{1F3EA}',desc:'The crossroads of commerce. All categories converge here.',color:'#FFD700',cx:50,cy:52,rx:10,ry:10,templates:['1','5','10']}
 ];
 var fmapSelectedZone=null;
 
 function showFantasyMap(){
   var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
   if(uniCy){uniCy.destroy();uniCy=null}
+  var cmp=document.getElementById('compareApp');if(cmp)cmp.remove();
   closeFantasyMap();
   var ov=document.createElement('div');ov.id='fmapOverlay';ov.className='fmap-overlay';
   ov.onclick=function(){closeFantasyMap()};
