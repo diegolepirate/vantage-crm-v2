@@ -2748,8 +2748,8 @@ function renderNotes(container){
   page.id='bookPage';
   page.className='book-page';
   page.innerHTML=`
-    <div style="position:absolute;top:24px;right:24px;display:flex;align-items:center;gap:16px;z-index:10">
-      <span style="font-family:'Tanker',sans-serif;font-size:1.1rem;color:#f44;letter-spacing:3px">RETOUR</span>
+    <div style="position:absolute;top:50px;right:24px;display:flex;align-items:center;gap:20px;z-index:10">
+      <span style="font-family:'Tanker',sans-serif;font-size:1.4rem;color:#f44;letter-spacing:4px;text-shadow:0 0 12px rgba(255,68,68,.6),0 0 30px rgba(255,68,68,.3)">RETOUR</span>
       <label class="custom-ui-switch" style="margin-top:0">
         <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
         <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
@@ -2761,7 +2761,7 @@ function renderNotes(container){
           <div class="thumb"></div>
         </div>
       </label>
-      <span style="font-family:'Tanker',sans-serif;font-size:1.1rem;color:#fff;letter-spacing:3px">BOOK</span>
+      <span style="font-family:'Tanker',sans-serif;font-size:1.4rem;color:#fff;letter-spacing:4px;text-shadow:0 0 12px rgba(255,255,255,.5),0 0 30px rgba(129,93,137,.6)">BOOK</span>
     </div>
   `;
   document.body.appendChild(page);
