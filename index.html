@@ -649,16 +649,16 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 @keyframes bookFadeIn{from{opacity:0}to{opacity:1}}
 .book-title{font-family:'Tanker',sans-serif;font-size:3rem;color:#fff;letter-spacing:6px;text-shadow:0 0 30px rgba(129,93,137,.5);margin-bottom:2rem}
 
-.book-buttons{display:flex;gap:24px;justify-content:center;margin-top:120px}
-.book-toggle{margin:4px;display:inline-block;box-shadow:inset 0 0 35px 5px rgba(0,0,0,.25),inset 0 2px 1px 1px rgba(255,255,255,.9),inset 0 -2px 1px 0 rgba(0,0,0,.25);border-radius:8px;background:#ccd0d4;position:relative;height:140px;width:140px}
-.book-toggle:before{box-shadow:0 0 17.5px 8.75px #fff;border-radius:118.3px;background:#fff;position:absolute;margin-left:-50.4px;margin-top:-50.4px;opacity:.2;content:"";height:100.8px;width:100.8px;left:50%;top:50%}
-.book-toggle .bt-btn{-webkit-filter:blur(1px);filter:blur(1px);transition:all 300ms cubic-bezier(.23,1,.32,1);box-shadow:0 15px 25px -4px rgba(0,0,0,.5),inset 0 -3px 4px -1px rgba(0,0,0,.2),0 -10px 15px -1px rgba(255,255,255,.6),inset 0 3px 4px -1px rgba(255,255,255,.2),inset 0 0 5px 1px rgba(255,255,255,.8),inset 0 20px 30px 0 rgba(255,255,255,.2);border-radius:96.32px;position:absolute;background:#ccd0d4;margin-left:-48.16px;margin-top:-48.16px;display:block;height:96.32px;width:96.32px;left:50%;top:50%}
-.book-toggle .bt-label{transition:color 300ms ease-out;text-shadow:1px 1px 3px #ccd0d4,0 0 0 rgba(0,0,0,.8),1px 1px 4px #fff;line-height:140px;text-align:center;position:absolute;font-weight:700;font-size:14px;display:block;opacity:.9;height:100%;width:100%;color:rgba(0,0,0,.4);letter-spacing:1px}
+.book-buttons{display:flex;gap:6px;position:absolute;top:50px;left:50%;transform:translateX(-50%);z-index:10}
+.book-toggle{margin:0;display:inline-block;box-shadow:inset 0 0 18px 3px rgba(0,0,0,.25),inset 0 1px 1px 1px rgba(255,255,255,.9),inset 0 -1px 1px 0 rgba(0,0,0,.25);border-radius:6px;background:#ccd0d4;position:relative;height:70px;width:70px}
+.book-toggle:before{box-shadow:0 0 9px 4px #fff;border-radius:50%;background:#fff;position:absolute;margin-left:-25px;margin-top:-25px;opacity:.2;content:"";height:50px;width:50px;left:50%;top:50%}
+.book-toggle .bt-btn{-webkit-filter:blur(1px);filter:blur(1px);transition:all 300ms cubic-bezier(.23,1,.32,1);box-shadow:0 8px 13px -2px rgba(0,0,0,.5),inset 0 -2px 2px -1px rgba(0,0,0,.2),0 -5px 8px -1px rgba(255,255,255,.6),inset 0 2px 2px -1px rgba(255,255,255,.2),inset 0 0 3px 1px rgba(255,255,255,.8),inset 0 10px 15px 0 rgba(255,255,255,.2);border-radius:50%;position:absolute;background:#ccd0d4;margin-left:-24px;margin-top:-24px;display:block;height:48px;width:48px;left:50%;top:50%}
+.book-toggle .bt-label{transition:color 300ms ease-out;text-shadow:1px 1px 2px #ccd0d4,0 0 0 rgba(0,0,0,.8),1px 1px 3px #fff;line-height:70px;text-align:center;position:absolute;font-weight:700;font-size:9px;display:block;opacity:.9;height:100%;width:100%;color:rgba(0,0,0,.4);letter-spacing:1px}
 .book-toggle input{opacity:0;position:absolute;cursor:pointer;z-index:1;height:100%;width:100%;left:0;top:0}
-.book-toggle input:active~.bt-btn{box-shadow:0 15px 25px -4px rgba(0,0,0,.4),inset 0 -8px 30px 1px rgba(255,255,255,.9),0 -10px 15px -1px rgba(255,255,255,.6),inset 0 8px 25px 0 rgba(0,0,0,.4),inset 0 0 10px 1px rgba(255,255,255,.6)}
-.book-toggle input:active~.bt-label{font-size:13px;color:rgba(0,0,0,.45)}
-.book-toggle input:checked~.bt-btn{box-shadow:0 15px 25px -4px rgba(0,0,0,.4),inset 0 -8px 25px -1px rgba(255,255,255,.9),0 -10px 15px -1px rgba(255,255,255,.6),inset 0 8px 20px 0 rgba(0,0,0,.2),inset 0 0 5px 1px rgba(255,255,255,.6)}
-.book-toggle input:checked~.bt-label{font-size:13px;color:rgba(0,0,0,.4)}
+.book-toggle input:active~.bt-btn{box-shadow:0 8px 13px -2px rgba(0,0,0,.4),inset 0 -4px 15px 1px rgba(255,255,255,.9),0 -5px 8px -1px rgba(255,255,255,.6),inset 0 4px 13px 0 rgba(0,0,0,.4),inset 0 0 5px 1px rgba(255,255,255,.6)}
+.book-toggle input:active~.bt-label{font-size:8px;color:rgba(0,0,0,.45)}
+.book-toggle input:checked~.bt-btn{box-shadow:0 8px 13px -2px rgba(0,0,0,.4),inset 0 -4px 13px -1px rgba(255,255,255,.9),0 -5px 8px -1px rgba(255,255,255,.6),inset 0 4px 10px 0 rgba(0,0,0,.2),inset 0 0 3px 1px rgba(255,255,255,.6)}
+.book-toggle input:checked~.bt-label{font-size:8px;color:rgba(0,0,0,.4)}
 
 .custom-ui-switch,.custom-ui-switch *,.custom-ui-switch *:before,.custom-ui-switch *:after{box-sizing:border-box;transition:all .5s ease}
 .custom-ui-switch{position:relative;width:27vmin;height:9vmin;display:inline-flex;align-items:center;justify-content:center;font-family:Arial,Helvetica,sans-serif;cursor:pointer;margin-top:5.4vmin;-webkit-user-select:none;-moz-user-select:none;user-select:none}
