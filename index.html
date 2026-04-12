@@ -3131,7 +3131,9 @@ function focusUniNode(id){
   var node=uniCy.getElementById('tpl-'+id);
   if(node&&node.length){uniCy.animate({center:{eles:node},zoom:uniCy.zoom()},{duration:400})}
 }
+var _uniJustSelected=0;
 function selectUniTpl(id){
+  _uniJustSelected=Date.now();
   uniSelected=UNI_TEMPLATES.find(function(t){return t.id===id})||null;
   document.getElementById('uniSidebar').innerHTML=buildUniSidebar();
   updateUniRPanel();
@@ -3469,13 +3471,10 @@ function bindUniverseEvents(){
   var sb=document.getElementById('uniSidebar');
   if(sb)sb.addEventListener('input',function(e){if(e.target.id==='uniSearchInput'){uniSearch=e.target.value;document.getElementById('uniSidebar').innerHTML=buildUniSidebar();var ni=document.getElementById('uniSearchInput');if(ni){ni.focus();ni.setSelectionRange(ni.value.length,ni.value.length)}}});
   document.addEventListener('click',function(e){
+    if(Date.now()-_uniJustSelected<300)return;
     if(!uniSelected)return;
     var rp=document.getElementById('uniRPanel');
     if(rp&&rp.contains(e.target))return;
-    var sidebar=document.getElementById('uniSidebar');
-    if(sidebar&&sidebar.contains(e.target))return;
-    var cy=document.getElementById('cyContainer');
-    if(cy&&cy.contains(e.target))return;
     closeUniRPanel();
   });
 }
