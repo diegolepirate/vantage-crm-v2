@@ -3388,6 +3388,18 @@ section{padding:100px 20px;max-width:1200px;margin:0 auto;}\
 .contact-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}\
 .contact-form textarea{resize:vertical;min-height:120px;}\
 .neon-spinner{width:40px;height:40px;border:3px solid transparent;border-top:3px solid #ff2d6b;border-right:3px solid #00d4ff;border-bottom:3px solid #39ff14;border-radius:50%;animation:spinnerRotate 1s linear infinite;margin:0 auto;}\
+.btn-glitch{position:relative;padding:10px 30px;font-family:\\\'Orbitron\\\',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#fff;background:transparent;border:1px solid #00d4ff;border-radius:5px;cursor:pointer;transition:all 0.3s;}\
+.btn-glitch::after{content:attr(data-text);position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;clip-path:inset(50% 50% 50% 50%);padding:10px 30px;}\
+.btn-glitch:hover{text-shadow:-1px -1px 0px #ff2d6b,1px 1px 0px #00d4ff;border-color:#39ff14;box-shadow:0px 8px 15px -8px #39ff14;}\
+.btn-glitch:hover::after{animation:glitchBtn 0.8s steps(2,end);text-shadow:-3px -3px 0px #ff2d6b,3px 3px 0px #00d4ff;border:2px solid #39ff14;}\
+@keyframes glitchBtn{0%{clip-path:inset(50% 50% 50% 50%);transform:translate(0,-10px);}20%{clip-path:inset(31% 0 40% 0);transform:translate(-10px,10px);}40%{clip-path:inset(39% 0 15% 0);transform:translate(10px,0);}60%{clip-path:inset(45% 0 40% 0);transform:translate(-10px,10px);}80%{clip-path:inset(14% 0 61% 0);transform:translate(10px,-10px);}100%{clip-path:inset(50% 50% 50% 50%);transform:translate(0);}}\
+.btn-neon-pulse{padding:10px 25px;text-transform:uppercase;border-radius:8px;font-family:\\\'Orbitron\\\',sans-serif;font-size:12px;font-weight:500;color:#ffffff80;text-shadow:none;background:transparent;cursor:pointer;border:1px solid #ffffff80;transition:0.5s ease;letter-spacing:2px;}\
+.btn-neon-pulse:hover{color:#fff;background:#ff2d6b;border-color:#ff2d6b;text-shadow:0 0 5px #fff,0 0 10px #fff,0 0 20px #fff;box-shadow:0 0 5px #ff2d6b,0 0 20px #ff2d6b,0 0 50px #ff2d6b;}\
+.btn-slice{--c2:#00d4ff;padding:0.4em 0.8em;font-family:\\\'Orbitron\\\',sans-serif;font-size:13px;font-weight:700;background:transparent;border:3px solid var(--c2);border-radius:0.2em;cursor:pointer;overflow:hidden;position:relative;color:var(--c2);text-transform:uppercase;letter-spacing:2px;transition:300ms cubic-bezier(0.83,0,0.17,1);}\
+.btn-slice::after{content:\\\'\\\';width:0;height:300%;position:absolute;translate:-50% -50%;inset:50%;rotate:30deg;background:var(--c2);transition:1s cubic-bezier(0.83,0,0.17,1);}\
+.btn-slice:hover{color:#0a0a0f;}\
+.btn-slice:hover::after{width:120%;}\
+.menu-card-actions{display:flex;gap:10px;margin-top:15px;}\
 footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);padding:50px 20px 30px;}\
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}\
 .footer-col h4{font-family:\'Orbitron\',sans-serif;font-size:16px;color:#ff2d6b;text-shadow:0 0 5px #ff2d6b;margin-bottom:15px;}\
@@ -3448,6 +3460,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">CYBER TONKOTSU</h3>\
 <p>18-hour pork bone broth simmered to creamy perfection. Topped with chashu pork, ajitama egg, nori, scallions, and our secret black garlic oil. A bowl that downloads directly to your soul.</p>\
 <span class="menu-card-price">¥1,480</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card scanline">\
@@ -3456,6 +3469,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">NEON MISO</h3>\
 <p>Bold red miso broth infused with roasted garlic and ginger. Loaded with ground pork, corn, butter, bean sprouts, and bamboo shoots. Warming frequencies for cold nights in the district.</p>\
 <span class="menu-card-price">¥1,380</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card scanline">\
@@ -3464,6 +3478,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">DIGITAL SHOYU</h3>\
 <p>Crystal-clear soy sauce broth with dashi undertones. Adorned with menma, narutomaki, spinach, and perfectly sliced chashu. Clean code in a bowl. Minimalist yet deeply complex.</p>\
 <span class="menu-card-price">¥1,280</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card scanline">\
@@ -3472,6 +3487,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">FIREWALL SPICY</h3>\
 <p>Our most intense creation. Habanero-laced tonkotsu broth with chili oil cascade, spicy ground pork, bok choy, and a raw egg center. Danger level: maximum. Sign the waiver first.</p>\
 <span class="menu-card-price">¥1,580</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card scanline">\
@@ -3480,6 +3496,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">MATRIX VEGGIE</h3>\
 <p>Mushroom-kombu broth with shiitake dashi. Piled with king oyster mushrooms, tofu, edamame, corn, wakame, and crispy shallots. Proof that plant-based can hit just as hard.</p>\
 <span class="menu-card-price">¥1,280</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card scanline">\
@@ -3488,6 +3505,7 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h3 class="glitch-hover">BINARY TSUKEMEN</h3>\
 <p>Thick dipping noodles served alongside concentrated pork-seafood broth. Garnished with chashu, nori, and lime. Dip, slurp, repeat. The dual-core experience of ramen engineering.</p>\
 <span class="menu-card-price">¥1,680</span>\
+<div class="menu-card-actions"><button class="btn-slice" data-text="Order">Order</button></div>\
 </div>\
 </div>\
 </div>\
@@ -3529,9 +3547,10 @@ footer{background:rgba(5,5,10,0.95);border-top:1px solid rgba(255,45,107,0.2);pa
 <h2 class="neon-pink" style="font-size:36px;">THE AKIRA BOWL</h2>\
 <div class="price-tag">¥2,980</div>\
 <p>Our legendary limited-edition bowl returns for one month only. A4 Wagyu beef short rib slow-braised for 24 hours, sitting atop a triple-stock broth of pork, chicken, and dried seafood. Crowned with truffle oil, gold leaf, uni, and ikura. Hand-pulled noodles made fresh every hour. This is not just ramen — this is a cybernetic enhancement for your taste receptors. Only 20 bowls served per day. No reservations. First come, first served. The queue starts at 5PM.</p>\
-<div style="margin-top:30px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">\
+<div style="margin-top:30px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">\
 <div class="btn-3d"><span class="btn-shadow"></span><span class="btn-edge"></span><span class="btn-front">Order Now</span></div>\
-<button class="btn-glow">Learn More</button>\
+<button class="btn-glitch" data-text="Glitch In">Glitch In</button>\
+<button class="btn-neon-pulse">Learn More</button>\
 </div>\
 </div>\
 </section>\
@@ -3758,6 +3777,16 @@ section{padding:100px 20px;max-width:1200px;margin:0 auto;}\
 .nl-form{display:flex;gap:15px;max-width:480px;margin:0 auto;}\
 .nl-form input{flex:1;padding:14px 0;border:none;border-bottom:2px solid #c9a84c;background:transparent;font-family:\'Lora\',serif;font-size:16px;color:#2c1810;outline:none;}\
 .nl-form input::placeholder{color:#b8a68e;}\
+.btn-line-gold{align-items:center;background:transparent;color:#c9a84c;cursor:pointer;display:flex;font-family:\'Playfair Display\',serif;font-size:14px;font-weight:700;line-height:1.5;text-decoration:none;text-transform:uppercase;border:0;padding:0.8rem;letter-spacing:3px;}\
+.btn-line-gold:before{background:#c9a84c;content:\'\';display:inline-block;height:1px;margin-right:10px;transition:all .42s cubic-bezier(.25,.8,.25,1);width:0;}\
+.btn-line-gold:hover:before{width:3rem;}\
+.btn-metallic{display:flex;align-items:center;justify-content:center;cursor:pointer;width:150px;height:45px;background-image:linear-gradient(to top,#D8D9DB 0%,#fff 80%,#FDFDFD 100%);border-radius:30px;border:1px solid #8F9092;transition:all 0.2s ease;font-family:\'Playfair Display\',serif;font-size:13px;font-weight:600;color:#2c1810;text-shadow:0 1px #fff;text-transform:uppercase;letter-spacing:2px;}\
+.btn-metallic:hover{box-shadow:0 4px 3px 1px #FCFCFC,0 6px 8px #D6D7D9,0 -4px 4px #CECFD1,0 -6px 4px #FEFEFE,inset 0 0 3px 3px #CECFD1;}\
+.btn-gradient-gold{position:relative;overflow:hidden;height:2.8rem;padding:0 2rem;border-radius:4px;background:#2c1810;color:#c9a84c;border:1px solid #c9a84c33;cursor:pointer;font-family:\'Playfair Display\',serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}\
+.btn-gradient-gold:hover::before{transform:scaleX(1);}\
+.btn-gradient-gold::before{content:\'\';position:absolute;top:0;left:0;transform:scaleX(0);transform-origin:0 50%;width:100%;height:inherit;border-radius:inherit;background:linear-gradient(82.3deg,#c9a84c 10.8%,#b8953e 94.3%);transition:all 0.475s;}\
+.btn-gradient-gold span{position:relative;z-index:1;}\
+.btn-gradient-gold:hover{color:#fff;}\
 footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}\
 .footer-col h4{font-family:\'Playfair Display\',serif;font-size:18px;color:#c9a84c;margin-bottom:15px;}\
@@ -3824,6 +3853,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>Croissant au Beurre</h3>\
 <p>Our signature croissant, made with 84% French butter and laminated 27 times for impossibly flaky layers. Each one takes two days to prepare. Golden, shattering, and utterly divine. Served warm from the oven every morning at 7AM.</p>\
 <span class="pastry-price">\u20AC4.50</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 <div class="pastry-card">\
@@ -3833,6 +3863,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>Macarons Collection</h3>\
 <p>Delicate almond meringue shells with luscious ganache fillings. Flavors rotate seasonally: Tahitian vanilla, Valrhona chocolate, Isfahan rose, Sicilian pistachio, yuzu, and salted caramel. Each one a tiny masterpiece of texture and taste.</p>\
 <span class="pastry-price">\u20AC3.00 each</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 <div class="pastry-card">\
@@ -3842,6 +3873,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>Tarte aux Fruits</h3>\
 <p>A crisp sweet pastry shell filled with silky vanilla cr\u00E8me p\u00E2tissi\u00E8re and adorned with a mosaic of seasonal fruits. Glazed with apricot for a jewel-like finish. A celebration of the seasons in every bite, beautiful enough to frame.</p>\
 <span class="pastry-price">\u20AC8.50</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 <div class="pastry-card">\
@@ -3850,6 +3882,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>\u00C9clair au Chocolat</h3>\
 <p>Choux pastry piped to perfection and baked until golden. Filled with rich Valrhona dark chocolate cr\u00E8me p\u00E2tissi\u00E8re and glazed with a mirror-finish chocolate fondant. The benchmark against which all \u00E9clairs should be measured.</p>\
 <span class="pastry-price">\u20AC6.00</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 <div class="pastry-card">\
@@ -3859,6 +3892,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>Pain au Chocolat</h3>\
 <p>Buttery, laminated viennoiserie wrapped around two bars of premium dark chocolate. The exterior shatters into a thousand golden flakes while the interior remains impossibly soft and the chocolate melts into dark, bittersweet rivers of bliss.</p>\
 <span class="pastry-price">\u20AC5.00</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 <div class="pastry-card">\
@@ -3867,6 +3901,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <h3>Mille-Feuille</h3>\
 <p>Three layers of caramelized puff pastry interlaced with light vanilla diplomat cream and fresh raspberries. Topped with classic fondant feathering. A masterwork of contrasting textures — crunchy, creamy, fruity — in perfect harmony.</p>\
 <span class="pastry-price">\u20AC9.00</span>\
+<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
 </div>\
 </div>\
 </div>\
@@ -3971,6 +4006,7 @@ footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
 <div class="form-group"><input type="text" placeholder=" "><label>Cake Type (Wedding, Birthday, etc.)</label></div>\
 <div class="form-group"><textarea placeholder=" "></textarea><label>Describe Your Dream Cake</label></div>\
 <div style="text-align:center;"><button class="btn-gold">Submit Request</button></div>\
+<div style="text-align:center;margin-top:18px;"><button class="btn-gradient-gold"><span>Explore Our Specials</span></button></div>\
 </div>\
 </section>\
 <section>\
@@ -4195,6 +4231,14 @@ nav ul li a:hover{color:var(--terra)}\
 .nl-form{display:flex;gap:12px;max-width:500px;margin:20px auto 0;justify-content:center}\
 .nl-form input{flex:1}\
 /* Footer */\
+.btn-orange-shadow{color:#fdf5e6;font-size:15px;background:var(--terra);border:1px solid #d4764a;border-radius:5px;cursor:pointer;padding:10px 25px;box-shadow:0px 5px 0px #a84828;transition:all 0.1s;font-family:"Source Sans 3",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:1px;}\
+.btn-orange-shadow:active{box-shadow:0px 2px 0px #a84828;position:relative;top:3px;}\
+.btn-slide-sand{position:relative;display:flex;justify-content:center;align-items:center;border-radius:30px;background:var(--olive);font-family:"Source Sans 3",sans-serif;box-shadow:0px 4px 18px 0px rgba(0,0,0,0.15);overflow:hidden;cursor:pointer;border:none;}\
+.btn-slide-sand:after{content:\'\';width:0%;height:100%;background:var(--terra);position:absolute;transition:all 0.4s ease-in-out;right:0;}\
+.btn-slide-sand:hover:after{right:auto;left:0;width:100%;}\
+.btn-slide-sand span{text-align:center;text-decoration:none;width:100%;padding:14px 25px;color:#fff;font-size:15px;font-weight:700;letter-spacing:0.2em;z-index:20;transition:all 0.3s ease-in-out;text-transform:uppercase;}\
+.btn-border-med{appearance:none;background:transparent;border:2px solid var(--olive);border-radius:30px;color:var(--olive);cursor:pointer;display:inline-block;font-family:"Source Sans 3",sans-serif;font-size:14px;font-weight:600;padding:12px 28px;text-transform:uppercase;letter-spacing:1px;transition:all 300ms cubic-bezier(.23,1,0.32,1);}\
+.btn-border-med:hover{color:#fff;background:var(--olive);box-shadow:rgba(0,0,0,0.15) 0 6px 12px;transform:translateY(-2px);}\
 footer{padding:60px 0 30px;background:var(--dark);color:rgba(255,255,255,.7);position:relative;overflow:hidden}\
 footer .mosaic-bg2{opacity:.03}\
 .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;position:relative;z-index:1}\
@@ -4246,25 +4290,25 @@ nav ul{display:none}\
 <label for="tab-desserts">Desserts</label>\
 </div>\
 <div class="tab-content content-appetizers">\
-<div class="menu-item"><h4>Hummus Trio <span class="price">\u20ac12</span></h4><p>Classic, roasted red pepper, and olive tapenade hummus served with warm pita bread and za\\\'atar seasoning.</p></div>\
-<div class="menu-item"><h4>Grilled Halloumi <span class="price">\u20ac14</span></h4><p>Golden-crusted halloumi cheese with fig compote, arugula, pomegranate seeds, and aged balsamic drizzle.</p></div>\
+<div class="menu-item"><h4>Hummus Trio <span class="price">\u20ac12</span></h4><p>Classic, roasted red pepper, and olive tapenade hummus served with warm pita bread and za\\\'atar seasoning.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
+<div class="menu-item"><h4>Grilled Halloumi <span class="price">\u20ac14</span></h4><p>Golden-crusted halloumi cheese with fig compote, arugula, pomegranate seeds, and aged balsamic drizzle.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
 <div class="menu-item"><h4>Calamari Fritti <span class="price">\u20ac16</span></h4><p>Lightly dusted and fried calamari rings with lemon aioli, fresh herbs, and charred lemon wedges.</p></div>\
 <div class="menu-item"><h4>Bruschetta Classica <span class="price">\u20ac11</span></h4><p>Toasted sourdough topped with heirloom tomatoes, fresh basil, garlic confit, and extra virgin olive oil.</p></div>\
 <div class="menu-item"><h4>Dolmades <span class="price">\u20ac13</span></h4><p>Hand-rolled grape leaves stuffed with herbed rice, pine nuts, and currants, served with tzatziki sauce.</p></div>\
 <div class="menu-item"><h4>Mezze Platter <span class="price">\u20ac22</span></h4><p>A grand selection of baba ganoush, falafel, marinated olives, stuffed peppers, and feta-walnut dip.</p></div>\
 </div>\
 <div class="tab-content content-mains">\
-<div class="menu-item"><h4>Grilled Branzino <span class="price">\u20ac32</span></h4><p>Whole Mediterranean sea bass grilled with lemon, capers, and fresh herbs. Served with roasted vegetables.</p></div>\
+<div class="menu-item"><h4>Grilled Branzino <span class="price">\u20ac32</span></h4><p>Whole Mediterranean sea bass grilled with lemon, capers, and fresh herbs. Served with roasted vegetables.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
 <div class="menu-item"><h4>Lamb Moussaka <span class="price">\u20ac28</span></h4><p>Layers of spiced lamb, eggplant, potato, and creamy b\u00e9chamel sauce, baked to golden perfection.</p></div>\
-<div class="menu-item"><h4>Seafood Paella <span class="price">\u20ac36</span></h4><p>Saffron-infused rice with prawns, mussels, clams, calamari, and roasted red peppers in a cast iron pan.</p></div>\
+<div class="menu-item"><h4>Seafood Paella <span class="price">\u20ac36</span></h4><p>Saffron-infused rice with prawns, mussels, clams, calamari, and roasted red peppers in a cast iron pan.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
 <div class="menu-item"><h4>Chicken Souvlaki <span class="price">\u20ac24</span></h4><p>Marinated chicken skewers with tzatziki, hand-cut fries, Greek salad, and warm pita bread.</p></div>\
 <div class="menu-item"><h4>Osso Buco <span class="price">\u20ac38</span></h4><p>Slow-braised veal shank in white wine, tomatoes, and gremolata. Served over saffron risotto.</p></div>\
 <div class="menu-item"><h4>Vegetable Tagine <span class="price">\u20ac22</span></h4><p>Slow-cooked root vegetables with preserved lemon, chickpeas, apricots, and aromatic Moroccan spices.</p></div>\
 </div>\
 <div class="tab-content content-desserts">\
-<div class="menu-item"><h4>Baklava <span class="price">\u20ac10</span></h4><p>Layers of crispy phyllo pastry with crushed pistachios, walnuts, and honey-rosewater syrup.</p></div>\
+<div class="menu-item"><h4>Baklava <span class="price">\u20ac10</span></h4><p>Layers of crispy phyllo pastry with crushed pistachios, walnuts, and honey-rosewater syrup.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
 <div class="menu-item"><h4>Panna Cotta <span class="price">\u20ac12</span></h4><p>Silky vanilla panna cotta with blood orange compote, crushed amaretti biscuits, and mint.</p></div>\
-<div class="menu-item"><h4>Tiramisu <span class="price">\u20ac13</span></h4><p>Classic Italian layers of espresso-soaked ladyfingers, mascarpone cream, and cocoa dusting.</p></div>\
+<div class="menu-item"><h4>Tiramisu <span class="price">\u20ac13</span></h4><p>Classic Italian layers of espresso-soaked ladyfingers, mascarpone cream, and cocoa dusting.</p><div style="margin-top:10px;"><button class="btn-orange-shadow">Order</button></div></div>\
 <div class="menu-item"><h4>Loukoumades <span class="price">\u20ac11</span></h4><p>Golden honey-drizzled doughnut balls with cinnamon, crushed walnuts, and vanilla ice cream.</p></div>\
 </div>\
 </div>\
@@ -4552,6 +4596,17 @@ nav ul li a:hover{color:var(--sakura)}\
 .nl-form{display:flex;gap:12px;max-width:500px;margin:20px auto 0;justify-content:center}\
 .nl-form input{background:var(--white);border-color:transparent}\
 .nl-form input:focus{border-color:var(--charcoal)}\
+/* UIverse Buttons */\
+.btn-reflect{font-size:14px;padding:14px 32px;border:none;border-radius:4px;cursor:pointer;text-transform:uppercase;background:var(--charcoal);color:#eaeaea;font-weight:700;font-family:"Inter",sans-serif;letter-spacing:1px;transition:0.6s;box-shadow:0px 0px 40px rgba(255,183,197,0.3);-webkit-box-reflect:below 8px linear-gradient(to bottom,rgba(0,0,0,0.0),rgba(0,0,0,0.3))}\
+.btn-reflect:active{scale:0.92}\
+.btn-reflect:hover{background:linear-gradient(270deg,rgba(26,26,46,0.7) 0%,rgba(255,183,197,0.8) 60%);color:var(--charcoal)}\
+.btn-redline{color:var(--sakura);text-decoration:none;font-size:15px;border:none;background:none;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;letter-spacing:1px;padding:4px 0}\
+.btn-redline::before{margin-left:auto}\
+.btn-redline::after,.btn-redline::before{content:"";width:0%;height:2px;background:var(--sakura);display:block;transition:0.5s}\
+.btn-redline:hover::after,.btn-redline:hover::before{width:100%}\
+.btn-pink-anim{cursor:pointer;display:inline-flex;justify-content:center;align-items:center;border:none;border-radius:50px;padding:12px 28px;font-family:"Inter",sans-serif;font-weight:600;font-size:14px;color:var(--charcoal);background:var(--sakura);box-shadow:0 0 0.2em 0 var(--sakura);transition:0.5s;text-transform:uppercase;letter-spacing:1px}\
+.btn-pink-anim:hover{box-shadow:0 0 1em 0 var(--sakura);outline:0.15em solid rgba(255,183,197,0.3);outline-offset:0.2em}\
+.btn-pink-anim:active{transform:scale(0.95)}\
 /* Footer */\
 footer{padding:60px 0 30px;background:var(--charcoal);color:rgba(255,255,255,.6);position:relative;overflow:hidden}\
 .wave-footer{position:absolute;top:-1px;left:0;width:100%;height:60px}\
@@ -4610,6 +4665,7 @@ nav ul{display:none}\
 <p>Where Japanese tradition meets modern refinement. Every piece is a masterwork of flavor, texture, and beauty.</p>\
 <a href="#reserve" class="btn-sakura" style="margin-right:12px">Reserve Now</a>\
 <a href="#omakase" class="btn-dark" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:var(--white)">View Omakase</a>\
+<button class="btn-redline" style="color:#fff;">Our Story \u2192</button>\
 </div>\
 </section>\
 \
@@ -4625,6 +4681,10 @@ nav ul{display:none}\
 <div class="omakase-item"><div><h4>Wagyu &amp; Sushi</h4><div class="desc">A5 wagyu tataki, 8-piece nigiri set, truffle ponzu, and seasonal sides</div></div><div class="dots"></div><div class="price">\u00a522,000</div></div>\
 <div class="omakase-item"><div><h4>Vegetarian Kaiseki</h4><div class="desc">7-course plant-based kaiseki with tofu, mushrooms, seasonal vegetables, and pickles</div></div><div class="dots"></div><div class="price">\u00a57,500</div></div>\
 <div class="omakase-item"><div><h4>Dessert Pairing</h4><div class="desc">Matcha tiramisu, yuzu sorbet, mochi trio, and black sesame panna cotta</div></div><div class="dots"></div><div class="price">\u00a53,500</div></div>\
+<div style="text-align:center;margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">\
+<button class="btn-reflect">Book Omakase</button>\
+<button class="btn-pink-anim">Gift Card</button>\
+</div>\
 </div>\
 </div>\
 </section>\
@@ -4967,6 +5027,22 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 .nl-form input:focus{border-color:#a8e06c;}\
 .nl-form button{padding:14px 32px;background:#a8e06c;color:#0d3b1e;font-family:\'Righteous\',cursive;font-size:16px;border:none;border-radius:50px;cursor:pointer;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}\
 .nl-form button:hover{transform:scale(1.06);}\
+/* UIverse Buttons */\
+.btn-green-skew{--color:#a8e06c;--color2:#0d3b1e;padding:0.8em 1.75em;background:transparent;border-radius:6px;border:.3px solid var(--color);transition:.5s;position:relative;overflow:hidden;cursor:pointer;z-index:1;font-weight:700;font-size:15px;font-family:\'Nunito\',sans-serif;text-transform:uppercase;color:var(--color);}\
+.btn-green-skew::after,.btn-green-skew::before{content:\'\';display:block;height:100%;width:100%;transform:skew(90deg) translate(-50%,-50%);position:absolute;inset:50%;left:25%;z-index:-1;transition:.5s ease-out;background:var(--color);}\
+.btn-green-skew::before{top:-50%;left:-25%;transform:skew(90deg) rotate(180deg) translate(-50%,-50%);}\
+.btn-green-skew:hover::before{transform:skew(45deg) rotate(180deg) translate(-50%,-50%);}\
+.btn-green-skew:hover::after{transform:skew(45deg) translate(-50%,-50%);}\
+.btn-green-skew:hover{color:var(--color2);}\
+.btn-green-ripple{font-size:15px;padding:1em 2.5em;font-weight:700;background:#0d3b1e;color:white;border:none;position:relative;overflow:hidden;border-radius:50px;cursor:pointer;font-family:\'Nunito\',sans-serif;text-transform:uppercase;}\
+.btn-green-ripple .transition{transition-timing-function:cubic-bezier(0,0,0.2,1);transition-duration:500ms;background:rgba(168,224,108,0.6);border-radius:9999px;width:0;height:0;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}\
+.btn-green-ripple:hover .transition{width:14em;height:14em;}\
+.btn-green-ripple:active{transform:scale(0.97);}\
+.btn-green-ripple .label{position:relative;top:-1px;}\
+.btn-flower{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:#a8e06c;color:#0d3b1e;font-family:\'Righteous\',cursive;font-size:16px;border:none;border-radius:50px;cursor:pointer;transition:all 0.4s;position:relative;overflow:hidden;}\
+.btn-flower:hover{background:#ff7b3a;color:#fff;transform:scale(1.05);box-shadow:0 8px 25px rgba(255,123,58,0.3);}\
+.btn-flower::after{content:\'\uD83C\uDF3F\';position:absolute;right:16px;opacity:0;transition:all 0.4s;transform:translateX(-10px);}\
+.btn-flower:hover::after{opacity:1;transform:translateX(0);}\
 \
 /* FOOTER */\
 .footer{padding:48px 0 24px;background:#071a0e;color:rgba(247,243,227,0.6);}\
@@ -5053,7 +5129,8 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <div class="hero-content">\
 <h1>Eat <span class="lime">Wild</span>,<br>Live <span class="orange">Free</span></h1>\
 <p>Tropical plant-based cuisine that feeds your soul and saves the planet. 100% vegan, 100% delicious, 1000% jungle vibes.</p>\
-<a href="#menu" class="hero-btn">🌿 Explore The Menu</a>\
+<a href="#menu" class="hero-btn">\uD83C\uDF3F Explore The Menu</a>\
+<button class="btn-green-ripple" style="margin-left:16px;"><span class="transition"></span><span class="label">Book a Table</span></button>\
 </div>\
 </section>\
 \
@@ -5073,6 +5150,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-green">High Protein</span>\
 <span class="menu-tag tag-orange">Gluten-Free</span>\
 <div class="menu-price">$16.50</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card">\
@@ -5083,6 +5161,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-pink">Fan Favorite</span>\
 <span class="menu-tag tag-green">Soy-Free</span>\
 <div class="menu-price">$14.00</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card">\
@@ -5093,6 +5172,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-green">Raw</span>\
 <span class="menu-tag tag-orange">Low-Cal</span>\
 <div class="menu-price">$13.00</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card">\
@@ -5103,6 +5183,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-pink">Spicy</span>\
 <span class="menu-tag tag-green">Nut-Free</span>\
 <div class="menu-price">$17.00</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card">\
@@ -5113,6 +5194,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-orange">Brunch</span>\
 <span class="menu-tag tag-pink">Sweet</span>\
 <div class="menu-price">$15.00</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 <div class="menu-card">\
@@ -5123,6 +5205,7 @@ h1,h2,h3,h4,h5{font-family:\'Righteous\',cursive;}\
 <span class="menu-tag tag-green">High Fiber</span>\
 <span class="menu-tag tag-orange">Hearty</span>\
 <div class="menu-price">$18.50</div>\
+<div style="margin-top:12px;"><button class="btn-green-skew">Order</button></div>\
 </div>\
 </div>\
 </div>\
@@ -5558,6 +5641,26 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 .news-form button{padding:16px 32px;background:#c9a84c;color:#0c0c14;font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:1px solid #c9a84c;cursor:pointer;transition:all 0.3s;}\
 .news-form button:hover{background:#6b1d3a;border-color:#6b1d3a;color:#e8dcc8;}\
 \
+/* UIVERSE BUTTONS */\
+.btn-galaxy{position:relative;display:inline-block;padding:14px 36px;background:#0c0c14;color:#c9a84c;font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;overflow:hidden;z-index:1;transition:color 0.3s;}\
+.btn-galaxy::before{content:\'\';position:absolute;inset:-3px;background:conic-gradient(#c9a84c,#6b1d3a,#b87333,#c9a84c);border-radius:0;z-index:-2;animation:galaxySpin 3s linear infinite;}\
+.btn-galaxy::after{content:\'\';position:absolute;inset:2px;background:#0c0c14;z-index:-1;}\
+.btn-galaxy:hover{color:#e8dcc8;}\
+.btn-galaxy:hover::after{background:#16161e;}\
+@keyframes galaxySpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}\
+\
+.btn-corner-deco{display:inline-block;padding:14px 36px;background:transparent;color:#c9a84c;font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;position:relative;transition:color 0.3s,background 0.3s;}\
+.btn-corner-deco::before,.btn-corner-deco::after{content:\'\';position:absolute;width:12px;height:12px;transition:all 0.4s;}\
+.btn-corner-deco::before{top:0;left:0;border-top:2px solid #c9a84c;border-left:2px solid #c9a84c;}\
+.btn-corner-deco::after{bottom:0;right:0;border-bottom:2px solid #c9a84c;border-right:2px solid #c9a84c;}\
+.btn-corner-deco:hover::before,.btn-corner-deco:hover::after{width:100%;height:100%;}\
+.btn-corner-deco:hover{color:#e8dcc8;background:rgba(201,168,76,0.08);}\
+\
+.btn-burg-fill{display:inline-block;padding:14px 36px;background:transparent;color:#c9a84c;font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(201,168,76,0.3);cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:color 0.4s;}\
+.btn-burg-fill::before{content:\'\';position:absolute;bottom:0;left:0;width:100%;height:0;background:#6b1d3a;transition:height 0.4s;z-index:-1;}\
+.btn-burg-fill:hover::before{height:100%;}\
+.btn-burg-fill:hover{color:#e8dcc8;border-color:#6b1d3a;}\
+\
 /* FOOTER */\
 .footer{padding:60px 0 24px;background:#08080e;border-top:1px solid rgba(201,168,76,0.1);}\
 .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:40px;}\
@@ -5619,6 +5722,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <p class="tagline">Where the night whispers secrets and every cocktail tells a story from the golden age of spirits.</p>\
 <a href="#cocktails" class="hero-btn">View Menu</a>\
 <a href="#reserve" class="hero-btn-outline">Reserve</a>\
+<div style="margin-top:20px;"><a href="#craft" class="btn-galaxy">The Craft</a></div>\
 </div>\
 </section>\
 \
@@ -5637,6 +5741,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Floral</span>\
 <span class="cocktail-tag">Sparkling</span>\
 <div class="cocktail-price">$22</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 <div class="cocktail-card">\
 <h3>Prohibition Old Fashioned</h3>\
@@ -5645,6 +5750,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Smoky</span>\
 <span class="cocktail-tag">Classic</span>\
 <div class="cocktail-price">$19</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 <div class="cocktail-card">\
 <h3>Velvet Underground</h3>\
@@ -5653,6 +5759,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Berry</span>\
 <span class="cocktail-tag">Dark</span>\
 <div class="cocktail-price">$20</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 <div class="cocktail-card">\
 <h3>The Copper Rose</h3>\
@@ -5661,6 +5768,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Floral</span>\
 <span class="cocktail-tag">Sour</span>\
 <div class="cocktail-price">$21</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 <div class="cocktail-card">\
 <h3>Absinthe Reverie</h3>\
@@ -5669,6 +5777,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Ritual</span>\
 <span class="cocktail-tag">Rare</span>\
 <div class="cocktail-price">$26</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 <div class="cocktail-card">\
 <h3>Midnight Negroni</h3>\
@@ -5677,6 +5786,7 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <span class="cocktail-tag">Bitter</span>\
 <span class="cocktail-tag">Bold</span>\
 <div class="cocktail-price">$18</div>\
+<div style="margin-top:14px;"><button class="btn-burg-fill">Order</button></div>\
 </div>\
 </div>\
 </div>\
@@ -5819,18 +5929,21 @@ body::before{content:\'\';position:fixed;inset:0;pointer-events:none;z-index:999
 <h3>Jazz & Juleps Night</h3>\
 <p>Live jazz quartet performing prohibition-era standards while our team crafts mint julep variations from six different bourbon expressions. Limited to 40 guests.</p>\
 <div class="event-time">8:00 PM — 1:00 AM · $85 per person</div>\
+<div style="margin-top:16px;"><a href="#reserve" class="btn-corner-deco">RSVP</a></div>\
 </div>\
 <div class="event-card">\
 <div class="event-date">APR 26</div>\
 <h3>Whiskey Masterclass</h3>\
 <p>A guided tasting of eight rare single malts from closed Scottish distilleries, led by Master of Whisky certified expert. Includes cheese pairing and tasting notes journal.</p>\
 <div class="event-time">7:00 PM — 10:00 PM · $120 per person</div>\
+<div style="margin-top:16px;"><a href="#reserve" class="btn-corner-deco">RSVP</a></div>\
 </div>\
 <div class="event-card">\
 <div class="event-date">MAY 3</div>\
 <h3>The Blind Tasting</h3>\
 <p>Can you tell bourbon from rye? Scotch from Japanese? Challenge your palate in our monthly blind tasting competition. Winner receives a bottle from our reserve collection.</p>\
 <div class="event-time">9:00 PM — 12:00 AM · $65 per person</div>\
+<div style="margin-top:16px;"><a href="#reserve" class="btn-corner-deco">RSVP</a></div>\
 </div>\
 </div>\
 </div>\
@@ -6148,6 +6261,25 @@ nav .nav-btn{padding:10px 24px;font-size:0.9rem;}\
 .nl-form input{flex:1;min-width:250px;padding:16px 22px;border-radius:50px;border:2px solid rgba(184,169,232,0.3);font-family:\'DM Sans\',sans-serif;font-size:1rem;outline:none;transition:all 0.3s;}\
 .nl-form input:focus{border-color:#b8a9e8;box-shadow:0 0 20px rgba(184,169,232,0.15);}\
 \
+/* UIVERSE BUTTONS */\
+.btn-conic-glow{position:relative;display:inline-block;padding:13px 34px;background:#2a2a4a;color:#fff;font-family:\'Poppins\',sans-serif;font-weight:600;font-size:0.95rem;border:none;border-radius:50px;cursor:pointer;text-decoration:none;overflow:hidden;z-index:1;transition:transform 0.3s;}\
+.btn-conic-glow::before{content:\'\';position:absolute;inset:-3px;border-radius:50px;background:conic-gradient(#b8a9e8,#ffb088,#87ceeb,#98d4bb,#b8a9e8);z-index:-2;animation:conicSpin 3s linear infinite;}\
+.btn-conic-glow::after{content:\'\';position:absolute;inset:2px;border-radius:50px;background:#2a2a4a;z-index:-1;transition:background 0.3s;}\
+.btn-conic-glow:hover{transform:translateY(-3px);}\
+.btn-conic-glow:hover::after{background:#3a3a5c;}\
+@keyframes conicSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}\
+\
+.btn-glass-blob{display:inline-block;padding:13px 34px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(184,169,232,0.15);border:1px solid rgba(255,255,255,0.3);color:#3a3a5c;font-family:\'Poppins\',sans-serif;font-weight:600;font-size:0.95rem;border-radius:50px;cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:all 0.4s;}\
+.btn-glass-blob::before{content:\'\';position:absolute;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#b8a9e8,#ffb088);filter:blur(20px);opacity:0;top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity 0.4s;}\
+.btn-glass-blob:hover{border-color:rgba(184,169,232,0.6);color:#fff;transform:translateY(-2px);box-shadow:0 12px 30px rgba(184,169,232,0.2);}\
+.btn-glass-blob:hover::before{opacity:0.6;}\
+\
+.btn-spin-pill{display:inline-block;padding:13px 34px;background:linear-gradient(135deg,#b8a9e8,#ffb088);color:#fff;font-family:\'Poppins\',sans-serif;font-weight:600;font-size:0.95rem;border:none;border-radius:50px;cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;}\
+.btn-spin-pill::before{content:\'\';position:absolute;inset:0;background:linear-gradient(135deg,#ffb088,#87ceeb,#b8a9e8);opacity:0;transition:opacity 0.4s;}\
+.btn-spin-pill:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 30px rgba(184,169,232,0.4);}\
+.btn-spin-pill:hover::before{opacity:1;}\
+.btn-spin-pill span{position:relative;z-index:1;}\
+\
 /* FOOTER */\
 footer{background:linear-gradient(135deg,#2a2a4a,#1a1a35);color:#fff;padding:60px 5% 30px;}\
 .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}\
@@ -6195,6 +6327,7 @@ nav ul{display:none;}\
 <a href="#menu" class="btn-gradient">Explore Menu</a>\
 <a href="#booking" class="btn-glass">Book a Table</a>\
 </div>\
+<div style="margin-top:15px;"><a href="#specials" class="btn-conic-glow">Today\\\'s Special</a></div>\
 <div class="hero-badges">\
 <span class="hero-badge hb1">&#9733; 4.9 Rating</span>\
 <span class="hero-badge hb2">&#127860; 80+ Dishes</span>\
@@ -6209,12 +6342,12 @@ nav ul{display:none;}\
 <h2 class="section-title">Brunch <span class="gradient-text">Menu</span></h2>\
 <p class="section-sub">Curated plates that celebrate the finest seasonal ingredients, prepared with love every single morning.</p>\
 <div class="menu-grid">\
-<div class="menu-card"><span class="price">$18</span><h3>Lavender Honey Pancakes</h3><p>Fluffy buttermilk pancakes infused with culinary lavender, drizzled with wildflower honey, topped with fresh blueberries and edible flowers.</p><span class="tag tag-popular">Popular</span></div>\
-<div class="menu-card"><span class="price">$22</span><h3>Aurora Eggs Benedict</h3><p>Poached organic eggs on brioche with smoked salmon, hollandaise infused with saffron, micro-greens and pickled shallots on the side.</p><span class="tag tag-new">New</span></div>\
-<div class="menu-card"><span class="price">$16</span><h3>Tropical Acai Bowl</h3><p>Organic acai blended with banana and coconut milk, topped with dragon fruit, passion fruit, toasted coconut flakes, chia seeds, and raw honey.</p><span class="tag tag-vegan">Vegan</span></div>\
-<div class="menu-card"><span class="price">$20</span><h3>Truffle Mushroom Toast</h3><p>Sourdough toast with sautéed wild mushrooms, truffle cream, poached egg, shaved parmesan, and fresh thyme. A savory masterpiece.</p><span class="tag tag-popular">Popular</span></div>\
-<div class="menu-card"><span class="price">$19</span><h3>Mediterranean Shakshuka</h3><p>Baked eggs in spiced tomato sauce with roasted peppers, crumbled feta, za\'atar, fresh herbs, and warm artisan pita bread.</p><span class="tag tag-new">New</span></div>\
-<div class="menu-card"><span class="price">$15</span><h3>Garden Green Omelette</h3><p>Three organic eggs with spinach, zucchini, goat cheese, sun-dried tomatoes, and fresh basil. Served with mixed greens salad.</p><span class="tag tag-vegan">Healthy</span></div>\
+<div class="menu-card"><span class="price">$18</span><h3>Lavender Honey Pancakes</h3><p>Fluffy buttermilk pancakes infused with culinary lavender, drizzled with wildflower honey, topped with fresh blueberries and edible flowers.</p><span class="tag tag-popular">Popular</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
+<div class="menu-card"><span class="price">$22</span><h3>Aurora Eggs Benedict</h3><p>Poached organic eggs on brioche with smoked salmon, hollandaise infused with saffron, micro-greens and pickled shallots on the side.</p><span class="tag tag-new">New</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
+<div class="menu-card"><span class="price">$16</span><h3>Tropical Acai Bowl</h3><p>Organic acai blended with banana and coconut milk, topped with dragon fruit, passion fruit, toasted coconut flakes, chia seeds, and raw honey.</p><span class="tag tag-vegan">Vegan</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
+<div class="menu-card"><span class="price">$20</span><h3>Truffle Mushroom Toast</h3><p>Sourdough toast with sautéed wild mushrooms, truffle cream, poached egg, shaved parmesan, and fresh thyme. A savory masterpiece.</p><span class="tag tag-popular">Popular</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
+<div class="menu-card"><span class="price">$19</span><h3>Mediterranean Shakshuka</h3><p>Baked eggs in spiced tomato sauce with roasted peppers, crumbled feta, za\'atar, fresh herbs, and warm artisan pita bread.</p><span class="tag tag-new">New</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
+<div class="menu-card"><span class="price">$15</span><h3>Garden Green Omelette</h3><p>Three organic eggs with spinach, zucchini, goat cheese, sun-dried tomatoes, and fresh basil. Served with mixed greens salad.</p><span class="tag tag-vegan">Healthy</span><div style="margin-top:14px;"><button class="btn-glass-blob">Order</button></div></div>\
 </div>\
 </div>\
 </section>\
@@ -6565,6 +6698,18 @@ nav ul li a:hover{color:var(--forest);}\
 .nl-form button{padding:16px 32px;border-radius:8px;border:none;background:var(--gold);color:#fff;font-family:\'Inter\',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:all 0.3s;}\
 .nl-form button:hover{background:#a08950;}\
 \
+/* UIVERSE BUTTONS */\
+.btn-3d-skew{display:inline-block;padding:12px 30px;background:var(--forest);color:#fff;font-family:\'Inter\',sans-serif;font-weight:600;font-size:0.9rem;border:none;border-radius:8px;cursor:pointer;text-decoration:none;transition:all 0.3s;transform-style:preserve-3d;perspective:500px;}\
+.btn-3d-skew:hover{transform:rotateX(-8deg) rotateY(5deg) translateY(-3px);box-shadow:4px 8px 20px rgba(26,77,46,0.3);background:#246b3e;}\
+\
+.btn-retro-farm{display:inline-block;padding:12px 30px;background:transparent;color:var(--forest);font-family:\'Cormorant Garamond\',serif;font-weight:700;font-size:1rem;letter-spacing:1px;border:2px solid var(--forest);border-radius:0;cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:color 0.4s;}\
+.btn-retro-farm::before{content:\'\';position:absolute;bottom:0;left:0;width:100%;height:0;background:var(--gold);transition:height 0.4s;z-index:-1;}\
+.btn-retro-farm:hover::before{height:100%;}\
+.btn-retro-farm:hover{color:#fff;border-color:var(--gold);}\
+\
+.btn-soft-earth{display:inline-block;padding:12px 30px;background:var(--cream);color:var(--forest);font-family:\'Inter\',sans-serif;font-weight:600;font-size:0.9rem;border:none;border-radius:12px;cursor:pointer;text-decoration:none;box-shadow:4px 4px 10px var(--shadow-light),-4px -4px 10px var(--shadow-white);transition:all 0.3s;}\
+.btn-soft-earth:hover{box-shadow:inset 3px 3px 6px var(--shadow-light),inset -3px -3px 6px var(--shadow-white);transform:translateY(1px);}\
+\
 /* FOOTER */\
 footer{background:#1a2e1f;color:#fff;padding:60px 5% 30px;}\
 .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px;}\
@@ -6611,6 +6756,7 @@ nav ul{display:none;}\
 <div style="display:flex;gap:15px;flex-wrap:wrap;">\
 <a href="#menu" class="btn-forest"><span class="leaf">&#127807;</span> View Menu</a>\
 <a href="#journey" class="btn-cream">Our Journey</a>\
+<a href="#reserve" class="btn-retro-farm">Reserve a Table</a>\
 </div>\
 <div style="display:flex;gap:25px;margin-top:30px;">\
 <div><strong style="font-size:1.4rem;color:var(--forest);">15+</strong><br><span style="font-size:0.8rem;color:#888;">Years Farming</span></div>\
@@ -6637,12 +6783,12 @@ nav ul{display:none;}\
 <h2 class="section-title">Seasonal <span class="gold">Menu</span></h2>\
 <p class="section-sub">Our menu changes with the harvest. Every dish celebrates what\\\'s ripe, fresh, and bursting with flavor right now.</p>\
 <div class="menu-grid">\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127807;</span><span class="m-price">$28</span><h3>Heirloom Tomato Tart</h3><p>Flaky pastry with ricotta, heritage tomatoes from our greenhouse, fresh basil, aged balsamic reduction, and edible flowers from the garden.</p><span class="season-tag tag-summer">Summer Harvest</span></div>\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127810;</span><span class="m-price">$32</span><h3>Slow-Roasted Lamb Shoulder</h3><p>Free-range lamb marinated in garden rosemary and garlic, roasted 8 hours, served with root vegetable mash, mint jus, and braised greens.</p><span class="season-tag tag-autumn">Autumn Feature</span></div>\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127793;</span><span class="m-price">$24</span><h3>Wild Mushroom Risotto</h3><p>Arborio rice slow-cooked with foraged chanterelles, porcini, and shiitake. Finished with truffle oil, parmesan crisp, and microgreens.</p><span class="season-tag tag-winter">Winter Warmth</span></div>\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127800;</span><span class="m-price">$26</span><h3>Spring Pea &amp; Mint Soup</h3><p>Velvety soup of freshly shelled garden peas with mint, crème fraîche swirl, toasted pumpkin seeds, and house-baked sourdough.</p><span class="season-tag tag-spring">Spring Fresh</span></div>\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127806;</span><span class="m-price">$30</span><h3>Pan-Seared Trout</h3><p>Locally caught rainbow trout with crispy skin, served on a bed of fennel, citrus segments, capers, brown butter, and garden dill.</p><span class="season-tag tag-summer">Catch of the Day</span></div>\
-<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127811;</span><span class="m-price">$22</span><h3>Root Vegetable Bowl</h3><p>Roasted beets, parsnips, sweet potato, and carrots with tahini dressing, pomegranate seeds, toasted walnuts, and fresh herbs.</p><span class="season-tag tag-autumn">Plant-Based</span></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127807;</span><span class="m-price">$28</span><h3>Heirloom Tomato Tart</h3><p>Flaky pastry with ricotta, heritage tomatoes from our greenhouse, fresh basil, aged balsamic reduction, and edible flowers from the garden.</p><span class="season-tag tag-summer">Summer Harvest</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127810;</span><span class="m-price">$32</span><h3>Slow-Roasted Lamb Shoulder</h3><p>Free-range lamb marinated in garden rosemary and garlic, roasted 8 hours, served with root vegetable mash, mint jus, and braised greens.</p><span class="season-tag tag-autumn">Autumn Feature</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127793;</span><span class="m-price">$24</span><h3>Wild Mushroom Risotto</h3><p>Arborio rice slow-cooked with foraged chanterelles, porcini, and shiitake. Finished with truffle oil, parmesan crisp, and microgreens.</p><span class="season-tag tag-winter">Winter Warmth</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127800;</span><span class="m-price">$26</span><h3>Spring Pea &amp; Mint Soup</h3><p>Velvety soup of freshly shelled garden peas with mint, crème fraîche swirl, toasted pumpkin seeds, and house-baked sourdough.</p><span class="season-tag tag-spring">Spring Fresh</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127806;</span><span class="m-price">$30</span><h3>Pan-Seared Trout</h3><p>Locally caught rainbow trout with crispy skin, served on a bed of fennel, citrus segments, capers, brown butter, and garden dill.</p><span class="season-tag tag-summer">Catch of the Day</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
+<div class="menu-card neu-card leaf-border"><span class="leaf-deco">&#127811;</span><span class="m-price">$22</span><h3>Root Vegetable Bowl</h3><p>Roasted beets, parsnips, sweet potato, and carrots with tahini dressing, pomegranate seeds, toasted walnuts, and fresh herbs.</p><span class="season-tag tag-autumn">Plant-Based</span><div style="margin-top:14px;"><button class="btn-soft-earth">Order</button></div></div>\
 </div>\
 </div>\
 </section>\
