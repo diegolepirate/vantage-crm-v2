@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velvet &amp; Stone — Haute Couture</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/three@0.160.1/build/three.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body { background: #0a0a0f; color: #f5f0eb; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+/* ─── GRAIN OVERLAY ─── */
+body::after {
+  content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 10000; opacity: 0.5;
+}
+
+/* ─── HERO VIDEO ─── */
+#hero {
+  position: relative; width: 100%; height: 300vh; z-index: 1;
+}
+#hero-sticky {
+  position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden;
+}
+#hero-video {
+  position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+  transform: translate(-50%, -50%); object-fit: cover;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.6) 60%, rgba(10,10,15,0.95) 100%);
+  z-index: 2;
+}
+.hero-content {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; z-index: 3; text-align: center;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 800; letter-spacing: 0.15em; line-height: 1;
+  background: linear-gradient(135deg, #f5f0eb 0%, #D4AF37 50%, #f5f0eb 100%);
+  background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; animation: shimmer 4s ease-in-out infinite;
+}
+.hero-subtitle {
+  font-family: 'Inter', sans-serif; font-size: clamp(0.9rem, 2vw, 1.4rem);
+  letter-spacing: 0.5em; text-transform: uppercase; color: #D4AF37;
+  margin-top: 24px; font-weight: 300;
+}
+@keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+.scroll-indicator {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: float 2s ease-in-out infinite;
+}
+.scroll-indicator span { font-size: 11px; letter-spacing: 0.3em; color: rgba(212,175,55,0.6); text-transform: uppercase; }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, #D4AF37, transparent); }
+@keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+  z-index: 50; display: flex; flex-direction: column; gap: 4px;
+  padding: 8px 6px; background: rgba(10,10,15,0.7); backdrop-filter: blur(12px);
+  border-radius: 0 12px 12px 0; border: 1px solid rgba(212,175,55,0.15); border-left: none;
+}
+.sidebar a {
+  position: relative; width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: 18px; cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+  transform-style: preserve-3d; perspective: 200px;
+}
+.sidebar a::before {
+  content: ''; position: absolute; inset: 0; border-radius: 8px; opacity: 0.85;
+  transform: rotateX(5deg) rotateY(-5deg); transition: transform 0.3s;
+}
+.sidebar a:hover { transform: scale(1.5); z-index: 2; }
+.sidebar a:hover::before { transform: rotateX(0) rotateY(0); }
+.sidebar a:hover ~ a:first-of-type, .sidebar a:has(+ a:hover) { transform: scale(1.3); }
+.sidebar .tooltip {
+  position: absolute; left: 52px; background: rgba(10,10,15,0.95);
+  color: #D4AF37; padding: 6px 14px; border-radius: 6px; font-size: 12px;
+  letter-spacing: 0.1em; white-space: nowrap; pointer-events: none;
+  opacity: 0; transform: translateX(-8px); transition: all 0.3s;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+.sidebar a:hover .tooltip { opacity: 1; transform: translateX(0); }
+
+/* sidebar button colors */
+.sb-chemises::before { background: #D4AF37; }
+.sb-vestes::before { background: #8B6914; }
+.sb-tshirts::before { background: #c0c0c0; }
+.sb-pantalons::before { background: #2c1810; }
+.sb-chaussures::before { background: #1a1a2e; }
+.sb-chaussettes::before { background: #555; }
+.sb-chapeaux::before { background: #333; }
+.sb-accessoires::before { background: #D4AF37; }
+.sb-promos::before { background: #ff5a91; }
+
+/* ─── SECTIONS ─── */
+.section {
+  padding: 120px 60px; max-width: 1400px; margin: 0 auto;
+  position: relative; z-index: 5;
+}
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700; margin-bottom: 8px;
+  background: linear-gradient(90deg, #f5f0eb, #D4AF37);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.section-subtitle {
+  font-size: 14px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(212,175,55,0.6); margin-bottom: 60px;
+}
+
+/* ─── CA32 CORNER REVEAL CARDS ─── */
+.card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.ca32-card {
+  position: relative; width: 100%; height: 380px; border-radius: 12px;
+  overflow: hidden; cursor: pointer; background: #1a1a2e;
+}
+.ca32-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.6s;
+}
+.ca32-card:hover img { transform: scale(1.08); filter: brightness(0.5); }
+
+/* Corner reveals */
+.ca32-card::before, .ca32-card::after {
+  content: ''; position: absolute; width: 0; height: 0;
+  transition: all 0.5s cubic-bezier(0.25,0.46,0.45,0.94); z-index: 2;
+}
+.ca32-card::before { top: 0; left: 0; border-top: 0px solid #D4AF37; border-left: 0px solid #D4AF37; }
+.ca32-card::after { bottom: 0; right: 0; border-bottom: 0px solid #D4AF37; border-right: 0px solid #D4AF37; }
+.ca32-card:hover::before { width: 60px; height: 60px; border-top: 3px solid #D4AF37; border-left: 3px solid #D4AF37; }
+.ca32-card:hover::after { width: 60px; height: 60px; border-bottom: 3px solid #D4AF37; border-right: 3px solid #D4AF37; }
+
+.ca32-info {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 24px;
+  transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  z-index: 3; background: linear-gradient(to top, rgba(10,10,15,0.95), transparent);
+}
+.ca32-card:hover .ca32-info { transform: translateY(0); }
+.ca32-info h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 4px; color: #f5f0eb; }
+.ca32-info .price { color: #D4AF37; font-size: 16px; font-weight: 600; letter-spacing: 0.05em; }
+
+.ca32-card .d3-btn { position: absolute; bottom: 16px; right: 16px; z-index: 4; }
+
+/* ─── D3 BUTTON ─── */
+.d3-btn {
+  display: flex; justify-content: center; align-items: center;
+  padding: 6px 12px; gap: 8px; height: 36px; border: none;
+  background: rgba(212,175,55,0.2); border-radius: 20px; cursor: pointer;
+  transition: background 0.3s;
+}
+.d3-btn:hover { background: rgba(212,175,55,0.35); }
+.d3-btn:hover .d3-icon { animation: d3spin 2s linear infinite; }
+.d3-btn .d3-icon { width: 20px; height: 20px; transition: transform 0.3s; }
+.d3-btn .d3-label { font-size: 14px; color: #D4AF37; font-family: 'Inter', sans-serif; letter-spacing: 1px; }
+@keyframes d3spin { to { transform: rotate(360deg); } }
+
+/* ─── CA5 ACCORDION STRIP CARDS ─── */
+.accordion-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.ca5-card {
+  display: flex; height: 380px; border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.15); background: #1a1a2e;
+}
+.ca5-strip {
+  flex: 1; position: relative; overflow: hidden; cursor: pointer;
+  transition: flex 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  border-right: 1px solid rgba(212,175,55,0.1);
+}
+.ca5-strip:last-child { border-right: none; }
+.ca5-strip:hover { flex: 3; }
+.ca5-strip img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.5s; }
+.ca5-strip:hover img { filter: brightness(0.6); }
+.ca5-strip-label {
+  position: absolute; bottom: 20px; left: 50%; font-size: 13px;
+  font-family: 'Playfair Display', serif; color: #f5f0eb; white-space: nowrap;
+  transform: translateX(-50%) rotate(-90deg); transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  letter-spacing: 0.1em;
+}
+.ca5-strip:hover .ca5-strip-label {
+  transform: translateX(-50%) rotate(0deg);
+}
+.ca5-wrapper { position: relative; }
+.ca5-wrapper .d3-btn { margin-top: 16px; width: fit-content; }
+
+/* ─── CA31 NEON BORDER PROMO CARDS ─── */
+.promo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.ca31-card {
+  position: relative; border-radius: 16px; padding: 3px; cursor: pointer;
+  background: linear-gradient(135deg, #ff5a91, #ff8c42, #00d4ff, #ff5a91);
+  background-size: 300% 300%; animation: borderRotate 4s linear infinite;
+}
+@keyframes borderRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.ca31-inner {
+  background: #0f0f18; border-radius: 14px; padding: 32px 24px;
+  height: 340px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.ca31-watermark {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900;
+  color: rgba(255,90,145,0.08); letter-spacing: 0.1em; pointer-events: none;
+  white-space: nowrap;
+}
+.ca31-img {
+  width: 120px; height: 120px; border-radius: 12px; object-fit: cover;
+  margin-bottom: 16px; transition: transform 0.4s;
+}
+.ca31-card:hover .ca31-img { transform: scale(0.9) translateY(-10px); }
+.ca31-content {
+  text-align: center; transform: translateY(40px); opacity: 0;
+  transition: all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.ca31-card:hover .ca31-content { transform: translateY(0); opacity: 1; }
+.ca31-content h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #f5f0eb; margin-bottom: 8px; }
+.ca31-original { text-decoration: line-through; color: rgba(245,240,235,0.4); font-size: 14px; }
+.ca31-promo { color: #ff5a91; font-size: 22px; font-weight: 700; margin: 4px 0; }
+.ca31-discount {
+  display: inline-block; background: rgba(255,90,145,0.2); color: #ff5a91;
+  padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;
+}
+.ca31-title-static {
+  font-family: 'Playfair Display', serif; font-size: 16px; color: #f5f0eb;
+  transition: opacity 0.3s;
+}
+.ca31-card:hover .ca31-title-static { opacity: 0; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #06060a; padding: 80px 60px 40px; border-top: 1px solid rgba(212,175,55,0.1);
+  position: relative; z-index: 5;
+}
+.footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; color: #D4AF37; margin-bottom: 12px; }
+.footer-tagline { color: rgba(245,240,235,0.5); font-size: 14px; line-height: 1.8; max-width: 300px; }
+footer h4 { color: #D4AF37; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; }
+footer a { color: rgba(245,240,235,0.6); text-decoration: none; font-size: 14px; display: block; margin-bottom: 10px; transition: color 0.3s; }
+footer a:hover { color: #D4AF37; }
+.newsletter-input {
+  display: flex; gap: 0; margin-top: 12px;
+}
+.newsletter-input input {
+  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px 0 0 8px; padding: 12px 16px; color: #f5f0eb; font-size: 14px;
+  outline: none; font-family: 'Inter', sans-serif;
+}
+.newsletter-input input::placeholder { color: rgba(245,240,235,0.3); }
+.newsletter-input button {
+  background: #D4AF37; color: #0a0a0f; border: none; padding: 12px 20px;
+  border-radius: 0 8px 8px 0; font-weight: 600; cursor: pointer; font-size: 14px;
+  font-family: 'Inter', sans-serif; transition: background 0.3s;
+}
+.newsletter-input button:hover { background: #e6c54b; }
+.footer-bottom {
+  max-width: 1400px; margin: 40px auto 0; padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { color: rgba(245,240,235,0.3); font-size: 12px; }
+.social-icons { display: flex; gap: 16px; }
+.social-icons a {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(212,175,55,0.1); color: #D4AF37; font-size: 14px; margin: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+.social-icons a:hover { background: rgba(212,175,55,0.25); transform: translateY(-2px); }
+
+/* ─── LIQUID GLASS CANVAS ─── */
+#liquid-glass {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 9999;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .card-grid, .accordion-grid, .promo-grid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 80px 32px; }
+}
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .card-grid, .accordion-grid, .promo-grid { grid-template-columns: 1fr; }
+  .section { padding: 60px 20px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ LIQUID GLASS CANVAS ═══════════ -->
+<canvas id="liquid-glass"></canvas>
+
+<!-- ═══════════ HERO VIDEO ═══════════ -->
+<section id="hero">
+  <div id="hero-sticky">
+    <video id="hero-video" src="velvet-bg.mp4" muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">VELVET &amp; STONE</h1>
+      <p class="hero-subtitle">Haute Couture &middot; Paris</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav class="sidebar">
+  <a href="#chemises" class="sb-chemises"><span class="tooltip">Chemises</span>&#128084;</a>
+  <a href="#vestes" class="sb-vestes"><span class="tooltip">Vestes</span>&#129509;</a>
+  <a href="#tshirts" class="sb-tshirts"><span class="tooltip">T-shirts</span>&#128085;</a>
+  <a href="#pantalons" class="sb-pantalons"><span class="tooltip">Pantalons</span>&#128086;</a>
+  <a href="#chaussures" class="sb-chaussures"><span class="tooltip">Chaussures</span>&#128095;</a>
+  <a href="#chaussettes" class="sb-chaussettes"><span class="tooltip">Chaussettes</span>&#129510;</a>
+  <a href="#chapeaux" class="sb-chapeaux"><span class="tooltip">Chapeaux</span>&#127913;</a>
+  <a href="#accessoires" class="sb-accessoires"><span class="tooltip">Accessoires</span>&#128142;</a>
+  <a href="#promos" class="sb-promos"><span class="tooltip">Promos</span>&#127991;&#65039;</a>
+</nav>
+
+<!-- ═══════════ CHEMISES ═══════════ -->
+<section id="chemises" class="section">
+  <h2 class="section-title">Chemises</h2>
+  <p class="section-subtitle">L'art du col et de la coupe</p>
+  <div class="card-grid">
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop" alt="Chemise Oxford" loading="lazy">
+      <div class="ca32-info"><h3>Chemise Oxford</h3><span class="price">€245</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400&h=500&fit=crop" alt="Chemise Lin" loading="lazy">
+      <div class="ca32-info"><h3>Chemise Lin</h3><span class="price">€195</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=500&fit=crop" alt="Chemise Soie" loading="lazy">
+      <div class="ca32-info"><h3>Chemise Soie</h3><span class="price">€320</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1589310243389-96a5483213a8?w=400&h=500&fit=crop" alt="Chemise Popeline" loading="lazy">
+      <div class="ca32-info"><h3>Chemise Popeline</h3><span class="price">€210</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VESTES ═══════════ -->
+<section id="vestes" class="section">
+  <h2 class="section-title">Vestes</h2>
+  <p class="section-subtitle">Silhouettes sculptées</p>
+  <div class="card-grid">
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop" alt="Blazer Croisé" loading="lazy">
+      <div class="ca32-info"><h3>Blazer Croisé</h3><span class="price">€580</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop" alt="Veste Cuir" loading="lazy">
+      <div class="ca32-info"><h3>Veste Cuir</h3><span class="price">€890</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="Manteau Laine" loading="lazy">
+      <div class="ca32-info"><h3>Manteau Laine</h3><span class="price">€720</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=400&h=500&fit=crop" alt="Bomber Satin" loading="lazy">
+      <div class="ca32-info"><h3>Bomber Satin</h3><span class="price">€445</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ T-SHIRTS ═══════════ -->
+<section id="tshirts" class="section">
+  <h2 class="section-title">T-shirts</h2>
+  <p class="section-subtitle">L'essentiel, sublimé</p>
+  <div class="card-grid">
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop" alt="Tee Pima" loading="lazy">
+      <div class="ca32-info"><h3>Tee Pima</h3><span class="price">€95</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&h=500&fit=crop" alt="Tee Oversize" loading="lazy">
+      <div class="ca32-info"><h3>Tee Oversize</h3><span class="price">€110</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=500&fit=crop" alt="Tee Imprimé" loading="lazy">
+      <div class="ca32-info"><h3>Tee Imprimé</h3><span class="price">€125</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=500&fit=crop" alt="Tee Henley" loading="lazy">
+      <div class="ca32-info"><h3>Tee Henley</h3><span class="price">€105</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHAPEAUX ═══════════ -->
+<section id="chapeaux" class="section">
+  <h2 class="section-title">Chapeaux</h2>
+  <p class="section-subtitle">La touche finale</p>
+  <div class="card-grid">
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?w=400&h=500&fit=crop" alt="Fedora Feutre" loading="lazy">
+      <div class="ca32-info"><h3>Fedora Feutre</h3><span class="price">€185</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=400&h=500&fit=crop" alt="Casquette Cuir" loading="lazy">
+      <div class="ca32-info"><h3>Casquette Cuir</h3><span class="price">€145</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=400&h=500&fit=crop" alt="Bob Velours" loading="lazy">
+      <div class="ca32-info"><h3>Bob Velours</h3><span class="price">€120</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+    <div class="ca32-card">
+      <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&h=500&fit=crop" alt="Béret Laine" loading="lazy">
+      <div class="ca32-info"><h3>Béret Laine</h3><span class="price">€95</span></div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PANTALONS (ACCORDION) ═══════════ -->
+<section id="pantalons" class="section">
+  <h2 class="section-title">Pantalons</h2>
+  <p class="section-subtitle">Du tombé impeccable</p>
+  <div class="accordion-grid">
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Chino</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Slim</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Large</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Cargo</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Velours</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Droit</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Taille H</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Pinces</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Jogger</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Short</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Bermuda</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Plissé</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Costume</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Toile</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Denim</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Flanelle</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHAUSSURES (ACCORDION) ═══════════ -->
+<section id="chaussures" class="section">
+  <h2 class="section-title">Chaussures</h2>
+  <p class="section-subtitle">Chaque pas, une déclaration</p>
+  <div class="accordion-grid">
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Runner</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Derby</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Boots</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Loafers</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Sneaker</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Oxford</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Chelsea</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Monk</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Espadrille</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Mocassin</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Sandale</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Richelieu</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Basket</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Bottine</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Brogue</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Mule</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHAUSSETTES (ACCORDION) ═══════════ -->
+<section id="chaussettes" class="section">
+  <h2 class="section-title">Chaussettes</h2>
+  <p class="section-subtitle">Le détail invisible qui change tout</p>
+  <div class="accordion-grid">
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Coton</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Laine</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Soie</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Cachemire</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Motifs</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Uni</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Rayures</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Pois</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Haute</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Basse</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Invisible</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Mi-mollet</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Sport</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Ville</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Coffret</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Bambou</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ACCESSOIRES (ACCORDION) ═══════════ -->
+<section id="accessoires" class="section">
+  <h2 class="section-title">Accessoires</h2>
+  <p class="section-subtitle">Ceintures, bijoux &amp; maroquinerie</p>
+  <div class="accordion-grid">
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Ceinture</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Montre</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Bague</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Bracelet</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Écharpe</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Lunettes</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Pochette</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Pin's</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Sac</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Portefeuille</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Porte-clés</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Cravate</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+    <div class="ca5-wrapper">
+      <div class="ca5-card">
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Noeud Pap</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Boutons</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Foulard</span></div>
+        <div class="ca5-strip"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=500&fit=crop" alt="" loading="lazy"><span class="ca5-strip-label">Gants</span></div>
+      </div>
+      <button class="d3-btn"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Voir tout</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROMOS ═══════════ -->
+<section id="promos" class="section">
+  <h2 class="section-title">Promos</h2>
+  <p class="section-subtitle">Offres exclusives, durée limitée</p>
+  <div class="promo-grid">
+    <!-- Blazer Signature -->
+    <div class="ca31-card">
+      <div class="ca31-inner">
+        <span class="ca31-watermark">PROMO</span>
+        <img class="ca31-img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&h=200&fit=crop" alt="Blazer Signature">
+        <span class="ca31-title-static">Blazer Signature</span>
+        <div class="ca31-content">
+          <h3>Blazer Signature</h3>
+          <div class="ca31-original">€580</div>
+          <div class="ca31-promo">€348</div>
+          <span class="ca31-discount">-40%</span>
+          <br>
+          <button class="d3-btn" style="margin: 8px auto 0;"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        </div>
+      </div>
+    </div>
+    <!-- Sneakers Limited -->
+    <div class="ca31-card">
+      <div class="ca31-inner">
+        <span class="ca31-watermark">PROMO</span>
+        <img class="ca31-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop" alt="Sneakers Limited">
+        <span class="ca31-title-static">Sneakers Limited</span>
+        <div class="ca31-content">
+          <h3>Sneakers Limited</h3>
+          <div class="ca31-original">€320</div>
+          <div class="ca31-promo">€224</div>
+          <span class="ca31-discount">-30%</span>
+          <br>
+          <button class="d3-btn" style="margin: 8px auto 0;"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        </div>
+      </div>
+    </div>
+    <!-- Cashmere Pull -->
+    <div class="ca31-card">
+      <div class="ca31-inner">
+        <span class="ca31-watermark">PROMO</span>
+        <img class="ca31-img" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=200&h=200&fit=crop" alt="Cashmere Pull">
+        <span class="ca31-title-static">Cashmere Pull</span>
+        <div class="ca31-content">
+          <h3>Cashmere Pull</h3>
+          <div class="ca31-original">€420</div>
+          <div class="ca31-promo">€210</div>
+          <span class="ca31-discount">-50%</span>
+          <br>
+          <button class="d3-btn" style="margin: 8px auto 0;"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        </div>
+      </div>
+    </div>
+    <!-- Leather Belt -->
+    <div class="ca31-card">
+      <div class="ca31-inner">
+        <span class="ca31-watermark">PROMO</span>
+        <img class="ca31-img" src="https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=200&h=200&fit=crop" alt="Leather Belt">
+        <span class="ca31-title-static">Leather Belt</span>
+        <div class="ca31-content">
+          <h3>Leather Belt</h3>
+          <div class="ca31-original">€180</div>
+          <div class="ca31-promo">€135</div>
+          <span class="ca31-discount">-25%</span>
+          <br>
+          <button class="d3-btn" style="margin: 8px auto 0;"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Velvet &amp; Stone</div>
+      <p class="footer-tagline">Maison de couture parisienne fondée en 1987. Chaque pièce raconte une histoire de raffinement et d'excellence artisanale.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <a href="#chemises">Chemises</a>
+      <a href="#vestes">Vestes</a>
+      <a href="#tshirts">T-shirts</a>
+      <a href="#pantalons">Pantalons</a>
+      <a href="#chaussures">Chaussures</a>
+    </div>
+    <div>
+      <h4>Maison</h4>
+      <a href="#">Notre histoire</a>
+      <a href="#">Ateliers</a>
+      <a href="#">Carrières</a>
+      <a href="#">Contact</a>
+      <a href="#">CGV</a>
+    </div>
+    <div>
+      <h4>Newsletter</h4>
+      <p style="color: rgba(245,240,235,0.5); font-size: 14px; margin-bottom: 12px;">Recevez nos collections en avant-première.</p>
+      <div class="newsletter-input">
+        <input type="email" placeholder="votre@email.com">
+        <button>S'inscrire</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Velvet &amp; Stone. Tous droits réservés.</p>
+    <div class="social-icons">
+      <a href="#" title="Instagram">IG</a>
+      <a href="#" title="Twitter">X</a>
+      <a href="#" title="Pinterest">Pi</a>
+      <a href="#" title="LinkedIn">Li</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCROLLTELLING JS ═══════════ -->
+<script>
+(function() {
+  var video = document.getElementById('hero-video');
+  var hero = document.getElementById('hero');
+  var heroSticky = document.getElementById('hero-sticky');
+  var videoEnded = false;
+
+  window.addEventListener('scroll', function() {
+    if (videoEnded) return;
+    var scrollTop = window.scrollY;
+    var heroHeight = hero.offsetHeight - window.innerHeight;
+    var progress = Math.min(Math.max(scrollTop / heroHeight, 0), 1);
+    if (video.duration) {
+      video.currentTime = progress * video.duration;
+    }
+    if (progress >= 0.99) {
+      videoEnded = true;
+      heroSticky.style.transition = 'opacity 2s ease';
+      heroSticky.style.opacity = '0';
+      setTimeout(function() {
+        hero.style.display = 'none';
+      }, 2200);
+    }
+  });
+})();
+</script>
+
+<!-- ═══════════ LIQUID GLASS THREE.JS ═══════════ -->
+<script>
+(function() {
+  if (typeof THREE === 'undefined') return;
+
+  var canvas = document.getElementById('liquid-glass');
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+  var mouse = { x: 9999, y: 9999 };
+  document.addEventListener('mousemove', function(e) {
+    mouse.x = e.clientX / window.innerWidth;
+    mouse.y = 1.0 - e.clientY / window.innerHeight;
+  });
+  document.addEventListener('click', function(e) {
+    for (var i = 0; i < 2; i++) {
+      droplets.push({
+        x: e.clientX / window.innerWidth + (Math.random() - 0.5) * 0.05,
+        y: 1.0 - e.clientY / window.innerHeight + (Math.random() - 0.5) * 0.05,
+        vx: (Math.random() - 0.5) * 0.002,
+        vy: (Math.random() - 0.5) * 0.002,
+        r: 0.03 + Math.random() * 0.03
+      });
+    }
+    updateUniforms();
+  });
+
+  var MAX_DROPLETS = 24;
+  var droplets = [];
+  for (var i = 0; i < 8; i++) {
+    droplets.push({
+      x: Math.random(),
+      y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.001,
+      vy: (Math.random() - 0.5) * 0.001,
+      r: 0.04 + Math.random() * 0.04
+    });
+  }
+
+  var vertexShader = [
+    'varying vec2 vUv;',
+    'void main() {',
+    '  vUv = uv;',
+    '  gl_Position = vec4(position, 1.0);',
+    '}'
+  ].join('\n');
+
+  var fragmentShader = [
+    'precision mediump float;',
+    'varying vec2 vUv;',
+    'uniform float uTime;',
+    'uniform vec2 uMouse;',
+    'uniform vec2 uResolution;',
+    'uniform int uCount;',
+    'uniform vec3 uDroplets[24];',
+    '',
+    'float metaball(vec2 p, vec2 center, float radius) {',
+    '  float d = length(p - center);',
+    '  return radius * radius / (d * d + 0.0001);',
+    '}',
+    '',
+    'void main() {',
+    '  vec2 uv = vUv;',
+    '  float aspect = uResolution.x / uResolution.y;',
+    '  vec2 p = vec2(uv.x * aspect, uv.y);',
+    '  ',
+    '  float field = 0.0;',
+    '  for (int i = 0; i < 24; i++) {',
+    '    if (i >= uCount) break;',
+    '    vec2 center = vec2(uDroplets[i].x * aspect, uDroplets[i].y);',
+    '    float radius = uDroplets[i].z;',
+    '    field += metaball(p, center, radius);',
+    '  }',
+    '  ',
+    '  float threshold = 1.0;',
+    '  float edge = smoothstep(threshold - 0.3, threshold + 0.1, field);',
+    '  ',
+    '  if (edge < 0.01) discard;',
+    '  ',
+    '  // Fresnel rim',
+    '  float rim = smoothstep(threshold - 0.1, threshold + 0.5, field);',
+    '  float fresnel = pow(1.0 - rim, 3.0) * 0.8;',
+    '  ',
+    '  // Chromatic aberration offset',
+    '  float distort = (field - threshold) * 0.008;',
+    '  ',
+    '  // Glass color: subtle gold tint with transparency',
+    '  vec3 glassColor = vec3(0.85, 0.78, 0.65);',
+    '  float alpha = edge * (0.08 + fresnel * 0.25);',
+    '  ',
+    '  // Edge highlight',
+    '  float edgeGlow = smoothstep(threshold + 0.05, threshold - 0.05, field) * edge;',
+    '  glassColor += vec3(0.83, 0.69, 0.22) * edgeGlow * 0.6;',
+    '  alpha += edgeGlow * 0.15;',
+    '  ',
+    '  // Specular highlight',
+    '  float spec = pow(max(0.0, 1.0 - abs(field - threshold - 0.3) * 3.0), 4.0);',
+    '  glassColor += vec3(1.0) * spec * 0.3;',
+    '  alpha += spec * 0.1;',
+    '  ',
+    '  gl_FragColor = vec4(glassColor, alpha);',
+    '}'
+  ].join('\n');
+
+  var dropletArray = new Float32Array(MAX_DROPLETS * 3);
+  function updateUniforms() {
+    var count = Math.min(droplets.length, MAX_DROPLETS);
+    for (var i = 0; i < count; i++) {
+      dropletArray[i * 3] = droplets[i].x;
+      dropletArray[i * 3 + 1] = droplets[i].y;
+      dropletArray[i * 3 + 2] = droplets[i].r;
+    }
+    material.uniforms.uCount.value = count;
+    material.uniforms.uDroplets.value = [];
+    for (var i = 0; i < MAX_DROPLETS; i++) {
+      material.uniforms.uDroplets.value.push(
+        new THREE.Vector3(dropletArray[i*3] || 0, dropletArray[i*3+1] || 0, dropletArray[i*3+2] || 0)
+      );
+    }
+  }
+
+  var material = new THREE.ShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    transparent: true,
+    depthTest: false,
+    uniforms: {
+      uTime: { value: 0 },
+      uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      uCount: { value: droplets.length },
+      uDroplets: { value: [] }
+    }
+  });
+
+  updateUniforms();
+
+  var plane = new THREE.PlaneGeometry(2, 2);
+  var mesh = new THREE.Mesh(plane, material);
+  scene.add(mesh);
+
+  function animate(time) {
+    requestAnimationFrame(animate);
+
+    var t = time * 0.001;
+    material.uniforms.uTime.value = t;
+    material.uniforms.uMouse.value.set(mouse.x, mouse.y);
+
+    // Physics
+    for (var i = 0; i < droplets.length; i++) {
+      var d = droplets[i];
+
+      // Wander
+      d.vx += (Math.random() - 0.5) * 0.00008;
+      d.vy += (Math.random() - 0.5) * 0.00008;
+
+      // Mouse repulsion
+      var dx = d.x - mouse.x;
+      var dy = d.y - mouse.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 0.15) {
+        var force = (0.15 - dist) * 0.003;
+        d.vx += (dx / dist) * force;
+        d.vy += (dy / dist) * force;
+      }
+
+      // Damping
+      d.vx *= 0.995;
+      d.vy *= 0.995;
+
+      d.x += d.vx;
+      d.y += d.vy;
+
+      // Bounce
+      if (d.x < 0) { d.x = 0; d.vx *= -0.8; }
+      if (d.x > 1) { d.x = 1; d.vx *= -0.8; }
+      if (d.y < 0) { d.y = 0; d.vy *= -0.8; }
+      if (d.y > 1) { d.y = 1; d.vy *= -0.8; }
+
+      // Merge close droplets
+      for (var j = i + 1; j < droplets.length; j++) {
+        var d2 = droplets[j];
+        var mdx = d.x - d2.x;
+        var mdy = d.y - d2.y;
+        var mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < (d.r + d2.r) * 0.6) {
+          d.r = Math.min(Math.sqrt(d.r * d.r + d2.r * d2.r), 0.1);
+          d.vx = (d.vx + d2.vx) * 0.5;
+          d.vy = (d.vy + d2.vy) * 0.5;
+          droplets.splice(j, 1);
+          j--;
+        }
+      }
+    }
+
+    // Trim excess
+    if (droplets.length > MAX_DROPLETS) {
+      droplets.length = MAX_DROPLETS;
+    }
+
+    updateUniforms();
+    renderer.render(scene, camera);
+  }
+
+  animate(0);
+
+  window.addEventListener('resize', function() {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+  });
+})();
+</script>
+
+</body>
+</html>
