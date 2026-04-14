@@ -3668,422 +3668,1139 @@ gsap.from(".spotlight",{scrollTrigger:{trigger:".spotlight",start:"top 80%"},sca
 
 TPL_FOOD_HTML['26'] = function () {
   return '<!DOCTYPE html>\
-<html lang="en">\
+<html lang="fr">\
 <head>\
 <meta charset="UTF-8">\
-<meta name="viewport" content="width=device-width,initial-scale=1.0">\
-<title>Golden P\u00E2tisserie</title>\
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">\
+<meta name="viewport" content="width=device-width, initial-scale=1.0">\
+<title>Brew Culture — Cafe & Bar</title>\
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">\
 <style>\
-*{margin:0;padding:0;box-sizing:border-box;}\
-::-webkit-scrollbar{display:none}\
-html{scroll-behavior:smooth;scrollbar-width:none;}\
-body{background:#fdf8ef;color:#2c1810;font-family:\'Lora\',serif;overflow-x:hidden;}\
-h1,h2,h3,h4,h5{font-family:\'Playfair Display\',serif;}\
-@keyframes goldShimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}\
-@keyframes shineSweep{0%{left:-100%;}100%{left:100%;}}\
-@keyframes fadeInUp{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}\
-@keyframes fadeInLeft{from{transform:translateX(-40px);opacity:0;}to{transform:translateX(0);opacity:1;}}\
-@keyframes fadeInRight{from{transform:translateX(40px);opacity:0;}to{transform:translateX(0);opacity:1;}}\
-@keyframes flourishGrow{from{width:0;}to{width:80px;}}\
-@keyframes floatDust{0%{transform:translateY(0) rotate(0deg);opacity:0;}10%{opacity:0.6;}90%{opacity:0.6;}100%{transform:translateY(-100vh) rotate(360deg);opacity:0;}}\
-@keyframes swirlRotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}\
-@keyframes letterSpaceIn{from{letter-spacing:15px;opacity:0;}to{letter-spacing:5px;opacity:1;}}\
-@keyframes goldLineDraw{from{width:0;}to{width:120px;}}\
-@keyframes ribbonWave{0%,100%{transform:rotate(-2deg);}50%{transform:rotate(2deg);}}\
-@keyframes softBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}\
-@keyframes labelFloat{from{top:18px;font-size:16px;}to{top:-8px;font-size:12px;}}\
-@keyframes particleDrift{0%{transform:translate(0,0);opacity:0;}20%{opacity:0.4;}80%{opacity:0.4;}100%{transform:translate(var(--dx),var(--dy));opacity:0;}}\
-.gold-shimmer{background:linear-gradient(90deg,#c9a84c,#e8d48b,#c9a84c,#a07c2e,#c9a84c);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:goldShimmer 3s linear infinite;}\
-.flourish{text-align:center;margin:15px auto;position:relative;height:20px;}\
-.flourish::before,.flourish::after{content:\'\';position:absolute;top:50%;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);width:80px;}\
-.flourish::before{right:calc(50% + 15px);}\
-.flourish::after{left:calc(50% + 15px);}\
-.flourish-diamond{width:8px;height:8px;background:#c9a84c;transform:rotate(45deg);margin:6px auto;}\
-.dust-particle{position:fixed;width:3px;height:3px;background:#c9a84c;border-radius:50%;opacity:0;animation:floatDust 8s infinite;pointer-events:none;z-index:0;}\
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(253,248,239,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,0.2);padding:18px 0;}\
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 30px;}\
-.nav-logo{font-family:\'Playfair Display\',serif;font-size:26px;font-weight:700;color:#2c1810;text-decoration:none;}\
-.nav-logo span{color:#c9a84c;}\
-.nav-links{display:flex;gap:35px;list-style:none;}\
-.nav-links a{color:#5a3e2b;text-decoration:none;font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;position:relative;transition:color 0.3s;}\
-.nav-links a::after{content:\'\';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:#c9a84c;transition:width 0.3s;}\
-.nav-links a:hover{color:#c9a84c;}\
-.nav-links a:hover::after{width:100%;}\
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;background:linear-gradient(rgba(44,24,16,0.45),rgba(44,24,16,0.55)),url(\'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1600&h=900&fit=crop\') center/cover no-repeat;padding:120px 20px;}\
-.hero-content{max-width:800px;}\
-.hero h1{font-size:68px;color:#fff;font-weight:900;line-height:1.15;margin-bottom:15px;text-shadow:0 2px 20px rgba(0,0,0,0.3);}\
-.hero .gold-line{display:block;width:120px;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:20px auto;animation:goldLineDraw 2s ease forwards;}\
-.hero .subtitle{font-size:22px;color:rgba(255,255,255,0.9);font-style:italic;margin-bottom:10px;letter-spacing:2px;}\
-.hero .desc{font-size:16px;color:rgba(255,255,255,0.75);max-width:550px;margin:0 auto 35px;line-height:1.8;}\
-.btn-gold{display:inline-block;padding:16px 45px;background:#c9a84c;color:#fff;font-family:\'Playfair Display\',serif;font-size:16px;font-weight:600;letter-spacing:3px;text-transform:uppercase;border:none;border-radius:4px;cursor:pointer;position:relative;overflow:hidden;transition:background 0.3s,transform 0.3s;}\
-.btn-gold::after{content:\'\';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:none;}\
-.btn-gold:hover::after{animation:shineSweep 0.6s ease;}\
-.btn-gold:hover{background:#b8953e;transform:translateY(-2px);}\
-.btn-outline{display:inline-block;padding:14px 40px;border:2px solid #c9a84c;color:#c9a84c;font-family:\'Playfair Display\',serif;font-size:15px;font-weight:600;letter-spacing:3px;text-transform:uppercase;background:transparent;cursor:pointer;border-radius:4px;transition:all 0.4s;}\
-.btn-outline:hover{background:#c9a84c;color:#fff;}\
-section{padding:100px 20px;max-width:1200px;margin:0 auto;}\
-.section-title{text-align:center;font-size:44px;font-weight:700;margin-bottom:5px;}\
-.section-sub{text-align:center;font-size:16px;color:#8b6f47;font-style:italic;margin-bottom:10px;letter-spacing:1px;}\
-.pastry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:35px;}\
-.pastry-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);box-shadow:0 4px 20px rgba(44,24,16,0.06);transition:transform 0.4s,box-shadow 0.4s;position:relative;}\
-.pastry-card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(44,24,16,0.12);}\
-.pastry-card .ribbon{position:absolute;top:15px;left:-8px;background:#c9a84c;color:#fff;font-family:\'Playfair Display\',serif;font-size:12px;font-weight:700;padding:6px 18px 6px 12px;text-transform:uppercase;letter-spacing:1px;z-index:2;animation:ribbonWave 3s ease infinite;}\
-.pastry-card .ribbon::after{content:\'\';position:absolute;bottom:-8px;left:0;border-left:8px solid #a07c2e;border-bottom:8px solid transparent;}\
-.pastry-card img{width:100%;height:220px;object-fit:cover;}\
-.pastry-card-body{padding:25px;}\
-.pastry-card-body h3{font-size:22px;margin-bottom:8px;color:#2c1810;}\
-.pastry-card-body p{font-size:14px;color:#7a6555;line-height:1.7;margin-bottom:12px;}\
-.pastry-price{font-family:\'Playfair Display\',serif;font-size:20px;color:#c9a84c;font-weight:700;}\
-.timeline{position:relative;max-width:800px;margin:0 auto;padding-left:40px;}\
-.timeline::before{content:\'\';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#c9a84c,#e8d48b,#c9a84c);}\
-.timeline-item{position:relative;margin-bottom:50px;padding-left:30px;}\
-.timeline-item::before{content:\'\';position:absolute;left:-32px;top:5px;width:14px;height:14px;background:#c9a84c;border-radius:50%;border:3px solid #fdf8ef;box-shadow:0 0 0 2px #c9a84c;}\
-.timeline-item h3{font-size:22px;color:#2c1810;margin-bottom:8px;}\
-.timeline-item p{font-size:15px;color:#7a6555;line-height:1.7;}\
-.baker-section{display:flex;gap:60px;align-items:center;flex-wrap:wrap;justify-content:center;}\
-.baker-img-wrap{width:280px;height:280px;border-radius:50%;overflow:hidden;border:4px solid #c9a84c;box-shadow:0 8px 30px rgba(201,168,76,0.2);flex-shrink:0;}\
-.baker-img-wrap img{width:100%;height:100%;object-fit:cover;}\
-.baker-info{max-width:500px;}\
-.baker-info h2{font-size:36px;margin-bottom:5px;}\
-.baker-info .baker-title{font-size:16px;color:#c9a84c;font-style:italic;margin-bottom:15px;display:block;}\
-.baker-info p{font-size:15px;color:#5a3e2b;line-height:1.8;margin-bottom:15px;}\
-.badges-row{display:flex;flex-wrap:wrap;gap:25px;justify-content:center;padding:40px 0;}\
-.badge-item{text-align:center;width:140px;}\
-.badge-icon{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#e8d48b);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;color:#fff;animation:softBounce 3s ease infinite;}\
-.badge-item p{font-size:13px;color:#5a3e2b;font-weight:600;text-transform:uppercase;letter-spacing:1px;}\
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}\
-.testi-card{background:#fff;border-radius:12px;padding:35px;border:1px solid rgba(201,168,76,0.15);box-shadow:0 4px 15px rgba(44,24,16,0.05);}\
-.testi-card .quote-mark{font-family:\'Playfair Display\',serif;font-size:60px;color:#c9a84c;line-height:1;margin-bottom:5px;}\
-.testi-card p{font-size:15px;color:#5a3e2b;line-height:1.8;font-style:italic;margin-bottom:15px;}\
-.testi-card .author{font-family:\'Playfair Display\',serif;font-size:14px;color:#c9a84c;font-weight:600;}\
-.order-form{max-width:650px;margin:0 auto;background:#fff;border-radius:16px;padding:50px;border:1px solid rgba(201,168,76,0.15);box-shadow:0 8px 30px rgba(44,24,16,0.06);}\
-.form-group{position:relative;margin-bottom:30px;}\
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:14px 0;border:none;border-bottom:2px solid #e0d5c4;background:transparent;font-family:\'Lora\',serif;font-size:16px;color:#2c1810;outline:none;transition:border-color 0.3s;}\
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-bottom-color:#c9a84c;}\
-.form-group label{position:absolute;top:14px;left:0;font-size:15px;color:#a89279;pointer-events:none;transition:all 0.3s;}\
-.form-group input:focus~label,.form-group input:not(:placeholder-shown)~label,.form-group textarea:focus~label,.form-group textarea:not(:placeholder-shown)~label{top:-12px;font-size:12px;color:#c9a84c;}\
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:25px;}\
-.form-group textarea{resize:vertical;min-height:100px;}\
-.insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}\
-.insta-item{aspect-ratio:1;border-radius:8px;overflow:hidden;position:relative;cursor:pointer;}\
-.insta-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}\
-.insta-item:hover img{transform:scale(1.1);}\
-.insta-item::after{content:"@goldenpatisserie";position:absolute;bottom:0;left:0;width:100%;padding:8px;background:linear-gradient(transparent,rgba(44,24,16,0.7));color:#fff;font-size:11px;text-align:center;opacity:0;transition:opacity 0.3s;}\
-.insta-item:hover::after{opacity:1;}\
-.newsletter-section{background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(212,120,156,0.06));border-radius:16px;padding:60px 40px;text-align:center;border:1px solid rgba(201,168,76,0.15);}\
-.newsletter-section h2{font-size:36px;margin-bottom:8px;}\
-.newsletter-section p{color:#8b6f47;margin-bottom:25px;font-size:15px;font-style:italic;}\
-.nl-form{display:flex;gap:15px;max-width:480px;margin:0 auto;}\
-.nl-form input{flex:1;padding:14px 0;border:none;border-bottom:2px solid #c9a84c;background:transparent;font-family:\'Lora\',serif;font-size:16px;color:#2c1810;outline:none;}\
-.nl-form input::placeholder{color:#b8a68e;}\
-.btn-line-gold{align-items:center;background:transparent;color:#c9a84c;cursor:pointer;display:flex;font-family:\'Playfair Display\',serif;font-size:14px;font-weight:700;line-height:1.5;text-decoration:none;text-transform:uppercase;border:0;padding:0.8rem;letter-spacing:3px;}\
-.btn-line-gold:before{background:#c9a84c;content:\'\';display:inline-block;height:1px;margin-right:10px;transition:all .42s cubic-bezier(.25,.8,.25,1);width:0;}\
-.btn-line-gold:hover:before{width:3rem;}\
-.btn-metallic{display:flex;align-items:center;justify-content:center;cursor:pointer;width:150px;height:45px;background-image:linear-gradient(to top,#D8D9DB 0%,#fff 80%,#FDFDFD 100%);border-radius:30px;border:1px solid #8F9092;transition:all 0.2s ease;font-family:\'Playfair Display\',serif;font-size:13px;font-weight:600;color:#2c1810;text-shadow:0 1px #fff;text-transform:uppercase;letter-spacing:2px;}\
-.btn-metallic:hover{box-shadow:0 4px 3px 1px #FCFCFC,0 6px 8px #D6D7D9,0 -4px 4px #CECFD1,0 -6px 4px #FEFEFE,inset 0 0 3px 3px #CECFD1;}\
-.btn-gradient-gold{position:relative;overflow:hidden;height:2.8rem;padding:0 2rem;border-radius:4px;background:#2c1810;color:#c9a84c;border:1px solid #c9a84c33;cursor:pointer;font-family:\'Playfair Display\',serif;font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}\
-.btn-gradient-gold:hover::before{transform:scaleX(1);}\
-.btn-gradient-gold::before{content:\'\';position:absolute;top:0;left:0;transform:scaleX(0);transform-origin:0 50%;width:100%;height:inherit;border-radius:inherit;background:linear-gradient(82.3deg,#c9a84c 10.8%,#b8953e 94.3%);transition:all 0.475s;}\
-.btn-gradient-gold span{position:relative;z-index:1;}\
-.btn-gradient-gold:hover{color:#fff;}\
-footer{background:#2c1810;color:rgba(255,255,255,0.7);padding:60px 20px 30px;}\
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}\
-.footer-col h4{font-family:\'Playfair Display\',serif;font-size:18px;color:#c9a84c;margin-bottom:15px;}\
-.footer-col p,.footer-col a{font-size:14px;color:rgba(255,255,255,0.6);line-height:2;text-decoration:none;display:block;transition:color 0.3s;}\
-.footer-col a:hover{color:#c9a84c;}\
-.footer-bottom{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;color:rgba(255,255,255,0.4);}\
-.swirl-ornament{width:60px;height:60px;border:2px solid rgba(201,168,76,0.3);border-radius:50%;position:relative;margin:0 auto;}\
-.swirl-ornament::before{content:\'\';position:absolute;top:50%;left:50%;width:30px;height:30px;border:1px solid rgba(201,168,76,0.2);border-radius:50%;transform:translate(-50%,-50%);}\
-@media(max-width:768px){\
-.hero h1{font-size:36px;}\
-.nav-links{display:none;}\
-.pastry-grid{grid-template-columns:1fr;}\
-.baker-section{flex-direction:column;text-align:center;}\
-.insta-grid{grid-template-columns:repeat(2,1fr);}\
-.footer-inner{grid-template-columns:1fr;}\
-.form-row{grid-template-columns:1fr;}\
-.nl-form{flex-direction:column;}\
-.badges-row{gap:15px;}\
+/* ========== RESET & BASE ========== */\
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }\
+html { scroll-behavior: smooth; scrollbar-width: none; }\
+html::-webkit-scrollbar { display: none; }\
+body {\
+  font-family: \'Inter\', sans-serif;\
+  background: #0a0a0f;\
+  color: #e0e0e0;\
+  overflow-x: hidden;\
+  line-height: 1.7;\
 }\
-</style>\
+h1, h2, h3, h4, h5, h6 { font-family: \'Playfair Display\', serif; }\
+a { text-decoration: none; color: inherit; }\
+img { max-width: 100%; display: block; }\
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }\
+\
+/* ========== GRAIN OVERLAY ========== */\
+body::before {\
+  content: "";\
+  position: fixed;\
+  inset: 0;\
+  z-index: 9999;\
+  pointer-events: none;\
+  opacity: 0.03;\
+  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E");\
+  background-size: 128px 128px;\
+}\
+\
+/* ========== FLOATING GOLD PARTICLES ========== */\
+.particle {\
+  position: fixed;\
+  width: 3px;\
+  height: 3px;\
+  background: #C9A84C;\
+  border-radius: 50%;\
+  pointer-events: none;\
+  z-index: 9998;\
+  opacity: 0;\
+  animation: floatParticle 8s infinite;\
+}\
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }\
+.particle:nth-child(2) { left: 25%; animation-delay: 1.3s; width: 2px; height: 2px; }\
+.particle:nth-child(3) { left: 45%; animation-delay: 2.6s; }\
+.particle:nth-child(4) { left: 65%; animation-delay: 3.9s; width: 2px; height: 2px; }\
+.particle:nth-child(5) { left: 80%; animation-delay: 5.2s; }\
+.particle:nth-child(6) { left: 92%; animation-delay: 6.5s; width: 2px; height: 2px; }\
+\
+@keyframes floatParticle {\
+  0% { transform: translateY(100vh); opacity: 0; }\
+  10% { opacity: 0.6; }\
+  90% { opacity: 0.6; }\
+  100% { transform: translateY(-10vh); opacity: 0; }\
+}\
+\
+/* ========== NAV ========== */\
+.nav {\
+  position: fixed;\
+  top: 0;\
+  left: 0;\
+  right: 0;\
+  z-index: 1000;\
+  padding: 18px 0;\
+  background: rgba(10, 10, 15, 0.6);\
+  backdrop-filter: blur(20px);\
+  -webkit-backdrop-filter: blur(20px);\
+  border-bottom: 1px solid rgba(201, 168, 76, 0.08);\
+  transition: background 0.3s ease;\
+}\
+.nav-inner {\
+  display: flex;\
+  align-items: center;\
+  justify-content: space-between;\
+  max-width: 1200px;\
+  margin: 0 auto;\
+  padding: 0 24px;\
+}\
+.nav-logo {\
+  font-family: \'Playfair Display\', serif;\
+  font-size: 1.5rem;\
+  font-weight: 700;\
+  color: #C9A84C;\
+  letter-spacing: 2px;\
+}\
+.nav-links {\
+  display: flex;\
+  align-items: center;\
+  gap: 36px;\
+  list-style: none;\
+}\
+.nav-links a {\
+  font-size: 0.875rem;\
+  font-weight: 500;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  color: rgba(255,255,255,0.7);\
+  transition: color 0.3s ease;\
+  position: relative;\
+}\
+.nav-links a::after {\
+  content: \'\';\
+  position: absolute;\
+  bottom: -4px;\
+  left: 0;\
+  width: 0;\
+  height: 1px;\
+  background: #C9A84C;\
+  transition: width 0.3s ease;\
+}\
+.nav-links a:hover { color: #C9A84C; }\
+.nav-links a:hover::after { width: 100%; }\
+.nav-cta {\
+  padding: 10px 24px;\
+  background: transparent;\
+  border: 1px solid #C9A84C;\
+  color: #C9A84C !important;\
+  border-radius: 6px;\
+  font-size: 0.8rem !important;\
+  letter-spacing: 1.5px !important;\
+  cursor: pointer;\
+  transition: all 0.3s ease;\
+}\
+.nav-cta:hover {\
+  background: #C9A84C;\
+  color: #0a0a0f !important;\
+}\
+.nav-cta::after { display: none !important; }\
+\
+/* ========== HERO ========== */\
+.hero {\
+  position: relative;\
+  min-height: 100vh;\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  overflow: hidden;\
+}\
+.hero-bg {\
+  position: absolute;\
+  inset: 0;\
+  background: url(\'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&h=900&fit=crop\') center/cover no-repeat;\
+}\
+.hero-overlay {\
+  position: absolute;\
+  inset: 0;\
+  background: linear-gradient(180deg, rgba(10,10,15,0.7) 0%, rgba(10,10,15,0.85) 50%, #0a0a0f 100%);\
+}\
+.hero-content {\
+  position: relative;\
+  z-index: 2;\
+  text-align: center;\
+  max-width: 800px;\
+  padding: 0 24px;\
+}\
+.hero-badge {\
+  display: inline-block;\
+  font-size: 0.75rem;\
+  font-weight: 600;\
+  letter-spacing: 4px;\
+  text-transform: uppercase;\
+  color: #C9A84C;\
+  margin-bottom: 24px;\
+  border: 1px solid rgba(201,168,76,0.3);\
+  padding: 8px 20px;\
+  border-radius: 30px;\
+}\
+.hero h1 {\
+  font-size: clamp(2.5rem, 6vw, 4.5rem);\
+  font-weight: 700;\
+  letter-spacing: 2px;\
+  line-height: 1.15;\
+  margin-bottom: 24px;\
+}\
+.gold-shimmer {\
+  background: linear-gradient(90deg, #C9A84C, #e8d48b, #C9A84C, #b8953e, #C9A84C);\
+  background-size: 200% 100%;\
+  -webkit-background-clip: text;\
+  -webkit-text-fill-color: transparent;\
+  background-clip: text;\
+  animation: shimmer 3s linear infinite;\
+}\
+@keyframes shimmer {\
+  0% { background-position: 200% 0; }\
+  100% { background-position: -200% 0; }\
+}\
+.hero-subtitle {\
+  font-family: \'Playfair Display\', serif;\
+  font-style: italic;\
+  font-size: 1.25rem;\
+  color: rgba(201,168,76,0.8);\
+  margin-bottom: 16px;\
+}\
+.hero-desc {\
+  font-size: 1.05rem;\
+  color: rgba(255,255,255,0.6);\
+  max-width: 560px;\
+  margin: 0 auto 40px;\
+  line-height: 1.8;\
+}\
+.hero-buttons {\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  gap: 20px;\
+  flex-wrap: wrap;\
+}\
+\
+/* Galaxy Button (C9 adapted gold) */\
+.galaxy-btn {\
+  --btn-bg: #0c0c14;\
+  --btn-primary: #C9A84C;\
+  --btn-secondary: #8B6914;\
+  --btn-accent: #e8d48b;\
+  font-family: \'Inter\', sans-serif;\
+  font-size: 15px;\
+  padding: 0.9em 2.2em;\
+  border-radius: 0.75em;\
+  border: none;\
+  background: var(--btn-bg);\
+  position: relative;\
+  cursor: pointer;\
+  overflow: hidden;\
+  z-index: 1;\
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);\
+  box-shadow: 0 0.5em 1.5em -0.5em rgba(201, 168, 76, 0.4);\
+}\
+.galaxy-btn:active { transform: scale(0.96); }\
+.galaxy-btn__content {\
+  display: flex;\
+  align-items: center;\
+  gap: 0.75em;\
+  position: relative;\
+  z-index: 2;\
+  color: #fff;\
+  font-weight: 600;\
+  letter-spacing: 0.08em;\
+  text-transform: uppercase;\
+  font-size: 0.85rem;\
+}\
+.galaxy-btn::before {\
+  content: "";\
+  position: absolute;\
+  inset: -4px;\
+  z-index: 0;\
+  background: conic-gradient(from 0deg, var(--btn-bg) 0deg, var(--btn-primary) 60deg, var(--btn-secondary) 120deg, var(--btn-bg) 180deg, var(--btn-accent) 240deg, var(--btn-primary) 300deg, var(--btn-bg) 360deg);\
+  border-radius: 0.75em;\
+  animation: rotateNebula 4s linear infinite;\
+  filter: blur(8px);\
+  opacity: 0.7;\
+  transition: opacity 0.3s ease;\
+}\
+.galaxy-btn:hover::before { opacity: 1; animation-duration: 2s; }\
+.galaxy-btn::after {\
+  content: "";\
+  position: absolute;\
+  inset: 2px;\
+  background: var(--btn-bg);\
+  border-radius: 0.6em;\
+  z-index: 1;\
+}\
+.galaxy-btn__stars {\
+  position: absolute;\
+  inset: 0;\
+  z-index: 1;\
+  pointer-events: none;\
+  background-image: radial-gradient(circle at 20% 30%, white 1px, transparent 1.5px),\
+    radial-gradient(circle at 80% 70%, white 1px, transparent 1.5px),\
+    radial-gradient(circle at 40% 80%, white 0.5px, transparent 1px);\
+  background-size: 120% 120%;\
+  opacity: 0.3;\
+  transition: opacity 0.3s ease;\
+}\
+.galaxy-btn:hover .galaxy-btn__stars { opacity: 0.8; animation: starDrift 5s linear infinite alternate; }\
+@keyframes rotateNebula { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }\
+@keyframes starDrift { 0% { transform: scale(1); } 100% { transform: scale(1.1) translate(-2%, -2%); } }\
+\
+/* Gold outline button */\
+.btn-outline {\
+  padding: 14px 32px;\
+  background: transparent;\
+  border: 1.5px solid #C9A84C;\
+  color: #C9A84C;\
+  font-family: \'Inter\', sans-serif;\
+  font-size: 0.85rem;\
+  font-weight: 600;\
+  letter-spacing: 1.5px;\
+  text-transform: uppercase;\
+  border-radius: 8px;\
+  cursor: pointer;\
+  transition: all 0.3s ease;\
+}\
+.btn-outline:hover {\
+  background: #C9A84C;\
+  color: #0a0a0f;\
+  box-shadow: 0 0 30px rgba(201,168,76,0.3);\
+}\
+\
+/* ========== SECTION SHARED ========== */\
+.section { padding: 110px 0; }\
+.section-label {\
+  font-size: 0.75rem;\
+  font-weight: 600;\
+  letter-spacing: 4px;\
+  text-transform: uppercase;\
+  color: #C9A84C;\
+  text-align: center;\
+  margin-bottom: 16px;\
+}\
+.section-title {\
+  font-size: clamp(2rem, 4vw, 3rem);\
+  font-weight: 700;\
+  text-align: center;\
+  letter-spacing: 1px;\
+  margin-bottom: 20px;\
+  color: #fff;\
+}\
+.section-desc {\
+  text-align: center;\
+  color: rgba(255,255,255,0.5);\
+  max-width: 560px;\
+  margin: 0 auto 60px;\
+  font-size: 1.05rem;\
+}\
+\
+/* ========== FEATURES — CA2 Gradient Border Cards ========== */\
+.features-grid {\
+  display: grid;\
+  grid-template-columns: repeat(4, 1fr);\
+  gap: 24px;\
+}\
+.ca2-card {\
+  border-radius: 20px;\
+  padding: 3px;\
+  background-image: linear-gradient(144deg, #C9A84C, #8B6914 50%, #D4A84C);\
+  box-shadow: rgba(201, 168, 76, 0.15) 0 15px 30px -5px;\
+  transition: transform 0.4s ease, box-shadow 0.4s ease;\
+}\
+.ca2-card:hover {\
+  transform: translateY(-6px);\
+  box-shadow: rgba(201, 168, 76, 0.25) 0 20px 40px -5px;\
+}\
+.ca2-card-inner {\
+  background: #0f0f1a;\
+  border-radius: 17px;\
+  width: 100%;\
+  height: 100%;\
+  padding: 40px 28px;\
+  text-align: center;\
+}\
+.ca2-icon {\
+  font-size: 2.5rem;\
+  margin-bottom: 20px;\
+  display: block;\
+}\
+.ca2-card-inner h3 {\
+  font-size: 1.2rem;\
+  font-weight: 600;\
+  color: #fff;\
+  margin-bottom: 12px;\
+  letter-spacing: 0.5px;\
+}\
+.ca2-card-inner p {\
+  font-size: 0.9rem;\
+  color: rgba(255,255,255,0.5);\
+  line-height: 1.7;\
+}\
+\
+/* ========== MENU — CA6 Rotating Border Glow Cards ========== */\
+.menu-grid {\
+  display: grid;\
+  grid-template-columns: repeat(3, 1fr);\
+  gap: 28px;\
+}\
+.ca6-card {\
+  position: relative;\
+  display: flex;\
+  flex-direction: column;\
+  overflow: hidden;\
+  border-radius: 20px;\
+  background: #07182E;\
+  transition: transform 0.4s ease;\
+}\
+.ca6-card:hover { transform: translateY(-8px); }\
+.ca6-card::before {\
+  content: \'\';\
+  position: absolute;\
+  width: 120px;\
+  background-image: linear-gradient(180deg, #C9A84C, #8B6914);\
+  height: 140%;\
+  top: -20%;\
+  left: 50%;\
+  margin-left: -60px;\
+  animation: ca6Rotate 4s linear infinite;\
+  transition: all 0.2s linear;\
+  z-index: 0;\
+}\
+.ca6-card:hover::before {\
+  animation-duration: 1.5s;\
+  width: 160px;\
+  margin-left: -80px;\
+}\
+@keyframes ca6Rotate {\
+  from { transform: rotate(0deg); }\
+  to { transform: rotate(360deg); }\
+}\
+.ca6-card::after {\
+  content: \'\';\
+  position: absolute;\
+  background: #07182E;\
+  inset: 3px;\
+  border-radius: 17px;\
+  z-index: 1;\
+}\
+.ca6-card-content {\
+  position: relative;\
+  z-index: 2;\
+  padding: 0;\
+}\
+.ca6-card-img {\
+  width: 100%;\
+  height: 200px;\
+  object-fit: cover;\
+  border-radius: 17px 17px 0 0;\
+}\
+.ca6-card-body {\
+  padding: 24px;\
+}\
+.ca6-card-body h3 {\
+  font-size: 1.15rem;\
+  font-weight: 600;\
+  color: #fff;\
+  margin-bottom: 4px;\
+}\
+.ca6-card-origin {\
+  font-size: 0.8rem;\
+  color: #C9A84C;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  margin-bottom: 12px;\
+}\
+.ca6-card-notes {\
+  font-size: 0.85rem;\
+  color: rgba(255,255,255,0.5);\
+  margin-bottom: 16px;\
+  line-height: 1.6;\
+}\
+.ca6-card-price {\
+  font-family: \'Playfair Display\', serif;\
+  font-size: 1.5rem;\
+  font-weight: 700;\
+  color: #C9A84C;\
+}\
+\
+/* ========== PROCESS TIMELINE ========== */\
+.timeline {\
+  display: flex;\
+  align-items: flex-start;\
+  justify-content: space-between;\
+  position: relative;\
+  max-width: 900px;\
+  margin: 0 auto;\
+}\
+.timeline::before {\
+  content: \'\';\
+  position: absolute;\
+  top: 30px;\
+  left: 60px;\
+  right: 60px;\
+  height: 2px;\
+  background: linear-gradient(90deg, #C9A84C, #8B6914, #C9A84C);\
+}\
+.timeline-step {\
+  display: flex;\
+  flex-direction: column;\
+  align-items: center;\
+  text-align: center;\
+  flex: 1;\
+  position: relative;\
+  animation: fadeInUp 0.6s ease forwards;\
+  opacity: 0;\
+}\
+.timeline-step:nth-child(1) { animation-delay: 0.1s; }\
+.timeline-step:nth-child(2) { animation-delay: 0.3s; }\
+.timeline-step:nth-child(3) { animation-delay: 0.5s; }\
+.timeline-step:nth-child(4) { animation-delay: 0.7s; }\
+\
+@keyframes fadeInUp {\
+  from { opacity: 0; transform: translateY(30px); }\
+  to { opacity: 1; transform: translateY(0); }\
+}\
+.timeline-dot {\
+  width: 20px;\
+  height: 20px;\
+  border-radius: 50%;\
+  background: #C9A84C;\
+  border: 4px solid #0a0a0f;\
+  box-shadow: 0 0 20px rgba(201,168,76,0.4);\
+  margin-bottom: 24px;\
+  z-index: 2;\
+  position: relative;\
+}\
+.timeline-dot::after {\
+  content: \'\';\
+  position: absolute;\
+  inset: -8px;\
+  border-radius: 50%;\
+  border: 1px solid rgba(201,168,76,0.2);\
+}\
+.timeline-icon {\
+  font-size: 2rem;\
+  margin-bottom: 12px;\
+}\
+.timeline-step h4 {\
+  font-size: 1.05rem;\
+  color: #fff;\
+  margin-bottom: 8px;\
+  letter-spacing: 0.5px;\
+}\
+.timeline-step p {\
+  font-size: 0.85rem;\
+  color: rgba(255,255,255,0.45);\
+  max-width: 160px;\
+  line-height: 1.6;\
+}\
+\
+/* ========== TESTIMONIALS — CA8 Cyber 3D Cards ========== */\
+.testimonials-grid {\
+  display: grid;\
+  grid-template-columns: repeat(3, 1fr);\
+  gap: 32px;\
+}\
+.ca8-container {\
+  position: relative;\
+  width: 100%;\
+  aspect-ratio: 3/4;\
+  transition: 200ms;\
+  perspective: 800px;\
+}\
+.ca8-canvas {\
+  inset: 0;\
+  z-index: 200;\
+  position: absolute;\
+  display: grid;\
+  grid-template-columns: repeat(5, 1fr);\
+  grid-template-rows: repeat(5, 1fr);\
+}\
+.ca8-canvas > div { z-index: 200; }\
+.ca8-card {\
+  position: absolute;\
+  inset: 0;\
+  z-index: 0;\
+  display: flex;\
+  flex-direction: column;\
+  justify-content: center;\
+  align-items: center;\
+  border-radius: 20px;\
+  transition: 700ms;\
+  background: linear-gradient(45deg, #1a1a1a, #1a1520);\
+  border: 1px solid rgba(201, 168, 76, 0.15);\
+  overflow: hidden;\
+  box-shadow: 0 0 20px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);\
+  padding: 32px 24px;\
+  text-align: center;\
+}\
+/* Corner brackets */\
+.ca8-card::before, .ca8-card::after {\
+  content: \'\';\
+  position: absolute;\
+  width: 24px;\
+  height: 24px;\
+  border: 2px solid rgba(201,168,76,0.3);\
+  transition: border-color 0.3s ease;\
+}\
+.ca8-card::before {\
+  top: 12px;\
+  left: 12px;\
+  border-right: none;\
+  border-bottom: none;\
+}\
+.ca8-card::after {\
+  bottom: 12px;\
+  right: 12px;\
+  border-left: none;\
+  border-top: none;\
+}\
+\
+/* Scan line */\
+.ca8-scanline {\
+  position: absolute;\
+  top: 0;\
+  left: 0;\
+  right: 0;\
+  height: 2px;\
+  background: linear-gradient(90deg, transparent, #C9A84C, transparent);\
+  opacity: 0;\
+  transition: opacity 0.3s ease;\
+  animation: scanMove 3s linear infinite;\
+}\
+@keyframes scanMove {\
+  0% { top: 0; }\
+  100% { top: 100%; }\
+}\
+\
+/* Glow elements */\
+.ca8-glow {\
+  position: absolute;\
+  inset: 0;\
+  pointer-events: none;\
+}\
+.ca8-glow span {\
+  position: absolute;\
+  width: 80px;\
+  height: 80px;\
+  border-radius: 50%;\
+  background: radial-gradient(circle at center, rgba(201,168,76,0.25) 0%, transparent 70%);\
+  filter: blur(15px);\
+  opacity: 0;\
+  transition: opacity 0.3s ease;\
+}\
+.ca8-glow span:nth-child(1) { top: -20px; left: -20px; }\
+.ca8-glow span:nth-child(2) { top: 50%; right: -30px; transform: translateY(-50%); }\
+.ca8-glow span:nth-child(3) { bottom: -20px; left: 30%; }\
+\
+/* Particles */\
+.ca8-particles span {\
+  position: absolute;\
+  width: 3px;\
+  height: 3px;\
+  background: #C9A84C;\
+  border-radius: 50%;\
+  opacity: 0;\
+  transition: opacity 0.3s ease;\
+}\
+.ca8-particles span:nth-child(1) { --x: 1; --y: -1; top: 40%; left: 20%; }\
+.ca8-particles span:nth-child(2) { --x: -1; --y: -1; top: 60%; right: 20%; }\
+.ca8-particles span:nth-child(3) { --x: 0.5; --y: 1; top: 20%; left: 40%; }\
+.ca8-particles span:nth-child(4) { --x: -0.5; --y: 1; top: 80%; right: 40%; }\
+\
+@keyframes ca8Float {\
+  0% { transform: translate(0, 0); opacity: 0; }\
+  50% { opacity: 1; }\
+  100% { transform: translate(calc(var(--x) * 30px), calc(var(--y) * 30px)); opacity: 0; }\
+}\
+\
+/* 3D tilt hover zones */\
+.ca8-canvas > div:nth-child(1):hover ~ .ca8-card { transform: rotateX(10deg) rotateY(-8deg); }\
+.ca8-canvas > div:nth-child(2):hover ~ .ca8-card { transform: rotateX(10deg) rotateY(-4deg); }\
+.ca8-canvas > div:nth-child(3):hover ~ .ca8-card { transform: rotateX(10deg) rotateY(0deg); }\
+.ca8-canvas > div:nth-child(4):hover ~ .ca8-card { transform: rotateX(10deg) rotateY(4deg); }\
+.ca8-canvas > div:nth-child(5):hover ~ .ca8-card { transform: rotateX(10deg) rotateY(8deg); }\
+.ca8-canvas > div:nth-child(6):hover ~ .ca8-card { transform: rotateX(5deg) rotateY(-8deg); }\
+.ca8-canvas > div:nth-child(7):hover ~ .ca8-card { transform: rotateX(5deg) rotateY(-4deg); }\
+.ca8-canvas > div:nth-child(8):hover ~ .ca8-card { transform: rotateX(5deg) rotateY(0deg); }\
+.ca8-canvas > div:nth-child(9):hover ~ .ca8-card { transform: rotateX(5deg) rotateY(4deg); }\
+.ca8-canvas > div:nth-child(10):hover ~ .ca8-card { transform: rotateX(5deg) rotateY(8deg); }\
+.ca8-canvas > div:nth-child(11):hover ~ .ca8-card { transform: rotateX(0deg) rotateY(-8deg); }\
+.ca8-canvas > div:nth-child(12):hover ~ .ca8-card { transform: rotateX(0deg) rotateY(-4deg); }\
+.ca8-canvas > div:nth-child(13):hover ~ .ca8-card { transform: rotateX(0deg) rotateY(0deg); }\
+.ca8-canvas > div:nth-child(14):hover ~ .ca8-card { transform: rotateX(0deg) rotateY(4deg); }\
+.ca8-canvas > div:nth-child(15):hover ~ .ca8-card { transform: rotateX(0deg) rotateY(8deg); }\
+.ca8-canvas > div:nth-child(16):hover ~ .ca8-card { transform: rotateX(-5deg) rotateY(-8deg); }\
+.ca8-canvas > div:nth-child(17):hover ~ .ca8-card { transform: rotateX(-5deg) rotateY(-4deg); }\
+.ca8-canvas > div:nth-child(18):hover ~ .ca8-card { transform: rotateX(-5deg) rotateY(0deg); }\
+.ca8-canvas > div:nth-child(19):hover ~ .ca8-card { transform: rotateX(-5deg) rotateY(4deg); }\
+.ca8-canvas > div:nth-child(20):hover ~ .ca8-card { transform: rotateX(-5deg) rotateY(8deg); }\
+.ca8-canvas > div:nth-child(21):hover ~ .ca8-card { transform: rotateX(-10deg) rotateY(-8deg); }\
+.ca8-canvas > div:nth-child(22):hover ~ .ca8-card { transform: rotateX(-10deg) rotateY(-4deg); }\
+.ca8-canvas > div:nth-child(23):hover ~ .ca8-card { transform: rotateX(-10deg) rotateY(0deg); }\
+.ca8-canvas > div:nth-child(24):hover ~ .ca8-card { transform: rotateX(-10deg) rotateY(4deg); }\
+.ca8-canvas > div:nth-child(25):hover ~ .ca8-card { transform: rotateX(-10deg) rotateY(8deg); }\
+\
+/* Hover activations */\
+.ca8-canvas:hover ~ .ca8-card { filter: brightness(1.1); }\
+.ca8-canvas:hover ~ .ca8-card .ca8-scanline { opacity: 0.6; }\
+.ca8-canvas:hover ~ .ca8-card .ca8-glow span { opacity: 1; }\
+.ca8-canvas:hover ~ .ca8-card .ca8-particles span { animation: ca8Float 2s infinite; }\
+.ca8-canvas:hover ~ .ca8-card::before,\
+.ca8-canvas:hover ~ .ca8-card::after { border-color: rgba(201,168,76,0.7); }\
+\
+.ca8-stars {\
+  display: flex;\
+  gap: 4px;\
+  justify-content: center;\
+  margin-bottom: 20px;\
+}\
+.ca8-stars span {\
+  color: #C9A84C;\
+  font-size: 1rem;\
+}\
+.ca8-quote {\
+  font-family: \'Playfair Display\', serif;\
+  font-style: italic;\
+  font-size: 1rem;\
+  color: rgba(255,255,255,0.75);\
+  line-height: 1.7;\
+  margin-bottom: 24px;\
+  position: relative;\
+  z-index: 2;\
+}\
+.ca8-avatar {\
+  width: 52px;\
+  height: 52px;\
+  border-radius: 50%;\
+  object-fit: cover;\
+  border: 2px solid rgba(201,168,76,0.4);\
+  margin: 0 auto 12px;\
+  position: relative;\
+  z-index: 2;\
+}\
+.ca8-name {\
+  font-weight: 600;\
+  font-size: 0.95rem;\
+  color: #fff;\
+  position: relative;\
+  z-index: 2;\
+}\
+.ca8-role {\
+  font-size: 0.8rem;\
+  color: #C9A84C;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  position: relative;\
+  z-index: 2;\
+}\
+\
+/* ========== FOOTER ========== */\
+.footer {\
+  padding: 60px 0 30px;\
+  border-top: 1px solid rgba(201,168,76,0.1);\
+}\
+.footer-inner {\
+  display: flex;\
+  justify-content: space-between;\
+  align-items: center;\
+  flex-wrap: wrap;\
+  gap: 24px;\
+  margin-bottom: 40px;\
+}\
+.footer-logo {\
+  font-family: \'Playfair Display\', serif;\
+  font-size: 1.5rem;\
+  font-weight: 700;\
+  color: #C9A84C;\
+  letter-spacing: 2px;\
+}\
+.footer-socials {\
+  display: flex;\
+  gap: 16px;\
+}\
+.footer-socials a {\
+  width: 42px;\
+  height: 42px;\
+  border-radius: 50%;\
+  border: 1px solid rgba(201,168,76,0.2);\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  color: rgba(255,255,255,0.6);\
+  font-size: 1rem;\
+  transition: all 0.3s ease;\
+}\
+.footer-socials a:hover {\
+  border-color: #C9A84C;\
+  color: #C9A84C;\
+  box-shadow: 0 0 15px rgba(201,168,76,0.2);\
+}\
+.footer-links {\
+  display: flex;\
+  gap: 32px;\
+  list-style: none;\
+}\
+.footer-links a {\
+  font-size: 0.85rem;\
+  color: rgba(255,255,255,0.5);\
+  transition: color 0.3s ease;\
+}\
+.footer-links a:hover { color: #C9A84C; }\
+.footer-bottom {\
+  text-align: center;\
+  font-size: 0.8rem;\
+  color: rgba(255,255,255,0.3);\
+  padding-top: 24px;\
+  border-top: 1px solid rgba(255,255,255,0.05);\
+}\
+\
+/* ========== RESPONSIVE ========== */\
+@media (max-width: 1024px) {\
+  .features-grid { grid-template-columns: repeat(2, 1fr); }\
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }\
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }\
+}\
+@media (max-width: 768px) {\
+  .nav-links { display: none; }\
+  .features-grid { grid-template-columns: 1fr; }\
+  .menu-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }\
+  .testimonials-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }\
+  .timeline {\
+    flex-direction: column;\
+    gap: 40px;\
+    align-items: center;\
+  }\
+  .timeline::before {\
+    top: 30px;\
+    bottom: 30px;\
+    left: 50%;\
+    right: auto;\
+    width: 2px;\
+    height: calc(100% - 60px);\
+  }\
+  .hero h1 { font-size: 2.2rem; }\
+  .section { padding: 70px 0; }\
+  .footer-inner { flex-direction: column; text-align: center; }\
+  .footer-links { flex-wrap: wrap; justify-content: center; }\
+}\
+<\/style>\
 </head>\
 <body>\
-<div class="dust-particle" style="left:10%;animation-delay:0s;--dx:30px;--dy:-100vh;"></div>\
-<div class="dust-particle" style="left:25%;animation-delay:2s;--dx:-20px;--dy:-100vh;"></div>\
-<div class="dust-particle" style="left:45%;animation-delay:4s;--dx:15px;--dy:-100vh;"></div>\
-<div class="dust-particle" style="left:65%;animation-delay:1s;--dx:-25px;--dy:-100vh;"></div>\
-<div class="dust-particle" style="left:80%;animation-delay:3s;--dx:20px;--dy:-100vh;"></div>\
-<div class="dust-particle" style="left:92%;animation-delay:5s;--dx:-10px;--dy:-100vh;"></div>\
-<nav>\
-<div class="nav-inner">\
-<a href="#" class="nav-logo">Golden <span>P\u00E2tisserie</span></a>\
-<ul class="nav-links">\
-<li><a href="#pastries">Pastries</a></li>\
-<li><a href="#process">Process</a></li>\
-<li><a href="#baker">Baker</a></li>\
-<li><a href="#reviews">Reviews</a></li>\
-<li><a href="#order">Order</a></li>\
-<li><a href="#contact">Contact</a></li>\
-</ul>\
-</div>\
+\
+<!-- Floating particles -->\
+<div class="particle"></div>\
+<div class="particle"></div>\
+<div class="particle"></div>\
+<div class="particle"></div>\
+<div class="particle"></div>\
+<div class="particle"></div>\
+\
+<!-- ========== NAV ========== -->\
+<nav class="nav">\
+  <div class="nav-inner">\
+    <a href="#" class="nav-logo">Brew Culture</a>\
+    <ul class="nav-links">\
+      <li><a href="#menu">Menu</a></li>\
+      <li><a href="#process">Process</a></li>\
+      <li><a href="#reviews">Reviews</a></li>\
+      <li><a href="#contact">Contact</a></li>\
+      <li><a href="#menu" class="nav-cta">Commander</a></li>\
+    </ul>\
+  </div>\
 </nav>\
-<div class="hero">\
-<div class="hero-content">\
-<h1><span class="gold-shimmer">Golden P\u00E2tisserie</span></h1>\
-<div class="gold-line"></div>\
-<p class="subtitle">L\\\'Art de la P\u00E2tisserie Fran\u00E7aise</p>\
-<p class="desc">Nestled in the heart of the city, our master bakers create exquisite French pastries using time-honored techniques, the finest imported ingredients, and an unwavering passion for perfection that has delighted connoisseurs for over three decades.</p>\
-<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">\
-<button class="btn-gold">Explore Our Pastries</button>\
-<button class="btn-outline" style="color:#fff;border-color:#fff;">Reserve a Tasting</button>\
-</div>\
-</div>\
-</div>\
-<section id="pastries">\
-<h2 class="section-title gold-shimmer">Our Pastries</h2>\
-<p class="section-sub">Handcrafted with love, served with elegance</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="pastry-grid">\
-<div class="pastry-card">\
-<div class="ribbon">Best Seller</div>\
-<img src="https://images.unsplash.com/photo-1612809075925-230035502426?w=600&h=440&fit=crop" alt="Croissant">\
-<div class="pastry-card-body">\
-<h3>Croissant au Beurre</h3>\
-<p>Our signature croissant, made with 84% French butter and laminated 27 times for impossibly flaky layers. Each one takes two days to prepare. Golden, shattering, and utterly divine. Served warm from the oven every morning at 7AM.</p>\
-<span class="pastry-price">\u20AC4.50</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-<div class="pastry-card">\
-<div class="ribbon">Chef\\\'s Pick</div>\
-<img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&h=440&fit=crop" alt="Macaron">\
-<div class="pastry-card-body">\
-<h3>Macarons Collection</h3>\
-<p>Delicate almond meringue shells with luscious ganache fillings. Flavors rotate seasonally: Tahitian vanilla, Valrhona chocolate, Isfahan rose, Sicilian pistachio, yuzu, and salted caramel. Each one a tiny masterpiece of texture and taste.</p>\
-<span class="pastry-price">\u20AC3.00 each</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-<div class="pastry-card">\
-<div class="ribbon">New</div>\
-<img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&h=440&fit=crop" alt="Tart">\
-<div class="pastry-card-body">\
-<h3>Tarte aux Fruits</h3>\
-<p>A crisp sweet pastry shell filled with silky vanilla cr\u00E8me p\u00E2tissi\u00E8re and adorned with a mosaic of seasonal fruits. Glazed with apricot for a jewel-like finish. A celebration of the seasons in every bite, beautiful enough to frame.</p>\
-<span class="pastry-price">\u20AC8.50</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-<div class="pastry-card">\
-<img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&h=440&fit=crop" alt="Eclair">\
-<div class="pastry-card-body">\
-<h3>\u00C9clair au Chocolat</h3>\
-<p>Choux pastry piped to perfection and baked until golden. Filled with rich Valrhona dark chocolate cr\u00E8me p\u00E2tissi\u00E8re and glazed with a mirror-finish chocolate fondant. The benchmark against which all \u00E9clairs should be measured.</p>\
-<span class="pastry-price">\u20AC6.00</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-<div class="pastry-card">\
-<div class="ribbon">Popular</div>\
-<img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=600&h=440&fit=crop" alt="Pain au Chocolat">\
-<div class="pastry-card-body">\
-<h3>Pain au Chocolat</h3>\
-<p>Buttery, laminated viennoiserie wrapped around two bars of premium dark chocolate. The exterior shatters into a thousand golden flakes while the interior remains impossibly soft and the chocolate melts into dark, bittersweet rivers of bliss.</p>\
-<span class="pastry-price">\u20AC5.00</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-<div class="pastry-card">\
-<img src="https://images.unsplash.com/photo-1621955511667-e2c316e4575d?w=600&h=440&fit=crop" alt="Mille-feuille">\
-<div class="pastry-card-body">\
-<h3>Mille-Feuille</h3>\
-<p>Three layers of caramelized puff pastry interlaced with light vanilla diplomat cream and fresh raspberries. Topped with classic fondant feathering. A masterwork of contrasting textures — crunchy, creamy, fruity — in perfect harmony.</p>\
-<span class="pastry-price">\u20AC9.00</span>\
-<div style="margin-top:12px;"><button class="btn-line-gold">View Details \u2192</button></div>\
-</div>\
-</div>\
-</div>\
+\
+<!-- ========== HERO ========== -->\
+<section class="hero">\
+  <div class="hero-bg"></div>\
+  <div class="hero-overlay"></div>\
+  <div class="hero-content">\
+    <span class="hero-badge">Artisan Coffee Since 2019</span>\
+    <h1><span class="gold-shimmer">L\'Art du Cafe d\'Exception</span></h1>\
+    <p class="hero-subtitle">Du grain a la tasse, une experience sensorielle unique</p>\
+    <p class="hero-desc">Decouvrez notre selection de cafes de specialite, torrefies artisanalement dans notre atelier parisien. Chaque tasse raconte l\'histoire d\'un terroir d\'exception.</p>\
+    <div class="hero-buttons">\
+      <button class="galaxy-btn">\
+        <span class="galaxy-btn__stars"></span>\
+        <span class="galaxy-btn__content">\
+          <span>Decouvrir le Menu</span>\
+        </span>\
+      </button>\
+      <button class="btn-outline">Notre Histoire</button>\
+    </div>\
+  </div>\
 </section>\
-<section id="process">\
-<h2 class="section-title gold-shimmer">Our Process</h2>\
-<p class="section-sub">From flour to masterpiece, every step matters</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="timeline">\
-<div class="timeline-item">\
-<h3>Sourcing the Finest Ingredients</h3>\
-<p>We import our butter from Normandy, our chocolate from Valrhona, our vanilla from Tahiti, and our flour from artisan mills in the Loire Valley. Every ingredient is selected for its exceptional quality, terroir, and character. We accept no substitutes.</p>\
-</div>\
-<div class="timeline-item">\
-<h3>Preparing the Dough</h3>\
-<p>Our laminated doughs are prepared over two days with precise temperature control. Each croissant receives 27 folds, creating 2,187 individual layers of butter and dough. The process cannot be rushed; patience is the secret ingredient.</p>\
-</div>\
-<div class="timeline-item">\
-<h3>Shaping by Hand</h3>\
-<p>Every pastry is shaped by hand by our team of classically trained p\u00E2tissiers. No machines, no shortcuts. The human touch creates the subtle imperfections that make each piece unique and ensures the delicate structure is never compromised.</p>\
-</div>\
-<div class="timeline-item">\
-<h3>Baking to Perfection</h3>\
-<p>Our ovens are calibrated to the exact degree required for each pastry. Croissants at 185\u00B0C, macarons at 150\u00B0C, \u00E9clairs at 200\u00B0C then 170\u00B0C. Timing is measured in seconds, not minutes. The difference between good and extraordinary lies in these details.</p>\
-</div>\
-<div class="timeline-item">\
-<h3>Finishing and Presentation</h3>\
-<p>The final touches transform pastries into art. Mirror glazes, spun sugar, edible gold leaf, fresh microflowers, and hand-piped decorations. Each pastry is plated with the precision of a Michelin-starred restaurant because beauty is an essential ingredient.</p>\
-</div>\
-</div>\
+\
+<!-- ========== FEATURES ========== -->\
+<section class="section">\
+  <div class="container">\
+    <p class="section-label">Pourquoi Nous Choisir</p>\
+    <h2 class="section-title">L\'Excellence dans Chaque Detail</h2>\
+    <p class="section-desc">Nous croyons que le cafe est un art. De la selection des grains a la degustation, chaque etape est maitrisee avec passion.</p>\
+    <div class="features-grid">\
+      <div class="ca2-card">\
+        <div class="ca2-card-inner">\
+          <span class="ca2-icon">&#9749;</span>\
+          <h3>Selection Premium</h3>\
+          <p>Grains soigneusement selectionnes aupres de producteurs d\'exception dans les meilleurs terroirs du monde.</p>\
+        </div>\
+      </div>\
+      <div class="ca2-card">\
+        <div class="ca2-card-inner">\
+          <span class="ca2-icon">&#128293;</span>\
+          <h3>Torrefaction Artisanale</h3>\
+          <p>Chaque lot est torrefie en micro-batch pour reveler les aromes uniques de chaque origine.</p>\
+        </div>\
+      </div>\
+      <div class="ca2-card">\
+        <div class="ca2-card-inner">\
+          <span class="ca2-icon">&#127793;</span>\
+          <h3>100% Bio & Equitable</h3>\
+          <p>Engage pour une filiere durable et juste, du producteur a votre tasse.</p>\
+        </div>\
+      </div>\
+      <div class="ca2-card">\
+        <div class="ca2-card-inner">\
+          <span class="ca2-icon">&#128230;</span>\
+          <h3>Livraison Fraicheur</h3>\
+          <p>Torrefie a la commande et livre sous 48h pour une fraicheur optimale garantie.</p>\
+        </div>\
+      </div>\
+    </div>\
+  </div>\
 </section>\
-<section id="baker">\
-<h2 class="section-title gold-shimmer">Master Baker</h2>\
-<p class="section-sub">The artist behind every creation</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="baker-section">\
-<div class="baker-img-wrap">\
-<img src="https://images.unsplash.com/photo-1583394293214-28ez1c9f18a?w=400&h=400&fit=crop" alt="Chef Marie Laurent">\
-</div>\
-<div class="baker-info">\
-<h2>Chef Marie Laurent</h2>\
-<span class="baker-title">Ma\u00EEtre P\u00E2tissier \u2014 30 Years of Excellence</span>\
-<p>Trained at Le Cordon Bleu Paris and mentored by Pierre Herm\u00E9 himself, Chef Marie has dedicated her life to the art of French p\u00E2tisserie. Her philosophy is simple: use the best ingredients, respect traditional techniques, and never stop innovating.</p>\
-<p>She has been awarded the prestigious Meilleur Ouvrier de France and has represented French pastry arts in competitions across Tokyo, New York, and S\u00E3o Paulo. Under her guidance, Golden P\u00E2tisserie has become a pilgrimage site for pastry lovers worldwide.</p>\
-<button class="btn-gold" style="margin-top:10px;">Read Her Story</button>\
-</div>\
-</div>\
+\
+<!-- ========== MENU SHOWCASE ========== -->\
+<section class="section" id="menu" style="background: #0d1117;">\
+  <div class="container">\
+    <p class="section-label">Notre Carte</p>\
+    <h2 class="section-title">Cafes de Specialite</h2>\
+    <p class="section-desc">Six origines d\'exception, selectionnees et torrefieees avec soin pour vous offrir le meilleur du cafe de specialite.</p>\
+    <div class="menu-grid">\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop" alt="Espresso">\
+          <div class="ca6-card-body">\
+            <h3>Ethiopia Yirgacheffe</h3>\
+            <p class="ca6-card-origin">Afrique de l\'Est</p>\
+            <p class="ca6-card-notes">Notes florales de jasmin, agrumes, finale miellee. Leger et elegant.</p>\
+            <span class="ca6-card-price">14,90 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=400&h=300&fit=crop" alt="Coffee beans">\
+          <div class="ca6-card-body">\
+            <h3>Colombia Supremo</h3>\
+            <p class="ca6-card-origin">Amerique du Sud</p>\
+            <p class="ca6-card-notes">Caramel, noisette, chocolat au lait. Corps riche et equilibre.</p>\
+            <span class="ca6-card-price">12,90 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=300&fit=crop" alt="Pour over">\
+          <div class="ca6-card-body">\
+            <h3>Kenya AA</h3>\
+            <p class="ca6-card-origin">Afrique de l\'Est</p>\
+            <p class="ca6-card-notes">Cassis, tomate sechee, acidite vive. Complexe et intense.</p>\
+            <span class="ca6-card-price">16,50 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop" alt="Latte art">\
+          <div class="ca6-card-body">\
+            <h3>Guatemala Antigua</h3>\
+            <p class="ca6-card-origin">Amerique Centrale</p>\
+            <p class="ca6-card-notes">Chocolat noir, epices douces, finale fumee. Profond et veloute.</p>\
+            <span class="ca6-card-price">13,90 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=400&h=300&fit=crop" alt="Coffee cup">\
+          <div class="ca6-card-body">\
+            <h3>Sumatra Mandheling</h3>\
+            <p class="ca6-card-origin">Asie du Sud-Est</p>\
+            <p class="ca6-card-notes">Terre, tabac, chocolat amer. Corps puissant et terreux.</p>\
+            <span class="ca6-card-price">15,90 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="ca6-card">\
+        <div class="ca6-card-content">\
+          <img class="ca6-card-img" src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=400&h=300&fit=crop" alt="Brewing">\
+          <div class="ca6-card-body">\
+            <h3>Panama Geisha</h3>\
+            <p class="ca6-card-origin">Amerique Centrale</p>\
+            <p class="ca6-card-notes">Bergamote, peche blanche, jasmin. Le joyau ultime du cafe.</p>\
+            <span class="ca6-card-price">29,90 &euro;</span>\
+          </div>\
+        </div>\
+      </div>\
+    </div>\
+  </div>\
 </section>\
-<section>\
-<h2 class="section-title gold-shimmer">Quality Guaranteed</h2>\
-<p class="section-sub">Our commitments to excellence</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:30px;"></div>\
-<div class="badges-row">\
-<div class="badge-item"><div class="badge-icon">\u2605</div><p>Organic Flour</p></div>\
-<div class="badge-item"><div class="badge-icon">\u2665</div><p>AOP Butter</p></div>\
-<div class="badge-item"><div class="badge-icon">\u2736</div><p>No Preservatives</p></div>\
-<div class="badge-item"><div class="badge-icon">\u2600</div><p>Baked Daily</p></div>\
-<div class="badge-item"><div class="badge-icon">\u2726</div><p>Award Winning</p></div>\
-<div class="badge-item"><div class="badge-icon">\u2618</div><p>Sustainable</p></div>\
-</div>\
+\
+<!-- ========== PROCESS TIMELINE ========== -->\
+<section class="section" id="process">\
+  <div class="container">\
+    <p class="section-label">Notre Savoir-Faire</p>\
+    <h2 class="section-title">Du Grain a la Tasse</h2>\
+    <p class="section-desc">Un processus artisanal en quatre etapes pour garantir l\'excellence a chaque tasse.</p>\
+    <div class="timeline">\
+      <div class="timeline-step">\
+        <div class="timeline-dot"></div>\
+        <span class="timeline-icon">&#127758;</span>\
+        <h4>Selection</h4>\
+        <p>Sourcing direct aupres de fermes d\'altitude certifiees bio.</p>\
+      </div>\
+      <div class="timeline-step">\
+        <div class="timeline-dot"></div>\
+        <span class="timeline-icon">&#128293;</span>\
+        <h4>Torrefaction</h4>\
+        <p>Micro-lots torrefies a la main dans notre atelier parisien.</p>\
+      </div>\
+      <div class="timeline-step">\
+        <div class="timeline-dot"></div>\
+        <span class="timeline-icon">&#9749;</span>\
+        <h4>Degustation</h4>\
+        <p>Cupping rigoureux pour valider chaque profil aromatique.</p>\
+      </div>\
+      <div class="timeline-step">\
+        <div class="timeline-dot"></div>\
+        <span class="timeline-icon">&#128230;</span>\
+        <h4>Livraison</h4>\
+        <p>Emballage sous azote et expedition sous 48 heures.</p>\
+      </div>\
+    </div>\
+  </div>\
 </section>\
-<section id="reviews">\
-<h2 class="section-title gold-shimmer">Testimonials</h2>\
-<p class="section-sub">Words from our cherished guests</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="testi-grid">\
-<div class="testi-card">\
-<div class="quote-mark">\u201C</div>\
-<p>The croissants at Golden P\u00E2tisserie transported me straight to a Parisian boulevard. Shatteringly crisp on the outside, impossibly soft within, with that unmistakable aroma of real French butter. I have never tasted anything so perfect outside of France.</p>\
-<span class="author">\u2014 Isabella Fontaine, Food Critic</span>\
-</div>\
-<div class="testi-card">\
-<div class="quote-mark">\u201C</div>\
-<p>We ordered a custom wedding cake and the result was breathtaking. Five tiers of alternating vanilla and raspberry, covered in hand-painted gold leaf flowers. Our guests are still talking about it two years later. Chef Marie is a true artist.</p>\
-<span class="author">\u2014 James &amp; Sophie Henderson</span>\
-</div>\
-<div class="testi-card">\
-<div class="quote-mark">\u201C</div>\
-<p>As someone who trained in p\u00E2tisserie, I can say with authority that Golden P\u00E2tisserie operates at a level that few bakeries in the world can match. The mille-feuille alone is worth a special trip. Precision, passion, and perfection in every bite.</p>\
-<span class="author">\u2014 Chef Olivier Durand</span>\
-</div>\
-</div>\
+\
+<!-- ========== TESTIMONIALS ========== -->\
+<section class="section" id="reviews" style="background: #0d1117;">\
+  <div class="container">\
+    <p class="section-label">Temoignages</p>\
+    <h2 class="section-title">Ce Que Disent Nos Clients</h2>\
+    <p class="section-desc">Des amateurs de cafe du monde entier nous font confiance pour leur rituel quotidien.</p>\
+    <div class="testimonials-grid">\
+\
+      <!-- Testimonial 1 -->\
+      <div class="ca8-container">\
+        <div class="ca8-canvas">\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+        </div>\
+        <div class="ca8-card">\
+          <div class="ca8-scanline"></div>\
+          <div class="ca8-glow"><span></span><span></span><span></span></div>\
+          <div class="ca8-particles"><span></span><span></span><span></span><span></span></div>\
+          <div class="ca8-stars">\
+            <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>\
+          </div>\
+          <p class="ca8-quote">"Le meilleur cafe que j\'aie jamais goute. L\'Ethiopia Yirgacheffe est une revelation absolue, une explosion de saveurs."</p>\
+          <img class="ca8-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Avatar">\
+          <span class="ca8-name">Marc Dupont</span>\
+          <span class="ca8-role">Chef Restaurateur</span>\
+        </div>\
+      </div>\
+\
+      <!-- Testimonial 2 -->\
+      <div class="ca8-container">\
+        <div class="ca8-canvas">\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+        </div>\
+        <div class="ca8-card">\
+          <div class="ca8-scanline"></div>\
+          <div class="ca8-glow"><span></span><span></span><span></span></div>\
+          <div class="ca8-particles"><span></span><span></span><span></span><span></span></div>\
+          <div class="ca8-stars">\
+            <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>\
+          </div>\
+          <p class="ca8-quote">"Depuis que j\'ai decouvert Brew Culture, impossible de revenir en arriere. La fraicheur et la complexite sont incomparables."</p>\
+          <img class="ca8-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Avatar">\
+          <span class="ca8-name">Sophie Laurent</span>\
+          <span class="ca8-role">Sommeliere du Cafe</span>\
+        </div>\
+      </div>\
+\
+      <!-- Testimonial 3 -->\
+      <div class="ca8-container">\
+        <div class="ca8-canvas">\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+          <div></div><div></div><div></div><div></div><div></div>\
+        </div>\
+        <div class="ca8-card">\
+          <div class="ca8-scanline"></div>\
+          <div class="ca8-glow"><span></span><span></span><span></span></div>\
+          <div class="ca8-particles"><span></span><span></span><span></span><span></span></div>\
+          <div class="ca8-stars">\
+            <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>\
+          </div>\
+          <p class="ca8-quote">"L\'abonnement mensuel est genial. Chaque mois, une nouvelle origine a decouvrir. Le Panama Geisha m\'a litteralement bouleverse."</p>\
+          <img class="ca8-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Avatar">\
+          <span class="ca8-name">Thomas Moreau</span>\
+          <span class="ca8-role">Barista Champion 2024</span>\
+        </div>\
+      </div>\
+\
+    </div>\
+  </div>\
 </section>\
-<section id="order">\
-<h2 class="section-title gold-shimmer">Custom Cake Order</h2>\
-<p class="section-sub">Let us create something extraordinary for your special occasion</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="order-form">\
-<div class="form-row">\
-<div class="form-group"><input type="text" placeholder=" "><label>Your Name</label></div>\
-<div class="form-group"><input type="email" placeholder=" "><label>Email Address</label></div>\
-</div>\
-<div class="form-row">\
-<div class="form-group"><input type="tel" placeholder=" "><label>Phone Number</label></div>\
-<div class="form-group"><input type="date" placeholder=" "><label>Event Date</label></div>\
-</div>\
-<div class="form-group"><input type="text" placeholder=" "><label>Cake Type (Wedding, Birthday, etc.)</label></div>\
-<div class="form-group"><textarea placeholder=" "></textarea><label>Describe Your Dream Cake</label></div>\
-<div style="text-align:center;"><button class="btn-gold">Submit Request</button></div>\
-<div style="text-align:center;margin-top:18px;"><button class="btn-gradient-gold"><span>Explore Our Specials</span></button></div>\
-</div>\
-</section>\
-<section>\
-<h2 class="section-title gold-shimmer">Follow Us</h2>\
-<p class="section-sub">@goldenpatisserie on Instagram</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:40px;"></div>\
-<div class="insta-grid">\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1612809075925-230035502426?w=300&h=300&fit=crop" alt="Instagram 1"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=300&h=300&fit=crop" alt="Instagram 2"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop" alt="Instagram 3"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300&h=300&fit=crop" alt="Instagram 4"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=300&h=300&fit=crop" alt="Instagram 5"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1621955511667-e2c316e4575d?w=300&h=300&fit=crop" alt="Instagram 6"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=300&fit=crop" alt="Instagram 7"></div>\
-<div class="insta-item"><img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=300&h=300&fit=crop" alt="Instagram 8"></div>\
-</div>\
-</section>\
-<section>\
-<div class="newsletter-section">\
-<h2 class="gold-shimmer" style="font-size:34px;">Join Our Circle</h2>\
-<p>Receive exclusive recipes, seasonal menus, and invitations to our private tasting events delivered to your inbox.</p>\
-<div class="nl-form">\
-<input type="email" placeholder="Your email address">\
-<button class="btn-gold">Subscribe</button>\
-</div>\
-</div>\
-</section>\
-<section id="contact" style="text-align:center;">\
-<div class="swirl-ornament"></div>\
-<div style="height:30px;"></div>\
-<h2 class="section-title gold-shimmer">Visit Us</h2>\
-<p class="section-sub">We would love to welcome you</p>\
-<div class="flourish"><div class="flourish-diamond"></div></div>\
-<div style="height:30px;"></div>\
-<p style="font-size:16px;line-height:2;color:#5a3e2b;">12 Rue de la P\u00E2tisserie, 75004 Paris, France<br>Tuesday \u2013 Sunday: 7:00 AM \u2013 7:00 PM<br>Monday: Closed<br>Phone: +33 1 42 78 56 00<br>Email: bonjour@goldenpatisserie.fr</p>\
-<div style="margin-top:25px;"><button class="btn-gold">Get Directions</button></div>\
-</section>\
-<footer>\
-<div class="footer-inner">\
-<div class="footer-col">\
-<h4>Golden P\u00E2tisserie</h4>\
-<p>Crafting exquisite French pastries since 1994. Three decades of passion, precision, and the pursuit of perfection. Every creation is a love letter to the art of p\u00E2tisserie.</p>\
-</div>\
-<div class="footer-col">\
-<h4>Quick Links</h4>\
-<a href="#">Our Pastries</a>\
-<a href="#">Custom Cakes</a>\
-<a href="#">Catering Services</a>\
-<a href="#">Gift Boxes</a>\
-<a href="#">Pastry Classes</a>\
-<a href="#">Careers</a>\
-</div>\
-<div class="footer-col">\
-<h4>Contact</h4>\
-<p>12 Rue de la P\u00E2tisserie<br>75004 Paris, France</p>\
-<p>bonjour@goldenpatisserie.fr<br>+33 1 42 78 56 00</p>\
-</div>\
-</div>\
-<div class="footer-bottom">\
-<p>\u00A9 2026 Golden P\u00E2tisserie. All rights reserved. Made with butter, flour, and love.</p>\
-</div>\
+\
+<!-- ========== FOOTER ========== -->\
+<footer class="footer" id="contact">\
+  <div class="container">\
+    <div class="footer-inner">\
+      <span class="footer-logo">Brew Culture</span>\
+      <div class="footer-socials">\
+        <a href="#" aria-label="Instagram">\
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>\
+        </a>\
+        <a href="#" aria-label="Twitter">\
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>\
+        </a>\
+        <a href="#" aria-label="Facebook">\
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>\
+        </a>\
+        <a href="#" aria-label="YouTube">\
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>\
+        </a>\
+      </div>\
+      <ul class="footer-links">\
+        <li><a href="#menu">Menu</a></li>\
+        <li><a href="#process">Process</a></li>\
+        <li><a href="#reviews">Avis</a></li>\
+        <li><a href="#">Mentions Legales</a></li>\
+        <li><a href="#">Contact</a></li>\
+      </ul>\
+    </div>\
+    <p class="footer-bottom">&copy; 2026 Brew Culture. Tous droits reserves. Torrefie avec passion a Paris.</p>\
+  </div>\
 </footer>\
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"><\/script>\
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"><\/script>\
-<script>\
-gsap.registerPlugin(ScrollTrigger);\
-gsap.utils.toArray(".pastry-card").forEach(function(card,i){gsap.from(card,{scrollTrigger:{trigger:card,start:"top 85%"},y:50,opacity:0,duration:0.8,delay:i*0.12});});\
-gsap.utils.toArray(".timeline-item").forEach(function(item,i){gsap.from(item,{scrollTrigger:{trigger:item,start:"top 85%"},x:-40,opacity:0,duration:0.7,delay:i*0.15});});\
-gsap.from(".baker-img-wrap",{scrollTrigger:{trigger:".baker-section",start:"top 80%"},scale:0.8,opacity:0,duration:1});\
-gsap.from(".baker-info",{scrollTrigger:{trigger:".baker-section",start:"top 80%"},x:50,opacity:0,duration:1,delay:0.2});\
-gsap.utils.toArray(".badge-item").forEach(function(b,i){gsap.from(b,{scrollTrigger:{trigger:b,start:"top 90%"},y:30,opacity:0,duration:0.5,delay:i*0.1});});\
-gsap.utils.toArray(".testi-card").forEach(function(card,i){gsap.from(card,{scrollTrigger:{trigger:card,start:"top 85%"},y:40,opacity:0,duration:0.7,delay:i*0.15});});\
-gsap.from(".order-form",{scrollTrigger:{trigger:".order-form",start:"top 80%"},y:40,opacity:0,duration:0.8});\
-<\/script>\
+\
 </body>\
-</html>';
+</html>\
+';
 };
 
 TPL_FOOD_HTML['27'] = function () {
