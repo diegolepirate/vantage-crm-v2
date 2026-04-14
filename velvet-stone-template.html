@@ -93,19 +93,19 @@ body::after {
 }
 .sidebar a:hover .tooltip { opacity: 1; transform: translateX(0); color: #D4AF37; }
 
-/* sidebar button colors */
-.sb-chemises::before { background: #D4AF37; }
-.sb-vestes::before { background: #8B6914; }
-.sb-tshirts::before { background: #c0c0c0; }
-.sb-pantalons::before { background: #2c1810; }
-.sb-chaussures::before { background: #1a1a2e; border: 1px solid rgba(212,175,55,0.3); }
-.sb-chaussettes::before { background: #555; }
-.sb-chapeaux::before { background: #333; }
-.sb-accessoires::before { background: #D4AF37; }
-.sb-promos::before { background: linear-gradient(135deg, #D4AF37, #8B6914); }
+/* sidebar button colors — rainbow */
+.sb-chemises::before { background: #FF6B6B; }
+.sb-vestes::before { background: #FF8E53; }
+.sb-tshirts::before { background: #FEC84B; }
+.sb-pantalons::before { background: #4ECB71; }
+.sb-chaussures::before { background: #36B5FF; }
+.sb-chaussettes::before { background: #A78BFA; }
+.sb-chapeaux::before { background: #F472B6; }
+.sb-accessoires::before { background: #38BDF8; }
+.sb-promos::before { background: linear-gradient(135deg, #FF6B6B, #FEC84B, #4ECB71, #36B5FF, #A78BFA); }
 
-/* sidebar hover: ensure button bg is visible and emoji is on top */
-.sidebar a:hover::before { box-shadow: 0 0 12px rgba(212,175,55,0.4); }
+/* sidebar hover */
+.sidebar a:hover::before { box-shadow: 0 0 14px rgba(255,255,255,0.3); }
 
 /* ─── SECTIONS ─── */
 .section {
@@ -189,24 +189,25 @@ body::after {
 .ca5-strip img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.5s; }
 .ca5-strip:hover img { filter: brightness(0.6); }
 .ca5-strip-label {
-  position: absolute; bottom: 20px; left: 50%; font-size: 13px;
+  position: absolute; bottom: 50%; left: 50%; font-size: 13px;
   font-family: 'Playfair Display', serif; color: #f5f0eb; white-space: nowrap;
   transform: translateX(-50%) rotate(-90deg); transform-origin: center;
-  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  transition: all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
   letter-spacing: 0.1em;
 }
 .ca5-strip:hover .ca5-strip-label {
   transform: translateX(-50%) rotate(0deg);
+  bottom: auto; top: 50%; margin-top: -40px; font-size: 15px;
 }
 .ca5-strip .strip-price {
-  position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%);
-  font-size: 14px; color: #D4AF37; font-weight: 600; opacity: 0;
-  transition: opacity 0.4s; white-space: nowrap;
+  position: absolute; top: 50%; left: 50%; transform: translateX(-50%);
+  font-size: 15px; color: #D4AF37; font-weight: 600; opacity: 0;
+  transition: opacity 0.4s 0.1s; white-space: nowrap;
 }
 .ca5-strip:hover .strip-price { opacity: 1; }
 .ca5-strip .d3-btn {
-  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-  opacity: 0; transition: opacity 0.4s; z-index: 5;
+  position: absolute; top: 50%; margin-top: 24px; left: 50%; transform: translateX(-50%);
+  opacity: 0; transition: opacity 0.4s 0.15s; z-index: 5;
 }
 .ca5-strip:hover .d3-btn { opacity: 1; }
 .ca5-big-title {
@@ -453,67 +454,119 @@ body::after {
 }
 .toast.show { opacity: 1; transform: translateY(0); }
 
-/* ─── PRODUCT DETAIL MODAL ─── */
+/* ─── PRODUCT DETAIL MODAL (UIverse Smit-Prajapati) ─── */
 .product-modal {
   position: fixed; inset: 0; z-index: 250; background: rgba(10,10,15,0.92);
   display: none; align-items: center; justify-content: center;
   backdrop-filter: blur(8px);
 }
 .product-modal.open { display: flex; animation: fadeIn 0.4s ease; }
-.product-card {
-  background: #1a1a2e; border: 1px solid rgba(212,175,55,0.2); border-radius: 20px;
-  max-width: 800px; width: 92%; max-height: 90vh; overflow-y: auto;
-  display: grid; grid-template-columns: 1fr 1fr; position: relative;
-  scrollbar-width: none;
+
+.pcard {
+  width: 380px; border-radius: 20px; background: #1b233d;
+  padding: 5px; overflow: hidden;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
 }
-.product-card::-webkit-scrollbar { display: none; }
-.product-card-close {
-  position: absolute; top: 14px; right: 18px; background: none; border: none;
-  color: #D4AF37; font-size: 24px; cursor: pointer; z-index: 5;
+.pcard:hover { transform: scale(1.03); }
+.pcard-close {
+  position: absolute; top: 10px; right: 14px; background: none; border: none;
+  color: rgba(255,255,255,0.7); font-size: 22px; cursor: pointer; z-index: 10;
+  transition: color 0.3s;
 }
-.product-card-img {
-  width: 100%; height: 100%; min-height: 400px; object-fit: cover;
-  border-radius: 20px 0 0 20px;
+.pcard-close:hover { color: #fff; }
+
+.pcard .top-section {
+  height: 240px; border-radius: 15px; display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  background: linear-gradient(45deg, rgb(4, 159, 187) 0%, rgb(80, 246, 255) 100%);
 }
-.product-card-body {
-  padding: 40px 32px; display: flex; flex-direction: column; justify-content: center; gap: 16px;
+.pcard .top-section .pcard-img {
+  width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
 }
-.product-card-body h2 {
-  font-family: 'Playfair Display', serif; font-size: 28px; color: #f5f0eb;
-  letter-spacing: 0.05em;
+.pcard .top-section .border {
+  border-bottom-right-radius: 10px; height: 30px; width: 130px;
+  background: #1b233d; position: relative; transform: skew(-40deg);
+  box-shadow: -10px -10px 0 0 #1b233d; z-index: 2;
 }
-.product-card-price {
-  font-size: 26px; font-weight: 700; color: #D4AF37; letter-spacing: 0.05em;
+.pcard .top-section .border::before {
+  content: ""; position: absolute; width: 15px; height: 15px;
+  top: 0; right: -15px; background: transparent;
+  border-top-left-radius: 10px; box-shadow: -5px -5px 0 2px #1b233d;
 }
-.product-card-desc {
-  color: rgba(245,240,235,0.6); font-size: 14px; line-height: 1.7;
+.pcard .top-section::before {
+  content: ""; position: absolute; top: 30px; left: 0;
+  background: transparent; height: 15px; width: 15px;
+  border-top-left-radius: 15px; box-shadow: -5px -5px 0 2px #1b233d; z-index: 2;
 }
-.product-card-sizes { display: flex; gap: 8px; flex-wrap: wrap; }
-.product-card-sizes span {
-  display: flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border: 1px solid rgba(212,175,55,0.3);
-  border-radius: 8px; color: #f5f0eb; font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all 0.25s;
+.pcard .top-section .icons {
+  position: absolute; top: 0; width: 100%; height: 30px;
+  display: flex; justify-content: space-between; z-index: 3;
 }
-.product-card-sizes span:hover, .product-card-sizes span.active {
-  background: #D4AF37; color: #0a0a0f; border-color: #D4AF37;
+.pcard .top-section .icons .logo {
+  height: 100%; padding: 7px 0 7px 15px; font-family: 'Playfair Display', serif;
+  font-size: 12px; color: #D4AF37; display: flex; align-items: center; letter-spacing: 0.1em;
 }
-.product-card-sizes-label {
-  font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(212,175,55,0.6); margin-bottom: -8px;
+.pcard .top-section .icons .price-badge {
+  height: 100%; padding: 4px 15px; display: flex; align-items: center;
+  font-size: 16px; font-weight: 700; color: #D4AF37;
 }
-.product-card-add {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 14px 32px; border: none; border-radius: 10px; cursor: pointer;
-  background: #D4AF37; color: #0a0a0f; font-family: 'Playfair Display', serif;
-  font-size: 16px; font-weight: 700; letter-spacing: 0.1em;
-  transition: background 0.3s, transform 0.2s;
+
+.pcard .bottom-section { margin-top: 12px; padding: 10px 12px 16px; }
+.pcard .bottom-section .title {
+  display: block; font-size: 17px; font-weight: bolder; color: white;
+  text-align: center; letter-spacing: 2px; font-family: 'Playfair Display', serif;
 }
-.product-card-add:hover { background: #e6c54b; transform: translateY(-1px); }
-@media (max-width: 768px) {
-  .product-card { grid-template-columns: 1fr; }
-  .product-card-img { border-radius: 20px 20px 0 0; min-height: 250px; }
+.pcard .bottom-section .description {
+  display: block; font-size: 12px; color: rgba(170, 222, 243, 0.7);
+  text-align: center; margin-top: 8px; line-height: 1.6; padding: 0 8px;
 }
+
+.pcard .bottom-section .row {
+  display: flex; justify-content: space-between; margin-top: 16px;
+}
+.pcard .bottom-section .row .item {
+  flex: 30%; text-align: center; padding: 5px;
+  color: rgba(170, 222, 243, 0.721);
+}
+.pcard .bottom-section .row .item .big-text {
+  font-size: 12px; display: block; font-weight: 600;
+}
+.pcard .bottom-section .row .item .regular-text {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+}
+.pcard .bottom-section .row .item:nth-child(2) {
+  border-left: 1px solid rgba(255, 255, 255, 0.126);
+  border-right: 1px solid rgba(255, 255, 255, 0.126);
+}
+
+/* sizes row */
+.pcard .sizes-row {
+  display: flex; gap: 6px; justify-content: center; margin-top: 14px; flex-wrap: wrap;
+}
+.pcard .sizes-row span {
+  width: 36px; height: 36px; border-radius: 8px; display: flex;
+  align-items: center; justify-content: center; font-size: 11px;
+  font-weight: 600; color: rgba(170,222,243,0.8); cursor: pointer;
+  border: 1px solid rgba(170,222,243,0.2); transition: all 0.25s;
+}
+.pcard .sizes-row span:hover, .pcard .sizes-row span.active {
+  background: rgba(4,159,187,0.6); border-color: rgb(80,246,255); color: #fff;
+}
+
+/* add to cart btn */
+.pcard .pcard-add {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; margin-top: 14px; padding: 12px; border: none;
+  border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 14px;
+  background: linear-gradient(45deg, rgb(4,159,187), rgb(80,246,255));
+  color: #1b233d; letter-spacing: 0.1em; transition: all 0.3s;
+  font-family: 'Inter', sans-serif;
+}
+.pcard .pcard-add:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(80,246,255,0.3); }
+
+@media (max-width: 480px) { .pcard { width: 92vw; } }
 
 /* ─── FOOTER ─── */
 footer {
@@ -1161,20 +1214,39 @@ footer a:hover { color: #D4AF37; }
   </div>
 </div>
 
-<!-- ═══════════ PRODUCT DETAIL MODAL ═══════════ -->
+<!-- ═══════════ PRODUCT DETAIL MODAL (UIverse) ═══════════ -->
 <div class="product-modal" id="product-modal">
-  <div class="product-card">
-    <button class="product-card-close" onclick="closeProduct()">&times;</button>
-    <img class="product-card-img" id="pm-img" src="" alt="">
-    <div class="product-card-body">
-      <h2 id="pm-name"></h2>
-      <div class="product-card-price" id="pm-price"></div>
-      <p class="product-card-desc" id="pm-desc"></p>
-      <span class="product-card-sizes-label">Tailles disponibles</span>
-      <div class="product-card-sizes" id="pm-sizes"></div>
-      <button class="product-card-add" id="pm-add" onclick="addFromModal()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Ajouter au panier
+  <div class="pcard">
+    <button class="pcard-close" onclick="closeProduct()">&times;</button>
+    <div class="top-section">
+      <img class="pcard-img" id="pm-img" src="" alt="">
+      <div class="border"></div>
+      <div class="icons">
+        <div class="logo">V&amp;S</div>
+        <div class="price-badge" id="pm-price"></div>
+      </div>
+    </div>
+    <div class="bottom-section">
+      <span class="title" id="pm-name"></span>
+      <span class="description" id="pm-desc"></span>
+      <div class="row">
+        <div class="item">
+          <span class="big-text" id="pm-material">Coton</span>
+          <span class="regular-text">Mati&egrave;re</span>
+        </div>
+        <div class="item">
+          <span class="big-text" id="pm-collection">AW26</span>
+          <span class="regular-text">Collection</span>
+        </div>
+        <div class="item">
+          <span class="big-text" id="pm-origin">Paris</span>
+          <span class="regular-text">Origine</span>
+        </div>
+      </div>
+      <div class="sizes-row" id="pm-sizes"></div>
+      <button class="pcard-add" onclick="addFromModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b233d" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        AJOUTER AU PANIER
       </button>
     </div>
   </div>
@@ -1396,6 +1468,19 @@ footer a:hover { color: #D4AF37; }
     document.getElementById('pm-name').textContent = name;
     document.getElementById('pm-price').textContent = '\u20AC' + parseFloat(price).toFixed(2);
     document.getElementById('pm-desc').textContent = desc || '';
+
+    // Derive material from product name
+    var mat = 'Coton';
+    var n = name.toLowerCase();
+    if (n.indexOf('lin') > -1) mat = 'Lin';
+    else if (n.indexOf('soie') > -1) mat = 'Soie';
+    else if (n.indexOf('cuir') > -1 || n.indexOf('leather') > -1) mat = 'Cuir';
+    else if (n.indexOf('laine') > -1 || n.indexOf('cashmere') > -1) mat = 'Cachemire';
+    else if (n.indexOf('satin') > -1) mat = 'Satin';
+    else if (n.indexOf('velours') > -1) mat = 'Velours';
+    else if (n.indexOf('feutre') > -1) mat = 'Feutre';
+    else if (n.indexOf('popeline') > -1) mat = 'Popeline';
+    document.getElementById('pm-material').textContent = mat;
 
     var sizesContainer = document.getElementById('pm-sizes');
     sizesContainer.innerHTML = '';
