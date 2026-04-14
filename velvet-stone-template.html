@@ -19,20 +19,17 @@ body::after {
   pointer-events: none; z-index: 9998; opacity: 0.5;
 }
 
-/* ─── HERO VIDEO ─── */
+/* ─── HERO IMAGE + GSAP PARALLAX ─── */
 #hero {
-  position: relative; width: 100%; height: 300vh; z-index: 1;
+  position: relative; width: 100%; height: 100vh; z-index: 1; overflow: hidden;
 }
-#hero-sticky {
-  position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden;
-}
-#hero-video {
-  position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-  transform: translate(-50%, -50%); object-fit: cover;
+.hero-img {
+  position: absolute; top: 0; left: 0; width: 100%; height: 120%;
+  object-fit: cover; will-change: transform;
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.6) 60%, rgba(10,10,15,0.95) 100%);
+  background: linear-gradient(to bottom, rgba(10,10,15,0.25) 0%, rgba(10,10,15,0.5) 50%, rgba(10,10,15,0.92) 100%);
   z-index: 2;
 }
 .hero-content {
@@ -40,16 +37,17 @@ body::after {
   justify-content: center; align-items: center; z-index: 3; text-align: center;
 }
 .hero-title {
-  font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 8rem);
-  font-weight: 800; letter-spacing: 0.15em; line-height: 1;
+  font-family: Impact, 'Arial Black', sans-serif; font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 900; letter-spacing: 0.08em; line-height: 0.95; text-transform: uppercase;
   background: linear-gradient(135deg, #f5f0eb 0%, #D4AF37 50%, #f5f0eb 100%);
   background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; animation: shimmer 4s ease-in-out infinite;
+  text-shadow: none;
 }
 .hero-subtitle {
-  font-family: 'Inter', sans-serif; font-size: clamp(0.9rem, 2vw, 1.4rem);
-  letter-spacing: 0.5em; text-transform: uppercase; color: #D4AF37;
-  margin-top: 24px; font-weight: 300;
+  font-family: Impact, 'Arial Black', sans-serif; font-size: clamp(1rem, 2.5vw, 1.6rem);
+  letter-spacing: 0.4em; text-transform: uppercase; color: #D4AF37;
+  margin-top: 20px; font-weight: 400;
 }
 @keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
@@ -634,19 +632,17 @@ footer a:hover { color: #D4AF37; }
 <canvas id="liquid-glass"></canvas>
 
 <!-- ═══════════ HERO VIDEO ═══════════ -->
-<section id="hero">
-  <div id="hero-sticky">
-    <video id="hero-video" src="velvet-bg.mp4" muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&h=1080&fit=crop"></video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 class="hero-title">VELVET &amp; STONE</h1>
-      <p class="hero-subtitle">Haute Couture &middot; Paris</p>
+<section id="hero" class="scroll-trigger-ready__worm-wrap">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&h=1080&fit=crop&q=80" alt="Fashion family">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">VELVET &amp; STONE</h1>
+    <p class="hero-subtitle">Haute Couture &middot; Paris</p>
     </div>
     <div class="scroll-indicator">
       <span>Scroll</span>
       <div class="scroll-line"></div>
     </div>
-  </div>
 </section>
 
 <!-- ═══════════ SIDEBAR ═══════════ -->
@@ -881,16 +877,16 @@ footer a:hover { color: #D4AF37; }
   <div class="ca5-big">
     <div class="ca5-card">
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Coton</span>
         <span class="strip-price">&euro;35</span>
-        <button class="d3-btn" data-name="Chaussettes Coton" data-price="35" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Coton" data-price="35" data-img="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1631541909061-71e349d1f203?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Laine</span>
         <span class="strip-price">&euro;45</span>
-        <button class="d3-btn" data-name="Chaussettes Laine" data-price="45" data-img="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Laine" data-price="45" data-img="https://images.unsplash.com/photo-1631541909061-71e349d1f203?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
         <img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
@@ -899,34 +895,34 @@ footer a:hover { color: #D4AF37; }
         <button class="d3-btn" data-name="Chaussettes Soie" data-price="65" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1617952739858-28043e8fd73c?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Cachemire</span>
         <span class="strip-price">&euro;85</span>
-        <button class="d3-btn" data-name="Chaussettes Cachemire" data-price="85" data-img="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Cachemire" data-price="85" data-img="https://images.unsplash.com/photo-1617952739858-28043e8fd73c?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Motifs</span>
         <span class="strip-price">&euro;40</span>
-        <button class="d3-btn" data-name="Chaussettes Motifs" data-price="40" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Motifs" data-price="40" data-img="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Rayures</span>
         <span class="strip-price">&euro;38</span>
-        <button class="d3-btn" data-name="Chaussettes Rayures" data-price="38" data-img="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Rayures" data-price="38" data-img="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Invisible</span>
         <span class="strip-price">&euro;28</span>
-        <button class="d3-btn" data-name="Chaussettes Invisible" data-price="28" data-img="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Invisible" data-price="28" data-img="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
       <div class="ca5-strip">
-        <img src="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=300&h=380&q=75&fit=crop" alt="" loading="lazy">
         <span class="ca5-strip-label">Bambou</span>
         <span class="strip-price">&euro;42</span>
-        <button class="d3-btn" data-name="Chaussettes Bambou" data-price="42" data-img="https://images.unsplash.com/photo-1582966772680-860e372bb5ab?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
+        <button class="d3-btn" data-name="Chaussettes Bambou" data-price="42" data-img="https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=100&h=100&fit=crop" onclick="addToCart(this)"><svg class="d3-icon" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="d3-label">Ajouter</span></button>
       </div>
     </div>
   </div>
@@ -1253,39 +1249,23 @@ footer a:hover { color: #D4AF37; }
 <!-- ═══════════ TOAST ═══════════ -->
 <div class="toast" id="toast">Added!</div>
 
-<!-- ═══════════ SCROLLTELLING JS ═══════════ -->
+<!-- ═══════════ GSAP PARALLAX HERO ═══════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function() {
-  var video = document.getElementById('hero-video');
-  var hero = document.getElementById('hero');
-  var heroSticky = document.getElementById('hero-sticky');
-  var videoEnded = false;
-
-  var scrollTicking = false;
-  window.addEventListener('scroll', function() {
-    if (scrollTicking) return;
-    scrollTicking = true;
-    requestAnimationFrame(function() {
-      scrollTicking = false;
-      if (videoEnded) return;
-      var scrollTop = window.scrollY;
-      var heroHeight = hero.offsetHeight - window.innerHeight;
-      var progress = Math.min(Math.max(scrollTop / heroHeight, 0), 1);
-      if (video.duration) {
-        video.currentTime = progress * video.duration;
-      }
-      if (progress >= 0.99) {
-        videoEnded = true;
-        heroSticky.style.transition = 'opacity 2s ease';
-        heroSticky.style.opacity = '0';
-        setTimeout(function() {
-          hero.style.height = '0';
-          hero.style.overflow = 'hidden';
-          hero.style.transition = 'height 0.5s ease';
-        }, 2200);
-      }
-    });
-  });
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.timeline({
+    scrollTrigger: {
+      scrub: 1,
+      trigger: ".scroll-trigger-ready__worm-wrap",
+      start: "top top",
+      end: "bottom 30%"
+    }
+  })
+  .to('.hero-img', { y: '-20%', scale: 1.1, ease: 'none' }, 0)
+  .to('.hero-content', { y: '-60%', opacity: 0, ease: 'none' }, 0)
+  .to('.hero-overlay', { opacity: 1, ease: 'none' }, 0);
 })();
 </script>
 
