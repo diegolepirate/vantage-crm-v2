@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Dore — Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'Inter', sans-serif;
+  --background: hsl(201,100%,13%);
+  --foreground: hsl(0,0%,100%);
+  --muted-foreground: hsl(240,4%,66%);
+}
+html { scrollbar-width:none; }
+html::-webkit-scrollbar { display:none; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ─── LIQUID GLASS ─── */
+.liquid-glass {
+  background: rgba(255,255,255,0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fade-rise {
+  from { opacity:0; transform:translateY(24px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
+.animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
+.animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+
+/* ─── VIDEO BG ─── */
+.page-wrap {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* ─── NAVBAR ─── */
+.navbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.nav-logo sup { font-size: 0.6em; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-link {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-link:hover, .nav-link.active { color: var(--foreground); }
+.nav-cta {
+  border-radius: 9999px;
+  padding: 10px 24px;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: transform 0.3s;
+  font-family: var(--font-body);
+}
+.nav-cta:hover { transform: scale(1.03); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 90px 24px;
+  padding-top: 128px;
+  padding-bottom: 160px;
+  min-height: calc(100vh - 80px);
+}
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -2.46px;
+  max-width: 1280px;
+  color: var(--foreground);
+}
+.hero-heading em {
+  font-style: normal;
+  color: var(--muted-foreground);
+}
+.hero-sub {
+  color: var(--muted-foreground);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  max-width: 672px;
+  margin-top: 32px;
+  line-height: 1.7;
+}
+.hero-cta {
+  border-radius: 9999px;
+  padding: 20px 56px;
+  font-size: 1rem;
+  color: var(--foreground);
+  cursor: pointer;
+  margin-top: 48px;
+  transition: transform 0.3s;
+  font-family: var(--font-body);
+}
+.hero-cta:hover { transform: scale(1.03); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .navbar { padding:16px 20px; }
+  .hero { padding-top:80px; padding-bottom:100px; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <video class="bg-video" autoplay loop muted playsinline preload="auto" src="maison-dore-bg.mp4"></video>
+
+  <nav class="navbar">
+    <a class="nav-logo" href="#">Velorah<sup>&reg;</sup></a>
+    <div class="nav-links">
+      <a class="nav-link active" href="#">Home</a>
+      <a class="nav-link" href="#">Studio</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link" href="#">Journal</a>
+      <a class="nav-link" href="#">Reach Us</a>
+    </div>
+    <button class="nav-cta liquid-glass">Begin Journey</button>
+  </nav>
+
+  <section class="hero">
+    <h1 class="hero-heading animate-fade-rise">Where <em>dreams</em> rise <em>through the silence.</em></h1>
+    <p class="hero-sub animate-fade-rise-delay">We&rsquo;re designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.</p>
+    <button class="hero-cta liquid-glass animate-fade-rise-delay-2">Begin Journey</button>
+  </section>
+
+</div>
+</body>
+</html>
