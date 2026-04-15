@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chrono Watches — Electronics</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --primary: #1172E8;
+  --primary-dark: #004DAC;
+  --accent: #CEFC8C;
+  --teal: #67E5DF;
+  --orange: #FFB761;
+  --dark: #2E3035;
+  --white: #FFFFFF;
+  --neutral-100: #F5F5F5;
+  --neutral-200: #E8E8E8;
+}
+html { scrollbar-width:none; scroll-behavior:smooth; }
+html::-webkit-scrollbar { display:none; }
+body { background:var(--white); color:var(--dark); font-family:'Work Sans',sans-serif; overflow-x:hidden; line-height:1.3; }
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  display:inline-block; background:var(--accent); color:var(--dark); border:none;
+  padding:12px 24px; font-weight:700; text-transform:uppercase; font-size:0.85rem;
+  cursor:pointer; transition:all 0.3s; text-decoration:none; font-family:'Work Sans',sans-serif;
+  letter-spacing:0.5px;
+}
+.btn-primary:hover { background:var(--primary-dark); color:#fff; }
+.btn-outline {
+  display:inline-block; background:transparent; color:#fff; border:2px solid #fff;
+  padding:12px 24px; font-weight:700; text-transform:uppercase; font-size:0.85rem;
+  cursor:pointer; transition:all 0.3s; text-decoration:none; font-family:'Work Sans',sans-serif;
+}
+.btn-outline:hover { background:#fff; color:var(--dark); }
+
+/* ─── NAVBAR ─── */
+.navbar {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 48px; background:var(--white); position:sticky; top:0; z-index:50;
+  border-bottom:1px solid var(--neutral-200);
+}
+.nav-brand {
+  font-weight:800; font-size:1.5rem; color:var(--primary); text-decoration:none;
+  display:flex; align-items:center; gap:8px;
+}
+.nav-brand svg { width:28px; height:28px; }
+.nav-links { display:flex; align-items:center; gap:28px; }
+.nav-links a {
+  font-size:0.85rem; color:var(--dark); text-decoration:none; font-weight:600;
+  transition:color 0.3s; text-transform:uppercase; letter-spacing:0.5px;
+}
+.nav-links a:hover { color:var(--primary); }
+.nav-search {
+  width:36px; height:36px; border-radius:50%; border:2px solid var(--dark);
+  background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all 0.3s; font-size:1rem;
+}
+.nav-search:hover { background:var(--dark); color:#fff; }
+
+/* ─── HERO ─── */
+.hero {
+  position:relative; background:var(--primary); min-height:85vh;
+  display:flex; align-items:center; overflow:hidden;
+}
+.hero-bg-video {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:0.25; z-index:0;
+}
+.hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(135deg, rgba(17,114,232,0.85) 0%, rgba(0,77,172,0.9) 100%);
+}
+.hero-content {
+  position:relative; z-index:10; display:flex; align-items:center;
+  max-width:1300px; margin:0 auto; padding:80px 48px; gap:60px; width:100%;
+}
+.hero-text { flex:1; }
+.hero-tag {
+  display:inline-block; background:var(--accent); color:var(--dark);
+  padding:6px 16px; font-weight:700; font-size:0.75rem; text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:24px;
+}
+.hero-title {
+  font-size:clamp(2.5rem,5vw,4.2rem); font-weight:800; color:#fff;
+  line-height:1.1; margin-bottom:20px;
+}
+.hero-title span { color:var(--accent); }
+.hero-sub {
+  color:rgba(255,255,255,0.8); font-size:1.1rem; line-height:1.6;
+  max-width:520px; margin-bottom:32px;
+}
+.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+.hero-media {
+  flex:0 0 480px; position:relative;
+}
+.hero-media-inner {
+  border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+  box-shadow:0 24px 64px rgba(0,0,0,0.3);
+}
+.hero-media-inner img { width:100%; height:100%; object-fit:cover; }
+.hero-badge {
+  position:absolute; bottom:-20px; left:-20px; background:var(--teal); color:var(--dark);
+  padding:16px 24px; font-weight:800; font-size:1.8rem; line-height:1;
+  border-radius:8px; z-index:2;
+}
+.hero-badge small { display:block; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background:var(--dark); display:grid; grid-template-columns:repeat(4,1fr);
+  text-align:center; padding:40px 48px;
+}
+.stat { padding:12px 16px; }
+.stat-num { font-size:2.5rem; font-weight:800; color:var(--accent); line-height:1; }
+.stat-label { color:rgba(255,255,255,0.6); font-size:0.8rem; margin-top:8px; text-transform:uppercase; letter-spacing:1px; }
+
+/* ─── TWO-COL SECTIONS ─── */
+.split-section {
+  display:flex; align-items:center; max-width:1300px; margin:0 auto;
+  padding:100px 48px; gap:60px;
+}
+.split-section.reverse { flex-direction:row-reverse; }
+.split-text { flex:1; }
+.split-tag {
+  display:inline-block; background:var(--primary); color:#fff;
+  padding:4px 14px; font-weight:700; font-size:0.7rem; text-transform:uppercase;
+  letter-spacing:1.5px; margin-bottom:16px; border-radius:2px;
+}
+.split-title {
+  font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; line-height:1.15;
+  margin-bottom:16px; color:var(--dark);
+}
+.split-desc {
+  color:#666; font-size:1rem; line-height:1.7; margin-bottom:28px; max-width:500px;
+}
+.split-media {
+  flex:0 0 50%; position:relative;
+}
+.split-media-img {
+  width:100%; border-radius:16px; aspect-ratio:4/3; object-fit:cover;
+  box-shadow:0 16px 48px rgba(0,0,0,0.1);
+}
+.split-media-accent {
+  position:absolute; width:160px; height:160px; border-radius:12px;
+  z-index:-1; opacity:0.5;
+}
+
+/* ─── CARDS GRID ─── */
+.cards-section {
+  background:var(--neutral-100); padding:100px 48px;
+}
+.cards-inner { max-width:1300px; margin:0 auto; }
+.cards-header {
+  text-align:center; margin-bottom:56px;
+}
+.cards-header h2 {
+  font-size:clamp(2rem,4vw,2.8rem); font-weight:800; margin-bottom:12px;
+}
+.cards-header p { color:#666; font-size:1rem; max-width:600px; margin:0 auto; }
+.cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.card {
+  background:#fff; border-radius:12px; overflow:hidden;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform:translateY(-8px); box-shadow:0 20px 48px rgba(0,0,0,0.1); }
+.card-img { aspect-ratio:16/10; overflow:hidden; }
+.card-img img {
+  width:100%; height:100%; object-fit:cover; transition:transform 0.5s;
+}
+.card:hover .card-img img { transform:scale(1.08); }
+.card-body { padding:24px; }
+.card-cat {
+  font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px;
+  color:var(--primary); margin-bottom:10px;
+}
+.card-title { font-size:1.1rem; font-weight:700; margin-bottom:8px; line-height:1.3; }
+.card-desc { color:#888; font-size:0.85rem; line-height:1.6; margin-bottom:16px; }
+.card-price { font-weight:800; font-size:1.2rem; color:var(--primary); }
+
+/* ─── VIDEO TESTIMONIAL ─── */
+.video-section {
+  position:relative; padding:100px 48px; overflow:hidden;
+  background:var(--dark);
+}
+.video-inner { max-width:1300px; margin:0 auto; position:relative; z-index:2; }
+.video-section-title { color:#fff; font-size:clamp(2rem,4vw,2.8rem); font-weight:800; text-align:center; margin-bottom:48px; }
+.video-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.video-card {
+  position:relative; border-radius:16px; overflow:hidden; aspect-ratio:9/14;
+  cursor:pointer;
+}
+.video-card video { width:100%; height:100%; object-fit:cover; }
+.video-card-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+  display:flex; flex-direction:column; justify-content:flex-end; padding:24px;
+}
+.video-card-play {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.9);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform 0.3s;
+}
+.video-card:hover .video-card-play { transform:translate(-50%,-50%) scale(1.1); }
+.video-card-play svg { width:20px; height:20px; margin-left:3px; }
+.video-card-text { color:#fff; font-weight:600; font-size:0.95rem; }
+.video-card-sub { color:rgba(255,255,255,0.6); font-size:0.8rem; margin-top:4px; }
+
+/* ─── CTA BANNER ─── */
+.cta-banner {
+  background:var(--primary); padding:80px 48px; text-align:center;
+}
+.cta-banner h2 { color:#fff; font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:16px; }
+.cta-banner p { color:rgba(255,255,255,0.8); font-size:1.1rem; max-width:600px; margin:0 auto 32px; line-height:1.6; }
+
+/* ─── FOOTER ─── */
+.footer {
+  background:var(--dark); padding:64px 48px 32px; color:rgba(255,255,255,0.6);
+}
+.footer-inner { max-width:1300px; margin:0 auto; }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+.footer-brand { font-weight:800; font-size:1.5rem; color:#fff; margin-bottom:16px; }
+.footer-desc { font-size:0.85rem; line-height:1.7; max-width:300px; }
+.footer-col h4 { color:#fff; font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+.footer-col a { display:block; color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.85rem; margin-bottom:10px; transition:color 0.3s; }
+.footer-col a:hover { color:var(--accent); }
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,0.1); padding-top:24px;
+  display:flex; justify-content:space-between; font-size:0.8rem;
+}
+.footer-socials { display:flex; gap:16px; }
+.footer-socials a { color:rgba(255,255,255,0.4); transition:color 0.3s; text-decoration:none; }
+.footer-socials a:hover { color:var(--accent); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity:0; transform:translateY(40px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal.vis { opacity:1; transform:translateY(0); }
+.reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal-left.vis { opacity:1; transform:translateX(0); }
+.reveal-right { opacity:0; transform:translateX(40px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.reveal-right.vis { opacity:1; transform:translateX(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .hero-content { flex-direction:column; padding:48px 24px; }
+  .hero-media { flex:auto; width:100%; }
+  .split-section,.split-section.reverse { flex-direction:column; padding:60px 24px; }
+  .split-media { flex:auto; width:100%; }
+  .stats-bar { grid-template-columns:repeat(2,1fr); }
+  .cards-grid { grid-template-columns:1fr; }
+  .video-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .navbar,.cards-section,.video-section,.cta-banner,.footer { padding-left:24px; padding-right:24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-brand" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    NovaTech
+  </a>
+  <div class="nav-links">
+    <a href="#">Nouveaut&eacute;s</a>
+    <a href="#">Smartphones</a>
+    <a href="#">Audio</a>
+    <a href="#">Gaming</a>
+    <a href="#">Accessoires</a>
+  </div>
+  <button class="nav-search">&#128269;</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video class="hero-bg-video" autoplay loop muted playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"></video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <span class="hero-tag">Nouvelle Collection 2026</span>
+      <h1 class="hero-title">La technologie qui <span>red&eacute;finit</span> votre quotidien</h1>
+      <p class="hero-sub">D&eacute;couvrez notre s&eacute;lection de produits &eacute;lectroniques haut de gamme. Innovation, performance et design au service de votre style de vie.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Explorer la collection</a>
+        <a href="#" class="btn-outline">Nos best-sellers</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-media-inner">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop&q=80" alt="Tech workspace">
+      </div>
+      <div class="hero-badge">-30%<small>Sur les nouveaut&eacute;s</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="stat"><div class="stat-num">12K+</div><div class="stat-label">Produits en stock</div></div>
+  <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Clients satisfaits</div></div>
+  <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Livraison express</div></div>
+  <div class="stat"><div class="stat-num">3 ans</div><div class="stat-label">Garantie &eacute;tendue</div></div>
+</section>
+
+<!-- SPLIT 1 -->
+<section class="split-section reveal">
+  <div class="split-text reveal-left">
+    <span class="split-tag">Smartphones</span>
+    <h2 class="split-title">Les flagships qui repoussent les limites</h2>
+    <p class="split-desc">&Eacute;crans AMOLED 120Hz, processeurs nouvelle g&eacute;n&eacute;ration, et appareils photo IA. Trouvez le smartphone parfait parmi notre catalogue de plus de 200 mod&egrave;les.</p>
+    <a href="#" class="btn-primary">D&eacute;couvrir</a>
+  </div>
+  <div class="split-media reveal-right">
+    <img class="split-media-img" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=600&fit=crop&q=80" alt="Smartphones">
+    <div class="split-media-accent" style="background:var(--teal);top:-20px;right:-20px;"></div>
+  </div>
+</section>
+
+<!-- SPLIT 2 (reversed) -->
+<section class="split-section reverse reveal">
+  <div class="split-text reveal-right">
+    <span class="split-tag">Audio Premium</span>
+    <h2 class="split-title">Un son qui transcende l&rsquo;exp&eacute;rience</h2>
+    <p class="split-desc">Casques &agrave; r&eacute;duction de bruit active, enceintes connect&eacute;es et &eacute;couteurs true wireless. Plongez dans un univers sonore d&rsquo;exception.</p>
+    <a href="#" class="btn-primary">Explorer l&rsquo;audio</a>
+  </div>
+  <div class="split-media reveal-left">
+    <img class="split-media-img" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop&q=80" alt="Casque audio">
+    <div class="split-media-accent" style="background:var(--orange);bottom:-20px;left:-20px;"></div>
+  </div>
+</section>
+
+<!-- PRODUCT CARDS -->
+<section class="cards-section">
+  <div class="cards-inner">
+    <div class="cards-header reveal">
+      <h2>Nos best-sellers</h2>
+      <p>Les produits les plus appr&eacute;ci&eacute;s par notre communaut&eacute; de passionn&eacute;s de technologie.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card reveal" style="transition-delay:0s">
+        <div class="card-img"><img src="https://images.unsplash.com/photo-1606220838315-056192d5e927?w=600&h=400&fit=crop&q=80" alt="MacBook"></div>
+        <div class="card-body">
+          <p class="card-cat">Ordinateurs</p>
+          <h3 class="card-title">MacBook Pro M4 — Puissance absolue</h3>
+          <p class="card-desc">Puce M4, &eacute;cran Liquid Retina XDR, 22h d&rsquo;autonomie. Le laptop ultime pour cr&eacute;ateurs.</p>
+          <span class="card-price">&agrave; partir de 2 499&euro;</span>
+        </div>
+      </div>
+      <div class="card reveal" style="transition-delay:0.1s">
+        <div class="card-img"><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=400&fit=crop&q=80" alt="Headphones"></div>
+        <div class="card-body">
+          <p class="card-cat">Audio</p>
+          <h3 class="card-title">Sony WH-1000XM6 — Silence parfait</h3>
+          <p class="card-desc">R&eacute;duction de bruit IA, codec LDAC, 40h d&rsquo;autonomie et confort tout-jour.</p>
+          <span class="card-price">429&euro;</span>
+        </div>
+      </div>
+      <div class="card reveal" style="transition-delay:0.2s">
+        <div class="card-img"><img src="https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=600&h=400&fit=crop&q=80" alt="Camera"></div>
+        <div class="card-body">
+          <p class="card-cat">Photo</p>
+          <h3 class="card-title">Sony A7R VI — Vision cin&eacute;matique</h3>
+          <p class="card-desc">61MP, stabilisation 8 axes, vid&eacute;o 8K. L&rsquo;hybride ultime pour professionnels.</p>
+          <span class="card-price">3 899&euro;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO TESTIMONIALS -->
+<section class="video-section">
+  <div class="video-inner">
+    <h2 class="video-section-title reveal">Ils parlent de nous</h2>
+    <div class="video-grid">
+      <div class="video-card reveal" style="transition-delay:0s">
+        <video muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&q=80" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play"><svg viewBox="0 0 24 24" fill="#333"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <p class="video-card-text">Marc D. — D&eacute;veloppeur</p>
+          <p class="video-card-sub">&ldquo;Le meilleur service client que j&rsquo;ai connu&rdquo;</p>
+        </div>
+      </div>
+      <div class="video-card reveal" style="transition-delay:0.15s">
+        <video muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop&q=80" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play"><svg viewBox="0 0 24 24" fill="#333"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <p class="video-card-text">Sophie L. — Designer</p>
+          <p class="video-card-sub">&ldquo;Des produits premium &agrave; prix justes&rdquo;</p>
+        </div>
+      </div>
+      <div class="video-card reveal" style="transition-delay:0.3s">
+        <video muted playsinline preload="auto" poster="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&q=80" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play"><svg viewBox="0 0 24 24" fill="#333"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <p class="video-card-text">Thomas R. — Gamer</p>
+          <p class="video-card-sub">&ldquo;Livraison rapide, produits authentiques&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner reveal">
+  <h2>Rejoignez la communaut&eacute; NovaTech</h2>
+  <p>Inscrivez-vous &agrave; notre newsletter et recevez 15% de r&eacute;duction sur votre premi&egrave;re commande, plus un acc&egrave;s en avant-premi&egrave;re aux nouveaut&eacute;s.</p>
+  <a href="#" class="btn-primary">S&rsquo;inscrire maintenant</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">NovaTech</div>
+        <p class="footer-desc">Votre destination premium pour l&rsquo;&eacute;lectronique haut de gamme. Innovation et qualit&eacute; depuis 2018.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produits</h4>
+        <a href="#">Smartphones</a><a href="#">Ordinateurs</a><a href="#">Audio</a><a href="#">Gaming</a><a href="#">Photo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Livraison</a><a href="#">Garantie</a><a href="#">Reprise</a><a href="#">R&eacute;paration</a><a href="#">Financement</a>
+      </div>
+      <div class="footer-col">
+        <h4>Aide</h4>
+        <a href="#">FAQ</a><a href="#">Contact</a><a href="#">Retours</a><a href="#">CGV</a><a href="#">Mentions l&eacute;gales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 NovaTech. Tous droits r&eacute;serv&eacute;s.</span>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+(function() {
+  var els = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+      });
+    }, { rootMargin:'-60px' });
+    els.forEach(function(e) { obs.observe(e); });
+  } else { els.forEach(function(e) { e.classList.add('vis'); }); }
+
+  // Video card play on click
+  document.querySelectorAll('.video-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var v = card.querySelector('video');
+      if (v.paused) { v.play(); card.querySelector('.video-card-play').style.opacity='0'; }
+      else { v.pause(); card.querySelector('.video-card-play').style.opacity='1'; }
+    });
+  });
+})();
+</script>
+</body>
+</html>
