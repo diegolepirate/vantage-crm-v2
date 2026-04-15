@@ -4,197 +4,448 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Dore — Fashion</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
   --font-display: 'Instrument Serif', serif;
   --font-body: 'Inter', sans-serif;
-  --background: hsl(201,100%,13%);
-  --foreground: hsl(0,0%,100%);
-  --muted-foreground: hsl(240,4%,66%);
+  --background: #000;
+  --foreground: #fff;
+  --muted-foreground: #a6a6a6;
+  --hero-subtitle: #eef1f5;
+  --border: #333;
+  --card: #0d0d0d;
 }
 html { scrollbar-width:none; }
 html::-webkit-scrollbar { display:none; }
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+body { background:var(--background); color:var(--foreground); font-family:var(--font-body); overflow-x:hidden; }
 
 /* ─── LIQUID GLASS ─── */
 .liquid-glass {
-  background: rgba(255,255,255,0.01);
-  background-blend-mode: luminosity;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: none;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
+  background:rgba(255,255,255,0.01);
+  background-blend-mode:luminosity;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:none;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+  position:relative;
+  overflow:hidden;
 }
 .liquid-glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.4px;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
-    rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
-    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  content:''; position:absolute; inset:0; border-radius:inherit; padding:1.4px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
 }
 
 /* ─── ANIMATIONS ─── */
-@keyframes fade-rise {
-  from { opacity:0; transform:translateY(24px); }
-  to { opacity:1; transform:translateY(0); }
-}
-.animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
-.animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
-.animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+@keyframes fade-rise { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.anim-fr { animation:fade-rise 0.8s ease-out both; }
+.anim-fr-d1 { animation:fade-rise 0.8s ease-out 0.2s both; }
+.anim-fr-d2 { animation:fade-rise 0.8s ease-out 0.4s both; }
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal.vis { opacity:1; transform:translateY(0); }
 
-/* ─── VIDEO BG ─── */
-.page-wrap {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
-  overflow: hidden;
+/* ════════ PART 1: VELORAH HERO ════════ */
+.velorah-hero {
+  position:relative; min-height:100vh; width:100%; overflow:hidden;
+  background:hsl(201,100%,13%);
 }
-.bg-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+.velorah-hero .bg-video {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
 }
+.velorah-nav {
+  position:relative; z-index:10; display:flex; justify-content:space-between; align-items:center;
+  padding:24px 32px; max-width:1280px; margin:0 auto;
+}
+.velorah-logo { font-family:var(--font-display); font-size:1.875rem; letter-spacing:-0.025em; color:#fff; text-decoration:none; }
+.velorah-logo sup { font-size:0.6em; }
+.velorah-links { display:flex; align-items:center; gap:32px; }
+.velorah-links a { font-size:0.875rem; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.3s; }
+.velorah-links a:hover,.velorah-links a.active { color:#fff; }
+.velorah-cta-nav { border-radius:9999px; padding:10px 24px; font-size:0.875rem; color:#fff; cursor:pointer; transition:transform 0.3s; font-family:var(--font-body); }
+.velorah-cta-nav:hover { transform:scale(1.03); }
 
-/* ─── NAVBAR ─── */
-.navbar {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 32px;
-  max-width: 1280px;
-  margin: 0 auto;
+.velorah-content {
+  position:relative; z-index:10; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; padding:90px 24px; padding-top:128px; padding-bottom:160px;
+  min-height:calc(100vh - 80px);
 }
-.nav-logo {
-  font-family: var(--font-display);
-  font-size: 1.875rem;
-  letter-spacing: -0.025em;
-  color: var(--foreground);
-  text-decoration: none;
+.velorah-h1 {
+  font-family:var(--font-display); font-size:clamp(3rem,8vw,6.5rem); font-weight:400;
+  line-height:0.95; letter-spacing:-2.46px; max-width:1280px; color:#fff;
 }
-.nav-logo sup { font-size: 0.6em; }
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
+.velorah-h1 em { font-style:normal; color:hsl(240,4%,66%); }
+.velorah-sub { color:hsl(240,4%,66%); font-size:clamp(1rem,2vw,1.125rem); max-width:672px; margin-top:32px; line-height:1.7; }
+.velorah-cta {
+  border-radius:9999px; padding:20px 56px; font-size:1rem; color:#fff; cursor:pointer;
+  margin-top:48px; transition:transform 0.3s; font-family:var(--font-body);
 }
-.nav-link {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.nav-link:hover, .nav-link.active { color: var(--foreground); }
-.nav-cta {
-  border-radius: 9999px;
-  padding: 10px 24px;
-  font-size: 0.875rem;
-  color: var(--foreground);
-  cursor: pointer;
-  transition: transform 0.3s;
-  font-family: var(--font-body);
-}
-.nav-cta:hover { transform: scale(1.03); }
+.velorah-cta:hover { transform:scale(1.03); }
 
-/* ─── HERO ─── */
-.hero {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 90px 24px;
-  padding-top: 128px;
-  padding-bottom: 160px;
-  min-height: calc(100vh - 80px);
+/* ════════ PART 2: MINDLOOP ════════ */
+/* -- Navbar fixed -- */
+.ml-nav {
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 32px;
+  opacity:0; pointer-events:none; transition:opacity 0.4s;
 }
-.hero-heading {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -2.46px;
-  max-width: 1280px;
-  color: var(--foreground);
+.ml-nav.show { opacity:1; pointer-events:auto; }
+.ml-nav-left { display:flex; align-items:center; gap:10px; }
+.ml-logo-icon {
+  width:28px; height:28px; border-radius:50%; border:2px solid rgba(255,255,255,0.6);
+  display:flex; align-items:center; justify-content:center;
 }
-.hero-heading em {
-  font-style: normal;
-  color: var(--muted-foreground);
+.ml-logo-inner { width:12px; height:12px; border-radius:50%; border:1px solid rgba(255,255,255,0.6); }
+.ml-nav-brand { font-weight:700; font-size:1rem; color:#fff; }
+.ml-nav-links { display:flex; align-items:center; gap:4px; margin-left:24px; }
+.ml-nav-links a { font-size:0.8rem; color:var(--muted-foreground); text-decoration:none; transition:color 0.3s; }
+.ml-nav-links a:hover { color:#fff; }
+.ml-nav-dot { color:var(--muted-foreground); font-size:0.6rem; margin:0 6px; }
+.ml-nav-right { display:flex; gap:8px; }
+.ml-social-btn {
+  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,0.8); cursor:pointer; transition:all 0.3s; background:none;
 }
-.hero-sub {
-  color: var(--muted-foreground);
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  max-width: 672px;
-  margin-top: 32px;
-  line-height: 1.7;
+.ml-social-btn:hover { color:#fff; background:rgba(255,255,255,0.05); }
+.ml-social-btn svg { width:18px; height:18px; }
+
+/* -- Hero -- */
+.ml-hero {
+  position:relative; min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; overflow:hidden; text-align:center;
 }
-.hero-cta {
-  border-radius: 9999px;
-  padding: 20px 56px;
-  font-size: 1rem;
-  color: var(--foreground);
-  cursor: pointer;
-  margin-top: 48px;
-  transition: transform 0.3s;
-  font-family: var(--font-body);
+.ml-hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+.ml-hero-fade { position:absolute; bottom:0; left:0; right:0; height:256px; z-index:1;
+  background:linear-gradient(to top, #000, transparent); }
+.ml-hero-content { position:relative; z-index:10; padding:112px 24px 80px; max-width:800px; }
+.ml-avatars { display:flex; align-items:center; justify-content:center; gap:0; margin-bottom:20px; }
+.ml-avatar {
+  width:32px; height:32px; border-radius:50%; border:2px solid #000;
+  margin-left:-8px; object-fit:cover; background:#333;
 }
-.hero-cta:hover { transform: scale(1.03); }
+.ml-avatar:first-child { margin-left:0; }
+.ml-avatar-text { font-size:0.8rem; color:var(--muted-foreground); margin-left:12px; }
+.ml-hero-h1 {
+  font-family:var(--font-body); font-size:clamp(3rem,7vw,6rem);
+  font-weight:500; letter-spacing:-2px; line-height:1; margin-top:16px;
+}
+.ml-hero-h1 em { font-family:var(--font-display); font-style:italic; font-weight:400; }
+.ml-hero-sub { color:var(--hero-subtitle); font-size:1.1rem; line-height:1.7; margin-top:24px; max-width:600px; margin-left:auto; margin-right:auto; }
+.ml-email-form {
+  border-radius:9999px; padding:8px; max-width:520px; margin:32px auto 0;
+  display:flex; align-items:center; gap:8px;
+}
+.ml-email-form input {
+  flex:1; background:transparent; border:none; outline:none; color:#fff;
+  font-size:0.875rem; padding:8px 16px; font-family:var(--font-body);
+}
+.ml-email-form input::placeholder { color:rgba(255,255,255,0.35); }
+.ml-subscribe-btn {
+  background:#fff; color:#000; border:none; border-radius:9999px;
+  padding:12px 32px; font-size:0.8rem; font-weight:600; letter-spacing:1px;
+  cursor:pointer; transition:transform 0.2s; font-family:var(--font-body);
+}
+.ml-subscribe-btn:hover { transform:scale(1.03); }
+
+/* -- Search Section -- */
+.ml-search {
+  padding:208px 24px 24px; text-align:center;
+}
+.ml-search-h2 {
+  font-family:var(--font-body); font-size:clamp(3rem,7vw,6rem);
+  font-weight:500; letter-spacing:-2px; line-height:1.05;
+}
+.ml-search-h2 em { font-family:var(--font-display); font-style:italic; font-weight:400; }
+.ml-search-sub { color:var(--muted-foreground); font-size:1.1rem; max-width:640px; margin:24px auto 96px; line-height:1.6; }
+.ml-platforms { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; max-width:900px; margin:0 auto 80px; }
+.ml-platform { text-align:center; }
+.ml-platform-icon { width:120px; height:120px; margin:0 auto 16px; border-radius:24px; background:var(--card); display:flex; align-items:center; justify-content:center; font-size:3rem; }
+.ml-platform-name { font-weight:600; font-size:0.95rem; margin-bottom:6px; }
+.ml-platform-desc { color:var(--muted-foreground); font-size:0.8rem; line-height:1.5; max-width:240px; margin:0 auto; }
+.ml-search-tag { color:var(--muted-foreground); font-size:0.8rem; text-align:center; font-style:italic; }
+
+/* -- Mission Section -- */
+.ml-mission { padding:0 24px 128px; overflow:hidden; }
+.ml-mission-video {
+  width:min(800px,100%); aspect-ratio:1; border-radius:50%; margin:0 auto 64px;
+  overflow:hidden; display:flex; align-items:center; justify-content:center;
+}
+.ml-mission-video video { width:100%; height:100%; object-fit:cover; }
+.ml-mission-text { max-width:1000px; margin:0 auto; }
+.ml-mission-p1 {
+  font-size:clamp(1.5rem,4vw,3rem); font-weight:500; letter-spacing:-1px; line-height:1.3;
+  color:var(--hero-subtitle);
+}
+.ml-mission-p1 strong { color:#fff; font-weight:500; }
+.ml-mission-p2 {
+  font-size:clamp(1.2rem,3vw,2rem); font-weight:500; line-height:1.4;
+  margin-top:40px; color:var(--hero-subtitle); opacity:0.7;
+}
+.ml-word { display:inline-block; transition:opacity 0.3s; }
+
+/* -- Solution Section -- */
+.ml-solution { padding:128px 24px 176px; border-top:1px solid rgba(255,255,255,0.1); }
+.ml-solution-inner { max-width:1152px; margin:0 auto; }
+.ml-solution-label { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted-foreground); margin-bottom:16px; }
+.ml-solution-h2 {
+  font-size:clamp(2.5rem,6vw,4rem); font-weight:500; letter-spacing:-1px; margin-bottom:48px;
+}
+.ml-solution-h2 em { font-family:var(--font-display); font-style:italic; font-weight:400; }
+.ml-solution-vid { border-radius:16px; overflow:hidden; aspect-ratio:3/1; margin-bottom:64px; }
+.ml-solution-vid video { width:100%; height:100%; object-fit:cover; }
+.ml-features { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+.ml-feat-title { font-weight:600; font-size:0.95rem; margin-bottom:8px; }
+.ml-feat-desc { color:var(--muted-foreground); font-size:0.8rem; line-height:1.6; }
+
+/* -- CTA Section -- */
+.ml-cta {
+  position:relative; padding:128px 24px 176px; border-top:1px solid rgba(255,255,255,0.1);
+  overflow:hidden; text-align:center;
+}
+.ml-cta-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+.ml-cta-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.45); z-index:1; }
+.ml-cta-content { position:relative; z-index:10; }
+.ml-cta-logo { width:40px; height:40px; border-radius:50%; border:2px solid rgba(255,255,255,0.6); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
+.ml-cta-logo-inner { width:20px; height:20px; border-radius:50%; border:1px solid rgba(255,255,255,0.6); }
+.ml-cta-h2 { font-size:clamp(2.5rem,6vw,4rem); font-weight:500; margin-bottom:16px; }
+.ml-cta-h2 em { font-family:var(--font-display); font-style:italic; font-weight:400; }
+.ml-cta-sub { color:var(--muted-foreground); font-size:1rem; margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto; }
+.ml-cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.ml-cta-primary {
+  background:#fff; color:#000; border:none; border-radius:8px;
+  padding:14px 32px; font-size:0.875rem; font-weight:600; cursor:pointer;
+  transition:transform 0.2s; font-family:var(--font-body);
+}
+.ml-cta-primary:hover { transform:scale(1.03); }
+.ml-cta-secondary {
+  border-radius:8px; padding:14px 32px; color:#fff;
+  font-size:0.875rem; font-weight:500; cursor:pointer; font-family:var(--font-body);
+  transition:background 0.3s; background:none;
+}
+.ml-cta-secondary:hover { background:rgba(255,255,255,0.05); }
+
+/* -- Footer -- */
+.ml-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:48px 32px; flex-wrap:wrap; gap:16px;
+}
+.ml-footer-copy { color:var(--muted-foreground); font-size:0.8rem; }
+.ml-footer-links { display:flex; gap:24px; }
+.ml-footer-links a { color:var(--muted-foreground); font-size:0.8rem; text-decoration:none; transition:color 0.3s; }
+.ml-footer-links a:hover { color:#fff; }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width:768px) {
-  .nav-links { display:none; }
-  .navbar { padding:16px 20px; }
-  .hero { padding-top:80px; padding-bottom:100px; }
+  .velorah-links,.ml-nav-links,.ml-nav-dot { display:none; }
+  .ml-platforms { grid-template-columns:1fr; max-width:300px; }
+  .ml-features { grid-template-columns:1fr 1fr; }
+  .ml-mission-video { width:90%; }
 }
 </style>
 </head>
 <body>
-<div class="page-wrap">
 
-  <video class="bg-video" autoplay loop muted playsinline preload="auto" src="maison-dore-bg.mp4"></video>
-
-  <nav class="navbar">
-    <a class="nav-logo" href="#">Velorah<sup>&reg;</sup></a>
-    <div class="nav-links">
-      <a class="nav-link active" href="#">Home</a>
-      <a class="nav-link" href="#">Studio</a>
-      <a class="nav-link" href="#">About</a>
-      <a class="nav-link" href="#">Journal</a>
-      <a class="nav-link" href="#">Reach Us</a>
+<!-- ════════════════════════════════════════════ -->
+<!-- PART 1: VELORAH HERO                        -->
+<!-- ════════════════════════════════════════════ -->
+<section class="velorah-hero">
+  <video class="bg-video" autoplay loop muted playsinline preload="auto" src="https://vantagebookdesign.netlify.app/maison-dore-bg.mp4"></video>
+  <nav class="velorah-nav">
+    <a class="velorah-logo" href="#">Velorah<sup>&reg;</sup></a>
+    <div class="velorah-links">
+      <a class="active" href="#">Home</a>
+      <a href="#">Studio</a>
+      <a href="#">About</a>
+      <a href="#">Journal</a>
+      <a href="#">Reach Us</a>
     </div>
-    <button class="nav-cta liquid-glass">Begin Journey</button>
+    <button class="velorah-cta-nav liquid-glass">Begin Journey</button>
   </nav>
-
-  <section class="hero">
-    <h1 class="hero-heading animate-fade-rise">Where <em>dreams</em> rise <em>through the silence.</em></h1>
-    <p class="hero-sub animate-fade-rise-delay">We&rsquo;re designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.</p>
-    <button class="hero-cta liquid-glass animate-fade-rise-delay-2">Begin Journey</button>
+  <section class="velorah-content">
+    <h1 class="velorah-h1 anim-fr">Where <em>dreams</em> rise <em>through the silence.</em></h1>
+    <p class="velorah-sub anim-fr-d1">We&rsquo;re designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.</p>
+    <button class="velorah-cta liquid-glass anim-fr-d2">Begin Journey</button>
   </section>
+</section>
 
-</div>
+<!-- ════════════════════════════════════════════ -->
+<!-- PART 2: MINDLOOP                            -->
+<!-- ════════════════════════════════════════════ -->
+
+<!-- Mindloop Navbar (fixed, appears on scroll) -->
+<nav class="ml-nav" id="mlNav">
+  <div class="ml-nav-left">
+    <div class="ml-logo-icon"><div class="ml-logo-inner"></div></div>
+    <span class="ml-nav-brand">Mindloop</span>
+    <div class="ml-nav-links">
+      <span class="ml-nav-dot">&bull;</span>
+      <a href="#ml-hero">Home</a>
+      <span class="ml-nav-dot">&bull;</span>
+      <a href="#ml-search">How It Works</a>
+      <span class="ml-nav-dot">&bull;</span>
+      <a href="#ml-mission">Philosophy</a>
+      <span class="ml-nav-dot">&bull;</span>
+      <a href="#ml-solution">Use Cases</a>
+    </div>
+  </div>
+  <div class="ml-nav-right">
+    <button class="ml-social-btn liquid-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg></button>
+    <button class="ml-social-btn liquid-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></button>
+    <button class="ml-social-btn liquid-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.7 8L4 20V4zM20 4v16"/></svg></button>
+  </div>
+</nav>
+
+<!-- 2. HERO -->
+<section class="ml-hero" id="ml-hero">
+  <video class="ml-hero-video" autoplay loop muted playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4"></video>
+  <div class="ml-hero-fade"></div>
+  <div class="ml-hero-content">
+    <div class="ml-avatars">
+      <img class="ml-avatar" src="https://i.pravatar.cc/64?img=12" alt="">
+      <img class="ml-avatar" src="https://i.pravatar.cc/64?img=32" alt="">
+      <img class="ml-avatar" src="https://i.pravatar.cc/64?img=47" alt="">
+      <span class="ml-avatar-text">7,000+ people already subscribed</span>
+    </div>
+    <h1 class="ml-hero-h1 anim-fr">Get <em>Inspired</em> with Us</h1>
+    <p class="ml-hero-sub anim-fr-d1">Join our feed for meaningful updates, news around technology and a shared journey toward depth and direction.</p>
+    <div class="ml-email-form liquid-glass anim-fr-d2">
+      <input type="email" placeholder="Enter your email">
+      <button class="ml-subscribe-btn">SUBSCRIBE</button>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SEARCH SECTION -->
+<section class="ml-search" id="ml-search">
+  <h2 class="ml-search-h2 reveal">Search has <em>changed.</em> Have you?</h2>
+  <p class="ml-search-sub reveal">The way people find information has fundamentally shifted. AI-powered search is rewriting the rules of discovery, visibility, and trust.</p>
+  <div class="ml-platforms reveal">
+    <div class="ml-platform">
+      <div class="ml-platform-icon">&#129302;</div>
+      <p class="ml-platform-name">ChatGPT</p>
+      <p class="ml-platform-desc">Conversational AI that synthesizes knowledge from the entire web into direct answers.</p>
+    </div>
+    <div class="ml-platform">
+      <div class="ml-platform-icon">&#128269;</div>
+      <p class="ml-platform-name">Perplexity</p>
+      <p class="ml-platform-desc">AI search engine that delivers sourced, real-time answers with transparency built in.</p>
+    </div>
+    <div class="ml-platform">
+      <div class="ml-platform-icon">&#10024;</div>
+      <p class="ml-platform-name">Google AI</p>
+      <p class="ml-platform-desc">AI Overviews are reshaping how billions discover content, pushing traditional links further down.</p>
+    </div>
+  </div>
+  <p class="ml-search-tag reveal">If you don&rsquo;t answer the questions, someone else will.</p>
+</section>
+
+<!-- 4. MISSION SECTION -->
+<section class="ml-mission" id="ml-mission">
+  <div class="ml-mission-video reveal">
+    <video autoplay loop muted playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4"></video>
+  </div>
+  <div class="ml-mission-text" id="mlMissionText">
+    <p class="ml-mission-p1">We&rsquo;re building a space where <strong>curiosity</strong> <strong>meets</strong> <strong>clarity</strong> &mdash; where readers find depth, writers find reach, and every newsletter becomes a conversation worth having.</p>
+    <p class="ml-mission-p2">A platform where content, community, and insight flow together &mdash; with less noise, less friction, and more meaning for everyone involved.</p>
+  </div>
+</section>
+
+<!-- 5. SOLUTION SECTION -->
+<section class="ml-solution" id="ml-solution">
+  <div class="ml-solution-inner">
+    <p class="ml-solution-label reveal">SOLUTION</p>
+    <h2 class="ml-solution-h2 reveal">The platform for <em>meaningful</em> content</h2>
+    <div class="ml-solution-vid reveal">
+      <video autoplay loop muted playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_125119_8e5ae31c-0021-4396-bc08-f7aebeb877a2.mp4"></video>
+    </div>
+    <div class="ml-features reveal">
+      <div>
+        <p class="ml-feat-title">Curated Feed</p>
+        <p class="ml-feat-desc">AI-powered content curation that surfaces what matters most, filtering noise so you never miss signal.</p>
+      </div>
+      <div>
+        <p class="ml-feat-title">Writer Tools</p>
+        <p class="ml-feat-desc">Everything creators need to write, publish, and grow &mdash; from rich editor to analytics dashboard.</p>
+      </div>
+      <div>
+        <p class="ml-feat-title">Community</p>
+        <p class="ml-feat-desc">Connect with like-minded readers and writers in focused discussion spaces built for depth.</p>
+      </div>
+      <div>
+        <p class="ml-feat-title">Distribution</p>
+        <p class="ml-feat-desc">Reach the right audience through smart recommendations, SEO optimization, and social amplification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CTA SECTION -->
+<section class="ml-cta">
+  <video class="ml-cta-video" id="mlCtaVideo" autoplay loop muted playsinline preload="auto"></video>
+  <div class="ml-cta-overlay"></div>
+  <div class="ml-cta-content reveal">
+    <div class="ml-cta-logo"><div class="ml-cta-logo-inner"></div></div>
+    <h2 class="ml-cta-h2">Start Your <em>Journey</em></h2>
+    <p class="ml-cta-sub">Join thousands of thinkers, makers, and storytellers building something meaningful together.</p>
+    <div class="ml-cta-btns">
+      <button class="ml-cta-primary">Subscribe Now</button>
+      <button class="ml-cta-secondary liquid-glass">Start Writing</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FOOTER -->
+<footer class="ml-footer">
+  <span class="ml-footer-copy">&copy; 2026 Mindloop. All rights reserved.</span>
+  <div class="ml-footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+(function() {
+  // Scroll reveal
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+      });
+    }, { rootMargin: '-80px' });
+    els.forEach(function(e) { obs.observe(e); });
+  } else {
+    els.forEach(function(e) { e.classList.add('vis'); });
+  }
+
+  // Mindloop navbar: show when scrolled past Velorah hero
+  var mlNav = document.getElementById('mlNav');
+  var heroEnd = document.querySelector('.velorah-hero');
+  window.addEventListener('scroll', function() {
+    if (!heroEnd || !mlNav) return;
+    var threshold = heroEnd.offsetTop + heroEnd.offsetHeight - 100;
+    mlNav.classList.toggle('show', window.scrollY > threshold);
+  });
+
+  // HLS video for CTA section
+  var ctaVid = document.getElementById('mlCtaVideo');
+  var hlsUrl = 'https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8';
+  if (ctaVid) {
+    if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(ctaVid);
+    } else if (ctaVid.canPlayType('application/vnd.apple.mpegurl')) {
+      ctaVid.src = hlsUrl;
+    }
+  }
+})();
+</script>
 </body>
 </html>
