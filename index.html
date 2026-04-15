@@ -3286,290 +3286,266 @@ TPL_ECOM_HTML['1'] = function () {
 <meta charset="UTF-8">\
 <meta name="viewport" content="width=device-width, initial-scale=1.0">\
 <title>Computer and Co</title>\
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">\
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">\
 <style>\
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}\
 html{scroll-behavior:smooth;scrollbar-width:none}\
 html::-webkit-scrollbar{display:none}\
-body{background:#fff;color:#1a1a1a;font-family:Inter,sans-serif;overflow-x:hidden}\
+body{background:#fff;color:#202020;font-family:Inter,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}\
 \
-/* NAV */\
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.05)}\
-.nav-logo{font-size:18px;font-weight:800;color:#1a1a1a;display:flex;align-items:center;gap:10px;letter-spacing:-0.5px}\
-.nav-logo span{width:32px;height:32px;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700}\
-.nav-links{display:flex;gap:28px;align-items:center}\
-.nav-links a{color:#666;text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.3px;transition:color .3s}\
-.nav-links a:hover{color:#1a1a1a}\
-.btn-red{padding:12px 28px;border-radius:6px;background:#ff0000;color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:all .3s;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:1px}\
-.btn-red:hover{background:#cc0000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,0,0,0.25)}\
+/* === NAV === */\
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px)}\
+.nav-left{display:flex;align-items:center;gap:32px}\
+.nav-logo{font-size:16px;font-weight:800;color:#202020;text-decoration:none;letter-spacing:-0.3px}\
+.nav-menu{display:flex;gap:24px}\
+.nav-menu a{font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:color .2s}\
+.nav-menu a:hover{color:#202020}\
+.btn-cta{padding:10px 22px;background:#f00;color:#fff;font-size:12px;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:1.5px;transition:all .3s;border:none;cursor:pointer}\
+.btn-cta:hover{background:#fff;color:#f00;outline:2px solid #f00}\
 \
-/* HERO */\
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 60px 80px;gap:60px;max-width:1400px;margin:0 auto}\
-.hero-left{flex:1;max-width:550px}\
-.hero-left h1{font-size:clamp(44px,5.5vw,68px);font-weight:900;line-height:1.05;color:#0a0a0a;margin-bottom:20px;letter-spacing:-2px}\
-.hero-left h1 em{font-family:Playfair Display,serif;font-style:italic;color:#ff0000}\
-.hero-left p{font-size:18px;line-height:1.7;color:#666;margin-bottom:36px;max-width:440px}\
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap}\
-.btn-dark{padding:16px 36px;border-radius:6px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:all .3s;text-transform:uppercase;letter-spacing:1px}\
-.btn-dark:hover{background:#333;transform:translateY(-2px)}\
-.btn-outline{padding:16px 36px;border-radius:6px;border:2px solid #ddd;background:transparent;color:#1a1a1a;font-size:14px;font-weight:600;text-decoration:none;transition:all .3s;cursor:pointer}\
-.btn-outline:hover{border-color:#0a0a0a}\
-.hero-right{flex:1;display:flex;justify-content:center;align-items:center}\
-.hero-right img{width:100%;max-width:520px}\
+/* === HERO === */\
+.hero{display:flex;align-items:center;min-height:100vh;padding:140px 80px 80px;gap:80px;max-width:1400px;margin:0 auto}\
+.hero-content{flex:1}\
+.hero-content h1{font-family:Playfair Display,serif;font-size:clamp(48px,6vw,80px);font-weight:800;line-height:1.0;color:#202020;margin-bottom:24px;letter-spacing:-2px}\
+.hero-content h1 em{font-style:italic;color:#f00}\
+.hero-sub{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:#999;margin-bottom:32px}\
+.hero-content p{font-size:18px;line-height:1.8;color:#777;max-width:460px;margin-bottom:40px}\
+.hero-actions{display:flex;gap:16px;align-items:center}\
+.btn-fill{padding:16px 40px;background:#f00;color:#fff;font-size:13px;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:1.5px;transition:all .3s}\
+.btn-fill:hover{background:#cc0000;transform:translateY(-2px)}\
+.btn-ghost{font-size:14px;font-weight:600;color:#202020;text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .3s}\
+.btn-ghost:hover{gap:12px;color:#f00}\
+.hero-visual{flex:1;display:flex;justify-content:center}\
+.hero-visual img{width:100%;max-width:500px}\
 \
-/* QUOTE BAR */\
-.quote-bar{padding:60px;text-align:center;background:#fafafa;border-top:1px solid #eee;border-bottom:1px solid #eee}\
-.quote-bar blockquote{font-family:Playfair Display,serif;font-style:italic;font-size:clamp(20px,2.5vw,28px);color:#333;max-width:800px;margin:0 auto;line-height:1.6}\
-.quote-bar cite{display:block;margin-top:16px;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#999;font-style:normal}\
+/* === FULL BLEED IMAGE === */\
+.full-img{width:100%;padding:0 40px;margin:0 auto;max-width:1400px}\
+.full-img img{width:100%;border-radius:0;display:block}\
 \
-/* CASE STUDY CARDS */\
-.cases{padding:100px 48px;max-width:1400px;margin:0 auto}\
-.cases-header{margin-bottom:60px}\
-.cases-header .label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff0000;margin-bottom:12px}\
-.cases-header h2{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-1.5px;color:#0a0a0a}\
-.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}\
-.case-card{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;transition:transform .4s}\
-.case-card:hover{transform:scale(1.02)}\
-.case-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}\
-.case-card:hover img{transform:scale(1.05)}\
-.case-overlay{position:absolute;bottom:0;left:0;right:0;padding:32px;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff}\
-.case-tags{display:flex;gap:8px;margin-bottom:12px}\
-.case-tag{padding:4px 12px;border-radius:99px;background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);font-size:11px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.5px}\
-.case-overlay h3{font-size:24px;font-weight:800;margin-bottom:4px}\
-.case-overlay p{font-size:13px;color:rgba(255,255,255,0.7)}\
+/* === TEXT BLOCK (Problem/Solution style) === */\
+.text-block{max-width:780px;margin:0 auto;padding:100px 40px}\
+.text-block .icon{font-size:36px;margin-bottom:24px}\
+.text-block .label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#f00;margin-bottom:20px}\
+.text-block h2{font-family:Playfair Display,serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.25;color:#202020;margin-bottom:28px;letter-spacing:-1px}\
+.text-block p{font-size:17px;line-height:2;color:#666;margin-bottom:20px}\
+.text-block a.link{color:#f00;font-weight:600;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:gap .3s}\
+.text-block a.link:hover{gap:12px}\
 \
-/* SERVICES */\
-.services{padding:100px 48px;background:#0a0a0a;color:#fff}\
-.services-inner{max-width:1400px;margin:0 auto}\
-.services .label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff0000;margin-bottom:12px}\
-.services h2{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-1.5px;margin-bottom:60px}\
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}\
-.srv-item{padding:32px 24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all .3s;cursor:default}\
-.srv-item:hover{background:rgba(255,0,0,0.08);border-color:rgba(255,0,0,0.2)}\
-.srv-icon{font-size:28px;margin-bottom:16px}\
-.srv-item h4{font-size:16px;font-weight:700;margin-bottom:8px}\
-.srv-item p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6}\
+/* === SCOPE LIST === */\
+.scope{max-width:780px;margin:0 auto;padding:60px 40px 80px}\
+.scope .label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#f00;margin-bottom:28px}\
+.scope-list{list-style:none;display:flex;flex-wrap:wrap;gap:0}\
+.scope-list li{width:50%;padding:14px 0;font-size:15px;font-weight:500;color:#202020;border-bottom:1px solid #eee;display:flex;align-items:center;gap:10px}\
+.scope-list li::before{content:"";width:6px;height:6px;border-radius:50%;background:#f00;flex-shrink:0}\
 \
-/* METRICS */\
-.metrics{padding:100px 48px;background:#fff}\
-.metrics-inner{max-width:1200px;margin:0 auto}\
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-bottom:60px}\
-.metric{text-align:center}\
-.metric-num{font-size:clamp(40px,5vw,64px);font-weight:900;color:#0a0a0a;line-height:1;margin-bottom:8px;letter-spacing:-2px}\
-.metric-num .accent{color:#ff0000}\
-.metric-label{font-size:14px;color:#888;font-weight:500}\
-.metrics-quote{max-width:700px;margin:0 auto;text-align:center;padding-top:40px;border-top:1px solid #eee}\
-.metrics-quote blockquote{font-family:Playfair Display,serif;font-style:italic;font-size:20px;color:#333;line-height:1.6;margin-bottom:12px}\
-.metrics-quote cite{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#999;font-style:normal}\
+/* === DIVIDER === */\
+.divider{width:100%;max-width:780px;margin:0 auto;height:1px;background:#eee}\
 \
-/* GALLERY MASONRY */\
-.gallery{padding:80px 48px;background:#fafafa}\
-.gallery-inner{max-width:1400px;margin:0 auto}\
-.gallery .label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff0000;margin-bottom:12px;text-align:center}\
-.gallery h2{font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:48px}\
-.masonry{columns:3;column-gap:16px}\
-.masonry-item{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;transition:all .4s}\
-.masonry-item:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.1)}\
-.masonry-item img{width:100%;display:block}\
+/* === METRICS === */\
+.metrics{padding:100px 40px;max-width:1200px;margin:0 auto}\
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-bottom:60px}\
+.metric-item{text-align:center}\
+.metric-val{font-family:Playfair Display,serif;font-size:clamp(36px,5vw,60px);font-weight:800;color:#202020;line-height:1;margin-bottom:8px;letter-spacing:-2px}\
+.metric-val span{color:#f00}\
+.metric-desc{font-size:13px;color:#999;font-weight:500;line-height:1.5}\
 \
-/* PRINCIPLES */\
-.principles{padding:100px 48px;background:#fff}\
-.principles-inner{max-width:1200px;margin:0 auto}\
-.principles .label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#ff0000;margin-bottom:12px}\
-.principles h2{font-size:clamp(32px,4vw,48px);font-weight:900;letter-spacing:-1.5px;margin-bottom:60px}\
-.principles-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}\
-.principle{padding:32px;border-left:3px solid #ff0000}\
-.principle h3{font-size:20px;font-weight:800;margin-bottom:12px;color:#0a0a0a}\
-.principle p{font-size:15px;color:#666;line-height:1.7}\
+/* === IMAGE STACK === */\
+.img-stack{padding:40px;max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:16px}\
+.img-row{display:flex;gap:16px}\
+.img-row img{flex:1;width:100%;object-fit:cover;display:block}\
+.img-single img{width:100%;display:block}\
 \
-/* CTA SECTION */\
-.cta-section{padding:120px 48px;background:#0a0a0a;text-align:center;position:relative;overflow:hidden}\
-.cta-section::before{content:"";position:absolute;top:50%;left:50%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,0,0,0.08),transparent 70%);transform:translate(-50%,-50%);border-radius:50%}\
-.cta-section h2{font-size:clamp(36px,5vw,60px);font-weight:900;color:#fff;letter-spacing:-2px;margin-bottom:20px;position:relative}\
-.cta-section p{font-size:18px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto 40px;position:relative}\
+/* === TESTIMONIAL === */\
+.testimonial{padding:100px 40px;text-align:center;max-width:900px;margin:0 auto}\
+.testimonial blockquote{font-family:Playfair Display,serif;font-style:italic;font-size:clamp(22px,3vw,32px);color:#202020;line-height:1.5;margin-bottom:24px;letter-spacing:-0.5px}\
+.testimonial cite{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#999;font-style:normal;display:block}\
+.testimonial .stars{color:#f00;font-size:20px;letter-spacing:4px;margin-bottom:20px}\
 \
-/* FOOTER */\
-.footer{padding:48px;background:#0a0a0a;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}\
-.footer-left{font-size:13px;color:rgba(255,255,255,0.3)}\
-.footer-links{display:flex;gap:24px}\
-.footer-links a{font-size:12px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .3s;text-transform:uppercase;letter-spacing:1px}\
+/* === RELATED / CARDS === */\
+.related{padding:80px 40px;background:#fafafa;border-top:1px solid #eee}\
+.related-inner{max-width:1400px;margin:0 auto}\
+.related .label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#f00;margin-bottom:12px}\
+.related h2{font-family:Playfair Display,serif;font-size:32px;font-weight:700;margin-bottom:48px;letter-spacing:-1px}\
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}\
+.rel-card{background:#fff;overflow:hidden;transition:all .4s;cursor:pointer}\
+.rel-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.08)}\
+.rel-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}\
+.rel-card-body{padding:24px}\
+.rel-card-body h3{font-size:18px;font-weight:700;margin-bottom:6px;color:#202020}\
+.rel-card-body p{font-size:13px;color:#999;line-height:1.6}\
+\
+/* === CTA BANNER === */\
+.cta-banner{padding:120px 40px;text-align:center;background:#202020}\
+.cta-banner h2{font-family:Playfair Display,serif;font-size:clamp(36px,5vw,56px);font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:-2px}\
+.cta-banner p{font-size:17px;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto 40px;line-height:1.8}\
+\
+/* === FOOTER === */\
+.footer{padding:40px;background:#202020;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}\
+.footer span{font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:1px}\
+.footer-links{display:flex;gap:20px}\
+.footer-links a{font-size:11px;color:rgba(255,255,255,0.35);text-decoration:none;text-transform:uppercase;letter-spacing:1.5px;transition:color .3s}\
 .footer-links a:hover{color:#fff}\
 \
-/* ANIMATIONS */\
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}\
-.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1)}\
-.reveal.vis{opacity:1;transform:none}\
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}\
+/* === REVEAL ANIMATION === */\
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}\
+.rv.show{opacity:1;transform:none}\
+.rv-d1{transition-delay:.12s}.rv-d2{transition-delay:.24s}.rv-d3{transition-delay:.36s}\
 </style>\
 </head>\
 <body>\
 \
 <!-- NAV -->\
 <div class="nav">\
-  <div class="nav-logo"><span>C</span> Computer&Co</div>\
-  <div class="nav-links">\
-    <a href="#">Products</a><a href="#">Services</a><a href="#">About</a><a href="#">Contact</a>\
-    <a href="#" class="btn-red">Get a Quote</a>\
+  <div class="nav-left">\
+    <a href="#" class="nav-logo">\u25CF Computer&Co</a>\
+    <div class="nav-menu">\
+      <a href="#">Products</a><a href="#">Services</a><a href="#">About</a><a href="#">Contact</a>\
+    </div>\
   </div>\
+  <a href="#" class="btn-cta">Work With Us</a>\
 </div>\
 \
 <!-- HERO -->\
 <section class="hero">\
-  <div class="hero-left" style="animation:fadeUp .8s ease-out both">\
-    <h1>Built for <em>brands</em> that mean business</h1>\
-    <p>Premium computer sales, expert IT consulting, and enterprise solutions for teams that refuse to compromise.</p>\
-    <div class="hero-btns">\
-      <a href="#" class="btn-dark">Shop Now</a>\
-      <a href="#" class="btn-outline">Book a Consultation</a>\
+  <div class="hero-content rv show" style="animation:none">\
+    <div class="hero-sub">Premium IT Solutions</div>\
+    <h1>Built for <em>brands</em> that mean business.</h1>\
+    <p>The premium computer consultancy for defining moments. Custom builds, enterprise infrastructure, and white-glove IT support.</p>\
+    <div class="hero-actions">\
+      <a href="#" class="btn-fill">Grow Your Business</a>\
+      <a href="#" class="btn-ghost">See our work \u2192</a>\
     </div>\
   </div>\
-  <div class="hero-right" style="animation:fadeUp .8s ease-out .3s both">\
+  <div class="hero-visual rv show" style="animation:none">\
     <img src="assets/computer-and-co-hero.webp" alt="Computer and Co">\
   </div>\
 </section>\
 \
-<!-- QUOTE -->\
-<div class="quote-bar">\
-  <blockquote>\u201CIf it makes your competitors jealous and your team unstoppable, we\u2019re in.\u201D</blockquote>\
-  <cite>\u2014 Computer & Co Team</cite>\
+<!-- FULL BLEED IMAGE -->\
+<div class="full-img rv">\
+  <img loading="lazy" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85" alt="Server infrastructure">\
 </div>\
 \
-<!-- CASE STUDIES -->\
-<section class="cases">\
-  <div class="cases-header reveal">\
-    <div class="label">Featured Projects</div>\
-    <h2>Results that speak volumes</h2>\
-  </div>\
-  <div class="cases-grid">\
-    <div class="case-card reveal reveal-d1">\
-      <img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=900&q=80" alt="Gaming Setup">\
-      <div class="case-overlay">\
-        <div class="case-tags"><span class="case-tag">\uD83C\uDFAE Gaming</span><span class="case-tag">Custom Build</span></div>\
-        <h3>NexGen Esports</h3>\
-        <p>Full esports arena setup \u2014 120 custom rigs, tournament-grade</p>\
-      </div>\
-    </div>\
-    <div class="case-card reveal reveal-d2">\
-      <img loading="lazy" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=80" alt="Server Room">\
-      <div class="case-overlay">\
-        <div class="case-tags"><span class="case-tag">\uD83C\uDFE2 Enterprise</span><span class="case-tag">Infrastructure</span></div>\
-        <h3>Vertex Capital</h3>\
-        <p>Hybrid cloud migration for a $2B fintech firm</p>\
-      </div>\
-    </div>\
-    <div class="case-card reveal reveal-d3">\
-      <img loading="lazy" src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=900&q=80" alt="Workstation">\
-      <div class="case-overlay">\
-        <div class="case-tags"><span class="case-tag">\uD83C\uDFA8 Creative</span><span class="case-tag">Workstations</span></div>\
-        <h3>Studio Parallax</h3>\
-        <p>50 DaVinci-grade editing workstations for a VFX studio</p>\
-      </div>\
-    </div>\
-    <div class="case-card reveal reveal-d4">\
-      <img loading="lazy" src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?w=900&q=80" alt="RGB Build">\
-      <div class="case-overlay">\
-        <div class="case-tags"><span class="case-tag">\uD83D\uDE80 Startup</span><span class="case-tag">IT Setup</span></div>\
-        <h3>LaunchPad AI</h3>\
-        <p>Complete tech stack for a 200-person AI startup</p>\
-      </div>\
-    </div>\
-  </div>\
-</section>\
+<!-- PROBLEM -->\
+<div class="text-block rv">\
+  <div class="icon">\uD83D\uDD2D</div>\
+  <div class="label">The Challenge</div>\
+  <h2>Technology should empower, not overwhelm</h2>\
+  <p>In an era of endless specs, confusing jargon, and impersonal mega-retailers, businesses struggle to find technology partners who truly understand their needs. Most IT providers sell boxes. We architect ecosystems.</p>\
+  <p>Computer & Co was founded to bridge the gap between cutting-edge hardware and real business outcomes \u2014 delivering bespoke solutions with the care and precision of a luxury consultancy.</p>\
+</div>\
 \
-<!-- SERVICES -->\
-<section class="services">\
-  <div class="services-inner">\
-    <div class="label">What We Do</div>\
-    <h2>Full-spectrum IT excellence</h2>\
-    <div class="services-grid">\
-      <div class="srv-item reveal"><div class="srv-icon">\uD83D\uDDA5\uFE0F</div><h4>Custom PC Builds</h4><p>Hand-picked components, stress-tested and cable-managed to perfection.</p></div>\
-      <div class="srv-item reveal reveal-d1"><div class="srv-icon">\u2601\uFE0F</div><h4>Cloud Solutions</h4><p>Hybrid and multi-cloud architecture for scalable operations.</p></div>\
-      <div class="srv-item reveal reveal-d2"><div class="srv-icon">\uD83D\uDD12</div><h4>Cybersecurity</h4><p>Enterprise-grade protection, penetration testing, and compliance.</p></div>\
-      <div class="srv-item reveal reveal-d3"><div class="srv-icon">\uD83D\uDCCA</div><h4>IT Consulting</h4><p>Strategic technology roadmaps aligned with your business goals.</p></div>\
-      <div class="srv-item reveal"><div class="srv-icon">\uD83C\uDF10</div><h4>Network Design</h4><p>High-performance LAN/WAN infrastructure for any scale.</p></div>\
-      <div class="srv-item reveal reveal-d1"><div class="srv-icon">\uD83D\uDEE0\uFE0F</div><h4>Hardware Upgrades</h4><p>Extend the life of your fleet with strategic component upgrades.</p></div>\
-      <div class="srv-item reveal reveal-d2"><div class="srv-icon">\uD83D\uDCBE</div><h4>Data Recovery</h4><p>Industry-leading success rates for critical data restoration.</p></div>\
-      <div class="srv-item reveal reveal-d3"><div class="srv-icon">\uD83C\uDFC6</div><h4>Premium Support</h4><p>24/7 white-glove support with guaranteed response times.</p></div>\
-    </div>\
-  </div>\
-</section>\
+<div class="divider"></div>\
+\
+<!-- SCOPE -->\
+<div class="scope rv">\
+  <div class="label">What We Do</div>\
+  <ul class="scope-list">\
+    <li>Custom PC Building</li>\
+    <li>Enterprise Infrastructure</li>\
+    <li>IT Strategy & Consulting</li>\
+    <li>Cloud Architecture</li>\
+    <li>Cybersecurity Solutions</li>\
+    <li>Managed IT Services</li>\
+    <li>Hardware Procurement</li>\
+    <li>Premium Support Plans</li>\
+  </ul>\
+</div>\
+\
+<div class="divider"></div>\
+\
+<!-- SOLUTION -->\
+<div class="text-block rv">\
+  <div class="icon">\uD83C\uDFC6</div>\
+  <div class="label">Our Approach</div>\
+  <h2>Premium consulting meets cutting-edge technology</h2>\
+  <p>Every engagement starts with deep discovery. We map your workflows, audit your infrastructure, and identify the exact gaps holding your team back. Then we design, source, build, and deploy \u2014 with obsessive attention to every cable, every config, every connection.</p>\
+  <p>The result? Systems that don\u2019t just work \u2014 they accelerate. Teams that don\u2019t just function \u2014 they thrive. Technology that doesn\u2019t just exist \u2014 it transforms.</p>\
+  <a href="#" class="link">Visit our showroom \u2192</a>\
+</div>\
 \
 <!-- METRICS -->\
-<section class="metrics">\
-  <div class="metrics-inner">\
-    <div class="metrics-grid">\
-      <div class="metric reveal"><div class="metric-num"><span class="accent">5</span>K+</div><div class="metric-label">Happy Clients</div></div>\
-      <div class="metric reveal reveal-d1"><div class="metric-num"><span class="accent">12</span>K</div><div class="metric-label">Systems Built</div></div>\
-      <div class="metric reveal reveal-d2"><div class="metric-num"><span class="accent">99</span>%</div><div class="metric-label">Satisfaction Rate</div></div>\
-      <div class="metric reveal reveal-d3"><div class="metric-num"><span class="accent">24</span>/7</div><div class="metric-label">Premium Support</div></div>\
-    </div>\
-    <div class="metrics-quote reveal">\
-      <blockquote>\u201CComputer & Co transformed our entire tech infrastructure. They don\u2019t just sell hardware \u2014 they architect solutions.\u201D</blockquote>\
-      <cite>\u2014 Sarah Chen, CTO at Vertex Capital</cite>\
-    </div>\
+<section class="metrics rv">\
+  <div class="metrics-row">\
+    <div class="metric-item rv"><div class="metric-val"><span>5</span>K+</div><div class="metric-desc">Clients Served</div></div>\
+    <div class="metric-item rv rv-d1"><div class="metric-val"><span>$</span>12M</div><div class="metric-desc">Hardware Deployed</div></div>\
+    <div class="metric-item rv rv-d2"><div class="metric-val"><span>99</span>%</div><div class="metric-desc">Client Retention</div></div>\
+    <div class="metric-item rv rv-d3"><div class="metric-val"><span>24</span>/7</div><div class="metric-desc">Premium Support</div></div>\
   </div>\
 </section>\
 \
-<!-- GALLERY -->\
-<section class="gallery">\
-  <div class="gallery-inner">\
-    <div class="label">Our Work</div>\
-    <h2>Crafted with obsessive precision</h2>\
-    <div class="masonry">\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80" alt="Gaming PC"></div>\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1555617778-02518510b9fa?w=600&q=80" alt="Components"></div>\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Data Center"></div>\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80" alt="Workstation"></div>\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=600&q=80" alt="Laptop"></div>\
-      <div class="masonry-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?w=600&q=80" alt="RGB Build"></div>\
-    </div>\
+<!-- IMAGE GALLERY (stacked like B&B) -->\
+<div class="img-stack">\
+  <div class="img-row rv">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=700&q=80" alt="Gaming build">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=700&q=80" alt="Workstation">\
   </div>\
-</section>\
+  <div class="img-single rv">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?w=1400&q=80" alt="RGB custom build">\
+  </div>\
+  <div class="img-row rv">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1555617778-02518510b9fa?w=700&q=80" alt="Components">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=700&q=80" alt="Setup">\
+    <img loading="lazy" src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=700&q=80" alt="Monitors">\
+  </div>\
+</div>\
 \
-<!-- PRINCIPLES -->\
-<section class="principles">\
-  <div class="principles-inner">\
-    <div class="label">Our Philosophy</div>\
-    <h2>What drives us</h2>\
-    <div class="principles-grid">\
-      <div class="principle reveal">\
-        <h3>No Compromises</h3>\
-        <p>We hand-pick every component, stress-test every build, and stand behind every system we ship. Mediocrity isn\u2019t in our vocabulary.</p>\
+<!-- TESTIMONIAL -->\
+<div class="testimonial rv">\
+  <div class="stars">\u2605\u2605\u2605\u2605\u2605</div>\
+  <blockquote>\u201CComputer & Co transformed our entire infrastructure. They don\u2019t just sell hardware \u2014 they architect solutions that scale with your ambition.\u201D</blockquote>\
+  <cite>\u2014 Sarah Chen, CTO at Vertex Capital</cite>\
+</div>\
+\
+<!-- RELATED PROJECTS -->\
+<section class="related">\
+  <div class="related-inner">\
+    <div class="label">Similar Results</div>\
+    <h2>More success stories</h2>\
+    <div class="related-grid">\
+      <div class="rel-card rv">\
+        <img loading="lazy" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Data center">\
+        <div class="rel-card-body">\
+          <h3>\uD83C\uDFE2 Vertex Capital</h3>\
+          <p>Full hybrid-cloud migration for a $2B fintech firm. Zero downtime.</p>\
+        </div>\
       </div>\
-      <div class="principle reveal reveal-d1">\
-        <h3>Consultants First, Sellers Second</h3>\
-        <p>We\u2019ll tell you what you actually need \u2014 not what gives us the biggest margin. Trust is our most valuable currency.</p>\
+      <div class="rel-card rv rv-d1">\
+        <img loading="lazy" src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=600&q=80" alt="Studio">\
+        <div class="rel-card-body">\
+          <h3>\uD83C\uDFA8 Studio Parallax</h3>\
+          <p>50 DaVinci-grade editing workstations for an Oscar-winning VFX house.</p>\
+        </div>\
       </div>\
-      <div class="principle reveal reveal-d2">\
-        <h3>Long-Term Partnerships</h3>\
-        <p>We don\u2019t disappear after the sale. From setup to scaling, we\u2019re your technology partner for the long haul.</p>\
-      </div>\
-      <div class="principle reveal reveal-d3">\
-        <h3>Obsessive Support</h3>\
-        <p>When your server goes down at 3AM, we pick up the phone. Our premium support means you\u2019re never alone.</p>\
+      <div class="rel-card rv rv-d2">\
+        <img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80" alt="Esports">\
+        <div class="rel-card-body">\
+          <h3>\uD83C\uDFAE NexGen Esports</h3>\
+          <p>120 tournament-grade custom rigs for a national esports arena.</p>\
+        </div>\
       </div>\
     </div>\
   </div>\
 </section>\
 \
 <!-- CTA -->\
-<section class="cta-section">\
-  <h2 style="position:relative">Ready to level up?</h2>\
-  <p style="position:relative">Book a free consultation. We\u2019ll audit your setup and show you what\u2019s possible.</p>\
-  <a href="#" class="btn-red" style="font-size:14px;padding:18px 44px;position:relative">Get Your Free Quote</a>\
+<section class="cta-banner">\
+  <h2>Let\u2019s build something great.</h2>\
+  <p>Book a free consultation. We\u2019ll audit your setup and show you what\u2019s possible.</p>\
+  <a href="#" class="btn-cta" style="padding:16px 44px;font-size:13px">Get Your Free Quote</a>\
 </section>\
 \
 <!-- FOOTER -->\
 <div class="footer">\
-  <div class="footer-left">\u00A9 2026 Computer & Co. All rights reserved.</div>\
+  <span>\u00A9 COMPUTER&CO 2026</span>\
   <div class="footer-links">\
     <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Careers</a>\
   </div>\
 </div>\
 \
 <script>\
-var ro=new IntersectionObserver(function(ee){ee.forEach(function(e){if(e.isIntersecting){e.target.classList.add("vis");ro.unobserve(e.target)}})},{threshold:0.12});\
-document.querySelectorAll(".reveal").forEach(function(el){ro.observe(el)});\
+var io=new IntersectionObserver(function(ee){ee.forEach(function(e){if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target)}})},{threshold:0.1,rootMargin:"0px 0px -60px 0px"});\
+document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});\
 <\/script>\
 \
 </body>\
