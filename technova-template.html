@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechNova Shop — Electronics</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body { background: #FFFFFF; color: #000000; font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-rise {
+  animation: fadeRise 0.8s ease-out forwards;
+  opacity: 0;
+}
+.animate-fade-rise-delay {
+  animation: fadeRise 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+.animate-fade-rise-delay-2 {
+  animation: fadeRise 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+/* ─── CONTAINER ─── */
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ─── VIDEO BACKGROUND ─── */
+.video-layer {
+  position: absolute;
+  top: 300px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.video-layer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.video-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #FFFFFF, transparent 30%, transparent 70%, #FFFFFF);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── NAVIGATION ─── */
+.navbar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.875rem;
+  letter-spacing: -0.025em;
+  color: #000000;
+  text-decoration: none;
+}
+.nav-logo sup {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-link {
+  font-size: 0.875rem;
+  color: #6F6F6F;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+.nav-link:hover { color: #000000; }
+.nav-link.active { color: #000000; }
+.nav-cta {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: #000000;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+  font-family: 'Inter', sans-serif;
+}
+.nav-cta:hover { transform: scale(1.03); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  z-index: 10;
+  padding-top: calc(8rem - 75px);
+  padding-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.hero-headline {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  max-width: 1280px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -2.46px;
+  color: #000000;
+}
+.hero-headline em {
+  color: #6F6F6F;
+  font-style: italic;
+}
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  max-width: 672px;
+  margin-top: 32px;
+  line-height: 1.7;
+  color: #6F6F6F;
+  font-weight: 400;
+}
+.hero-cta {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: #000000;
+  padding: 20px 56px;
+  border-radius: 9999px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 48px;
+  transition: transform 0.3s;
+  font-family: 'Inter', sans-serif;
+}
+.hero-cta:hover { transform: scale(1.03); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-menu { display: none; }
+  .navbar { padding: 16px 20px; }
+  .hero { padding-top: 4rem; padding-bottom: 6rem; }
+  .video-layer { top: 200px; }
+}
+</style>
+</head>
+<body>
+<div class="page-container">
+
+  <!-- VIDEO BACKGROUND -->
+  <div class="video-layer">
+    <video id="bg-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" muted playsinline></video>
+    <div class="video-gradient"></div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <a class="nav-logo" href="#">Aethera<sup>&reg;</sup></a>
+    <div class="nav-menu">
+      <a class="nav-link active" href="#">Home</a>
+      <a class="nav-link" href="#">Studio</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link" href="#">Journal</a>
+      <a class="nav-link" href="#">Reach Us</a>
+      <button class="nav-cta">Begin Journey</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="hero-headline animate-fade-rise">Beyond <em>silence,</em> we build <em>the eternal.</em></h1>
+    <p class="hero-description animate-fade-rise-delay">Tomorrow&rsquo;s technology, today. Building platforms for brilliant minds, fearless makers, and thoughtful souls. Through the noise, we craft digital havens for deep work and pure flows.</p>
+    <button class="hero-cta animate-fade-rise-delay-2">Begin Journey</button>
+  </section>
+
+</div>
+
+<!-- VIDEO LOOP WITH FADE -->
+<script>
+(function() {
+  var video = document.getElementById('bg-video');
+  if (!video) return;
+
+  var fadeDuration = 0.5;
+  var fading = false;
+
+  video.addEventListener('canplay', function() {
+    video.play().catch(function() {});
+  }, { once: true });
+
+  video.addEventListener('ended', function() {
+    video.style.opacity = '0';
+    setTimeout(function() {
+      video.currentTime = 0;
+      video.play().catch(function() {});
+    }, 100);
+  });
+
+  function monitorFade() {
+    if (!video.duration) {
+      requestAnimationFrame(monitorFade);
+      return;
+    }
+    var ct = video.currentTime;
+    var dur = video.duration;
+
+    if (ct < fadeDuration) {
+      video.style.opacity = String(Math.min(ct / fadeDuration, 1));
+    } else if (ct > dur - fadeDuration) {
+      video.style.opacity = String(Math.max((dur - ct) / fadeDuration, 0));
+    } else {
+      video.style.opacity = '1';
+    }
+    requestAnimationFrame(monitorFade);
+  }
+  requestAnimationFrame(monitorFade);
+})();
+</script>
+</body>
+</html>
