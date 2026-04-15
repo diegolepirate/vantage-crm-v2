@@ -4129,418 +4129,276 @@ TPL_ECOM_HTML['3'] = function () {
 <html lang="en">\
 <head>\
 <meta charset="UTF-8">\
-<meta name="viewport" content="width=device-width,initial-scale=1.0">\
-<title>Maison Prestige \u2014 Luxury Real Estate</title>\
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">\
+<meta name="viewport" content="width=device-width, initial-scale=1.0">\
+<title>Maison Prestige — Luxury Real Estate</title>\
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">\
 <style>\
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}\
-html{scrollbar-width:none;overscroll-behavior-y:none}\
-html::-webkit-scrollbar{display:none}\
-body{background:#0e0e0e;color:#e8e4de;font-family:Inter,-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-size:16px;line-height:1.5;cursor:none}\
-::selection{background:rgba(232,228,222,0.15);color:#e8e4de}\
-a{color:inherit;text-decoration:none}\
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }\
+html { scroll-behavior:smooth; scrollbar-width:none; }\
+html::-webkit-scrollbar { display:none; }\
+body { background:#0e0e0e; color:#f5f0eb; font-family:Inter,sans-serif; overflow-x:hidden; }\
 \
-/* CUSTOM CURSOR */\
-.cursor{position:fixed;width:16px;height:16px;border:1.5px solid rgba(232,228,222,0.35);border-radius:50%;pointer-events:none;z-index:9999;transition:width .3s,height .3s,border-color .3s,background .3s;transform:translate(-50%,-50%);mix-blend-mode:difference}\
-.cursor.hover{width:56px;height:56px;border-color:rgba(232,228,222,0.6);background:rgba(232,228,222,0.04)}\
-.cursor-dot{position:fixed;width:4px;height:4px;background:#e8e4de;border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%)}\
+/* ─── PRELOADER ─── */\
+.preloader { position:fixed; inset:0; background:#0e0e0e; z-index:10000; display:flex; align-items:center; justify-content:center; }\
+.preloader-text { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); font-family:Inter,sans-serif; font-size:11px; letter-spacing:6px; text-transform:uppercase; color:#f5f0eb; opacity:0; animation:preloaderFadeIn 1s ease forwards 0.3s; }\
+.preloader-video-wrap { width:80px; height:80px; overflow:hidden; border-radius:4px; animation:preloaderGrow 2s cubic-bezier(.625,.05,0,1) forwards 1.5s; }\
+.preloader-video-wrap video { width:100%; height:100%; object-fit:cover; }\
+@keyframes preloaderFadeIn { to { opacity:1; } }\
+@keyframes preloaderGrow { to { width:100vw; height:100vh; border-radius:0; } }\
 \
-/* NAV */\
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}\
-.nav-logo{font-size:15px;font-weight:600;letter-spacing:-0.3px;color:#fff}\
-.nav-logo em{font-family:Playfair Display,serif;font-style:italic;font-weight:400;opacity:0.5;margin-left:4px}\
-.nav-links{display:flex;gap:32px}\
-.nav-links span{font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);cursor:none;transition:color .4s;letter-spacing:0.5px;position:relative}\
-.nav-links span::after{content:"";position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#fff;transition:width .6s cubic-bezier(.65,0,0,1)}\
-.nav-links span:hover{color:#fff}\
-.nav-links span:hover::after{width:100%}\
-.hamburger{display:flex;flex-direction:column;gap:6px;cursor:none;padding:8px}\
-.hamburger span{display:block;width:24px;height:1.5px;background:#fff;transition:all .5s cubic-bezier(.65,0,0,1)}\
+/* ─── HERO ─── */\
+.hero { position:relative; width:100%; height:100vh; overflow:hidden; }\
+.hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }\
+.hero-overlay { position:absolute; inset:0; background:rgba(14,14,14,0.35); }\
+.hero-nav { position:absolute; top:0; left:0; right:0; display:flex; justify-content:space-between; align-items:flex-start; padding:30px 40px; z-index:5; }\
+.hero-logo { font-family:Playfair Display,serif; font-size:14px; letter-spacing:4px; text-transform:uppercase; color:#f5f0eb; }\
+.hero-logo-icon { font-size:28px; display:block; margin-bottom:4px; text-align:center; }\
+.hero-nav-center { display:flex; gap:60px; }\
+.hero-nav-col { text-align:center; }\
+.hero-nav-col-title { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(245,240,235,0.5); margin-bottom:12px; }\
+.hero-nav-col a { display:block; font-size:13px; color:#f5f0eb; text-decoration:none; margin-bottom:6px; transition:opacity .3s; }\
+.hero-nav-col a:hover { opacity:0.6; }\
+.hero-cta { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#f5f0eb; text-decoration:none; border:1px solid rgba(245,240,235,0.3); padding:10px 24px; transition:all .3s; }\
+.hero-cta:hover { background:#f5f0eb; color:#0e0e0e; }\
+.hero-bottom { position:absolute; bottom:30px; left:0; right:0; display:flex; justify-content:space-between; align-items:center; padding:0 40px; z-index:5; }\
+.hero-time { font-size:11px; letter-spacing:3px; color:rgba(245,240,235,0.6); }\
+.hero-discover { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:#f5f0eb; cursor:pointer; display:flex; align-items:center; gap:8px; }\
+.hero-discover-line { width:30px; height:1px; background:#f5f0eb; }\
 \
-/* HERO */\
-.hero{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;overflow:hidden}\
-.hero-bg{position:absolute;inset:0;overflow:hidden}\
-.hero-bg img{width:100%;height:120%;object-fit:cover;will-change:transform;filter:brightness(0.3) saturate(0.8);transform-origin:center center}\
-.hero-headline{position:relative;z-index:2;font-size:clamp(2.8rem,6.5vw,5.5rem);font-weight:500;line-height:1.05;letter-spacing:-2.5px;color:#e8e4de;max-width:80%}\
-.hero-headline .line{display:block;overflow:hidden;perspective:600px}\
-.hero-headline .line .word{display:inline-block;transform:translateY(110%) rotateX(-10deg);opacity:0;animation:wordUp 1.1s cubic-bezier(.22,1,.36,1) forwards}\
-@keyframes wordUp{to{transform:translateY(0) rotateX(0);opacity:1}}\
-.hero-headline .line:nth-child(1) .word:nth-child(1){animation-delay:0s}\
-.hero-headline .line:nth-child(1) .word:nth-child(2){animation-delay:.06s}\
-.hero-headline .line:nth-child(2) .word:nth-child(1){animation-delay:.12s}\
-.hero-headline .line:nth-child(2) .word:nth-child(2){animation-delay:.18s}\
-.hero-headline .line:nth-child(2) .word:nth-child(3){animation-delay:.24s}\
-.hero-headline .line:nth-child(2) .word:nth-child(4){animation-delay:.30s}\
-.hero-headline .line:nth-child(2) .word:nth-child(5){animation-delay:.36s}\
-.hero-headline .line:nth-child(3) .word:nth-child(1){animation-delay:.42s}\
-.hero-headline .line:nth-child(3) .word:nth-child(2){animation-delay:.48s}\
-.hero-headline .line:nth-child(3) .word:nth-child(3){animation-delay:.54s}\
-.hero-sub{position:relative;z-index:2;margin-top:48px;display:flex;flex-direction:column;gap:8px;max-width:400px}\
-.hero-sub p{font-size:13px;line-height:1.7;color:rgba(232,228,222,0.35);font-weight:300;transform:translateY(20px);opacity:0;animation:fadeUp .8s cubic-bezier(.22,1,.36,1) forwards}\
-.hero-sub p:nth-child(1){animation-delay:.7s}\
-.hero-sub p:nth-child(2){animation-delay:.8s}\
-.hero-sub p:nth-child(3){animation-delay:.9s;color:rgba(232,228,222,0.6);font-weight:500}\
-@keyframes fadeUp{to{transform:translateY(0);opacity:1}}\
-.hero-year{position:absolute;right:48px;bottom:80px;font-size:12px;color:rgba(232,228,222,0.2);letter-spacing:2px;z-index:2}\
-.scroll-ind{position:absolute;left:48px;bottom:16px;height:80px;width:1px;overflow:hidden;z-index:2}\
-.scroll-ind::after{content:"";position:absolute;top:-100%;left:0;width:100%;height:40%;background:linear-gradient(180deg,transparent,#e8e4de,transparent);animation:scrollComet 2.8s cubic-bezier(.7,.05,.13,1) infinite}\
-@keyframes scrollComet{0%{top:-100%}100%{top:280%}}\
+/* ─── HERO TEXT EDGES ─── */\
+.hero-text-left, .hero-text-right { position:absolute; z-index:5; font-family:Playfair Display,serif; font-size:clamp(40px,6vw,90px); font-weight:700; color:#f5f0eb; writing-mode:vertical-lr; }\
+.hero-text-left { left:40px; top:50%; transform:translateY(-50%) rotate(180deg); }\
+.hero-text-right { right:40px; top:50%; transform:translateY(-50%); }\
 \
-/* CTA TICKET */\
-.cta-ticket-wrap{display:flex;justify-content:center;padding:140px 48px;perspective:1200px}\
-.cta-ticket{display:flex;transform:rotate(-12deg);cursor:none;transition:transform .6s cubic-bezier(.625,.05,0,1)}\
-.cta-ticket:hover{transform:rotate(-12deg) translateY(5px)}\
-.ticket-side{padding:36px 56px;border:1px solid rgba(232,228,222,0.1);transition:transform .6s cubic-bezier(.625,.05,0,1);transform-style:preserve-3d;background:rgba(232,228,222,0.02)}\
-.ticket-side.left{border-right:1px dashed rgba(232,228,222,0.12);border-radius:14px 0 0 14px;transform-origin:top right}\
-.ticket-side.right{border-radius:0 14px 14px 0;transform-origin:top left}\
-.cta-ticket:hover .ticket-side.left{transform:rotateY(-25deg) rotateX(5deg) rotate(-6deg) translateX(-3em) translateY(-2em) translateZ(.125em)}\
-.cta-ticket:hover .ticket-side.right{transform:rotateX(5deg) rotate(10deg) translateX(1.5em) translateY(-1.5em) translateZ(3em)}\
-.ticket-text{font-size:14px;font-weight:500;color:#e8e4de;white-space:nowrap;display:flex;align-items:center;gap:14px}\
-.ticket-text .arr{font-size:18px;opacity:0;transform:translate(-35%,35%) scale(1.05);transition:all .4s cubic-bezier(.625,.05,0,1) .05s}\
-.cta-ticket:hover .ticket-text .arr{opacity:1;transform:translate(0,0) scale(1)}\
+/* ─── SCROLL TEXT SECTION ─── */\
+.scroll-section { position:relative; min-height:100vh; background:#d4d0ca; display:flex; align-items:center; justify-content:center; padding:120px 60px; overflow:hidden; }\
+.scroll-text-wrap { text-align:center; max-width:900px; }\
+.scroll-text-line { font-family:Playfair Display,serif; font-size:clamp(28px,4vw,52px); font-weight:700; color:#1a1a1a; line-height:1.3; margin-bottom:16px; opacity:0; transform:translateX(80px); transition:all 1.2s cubic-bezier(.22,1,.36,1); }\
+.scroll-text-line.visible { opacity:1; transform:translateX(0); }\
+.scroll-marker { display:inline-block; width:8px; height:8px; background:#1a1a1a; margin:0 20px; transform:rotate(45deg); vertical-align:middle; }\
 \
-/* SECTION HEADERS */\
-.section-header{padding:0 48px;margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end}\
-.section-tag{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(232,228,222,0.25)}\
-.section-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:500;letter-spacing:-1.5px;color:#e8e4de}\
-.section-sub{font-size:12px;color:rgba(232,228,222,0.2);max-width:360px;text-align:right;line-height:1.6}\
+/* ─── BOTTOM DOCK ─── */\
+.bottom-dock { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(14,14,14,0.85); backdrop-filter:blur(12px); border-radius:40px; padding:10px 28px; display:flex; gap:24px; align-items:center; z-index:100; border:1px solid rgba(245,240,235,0.1); }\
+.dock-btn { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#f5f0eb; background:none; border:none; cursor:pointer; opacity:0.7; transition:opacity .3s; }\
+.dock-btn:hover { opacity:1; }\
+.dock-divider { width:1px; height:14px; background:rgba(245,240,235,0.2); }\
 \
-/* WORKS GRID */\
-.works{padding:80px 48px 140px}\
-.works-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}\
-.work-item{position:relative;cursor:none}\
-.work-item:nth-child(3),.work-item:nth-child(4){grid-column:span 2}\
-.work-img-wrap{position:relative;overflow:hidden;border-radius:6px;transform-style:preserve-3d}\
-.work-img-wrap{aspect-ratio:16/22}\
-.work-item:nth-child(3) .work-img-wrap,.work-item:nth-child(4) .work-img-wrap{aspect-ratio:16/11}\
-.work-img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1),filter 1s;will-change:transform;filter:brightness(0.85) saturate(0.9)}\
-.work-img-hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1);will-change:transform;z-index:1}\
-.work-overlay{position:absolute;inset:0;background:rgba(14,14,14,0.9);opacity:0;transition:opacity .6s cubic-bezier(.16,1,.3,1);pointer-events:none;z-index:2}\
-.work-item:hover .work-img{transform:scale(1.06);filter:brightness(0.7) saturate(1.1)}\
-.work-item:hover .work-img-hover{opacity:1}\
-.work-item:hover .work-overlay{opacity:0.35}\
-.work-meta{padding:18px 4px 0;display:flex;justify-content:space-between;align-items:center}\
-.work-name{font-size:14px;font-weight:500;color:#e8e4de;transition:transform .4s cubic-bezier(.16,1,.3,1)}\
-.work-item:hover .work-name{transform:translateX(4px)}\
-.work-cat{font-size:11px;color:rgba(232,228,222,0.25);font-weight:400;transition:color .4s}\
-.work-item:hover .work-cat{color:rgba(232,228,222,0.45)}\
+/* ─── WORKS GRID ─── */\
+.works-section { padding:140px 60px; background:#0e0e0e; }\
+.works-title { font-family:Playfair Display,serif; font-size:clamp(36px,5vw,64px); font-weight:700; color:#f5f0eb; text-align:center; margin-bottom:80px; }\
+.works-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }\
+.work-item { position:relative; overflow:hidden; aspect-ratio:3/4; cursor:pointer; }\
+.work-item img { width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.22,1,.36,1); }\
+.work-item:hover img { transform:scale(1.05); }\
+.work-item-label { position:absolute; bottom:20px; left:20px; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#f5f0eb; opacity:0; transform:translateY(10px); transition:all .5s; }\
+.work-item:hover .work-item-label { opacity:1; transform:translateY(0); }\
 \
-/* PARALLAX IMAGE STRIPS */\
-.prlx-full{position:relative;height:60vh;overflow:hidden;margin:0}\
-.prlx-full img{position:absolute;top:-20%;left:0;width:100%;height:140%;object-fit:cover;will-change:transform;filter:brightness(0.7) saturate(0.85)}\
-.prlx-full .prlx-text{position:absolute;bottom:48px;left:48px;z-index:2;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:500;letter-spacing:-1px;color:#e8e4de;line-height:1.1;opacity:0;transform:translateY(30px);transition:all 1s cubic-bezier(.16,1,.3,1)}\
-.prlx-full.show .prlx-text{opacity:1;transform:translateY(0)}\
-.prlx-full .prlx-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,0) 40%,rgba(14,14,14,0.7) 100%)}\
+/* ─── CURSOR FOLLOWER ─── */\
+.cursor-img { position:fixed; width:120px; height:160px; pointer-events:none; z-index:9999; opacity:0; transition:opacity .3s; overflow:hidden; border-radius:4px; }\
+.cursor-img img { width:100%; height:100%; object-fit:cover; }\
 \
-/* SPLIT SECTION */\
-.split-section{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(232,228,222,0.05)}\
-.split-card{padding:100px 56px;border-right:1px solid rgba(232,228,222,0.05);transition:background .6s}\
-.split-card:last-child{border-right:none}\
-.split-card:hover{background:rgba(232,228,222,0.015)}\
-.split-card h3{font-size:clamp(1.3rem,2.2vw,1.8rem);font-weight:400;letter-spacing:-0.3px;line-height:1.35;color:rgba(232,228,222,0.85);margin-bottom:36px}\
-.split-card h3 em{font-family:Playfair Display,serif;font-style:italic;color:#e8e4de}\
+/* ─── WORKS GRID 2 (VIOLET) ─── */\
+.works-section-v { padding:140px 60px; background:#0e0e0e; position:relative; }\
+.works-section-v::before { content:""; position:absolute; inset:0; background:rgba(100,60,160,0.12); pointer-events:none; }\
+.works-grid-v { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }\
+.work-item-v { position:relative; overflow:hidden; aspect-ratio:3/4; cursor:pointer; }\
+.work-item-v img { width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.22,1,.36,1); filter:saturate(0.7) brightness(0.9); }\
+.work-item-v::after { content:""; position:absolute; inset:0; background:rgba(100,60,160,0.25); mix-blend-mode:multiply; transition:opacity .5s; }\
+.work-item-v:hover img { transform:scale(1.05); filter:saturate(1) brightness(1); }\
+.work-item-v:hover::after { opacity:0; }\
+.work-item-v .work-item-label { position:absolute; bottom:20px; left:20px; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#f5f0eb; opacity:0; transform:translateY(10px); transition:all .5s; z-index:2; }\
+.work-item-v:hover .work-item-label { opacity:1; transform:translateY(0); }\
 \
-/* BUTTON RK STYLE */\
-.btn-rk{display:inline-grid;grid-template-columns:1fr auto;align-items:center;gap:1.5em;padding:14px 28px;border:1px solid rgba(232,228,222,0.12);border-radius:99px;cursor:none;transition:transform .45s cubic-bezier(.34,2.27,.64,1);position:relative;overflow:hidden}\
-.btn-rk:active{transform:scaleX(.955) scaleY(.954)}\
-.btn-rk-bg{position:absolute;inset:0;border-radius:99px;background:rgba(232,228,222,0.04);transition:transform .35s cubic-bezier(.34,2.27,.64,1)}\
-.btn-rk:hover .btn-rk-bg{transform:scale(.975,.945)}\
-.btn-rk-text{font-size:12px;font-weight:500;color:#e8e4de;letter-spacing:.5px;position:relative;z-index:1;overflow:hidden;height:1.4em}\
-.btn-rk-text span{display:block;transition:transform .4s cubic-bezier(.625,.05,0,1),clip-path .4s cubic-bezier(.625,.05,0,1)}\
-.btn-rk:hover .btn-rk-text span{transform:translateY(-.25em);clip-path:inset(100% 0 0 0)}\
-.btn-rk-text::after{content:attr(data-text);position:absolute;top:0;left:0;transform:translateY(.25em) scale(1.05);clip-path:inset(0 0 100% 0);transition:transform .4s cubic-bezier(.625,.05,0,1) .075s,clip-path .4s cubic-bezier(.625,.05,0,1) .075s;color:#e8e4de}\
-.btn-rk:hover .btn-rk-text::after{transform:translateY(0) scale(1);clip-path:inset(0 0 0% 0)}\
-.btn-rk-arrow{position:relative;z-index:1;font-size:14px;opacity:0;transform:translate(-35%,35%) scale(1.05);transition:all .4s cubic-bezier(.625,.05,0,1) .05s}\
-.btn-rk:hover .btn-rk-arrow{opacity:1;transform:translate(0,0) scale(1)}\
+/* ─── CONTACT SECTION ─── */\
+.contact-section { padding:160px 60px; background:#0e0e0e; text-align:center; }\
+.contact-title { font-family:Playfair Display,serif; font-size:clamp(36px,5vw,64px); font-weight:700; color:#f5f0eb; margin-bottom:30px; }\
+.contact-sub { font-size:14px; color:rgba(245,240,235,0.5); letter-spacing:2px; margin-bottom:50px; }\
+.contact-btn { display:inline-block; font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#f5f0eb; border:1px solid rgba(245,240,235,0.3); padding:16px 40px; text-decoration:none; transition:all .4s; }\
+.contact-btn:hover { background:#f5f0eb; color:#0e0e0e; }\
 \
-/* IMAGE TILT CARDS */\
-.tilt-card{perspective:800px;cursor:none}\
-.tilt-card-inner{transition:transform .6s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d;border-radius:6px;overflow:hidden;position:relative}\
-.tilt-card-inner img{width:100%;display:block;transition:transform 1.2s cubic-bezier(.16,1,.3,1),filter .8s;filter:brightness(0.8) saturate(0.9)}\
-.tilt-card:hover .tilt-card-inner img{transform:scale(1.05);filter:brightness(1) saturate(1)}\
+/* ─── FOOTER ─── */\
+.footer { padding:60px; background:#0e0e0e; border-top:1px solid rgba(245,240,235,0.08); display:flex; justify-content:space-between; align-items:center; }\
+.footer-left { font-size:11px; letter-spacing:3px; color:rgba(245,240,235,0.4); text-transform:uppercase; }\
+.footer-right { font-size:11px; color:rgba(245,240,235,0.3); }\
 \
-/* HORIZONTAL SCROLL TEXT */\
-.h-scroll{padding:48px 0;border-top:1px solid rgba(232,228,222,0.04);border-bottom:1px solid rgba(232,228,222,0.04);overflow:hidden;white-space:nowrap}\
-.h-scroll-inner{display:inline-flex;animation:hScroll 30s linear infinite}\
-.h-scroll-inner span{font-size:clamp(3rem,6vw,5rem);font-weight:500;letter-spacing:-2px;color:rgba(232,228,222,0.06);padding:0 40px;font-family:Playfair Display,serif;font-style:italic}\
-@keyframes hScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}\
+/* ─── ANIMATIONS ─── */\
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }\
+.fade-up { opacity:0; transform:translateY(30px); transition:all 1s cubic-bezier(.22,1,.36,1); }\
+.fade-up.visible { opacity:1; transform:translateY(0); }\
 \
-/* INSIGHTS */\
-.insights{padding:120px 48px}\
-.insights-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}\
-.insight-item{position:relative;cursor:none}\
-.insight-img-wrap{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:16/22;transform-style:preserve-3d}\
-.insight-img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1),filter 1s;will-change:transform;filter:brightness(0.85) saturate(0.9)}\
-.insight-overlay{position:absolute;inset:0;background:rgba(14,14,14,0.9);opacity:0;transition:opacity .6s;pointer-events:none}\
-.insight-item:hover .insight-img{transform:scale(1.06);filter:brightness(0.7) saturate(1.1)}\
-.insight-item:hover .insight-overlay{opacity:0.35}\
-.insight-meta{padding:16px 4px 0}\
-.insight-title{font-size:14px;font-weight:500;color:#e8e4de;margin-bottom:6px;transition:transform .4s cubic-bezier(.16,1,.3,1)}\
-.insight-item:hover .insight-title{transform:translateX(4px)}\
-.insight-info{font-size:11px;color:rgba(232,228,222,0.2)}\
-\
-/* STATS COUNTER */\
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(232,228,222,0.05);border-bottom:1px solid rgba(232,228,222,0.05)}\
-.stat{padding:64px 40px;text-align:center;border-right:1px solid rgba(232,228,222,0.05)}\
-.stat:last-child{border-right:none}\
-.stat-num{font-size:clamp(2.5rem,4vw,4rem);font-weight:600;letter-spacing:-2px;color:#e8e4de;font-variant-numeric:tabular-nums}\
-.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,228,222,0.2);margin-top:8px;font-weight:500}\
-\
-/* FOOTER */\
-.footer{padding:80px 48px 24px;border-top:1px solid rgba(232,228,222,0.05)}\
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 2fr;gap:40px;margin-bottom:80px}\
-.footer-col h6{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(232,228,222,0.2);margin-bottom:20px;display:flex;align-items:center;gap:10px}\
-.footer-col span{display:block;font-size:13px;color:rgba(232,228,222,0.35);margin-bottom:10px;cursor:none;transition:color .3s,transform .3s}\
-.footer-col span:hover{color:#e8e4de;transform:translateX(3px)}\
-.sound-bars{display:flex;gap:2px;align-items:flex-end;height:8px}\
-.sound-bars i{display:block;width:2px;background:#e8e4de}\
-.sound-bars i:nth-child(1){animation:bar1 1.2s infinite linear}\
-.sound-bars i:nth-child(2){animation:bar2 .8s infinite linear}\
-.sound-bars i:nth-child(3){animation:bar3 1s infinite linear}\
-.sound-bars i:nth-child(4){animation:bar4 .7s infinite linear}\
-@keyframes bar1{0%,100%{height:2px}50%{height:7px}}\
-@keyframes bar2{0%,100%{height:4px}50%{height:2px}}\
-@keyframes bar3{0%,100%{height:1px}50%{height:6px}}\
-@keyframes bar4{0%,100%{height:3px}50%{height:5px}}\
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-top:1px solid rgba(232,228,222,0.04)}\
-.footer-bottom p{font-size:10px;color:rgba(232,228,222,0.15);letter-spacing:1px}\
-\
-/* REVEALS */\
-.rv{opacity:0;transform:translateY(2em);transition:opacity .9s cubic-bezier(.625,.05,0,1),transform .9s cubic-bezier(.625,.05,0,1)}\
-.rv.show{opacity:1;transform:translateY(0)}\
-.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}.rv-d5{transition-delay:.4s}.rv-d6{transition-delay:.48s}\
-.clip-rv{clip-path:inset(0 0 100% 0);transform:translateY(.4em);transition:clip-path .9s cubic-bezier(.625,.05,0,1),transform .9s cubic-bezier(.625,.05,0,1)}\
-.clip-rv.show{clip-path:inset(0 0 0% 0);transform:translateY(0)}\
-.img-rv{overflow:hidden;border-radius:6px}\
-.img-rv img{transform:scale(1.15);filter:brightness(0.5);transition:transform 1.6s cubic-bezier(.16,1,.3,1),filter 1.4s cubic-bezier(.16,1,.3,1)}\
-.img-rv.show img{transform:scale(1);filter:brightness(0.85) saturate(0.9)}\
-.wipe-rv{position:relative;overflow:hidden;border-radius:6px}\
-.wipe-rv::after{content:"";position:absolute;inset:0;background:#0e0e0e;transform-origin:right;transform:scaleX(1);transition:transform 1.2s cubic-bezier(.77,0,.18,1);z-index:3}\
-.wipe-rv.show::after{transform:scaleX(0);transform-origin:left}\
-.wipe-rv img{transform:scale(1.2);transition:transform 1.6s cubic-bezier(.16,1,.3,1) .3s}\
-.wipe-rv.show img{transform:scale(1)}\
-.line-grow{width:0;height:1px;background:rgba(232,228,222,0.1);transition:width 1.4s cubic-bezier(.16,1,.3,1)}\
-.line-grow.show{width:100%}\
 </style>\
 </head>\
 <body>\
 \
-<div class="cursor" id="cur"></div>\
-<div class="cursor-dot" id="curd"></div>\
-\
-<!-- NAV -->\
-<nav class="nav">\
-  <div class="nav-logo">M\u2014P<em>Prestige</em></div>\
-  <div class="nav-links">\
-    <span>Properties</span><span>Services</span><span>Portfolio</span><span>About</span><span>Contact</span>\
+<!-- PRELOADER -->\
+<div class="preloader" id="preloader">\
+  <div class="preloader-video-wrap" id="preloaderVid">\
+    <video autoplay muted loop playsinline>\
+      <source src="https://videos.pexels.com/video-files/5765284/5765284-uhd_2560_1440_30fps.mp4" type="video/mp4">\
+    </video>\
   </div>\
-  <div class="hamburger"><span></span><span></span><span></span></div>\
-</nav>\
+  <div class="preloader-text">Vantage Design</div>\
+</div>\
 \
 <!-- HERO -->\
-<section class="hero" id="hero">\
-  <div class="hero-bg"><img id="heroBg" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=85" alt="Luxury estate"></div>\
-  <h1 class="hero-headline">\
-    <span class="line"><span class="word">Maison</span> <span class="word">Prestige.</span></span>\
-    <span class="line"><span class="word">Luxury</span> <span class="word">estates</span> <span class="word">for</span> <span class="word">those</span> <span class="word">who</span></span>\
-    <span class="line"><span class="word">refuse</span> <span class="word">to</span> <span class="word">settle.</span></span>\
-  </h1>\
-  <div class="hero-sub">\
-    <p>Real estate shapes lifestyles not as transactions, but as a force that defines how you live.</p>\
-    <p>It determines how your legacy is built and how your world is experienced.</p>\
-    <p>Claim yours.</p>\
-  </div>\
-  <div class="hero-year">2024\u2014Future</div>\
-  <div class="scroll-ind"></div>\
-</section>\
-\
-<!-- CTA TICKET -->\
-<div class="cta-ticket-wrap rv">\
-  <div class="cta-ticket">\
-    <div class="ticket-side left"><div class="ticket-text">Schedule a private viewing <span class="arr">\u2192</span></div></div>\
-    <div class="ticket-side right"><div class="ticket-text" style="opacity:0.35">M\u2014P Prestige</div></div>\
+<div class="hero" id="hero">\
+  <video autoplay muted loop playsinline>\
+    <source src="https://videos.pexels.com/video-files/5765284/5765284-uhd_2560_1440_30fps.mp4" type="video/mp4">\
+  </video>\
+  <div class="hero-overlay"></div>\
+  \
+  <div class="hero-text-left">Prestige</div>\
+  <div class="hero-text-right">Maison</div>\
+  \
+  <nav class="hero-nav">\
+    <div class="hero-logo">\
+      <span class="hero-logo-icon">\u265E</span>\
+      Maison Prestige\
+    </div>\
+    <div class="hero-nav-center">\
+      <div class="hero-nav-col">\
+        <div class="hero-nav-col-title">Repertoire</div>\
+        <a href="#">Residences</a>\
+        <a href="#">Collections</a>\
+        <a href="#">Archives</a>\
+      </div>\
+      <div class="hero-nav-col">\
+        <div class="hero-nav-col-title">Narrative</div>\
+        <a href="#">Approach</a>\
+        <a href="#">Savoir-faire</a>\
+        <a href="#">Heritage</a>\
+      </div>\
+      <div class="hero-nav-col">\
+        <div class="hero-nav-col-title">Liaison</div>\
+        <a href="#">Contact</a>\
+        <a href="#">Press</a>\
+        <a href="#">Careers</a>\
+      </div>\
+    </div>\
+    <a href="#" class="hero-cta">Get in touch \u2192</a>\
+  </nav>\
+  \
+  <div class="hero-bottom">\
+    <span class="hero-time" id="heroTime">00:00:00 PM</span>\
+    <div class="hero-discover"><span class="hero-discover-line"></span> Discover</div>\
   </div>\
 </div>\
 \
-<!-- WORKS -->\
-<section class="works">\
-  <div class="section-header">\
-    <div><div class="section-tag clip-rv">The collection awaits</div><div class="section-title clip-rv" style="transition-delay:.1s">M\u2014P Portfolio</div></div>\
-    <div class="section-sub rv rv-d2">Curated excellence since 2019 \u2014 Properties that demand more than a glance</div>\
+<!-- SCROLL TEXT SECTION -->\
+<div class="scroll-section">\
+  <div class="scroll-text-wrap">\
+    <div class="scroll-text-line" data-scroll-reveal>Where architecture <span class="scroll-marker"></span> meets desire</div>\
+    <div class="scroll-text-line" data-scroll-reveal>Curating exceptional residences</div>\
+    <div class="scroll-text-line" data-scroll-reveal>for the most <span class="scroll-marker"></span> discerning eye</div>\
   </div>\
-  <div class="line-grow rv" style="margin-bottom:40px"></div>\
+</div>\
+\
+<!-- WORKS GRID -->\
+<div class="works-section">\
+  <h2 class="works-title fade-up" data-scroll-reveal>Selected Works</h2>\
   <div class="works-grid">\
-    <div class="work-item rv">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Villa Serenova">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Villa Serenova</span><span class="work-cat">Waterfront \u00B7 $12.5M</span></div>\
+    <div class="work-item" data-cursor-img="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400">\
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Residence">\
+      <span class="work-item-label">Villa Serena</span>\
     </div>\
-    <div class="work-item rv rv-d1">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Maison Aurore">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Maison Aurore</span><span class="work-cat">Penthouse \u00B7 $8.9M</span></div>\
+    <div class="work-item" data-cursor-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400">\
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Residence">\
+      <span class="work-item-label">Le Domaine</span>\
     </div>\
-    <div class="work-item rv rv-d2">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80" alt="Domaine Ciel">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Domaine Ciel</span><span class="work-cat">Estate \u00B7 $24M</span></div>\
-    </div>\
-    <div class="work-item rv rv-d3">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80" alt="Le Refuge Blanc">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Le Refuge Blanc</span><span class="work-cat">Contemporary \u00B7 $15.2M</span></div>\
-    </div>\
-    <div class="work-item rv rv-d4">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Palazzo Notte">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Palazzo Notte</span><span class="work-cat">Historic \u00B7 $31M</span></div>\
-    </div>\
-    <div class="work-item rv rv-d5">\
-      <div class="work-img-wrap wipe-rv">\
-        <img class="work-img" loading="lazy" src="https://images.unsplash.com/photo-1602343168117-bb8bbe693920?w=800&q=80" alt="Espace Lumiere">\
-        <div class="work-overlay"></div>\
-      </div>\
-      <div class="work-meta"><span class="work-name">Espace Lumiere</span><span class="work-cat">Loft \u00B7 $6.8M</span></div>\
-    </div>\
-  </div>\
-</section>\
-\
-<!-- PARALLAX STRIP 1 -->\
-<div class="prlx-full rv">\
-  <img loading="lazy" src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1800&q=85" alt="Luxury interior">\
-  <div class="prlx-overlay"></div>\
-  <div class="prlx-text">where prestige<br>meets home</div>\
-</div>\
-\
-<!-- HORIZONTAL SCROLL TEXT -->\
-<div class="h-scroll">\
-  <div class="h-scroll-inner">\
-    <span>Excellence</span><span>\u2022</span><span>Prestige</span><span>\u2022</span><span>Legacy</span><span>\u2022</span><span>Distinction</span><span>\u2022</span><span>Heritage</span><span>\u2022</span>\
-    <span>Excellence</span><span>\u2022</span><span>Prestige</span><span>\u2022</span><span>Legacy</span><span>\u2022</span><span>Distinction</span><span>\u2022</span><span>Heritage</span><span>\u2022</span>\
-  </div>\
-</div>\
-\
-<!-- SPLIT SECTION -->\
-<section class="split-section">\
-  <div class="split-card rv">\
-    <h3>Your search for the <em>extraordinary</em> ends here. We curate properties that match your ambition.</h3>\
-    <div class="btn-rk"><div class="btn-rk-bg"></div><div class="btn-rk-text" data-text="Read info"><span>For Buyers</span></div><div class="btn-rk-arrow">\u2192</div></div>\
-  </div>\
-  <div class="split-card rv rv-d1">\
-    <h3>Selling <em>prestige</em> demands more than a listing. It demands a narrative.</h3>\
-    <div class="btn-rk"><div class="btn-rk-bg"></div><div class="btn-rk-text" data-text="Read info"><span>For Sellers</span></div><div class="btn-rk-arrow">\u2192</div></div>\
-  </div>\
-</section>\
-\
-<!-- TILT IMAGE -->\
-<div style="padding:120px 48px">\
-  <div class="tilt-card rv" id="tiltCard">\
-    <div class="tilt-card-inner" id="tiltInner">\
-      <img loading="lazy" src="https://images.unsplash.com/photo-1600566753086-00f18f6b0d7c?w=1400&q=85" alt="Estate aerial">\
+    <div class="work-item" data-cursor-img="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400">\
+      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800" alt="Residence">\
+      <span class="work-item-label">Horizon House</span>\
     </div>\
   </div>\
 </div>\
 \
-<!-- STATS -->\
-<div class="stats-row">\
-  <div class="stat rv"><div class="stat-num" data-count="320">0</div><div class="stat-label">Properties Sold</div></div>\
-  <div class="stat rv rv-d1"><div class="stat-num" data-count="98">0</div><div class="stat-label">Client Retention %</div></div>\
-  <div class="stat rv rv-d2"><div class="stat-num" data-count="2.4">0</div><div class="stat-label">Billion in Sales</div></div>\
-  <div class="stat rv rv-d3"><div class="stat-num" data-count="15">0</div><div class="stat-label">Years of Excellence</div></div>\
+<!-- WORKS GRID VIOLET -->\
+<div class="works-section-v">\
+  <h2 class="works-title fade-up" data-scroll-reveal style="position:relative;z-index:2;">Private Collection</h2>\
+  <div class="works-grid-v">\
+    <div class="work-item-v" data-cursor-img="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400">\
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Residence">\
+      <span class="work-item-label">Amethyst Manor</span>\
+    </div>\
+    <div class="work-item-v" data-cursor-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400">\
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Residence">\
+      <span class="work-item-label">Maison Violette</span>\
+    </div>\
+    <div class="work-item-v" data-cursor-img="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=400">\
+      <img src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800" alt="Residence">\
+      <span class="work-item-label">Clair de Lune</span>\
+    </div>\
+  </div>\
 </div>\
 \
-<!-- PARALLAX STRIP 2 -->\
-<div class="prlx-full rv">\
-  <img loading="lazy" src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1800&q=85" alt="Pool view">\
-  <div class="prlx-overlay"></div>\
-  <div class="prlx-text">legacy built<br>on trust</div>\
+<!-- CONTACT -->\
+<div class="contact-section">\
+  <h2 class="contact-title fade-up" data-scroll-reveal>Let\\\'s Create Together</h2>\
+  <p class="contact-sub fade-up" data-scroll-reveal>Exceptional properties deserve exceptional presentation</p>\
+  <a href="#" class="contact-btn fade-up" data-scroll-reveal>Start a Conversation</a>\
 </div>\
-\
-<!-- INSIGHTS -->\
-<section class="insights">\
-  <div class="section-header">\
-    <div><div class="section-tag clip-rv">From the desk</div><div class="section-title clip-rv" style="transition-delay:.1s">M\u2014P Insights</div></div>\
-    <div class="section-sub rv rv-d2">Market intelligence \u0026 expertise</div>\
-  </div>\
-  <div class="line-grow rv" style="margin-bottom:40px"></div>\
-  <div class="insights-grid">\
-    <div class="insight-item rv"><div class="insight-img-wrap img-rv"><img class="insight-img" loading="lazy" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Insight"><div class="insight-overlay"></div></div><div class="insight-meta"><div class="insight-title">When is it time to sell your estate?</div><div class="insight-info">4 min \u00B7 Mar 2026</div></div></div>\
-    <div class="insight-item rv rv-d1"><div class="insight-img-wrap img-rv"><img class="insight-img" loading="lazy" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="Insight"><div class="insight-overlay"></div></div><div class="insight-meta"><div class="insight-title">The art of staging luxury properties</div><div class="insight-info">3 min \u00B7 Feb 2026</div></div></div>\
-    <div class="insight-item rv rv-d2"><div class="insight-img-wrap img-rv"><img class="insight-img" loading="lazy" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Insight"><div class="insight-overlay"></div></div><div class="insight-meta"><div class="insight-title">Market trends: where luxury is heading</div><div class="insight-info">5 min \u00B7 Jan 2026</div></div></div>\
-    <div class="insight-item rv rv-d3"><div class="insight-img-wrap img-rv"><img class="insight-img" loading="lazy" src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&q=80" alt="Insight"><div class="insight-overlay"></div></div><div class="insight-meta"><div class="insight-title">Building legacy through real estate</div><div class="insight-info">3 min \u00B7 Dec 2025</div></div></div>\
-  </div>\
-</section>\
 \
 <!-- FOOTER -->\
-<footer class="footer">\
-  <div class="footer-grid rv">\
-    <div class="footer-col"><h6>Directory <div class="sound-bars"><i></i><i></i><i></i><i></i></div></h6></div>\
-    <div class="footer-col"><h6>Portfolio</h6><span>Properties</span><span>Insights</span></div>\
-    <div class="footer-col"><h6>Narrative</h6><span>About</span><span>Our Story</span><span>Connect</span></div>\
-    <div class="footer-col"><h6>Liaison</h6><span>For Buyers</span><span>For Sellers</span></div>\
-    <div class="footer-col" style="text-align:right"><h6 style="justify-content:flex-end">Contact</h6><span>+1 (555) 890-1234 \u2192</span><span>contact@maisonprestige.com \u2192</span></div>\
-  </div>\
-  <div class="footer-bottom rv">\
-    <p>Maison Prestige \u2014 Luxury Real Estate</p>\
-    <p>Accepting new clients \u2014 Spring 2026</p>\
-    <p id="footerTime" style="font-variant-numeric:tabular-nums">00:00:00 EST</p>\
-  </div>\
-</footer>\
+<div class="footer">\
+  <div class="footer-left">Maison Prestige \u00A9 2026</div>\
+  <div class="footer-right">Crafted with precision</div>\
+</div>\
+\
+<!-- CURSOR FOLLOWER -->\
+<div class="cursor-img" id="cursorImg"><img id="cursorImgSrc" src="" alt=""></div>\
+\
+<!-- BOTTOM DOCK -->\
+<div class="bottom-dock">\
+  <button class="dock-btn">Directory</button>\
+  <div class="dock-divider"></div>\
+  <button class="dock-btn" id="soundToggle">Sound: Off</button>\
+</div>\
 \
 <script>\
-/* Cursor */\
-var c=document.getElementById("cur"),d=document.getElementById("curd"),mx=0,my=0,cx=0,cy=0;\
-document.addEventListener("mousemove",function(e){mx=e.clientX;my=e.clientY;d.style.left=mx+"px";d.style.top=my+"px"});\
-(function lp(){cx+=(mx-cx)*.08;cy+=(my-cy)*.08;c.style.left=cx+"px";c.style.top=cy+"px";requestAnimationFrame(lp)})();\
-document.querySelectorAll("span[class],div[class*=btn],div[class*=ticket],div[class*=work-item],div[class*=insight-item],div[class*=tilt],.hamburger").forEach(function(el){\
-  el.addEventListener("mouseenter",function(){c.classList.add("hover")});\
-  el.addEventListener("mouseleave",function(){c.classList.remove("hover")});\
-});\
-\
-/* Scroll reveals */\
-var io=new IntersectionObserver(function(ee){ee.forEach(function(e){if(e.isIntersecting){e.target.classList.add("show");io.unobserve(e.target)}})},{threshold:0.08,rootMargin:"0px 0px -40px 0px"});\
-document.querySelectorAll(".rv,.clip-rv,.img-rv,.wipe-rv,.line-grow,.prlx-full").forEach(function(el){io.observe(el)});\
-\
-/* Hero BG parallax */\
-var heroBg=document.getElementById("heroBg");\
-function heroP(){var s=window.scrollY,vh=window.innerHeight;if(s<vh*1.5){var p=s/vh;heroBg.style.transform="translateY("+s*0.4+"px) scale("+(1+p*0.06)+")";heroBg.style.filter="brightness("+(0.3-p*0.15)+") saturate("+(0.8-p*0.3)+")"}}\
-\
-/* Parallax strips */\
-function stripP(){document.querySelectorAll(".prlx-full img").forEach(function(img){var r=img.parentElement.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){var p=(window.innerHeight-r.top)/(window.innerHeight+r.height);img.style.transform="translateY("+(p*-90)+"px) scale("+(1.05-p*0.05)+")";img.style.filter="brightness("+(0.45+p*0.35)+") saturate("+(0.7+p*0.3)+")";}})}\
-\
-/* Work images subtle parallax */\
-function workP(){document.querySelectorAll(".work-img-wrap .work-img").forEach(function(img){var r=img.closest(".work-item").getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){var p=(window.innerHeight-r.top)/(window.innerHeight+r.height);img.style.transform=img.closest(".work-item").matches(":hover")?"scale(1.06)":"translateY("+(p*-20)+"px)";}})}\
-\
-/* Insight images subtle parallax */\
-function insightP(){document.querySelectorAll(".insight-img").forEach(function(img){var r=img.closest(".insight-item").getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){var p=(window.innerHeight-r.top)/(window.innerHeight+r.height);if(!img.closest(".insight-item").matches(":hover"))img.style.transform="translateY("+(p*-15)+"px)";}})}\
-\
-/* Tilt card mouse */\
-var tiltCard=document.getElementById("tiltCard"),tiltInner=document.getElementById("tiltInner");\
-if(tiltCard){tiltCard.addEventListener("mousemove",function(e){var r=tiltCard.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5;var y=(e.clientY-r.top)/r.height-.5;tiltInner.style.transform="rotateY("+x*12+"deg) rotateX("+(-y*8)+"deg)"});tiltCard.addEventListener("mouseleave",function(){tiltInner.style.transform="rotateY(0) rotateX(0)"})}\
-\
-/* Combined scroll */\
-var ticking=false;\
-window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){heroP();stripP();workP();insightP();ticking=false});ticking=true}});\
-\
-/* Stat counter */\
-document.querySelectorAll(".stat-num[data-count]").forEach(function(el){var target=parseFloat(el.getAttribute("data-count"));var isFloat=target%1!==0;var obs=new IntersectionObserver(function(ee){ee.forEach(function(e){if(e.isIntersecting){var t0=null,dur=1400;function step(ts){if(!t0)t0=ts;var pr=Math.min((ts-t0)/dur,1);var ease=1-Math.pow(1-pr,3);var v=ease*target;el.textContent=isFloat?v.toFixed(1):Math.round(v);if(pr<1)requestAnimationFrame(step);else el.textContent=isFloat?target.toFixed(1):target}requestAnimationFrame(step);obs.unobserve(e.target)}})},{threshold:0.5});obs.observe(el)});\
-\
-/* Clock */\
-function uc(){var n=new Date(),h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();document.getElementById("footerTime").textContent=(h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s+" EST"}setInterval(uc,1000);uc();\
+(function(){\
+  /* ─── PRELOADER ─── */\
+  var pre = document.getElementById("preloader");\
+  setTimeout(function(){ pre.style.transition = "opacity 0.8s"; pre.style.opacity = "0"; setTimeout(function(){ pre.style.display = "none"; }, 800); }, 3800);\
+  \
+  /* ─── LIVE TIME ─── */\
+  function updateTime(){\
+    var d = new Date();\
+    var h = d.getHours(); var m = d.getMinutes(); var s = d.getSeconds();\
+    var ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12;\
+    document.getElementById("heroTime").textContent = (h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s+" "+ap;\
+  }\
+  updateTime(); setInterval(updateTime, 1000);\
+  \
+  /* ─── SCROLL REVEAL ─── */\
+  var obs = new IntersectionObserver(function(entries){\
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("visible"); } });\
+  }, { threshold:0.15 });\
+  document.querySelectorAll("[data-scroll-reveal], .fade-up").forEach(function(el){ obs.observe(el); });\
+  \
+  /* ─── CURSOR IMAGE FOLLOWER ─── */\
+  var cursorEl = document.getElementById("cursorImg");\
+  var cursorSrc = document.getElementById("cursorImgSrc");\
+  var cx = 0, cy = 0, tx = 0, ty = 0;\
+  document.addEventListener("mousemove", function(e){ tx = e.clientX; ty = e.clientY; });\
+  function lerpCursor(){ cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12; cursorEl.style.left = cx + 20 + "px"; cursorEl.style.top = cy - 80 + "px"; requestAnimationFrame(lerpCursor); }\
+  lerpCursor();\
+  \
+  document.querySelectorAll("[data-cursor-img]").forEach(function(item){\
+    item.addEventListener("mouseenter", function(){ cursorSrc.src = this.getAttribute("data-cursor-img"); cursorEl.style.opacity = "1"; });\
+    item.addEventListener("mouseleave", function(){ cursorEl.style.opacity = "0"; });\
+  });\
+  \
+  /* ─── DISCOVER SCROLL ─── */\
+  document.querySelector(".hero-discover").addEventListener("click", function(){\
+    document.querySelector(".scroll-section").scrollIntoView({ behavior:"smooth" });\
+  });\
+})();\
 <\/script>\
 </body>\
 </html>';
 };
+
+
 
 
 TPL_ECOM_HTML['9'] = function () {
