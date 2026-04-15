@@ -3286,7 +3286,7 @@ TPL_ECOM_HTML['1'] = function () {
 <meta charset="UTF-8">\
 <meta name="viewport" content="width=device-width, initial-scale=1.0">\
 <title>Computer and Co</title>\
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">\
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">\
 <style>\
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }\
 html { scroll-behavior: smooth; scrollbar-width: none; }\
@@ -3338,38 +3338,105 @@ nav {\
   width: 100%; max-width: 560px;\
 }\
 \
-.features {\
-  padding: 100px 60px; background: #fff;\
-}\
-.features-grid {\
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\
-  gap: 32px; max-width: 1200px; margin: 0 auto;\
-}\
-.feature-card {\
-  padding: 40px 32px; border-radius: 16px; background: #faf8f5;\
-  border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s;\
-}\
-.feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }\
-.feature-icon {\
-  width: 48px; height: 48px; border-radius: 12px; background: #e8632b;\
-  display: flex; align-items: center; justify-content: center;\
-  font-size: 22px; margin-bottom: 20px; color: #fff;\
-}\
-.feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }\
-.feature-card p { font-size: 14px; color: #888; line-height: 1.7; }\
+/* === BORN AND BRED INSPIRED SECTIONS === */\
+.section-divider { width: 100%; height: 1px; background: #e5e5e5; }\
 \
-.stats {\
-  padding: 80px 60px; text-align: center;\
+.badges-bar {\
+  display: flex; gap: 16px; padding: 40px 60px; justify-content: center; flex-wrap: wrap;\
+  background: #fafafa; border-top: 1px solid #eee; border-bottom: 1px solid #eee;\
 }\
-.stats-grid { display: flex; justify-content: center; gap: 80px; flex-wrap: wrap; }\
-.stat-num { font-size: 52px; font-weight: 800; color: #e8632b; }\
-.stat-label { font-size: 14px; color: #888; margin-top: 4px; }\
+.badge-pill {\
+  display: flex; align-items: center; gap: 8px; padding: 10px 20px;\
+  border-radius: 99px; background: #fff; border: 1px solid #e0e0e0;\
+  font-size: 13px; font-weight: 600; color: #333;\
+}\
+.badge-pill i { font-size: 16px; }\
 \
-.cta-section {\
-  padding: 100px 60px; text-align: center; background: #1a1a1a; color: #fff;\
+.problem-section {\
+  max-width: 900px; margin: 0 auto; padding: 100px 60px;\
 }\
-.cta-section h2 { font-size: 42px; font-weight: 800; margin-bottom: 20px; }\
-.cta-section p { font-size: 17px; color: rgba(255,255,255,0.6); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }\
+.section-icon {\
+  font-size: 32px; margin-bottom: 20px;\
+}\
+.section-label {\
+  font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;\
+  color: #e8632b; margin-bottom: 16px;\
+}\
+.section-title {\
+  font-family: Playfair Display, serif; font-size: clamp(28px, 4vw, 44px);\
+  font-weight: 700; color: #1a1a1a; margin-bottom: 24px; line-height: 1.2;\
+}\
+.section-text {\
+  font-size: 17px; line-height: 1.8; color: #555; margin-bottom: 20px;\
+}\
+\
+.scope-section {\
+  background: #fafafa; padding: 80px 60px;\
+}\
+.scope-grid {\
+  max-width: 900px; margin: 0 auto;\
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\
+}\
+.scope-item {\
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;\
+  background: #fff; border-radius: 12px; border: 1px solid #eee;\
+  font-size: 15px; font-weight: 500; color: #333; transition: all 0.3s;\
+}\
+.scope-item:hover { border-color: #e8632b; transform: translateX(4px); }\
+.scope-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8632b; flex-shrink: 0; }\
+\
+.results-section {\
+  padding: 80px 60px; background: #fff;\
+}\
+.results-grid {\
+  max-width: 1100px; margin: 0 auto;\
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;\
+}\
+.result-card {\
+  text-align: center; padding: 40px 20px;\
+  border-radius: 16px; background: #fafafa; border: 1px solid #eee;\
+  transition: all 0.3s;\
+}\
+.result-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }\
+.result-num {\
+  font-size: 48px; font-weight: 800; color: #e8632b;\
+  line-height: 1; margin-bottom: 8px;\
+}\
+.result-label { font-size: 14px; color: #888; font-weight: 500; }\
+\
+.gallery-section {\
+  padding: 80px 40px; background: #fff;\
+}\
+.gallery-grid {\
+  max-width: 1200px; margin: 0 auto;\
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;\
+}\
+.gallery-item {\
+  border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;\
+  transition: all 0.4s; cursor: pointer;\
+}\
+.gallery-item:hover { transform: scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }\
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }\
+.gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }\
+\
+.solution-section {\
+  max-width: 900px; margin: 0 auto; padding: 100px 60px;\
+}\
+.solution-cta {\
+  display: inline-flex; align-items: center; gap: 8px;\
+  color: #e8632b; font-weight: 600; font-size: 15px;\
+  text-decoration: none; margin-top: 16px; transition: gap 0.3s;\
+}\
+.solution-cta:hover { gap: 14px; }\
+\
+.cta-banner {\
+  background: #1a1a1a; color: #fff; padding: 100px 60px; text-align: center;\
+}\
+.cta-banner h2 {\
+  font-family: Playfair Display, serif; font-size: clamp(32px, 4vw, 52px);\
+  font-weight: 700; margin-bottom: 20px;\
+}\
+.cta-banner p { font-size: 17px; color: rgba(255,255,255,0.6); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }\
 \
 footer {\
   padding: 40px 60px; background: #1a1a1a; border-top: 1px solid rgba(255,255,255,0.08);\
@@ -3377,10 +3444,9 @@ footer {\
 }\
 \
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }\
-.fade-up { animation: fadeUp 0.8s ease-out both; }\
-.fade-up-d1 { animation-delay: 0.15s; }\
-.fade-up-d2 { animation-delay: 0.3s; }\
-.fade-up-d3 { animation-delay: 0.45s; }\
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }\
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }\
+.reveal.visible { opacity: 1; transform: none; }\
 </style>\
 </head>\
 <body>\
@@ -3399,8 +3465,9 @@ footer {\
   </div>\
 </nav>\
 \
+<!-- HERO with video -->\
 <section class="hero">\
-  <div class="hero-text fade-up">\
+  <div class="hero-text" style="animation:fadeUp 0.8s ease-out both">\
     <h1>Unlock growth with every payment</h1>\
     <p>Run payments, extend net terms and automate collections compliance.</p>\
     <div class="hero-buttons">\
@@ -3408,48 +3475,105 @@ footer {\
       <a href="#" class="btn-secondary">Talk to a human</a>\
     </div>\
   </div>\
-  <div class="hero-media fade-up fade-up-d2">\
-    <img src="assets/computer-and-co-hero.webp" alt="Computer and Co" loading="lazy">\
+  <div class="hero-media" style="animation:fadeUp 0.8s ease-out 0.3s both">\
+    <img src="assets/computer-and-co-hero.webp" alt="Computer and Co">\
   </div>\
 </section>\
 \
-<section class="features">\
-  <div class="features-grid">\
-    <div class="feature-card fade-up">\
-      <div class="feature-icon">\u26A1</div>\
-      <h3>Fast Payments</h3>\
-      <p>Process transactions instantly with our cutting-edge payment infrastructure.</p>\
-    </div>\
-    <div class="feature-card fade-up fade-up-d1">\
-      <div class="feature-icon">\u{1F512}</div>\
-      <h3>Secure & Compliant</h3>\
-      <p>Enterprise-grade security with built-in compliance automation.</p>\
-    </div>\
-    <div class="feature-card fade-up fade-up-d2">\
-      <div class="feature-icon">\u{1F4CA}</div>\
-      <h3>Smart Analytics</h3>\
-      <p>Real-time insights and reporting to optimize your financial operations.</p>\
-    </div>\
+<!-- BADGES BAR -->\
+<div class="badges-bar">\
+  <div class="badge-pill">\u26A1 Expert Advice</div>\
+  <div class="badge-pill">\uD83D\uDEE1\uFE0F Certified Hardware</div>\
+  <div class="badge-pill">\uD83C\uDFC6 Premium Support</div>\
+  <div class="badge-pill">\uD83D\uDE80 Same-Day Delivery</div>\
+</div>\
+\
+<!-- PROBLEM / VISION -->\
+<section class="problem-section reveal">\
+  <div class="section-icon">\uD83D\uDD2D</div>\
+  <div class="section-label">The Vision</div>\
+  <h2 class="section-title">Redefining premium computer retail for the modern era</h2>\
+  <p class="section-text">In an industry saturated with impersonal big-box retailers and confusing online marketplaces, Computer and Co was born from a simple belief: buying technology should be an experience, not a chore.</p>\
+  <p class="section-text">We partner with businesses and individuals who demand more than just hardware \u2014 they need a trusted advisor who understands their workflow, anticipates their needs, and delivers solutions that scale with their ambitions.</p>\
+</section>\
+\
+<div class="section-divider"></div>\
+\
+<!-- SCOPE / SERVICES -->\
+<section class="scope-section">\
+  <div style="max-width:900px;margin:0 auto;margin-bottom:40px">\
+    <div class="section-label">Our Services</div>\
+    <h2 class="section-title">Everything you need, under one roof</h2>\
+  </div>\
+  <div class="scope-grid">\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Custom PC Building</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Enterprise Solutions</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> IT Consulting</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Hardware Upgrades</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Network Infrastructure</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Premium Support Plans</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Data Recovery</div>\
+    <div class="scope-item reveal"><div class="scope-dot"></div> Managed IT Services</div>\
   </div>\
 </section>\
 \
-<section class="stats">\
-  <div class="stats-grid">\
-    <div><div class="stat-num">200+</div><div class="stat-label">Projects Delivered</div></div>\
-    <div><div class="stat-num">50+</div><div class="stat-label">Awards Won</div></div>\
-    <div><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>\
+<!-- RESULTS / METRICS -->\
+<section class="results-section">\
+  <div style="text-align:center;margin-bottom:48px">\
+    <div class="section-label">Our Impact</div>\
+    <h2 class="section-title">Numbers that speak for themselves</h2>\
+  </div>\
+  <div class="results-grid">\
+    <div class="result-card reveal"><div class="result-num">5K+</div><div class="result-label">Happy Clients</div></div>\
+    <div class="result-card reveal"><div class="result-num">98%</div><div class="result-label">Satisfaction Rate</div></div>\
+    <div class="result-card reveal"><div class="result-num">12K</div><div class="result-label">Systems Built</div></div>\
+    <div class="result-card reveal"><div class="result-num">24/7</div><div class="result-label">Premium Support</div></div>\
   </div>\
 </section>\
 \
-<section class="cta-section">\
-  <h2>Ready to grow?</h2>\
-  <p>Join thousands of businesses already using Computer and Co to scale their operations.</p>\
-  <a href="#" class="btn-primary">Get started today</a>\
+<!-- IMAGE GALLERY -->\
+<section class="gallery-section">\
+  <div style="text-align:center;margin-bottom:48px">\
+    <div class="section-label">Our Work</div>\
+    <h2 class="section-title">Crafted with precision</h2>\
+  </div>\
+  <div class="gallery-grid">\
+    <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80" alt="Custom gaming PC"></div>\
+    <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=600&q=80" alt="Server room"></div>\
+    <div class="gallery-item tall reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80" alt="Workstation setup"></div>\
+    <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1555617778-02518510b9fa?w=600&q=80" alt="Components"></div>\
+    <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?w=600&q=80" alt="RGB build"></div>\
+    <div class="gallery-item reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=600&q=80" alt="Laptop setup"></div>\
+  </div>\
+</section>\
+\
+<!-- SOLUTION / APPROACH -->\
+<section class="solution-section reveal">\
+  <div class="section-icon">\uD83C\uDFC6</div>\
+  <div class="section-label">Our Approach</div>\
+  <h2 class="section-title">Premium consulting meets cutting-edge technology</h2>\
+  <p class="section-text">Every client relationship starts with a deep-dive consultation. We don\u2019t just sell boxes \u2014 we architect complete technology ecosystems tailored to your exact needs, whether you\u2019re a creative professional, a competitive gamer, or a growing enterprise.</p>\
+  <p class="section-text">From hand-picked components to meticulous cable management, from stress-tested systems to white-glove delivery \u2014 we obsess over every detail so you can focus on what matters most: your work.</p>\
+  <a href="#" class="solution-cta">Discover our process \u2192</a>\
+</section>\
+\
+<!-- CTA BANNER -->\
+<section class="cta-banner">\
+  <h2>Ready to upgrade?</h2>\
+  <p>Book a free consultation with our experts and discover the perfect setup for your needs.</p>\
+  <a href="#" class="btn-primary" style="font-size:16px;padding:18px 40px">Book a consultation</a>\
 </section>\
 \
 <footer>\
-  &copy; 2026 Computer and Co. All rights reserved.\
+  \u00A9 2026 Computer and Co. All rights reserved.\
 </footer>\
+\
+<script>\
+// Scroll reveal\
+var reveals=document.querySelectorAll(".reveal");\
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}})},{threshold:0.15});\
+reveals.forEach(function(el){obs.observe(el)});\
+<\/script>\
 \
 </body>\
 </html>';
