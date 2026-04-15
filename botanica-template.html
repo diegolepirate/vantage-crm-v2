@@ -9,7 +9,21 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scrollbar-width:none; scroll-behavior:smooth; }
 html::-webkit-scrollbar { display:none; }
-body { background:#f8f6f0; color:#1a1a1a; font-family:'Inter',sans-serif; overflow-x:hidden; }
+body {
+  background:#f8f6f0; color:#1a1a1a; font-family:'Inter',sans-serif; overflow-x:hidden;
+  position:relative;
+}
+body::before {
+  content:''; position:fixed; inset:0; z-index:-1;
+  background:url('https://vantagebookdesign.netlify.app/botanica-bg.jpg') center/cover no-repeat;
+  filter:blur(3px) saturate(0.7);
+  opacity:0.18;
+}
+body::after {
+  content:''; position:fixed; inset:0; z-index:-1;
+  background:rgba(120,80,160,0.12);
+  pointer-events:none;
+}
 
 /* ─── NAVBAR ─── */
 .navbar {
@@ -60,6 +74,15 @@ body { background:#f8f6f0; color:#1a1a1a; font-family:'Inter',sans-serif; overfl
 /* ─── FEATURES ─── */
 .features {
   max-width:1200px; margin:0 auto; padding:80px 40px 40px;
+  position:relative;
+}
+.features-video-wrap {
+  position:relative; max-width:1200px; margin:0 auto; overflow:hidden;
+  border-radius:16px; height:380px;
+}
+.features-video-wrap video {
+  width:100%; height:140%; object-fit:cover; object-position:top;
+  display:block;
 }
 .features-title {
   text-align:center; font-family:'Playfair Display',serif;
@@ -188,6 +211,13 @@ body { background:#f8f6f0; color:#1a1a1a; font-family:'Inter',sans-serif; overfl
 <!-- BANNER -->
 <div class="banner-wrap">
   <img class="banner-img" src="https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1400&h=500&fit=crop&q=80" alt="Champ de tournesols">
+</div>
+
+<!-- VIDEO -->
+<div class="banner-wrap">
+  <div class="features-video-wrap">
+    <video autoplay loop muted playsinline preload="auto" src="https://vantagebookdesign.netlify.app/botanica-video.mp4"></video>
+  </div>
 </div>
 
 <!-- FEATURES -->
