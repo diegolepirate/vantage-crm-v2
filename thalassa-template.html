@@ -395,6 +395,52 @@ h1 em{font-style:italic!important;font-weight:500!important}
 
 /* Toast */
 .thalassa-toast{position:fixed;bottom:3.2rem;left:50%;transform:translateX(-50%) translateY(20px);font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;padding:1.4rem 3.2rem;border-radius:999px;z-index:9999;pointer-events:none;opacity:0;box-shadow:0 8px 32px rgba(28,26,22,.2);white-space:nowrap;max-width:90vw}
+
+/* ═══════════════════════════════════════════════════════
+   P3 — KEN BURNS + PARALLAX + IMAGES VIVANTES
+═══════════════════════════════════════════════════════ */
+.hero__bg-image,.hero__media img,.hero img:first-child,.hero > div > img{animation:ken-burns-hero 22s ease-in-out infinite alternate;transform-origin:center center;will-change:transform}
+@keyframes ken-burns-hero{0%{transform:scale(1) translateX(0) translateY(0)}25%{transform:scale(1.05) translateX(-0.8%) translateY(-0.5%)}50%{transform:scale(1.04) translateX(0.6%) translateY(-1.2%)}75%{transform:scale(1.06) translateX(-1.2%) translateY(0.4%)}100%{transform:scale(1.04) translateX(0.4%) translateY(-0.8%)}}
+.featured-dish__image,.featured-dish img,[class*="featured-dish"] img{animation:ken-burns-slow 28s ease-in-out infinite alternate;transform-origin:center center;will-change:transform}
+@keyframes ken-burns-slow{0%{transform:scale(1) translateX(0) translateY(0)}33%{transform:scale(1.04) translateX(-1%) translateY(-0.5%)}66%{transform:scale(1.06) translateX(0.8%) translateY(-1%)}100%{transform:scale(1.03) translateX(-0.5%) translateY(0.3%)}}
+.events__image,.events img,[class*="events"] img:first-child{animation:ken-burns-slow 32s ease-in-out infinite alternate;transform-origin:center center}
+.hero:hover .hero__bg-image,.hero:hover .hero__media img{animation-play-state:paused}
+.hero::after,.featured-dish::after,.events::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:180px 180px;animation:grain-drift .6s steps(2) infinite}
+@keyframes grain-drift{0%{background-position:0px 0px}25%{background-position:48px 64px}50%{background-position:-56px 40px}75%{background-position:72px -48px}100%{background-position:-40px 72px}}
+.hero{perspective:1200px}
+.hero__media,.hero__bg-wrap{transform-style:preserve-3d;will-change:transform}
+.setting__img,.setting__gallery figure{overflow:hidden;position:relative}
+.setting__img img,.setting__gallery figure img{transition:transform .9s cubic-bezier(0.16,1,0.3,1),filter .5s ease;filter:saturate(.82) brightness(.92);transform:scale(1.01)}
+.setting__img:hover img,.setting__gallery figure:hover img{transform:scale(1.07);filter:saturate(1.05) brightness(.98)}
+.menu-card__media,[class*="menu-card"] [class*="media"],[class*="menu-card"] [class*="img"]{overflow:hidden}
+.menu-card__media img,[class*="menu-card"] [class*="media"] img{transition:transform .85s cubic-bezier(0.16,1,0.3,1),filter .45s ease;filter:saturate(.8) brightness(.88)}
+.menu-card:hover .menu-card__media img,.menu-card:hover [class*="media"] img{transform:scale(1.08);filter:saturate(1.05) brightness(.95)}
+.menu-card{position:relative;overflow:hidden}
+.menu-card::before{content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;background:linear-gradient(105deg,transparent 35%,rgba(253,250,245,.08) 50%,rgba(253,250,245,.04) 56%,transparent 68%);z-index:4;pointer-events:none;transition:left .7s ease}
+.menu-card:hover::before{left:160%}
+.team-card img,[class*="team-card"] img{filter:saturate(.75) brightness(.88);transition:transform .8s cubic-bezier(0.16,1,0.3,1),filter .5s ease}
+.team-card:hover img,[class*="team-card"]:hover img{transform:scale(1.06);filter:saturate(1) brightness(.95)}
+.gallery-preview__item,.gallery-masonry .gallery-item,[class*="gallery"] li,[class*="gallery"] figure{overflow:hidden;border-radius:8px;position:relative}
+.gallery-preview__item img,.gallery-masonry .gallery-item img,[class*="gallery"] li img,[class*="gallery"] figure img{transition:transform .85s cubic-bezier(0.16,1,0.3,1),filter .45s ease;filter:saturate(.8)}
+.gallery-preview__item:hover img,.gallery-masonry .gallery-item:hover img,[class*="gallery"] li:hover img,[class*="gallery"] figure:hover img{transform:scale(1.06);filter:saturate(1.1)}
+.gallery-preview__item::after,.gallery-masonry .gallery-item::after{content:'';position:absolute;inset:0;background:rgba(27,58,92,.3);opacity:0;transition:opacity .35s ease;z-index:1}
+.gallery-preview__item:hover::after,.gallery-masonry .gallery-item:hover::after{opacity:1}
+.gallery-preview__item::before,.gallery-masonry .gallery-item::before{content:'\2295';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:2;color:rgba(244,240,232,.9);font-size:2.4rem;transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none}
+.gallery-preview__item:hover::before,.gallery-masonry .gallery-item:hover::before{transform:translate(-50%,-50%) scale(1)}
+.hero__scroll-line,.hero__scroll-indicator [class*="line"],[class*="scroll-line"]{position:relative;overflow:hidden;width:1px;height:80px;background:rgba(244,240,232,.15)}
+.hero__scroll-line::after,.hero__scroll-indicator [class*="line"]::after,[class*="scroll-line"]::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent,#C4714F,transparent);animation:scroll-line-anim 2.2s ease-in-out infinite}
+@keyframes scroll-line-anim{0%{top:-100%}50%{top:0%}100%{top:100%}}
+.testimonials,[class*="testimonials"]{position:relative;overflow:hidden}
+.testimonials__wave,.thalassa-wave-top,.thalassa-wave-bot{position:absolute;left:0;right:0;pointer-events:none;z-index:0}
+.thalassa-wave-top{top:-1px;transform:rotate(180deg)}
+.thalassa-wave-bot{bottom:-1px}
+.intro__figure,.intro figure{position:relative;overflow:hidden}
+.intro__figure::after,.intro figure::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(253,250,245,.07) 50%,rgba(253,250,245,.04) 55%,transparent 65%);transition:left .8s ease;pointer-events:none}
+.intro__figure:hover::after,.intro figure:hover::after{left:160%}
+.chef__image,.chef figure img,.chef__figure img{filter:saturate(.3) brightness(.9);transition:filter 1.5s ease}
+.chef.is-visible .chef__image,.chef.is-visible figure img,.chef.is-visible .chef__figure img{filter:saturate(.85) brightness(.95)}
+.setting__content::before{content:'';display:block;width:0;height:1px;background:#C4714F;margin-bottom:2.4rem;transition:width 1.2s cubic-bezier(0.19,1,0.22,1)}
+.setting__content.is-visible::before{width:48px}
 </style>
 <!-- GSAP + ScrollTrigger -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -1640,6 +1686,180 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') lbNavigate(-1);
   if (e.key === 'ArrowRight') lbNavigate(1);
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   THALASSA — P3
+   Ken Burns + Parallax + Hero Depth + Images Vivantes
+═══════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  function waitAndRun() {
+    if (window.gsap && window.ScrollTrigger) {
+      initParallax();
+      initHeroDepth();
+      initChefColorReveal();
+      initSettingLine();
+      injectWaves();
+    } else {
+      setTimeout(waitAndRun, 60);
+    }
+  }
+  waitAndRun();
+});
+
+/* ════ PARALLAX MULTI-VITESSES ════ */
+function initParallax() {
+  var heroImg = document.querySelector('.hero__bg-image, .hero__media img, .hero img:first-child');
+  if (heroImg) {
+    ScrollTrigger.create({trigger:'.hero, #hero',start:'top top',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(heroImg,{y:self.progress*80})}});
+  }
+  var featImg = document.querySelector('.featured-dish__image, .featured-dish img, [class*="featured-dish"] img');
+  if (featImg) {
+    ScrollTrigger.create({trigger:'.featured-dish, [class*="featured-dish"]',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(featImg,{y:(self.progress-.5)*100})}});
+  }
+  var eventsImg = document.querySelector('.events__image, .events img, [class*="events"] img');
+  if (eventsImg) {
+    ScrollTrigger.create({trigger:'.events, #events',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(eventsImg,{y:(self.progress-.5)*90})}});
+  }
+  var introImg = document.querySelector('.intro__image, .intro__figure img, .intro figure img');
+  if (introImg) {
+    ScrollTrigger.create({trigger:'.intro, #about',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(introImg,{y:(self.progress-.5)*60})}});
+  }
+  var chefImg = document.querySelector('.chef__image, .chef__figure img, .chef figure img');
+  if (chefImg) {
+    ScrollTrigger.create({trigger:'.chef, #chef',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(chefImg,{y:(self.progress-.5)*70})}});
+  }
+  var settingImgs = document.querySelectorAll('.setting__img img, .setting__gallery figure img');
+  settingImgs.forEach(function(img, i) {
+    var speed = .3 + (i % 3) * .15;
+    ScrollTrigger.create({trigger:'.setting, #experience',start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(img,{y:(self.progress-.5)*60*speed})}});
+  });
+  var testiSection = document.querySelector('.testimonials, [class*="testimonials"]');
+  if (testiSection) {
+    var slider = testiSection.querySelector('.testimonials__slider, [class*="slider"]');
+    if (slider) {
+      ScrollTrigger.create({trigger:testiSection,start:'top bottom',end:'bottom top',scrub:1.5,onUpdate:function(self){gsap.set(slider,{y:(self.progress-.5)*-20})}});
+    }
+  }
+  document.querySelectorAll('.gallery-preview__item, .gallery-masonry .gallery-item').forEach(function(item, i) {
+    var dir = i % 2 === 0 ? 1 : -1;
+    var speed = 20 + (i % 3) * 10;
+    ScrollTrigger.create({trigger:item,start:'top bottom',end:'bottom top',scrub:true,onUpdate:function(self){gsap.set(item,{y:(self.progress-.5)*speed*dir})}});
+  });
+}
+
+/* ════ HERO DEPTH — reaction souris 3D ════ */
+function initHeroDepth() {
+  var hero = document.querySelector('.hero, #hero');
+  var heroImg = document.querySelector('.hero__bg-image, .hero__media img, .hero__media, .hero img:first-child');
+  var heroContent = document.querySelector('.hero__content');
+  if (!hero || !heroImg) return;
+  var targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  hero.addEventListener('mousemove', function(e) {
+    var rect = hero.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    targetX = (e.clientX - cx) / rect.width;
+    targetY = (e.clientY - cy) / rect.height;
+  });
+  hero.addEventListener('mouseleave', function() { targetX = 0; targetY = 0; });
+  gsap.ticker.add(function() {
+    currentX += (targetX - currentX) * .05;
+    currentY += (targetY - currentY) * .05;
+    gsap.set(heroImg, { x: currentX * -18, y: currentY * -12 });
+    if (heroContent) gsap.set(heroContent, { x: currentX * 8, y: currentY * 5 });
+  });
+}
+
+/* ════ CHEF — COLOR REVEAL au scroll ════ */
+function initChefColorReveal() {
+  var chefSection = document.querySelector('.chef, #chef');
+  var chefImg = document.querySelector('.chef__image, .chef figure img, .chef__figure img');
+  if (!chefSection || !chefImg) return;
+  ScrollTrigger.create({trigger:chefSection,start:'top 70%',end:'top 20%',scrub:1.5,onUpdate:function(self){
+    var sat = self.progress * 85;
+    var brite = .9 + self.progress * .05;
+    chefImg.style.filter = 'saturate(' + sat + '%) brightness(' + brite + ')';
+  },onEnter:function(){chefSection.classList.add('is-visible')}});
+}
+
+/* ════ SETTING LINE REVEAL ════ */
+function initSettingLine() {
+  var settingContent = document.querySelector('.setting__content');
+  if (!settingContent) return;
+  ScrollTrigger.create({trigger:settingContent,start:'top 78%',once:true,onEnter:function(){settingContent.classList.add('is-visible')}});
+}
+
+/* ════ VAGUES SVG — testimonials ════ */
+function injectWaves() {
+  var section = document.querySelector('.testimonials, [class*="testimonials"]');
+  if (!section) return;
+  var waveSVG = function(flip) {
+    return '<svg class="' + (flip ? 'thalassa-wave-top' : 'thalassa-wave-bot') + '" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px" aria-hidden="true"><path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,15 1440,30 L1440,60 L0,60 Z" fill="var(--white, #FDFAF5)"/></svg>';
+  };
+  section.insertAdjacentHTML('afterbegin', waveSVG(true));
+  section.insertAdjacentHTML('beforeend', waveSVG(false));
+  section.querySelectorAll('.thalassa-wave-top path, .thalassa-wave-bot path').forEach(function(path, i) {
+    gsap.to(path, {attr:{d: i % 2 === 0 ? 'M0,20 C180,50 360,10 540,35 C720,60 900,5 1080,25 C1260,50 1380,20 1440,35 L1440,60 L0,60 Z' : 'M0,40 C200,10 400,55 600,25 C800,0 1000,50 1200,30 C1320,15 1400,45 1440,20 L1440,60 L0,60 Z'},duration:6+i*2,ease:'sine.inOut',yoyo:true,repeat:-1});
+  });
+}
+
+/* ════ IMAGE COLOR GRADING ════ */
+function initImageColorGrading() {
+  var targets = document.querySelectorAll('.setting__img img, .gallery-preview__item img, .intro__image');
+  targets.forEach(function(img) {
+    gsap.set(img, { filter: 'saturate(0.6) brightness(0.88)' });
+    ScrollTrigger.create({trigger:img,start:'top 85%',end:'top 30%',scrub:1.5,onUpdate:function(self){
+      var sat = 0.6 + self.progress * 0.45;
+      var brite = 0.88 + self.progress * 0.1;
+      img.style.filter = 'saturate(' + sat + ') brightness(' + brite + ')';
+    }});
+  });
+}
+setTimeout(initImageColorGrading, 800);
+
+/* ════ SCROLL INDICATOR BOUNCE ════ */
+function initScrollIndicatorBounce() {
+  var indicator = document.querySelector('.hero__scroll-indicator, .hero__scroll, [class*="scroll-indicator"]');
+  if (!indicator) return;
+  ScrollTrigger.create({start:'top -100',onUpdate:function(self){gsap.to(indicator,{opacity:self.progress>0?0:1,duration:.4})}});
+}
+setTimeout(initScrollIndicatorBounce, 2000);
+
+/* ════ TRUST BAR DIRECTION ════ */
+function initTrustBarDirection() {
+  var lenis = window._lenis;
+  if (!lenis) return;
+  var runs = document.querySelectorAll('.trust-bar ul, .trust-bar__logos, [class*="trust"] ul');
+  if (!runs.length) return;
+  lenis.on('scroll', function(e) {
+    runs.forEach(function(run) {
+      run.style.animationDirection = e.direction === -1 ? 'reverse' : 'normal';
+    });
+  });
+}
+initTrustBarDirection();
+
+/* ════ CARD TILT 3D ════ */
+function initCardTilt() {
+  var cards = document.querySelectorAll('.menu-card, .team-card, [class*="menu-card"], [class*="team-card"]');
+  cards.forEach(function(card) {
+    card.style.transformStyle = 'preserve-3d';
+    card.style.willChange = 'transform';
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var rx = (e.clientY - cy) / rect.height * -6;
+      var ry = (e.clientX - cx) / rect.width * 6;
+      gsap.to(card, {rotateX:rx,rotateY:ry,transformPerspective:800,duration:.4,ease:'power2.out'});
+    });
+    card.addEventListener('mouseleave', function() {
+      gsap.to(card, {rotateX:0,rotateY:0,duration:.8,ease:'elastic.out(1, .6)'});
+    });
+  });
+}
+initCardTilt();
 
 </script>
 </body>
