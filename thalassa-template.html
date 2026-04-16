@@ -1280,7 +1280,16 @@ window._lenis=lenis;
 document.querySelectorAll('a[href^="#"]').forEach(function(link){
 link.addEventListener('click',function(e){
 e.preventDefault();
-var target=document.querySelector(link.getAttribute('href'));
+var href = link.getAttribute('href');
+var target = document.querySelector(href);
+/* Gallery: if original is hidden, scroll to horizontal gallery instead */
+if (href === '#gallery' && target && target.style.display === 'none') {
+  target = document.querySelector('.gallery-horizontal') || target;
+}
+/* Contact: fallback chain if no #contact exists */
+if (href === '#contact' && !target) {
+  target = document.querySelector('#contact-form, #reserve, .reserve-cta, .reservation-form');
+}
 if(target)lenis.scrollTo(target,{offset:-90,duration:1.3});
 });
 });
