@@ -509,6 +509,53 @@ input,select,textarea{transition:border-color .3s ease,box-shadow .3s ease,backg
 [aria-expanded="true"].navbar__burger span:nth-child(2){opacity:0;width:0}
 [aria-expanded="true"].navbar__burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media(max-width:768px){.navbar__burger{display:flex}.navbar__links,.navbar__nav ul{display:none!important}}
+
+/* ═══ P5 — MOTIFS GRECS + ORNEMENTS + POLISH FINAL ═══ */
+.greek-divider{display:flex;align-items:center;gap:2rem;padding:1.2rem 5.6rem;overflow:hidden;position:relative}
+.greek-divider__line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.15),rgba(196,113,79,.35),rgba(196,113,79,.15),transparent)}
+.greek-divider__motif{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.greek-divider__diamond{width:6px;height:6px;background:#C4714F;transform:rotate(45deg);opacity:.6;transition:opacity .4s ease,transform .4s ease}
+.greek-divider:hover .greek-divider__diamond{opacity:1;transform:rotate(45deg) scale(1.4)}
+.greek-meander-svg{width:120px;height:20px;flex-shrink:0}
+.greek-meander-path{stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 1.4s cubic-bezier(0.19,1,0.22,1)}
+.greek-divider.is-visible .greek-meander-path{stroke-dashoffset:0}
+.section-title-ornament{display:block;width:0;height:2px;background:linear-gradient(to right,#C4714F,rgba(196,113,79,.3),transparent);margin-top:1.2rem;margin-bottom:3.2rem;transition:width 1s cubic-bezier(0.19,1,0.22,1);border-radius:2px}
+.section-title-ornament.is-visible{width:64px}
+.hero__greek-bg{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;opacity:.06}
+.hero__greek-bg svg{position:absolute;bottom:-10%;left:0;width:200%;height:auto;animation:greek-bg-drift 40s linear infinite}
+@keyframes greek-bg-drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.section-watermark{position:absolute;font-family:'Playfair Display',serif;font-size:clamp(14rem,22vw,28rem);font-weight:400;font-style:italic;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(196,113,79,.055);pointer-events:none;user-select:none;z-index:0;white-space:nowrap;letter-spacing:-.03em}
+.section-num{font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.22em;color:rgba(196,113,79,.4);text-transform:uppercase;display:block;margin-bottom:.8rem}
+.menu-item__price,[class*="price"],[class*="__price"],.stat,[class*="counter"],[class*="__num"]{font-variant-numeric:tabular-nums;-webkit-font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+@keyframes trust-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.trust-bar__logos,[class*="trust"] ul{display:flex;gap:4.8rem;align-items:center;white-space:nowrap;animation:trust-marquee 28s linear infinite;flex-shrink:0}
+.trust-bar__track,[class*="trust__track"]{display:flex;overflow:hidden;width:100%}
+.hero__content{will-change:opacity,transform}
+.intro,#about{position:relative;overflow:hidden}
+.intro::before,#about::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 80% 20%,rgba(196,113,79,.04) 0%,transparent 50%),radial-gradient(circle at 20% 80%,rgba(27,58,92,.04) 0%,transparent 50%);pointer-events:none;z-index:0}
+.menu-overview,[class*="menu-overview"]{position:relative}
+.menu-overview::before,[class*="menu-overview"]::before{content:'';position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%231B3A5C' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Ccircle cx='30' cy='30' r='14'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/svg%3E");background-size:120px 120px;pointer-events:none}
+.events,#events{isolation:isolate}
+.testimonials,[class*="testimonials"]{position:relative;isolation:isolate}
+.testimonials::before,[class*="testimonials"]::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(244,240,232,.015) 40px,rgba(244,240,232,.015) 41px);pointer-events:none;z-index:0;animation:diag-drift 25s linear infinite}
+@keyframes diag-drift{to{background-position:100px 100px}}
+.chef,#chef{position:relative;overflow:hidden}
+.chef::after,#chef::after{content:'';position:absolute;top:-10%;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(27,58,92,.04) 0%,transparent 70%);pointer-events:none;z-index:0;animation:orb-float 12s ease-in-out infinite alternate}
+@keyframes orb-float{from{transform:translate(0,0) scale(1)}to{transform:translate(-30px,20px) scale(1.1)}}
+.newsletter,[class*="newsletter"]{position:relative;overflow:hidden}
+.newsletter::after,[class*="newsletter"]::after{content:'';position:absolute;bottom:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);pointer-events:none}
+.footer,footer{position:relative}
+.footer::before,footer::before{content:'';position:absolute;top:0;left:5.6rem;right:5.6rem;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.2),rgba(201,165,90,.3),rgba(196,113,79,.2),transparent)}
+.gallery-preview__title,[class*="gallery"] h2{transition:letter-spacing .5s ease}
+.gallery-preview__title:hover,[class*="gallery"] h2:hover{letter-spacing:.02em}
+.konami-overlay{position:fixed;inset:0;z-index:99999;background:#1B3A5C;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2.4rem;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.konami-overlay.active{opacity:1;pointer-events:all}
+.konami-overlay__text{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,6vw,7.2rem);font-weight:400;font-style:italic;color:#F4F0E8;text-align:center;line-height:1.2}
+.konami-overlay__sub{font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.22em;text-transform:uppercase;color:#C4714F}
+.konami-overlay__close{font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,232,.4);background:none;border:1px solid rgba(244,240,232,.15);border-radius:999px;padding:.8rem 2.4rem;cursor:pointer;transition:all .3s;margin-top:1.6rem}
+.konami-overlay__close:hover{color:#F4F0E8;border-color:rgba(244,240,232,.4)}
+@media(max-width:768px){.greek-divider{padding:1.2rem 2.4rem}.section-watermark{font-size:20vw}.footer::before{left:2.4rem;right:2.4rem}}
+@media print{.navbar,.preloader,.hero__scroll-indicator,.scroll-progress-bar,.mobile-menu{display:none!important}body{color:#000;background:#fff}}
 </style>
 <!-- GSAP + ScrollTrigger -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -2144,6 +2191,273 @@ function initDatePickerStyle() {
   });
 }
 initDatePickerStyle();
+
+/* ═══════════════════════════════════════════════════════════════
+   THALASSA — P5
+   Motifs grecs + Ornements + Polish final — AUCUN effet curseur
+═══════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  injectGreekDividers();
+  injectSectionWatermarks();
+  injectTitleOrnaments();
+  injectHeroGreekBg();
+  initHeroScrollFade();
+  initSectionNumbers();
+  initTrustBarMarquee();
+  initOrnamentReveal();
+  initKonamiCode();
+  initOpeningReveal();
+  initPagePolish();
+});
+
+/* ════ MEANDRES GRECS ════ */
+function injectGreekDividers() {
+  function makeMeanderSVG() {
+    return '<svg class="greek-meander-svg" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="greek-meander-path" d="M2,10 L2,4 L10,4 L10,16 L18,16 L18,4 L26,4 L26,10 L34,10 L34,4 L42,4 L42,16 L50,16 L50,4 L58,4 L58,10 L66,10 L66,4 L74,4 L74,16 L82,16 L82,4 L90,4 L90,10 L98,10 L98,4 L106,4 L106,16 L114,16 L114,4 L118,4" stroke="#C4714F" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  var sections = document.querySelectorAll('main > section, main > div[class*="section"], main > div[class*="trust"]');
+  sections.forEach(function(section, i) {
+    if (i === 0) return;
+    var divider = document.createElement('div');
+    divider.className = 'greek-divider';
+    divider.innerHTML = '<div class="greek-divider__line"></div><div class="greek-divider__motif"><div class="greek-divider__diamond"></div>' + makeMeanderSVG() + '<div class="greek-divider__diamond"></div></div><div class="greek-divider__line"></div>';
+    section.parentElement.insertBefore(divider, section);
+  });
+  document.querySelectorAll('.greek-divider').forEach(function(div) {
+    if (!window.ScrollTrigger) return;
+    ScrollTrigger.create({trigger:div,start:'top 88%',once:true,onEnter:function(){
+      div.classList.add('is-visible');
+      gsap.from(div.querySelectorAll('.greek-divider__diamond'), {scale:0,rotation:0,duration:.5,stagger:.15,ease:'back.out(3)'});
+      gsap.from(div.querySelectorAll('.greek-divider__line'), {scaleX:0,transformOrigin:'center',duration:.8,stagger:.1,ease:'power3.out'});
+    }});
+  });
+}
+
+/* ════ WATERMARKS ════ */
+function injectSectionWatermarks() {
+  var watermarks = [
+    {selector:'.intro, #about',text:'I',right:'-2%',top:'10%'},
+    {selector:'.menu-overview, #menu',text:'II',right:'-2%',top:'5%'},
+    {selector:'.setting, #experience',text:'III',right:'-2%',top:'15%'},
+    {selector:'.chef, #chef',text:'IV',left:'-2%',top:'10%'},
+    {selector:'.events, #events',text:'V',right:'-2%',top:'10%'}
+  ];
+  watermarks.forEach(function(w) {
+    var section = document.querySelector(w.selector);
+    if (!section) return;
+    var mark = document.createElement('div');
+    mark.className = 'section-watermark';
+    mark.textContent = w.text;
+    mark.setAttribute('aria-hidden','true');
+    mark.style.top = w.top;
+    if (w.right) mark.style.right = w.right;
+    if (w.left) mark.style.left = w.left;
+    var pos = getComputedStyle(section).position;
+    if (pos === 'static') section.style.position = 'relative';
+    section.style.overflow = 'hidden';
+    section.appendChild(mark);
+    if (window.ScrollTrigger) {
+      ScrollTrigger.create({trigger:section,start:'top bottom',end:'bottom top',scrub:1,onUpdate:function(self){gsap.set(mark,{y:(self.progress-.5)*-40})}});
+    }
+  });
+}
+
+/* ════ ORNEMENTS TITRES ════ */
+function injectTitleOrnaments() {
+  var headings = document.querySelectorAll('section h2, [class*="__title"]:not([class*="nav"]):not([class*="footer"]):not([class*="mobile"])');
+  headings.forEach(function(h) {
+    if (h.nextElementSibling && h.nextElementSibling.classList.contains('section-title-ornament')) return;
+    var ornament = document.createElement('span');
+    ornament.className = 'section-title-ornament';
+    ornament.setAttribute('aria-hidden','true');
+    h.after(ornament);
+    if (window.ScrollTrigger) {
+      ScrollTrigger.create({trigger:h,start:'top 80%',once:true,onEnter:function(){ornament.classList.add('is-visible')}});
+    }
+  });
+}
+
+/* ════ HERO GREEK BG ════ */
+function injectHeroGreekBg() {
+  var hero = document.querySelector('.hero, #hero');
+  if (!hero) return;
+  var bg = document.createElement('div');
+  bg.className = 'hero__greek-bg';
+  bg.setAttribute('aria-hidden','true');
+  bg.innerHTML = '<svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><defs><pattern id="greek-repeat" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M2,40 L2,10 L10,10 L10,50 L18,50 L18,10 L26,10 L26,40 M30,40 L30,20 L38,20 L38,60 L46,60 L46,20 L54,20 L54,40 M58,40 L58,15 L66,15 L66,55 L74,55 L74,15 L78,15" fill="none" stroke="rgba(196,113,79,1)" stroke-width=".8"/></pattern></defs><rect width="200%" height="100%" fill="url(#greek-repeat)"/></svg>';
+  hero.appendChild(bg);
+}
+
+/* ════ HERO SCROLL FADE ════ */
+function initHeroScrollFade() {
+  var content = document.querySelector('.hero__content');
+  if (!content || !window.ScrollTrigger) return;
+  ScrollTrigger.create({trigger:'.hero, #hero',start:'top top',end:'+=60%',scrub:1,onUpdate:function(self){
+    var opacity = 1 - self.progress * 1.4;
+    gsap.set(content, {opacity:Math.max(0,opacity),y:self.progress*40});
+  }});
+}
+
+/* ════ SECTION NUMBERS ════ */
+function initSectionNumbers() {
+  var numbered = [
+    {selector:'.intro, #about',num:'01'},{selector:'.featured-dish',num:'02'},
+    {selector:'.menu-overview, #menu',num:'03'},{selector:'.setting, #experience',num:'04'},
+    {selector:'.testimonials',num:'05'},{selector:'.chef, #chef',num:'06'},
+    {selector:'.events, #events',num:'07'},{selector:'.gallery-preview, #gallery',num:'08'},
+    {selector:'.reserve-cta, #reserve',num:'09'}
+  ];
+  numbered.forEach(function(n) {
+    var section = document.querySelector(n.selector);
+    if (!section) return;
+    var firstChild = section.querySelector('[class*="__tag"], [class*="-tag"], h2, [class*="__title"]');
+    if (!firstChild) return;
+    var numEl = document.createElement('span');
+    numEl.className = 'section-num';
+    numEl.textContent = n.num;
+    numEl.setAttribute('aria-hidden','true');
+    firstChild.before(numEl);
+  });
+}
+
+/* ════ TRUST BAR MARQUEE ════ */
+function initTrustBarMarquee() {
+  var bar = document.querySelector('.trust-bar, [class*="trust-bar"]');
+  if (!bar) return;
+  var list = bar.querySelector('ul, [class*="logos"], [class*="list"]');
+  if (!list) return;
+  if (getComputedStyle(list).animationName !== 'none') return;
+  var clone = list.cloneNode(true);
+  clone.setAttribute('aria-hidden','true');
+  var track = document.createElement('div');
+  track.className = 'trust-bar__track';
+  track.style.cssText = 'display:flex;overflow:hidden;width:100%';
+  list.parentNode.insertBefore(track, list);
+  track.appendChild(list);
+  track.appendChild(clone);
+}
+
+/* ════ ORNAMENT REVEAL ════ */
+function initOrnamentReveal() {
+  if (!window.ScrollTrigger) return;
+  document.querySelectorAll('.section-ornament, [class*="ornament"]').forEach(function(el) {
+    var lines = el.querySelectorAll('[class*="__line"]');
+    var icons = el.querySelectorAll('[class*="__icon"], [class*="diamond"]');
+    gsap.set(lines, {scaleX:0,transformOrigin:'center'});
+    gsap.set(icons, {scale:0,rotation:0});
+    ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:function(){
+      gsap.to(lines, {scaleX:1,duration:.8,stagger:.1,ease:'power3.out'});
+      gsap.to(icons, {scale:1,rotation:45,duration:.5,stagger:.15,ease:'back.out(3)',delay:.2});
+    }});
+  });
+  document.querySelectorAll('section p:not([data-anim])').forEach(function(p) {
+    if (p.textContent.trim().length < 20) return;
+    p.setAttribute('data-anim','done');
+    gsap.set(p, {opacity:0,y:16});
+    ScrollTrigger.create({trigger:p,start:'top 90%',once:true,onEnter:function(){gsap.to(p,{opacity:1,y:0,duration:.65,ease:'power3.out'})}});
+  });
+}
+
+/* ════ KONAMI CODE ════ */
+function initKonamiCode() {
+  var sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var index = 0;
+  var overlay = document.createElement('div');
+  overlay.className = 'konami-overlay';
+  overlay.innerHTML = '<div class="konami-overlay__text">The sea has<br>been expecting<br><em>you.</em></div><p class="konami-overlay__sub">Secret found \u2014 Thalassa</p><button class="konami-overlay__close" id="konami-close">Close \u00b7 Esc</button>';
+  document.body.appendChild(overlay);
+  document.getElementById('konami-close').addEventListener('click', function(){overlay.classList.remove('active')});
+  document.addEventListener('keydown', function(e) {
+    if (overlay.classList.contains('active') && e.key === 'Escape') { overlay.classList.remove('active'); return; }
+    if (sequence[index] === e.key) {
+      index++;
+      if (index === sequence.length) {
+        index = 0;
+        overlay.classList.add('active');
+        var text = overlay.querySelector('.konami-overlay__text');
+        gsap.from(text, {opacity:0,y:40,duration:1,ease:'power4.out',delay:.2});
+        var colors = ['#C4714F','#1B3A5C','#C9A55A','#4A9C7A','#F4F0E8'];
+        for (var i = 0; i < 30; i++) {
+          var p = document.createElement('div');
+          p.style.cssText = 'position:fixed;left:'+Math.random()*100+'vw;top:-20px;width:'+(Math.random()*10+4)+'px;height:'+(Math.random()*10+4)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';transform:rotate('+Math.random()*360+'deg);pointer-events:none;z-index:100000;';
+          document.body.appendChild(p);
+          gsap.to(p, {y:'110vh',x:'+='+(Math.random()-.5)*200,rotation:'+='+Math.random()*720,duration:2+Math.random()*2,ease:'none',delay:Math.random(),onComplete:function(){this.targets()[0].remove()}});
+        }
+      }
+    } else { index = 0; }
+  });
+}
+
+/* ════ OPENING REVEAL ════ */
+function initOpeningReveal() {
+  window._thalassaEnhanceReveal = function() {
+    var navbar = document.querySelector('.navbar, header, #navbar');
+    if (navbar) gsap.from(navbar, {y:-100,opacity:0,duration:1,ease:'power4.out',delay:.1});
+  };
+}
+
+/* ════ PAGE POLISH ════ */
+function initPagePolish() {
+  document.querySelectorAll('a[class*="__link"], a[class*="-link"]').forEach(function(link) {
+    var arrow = link.querySelector('span, [aria-hidden]');
+    if (!arrow) return;
+    link.addEventListener('mouseenter', function(){gsap.to(arrow,{x:5,duration:.3,ease:'power2.out'})});
+    link.addEventListener('mouseleave', function(){gsap.to(arrow,{x:0,duration:.4,ease:'elastic.out(1,.5)'})});
+  });
+
+  var reserveBtn = document.querySelector('.reserve-cta__btn--primary, #reserve .btn[class*="primary"]');
+  if (reserveBtn) {
+    gsap.to(reserveBtn, {boxShadow:'0 4px 0 rgba(10,25,42,.5),0 8px 32px rgba(27,58,92,.5)',duration:1.8,yoyo:true,repeat:-1,ease:'sine.inOut'});
+  }
+
+  document.querySelectorAll('[class*="price"], .menu-item__price').forEach(function(el) {
+    el.style.fontVariantNumeric = 'tabular-nums';
+    el.style.fontFeatureSettings = '"tnum"';
+  });
+
+  if ('IntersectionObserver' in window) {
+    var imgObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var img = entry.target;
+          if (img.dataset.src && !img.src.includes(img.dataset.src)) img.src = img.dataset.src;
+          imgObserver.unobserve(img);
+        }
+      });
+    }, {rootMargin:'200px'});
+    document.querySelectorAll('img[data-src]').forEach(function(img){imgObserver.observe(img)});
+  }
+
+  var chefQuote = document.querySelector('.chef__quote p, [class*="chef"] blockquote p');
+  if (chefQuote && window.ScrollTrigger) {
+    var text = chefQuote.textContent;
+    var words = text.split(' ');
+    chefQuote.innerHTML = words.map(function(w){return '<span style="display:inline-block;opacity:0;transform:translateY(8px)">'+w+'&nbsp;</span>'}).join('');
+    ScrollTrigger.create({trigger:chefQuote,start:'top 80%',once:true,onEnter:function(){
+      gsap.to(chefQuote.querySelectorAll('span'), {opacity:1,y:0,duration:.5,stagger:.04,ease:'power3.out'});
+    }});
+  }
+
+  var caption = document.querySelector('.intro__caption, .intro figcaption');
+  if (caption) {
+    gsap.set(caption, {opacity:0});
+    if (window.ScrollTrigger) {
+      ScrollTrigger.create({trigger:caption,start:'top 85%',once:true,onEnter:function(){gsap.to(caption,{opacity:1,duration:1,delay:.4})}});
+    }
+  }
+
+  var featCard = document.querySelector('.menu-card--featured, [class*="menu-card"][class*="featured"]');
+  if (featCard) {
+    gsap.to(featCard, {boxShadow:'0 0 40px rgba(196,113,79,.15),0 12px 32px rgba(28,26,22,.14),0 24px 56px rgba(28,26,22,.1)',duration:2.2,yoyo:true,repeat:-1,ease:'sine.inOut'});
+  }
+
+  var copyEl = document.querySelector('.footer__copy, [class*="footer"] [class*="copy"]');
+  if (copyEl) {
+    var year = new Date().getFullYear();
+    copyEl.innerHTML = copyEl.innerHTML.replace(/\d{4}/, year);
+  }
+}
 
 </script>
 </body>
