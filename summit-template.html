@@ -1375,7 +1375,7 @@ ul, ol { list-style: none; }
 .metrics__tag-text { font-family:var(--font-mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);opacity:.75; }
 .metrics__title {
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 5.5vw, 7.2rem);
+  font-size: clamp(2.4rem, 4vw, 4.8rem);
   font-weight: 800;
   letter-spacing: -.025em;
   text-transform: uppercase;
@@ -1415,7 +1415,7 @@ ul, ol { list-style: none; }
 
 .metric-item__value {
   font-family: var(--font-display);
-  font-size: clamp(4.8rem, 7vw, 9.6rem);
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
   font-weight: 800;
   letter-spacing: -.04em;
   line-height: 1;
@@ -1534,9 +1534,9 @@ ul, ol { list-style: none; }
 .work-item__overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top,
-    rgba(10,10,15,.88) 0%,
-    rgba(10,10,15,.3) 50%,
-    rgba(10,10,15,.05) 100%);
+    rgba(10,10,15,.95) 0%,
+    rgba(10,10,15,.72) 45%,
+    rgba(10,10,15,.45) 100%);
 }
 
 .work-item::before {
@@ -1561,7 +1561,7 @@ ul, ol { list-style: none; }
   align-items: flex-end;
   justify-content: space-between;
   z-index: 2;
-  transform: translateY(6px);
+  transform: translateY(0);
   transition: transform .4s var(--ease-out);
 }
 .work-item:hover .work-item__info { transform: translateY(0); }
@@ -2104,7 +2104,7 @@ ul, ol { list-style: none; }
 
 .footer__email {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.2vw, 4.4rem);
+  font-size: clamp(1.6rem, 3vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -.02em;
   text-transform: uppercase;
@@ -2222,7 +2222,7 @@ ul, ol { list-style: none; }
   .contact-form-section { grid-template-columns: 1fr; }
   .contact-form-section__info { border-right: none; border-bottom: 1px solid var(--border); }
   .footer__top { flex-direction: column; gap: 4rem; }
-  .footer__email { font-size: 3.2rem; }
+  .footer__email { font-size: 2.4rem; }
 }
 
 @media (max-width: 768px) {
@@ -2775,6 +2775,84 @@ button, a, [role="button"] { cursor: none !important; }
   *, *::before, *::after { cursor: auto !important; }
 }
 
+
+/* ========== SUMMIT J4 BUTTON STYLE ========== */
+.summit-j4-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  transition: 0.5s;
+  text-decoration: none;
+  gap: 0;
+}
+
+.summit-j4-hub {
+  background: #00FF87;
+  color: #07070B;
+  padding: 0 4px;
+  border-radius: 6px;
+  animation: summit-j4-wee 0.5s ease;
+  transition: 0.5s;
+}
+
+.summit-j4-ui {
+  position: relative;
+  padding: 0 4px;
+}
+
+.summit-j4-ui::before, .summit-j4-ui::after {
+  content: "";
+  position: absolute;
+  background: radial-gradient(circle at 50% 50%, #00FF87, #00FF8700 75%);
+  width: 16px;
+  height: 16px;
+  bottom: 3px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.summit-j4-ui::before {
+  left: 0px;
+}
+
+.summit-j4-ui::after {
+  left: 16px;
+}
+
+.summit-j4-btn:hover .summit-j4-ui::before,
+.summit-j4-btn:hover .summit-j4-ui::after {
+  opacity: 1;
+}
+
+.summit-j4-btn:active .summit-j4-ui::before,
+.summit-j4-btn:active .summit-j4-ui::after {
+  opacity: 0;
+}
+
+.summit-j4-btn:active {
+  scale: 0.9;
+  rotate: -6deg;
+}
+
+.summit-j4-btn:active .summit-j4-hub {
+  animation: none;
+  rotate: -6deg;
+}
+
+@keyframes summit-j4-wee {
+  0%   { rotate: -6deg; }
+  25%  { rotate: 16deg; }
+  50%  { rotate: -12deg; }
+  75%  { rotate: 8deg; }
+  100% { rotate: 0deg; }
+}
+
   </style>
 
 <!-- GSAP + ScrollTrigger -->
@@ -2820,9 +2898,8 @@ button, a, [role="button"] { cursor: none !important; }
     </nav>
 
     <div class="navbar__actions">
-      <a href="#contact" class="navbar__cta" role="button">
-        Start a Project
-        <span class="navbar__cta-arrow" aria-hidden="true">&rarr;</span>
+      <a href="#contact" class="navbar__cta summit-j4-btn" role="button">
+        <span class="summit-j4-hub">START</span><span class="summit-j4-ui">A PROJECT &rarr;</span>
       </a>
     </div>
 
@@ -2896,9 +2973,8 @@ button, a, [role="button"] { cursor: none !important; }
         </p>
 
         <div class="hero__actions">
-          <a href="#work" class="hero__btn hero__btn--outline">
-            See Our Work
-            <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+          <a href="#work" class="hero__btn hero__btn--outline summit-j4-btn">
+            <span class="summit-j4-hub">SEE</span><span class="summit-j4-ui">OUR WORK &rarr;</span>
           </a>
           <a href="#services" class="hero__btn hero__btn--ghost">
             What We Do
@@ -3545,12 +3621,11 @@ button, a, [role="button"] { cursor: none !important; }
         </p>
 
         <div class="cta-final__actions">
-          <a href="#contact-form" class="cta-final__btn cta-final__btn--primary">
-            Start a Project
-            <span aria-hidden="true">&rarr;</span>
+          <a href="#contact-form" class="cta-final__btn cta-final__btn--primary summit-j4-btn">
+            <span class="summit-j4-hub">START</span><span class="summit-j4-ui">A PROJECT &rarr;</span>
           </a>
-          <a href="#contact-form" class="cta-final__btn cta-final__btn--outline">
-            Schedule a Call
+          <a href="#contact-form" class="cta-final__btn cta-final__btn--outline summit-j4-btn">
+            <span class="summit-j4-hub">SCHEDULE</span><span class="summit-j4-ui">A CALL</span>
           </a>
         </div>
       </div>
@@ -3684,9 +3759,8 @@ button, a, [role="button"] { cursor: none !important; }
           </select>
         </div>
 
-        <button type="submit" class="form-submit">
-          Send Message
-          <span aria-hidden="true">&rarr;</span>
+        <button type="submit" class="form-submit summit-j4-btn">
+          <span class="summit-j4-hub">SEND</span><span class="summit-j4-ui">MESSAGE &rarr;</span>
         </button>
 
         <p class="form-legal">
