@@ -218,55 +218,73 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
 .reserve-tel a:hover{color:var(--terra)}
 .reserve-note{font-family:var(--font-m);font-size:.85rem;color:var(--ivory-ghost);margin-top:1.2rem;position:relative;z-index:1}
 
-/* ═══ FOOTER ═══ */
-/* ═══ FOOTER V2 — 3-ZONE PREMIUM ═══ */
-.footer{background:var(--charcoal);color:var(--ivory);padding:0;border-top:none;position:relative;overflow:hidden}
-.footer__meander{width:100%;height:32px;background:repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(196,113,79,.18) 14px,rgba(196,113,79,.18) 16px,transparent 16px,transparent 30px),repeating-linear-gradient(0deg,transparent 0,transparent 14px,rgba(196,113,79,.18) 14px,rgba(196,113,79,.18) 16px,transparent 16px,transparent 30px);mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)}
-.footer__inner{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:0;padding:7.2rem 5.6rem 6.4rem;position:relative}
-.footer__ornament-line{display:block;width:56px;height:1px;background:linear-gradient(to right,var(--terra),var(--sand),var(--terra));margin:2.4rem 0;opacity:.5}
-/* Zone 1 — Brand */
-.footer__brand{padding-right:4.8rem;display:flex;flex-direction:column;justify-content:flex-start}
-.footer__logo{font-family:var(--font-d);font-size:3.2rem;font-weight:400;letter-spacing:.35em;text-transform:uppercase;color:var(--ivory);margin-bottom:.8rem;display:block;line-height:1.2}
-.footer__tagline{font-family:var(--font-m);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,232,.3);margin-bottom:2.4rem}
-.footer__philosophy{font-family:var(--font-b);font-size:1.4rem;font-weight:300;line-height:1.9;color:rgba(244,240,232,.45);max-width:32rem}
-.footer__greek-ornament{margin-top:3.2rem;display:flex;align-items:center;gap:1.2rem;color:rgba(244,240,232,.15);font-size:1.2rem;letter-spacing:.6em;font-family:var(--font-d)}
-/* Zone 2 — Contact (star) */
-.footer__contact{padding:4.8rem 5.6rem;position:relative;border-left:1px solid rgba(244,240,232,.06);border-right:1px solid rgba(244,240,232,.06);display:flex;flex-direction:column;align-items:center;text-align:center;background:rgba(244,240,232,.02);border-radius:var(--r-lg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(244,240,232,.04),inset 0 -1px 0 rgba(244,240,232,.02),0 0 80px rgba(196,113,79,.03)}
-.footer__contact::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.3),transparent)}
-.footer__contact-label{font-family:var(--font-m);font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--terra);margin-bottom:1.6rem}
-.footer__contact-heading{font-family:var(--font-d);font-size:2.8rem;font-weight:400;line-height:1.3;color:var(--ivory);margin-bottom:3.2rem;font-style:italic}
-.footer__contact-phone{font-family:var(--font-d);font-size:2.2rem;font-weight:400;letter-spacing:.08em;color:var(--ivory);display:block;margin-bottom:1.2rem;transition:color .3s}
-.footer__contact-phone:hover{color:var(--terra)}
-.footer__contact-email{font-family:var(--font-m);font-size:1rem;letter-spacing:.12em;color:rgba(244,240,232,.5);display:block;margin-bottom:3.2rem;transition:color .3s}
-.footer__contact-email:hover{color:var(--terra)}
-.footer__contact-address{font-family:var(--font-b);font-size:1.3rem;font-weight:300;color:rgba(244,240,232,.4);line-height:1.8;margin-bottom:2.4rem}
-.footer__contact-hours{font-family:var(--font-m);font-size:.85rem;letter-spacing:.1em;color:rgba(244,240,232,.35);line-height:2;margin-bottom:.8rem}
-.footer__contact-season{font-family:var(--font-m);font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sand);margin-bottom:3.6rem;opacity:.6}
-.footer__reserve-btn{display:inline-flex;align-items:center;gap:1rem;font-family:var(--font-m);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;background:var(--terra);color:var(--white);padding:1.6rem 4rem;border-radius:var(--r-full);border:none;cursor:pointer;transition:background .3s,transform .25s,box-shadow .3s;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 0 rgba(120,55,35,.4),0 6px 20px rgba(196,113,79,.2)}
-.footer__reserve-btn:hover{background:var(--terra-light);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 6px 0 rgba(120,55,35,.4),0 10px 28px rgba(196,113,79,.3)}
-.footer__reserve-btn .btn-arrow{transition:transform .3s var(--ease-out)}.footer__reserve-btn:hover .btn-arrow{transform:translateX(4px)}
-/* Zone 3 — Social & Legal */
-.footer__social-zone{padding-left:4.8rem;display:flex;flex-direction:column;justify-content:flex-start}
-.footer__social-title{font-family:var(--font-m);font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--terra);margin-bottom:2.8rem}
-.footer__social-links{display:flex;flex-direction:column;gap:1.6rem;margin-bottom:4rem}
-.footer__social-link{font-family:var(--font-b);font-size:1.5rem;font-weight:300;color:rgba(244,240,232,.45);display:inline-flex;align-items:center;gap:1rem;transition:color .35s,padding-left .35s var(--ease-out);padding-left:0}
-.footer__social-link::before{content:'';display:inline-block;width:0;height:1px;background:var(--terra);transition:width .35s var(--ease-out)}
-.footer__social-link:hover{color:var(--ivory);padding-left:.4rem}
-.footer__social-link:hover::before{width:2rem}
-.footer__legal{margin-top:auto}
-.footer__legal-text{font-family:var(--font-m);font-size:.75rem;letter-spacing:.1em;color:rgba(244,240,232,.18);line-height:2.2}
-.footer__legal-text a{color:rgba(244,240,232,.3);transition:color .3s}
-.footer__legal-text a:hover{color:var(--terra)}
-.footer__crafted{font-family:var(--font-m);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,240,232,.12);margin-top:2rem}
-/* Bottom bar */
-.footer__bar{display:flex;align-items:center;justify-content:space-between;padding:2.4rem 5.6rem;border-top:1px solid rgba(244,240,232,.06)}
-.footer__bar a{font-family:var(--font-m);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,240,232,.25);transition:color .3s}
-.footer__bar a:hover{color:var(--terra)}
-.footer__bar-credit{font-family:var(--font-m);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,240,232,.15)}
-/* Footer responsive overrides */
-@media(max-width:1024px){.footer__inner{grid-template-columns:1fr 1fr;gap:4rem;padding:6rem 3.2rem 5rem}.footer__contact{grid-column:1/-1;order:-1;border-left:none;border-right:none;border-bottom:1px solid rgba(244,240,232,.06);border-radius:var(--r-md);padding:4rem 3.2rem;margin-bottom:1.6rem}.footer__brand{padding-right:2rem}.footer__social-zone{padding-left:2rem}}
-@media(max-width:768px){.footer__inner{grid-template-columns:1fr;gap:4rem;padding:5rem 2.4rem 4rem}.footer__brand{padding-right:0;text-align:center;align-items:center}.footer__philosophy{max-width:100%}.footer__greek-ornament{justify-content:center}.footer__contact{padding:4rem 2.4rem;border:none;border-top:1px solid rgba(244,240,232,.06);border-bottom:1px solid rgba(244,240,232,.06);border-radius:var(--r-sm)}.footer__social-zone{padding-left:0;text-align:center;align-items:center}.footer__social-links{align-items:center}.footer__crafted{text-align:center}.footer__bar{padding:2rem 2.4rem}}
-@media(max-width:480px){.footer__contact-heading{font-size:2.2rem}.footer__contact-phone{font-size:1.8rem}.footer__logo{font-size:2.6rem;letter-spacing:.25em}.footer__bar{flex-direction:column;gap:1.2rem;text-align:center}}
+/* ═══════════════════════════════════════════════════════
+   FOOTER — REDESIGN COMPLET
+═══════════════════════════════════════════════════════ */
+.footer{background:#141210;color:var(--ivory);position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;top:0;left:8rem;right:8rem;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.2),rgba(201,165,90,.4),rgba(196,113,79,.2),transparent)}
+.footer::after{content:'';position:absolute;inset:0;background-image:radial-gradient(ellipse at 50% 100%,rgba(27,58,92,.08) 0%,transparent 65%);pointer-events:none}
+/* Zone haute */
+.footer__top{display:flex;align-items:flex-start;justify-content:space-between;padding:7.2rem 8rem 5.6rem;position:relative;z-index:1;border-bottom:1px solid rgba(244,240,232,.06)}
+.footer__brand-block{max-width:380px}
+.footer__logo{font-family:var(--font-d);font-size:3.2rem;font-weight:400;letter-spacing:.4em;text-transform:uppercase;color:var(--ivory);text-decoration:none;display:block;margin-bottom:1.2rem;transition:color .3s ease}
+.footer__logo:hover{color:var(--terra)}
+.footer__tagline{font-family:var(--font-m);font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,240,232,.3);margin-bottom:2.8rem}
+.footer__divider-ornament{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem}
+.footer__diam{width:5px;height:5px;background:var(--terra);transform:rotate(45deg);opacity:.5;flex-shrink:0}
+.footer__diam-line{height:1px;width:40px;background:linear-gradient(to right,rgba(196,113,79,.4),rgba(196,113,79,.1))}
+.footer__address{font-family:var(--font-b);font-size:1.4rem;font-weight:300;color:rgba(244,240,232,.5);font-style:normal;margin-bottom:1.4rem}
+.footer__hours{font-family:var(--font-m);font-size:.85rem;letter-spacing:.08em;color:rgba(244,240,232,.3);line-height:1.9}
+.footer__hours span{color:rgba(196,113,79,.5)}
+.footer__reserve-block{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:1.4rem}
+.footer__reserve-label{font-family:var(--font-m);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,232,.3)}
+.footer__reserve-btn{display:inline-flex;align-items:center;gap:1rem;font-family:var(--font-m);font-size:1rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--ivory);background:linear-gradient(180deg,#2E5F8A 0%,#1B3A5C 55%,#142d47 100%);padding:1.4rem 3.2rem;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 0 rgba(10,25,42,.5),0 6px 20px rgba(27,58,92,.3);transition:transform .15s ease,box-shadow .15s ease;position:relative;overflow:hidden}
+.footer__reserve-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.1) 50%,transparent 65%);transition:left .6s ease}
+.footer__reserve-btn:hover::before{left:160%}
+.footer__reserve-btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 6px 0 rgba(10,25,42,.5),0 10px 28px rgba(27,58,92,.4)}
+.footer__reserve-btn:active{transform:translateY(2px)}
+.footer__reserve-note{font-family:var(--font-m);font-size:.8rem;letter-spacing:.1em;color:rgba(244,240,232,.25)}
+.footer__reserve-note a{color:rgba(196,113,79,.6);text-decoration:none;transition:color .3s}
+.footer__reserve-note a:hover{color:var(--terra)}
+/* Zone contact imposante */
+.footer__contact-zone{padding:6.4rem 8rem;position:relative;z-index:1;border-bottom:1px solid rgba(244,240,232,.06)}
+.footer__contact-label{font-family:var(--font-m);font-size:.85rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(196,113,79,.6);text-align:center;margin-bottom:4rem}
+.footer__contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.footer__contact-item{display:flex;flex-direction:column;align-items:center;gap:1.4rem;padding:4rem 3.2rem;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:background .4s ease;border-right:1px solid rgba(244,240,232,.06)}
+.footer__contact-item:last-child{border-right:none}
+.footer__contact-item::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(196,113,79,.04),rgba(27,58,92,.06));opacity:0;transition:opacity .4s ease}
+.footer__contact-item:hover::before{opacity:1}
+.footer__contact-item::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:var(--terra);transform:scaleX(0);transform-origin:center;transition:transform .5s var(--ease-expo)}
+.footer__contact-item:hover::after{transform:scaleX(1)}
+.footer__contact-icon{width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:rgba(196,113,79,.08);border:1px solid rgba(196,113,79,.2);border-radius:50%;color:var(--terra);flex-shrink:0;transition:all .4s var(--ease-out);position:relative;z-index:1}
+.footer__contact-icon svg{width:20px;height:20px}
+.footer__contact-item:hover .footer__contact-icon{background:rgba(196,113,79,.15);border-color:var(--terra);transform:scale(1.1);box-shadow:0 0 20px rgba(196,113,79,.2)}
+.footer__contact-type{font-family:var(--font-m);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,240,232,.3);position:relative;z-index:1}
+.footer__contact-value{font-family:var(--font-d);font-size:clamp(1.6rem,2.2vw,2.8rem);font-weight:400;font-style:italic;color:var(--ivory);text-align:center;position:relative;z-index:1;transition:color .3s ease}
+.footer__contact-item:hover .footer__contact-value{color:var(--terra)}
+.footer__contact-arrow{font-size:1.6rem;color:rgba(196,113,79,.4);position:relative;z-index:1;transform:translateX(0);transition:transform .4s var(--ease-out),color .3s}
+.footer__contact-item:hover .footer__contact-arrow{transform:translateX(6px);color:var(--terra)}
+/* Zone basse */
+.footer__bottom{display:flex;align-items:center;justify-content:space-between;padding:3.2rem 8rem;position:relative;z-index:1}
+.footer__social{display:flex;align-items:center;gap:.4rem}
+.footer__social-link{display:flex;align-items:center;gap:.8rem;padding:.9rem 1.4rem;border-radius:999px;text-decoration:none;color:rgba(244,240,232,.35);border:1px solid rgba(244,240,232,.07);transition:all .3s ease;position:relative;overflow:hidden}
+.footer__social-link::before{content:'';position:absolute;inset:0;background:rgba(196,113,79,.06);opacity:0;transition:opacity .3s;border-radius:inherit}
+.footer__social-link:hover{color:var(--ivory);border-color:rgba(196,113,79,.3);transform:translateY(-2px);box-shadow:0 4px 16px rgba(196,113,79,.1)}
+.footer__social-link:hover::before{opacity:1}
+.footer__social-icon{width:17px;height:17px;flex-shrink:0;transition:transform .3s cubic-bezier(0.34,1.56,0.64,1)}
+.footer__social-link:hover .footer__social-icon{transform:scale(1.15)}
+.footer__social-name{font-family:var(--font-m);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.footer__social-link--cta{color:rgba(201,165,90,.6);border-color:rgba(201,165,90,.15)}
+.footer__social-link--cta:hover{color:var(--sand);border-color:rgba(201,165,90,.4);box-shadow:0 4px 16px rgba(201,165,90,.1)}
+.footer__legal{display:flex;align-items:center;gap:2.4rem}
+.footer__copy{font-family:var(--font-m);font-size:.8rem;letter-spacing:.1em;color:rgba(244,240,232,.2)}
+.footer__legal nav{display:flex;align-items:center;gap:.8rem}
+.footer__legal nav a{font-family:var(--font-m);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,240,232,.2);text-decoration:none;transition:color .3s}
+.footer__legal nav a:hover{color:rgba(244,240,232,.6)}
+.footer__legal nav span{color:rgba(244,240,232,.1)}
+/* Footer responsive */
+@media(max-width:1024px){.footer__top,.footer__contact-zone,.footer__bottom{padding-left:4rem;padding-right:4rem}.footer__contact-value{font-size:1.8rem}}
+@media(max-width:768px){.footer__top{flex-direction:column;gap:4rem;padding:5.6rem 2.4rem 4rem}.footer__reserve-block{align-items:flex-start;text-align:left}.footer__contact-zone{padding:4.8rem 2.4rem}.footer__contact-grid{grid-template-columns:1fr}.footer__contact-item{border-right:none;border-bottom:1px solid rgba(244,240,232,.06);padding:3.2rem 2.4rem;flex-direction:row;align-items:center;text-align:left;gap:2rem}.footer__contact-item:last-child{border-bottom:none}.footer__contact-type{display:none}.footer__contact-value{font-size:1.6rem;text-align:left}.footer__contact-arrow{margin-left:auto}.footer__bottom{flex-direction:column;gap:2.4rem;align-items:flex-start;padding:3.2rem 2.4rem}.footer__social{flex-wrap:wrap;gap:.6rem}}
 
 /* ═══ TYPOGRAPHY UTILITIES ═══ */
 .t-hero{font-family:var(--font-d);font-size:clamp(5.6rem,9vw,13.6rem);font-weight:400;line-height:.92;letter-spacing:-.02em}
@@ -519,10 +537,7 @@ input,select,textarea{transition:border-color .3s ease,box-shadow .3s ease,backg
 .testimonial.is-active .testimonial__mark,[class*="testimonial"].is-active [class*="mark"]{color:rgba(196,113,79,.15);transform:scale(1.05)}
 .chef__awards li,[class*="chef"] [class*="award"] li,[class*="chef"] [class*="awards"] li{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 0;border-bottom:1px solid rgba(28,26,22,.06);transition:padding-left .35s ease,color .3s ease;cursor:default}
 .chef__awards li:hover,[class*="chef"] [class*="award"] li:hover{padding-left:1.2rem;color:#C4714F}
-.footer a:not(.footer__logo):not(.footer__reserve-btn){position:relative;transition:color .3s ease,padding-left .3s ease!important}
-.footer__col a:hover,[class*="footer__col"] a:hover{color:#FDFAF5!important;padding-left:.8rem!important}
-.footer__social a{transition:color .3s ease,letter-spacing .35s ease!important}
-.footer__social a:hover{color:#C4714F!important;letter-spacing:.2em!important}
+.footer a:not(.footer__logo):not(.footer__reserve-btn):not(.footer__social-link):not(.footer__contact-item){position:relative;transition:color .3s ease,padding-left .3s ease!important}
 .trust-bar li:not(.trust-bar__sep),[class*="trust"] li:not([class*="sep"]){transition:color .3s ease,opacity .3s ease;cursor:default}
 .trust-bar:hover li:not(.trust-bar__sep):not(:hover),[class*="trust"]:hover li:not([class*="sep"]):not(:hover){opacity:.4}
 .trust-bar li:not(.trust-bar__sep):hover,[class*="trust"] li:not([class*="sep"]):hover{color:#1B3A5C;opacity:1!important}
@@ -578,7 +593,6 @@ input,select,textarea{transition:border-color .3s ease,box-shadow .3s ease,backg
 .newsletter,[class*="newsletter"]{position:relative;overflow:hidden}
 .newsletter::after,[class*="newsletter"]::after{content:'';position:absolute;bottom:-40%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);pointer-events:none}
 .footer,footer{position:relative}
-.footer::before,footer::before{content:'';position:absolute;top:0;left:5.6rem;right:5.6rem;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.2),rgba(201,165,90,.3),rgba(196,113,79,.2),transparent)}
 .gallery-preview__title,[class*="gallery"] h2{transition:letter-spacing .5s ease}
 .gallery-preview__title:hover,[class*="gallery"] h2:hover{letter-spacing:.02em}
 .konami-overlay{position:fixed;inset:0;z-index:99999;background:#1B3A5C;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2.4rem;opacity:0;pointer-events:none;transition:opacity .5s ease}
@@ -1028,50 +1042,188 @@ input,select,textarea{transition:border-color .3s ease,box-shadow .3s ease,backg
 </section>
 
 <!-- S1.14 FOOTER -->
-<footer class="footer" id="contact">
-  <div class="footer__meander"></div>
-  <div class="footer__inner">
+<footer class="footer" id="footer" role="contentinfo">
 
-    <!-- Zone 1 — Brand & Philosophy -->
-    <div class="footer__brand reveal">
-      <span class="footer__logo">THALASSA</span>
-      <div class="footer__tagline">Modern Greek Gastronomy</div>
-      <span class="footer__ornament-line"></span>
-      <p class="footer__philosophy">Where the Aegean meets the plate. A celebration of Greek terroir, ancient traditions, and modern craft.</p>
-      <div class="footer__greek-ornament" aria-hidden="true">&mdash; &#9674; &mdash;</div>
+  <!-- ZONE HAUTE — Brand + infos -->
+  <div class="footer__top">
+
+    <div class="footer__brand-block">
+      <a href="/" class="footer__logo" aria-label="Thalassa — Retour accueil">
+        THALASSA
+      </a>
+      <p class="footer__tagline">Modern Greek Gastronomy</p>
+      <div class="footer__divider-ornament" aria-hidden="true">
+        <span class="footer__diam"></span>
+        <span class="footer__diam-line"></span>
+        <span class="footer__diam"></span>
+      </div>
+      <address class="footer__address">
+        Oia, Santorini &middot; Cyclades, Greece
+      </address>
+      <p class="footer__hours">
+        Dinner &middot; Tuesday &ndash; Sunday &middot; 7 PM &ndash; midnight<br>
+        <span>Open April 15 &ndash; October 31</span>
+      </p>
     </div>
 
-    <!-- Zone 2 — Contact (star zone) -->
-    <div class="footer__contact reveal">
-      <span class="footer__contact-label">Reservations</span>
-      <h3 class="footer__contact-heading">Reserve Your Evening</h3>
-      <a href="tel:+302100000000" class="footer__contact-phone">+30 210 000 0000</a>
-      <a href="mailto:reservations@thalassa.gr" class="footer__contact-email">reservations@thalassa.gr</a>
-      <div class="footer__contact-address">Caldera Cliffs, Oia<br>Santorini 847 02, Greece</div>
-      <div class="footer__contact-hours">Tue&ndash;Sun, 7 PM &ndash; Midnight</div>
-      <div class="footer__contact-season">Season: April 15 &ndash; October 31</div>
-      <a href="#reserve" class="footer__reserve-btn">Book a Table <i class="btn-arrow">&rarr;</i></a>
-    </div>
-
-    <!-- Zone 3 — Social & Legal -->
-    <div class="footer__social-zone reveal">
-      <span class="footer__social-title">Follow Us</span>
-      <div class="footer__social-links">
-        <a href="#" class="footer__social-link">Instagram</a>
-        <a href="#" class="footer__social-link">Facebook</a>
-        <a href="#" class="footer__social-link">TripAdvisor</a>
-      </div>
-      <div class="footer__legal">
-        <div class="footer__legal-text">&copy; 2025 Thalassa &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></div>
-        <div class="footer__crafted">Crafted with care in Santorini</div>
-      </div>
+    <div class="footer__reserve-block">
+      <p class="footer__reserve-label">Ready for your evening?</p>
+      <a href="#reserve" class="footer__reserve-btn">
+        Reserve a Table
+        <span aria-hidden="true">&rarr;</span>
+      </a>
+      <p class="footer__reserve-note">
+        Group bookings:
+        <a href="mailto:events@thalassa.gr">events@thalassa.gr</a>
+      </p>
     </div>
 
   </div>
-  <div class="footer__bar">
-    <a href="#" class="footer__bar-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">&uarr; Back to top</a>
-    <span class="footer__bar-credit">Designed by Vantage</span>
+
+  <!-- ZONE MILIEU — Contact imposant -->
+  <div class="footer__contact-zone">
+
+    <p class="footer__contact-label">Get in touch</p>
+
+    <div class="footer__contact-grid">
+
+      <a href="tel:+302100000000"
+         class="footer__contact-item"
+         aria-label="Appeler Thalassa">
+        <span class="footer__contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                     19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18
+                     2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
+                     a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27
+                     a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7
+                     A2 2 0 0122 16.92z"/>
+          </svg>
+        </span>
+        <span class="footer__contact-type">Call us</span>
+        <span class="footer__contact-value">+30 210 000 0000</span>
+        <span class="footer__contact-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+
+      <a href="mailto:hello@thalassa.gr"
+         class="footer__contact-item"
+         aria-label="Envoyer un email">
+        <span class="footer__contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </span>
+        <span class="footer__contact-type">Write to us</span>
+        <span class="footer__contact-value">hello@thalassa.gr</span>
+        <span class="footer__contact-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+
+      <a href="https://wa.me/302100000000"
+         class="footer__contact-item"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="WhatsApp Thalassa">
+        <span class="footer__contact-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7
+                     8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8
+                     8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5
+                     a8.48 8.48 0 018 8v.5z"/>
+          </svg>
+        </span>
+        <span class="footer__contact-type">WhatsApp</span>
+        <span class="footer__contact-value">Message us</span>
+        <span class="footer__contact-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+
+    </div>
   </div>
+
+  <!-- ZONE BASSE — Social + Legal -->
+  <div class="footer__bottom">
+
+    <nav class="footer__social" aria-label="Social links">
+
+      <a href="https://instagram.com/thalassa.gr"
+         class="footer__social-link" target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram">
+        <svg class="footer__social-icon" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span class="footer__social-name">Instagram</span>
+      </a>
+
+      <a href="https://facebook.com/thalassagr"
+         class="footer__social-link" target="_blank" rel="noopener noreferrer"
+         aria-label="Facebook">
+        <svg class="footer__social-icon" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+        <span class="footer__social-name">Facebook</span>
+      </a>
+
+      <a href="https://tripadvisor.com"
+         class="footer__social-link" target="_blank" rel="noopener noreferrer"
+         aria-label="TripAdvisor">
+        <svg class="footer__social-icon" viewBox="0 0 24 24"
+             fill="currentColor" stroke="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.25 0 2.42.3 3.45.83L14 7.25A4.98 4.98 0 0012 7a5 5 0 100 10 4.98 4.98 0 002.45-.64l1.4 1.39A7.95 7.95 0 0112 19a7 7 0 110-14zm0 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+        </svg>
+        <span class="footer__social-name">TripAdvisor</span>
+      </a>
+
+      <a href="https://maps.google.com"
+         class="footer__social-link" target="_blank" rel="noopener noreferrer"
+         aria-label="Google Maps">
+        <svg class="footer__social-icon" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span class="footer__social-name">Find us</span>
+      </a>
+
+      <a href="https://opentable.com"
+         class="footer__social-link footer__social-link--cta"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="OpenTable">
+        <svg class="footer__social-icon" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8"  y1="2" x2="8"  y2="6"/>
+          <line x1="3"  y1="10" x2="21" y2="10"/>
+        </svg>
+        <span class="footer__social-name">OpenTable</span>
+      </a>
+
+    </nav>
+
+    <div class="footer__legal">
+      <p class="footer__copy">
+        &copy; <span class="footer__year">2025</span> Thalassa Restaurant
+      </p>
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+
+  </div>
+
 </footer>
 
 <script>
@@ -2576,6 +2728,7 @@ document.addEventListener('DOMContentLoaded', function() {
   injectHorizontalGallery();
   initSoundToggle();
   injectLiveBadge();
+  initFooterPolish();
   initFinalAccessibility();
 });
 
@@ -2880,6 +3033,84 @@ function initFinalAccessibility() {
   }
   var main = document.querySelector('main, #main-content, [role="main"]');
   if (main && !main.id) main.id = 'main-content';
+}
+
+/* ════ FOOTER POLISH ════ */
+function initFooterPolish() {
+  /* Copyright year auto */
+  document.querySelectorAll('.footer__year').forEach(function(el) {
+    el.textContent = new Date().getFullYear();
+  });
+
+  if (!window.ScrollTrigger || !window.gsap) return;
+
+  /* Brand block stagger */
+  var brandChildren = document.querySelectorAll('.footer__brand-block > *');
+  if (brandChildren.length) {
+    gsap.set(brandChildren, { opacity: 0, y: 20 });
+    ScrollTrigger.create({
+      trigger: '.footer',
+      start: 'top 85%',
+      once: true,
+      onEnter: function() {
+        gsap.to(brandChildren, {
+          opacity: 1, y: 0,
+          duration: .7, stagger: .1, ease: 'power3.out'
+        });
+        gsap.from('.footer__diam', {
+          scale: 0, rotate: 0,
+          duration: .5, stagger: .15, ease: 'back.out(3)',
+          delay: .3
+        });
+      }
+    });
+  }
+
+  /* Contact items stagger */
+  var contactItems = document.querySelectorAll('.footer__contact-item');
+  if (contactItems.length) {
+    gsap.set(contactItems, { opacity: 0, y: 32 });
+    ScrollTrigger.create({
+      trigger: '.footer__contact-zone',
+      start: 'top 85%',
+      once: true,
+      onEnter: function() {
+        gsap.to(contactItems, {
+          opacity: 1, y: 0,
+          duration: .8, stagger: .15, ease: 'power3.out'
+        });
+      }
+    });
+  }
+
+  /* Social links stagger */
+  var socialLinks = document.querySelectorAll('.footer__social-link');
+  if (socialLinks.length) {
+    gsap.set(socialLinks, { opacity: 0, y: 12, scale: .95 });
+    ScrollTrigger.create({
+      trigger: '.footer__bottom',
+      start: 'top 95%',
+      once: true,
+      onEnter: function() {
+        gsap.to(socialLinks, {
+          opacity: 1, y: 0, scale: 1,
+          duration: .5, stagger: .07, ease: 'back.out(1.8)'
+        });
+      }
+    });
+  }
+
+  /* Contact value hover micro-anim */
+  contactItems.forEach(function(item) {
+    var val = item.querySelector('.footer__contact-value');
+    if (!val) return;
+    item.addEventListener('mouseenter', function() {
+      gsap.from(val, {
+        opacity: 0, y: 6,
+        duration: .3, ease: 'power2.out'
+      });
+    });
+  });
 }
 
 </script>
