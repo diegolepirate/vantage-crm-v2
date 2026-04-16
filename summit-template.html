@@ -510,14 +510,13 @@ ul, ol { list-style: none; }
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(5.2rem, 9vw, 13.6rem);
+  font-size: clamp(4rem, 7vw, 9rem);
   font-weight: 800;
-  line-height: .9;
+  line-height: .92;
   letter-spacing: -.03em;
   text-transform: uppercase;
   color: var(--white);
   margin-bottom: 3.2rem;
-  overflow: hidden;
 }
 
 .hero__title-line {
@@ -1503,7 +1502,10 @@ ul, ol { list-style: none; }
   position: relative;
   overflow: hidden;
   aspect-ratio: 4/3;
-  background: var(--surface);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--raised) 100%);
+}
+.work-item__img {
+  background: var(--raised);
 }
 .work-item--large {
   grid-column: span 2;
@@ -1797,11 +1799,11 @@ ul, ol { list-style: none; }
 
 .cta-final__title {
   font-family: var(--font-display);
-  font-size: clamp(5.6rem, 11vw, 15.2rem);
+  font-size: clamp(4rem, 7vw, 9rem);
   font-weight: 800;
   letter-spacing: -.035em;
   text-transform: uppercase;
-  line-height: .88;
+  line-height: .92;
   margin-bottom: 4rem;
 }
 
@@ -2504,7 +2506,7 @@ ul, ol { list-style: none; }
    P4 — POLISH FINAL + GLITCH + HOVER STATES
 ═══════════════════════════════════════════════════════ */
 
-/* CURSEUR CUSTOM — 2x plus gros, noir+blanc classique */
+/* CURSEUR CUSTOM — 2.5x plus gros, noir+blanc classique */
 *, *::before, *::after { cursor: none !important; }
 
 .cursor {
@@ -2512,11 +2514,11 @@ ul, ol { list-style: none; }
   z-index: 99999;
   pointer-events: none;
   top: 0; left: 0;
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: #000000;
-  border: 2px solid #FFFFFF;
+  border: 2.5px solid #FFFFFF;
   transform: translate(-50%, -50%);
   transition: width .25s var(--ease-out),
               height .25s var(--ease-out),
@@ -2524,12 +2526,12 @@ ul, ol { list-style: none; }
   will-change: transform;
 }
 .cursor.is-hover {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 .cursor.is-click {
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
 }
 .cursor.is-hidden { opacity: 0; }
 
