@@ -903,13 +903,22 @@ if(pct)pct.textContent=Math.floor(val)+'%';
 function checkDone(){
 loaded++;
 updateProgress((loaded/total)*100);
-if(loaded>=total)setTimeout(closePreloader,350);
+if(loaded>=total)finishLoading();
 }
+var done=false;
+function finishLoading(){
+if(done)return;done=true;
+updateProgress(100);
+setTimeout(closePreloader,350);
+}
+/* Fallback: force close after 3s no matter what */
+setTimeout(finishLoading,3000);
+
 if(images.length===0){
 var p=0;
 var iv=setInterval(function(){
 p+=Math.random()*14+4;
-if(p>=100){p=100;clearInterval(iv);updateProgress(100);setTimeout(closePreloader,400)}
+if(p>=100){p=100;clearInterval(iv);finishLoading()}
 updateProgress(p);
 },60);
 }else{
