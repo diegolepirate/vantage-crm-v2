@@ -556,6 +556,75 @@ input,select,textarea{transition:border-color .3s ease,box-shadow .3s ease,backg
 .konami-overlay__close:hover{color:#F4F0E8;border-color:rgba(244,240,232,.4)}
 @media(max-width:768px){.greek-divider{padding:1.2rem 2.4rem}.section-watermark{font-size:20vw}.footer::before{left:2.4rem;right:2.4rem}}
 @media print{.navbar,.preloader,.hero__scroll-indicator,.scroll-progress-bar,.mobile-menu{display:none!important}body{color:#000;background:#fff}}
+
+/* ═══ P6 — TEXTE AVANCE + GALERIE HORIZ + DETAILS FINAUX ═══ */
+.back-to-top{position:fixed;bottom:3.2rem;right:3.2rem;z-index:200;width:52px;height:52px;background:#1B3A5C;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .4s ease,transform .4s ease,background .3s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 16px rgba(27,58,92,.35);cursor:pointer}
+.back-to-top.is-visible{opacity:1;transform:translateY(0);pointer-events:all}
+.back-to-top:hover{background:#2E5F8A;transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(27,58,92,.45)}
+.back-to-top:active{transform:translateY(1px)}
+.back-to-top__arrow{width:14px;height:14px;position:relative}
+.back-to-top__arrow::before,.back-to-top__arrow::after{content:'';position:absolute;width:7px;height:1.5px;background:#F4F0E8;top:50%}
+.back-to-top__arrow::before{left:0;transform:rotate(-45deg) translateY(-50%);transform-origin:right}
+.back-to-top__arrow::after{right:0;transform:rotate(45deg) translateY(-50%);transform-origin:left}
+.back-to-top__ring{position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(#C4714F var(--progress,0%),rgba(255,255,255,.08) var(--progress,0%))}
+.cookie-banner{position:fixed;bottom:2.4rem;left:2.4rem;z-index:8000;max-width:440px;background:rgba(28,26,22,.95);backdrop-filter:blur(20px);border:1px solid rgba(244,240,232,.08);border-radius:16px;padding:2.4rem;box-shadow:0 16px 48px rgba(28,26,22,.3);transform:translateY(20px);opacity:0;transition:opacity .5s ease,transform .5s ease}
+.cookie-banner.is-visible{opacity:1;transform:translateY(0)}
+.cookie-banner__text{font-family:'DM Sans',sans-serif;font-size:1.3rem;font-weight:300;color:rgba(244,240,232,.7);line-height:1.65;margin-bottom:2rem}
+.cookie-banner__text a{color:#C4714F;text-decoration:underline;text-underline-offset:3px}
+.cookie-banner__actions{display:flex;gap:1.2rem;align-items:center}
+.cookie-btn--accept{font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;background:#1B3A5C;color:#F4F0E8;border:none;border-radius:999px;padding:.9rem 2.4rem;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 rgba(10,25,42,.4);transition:transform .15s,box-shadow .15s}
+.cookie-btn--accept:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 5px 0 rgba(10,25,42,.4),0 8px 20px rgba(27,58,92,.3)}
+.cookie-btn--decline{font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;background:none;color:rgba(244,240,232,.35);border:none;cursor:pointer;transition:color .3s;padding:.9rem .4rem}
+.cookie-btn--decline:hover{color:rgba(244,240,232,.7)}
+.lang-switcher{display:flex;align-items:center;gap:.6rem;font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;position:relative}
+.lang-btn{background:none;border:none;cursor:pointer;padding:.3rem .6rem;border-radius:4px;transition:all .25s ease;line-height:1}
+.lang-btn.is-active{color:#F4F0E8;background:rgba(244,240,232,.1)}
+.lang-btn:not(.is-active){color:rgba(244,240,232,.35)}
+.lang-btn:not(.is-active):hover{color:rgba(244,240,232,.65)}
+.lang-sep{color:rgba(244,240,232,.2);font-size:.7rem}
+.gallery-horizontal{position:relative}
+.gallery-horizontal__pin{position:sticky;top:0;height:100vh;overflow:hidden;background:#1C1A16}
+.gallery-horizontal__track{display:flex;height:100%;will-change:transform}
+.gallery-horizontal__header{flex-shrink:0;width:35vw;display:flex;flex-direction:column;justify-content:flex-end;padding:6.4rem 4.8rem}
+.gallery-horizontal__header .section-num{color:rgba(196,113,79,.5)}
+.gallery-horizontal__header h2{font-family:'Playfair Display',serif;font-size:clamp(4rem,5vw,6.4rem);font-weight:400;font-style:italic;color:#F4F0E8;line-height:1;margin-bottom:2rem}
+.gallery-horizontal__header h2 em{font-style:normal;color:#C4714F}
+.gallery-horizontal__header p{font-family:'DM Sans',sans-serif;font-size:1.4rem;font-weight:300;color:rgba(244,240,232,.45);line-height:1.7;max-width:32ch}
+.gallery-h-progress{display:flex;align-items:center;gap:1.2rem;margin-top:3.2rem}
+.gallery-h-progress__bar{flex:1;height:1px;background:rgba(244,240,232,.1);position:relative;max-width:160px}
+.gallery-h-progress__fill{position:absolute;top:0;left:0;height:100%;width:0%;background:#C4714F;transition:width .1s linear}
+.gallery-h-progress__count{font-family:'DM Mono',monospace;font-size:.85rem;letter-spacing:.12em;color:rgba(244,240,232,.3)}
+.gallery-h-item{flex-shrink:0;width:clamp(260px,28vw,400px);height:100%;position:relative;overflow:hidden;margin-right:2.4rem;display:flex;align-items:flex-end}
+.gallery-h-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75) brightness(.8);transition:filter .5s ease,transform .8s cubic-bezier(0.16,1,0.3,1)}
+.gallery-h-item:hover img{filter:saturate(1) brightness(.95);transform:scale(1.04)}
+.gallery-h-item__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,22,.85) 0%,transparent 55%);z-index:1}
+.gallery-h-item__info{position:relative;z-index:2;padding:2.8rem;width:100%;transform:translateY(8px);opacity:0;transition:transform .4s ease,opacity .4s ease}
+.gallery-h-item:hover .gallery-h-item__info{transform:translateY(0);opacity:1}
+.gallery-h-item__cat{font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#C4714F;display:block;margin-bottom:.6rem}
+.gallery-h-item__title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#F4F0E8}
+.scramble-char{display:inline-block;font-variant-numeric:tabular-nums}
+.sound-toggle{position:fixed;bottom:3.2rem;left:3.2rem;z-index:200;display:flex;align-items:center;gap:1rem;background:rgba(28,26,22,.75);backdrop-filter:blur(12px);border:1px solid rgba(244,240,232,.1);border-radius:999px;padding:.8rem 1.6rem .8rem 1rem;opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;cursor:pointer}
+.sound-toggle.is-visible{opacity:1;transform:translateY(0)}
+.sound-toggle__icon{width:24px;height:16px;display:flex;align-items:flex-end;gap:2px;flex-shrink:0}
+.sound-bar{width:3px;background:#C4714F;border-radius:2px;transition:height .3s ease}
+.sound-bar:nth-child(1){height:4px;animation:sound-wave 1.2s ease-in-out infinite}
+.sound-bar:nth-child(2){height:10px;animation:sound-wave 1.2s ease-in-out infinite .2s}
+.sound-bar:nth-child(3){height:6px;animation:sound-wave 1.2s ease-in-out infinite .4s}
+.sound-bar:nth-child(4){height:14px;animation:sound-wave 1.2s ease-in-out infinite .1s}
+.sound-bar:nth-child(5){height:8px;animation:sound-wave 1.2s ease-in-out infinite .3s}
+@keyframes sound-wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+.sound-toggle.is-muted .sound-bar{animation:none;height:3px!important}
+.sound-toggle__label{font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(244,240,232,.5);transition:color .3s}
+.sound-toggle:hover .sound-toggle__label{color:rgba(244,240,232,.8)}
+.live-badge{display:inline-flex;align-items:center;gap:.7rem;font-family:'DM Mono',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,240,232,.4);background:rgba(244,240,232,.04);border:1px solid rgba(244,240,232,.08);border-radius:999px;padding:.4rem 1.2rem;margin-top:1.6rem}
+.live-badge__dot{width:5px;height:5px;border-radius:50%;background:#4A9C7A;box-shadow:0 0 6px rgba(74,156,122,.5);flex-shrink:0;animation:status-live 2.4s ease-in-out infinite}
+@keyframes status-live{0%,100%{opacity:1}50%{opacity:.3}}
+@media(max-width:768px){.gallery-horizontal{height:auto!important}.gallery-horizontal__pin{position:relative;height:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.gallery-horizontal__pin::-webkit-scrollbar{display:none}.gallery-horizontal__track{width:max-content;padding:4rem 2.4rem;gap:1.6rem}.gallery-horizontal__header{width:80vw;min-width:280px;padding:2.4rem;justify-content:flex-start}.gallery-h-item{width:75vw;height:60vw;min-height:240px;margin-right:0}.gallery-h-item__info{opacity:1;transform:none}.back-to-top{bottom:2rem;right:2rem;width:44px;height:44px}.sound-toggle{bottom:2rem;left:2rem}.cookie-banner{left:1.6rem;right:1.6rem;max-width:none;bottom:1.6rem}}
+::-webkit-scrollbar{width:4px;background:transparent}
+::-webkit-scrollbar-track{background:rgba(28,26,22,.05)}
+::-webkit-scrollbar-thumb{background:rgba(196,113,79,.3);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:rgba(196,113,79,.55)}
+*{scrollbar-width:thin;scrollbar-color:rgba(196,113,79,.3) transparent}
 </style>
 <!-- GSAP + ScrollTrigger -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -2457,6 +2526,325 @@ function initPagePolish() {
     var year = new Date().getFullYear();
     copyEl.innerHTML = copyEl.innerHTML.replace(/\d{4}/, year);
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THALASSA — P6
+   Texte avance + Galerie horiz + Back to top + Cookie + Sound
+═══════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  initBackToTop();
+  initCookieBanner();
+  initLanguageSwitcher();
+  initHeroScramble();
+  initSplitChars();
+  injectHorizontalGallery();
+  initSoundToggle();
+  injectLiveBadge();
+  initFinalAccessibility();
+});
+
+/* ════ BACK TO TOP ════ */
+function initBackToTop() {
+  var btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label','Retour en haut de page');
+  btn.innerHTML = '<div class="back-to-top__ring"></div><div class="back-to-top__arrow"></div>';
+  document.body.appendChild(btn);
+  var ring = btn.querySelector('.back-to-top__ring');
+  var lenis = window._lenis;
+  function updateBtn() {
+    var scrollY = window.scrollY;
+    var total = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = total > 0 ? (scrollY / total) * 100 : 0;
+    btn.classList.toggle('is-visible', scrollY > 400);
+    if (ring) ring.style.setProperty('--progress', pct + '%');
+  }
+  if (lenis) lenis.on('scroll', updateBtn);
+  else window.addEventListener('scroll', updateBtn, {passive:true});
+  btn.addEventListener('click', function() {
+    if (lenis) lenis.scrollTo(0, {duration:1.4,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});
+    else window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+
+/* ════ COOKIE BANNER ════ */
+function initCookieBanner() {
+  try { if (localStorage.getItem('thalassa_cookies')) return; } catch(e) { return; }
+  var banner = document.createElement('div');
+  banner.className = 'cookie-banner';
+  banner.setAttribute('role','dialog');
+  banner.setAttribute('aria-label','Cookie consent');
+  banner.innerHTML = '<p class="cookie-banner__text">We use cookies to enhance your experience at Thalassa. By continuing, you agree to our <a href="/privacy" target="_blank">privacy policy</a>.</p><div class="cookie-banner__actions"><button class="cookie-btn--accept" id="cookie-accept">Accept</button><button class="cookie-btn--decline" id="cookie-decline">Decline</button></div>';
+  document.body.appendChild(banner);
+  setTimeout(function() {
+    banner.classList.add('is-visible');
+    gsap.from(banner, {y:24,opacity:0,duration:.6,ease:'back.out(1.8)'});
+  }, 2000);
+  function closeBanner() {
+    gsap.to(banner, {opacity:0,y:16,duration:.4,ease:'power2.in',onComplete:function(){banner.remove()}});
+  }
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    try { localStorage.setItem('thalassa_cookies','accepted'); } catch(e) {}
+    closeBanner();
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function() {
+    try { localStorage.setItem('thalassa_cookies','declined'); } catch(e) {}
+    closeBanner();
+  });
+}
+
+/* ════ LANGUAGE SWITCHER ════ */
+function initLanguageSwitcher() {
+  var switcher = document.querySelector('.lang-switcher, .navbar__lang, [class*="lang"]');
+  if (!switcher) {
+    var navbar = document.querySelector('.navbar__actions, .navbar, header');
+    if (!navbar) return;
+    switcher = document.createElement('div');
+    switcher.className = 'lang-switcher';
+    switcher.innerHTML = '<button class="lang-btn is-active" data-lang="en" aria-label="English">EN</button><span class="lang-sep" aria-hidden="true">\u00b7</span><button class="lang-btn" data-lang="el" aria-label="\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac">\u0395\u039b</button>';
+    navbar.prepend(switcher);
+  }
+  var translations = {
+    en:{heroSub:'A gastronomic journey rooted in Greek soil, elevated by modern craft.',ctaPrimary:'Reserve Your Evening',ctaSecond:'Explore the Menu',navReserve:'Reserve a Table'},
+    el:{heroSub:'\u0388\u03bd\u03b1 \u03b3\u03b1\u03c3\u03c4\u03c1\u03bf\u03bd\u03bf\u03bc\u03b9\u03ba\u03cc \u03c4\u03b1\u03be\u03af\u03b4\u03b9 \u03c1\u03b9\u03b6\u03c9\u03bc\u03ad\u03bd\u03bf \u03c3\u03c4\u03b7\u03bd \u03b5\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae \u03b3\u03b7.',ctaPrimary:'\u039a\u03ac\u03bd\u03c4\u03b5 \u039a\u03c1\u03ac\u03c4\u03b7\u03c3\u03b7',ctaSecond:'\u0395\u03be\u03b5\u03c1\u03b5\u03c5\u03bd\u03ae\u03c3\u03c4\u03b5 \u03c4\u03bf \u039c\u03b5\u03bd\u03bf\u03cd',navReserve:'\u039a\u03c1\u03ac\u03c4\u03b7\u03c3\u03b7 \u03a4\u03c1\u03b1\u03c0\u03b5\u03b6\u03b9\u03bf\u03cd'}
+  };
+  var currentLang = 'en';
+  try { currentLang = localStorage.getItem('thalassa_lang') || 'en'; } catch(e) {}
+  function applyLang(lang) {
+    var t = translations[lang];
+    if (!t) return;
+    var targets = [
+      {sel:'.hero__subtitle, .hero__desc',key:'heroSub'},
+      {sel:'.navbar__cta, .nav__cta',key:'navReserve'},
+      {sel:'.hero__btn--primary',key:'ctaPrimary'},
+      {sel:'.hero__btn--outline',key:'ctaSecond'}
+    ];
+    targets.forEach(function(item) {
+      var els = document.querySelectorAll(item.sel);
+      els.forEach(function(el) {
+        if (!el.dataset.originalText) el.dataset.originalText = el.textContent.trim();
+        gsap.to(el, {opacity:0,y:-8,duration:.25,ease:'power2.in',onComplete:function(){
+          var arrow = el.querySelector('span, [class*="arrow"]');
+          var arrowText = arrow ? arrow.textContent : '';
+          if (arrow) arrow.remove();
+          el.textContent = t[item.key] || el.dataset.originalText;
+          if (arrowText) { var s = document.createElement('span'); s.textContent = ' ' + arrowText; el.appendChild(s); }
+          gsap.to(el, {opacity:1,y:0,duration:.3,ease:'power2.out'});
+        }});
+      });
+    });
+    document.documentElement.lang = lang === 'el' ? 'el' : 'en';
+    try { localStorage.setItem('thalassa_lang', lang); } catch(e) {}
+    currentLang = lang;
+  }
+  switcher.querySelectorAll('.lang-btn, [data-lang]').forEach(function(btn) {
+    var lang = btn.dataset.lang || btn.textContent.trim().toLowerCase();
+    if (lang === currentLang) btn.classList.add('is-active');
+    else btn.classList.remove('is-active');
+    btn.addEventListener('click', function() {
+      if (lang === currentLang) return;
+      switcher.querySelectorAll('.lang-btn, [data-lang]').forEach(function(b){b.classList.remove('is-active')});
+      btn.classList.add('is-active');
+      gsap.from(btn, {scale:.9,duration:.25,ease:'back.out(2)'});
+      applyLang(lang);
+    });
+  });
+  if (currentLang === 'el') applyLang('el');
+}
+
+/* ════ HERO SCRAMBLE TEXT ════ */
+function initHeroScramble() {
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+  function scramble(el, duration) {
+    if (!el) return;
+    duration = duration || 1000;
+    var final = el.textContent.trim();
+    var total = final.length;
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var revealed = Math.floor(p * total);
+      var result = '';
+      for (var i = 0; i < total; i++) {
+        if (final[i] === ' ' || final[i] === '\n') result += ' ';
+        else if (i < revealed) result += final[i];
+        else result += CHARS[Math.floor(Math.random() * CHARS.length)];
+      }
+      el.textContent = result;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = final;
+    }
+    requestAnimationFrame(tick);
+  }
+  var heroLines = document.querySelectorAll('.hero__title-line, .hero__title .line-inner, .hero__title span');
+  setTimeout(function() {
+    heroLines.forEach(function(line, i) {
+      setTimeout(function(){scramble(line,900)}, i * 200 + 200);
+    });
+  }, 3200);
+}
+
+/* ════ SPLIT CHARS ════ */
+function initSplitChars() {
+  var targets = document.querySelectorAll('.hero__subtitle, [class*="__subtitle"]:not([class*="preloader"]):not([class*="cookie"])');
+  targets.forEach(function(el) {
+    var text = el.textContent.trim();
+    var words = text.split(' ');
+    el.innerHTML = words.map(function(word) {
+      return '<span style="display:inline-block;overflow:hidden;vertical-align:bottom">' +
+        word.split('').map(function(ch){return '<span class="scramble-char" style="display:inline-block;transform:translateY(110%);opacity:0">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>'}).join('') +
+        '</span>&nbsp;';
+    }).join('');
+    if (!window.ScrollTrigger) return;
+    ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:function(){
+      var chars = el.querySelectorAll('.scramble-char');
+      chars.forEach(function(c,i){gsap.to(c,{y:'0%',opacity:1,duration:.5,delay:i*.018+Math.random()*.04,ease:'power3.out'})});
+    }});
+  });
+}
+
+/* ════ GALERIE HORIZONTALE STICKY ════ */
+function injectHorizontalGallery() {
+  var existingGallery = document.querySelector('.gallery-preview, #gallery, [class*="gallery-preview"]');
+  if (!existingGallery) return;
+  var items = [
+    {src:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=88&auto=format&fit=crop',cat:'The Setting',title:'Aegean Terrace'},
+    {src:'https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=88&auto=format&fit=crop',cat:'Signature Dish',title:'Aegean Octopus'},
+    {src:'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=88&auto=format&fit=crop',cat:'The Team',title:'Chef Nikos'},
+    {src:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=88&auto=format&fit=crop',cat:'Cellar',title:'Greek Wines'},
+    {src:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=88&auto=format&fit=crop',cat:'Dining',title:'Evening Service'},
+    {src:'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=88&auto=format&fit=crop',cat:'Private',title:'Aether Room'},
+    {src:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=88&auto=format&fit=crop',cat:'\u00c0 la Carte',title:'Chef\'s Selection'},
+    {src:'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=800&q=88&auto=format&fit=crop',cat:'The Team',title:'Front of House'}
+  ];
+  var section = document.createElement('div');
+  section.className = 'gallery-horizontal';
+  var trackWidth = 35 + items.length * 30 + 15;
+  section.style.height = trackWidth + 'vw';
+  var itemsHTML = items.map(function(item, i) {
+    return '<div class="gallery-h-item" data-index="'+i+'"><img src="'+item.src+'" alt="'+item.title+' \u2014 Thalassa Gallery" loading="lazy"><div class="gallery-h-item__overlay"></div><div class="gallery-h-item__info"><span class="gallery-h-item__cat">'+item.cat+'</span><span class="gallery-h-item__title">'+item.title+'</span></div></div>';
+  }).join('');
+  section.innerHTML = '<div class="gallery-horizontal__pin" id="gh-pin"><div class="gallery-horizontal__track" id="gh-track"><div class="gallery-horizontal__header"><span class="section-num" aria-hidden="true">08</span><h2>Through the <em>lens.</em></h2><p>Moments from Thalassa \u2014 the setting, the craft, the people behind every plate.</p><div class="gallery-h-progress"><div class="gallery-h-progress__bar"><div class="gallery-h-progress__fill" id="gh-fill"></div></div><span class="gallery-h-progress__count" id="gh-count">01 / '+String(items.length).padStart(2,'0')+'</span></div></div>'+itemsHTML+'</div></div>';
+  existingGallery.parentNode.insertBefore(section, existingGallery);
+  var oldTitle = existingGallery.querySelector('[class*="__title"], h2');
+  if (oldTitle) oldTitle.textContent = 'More from Thalassa';
+  if (!window.ScrollTrigger || !window.gsap) return;
+  var track = document.getElementById('gh-track');
+  var fill = document.getElementById('gh-fill');
+  var count = document.getElementById('gh-count');
+  if (!track) return;
+  requestAnimationFrame(function() {
+    var totalW = track.scrollWidth - window.innerWidth;
+    gsap.to(track, {x:-totalW,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:function(){return '+='+totalW},pin:'#gh-pin',scrub:1.2,anticipatePin:1,onUpdate:function(self){
+      if (fill) fill.style.width = (self.progress*100)+'%';
+      var idx = Math.min(Math.floor(self.progress*items.length), items.length-1);
+      if (count) count.textContent = String(idx+1).padStart(2,'0')+' / '+String(items.length).padStart(2,'0');
+    }}});
+  });
+  section.querySelectorAll('.gallery-h-item').forEach(function(item, i) {
+    item.addEventListener('click', function(){if(window.openLightbox) openLightbox(i)});
+  });
+}
+
+/* ════ SOUND TOGGLE ════ */
+function initSoundToggle() {
+  var toggle = document.createElement('button');
+  toggle.className = 'sound-toggle';
+  toggle.setAttribute('aria-label','Toggle ambient sound');
+  toggle.innerHTML = '<div class="sound-toggle__icon" aria-hidden="true"><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div></div><span class="sound-toggle__label">Ambient</span>';
+  document.body.appendChild(toggle);
+  setTimeout(function(){toggle.classList.add('is-visible')}, 4000);
+  var audioCtx = null, masterGain = null, isPlaying = false;
+  function createAmbientSound() {
+    var AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    audioCtx = new AudioCtx();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+    masterGain.connect(audioCtx.destination);
+    var bufferSize = audioCtx.sampleRate * 4;
+    var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    var channelData = buffer.getChannelData(0);
+    for (var i = 0; i < bufferSize; i++) channelData[i] = Math.random() * 2 - 1;
+    var noise = audioCtx.createBufferSource();
+    noise.buffer = buffer; noise.loop = true;
+    var filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass'; filter.frequency.value = 280; filter.Q.value = 1.2;
+    var lfo = audioCtx.createOscillator();
+    lfo.frequency.value = .12;
+    var lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 80;
+    lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+    noise.connect(filter); filter.connect(masterGain);
+    var tone = audioCtx.createOscillator();
+    tone.type = 'sine'; tone.frequency.value = 432;
+    var toneGain = audioCtx.createGain();
+    toneGain.gain.value = .003;
+    tone.connect(toneGain); toneGain.connect(masterGain);
+    noise.start(); lfo.start(); tone.start();
+  }
+  toggle.addEventListener('click', function() {
+    if (!isPlaying) {
+      if (!audioCtx) createAmbientSound();
+      else if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (masterGain) masterGain.gain.linearRampToValueAtTime(.18, audioCtx.currentTime + 2);
+      toggle.classList.remove('is-muted');
+      toggle.querySelector('.sound-toggle__label').textContent = 'Playing';
+      isPlaying = true;
+    } else {
+      if (masterGain) masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+      toggle.classList.add('is-muted');
+      toggle.querySelector('.sound-toggle__label').textContent = 'Ambient';
+      isPlaying = false;
+    }
+  });
+}
+
+/* ════ LIVE VISITOR BADGE ════ */
+function injectLiveBadge() {
+  var reserveSection = document.querySelector('.reserve-cta, #reserve, [class*="reserve-cta"]');
+  if (!reserveSection) return;
+  var target = reserveSection.querySelector('[class*="availability"], [class*="avail"], p, [class*="info"]');
+  if (!target) return;
+  var badge = document.createElement('div');
+  badge.className = 'live-badge';
+  badge.setAttribute('aria-live','polite');
+  badge.innerHTML = '<span class="live-badge__dot" aria-hidden="true"></span><span id="live-count">12</span> people viewing tonight';
+  target.after(badge);
+  var countEl = badge.querySelector('#live-count');
+  var liveCount = 12;
+  setInterval(function() {
+    var delta = Math.floor(Math.random() * 3) - 1;
+    liveCount = Math.max(4, Math.min(28, liveCount + delta));
+    if (countEl) {
+      gsap.to(countEl, {opacity:0,y:-4,duration:.2,ease:'power2.in',onComplete:function(){
+        countEl.textContent = liveCount;
+        gsap.to(countEl, {opacity:1,y:0,duration:.2});
+      }});
+    }
+  }, 8000);
+}
+
+/* ════ ACCESSIBILITE FINALE ════ */
+function initFinalAccessibility() {
+  var skip = document.createElement('a');
+  skip.href = '#main-content';
+  skip.className = 'sr-only skip-link';
+  skip.textContent = 'Skip to main content';
+  skip.style.cssText = 'position:fixed;top:-100%;left:50%;transform:translateX(-50%);background:#1B3A5C;color:#F4F0E8;padding:1rem 2.4rem;border-radius:0 0 8px 8px;font-family:"DM Mono",monospace;font-size:.9rem;letter-spacing:.12em;z-index:99999;transition:top .3s;';
+  skip.addEventListener('focus', function(){skip.style.top='0'});
+  skip.addEventListener('blur', function(){skip.style.top='-100%'});
+  document.body.prepend(skip);
+  var focusStyle = document.createElement('style');
+  focusStyle.textContent = ':focus-visible{outline:2px solid #C4714F!important;outline-offset:3px!important}:focus:not(:focus-visible){outline:none!important}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #C4714F!important;outline-offset:3px!important}';
+  document.head.appendChild(focusStyle);
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.gsap) gsap.globalTimeline.timeScale(0);
+  }
+  var main = document.querySelector('main, #main-content, [role="main"]');
+  if (main && !main.id) main.id = 'main-content';
 }
 
 </script>
