@@ -3095,7 +3095,7 @@ var PF = {
     mouseY:           0,
     faqOpenIndex:     null,
     activeFilter:     'all',
-    cookieAccepted:   localStorage.getItem('pf_cookies')
+    cookieAccepted:   (function(){ try { return localStorage.getItem('pf_cookies'); } catch(e) { return null; } })()
   },
 
   dom: {},
@@ -3134,6 +3134,30 @@ var PF = {
 };
 
 window.PF = PF;
+
+/* HARD SAFETY — force hide preloader after 6s no matter what */
+setTimeout(function() {
+  var p = document.getElementById('preloader');
+  if (p && p.style.display !== 'none') {
+    p.style.transition = 'opacity .4s ease';
+    p.style.opacity = '0';
+    setTimeout(function() {
+      p.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 400);
+  }
+  /* Force visibility on anything stuck at opacity 0 (except modals/menus) */
+  document.querySelectorAll('[data-reveal],[data-stagger] > *,[style*="opacity: 0"],[style*="opacity:0"]').forEach(function(el) {
+    if (el.closest('#preloader,.mobile-menu,.showreel-modal,.cookie-banner,.pf-back-to-top')) return;
+    var op = parseFloat(window.getComputedStyle(el).opacity);
+    if (op < 0.01) {
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.clipPath = 'none';
+    }
+  });
+}, 6000);
 
 /* ────────────────────────────────────
    MODULE : DEVICE & ENVIRONMENT
@@ -5282,7 +5306,7 @@ function initCookieBanner() {
   var acceptBtn = document.getElementById('cookie-accept');
   if (acceptBtn) {
     acceptBtn.addEventListener('click', function() {
-      localStorage.setItem('pf_cookies', 'accepted');
+      try { localStorage.setItem('pf_cookies', 'accepted'); } catch(e) {}
       PF.state.cookieAccepted = 'accepted';
       closeBanner();
     });
@@ -5291,7 +5315,7 @@ function initCookieBanner() {
   var declineBtn = document.getElementById('cookie-decline');
   if (declineBtn) {
     declineBtn.addEventListener('click', function() {
-      localStorage.setItem('pf_cookies', 'declined');
+      try { localStorage.setItem('pf_cookies', 'declined'); } catch(e) {}
       PF.state.cookieAccepted = 'declined';
       closeBanner();
     });

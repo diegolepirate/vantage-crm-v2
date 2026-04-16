@@ -7520,7 +7520,7 @@ var PF = {\n\
     mouseY:           0,\n\
     faqOpenIndex:     null,\n\
     activeFilter:     \'all\',\n\
-    cookieAccepted:   localStorage.getItem(\'pf_cookies\')\n\
+    cookieAccepted:   (function(){ try { return localStorage.getItem(\'pf_cookies\'); } catch(e) { return null; } })()\n\
   },\n\
 \n\
   dom: {},\n\
@@ -7559,6 +7559,30 @@ var PF = {\n\
 };\n\
 \n\
 window.PF = PF;\n\
+\n\
+/* HARD SAFETY \u2014 force hide preloader after 6s no matter what */\n\
+setTimeout(function() {\n\
+  var p = document.getElementById(\'preloader\');\n\
+  if (p && p.style.display !== \'none\') {\n\
+    p.style.transition = \'opacity .4s ease\';\n\
+    p.style.opacity = \'0\';\n\
+    setTimeout(function() {\n\
+      p.style.display = \'none\';\n\
+      document.body.style.overflow = \'\';\n\
+    }, 400);\n\
+  }\n\
+  /* Force visibility on anything stuck at opacity 0 (except modals/menus) */\n\
+  document.querySelectorAll(\'[data-reveal],[data-stagger] > *,[style*="opacity: 0"],[style*="opacity:0"]\').forEach(function(el) {\n\
+    if (el.closest(\'#preloader,.mobile-menu,.showreel-modal,.cookie-banner,.pf-back-to-top\')) return;\n\
+    var op = parseFloat(window.getComputedStyle(el).opacity);\n\
+    if (op < 0.01) {\n\
+      el.style.transition = \'opacity .5s ease, transform .5s ease\';\n\
+      el.style.opacity = \'1\';\n\
+      el.style.transform = \'none\';\n\
+      el.style.clipPath = \'none\';\n\
+    }\n\
+  });\n\
+}, 6000);\n\
 \n\
 /* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\
    MODULE : DEVICE & ENVIRONMENT\n\
@@ -9707,7 +9731,7 @@ function initCookieBanner() {\n\
   var acceptBtn = document.getElementById(\'cookie-accept\');\n\
   if (acceptBtn) {\n\
     acceptBtn.addEventListener(\'click\', function() {\n\
-      localStorage.setItem(\'pf_cookies\', \'accepted\');\n\
+      try { localStorage.setItem(\'pf_cookies\', \'accepted\'); } catch(e) {}\n\
       PF.state.cookieAccepted = \'accepted\';\n\
       closeBanner();\n\
     });\n\
@@ -9716,7 +9740,7 @@ function initCookieBanner() {\n\
   var declineBtn = document.getElementById(\'cookie-decline\');\n\
   if (declineBtn) {\n\
     declineBtn.addEventListener(\'click\', function() {\n\
-      localStorage.setItem(\'pf_cookies\', \'declined\');\n\
+      try { localStorage.setItem(\'pf_cookies\', \'declined\'); } catch(e) {}\n\
       PF.state.cookieAccepted = \'declined\';\n\
       closeBanner();\n\
     });\n\
