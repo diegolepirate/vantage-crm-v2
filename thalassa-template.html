@@ -1075,6 +1075,563 @@ gsap.to(toast,{opacity:1,y:0,duration:.4,ease:'back.out(2)',onComplete:function(
 gsap.to(toast,{opacity:0,y:-12,duration:.4,delay:3,ease:'power2.in',onComplete:function(){toast.remove()}});
 }});
 };
+
+/* ═══════════════════════════════════════════════════════════════
+   THALASSA — P2
+   Logique boutons + Formulaires + Tasting Modal + Lightbox
+═══════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  initAllButtonLogic();
+  initReservationForm();
+  initTastingModal();
+  initLightbox();
+  initSmoothScrollLinks();
+});
+
+/* ════════════════════════════════════
+   UTILITAIRE — scroll vers une cible
+════════════════════════════════════ */
+function scrollTo(selector, offset) {
+  var lenis  = window._lenis;
+  var target = typeof selector === 'string'
+    ? document.querySelector(selector)
+    : selector;
+  if (!target) return;
+  if (lenis) {
+    lenis.scrollTo(target, {
+      offset: offset || -90,
+      duration: 1.3,
+      easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+    });
+  } else {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* ════════════════════════════════════
+   TOUS LES BOUTONS — LOGIQUE COMPLÈTE
+════════════════════════════════════ */
+function initAllButtonLogic() {
+
+  /* NAVBAR */
+  var logoEl = document.querySelector('.navbar__logo, header .logo, #navbar .logo');
+  if (logoEl) logoEl.addEventListener('click', function(e) {
+    if (e.currentTarget.getAttribute('href') === '/' || e.currentTarget.getAttribute('href') === '#') {
+      e.preventDefault();
+      scrollTo(document.body, 0);
+    }
+  });
+
+  var navCta = document.querySelector('.navbar__cta, .nav__cta, header .btn[href*="reserve"]');
+  if (navCta) navCta.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('#reserve, .reserve-cta, .reservation-form, form[action*="reserve"]', -90);
+  });
+
+  /* HERO */
+  var heroOutline = document.querySelector('.hero__btn--outline, .hero [class*="outline"]');
+  if (heroOutline) heroOutline.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('.menu-overview, #menu-overview, .menu-cards, #menu', -80);
+  });
+
+  var heroPrimary = document.querySelector('.hero__btn--primary, .hero [class*="primary"]:not(.navbar__cta)');
+  if (heroPrimary) heroPrimary.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('#reserve, .reserve-cta, .reservation-form', -80);
+  });
+
+  /* INTRO / ABOUT */
+  var introLink = document.querySelector('.intro__link, .intro a[href*="story"], .intro a[href*="about"]');
+  if (introLink) introLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('#chef, .chef, [class*="chef"]', -80);
+  });
+
+  /* FEATURED DISH */
+  var featuredLink = document.querySelector('.featured-dish__link, .featured-dish a, [class*="featured-dish"] a');
+  if (featuredLink) featuredLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('.menu-overview, #menu, .menu-cards', -80);
+  });
+
+  /* MENU CARDS */
+  var menuCards = document.querySelectorAll('.menu-card, .menu-cards > *, .menu-cards-grid > li');
+  menuCards.forEach(function(card, i) {
+    var cta = card.querySelector('a, button, [class*="cta"]');
+    if (!cta) return;
+
+    if (i === 0) {
+      cta.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector('.menu-alacarte, .menu-section, [class*="alacarte"], [id*="alacarte"]');
+        if (target) { scrollTo(target, -80); }
+        else {
+          var menuOverview = document.querySelector('.menu-overview, #menu');
+          if (menuOverview) {
+            var nextSection = menuOverview.nextElementSibling;
+            scrollTo(nextSection || menuOverview, -80);
+          }
+        }
+      });
+    } else if (i === 1 || card.classList.contains('menu-card--featured')) {
+      cta.addEventListener('click', function(e) {
+        e.preventDefault();
+        openTastingModal();
+      });
+    } else if (i === 2) {
+      cta.addEventListener('click', function(e) {
+        e.preventDefault();
+        var wineSection = document.querySelector('[class*="wine"], [id*="wine"], [data-section="wine"]');
+        if (wineSection) { scrollTo(wineSection, -80); }
+        else { showToast('Our sommelier selection is available in the restaurant.'); }
+      });
+    }
+  });
+
+  /* SETTING */
+  var settingLink = document.querySelector('.setting__link, .setting a[href*="experience"]');
+  if (settingLink) settingLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('#events, .events, [class*="events"]', -80);
+  });
+
+  /* CHEF */
+  var chefLink = document.querySelector('.chef__link, .chef a[href*="about"], .chef a[href*="story"]');
+  if (chefLink) chefLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('#about, .intro, [class*="intro"]', -80);
+  });
+
+  /* PRIVATE EVENTS */
+  var eventsPrimary = document.querySelector('.events__btn--primary, .events [class*="primary"], .events a[href*="private"]');
+  if (eventsPrimary) eventsPrimary.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollTo('.reservation-form, form[action*="reserve"], #reservation-form, #reserve', -80);
+    setTimeout(function() {
+      var occasionSelect = document.querySelector('select[name="occasion"], select[name="type"], #occasion, #event-type');
+      if (occasionSelect) {
+        Array.from(occasionSelect.options).forEach(function(opt) {
+          if (/private|event|special/i.test(opt.value) || /private|event|special/i.test(opt.text)) {
+            occasionSelect.value = opt.value;
+          }
+        });
+        gsap.fromTo(occasionSelect, {boxShadow:'0 0 0 3px rgba(196,113,79,0)'}, {boxShadow:'0 0 0 3px rgba(196,113,79,.4)',duration:.6,yoyo:true,repeat:3});
+      }
+    }, 1500);
+  });
+
+  var eventsGhost = document.querySelector('.events__btn--ghost, .events [class*="ghost"], .events a[download]');
+  if (eventsGhost) eventsGhost.addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('Brochure sent — check your inbox shortly.');
+    gsap.to(e.currentTarget, {scale:.97,duration:.1,yoyo:true,repeat:1});
+  });
+
+  /* GALLERY PREVIEW */
+  var galleryLink = document.querySelector('.gallery-preview__link, .gallery-preview a[href*="gallery"]');
+  if (galleryLink) galleryLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    var fullGallery = document.querySelector('.gallery-masonry, [class*="gallery-full"], #gallery-full');
+    if (fullGallery) { scrollTo(fullGallery, -80); }
+    else { scrollTo('.gallery-preview, #gallery', -80); }
+  });
+
+  /* Gallery images → lightbox */
+  document.querySelectorAll('.gallery-preview__item, .gallery-masonry .gallery-item, [class*="gallery"] figure, [class*="gallery"] li').forEach(function(item, i) {
+    item.style.cursor = 'pointer';
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', 'Open image ' + (i+1) + ' in fullscreen');
+    item.addEventListener('click', function() { openLightbox(i); });
+    item.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); }
+    });
+    item.addEventListener('mouseenter', function() { gsap.to(item, {scale:1.02,duration:.4,ease:'power2.out'}); });
+    item.addEventListener('mouseleave', function() { gsap.to(item, {scale:1,duration:.4,ease:'power2.out'}); });
+  });
+
+  /* RESERVE CTA FINAL */
+  var reserveBtn = document.querySelector('.reserve-cta__btn--primary, .reserve-cta [class*="primary"], [class*="reserve-cta"] a[href*="reserve"]');
+  if (reserveBtn) reserveBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    var form = document.querySelector('.reservation-form, form[action*="reserve"], #reservation-form, .reserve-form');
+    if (form) {
+      scrollTo(form, -100);
+      setTimeout(function() {
+        var firstInput = form.querySelector('input[type="date"], input[type="text"], select, input:not([type="hidden"])');
+        if (firstInput) {
+          firstInput.focus();
+          gsap.fromTo(form, {boxShadow:'0 0 0 2px rgba(27,58,92,0)'}, {boxShadow:'0 0 0 2px rgba(27,58,92,.3)',duration:.5,yoyo:true,repeat:2});
+        }
+      }, 1400);
+    } else { scrollTo('#reserve', -80); }
+  });
+
+  /* NEWSLETTER */
+  var nlForm = document.querySelector('.newsletter__form, [class*="newsletter"] form');
+  if (nlForm) nlForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var emailInput = e.target.querySelector('input[type="email"]');
+    var email = emailInput ? emailInput.value.trim() : '';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      gsap.to(emailInput, {x:-5,duration:.05,yoyo:true,repeat:5});
+      if (emailInput) emailInput.focus();
+      return;
+    }
+    var btn = e.target.querySelector('button, [type="submit"]');
+    if (btn) {
+      var original = btn.textContent;
+      btn.textContent = '\u2713 Joined';
+      btn.disabled = true;
+      btn.style.background = '#4A9C7A';
+      setTimeout(function() { btn.textContent=original; btn.disabled=false; btn.style.background=''; }, 4000);
+    }
+    showToast('Welcome to Thalassa \u2014 stories coming to ' + email);
+    emailInput.value = '';
+  });
+
+  /* FOOTER */
+  document.querySelectorAll('.footer a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) scrollTo(target, -90);
+    });
+  });
+
+  /* ESCAPE KEY */
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    closeTastingModal();
+    closeLightbox();
+    var burger = document.querySelector('[aria-controls="mobile-menu"], .navbar__burger');
+    var mobileMenu = document.querySelector('.mobile-menu, #mobile-menu');
+    if (mobileMenu && mobileMenu.classList.contains('is-open')) {
+      if (burger) burger.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('is-open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+  });
+}
+
+/* ════════════════════════════════════
+   SMOOTH SCROLL — tous les liens internes
+════════════════════════════════════ */
+function initSmoothScrollLinks() {
+  document.querySelectorAll('a[href^="#"]:not([data-no-scroll])').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = link.getAttribute('href');
+      var target = href === '#' ? null : document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      scrollTo(target, -90);
+    });
+  });
+}
+
+/* ════════════════════════════════════
+   FORMULAIRE RÉSERVATION
+════════════════════════════════════ */
+function initReservationForm() {
+  var form = document.querySelector('.reservation-form, form[action*="reserve"], #reservation-form, .reserve-form');
+  if (!form) return;
+
+  function validateField(field) {
+    var isRequired = field.required || field.hasAttribute('required');
+    var isEmpty = !field.value.trim();
+    var isEmailField = field.type === 'email';
+    var validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+    var error = '';
+    if (isRequired && isEmpty) error = 'This field is required';
+    else if (isEmailField && field.value && !validEmail) error = 'Please enter a valid email address';
+
+    var errorEl = field.parentElement.querySelector('.field-error');
+    if (error) {
+      if (!errorEl) {
+        errorEl = document.createElement('span');
+        errorEl.className = 'field-error';
+        errorEl.setAttribute('aria-live', 'polite');
+        errorEl.style.cssText = 'display:block;font-family:"DM Mono",monospace;font-size:.8rem;letter-spacing:.1em;color:#C45A5A;margin-top:.4rem;';
+        field.parentElement.appendChild(errorEl);
+      }
+      errorEl.textContent = error;
+      field.classList.add('has-error');
+      field.style.borderColor = '#C45A5A';
+    } else {
+      if (errorEl) errorEl.remove();
+      field.classList.remove('has-error');
+      field.style.borderColor = '';
+    }
+    return !error;
+  }
+
+  form.querySelectorAll('input, select, textarea').forEach(function(field) {
+    field.addEventListener('blur', function() { validateField(field); });
+    field.addEventListener('input', function() { if (field.classList.contains('has-error')) validateField(field); });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var fields = form.querySelectorAll('input, select, textarea');
+    var isValid = true;
+    fields.forEach(function(field) { if (!validateField(field)) isValid = false; });
+
+    if (!isValid) {
+      var firstError = form.querySelector('.has-error');
+      if (firstError) {
+        scrollTo(firstError, -120);
+        firstError.focus();
+        gsap.to(firstError, {x:[-6,6,-4,4,0],duration:.4,ease:'none'});
+      }
+      return;
+    }
+
+    var submitBtn = form.querySelector('[type="submit"], .form-submit, .btn[type="submit"]');
+    var originalText = '';
+    if (submitBtn) {
+      originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending\u2026';
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '.7';
+    }
+
+    var data = new FormData(form);
+    var date = data.get('date') || data.get('reservation-date') || '';
+    var time = data.get('time') || data.get('reservation-time') || '';
+    var guests = data.get('guests') || data.get('covers') || '';
+    var name = data.get('name') || data.get('full-name') || 'Guest';
+
+    setTimeout(function() {
+      if (submitBtn) {
+        submitBtn.textContent = 'Request Sent \u2713';
+        submitBtn.style.opacity = '1';
+        submitBtn.style.background = '#4A9C7A';
+        submitBtn.style.borderColor = '#4A9C7A';
+      }
+      var dateStr = date ? ' for ' + date : '';
+      var timeStr = time ? ' at ' + time : '';
+      var guestsStr = guests ? ' \u00b7 ' + guests + ' guests' : '';
+      showToast('Thank you, ' + name.split(' ')[0] + '! We\'ll confirm your table' + dateStr + timeStr + guestsStr + ' within 2 hours.');
+      showConfetti(form);
+      setTimeout(function() {
+        form.reset();
+        if (submitBtn) {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          submitBtn.style.background = '';
+          submitBtn.style.borderColor = '';
+        }
+      }, 5000);
+    }, 1400);
+  });
+
+  var dateInput = form.querySelector('input[type="date"], #date, [name="date"]');
+  if (dateInput) {
+    var today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+    if (!dateInput.value) dateInput.value = today;
+  }
+}
+
+/* Mini confetti GSAP */
+function showConfetti(anchor) {
+  var rect = anchor.getBoundingClientRect();
+  var cx = rect.left + rect.width / 2;
+  var cy = rect.top + rect.height / 2;
+  var colors = ['#C4714F','#1B3A5C','#C9A55A','#4A9C7A'];
+  var N = 16;
+  for (var i = 0; i < N; i++) {
+    var dot = document.createElement('div');
+    dot.style.cssText = 'position:fixed;left:'+cx+'px;top:'+cy+'px;width:'+(Math.random()*8+4)+'px;height:'+(Math.random()*8+4)+'px;border-radius:'+(Math.random()>.5?'50%':'2px')+';background:'+colors[Math.floor(Math.random()*colors.length)]+';pointer-events:none;z-index:9999;transform:translate(-50%,-50%);';
+    document.body.appendChild(dot);
+    var angle = (i / N) * Math.PI * 2;
+    var speed = Math.random() * 120 + 60;
+    gsap.to(dot, {x:Math.cos(angle)*speed,y:Math.sin(angle)*speed-Math.random()*80,opacity:0,scale:0,duration:.8+Math.random()*.5,ease:'power2.out',onComplete:function(){this.targets()[0].remove();}});
+  }
+}
+
+/* ════════════════════════════════════
+   TASTING MENU MODAL
+════════════════════════════════════ */
+function createTastingModal() {
+  if (document.getElementById('tasting-modal')) return;
+  var modal = document.createElement('div');
+  modal.id = 'tasting-modal';
+  modal.setAttribute('role','dialog');
+  modal.setAttribute('aria-modal','true');
+  modal.setAttribute('aria-label','The Thalassa Journey \u2014 Tasting Menu');
+  modal.setAttribute('aria-hidden','true');
+  modal.style.cssText = 'position:fixed;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;padding:2.4rem;';
+
+  modal.innerHTML = '<div class="tasting-modal__backdrop" style="position:absolute;inset:0;background:rgba(28,26,22,.75);backdrop-filter:blur(12px)"></div>'
+    + '<div class="tasting-modal__panel" role="document" style="position:relative;z-index:1;background:#FDFAF5;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;border-radius:20px;box-shadow:0 32px 80px rgba(28,26,22,.25);padding:5.6rem 4.8rem;">'
+    + '<div style="text-align:center;margin-bottom:4rem;position:relative">'
+    + '<p style="font-family:\'DM Mono\',monospace;font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;color:#C4714F;margin-bottom:1.2rem">6 Courses \u00b7 Chef\'s Menu</p>'
+    + '<h2 style="font-family:\'Playfair Display\',serif;font-size:4rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:1rem;line-height:1">The Thalassa Journey</h2>'
+    + '<p style="font-family:\'DM Sans\',sans-serif;font-size:1.4rem;font-weight:300;color:#6B6660;margin-bottom:2.4rem">\u20ac 185 per person \u00b7 Wine pairing + \u20ac 95</p>'
+    + '<div style="display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap">'
+    + '<span style="font-family:\'DM Mono\',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(196,113,79,.3);color:#C4714F;padding:.4rem 1.2rem;border-radius:999px">Seasonal</span>'
+    + '<span style="font-family:\'DM Mono\',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(27,58,92,.2);color:#2E5F8A;padding:.4rem 1.2rem;border-radius:999px">Local Producers</span>'
+    + '<span style="font-family:\'DM Mono\',monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(196,113,79,.3);color:#C4714F;padding:.4rem 1.2rem;border-radius:999px">Vegetarian Available</span>'
+    + '</div>'
+    + '<button id="tasting-close" aria-label="Close tasting menu" style="position:absolute;top:0;right:0;width:36px;height:36px;background:none;border:1px solid rgba(28,26,22,.15);border-radius:999px;cursor:pointer;font-size:1.2rem;color:#6B6660;display:flex;align-items:center;justify-content:center;transition:all .2s">\u2715</button>'
+    + '</div>'
+    + '<div style="text-align:center;margin:3.2rem 0;color:rgba(196,113,79,.3);letter-spacing:.3em;font-size:.7rem">\u2500 \u00b7 \u2500</div>'
+    + '<ol style="list-style:none;display:flex;flex-direction:column;gap:3.2rem">'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">01</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">Amuse-Bouche</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">Feta snow, Kalamata olive oil, wild thyme from Mount Hymettus. A bite of Greece in three textures.</p></div></li>'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">02</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">From the Sea</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">Sea urchin, cucumber water, dill oil. Caught this morning by Kostas from the port of Ammoudi.</p></div></li>'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">03</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">Aegean Octopus</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">Slow-braised 18 hours, lemon myrtle emulsion, charred ink sauce, crispy capers from Santorini.</p></div></li>'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">04</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">Cretan Lamb</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">Sous-vide shoulder, wild oregano jus, yoghurt mousse, roasted figs from Kalamata.</p></div></li>'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">05</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">Greek Cheeses</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">A selection of three artisanal cheeses. Aged graviera, fresh manouri, honeyed myzithra. Served with Hymettus honey.</p></div></li>'
+    + '<li style="display:flex;gap:2.4rem;align-items:flex-start"><span style="font-family:\'DM Mono\',monospace;font-size:.9rem;color:#C4714F;min-width:2.4rem;padding-top:.3rem">06</span><div><h3 style="font-family:\'Playfair Display\',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#1C1A16;margin-bottom:.5rem">Aegean Sunset</h3><p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#6B6660;line-height:1.6">Bergamot parfait, Mastiha ice cream, saffron tuile, dried rose petals. The last light of a Greek evening.</p></div></li>'
+    + '</ol>'
+    + '<div style="text-align:center;margin:3.2rem 0;color:rgba(196,113,79,.3);letter-spacing:.3em;font-size:.7rem">\u2500 \u00b7 \u2500</div>'
+    + '<p style="font-family:\'DM Sans\',sans-serif;font-size:1.3rem;font-weight:300;color:#9E9890;line-height:1.7;text-align:center;margin-bottom:3.2rem">Menu changes with the seasons. Vegetarian and allergen adaptations available upon request. Please inform us at the time of booking.</p>'
+    + '<div style="text-align:center"><button id="tasting-reserve-btn" style="display:inline-flex;align-items:center;gap:1rem;font-family:\'DM Mono\',monospace;font-size:1rem;letter-spacing:.15em;text-transform:uppercase;background:#1B3A5C;color:#F4F0E8;border:none;border-radius:999px;padding:1.5rem 4rem;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 rgba(15,35,55,.4),0 6px 20px rgba(27,58,92,.25);transition:transform .2s,box-shadow .2s">Reserve the Journey \u2192</button></div>'
+    + '</div>';
+
+  document.body.appendChild(modal);
+  modal.querySelector('.tasting-modal__backdrop').addEventListener('click', closeTastingModal);
+  document.getElementById('tasting-close').addEventListener('click', closeTastingModal);
+  document.getElementById('tasting-reserve-btn').addEventListener('click', function() {
+    closeTastingModal();
+    setTimeout(function() {
+      scrollTo('#reserve, .reservation-form, .reserve-cta', -80);
+      showToast('The Thalassa Journey \u2014 6 courses \u00b7 \u20ac 185');
+    }, 400);
+  });
+}
+
+function initTastingModal() { /* lazy-created on open */ }
+
+function openTastingModal() {
+  createTastingModal();
+  var modal = document.getElementById('tasting-modal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  var panel = modal.querySelector('.tasting-modal__panel');
+  gsap.fromTo(panel, {opacity:0,y:32,scale:.97}, {opacity:1,y:0,scale:1,duration:.5,ease:'back.out(1.6)'});
+  gsap.fromTo(modal.querySelector('.tasting-modal__backdrop'), {opacity:0}, {opacity:1,duration:.4});
+}
+
+function closeTastingModal() {
+  var modal = document.getElementById('tasting-modal');
+  if (!modal || modal.style.display === 'none') return;
+  var panel = modal.querySelector('.tasting-modal__panel');
+  gsap.to(panel, {opacity:0,y:16,scale:.97,duration:.3,ease:'power2.in'});
+  gsap.to(modal.querySelector('.tasting-modal__backdrop'), {opacity:0,duration:.3,onComplete:function(){
+    modal.style.display='none';
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }});
+}
+
+window.openTastingModal = openTastingModal;
+window.closeTastingModal = closeTastingModal;
+
+/* ════════════════════════════════════
+   LIGHTBOX GALERIE
+════════════════════════════════════ */
+function createLightbox() {
+  if (document.getElementById('lightbox')) return;
+  var lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.setAttribute('role','dialog');
+  lb.setAttribute('aria-modal','true');
+  lb.setAttribute('aria-label','Photo gallery');
+  lb.setAttribute('aria-hidden','true');
+  lb.style.cssText = 'position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;background:rgba(28,26,22,.94);backdrop-filter:blur(16px);';
+
+  lb.innerHTML = '<button id="lb-close" aria-label="Close gallery" style="position:absolute;top:2.4rem;right:2.4rem;width:44px;height:44px;background:rgba(244,240,232,.08);border:1px solid rgba(244,240,232,.2);border-radius:50%;color:#F4F0E8;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:2">\u2715</button>'
+    + '<button id="lb-prev" aria-label="Previous photo" style="position:absolute;left:2.4rem;top:50%;transform:translateY(-50%);width:52px;height:52px;background:rgba(244,240,232,.08);border:1px solid rgba(244,240,232,.15);border-radius:50%;color:#F4F0E8;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s">\u2039</button>'
+    + '<button id="lb-next" aria-label="Next photo" style="position:absolute;right:2.4rem;top:50%;transform:translateY(-50%);width:52px;height:52px;background:rgba(244,240,232,.08);border:1px solid rgba(244,240,232,.15);border-radius:50%;color:#F4F0E8;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s">\u203a</button>'
+    + '<div id="lb-img-wrap" style="max-width:90vw;max-height:85vh;display:flex;align-items:center;justify-content:center;position:relative"><img id="lb-img" src="" alt="" style="max-width:100%;max-height:85vh;object-fit:contain;border-radius:8px;display:block"></div>'
+    + '<div style="position:absolute;bottom:2.4rem;left:50%;transform:translateX(-50%);text-align:center"><p id="lb-caption" style="font-family:\'Playfair Display\',serif;font-size:1.4rem;font-style:italic;color:rgba(244,240,232,.7);margin-bottom:.6rem"></p><p id="lb-counter" style="font-family:\'DM Mono\',monospace;font-size:.85rem;letter-spacing:.15em;color:rgba(244,240,232,.35)"></p></div>';
+
+  document.body.appendChild(lb);
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function(e) { if (e.target === lb) closeLightbox(); });
+  document.getElementById('lb-prev').addEventListener('click', function() { lbNavigate(-1); });
+  document.getElementById('lb-next').addEventListener('click', function() { lbNavigate(1); });
+}
+
+function getLightboxImages() {
+  var items = document.querySelectorAll('.gallery-preview__item img, .gallery-masonry img, [class*="gallery"] figure img, [class*="gallery"] li img');
+  return Array.from(items).map(function(img) {
+    return { src: img.src.replace(/w=\d+/,'w=1600').replace(/q=\d+/,'q=92'), alt: img.alt || 'Thalassa Gallery' };
+  });
+}
+
+var lbCurrent = 0;
+var lbImages = [];
+
+function lbNavigate(dir) {
+  lbCurrent = (lbCurrent + dir + lbImages.length) % lbImages.length;
+  lbShowImage(lbCurrent, dir > 0 ? 'next' : 'prev');
+}
+
+function lbShowImage(index, dir) {
+  var img = document.getElementById('lb-img');
+  var caption = document.getElementById('lb-caption');
+  var counter = document.getElementById('lb-counter');
+  if (!img) return;
+  var slideDir = dir === 'prev' ? 30 : -30;
+  gsap.to(img, {opacity:0,x:slideDir,duration:.25,ease:'power2.in',onComplete:function(){
+    img.src = lbImages[index].src;
+    img.alt = lbImages[index].alt;
+    if (caption) caption.textContent = lbImages[index].alt;
+    if (counter) counter.textContent = (index+1) + ' / ' + lbImages.length;
+    gsap.fromTo(img, {opacity:0,x:-slideDir}, {opacity:1,x:0,duration:.35,ease:'power3.out'});
+  }});
+}
+
+function initLightbox() { /* lazy-created on open */ }
+
+function openLightbox(index) {
+  createLightbox();
+  lbImages = getLightboxImages();
+  lbCurrent = Math.min(index, lbImages.length - 1);
+  var lb = document.getElementById('lightbox');
+  if (!lb || !lbImages.length) return;
+  var img = document.getElementById('lb-img');
+  var caption = document.getElementById('lb-caption');
+  var counter = document.getElementById('lb-counter');
+  img.src = lbImages[lbCurrent].src;
+  img.alt = lbImages[lbCurrent].alt;
+  if (caption) caption.textContent = lbImages[lbCurrent].alt;
+  if (counter) counter.textContent = (lbCurrent+1) + ' / ' + lbImages.length;
+  lb.style.display = 'flex';
+  lb.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  gsap.fromTo(lb, {opacity:0}, {opacity:1,duration:.4});
+  gsap.fromTo(img, {scale:.95,opacity:0}, {scale:1,opacity:1,duration:.5,ease:'power3.out'});
+}
+
+function closeLightbox() {
+  var lb = document.getElementById('lightbox');
+  if (!lb || lb.style.display === 'none') return;
+  gsap.to(lb, {opacity:0,duration:.35,onComplete:function(){
+    lb.style.display='none';
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }});
+}
+
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
+
+/* Navigation clavier lightbox */
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lightbox');
+  if (!lb || lb.style.display === 'none') return;
+  if (e.key === 'ArrowLeft') lbNavigate(-1);
+  if (e.key === 'ArrowRight') lbNavigate(1);
+});
+
 </script>
 </body>
 </html>
