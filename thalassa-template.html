@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THALASSA — Modern Greek Gastronomy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--white:#FDFAF5;--cream:#F2EDE3;--cream-dark:#E8E0D4;--parchment:#F7F2E8;
+--aegean:#1B3A5C;--aegean-mid:#2E5F8A;--aegean-light:#4A7FA8;--aegean-pale:#8BB4D0;
+--aegean-dim:rgba(27,58,92,.12);--aegean-glow:rgba(27,58,92,.25);
+--terra:#C4714F;--terra-light:#D98E70;--terra-pale:#EEC4AD;--terra-dim:rgba(196,113,79,.1);
+--sand:#C9A55A;--sand-light:#DFC07A;--sand-pale:#F0DDB0;--sand-dim:rgba(201,165,90,.12);
+--charcoal:#1C1A16;--charcoal-mid:#3A3630;--gray:#6B6660;--gray-light:#9E9890;--gray-pale:#C8C2BA;
+--ivory:#F4F0E8;--ivory-mid:#D8D2C6;--ivory-dim:rgba(244,240,232,.5);--ivory-ghost:rgba(244,240,232,.25);
+--success:#4A9C7A;--warning:#D4956A;--error:#C45A5A;
+--border-light:rgba(28,26,22,.08);--border-cream:rgba(28,26,22,.12);--border-dark:rgba(244,240,232,.1);--border-terra:rgba(196,113,79,.25);
+--shadow-card:0 2px 8px rgba(28,26,22,.06),0 8px 24px rgba(28,26,22,.08);
+--shadow-hover:0 4px 16px rgba(28,26,22,.1),0 16px 48px rgba(28,26,22,.12);
+--shadow-deep:0 8px 32px rgba(28,26,22,.15),0 24px 64px rgba(28,26,22,.1);
+--r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;--r-full:999px;
+--ease-out:cubic-bezier(0.16,1,0.3,1);--ease-io:cubic-bezier(0.76,0,0.24,1);--ease-expo:cubic-bezier(0.19,1,0.22,1);
+--font-d:'Playfair Display',Georgia,serif;--font-b:'DM Sans',system-ui,sans-serif;--font-m:'DM Mono','Courier New',monospace;
+}
+html{font-size:62.5%;scroll-behavior:smooth;scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+body{font-family:var(--font-b);font-size:1.6rem;font-weight:300;line-height:1.7;color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--terra);color:#fff}
+
+/* Grain overlay */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ═══ NAVBAR ═══ */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:100;padding:2.4rem 5.6rem;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--ease-out),background .5s,backdrop-filter .5s,box-shadow .5s}
+.navbar.scrolled{padding:1.6rem 5.6rem;background:rgba(253,250,245,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border-light);box-shadow:0 1px 16px rgba(28,26,22,.06)}
+.nav-logo{font-family:var(--font-d);font-size:2.2rem;font-weight:400;letter-spacing:.35em;text-transform:uppercase;color:var(--ivory);transition:color .4s;display:flex;align-items:center;gap:1.4rem}
+.navbar.scrolled .nav-logo{color:var(--charcoal)}
+.nav-mark{display:flex;flex-direction:column;gap:4px;width:28px}
+.nav-mark span{display:block;height:1px;background:currentColor;transition:width .4s var(--ease-out)}
+.nav-mark span:nth-child(1){width:100%}.nav-mark span:nth-child(2){width:70%}.nav-mark span:nth-child(3){width:45%}
+.nav-logo:hover .nav-mark span:nth-child(2){width:100%}.nav-logo:hover .nav-mark span:nth-child(3){width:70%}
+.nav-links{display:flex;gap:4rem;list-style:none}
+.nav-links a{font-family:var(--font-m);font-size:1rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,240,232,.7);position:relative;transition:color .3s}
+.navbar.scrolled .nav-links a{color:var(--gray)}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--terra);transition:width .4s var(--ease-out)}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--ivory)}.navbar.scrolled .nav-links a:hover{color:var(--terra)}
+.nav-cta{font-family:var(--font-m);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white);background:var(--aegean);padding:1.1rem 2.8rem;border-radius:var(--r-full);border:none;cursor:pointer;transition:background .3s,transform .2s,box-shadow .3s;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 16px rgba(27,58,92,.3)}
+.nav-cta:hover{background:var(--aegean-mid);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 6px 24px rgba(27,58,92,.4)}
+
+/* ═══ HERO ═══ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5.6rem 8rem;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(27,58,92,.1) 0%,rgba(27,58,92,.05) 30%,rgba(28,26,22,.55) 70%,rgba(28,26,22,.92) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-badge{font-family:var(--font-m);font-size:1rem;letter-spacing:.24em;text-transform:uppercase;color:var(--terra-pale);margin-bottom:2.4rem;display:flex;align-items:center;gap:1.4rem}
+.hero-badge::before{content:'';width:32px;height:1px;background:var(--terra)}
+.hero h1{font-family:var(--font-d);font-size:clamp(5.6rem,9vw,13.6rem);font-weight:400;line-height:.92;letter-spacing:-.02em;color:var(--ivory);margin-bottom:2.4rem}
+.hero h1 em{font-style:italic;color:var(--terra-pale)}
+.hero-sub{font-family:var(--font-b);font-size:1.8rem;font-weight:300;line-height:1.75;color:var(--ivory-mid);max-width:52ch;margin-bottom:4.8rem}
+.hero-btns{display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:1rem;font-family:var(--font-m);font-size:1rem;letter-spacing:.16em;text-transform:uppercase;border-radius:var(--r-full);cursor:pointer;border:none;outline:none;white-space:nowrap;position:relative;overflow:hidden;transition:background .3s,transform .2s var(--ease-out),box-shadow .3s,color .3s}
+.btn-arrow{display:inline-block;transition:transform .35s var(--ease-out);font-style:normal}
+.btn:hover .btn-arrow{transform:translateX(4px)}
+.btn-primary{background:var(--aegean);color:var(--ivory);padding:1.5rem 3.6rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 rgba(15,35,55,.4),0 6px 20px rgba(27,58,92,.25)}
+.btn-primary:hover{background:var(--aegean-mid);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 6px 0 rgba(15,35,55,.4),0 10px 30px rgba(27,58,92,.35)}
+.btn-outline{background:transparent;color:var(--ivory);padding:1.4rem 3.4rem;border:1px solid rgba(244,240,232,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.btn-outline:hover{background:rgba(244,240,232,.08);border-color:rgba(244,240,232,.7);transform:translateY(-1px)}
+.btn-terra{background:var(--terra);color:var(--white);padding:1.5rem 3.6rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 0 rgba(120,55,35,.4),0 6px 20px rgba(196,113,79,.2)}
+.btn-terra:hover{background:var(--terra-light);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 6px 0 rgba(120,55,35,.4),0 10px 28px rgba(196,113,79,.3)}
+.btn-ghost{background:transparent;color:var(--gray);padding:1.2rem 0;border-bottom:1px solid var(--border-light);border-radius:0;letter-spacing:.14em}
+.btn-ghost:hover{color:var(--terra);border-bottom-color:var(--terra)}
+.hero-scroll{position:absolute;bottom:3.2rem;left:5.6rem;z-index:2;display:flex;align-items:center;gap:1.2rem}
+.scroll-line{width:1px;height:48px;background:rgba(244,240,232,.15);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;background:var(--terra);animation:scroll-anim 2s ease infinite}
+@keyframes scroll-anim{0%{top:-50%}100%{top:100%}}
+.hero-scroll span{font-family:var(--font-m);font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory-ghost)}
+
+/* ═══ TRUST BAR ═══ */
+.trust-bar{padding:3.2rem 0;border-bottom:1px solid var(--border-light);background:var(--white);overflow:hidden}
+.trust-label{text-align:center;font-family:var(--font-m);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gray-light);margin-bottom:2rem}
+.trust-track{display:flex;gap:6.4rem;animation:marquee 30s linear infinite;width:max-content;align-items:center}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.trust-item{font-family:var(--font-d);font-size:1.6rem;font-weight:400;font-style:italic;color:var(--gray-light);white-space:nowrap;opacity:.5;transition:opacity .3s}
+.trust-item:hover{opacity:1}
+.trust-sep{width:4px;height:4px;border-radius:50%;background:var(--terra);opacity:.3;flex-shrink:0}
+
+/* ═══ SECTIONS COMMONS ═══ */
+.section{padding:12rem 5.6rem;position:relative}
+.section-cream{background:var(--cream)}
+.section-dark{background:var(--aegean);color:var(--ivory)}
+.section-charcoal{background:var(--charcoal);color:var(--ivory)}
+.section-terra{background:var(--terra);color:var(--white)}
+.section-tag{display:inline-flex;align-items:center;gap:1.4rem;margin-bottom:2.4rem}
+.section-tag::before{content:'';display:block;width:32px;height:1px;background:var(--terra);flex-shrink:0}
+.section-tag span{font-family:var(--font-m);font-size:1rem;letter-spacing:.24em;text-transform:uppercase;color:var(--terra)}
+.section-dark .section-tag span{color:var(--terra-pale)}
+.section-dark .section-tag::before{background:var(--terra-pale)}
+.section-title{font-family:var(--font-d);font-size:clamp(3.2rem,4.5vw,6.4rem);font-weight:400;line-height:1;letter-spacing:-.01em;margin-bottom:2rem}
+.section-title em{font-style:italic}
+.section-desc{font-family:var(--font-b);font-size:1.8rem;font-weight:300;line-height:1.75;max-width:58ch;color:var(--gray)}
+.section-dark .section-desc{color:var(--ivory-mid)}
+
+/* Greek divider */
+.greek-divider{width:100%;height:24px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='24' viewBox='0 0 80 24'%3E%3Cpath fill='none' stroke='rgba(196,113,79,0.25)' stroke-width='1' d='M0,12 L8,12 L8,4 L16,4 L16,20 L24,20 L24,4 L32,4 L32,16 L40,16 L40,8 L48,8 L48,20 L56,20 L56,4 L64,4 L64,16 L72,16 L72,8 L80,8'/%3E%3C/svg%3E");background-repeat:repeat-x;background-position:center;opacity:.6;margin:3.2rem 0}
+
+/* ═══ S1.4 INTRO SPLIT ═══ */
+.intro-split{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+.intro-img{position:relative;border-radius:var(--r-xl);overflow:hidden;aspect-ratio:4/5}
+.intro-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.intro-img:hover img{transform:scale(1.03)}
+.intro-caption{position:absolute;bottom:0;left:0;right:0;padding:2rem 2.4rem;background:linear-gradient(to top,rgba(28,26,22,.8),transparent);font-family:var(--font-m);font-size:.9rem;letter-spacing:.12em;color:var(--ivory-mid)}
+
+/* ═══ S1.5 SIGNATURE DISH ═══ */
+.signature{position:relative;min-height:70vh;display:flex;align-items:center;padding:8rem 5.6rem;overflow:hidden}
+.signature-bg{position:absolute;inset:0}
+.signature-bg img{width:100%;height:100%;object-fit:cover}
+.signature-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(28,26,22,.85) 0%,rgba(28,26,22,.4) 60%,transparent 100%)}
+.signature-content{position:relative;z-index:2;max-width:560px}
+.signature-content h2{font-family:var(--font-d);font-size:clamp(3.6rem,5vw,7.2rem);font-weight:400;font-style:italic;line-height:1.1;color:var(--ivory);margin-bottom:2.4rem}
+.signature-content p{font-family:var(--font-b);font-size:1.6rem;color:var(--ivory-mid);line-height:1.7;margin-bottom:3.2rem}
+
+/* ═══ S1.6 MENU CARDS ═══ */
+.menu-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem;margin-top:6rem}
+.menu-card{position:relative;overflow:hidden;border-radius:var(--r-xl);background:#1A2535;border:1px solid rgba(255,255,255,.06);transition:transform .5s var(--ease-out),box-shadow .5s}
+.menu-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-deep)}
+.menu-card-img{height:260px;overflow:hidden;position:relative}
+.menu-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease-out);filter:brightness(.85)}
+.menu-card:hover .menu-card-img img{transform:scale(1.06);filter:brightness(.95)}
+.menu-card-badge{position:absolute;top:1.6rem;left:1.6rem;background:var(--terra);color:var(--white);font-family:var(--font-m);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem 1.2rem;border-radius:var(--r-full);z-index:2}
+.menu-card-body{padding:2.8rem}
+.menu-card-tag{font-family:var(--font-m);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-pale);margin-bottom:1rem}
+.menu-card-title{font-family:var(--font-d);font-size:2.6rem;font-weight:400;font-style:italic;color:var(--ivory);margin-bottom:1.2rem;line-height:1.1}
+.menu-card-desc{font-size:1.4rem;color:var(--ivory-mid);line-height:1.65;margin-bottom:2.4rem}
+.menu-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:2rem;border-top:1px solid rgba(255,255,255,.07)}
+.menu-card-price{font-family:var(--font-d);font-size:2rem;font-weight:400;color:var(--sand)}
+.menu-card.featured{border-color:rgba(201,165,90,.2);background:var(--aegean)}
+.menu-card.featured .menu-card-badge{background:var(--sand);color:var(--charcoal)}
+
+/* ═══ S1.7 THE SETTING ═══ */
+.setting-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1.6rem;margin-top:6rem}
+.setting-grid .big{grid-row:span 2;border-radius:var(--r-xl);overflow:hidden;position:relative}
+.setting-grid .small{border-radius:var(--r-lg);overflow:hidden;position:relative}
+.setting-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.setting-grid .big:hover img,.setting-grid .small:hover img{transform:scale(1.04)}
+
+/* ═══ S1.8 TESTIMONIALS ═══ */
+.testi-section{background:var(--aegean);padding:16rem 5.6rem;position:relative;overflow:hidden;text-align:center}
+.testi-section::before{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='rgba(244,240,232,0.04)' d='M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E");background-size:cover;opacity:.4}
+.testi-mark{font-family:var(--font-d);font-size:12rem;color:rgba(244,240,232,.06);line-height:.5;margin-bottom:4rem}
+.testi-quote{font-family:var(--font-d);font-size:clamp(2.2rem,3.5vw,4.4rem);font-weight:400;font-style:italic;color:var(--ivory);line-height:1.4;max-width:900px;margin:0 auto 4.8rem}
+.testi-author{font-family:var(--font-d);font-size:1.8rem;color:var(--ivory-mid)}
+.testi-source{font-family:var(--font-m);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-pale);margin-top:.6rem}
+.testi-nav{display:flex;align-items:center;justify-content:center;gap:2.4rem;margin-top:5.6rem}
+.testi-btn{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:var(--ivory);font-size:1.6rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.testi-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+.testi-dots{display:flex;gap:.8rem}
+.testi-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:pointer}
+.testi-dot.active{background:var(--terra);transform:scale(1.4)}
+
+/* ═══ S1.9 CHEF SPOTLIGHT ═══ */
+.chef-split{display:grid;grid-template-columns:1.2fr 1fr;gap:0;min-height:80vh}
+.chef-photo{position:relative;overflow:hidden}
+.chef-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+.chef-info{padding:8rem 6.4rem;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.chef-accolades{display:flex;gap:1.6rem;margin-top:3.2rem;flex-wrap:wrap}
+.chef-badge{padding:.8rem 1.6rem;border-radius:var(--r-full);background:var(--white);border:1px solid var(--border-cream);font-family:var(--font-m);font-size:.85rem;letter-spacing:.1em;color:var(--gray)}
+
+/* ═══ S1.10 PRIVATE EVENTS ═══ */
+.events-full{position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:12rem 5.6rem;overflow:hidden}
+.events-full .bg{position:absolute;inset:0}
+.events-full .bg img{width:100%;height:100%;object-fit:cover}
+.events-full .overlay{position:absolute;inset:0;background:rgba(28,26,22,.75)}
+.events-content{position:relative;z-index:2;max-width:680px}
+.events-content h2{font-family:var(--font-d);font-size:clamp(4rem,6vw,8rem);font-weight:400;font-style:italic;line-height:1;color:var(--ivory);margin-bottom:2.4rem}
+.events-content p{font-size:1.8rem;color:var(--ivory-mid);line-height:1.7;margin-bottom:4rem}
+
+/* ═══ S1.11 GALLERY PREVIEW ═══ */
+.gallery-masonry{columns:3;column-gap:1.6rem;margin-top:6rem}
+.gallery-item{break-inside:avoid;margin-bottom:1.6rem;overflow:hidden;border-radius:var(--r-lg);position:relative;cursor:pointer}
+.gallery-item img{width:100%;height:auto;display:block;transition:transform .8s var(--ease-out),filter .4s;filter:saturate(.8)}
+.gallery-item:hover img{transform:scale(1.04);filter:saturate(1.1)}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,22,.7) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:2rem}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{font-family:var(--font-d);font-size:1.4rem;font-style:italic;color:var(--ivory)}
+
+/* ═══ S1.12 NEWSLETTER ═══ */
+.newsletter{background:var(--terra);padding:8rem 5.6rem;text-align:center}
+.newsletter h3{font-family:var(--font-d);font-size:clamp(2.4rem,3.5vw,4.4rem);font-weight:400;font-style:italic;color:var(--white);margin-bottom:1.2rem;line-height:1.2}
+.newsletter p{font-size:1.4rem;color:rgba(255,255,255,.7);margin-bottom:3.2rem}
+.nl-form{display:flex;gap:1.2rem;max-width:480px;margin:0 auto}
+.nl-form input{flex:1;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-full);padding:1.4rem 2.4rem;color:var(--white);font-family:var(--font-b);font-size:1.4rem;outline:none;transition:border-color .3s}
+.nl-form input::placeholder{color:rgba(255,255,255,.5)}
+.nl-form input:focus{border-color:rgba(255,255,255,.6)}
+.nl-form button{background:var(--white);color:var(--terra);font-family:var(--font-m);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;padding:1.4rem 3.2rem;border:none;border-radius:var(--r-full);cursor:pointer;transition:all .3s}
+.nl-form button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(28,26,22,.2)}
+.nl-note{font-family:var(--font-m);font-size:.85rem;color:rgba(255,255,255,.4);margin-top:1.6rem;letter-spacing:.1em}
+
+/* ═══ S1.13 RESERVE CTA ═══ */
+.reserve-cta{padding:16rem 5.6rem;text-align:center;background:var(--charcoal);position:relative;overflow:hidden}
+.reserve-cta::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(27,58,92,.2),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:cta-pulse 4s ease infinite}
+@keyframes cta-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.2);opacity:.3}}
+.reserve-cta h2{font-family:var(--font-d);font-size:clamp(4rem,6vw,9.6rem);font-weight:400;font-style:italic;line-height:1;color:var(--ivory);margin-bottom:2rem;position:relative;z-index:1}
+.reserve-cta .sub{font-size:1.8rem;color:var(--ivory-mid);margin-bottom:1.6rem;position:relative;z-index:1}
+.reserve-avail{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--font-m);font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--success);margin-bottom:4rem;position:relative;z-index:1}
+.reserve-avail::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.reserve-cta .btn-primary{position:relative;z-index:1;font-size:1.1rem;padding:2rem 5.6rem}
+.reserve-tel{font-family:var(--font-m);font-size:1.1rem;letter-spacing:.12em;color:var(--ivory-dim);margin-top:2.4rem;position:relative;z-index:1}
+.reserve-tel a{color:var(--ivory);transition:color .3s}
+.reserve-tel a:hover{color:var(--terra)}
+.reserve-note{font-family:var(--font-m);font-size:.85rem;color:var(--ivory-ghost);margin-top:1.2rem;position:relative;z-index:1}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--charcoal);color:var(--ivory);padding:8rem 5.6rem 4rem;border-top:1px solid rgba(244,240,232,.06)}
+.footer-top{display:grid;grid-template-columns:1.2fr repeat(3,1fr);gap:6.4rem;padding-bottom:6.4rem;margin-bottom:4rem;border-bottom:1px solid rgba(244,240,232,.08)}
+.footer-logo{font-family:var(--font-d);font-size:2.4rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--ivory);margin-bottom:1.6rem;display:block}
+.footer-tagline{font-family:var(--font-m);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,240,232,.3);margin-bottom:3.2rem}
+.footer-addr{font-size:1.4rem;font-weight:300;color:rgba(244,240,232,.5);line-height:1.7}
+.footer-hours{font-family:var(--font-m);font-size:.9rem;letter-spacing:.1em;color:rgba(244,240,232,.4);margin-top:1.6rem;line-height:1.8}
+.footer-col-title{font-family:var(--font-m);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);display:block;margin-bottom:2.4rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:1.2rem}
+.footer-col a{font-size:1.4rem;font-weight:300;color:rgba(244,240,232,.45);transition:color .3s}
+.footer-col a:hover{color:var(--ivory)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-family:var(--font-m);font-size:.8rem;letter-spacing:.1em;color:rgba(244,240,232,.2)}
+.footer-social{display:flex;gap:2rem}
+.footer-social a{font-family:var(--font-m);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,240,232,.3);transition:color .3s}
+.footer-social a:hover{color:var(--terra)}
+
+/* ═══ TYPOGRAPHY UTILITIES ═══ */
+.t-hero{font-family:var(--font-d);font-size:clamp(5.6rem,9vw,13.6rem);font-weight:400;line-height:.92;letter-spacing:-.02em}
+.t-hero em{font-style:italic;color:var(--terra)}
+.t-display{font-family:var(--font-d);font-size:clamp(4rem,6vw,9.6rem);font-weight:400;line-height:.95;letter-spacing:-.015em}
+.t-h1{font-family:var(--font-d);font-size:clamp(3.2rem,4.5vw,6.4rem);font-weight:400;line-height:1;letter-spacing:-.01em}
+.t-h1 em{font-style:italic}
+.t-h2{font-family:var(--font-d);font-size:clamp(2.4rem,3vw,4.4rem);font-weight:400;line-height:1.1;font-style:italic}
+.t-h3{font-family:var(--font-d);font-size:clamp(2rem,2.4vw,3.2rem);font-weight:400;line-height:1.2;font-style:italic}
+.t-body-lg{font-family:var(--font-b);font-size:1.8rem;font-weight:300;line-height:1.75;max-width:58ch}
+.t-body{font-family:var(--font-b);font-size:1.6rem;font-weight:300;line-height:1.7;max-width:60ch}
+.t-body-sm{font-family:var(--font-b);font-size:1.4rem;font-weight:300;line-height:1.6}
+.t-label{font-family:var(--font-m);font-size:1.1rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;line-height:1}
+.t-label-sm{font-family:var(--font-m);font-size:.9rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase}
+.t-price{font-family:var(--font-d);font-size:2.4rem;font-weight:400;color:var(--sand);letter-spacing:.02em}
+.t-price-lg{font-family:var(--font-d);font-size:3.6rem;font-weight:400;color:var(--sand);line-height:1}
+.t-quote{font-family:var(--font-d);font-size:clamp(2.4rem,3.5vw,5.2rem);font-weight:400;font-style:italic;line-height:1.3;letter-spacing:.01em}
+.t-dish-name{font-family:var(--font-d);font-size:1.8rem;font-weight:400;font-style:italic}
+.t-dish-desc{font-family:var(--font-b);font-size:1.4rem;font-weight:300;color:var(--gray);line-height:1.55}
+.t-dish-price{font-family:var(--font-m);font-size:1.3rem;font-weight:400;color:var(--sand);letter-spacing:.05em}
+
+/* ═══ BUTTON VARIANTS ═══ */
+.btn-outline-aegean{background:transparent;color:var(--aegean);padding:1.4rem 3.4rem;border:1px solid rgba(27,58,92,.3)}
+.btn-outline-aegean:hover{background:var(--aegean-dim);border-color:var(--aegean)}
+.btn-lg{padding:2rem 5.6rem;font-size:1.1rem}
+.btn-sm{padding:1rem 2.4rem;font-size:.9rem}
+.btn-xl{padding:2.4rem 7.2rem;font-size:1.2rem}
+
+/* ═══ SECTION TAG VARIANTS ═══ */
+.section-tag--diamond::before{content:'\25C6';font-size:.5rem;color:var(--terra);width:auto;height:auto;background:none}
+
+/* ═══ SECTION ORNAMENT ═══ */
+.section-ornament{display:flex;align-items:center;gap:2.4rem;padding:1.6rem 0}
+.section-ornament .orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(196,113,79,.2),rgba(196,113,79,.4),rgba(196,113,79,.2),transparent)}
+.section-ornament .orn-icon{font-size:.6rem;color:var(--terra);display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+
+/* ═══ WATERMARK ═══ */
+.watermark{position:absolute;font-family:var(--font-d);font-size:22vw;font-weight:400;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(196,113,79,.05);pointer-events:none;user-select:none;white-space:nowrap;line-height:1;z-index:0}
+
+/* ═══ MENU LIST (A LA CARTE) ═══ */
+.menu-list{max-width:780px;margin:0 auto}
+.menu-section-title{display:flex;align-items:center;gap:3.2rem;margin-bottom:3.2rem;margin-top:6.4rem}
+.menu-section-title span{font-family:var(--font-d);font-size:1.4rem;font-weight:400;font-style:italic;letter-spacing:.08em;color:var(--gray);white-space:nowrap}
+.menu-section-title::before,.menu-section-title::after{content:'';flex:1;height:1px;background:var(--border-cream)}
+.menu-item{display:flex;align-items:baseline;justify-content:space-between;gap:3.2rem;padding:2rem 0;border-bottom:1px solid var(--border-light);position:relative}
+.menu-item:last-child{border-bottom:none}
+.menu-item-content{flex:1}
+.menu-item-name{font-family:var(--font-d);font-size:1.8rem;font-weight:400;font-style:italic;color:var(--charcoal);margin-bottom:.4rem}
+.menu-item-desc{font-family:var(--font-b);font-size:1.3rem;font-weight:300;color:var(--gray);line-height:1.5}
+.menu-item-allergens{font-family:var(--font-m);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-pale);margin-top:.4rem}
+.menu-item-price{font-family:var(--font-m);font-size:1.3rem;color:var(--sand);letter-spacing:.05em;white-space:nowrap;flex-shrink:0}
+
+/* ═══ TEAM CARDS BEM ═══ */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2.4rem;margin-top:6rem}
+.team-card{position:relative;overflow:hidden;border-radius:var(--r-xl);aspect-ratio:3/4;cursor:default}
+.team-card-img{position:absolute;inset:0}
+.team-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out),filter .4s;filter:saturate(.85)}
+.team-card:hover .team-card-img img{transform:scale(1.06);filter:saturate(1)}
+.team-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,22,.88) 0%,rgba(28,26,22,.3) 40%,transparent 65%);transition:background .4s}
+.team-card:hover .team-card-overlay{background:linear-gradient(to top,rgba(28,26,22,.95) 0%,rgba(28,26,22,.5) 50%,rgba(28,26,22,.1) 80%)}
+.team-card-info{position:absolute;bottom:0;left:0;right:0;padding:2.8rem}
+.team-card-role{font-family:var(--font-m);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra-pale);margin-bottom:.6rem}
+.team-card-name{font-family:var(--font-d);font-size:2.2rem;font-weight:400;font-style:italic;color:var(--ivory);margin-bottom:.8rem}
+.team-card-quote{font-family:var(--font-b);font-size:1.3rem;color:var(--ivory-mid);line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease-out),transform .4s var(--ease-out)}
+.team-card:hover .team-card-quote{opacity:1;transform:translateY(0)}
+
+/* ═══ RESERVATION FORM ═══ */
+.reserve-form{max-width:680px;margin:4.8rem auto 0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.form-field{display:flex;flex-direction:column;gap:.8rem}
+.form-field-full{grid-column:1/-1}
+.form-label{font-family:var(--font-m);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray)}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--white);border:1px solid var(--border-cream);border-radius:var(--r-md);color:var(--charcoal);font-family:var(--font-b);font-size:1.5rem;font-weight:300;padding:1.4rem 1.8rem;outline:none;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--aegean);box-shadow:0 0 0 3px rgba(27,58,92,.08)}
+.form-input::placeholder{color:var(--gray-pale)}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236B6660' stroke-width='1.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1.6rem center;padding-right:4rem;cursor:pointer}
+.form-textarea{resize:vertical;min-height:120px;line-height:1.7}
+.form-counter{display:flex;align-items:center;gap:1.6rem;background:var(--white);border:1px solid var(--border-cream);border-radius:var(--r-md);padding:1rem 1.4rem}
+.form-counter-btn{width:32px;height:32px;border-radius:50%;background:var(--cream);border:1px solid var(--border-cream);color:var(--charcoal);font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.form-counter-btn:hover{background:var(--aegean);color:var(--white);border-color:var(--aegean)}
+.form-counter-val{font-family:var(--font-d);font-size:2.4rem;font-weight:400;color:var(--charcoal);min-width:4rem;text-align:center}
+
+/* ═══ REVEALS ═══ */
+.reveal{opacity:0;transform:translateY(32px);transition:all .9s var(--ease-out)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+html{font-size:57%}
+.navbar{padding:2rem 3.2rem}
+.intro-split{grid-template-columns:1fr}
+.menu-cards{grid-template-columns:1fr 1fr}
+.chef-split{grid-template-columns:1fr}
+.setting-grid{grid-template-columns:1fr}
+.setting-grid .big{grid-row:auto}
+.footer-top{grid-template-columns:1fr 1fr;gap:3.2rem}
+.gallery-masonry{columns:2}
+.team-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+html{font-size:52%}
+.navbar{padding:1.8rem 2.4rem}
+.nav-links{display:none}
+.section{padding:8rem 2.4rem}
+.hero{padding:0 2.4rem 6rem}
+.menu-cards{grid-template-columns:1fr}
+.footer-top{grid-template-columns:1fr}
+.gallery-masonry{columns:1}
+.team-grid{grid-template-columns:repeat(2,1fr)}
+.form-grid{grid-template-columns:1fr}
+.hero-scroll{display:none}
+#contact-form>div{grid-template-columns:1fr!important}
+.signature{padding:8rem 2.4rem}
+.testi-section{padding:10rem 2.4rem}
+.newsletter{padding:6rem 2.4rem}
+.reserve-cta{padding:10rem 2.4rem}
+.footer{padding:6rem 2.4rem 3rem}
+.events-full{padding:8rem 2.4rem}
+.chef-info{padding:4.8rem 2.4rem}
+}
+@media(max-width:480px){
+html{font-size:48%}
+.nl-form{flex-direction:column}
+.footer-bottom{flex-direction:column;gap:2rem;text-align:center}
+.hero-btns{flex-direction:column;align-items:flex-start}
+}
+/* ═══ PRELOADER ═══ */
+.preloader{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:#FDFAF5;transition:opacity .8s ease}
+.preloader.hidden{opacity:0;pointer-events:none}
+.preloader__bg{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;pointer-events:none}
+.preloader__content{display:flex;flex-direction:column;align-items:center;gap:2.4rem;position:relative;z-index:1}
+.preloader__logo-wrap{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.preloader__wave{width:80px;height:28px;display:block}
+.preloader__name{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:500;letter-spacing:.5em;text-transform:uppercase;color:#1C1A16;opacity:0;transform:translateY(8px)}
+.preloader__tagline{font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.24em;text-transform:uppercase;color:#9E9890;opacity:0}
+.preloader__bar-wrap{display:flex;align-items:center;gap:1.6rem;margin-top:.8rem}
+.preloader__bar{width:180px;height:1px;background:rgba(28,26,22,.1);position:relative;overflow:hidden}
+.preloader__bar-fill{position:absolute;top:0;left:0;height:100%;width:0%;background:linear-gradient(to right,#C4714F,#1B3A5C);transition:width .1s linear}
+.preloader__pct{font-family:'DM Mono',monospace;font-size:.9rem;letter-spacing:.15em;color:#9E9890;min-width:3.2rem}
+
+/* ═══ SCROLL REVEAL INITIAL STATES ═══ */
+.line-wrap{overflow:hidden;display:block}
+.line-inner{display:block;transform:translateY(108%)}
+[data-reveal="fade"]{opacity:0;transform:translateY(28px)}
+[data-reveal="scale"]{opacity:0;transform:scale(.94)}
+[data-reveal="clip"]{clip-path:inset(100% 0 0 0)}
+[data-stagger]>*{opacity:0;transform:translateY(32px)}
+
+/* ═══ NAVBAR GSAP ENHANCEMENTS ═══ */
+.navbar.is-scrolled{padding-top:1.4rem!important;padding-bottom:1.4rem!important;background:rgba(253,250,245,.94)!important;backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important;box-shadow:0 1px 20px rgba(28,26,22,.06)!important}
+
+/* ═══ LENIS FIX ═══ */
+html{scroll-behavior:auto!important}
+
+/* ═══ FONT WEIGHT FIXES ═══ */
+h1{font-weight:500!important}
+h1 em{font-style:italic!important;font-weight:500!important}
+
+/* Toast */
+.thalassa-toast{position:fixed;bottom:3.2rem;left:50%;transform:translateX(-50%) translateY(20px);font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;padding:1.4rem 3.2rem;border-radius:999px;z-index:9999;pointer-events:none;opacity:0;box-shadow:0 8px 32px rgba(28,26,22,.2);white-space:nowrap;max-width:90vw}
+</style>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__bg"></div>
+  <div class="preloader__content">
+    <div class="preloader__logo-wrap">
+      <svg class="preloader__wave" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path id="wave-path" d="M0,16 C10,6 20,26 40,16 C60,6 70,26 80,16" stroke="#C4714F" stroke-width="1.2" fill="none" stroke-dasharray="120" stroke-dashoffset="120"/>
+      </svg>
+      <span class="preloader__name">THALASSA</span>
+      <svg class="preloader__wave preloader__wave--bot" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0,16 C10,26 20,6 40,16 C60,26 70,6 80,16" stroke="#C4714F" stroke-width="1.2" fill="none" stroke-dasharray="120" stroke-dashoffset="120" class="wave-path-bot"/>
+      </svg>
+    </div>
+    <p class="preloader__tagline">Modern Greek Gastronomy</p>
+    <div class="preloader__bar-wrap">
+      <div class="preloader__bar"><div class="preloader__bar-fill" id="preloader-fill"></div></div>
+      <span class="preloader__pct" id="preloader-pct">0%</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" class="nav-logo"><div class="nav-mark"><span></span><span></span><span></span></div>THALASSA</a>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-cta">Reserve a Table</button>
+</nav>
+
+<!-- S1.2 HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80" alt="Restaurant by the sea" fetchpriority="high"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Est. 2012 &middot; Mykonos Spirit</div>
+    <h1>Where the Aegean<br>meets <em>the plate.</em></h1>
+    <p class="hero-sub">A gastronomic journey rooted in Greek soil, elevated by modern craft.</p>
+    <div class="hero-btns">
+      <a class="btn btn-outline" href="#menu">Explore the Menu <i class="btn-arrow">&rarr;</i></a>
+      <a class="btn btn-primary" href="#reserve">Reserve Your Evening <i class="btn-arrow">&rarr;</i></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Discover</span></div>
+</section>
+
+<!-- S1.3 TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-label">As recognized by</div>
+  <div class="trust-track">
+    <span class="trust-item">Michelin Guide</span><span class="trust-sep"></span>
+    <span class="trust-item">The World's 50 Best</span><span class="trust-sep"></span>
+    <span class="trust-item">Cond&eacute; Nast Traveller</span><span class="trust-sep"></span>
+    <span class="trust-item">Monocle</span><span class="trust-sep"></span>
+    <span class="trust-item">Financial Times</span><span class="trust-sep"></span>
+    <span class="trust-item">Michelin Guide</span><span class="trust-sep"></span>
+    <span class="trust-item">The World's 50 Best</span><span class="trust-sep"></span>
+    <span class="trust-item">Cond&eacute; Nast Traveller</span><span class="trust-sep"></span>
+    <span class="trust-item">Monocle</span><span class="trust-sep"></span>
+    <span class="trust-item">Financial Times</span><span class="trust-sep"></span>
+  </div>
+</div>
+
+<!-- S1.4 INTRODUCTION -->
+<section class="section" id="about">
+  <div class="intro-split">
+    <div>
+      <div class="section-tag reveal"><span>Our Philosophy</span></div>
+      <h2 class="section-title reveal">Rooted in tradition.<br><em>Liberated by curiosity.</em></h2>
+      <div class="greek-divider reveal"></div>
+      <p class="section-desc reveal">Every dish at Thalassa begins with a conversation &mdash; with the fisherman who knows the tides, the farmer who tends olive groves older than memory, the forager who reads the hillside like a map. We honor these voices through a cuisine that respects the raw ingredient above all.</p>
+      <p class="section-desc reveal" style="margin-top:2rem">Chef Nikos Papadakis brings a philosophy shaped by Cretan heritage, Parisian technique, and the Japanese principle of <em>ichigo ichie</em> &mdash; one encounter, one chance. Each plate is that chance.</p>
+      <a href="#" class="btn btn-ghost reveal" style="margin-top:3.2rem">Discover Our Story <i class="btn-arrow">&rarr;</i></a>
+    </div>
+    <div class="intro-img reveal">
+      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80" alt="Chef Nikos in the kitchen" loading="lazy">
+      <div class="intro-caption">Chef Nikos Papadakis &middot; Head Chef since 2012</div>
+    </div>
+  </div>
+</section>
+
+<!-- S1.5 SIGNATURE DISH -->
+<section class="signature">
+  <div class="signature-bg"><img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=1600&q=80" alt="Aegean Octopus dish" loading="lazy"></div>
+  <div class="signature-overlay"></div>
+  <div class="signature-content">
+    <div class="section-tag" style="margin-bottom:2rem"><span style="color:var(--terra-pale)">Signature Dish</span></div>
+    <h2>Aegean Octopus</h2>
+    <p>Slow-braised with lemon myrtle, ink emulsion, and wild capers from the cliffs of Santorini. A dish that has been on our menu since day one.</p>
+    <a href="#menu" class="btn btn-outline">View Full Menu <i class="btn-arrow">&rarr;</i></a>
+  </div>
+</section>
+
+<!-- S1.6 MENUS OVERVIEW -->
+<section class="section section-charcoal" id="menu">
+  <div class="section-tag reveal"><span style="color:var(--terra-pale)">The Menu</span></div>
+  <h2 class="section-title reveal" style="color:var(--ivory)">Seasonal. Local.<br><em>Exceptional.</em></h2>
+  <div class="menu-cards">
+    <div class="menu-card reveal reveal-d1">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80" alt="A la carte dish" loading="lazy"></div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">Daily Selection</div>
+        <div class="menu-card-title">&Agrave; la Carte</div>
+        <div class="menu-card-desc">Freedom to compose your evening, dish by dish. Seasonal offerings from land and sea.</div>
+        <div class="menu-card-foot">
+          <span class="menu-card-price">From &euro; 28</span>
+          <a class="btn btn-ghost" style="color:var(--ivory-mid);border-color:rgba(255,255,255,.1)">View Menu <i class="btn-arrow">&rarr;</i></a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card featured reveal reveal-d2">
+      <div class="menu-card-img">
+        <div class="menu-card-badge">Chef's Recommendation</div>
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Tasting menu dishes" loading="lazy">
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">6 Courses</div>
+        <div class="menu-card-title">The Thalassa Journey</div>
+        <div class="menu-card-desc">A curated narrative of Greek land and sea. Our finest expression of seasonal cooking.</div>
+        <div class="menu-card-foot">
+          <span class="menu-card-price">&euro; 185</span>
+          <a class="btn btn-ghost" style="color:var(--ivory-mid);border-color:rgba(255,255,255,.1)">Discover <i class="btn-arrow">&rarr;</i></a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal reveal-d3">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Wine cellar" loading="lazy"></div>
+      <div class="menu-card-body">
+        <div class="menu-card-tag">250+ References</div>
+        <div class="menu-card-title">Cellar &amp; Spirits</div>
+        <div class="menu-card-desc">Greek natural wines, rare international labels, and sommelier pairings crafted for each course.</div>
+        <div class="menu-card-foot">
+          <span class="menu-card-price">By the glass</span>
+          <a class="btn btn-ghost" style="color:var(--ivory-mid);border-color:rgba(255,255,255,.1)">Explore <i class="btn-arrow">&rarr;</i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S1.7 THE SETTING -->
+<section class="section" id="experience">
+  <div class="section-tag reveal"><span>The Setting</span></div>
+  <h2 class="section-title reveal">A table above<br><em>the Aegean.</em></h2>
+  <p class="section-desc reveal">Perched on the caldera's edge, our terraces offer an unbroken view of the sea at every table. As the sun sets, the space transforms into a theater of light, stone, and sky.</p>
+  <div class="setting-grid">
+    <div class="big reveal"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80" alt="Main terrace facing the sea" loading="lazy"></div>
+    <div class="small reveal reveal-d1"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Interior dining room" loading="lazy"></div>
+    <div class="small reveal reveal-d2"><img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=800&q=80" alt="The bar lounge" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- S1.8 TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-mark reveal">&ldquo;</div>
+  <div class="testi-quote reveal" id="testiQuote">Thalassa is not just a restaurant. It is the best argument for travelling to Greece.</div>
+  <div class="testi-author reveal" id="testiAuthor">Fiona MacTavish</div>
+  <div class="testi-source reveal" id="testiSource">Cond&eacute; Nast Traveller</div>
+  <div class="testi-nav reveal">
+    <button class="testi-btn" onclick="prevTesti()" aria-label="Previous">&larr;</button>
+    <div class="testi-dots" id="testiDots">
+      <span class="testi-dot active"></span>
+      <span class="testi-dot"></span>
+      <span class="testi-dot"></span>
+      <span class="testi-dot"></span>
+    </div>
+    <button class="testi-btn" onclick="nextTesti()" aria-label="Next">&rarr;</button>
+  </div>
+</section>
+
+<!-- S1.9 CHEF SPOTLIGHT -->
+<section class="chef-split">
+  <div class="chef-photo"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1200&q=80" alt="Chef Nikos Papadakis" loading="lazy"></div>
+  <div class="chef-info">
+    <div class="section-tag reveal"><span>The Chef</span></div>
+    <h2 class="section-title reveal">Nikos<br><em>Papadakis</em></h2>
+    <p class="section-desc reveal" style="color:var(--gray);margin-top:1.6rem">Born in Crete, trained at &Eacute;cole Ferrandi in Paris and refined through a transformative year in Tokyo's Kaiseki tradition. Nikos returned to Greece with a singular vision: to honor the purity of Greek ingredients through the lens of global technique.</p>
+    <div class="chef-accolades reveal">
+      <span class="chef-badge">&#9733; Michelin Star 2016</span>
+      <span class="chef-badge">Best Chef Greece 2019</span>
+      <span class="chef-badge">Since 2012</span>
+    </div>
+    <a href="#" class="btn btn-ghost reveal" style="margin-top:3.2rem">Read His Story <i class="btn-arrow">&rarr;</i></a>
+  </div>
+</section>
+
+<!-- S1.10 PRIVATE EVENTS -->
+<section class="events-full">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80" alt="Private dining" loading="lazy"></div>
+  <div class="overlay"></div>
+  <div class="events-content">
+    <div class="section-tag reveal" style="justify-content:center"><span style="color:var(--terra-pale)">Private &amp; Exclusive</span></div>
+    <h2 class="reveal">Your evening.<br>Your rules.</h2>
+    <p class="reveal">From intimate dinners for two to exclusive buyouts for eighty. We craft the experience around your vision.</p>
+    <div class="reveal" style="display:flex;gap:1.6rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="#">Plan a Private Event <i class="btn-arrow">&rarr;</i></a>
+      <a class="btn btn-outline" href="#">Download Brochure</a>
+    </div>
+  </div>
+</section>
+
+<!-- S1.11 GALLERY -->
+<section class="section" id="gallery">
+  <div class="section-tag reveal"><span>A Glimpse</span></div>
+  <h2 class="section-title reveal">Through the lens<br><em>of Thalassa.</em></h2>
+  <div class="gallery-masonry">
+    <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80" alt="Plated dish" loading="lazy"><div class="gallery-overlay"><span>Seasonal Plates</span></div></div>
+    <div class="gallery-item reveal reveal-d1"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Terrace view" loading="lazy" style="aspect-ratio:3/4;object-fit:cover"><div class="gallery-overlay"><span>Sunset Terrace</span></div></div>
+    <div class="gallery-item reveal reveal-d2"><img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80" alt="Octopus dish" loading="lazy"><div class="gallery-overlay"><span>Aegean Octopus</span></div></div>
+    <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=600&q=80" alt="Team at work" loading="lazy" style="aspect-ratio:4/5;object-fit:cover"><div class="gallery-overlay"><span>The Team</span></div></div>
+    <div class="gallery-item reveal reveal-d1"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80" alt="Wine selection" loading="lazy"><div class="gallery-overlay"><span>The Cellar</span></div></div>
+    <div class="gallery-item reveal reveal-d2"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Interior detail" loading="lazy" style="aspect-ratio:3/4;object-fit:cover"><div class="gallery-overlay"><span>Evening Light</span></div></div>
+  </div>
+  <div style="text-align:center;margin-top:4.8rem" class="reveal">
+    <a class="btn btn-ghost" href="#">View Full Gallery <i class="btn-arrow">&rarr;</i></a>
+  </div>
+</section>
+
+<!-- MENU A LA CARTE PREVIEW -->
+<section class="section section-cream">
+  <div class="section-tag reveal"><span>From the Kitchen</span></div>
+  <h2 class="section-title reveal">A taste of<br><em>today's menu.</em></h2>
+  <div class="section-ornament reveal"><span class="orn-line"></span><span class="orn-icon">&#9670;</span><span class="orn-line"></span></div>
+  <div class="menu-list">
+    <div class="menu-section-title"><span>To Begin</span></div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Cretan Dakos</div><div class="menu-item-desc">Barley rusk, heirloom tomato, aged myzithra, wild oregano oil</div><div class="menu-item-allergens">GF available</div></div>
+      <span class="menu-item-price">&euro; 18</span>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Sea Urchin Saganaki</div><div class="menu-item-desc">Fresh uni, tomato fondue, ouzo cream, crisp phyllo</div></div>
+      <span class="menu-item-price">&euro; 32</span>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Smoked Eggplant Tartare</div><div class="menu-item-desc">Charred aubergine, pomegranate molasses, pine nuts, za'atar lavash</div><div class="menu-item-allergens">V &middot; VG</div></div>
+      <span class="menu-item-price">&euro; 22</span>
+    </div>
+    <div class="menu-section-title"><span>From the Sea</span></div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Aegean Octopus</div><div class="menu-item-desc">Slow-braised, lemon myrtle, ink emulsion, wild capers</div></div>
+      <span class="menu-item-price">&euro; 38</span>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Red Mullet Avgolemono</div><div class="menu-item-desc">Pan-seared fillet, egg-lemon broth, dill, new potatoes</div></div>
+      <span class="menu-item-price">&euro; 42</span>
+    </div>
+    <div class="menu-section-title"><span>From the Land</span></div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Lamb Kleftiko</div><div class="menu-item-desc">Twelve-hour shoulder, artichoke, black garlic, thyme jus</div></div>
+      <span class="menu-item-price">&euro; 45</span>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Moussaka Deconstructed</div><div class="menu-item-desc">Wagyu beef, smoked bechamel foam, aubergine three ways</div></div>
+      <span class="menu-item-price">&euro; 36</span>
+    </div>
+    <div class="menu-section-title"><span>To Finish</span></div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Baklava Reimagined</div><div class="menu-item-desc">Pistachio praline, orange blossom cream, phyllo tuile, Attiki honey</div></div>
+      <span class="menu-item-price">&euro; 18</span>
+    </div>
+    <div class="menu-item reveal">
+      <div class="menu-item-content"><div class="menu-item-name">Mastiha Panna Cotta</div><div class="menu-item-desc">Chios mastic, sour cherry compote, almond crumble</div><div class="menu-item-allergens">GF</div></div>
+      <span class="menu-item-price">&euro; 16</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:4.8rem;font-family:var(--font-m);font-size:1.1rem;color:var(--gray-light);letter-spacing:.1em" class="reveal">All dishes are made with seasonal Greek produce. Please inform us of any allergies.</div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="section">
+  <div class="section-tag reveal"><span>The Team</span></div>
+  <h2 class="section-title reveal">The people behind<br><em>the magic.</em></h2>
+  <p class="section-desc reveal">A curated team united by a passion for craft, flavor, and hospitality.</p>
+  <div class="team-grid">
+    <div class="team-card reveal reveal-d1">
+      <div class="team-card-img"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80" alt="Chef Nikos" loading="lazy"></div>
+      <div class="team-card-overlay"></div>
+      <div class="team-card-info"><div class="team-card-role">Head Chef</div><div class="team-card-name">Nikos Papadakis</div><div class="team-card-quote">The ingredient speaks first. I just listen.</div></div>
+    </div>
+    <div class="team-card reveal reveal-d2">
+      <div class="team-card-img"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="Elena" loading="lazy"></div>
+      <div class="team-card-overlay"></div>
+      <div class="team-card-info"><div class="team-card-role">Sous Chef</div><div class="team-card-name">Elena Dimitriou</div><div class="team-card-quote">Precision is love made visible.</div></div>
+    </div>
+    <div class="team-card reveal reveal-d3">
+      <div class="team-card-img"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80" alt="Alexandros" loading="lazy"></div>
+      <div class="team-card-overlay"></div>
+      <div class="team-card-info"><div class="team-card-role">Head Sommelier</div><div class="team-card-name">Alexandros Voss</div><div class="team-card-quote">Every bottle has a story. I find the right chapter.</div></div>
+    </div>
+    <div class="team-card reveal reveal-d4">
+      <div class="team-card-img"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Sofia" loading="lazy"></div>
+      <div class="team-card-overlay"></div>
+      <div class="team-card-info"><div class="team-card-role">P&acirc;tissi&egrave;re</div><div class="team-card-name">Sofia Kallas</div><div class="team-card-quote">Dessert is the last impression. Make it eternal.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / RESERVATION FORM -->
+<section class="section section-cream" id="contact-form">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start">
+    <div>
+      <div class="section-tag reveal"><span>Reservations</span></div>
+      <h2 class="section-title reveal">Reserve your<br><em>evening.</em></h2>
+      <p class="section-desc reveal" style="margin-bottom:3.2rem">Complete the form below and our team will confirm your table within 24 hours.</p>
+      <form class="reserve-form" onsubmit="return false" style="margin:0">
+        <div class="form-grid">
+          <div class="form-field reveal"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Your first name"></div>
+          <div class="form-field reveal"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Your last name"></div>
+          <div class="form-field reveal"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="hello@example.com"></div>
+          <div class="form-field reveal"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="+30 ..."></div>
+          <div class="form-field reveal"><label class="form-label">Date</label><input class="form-input" type="date"></div>
+          <div class="form-field reveal"><label class="form-label">Time</label><select class="form-select"><option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option><option>9:30 PM</option><option>10:00 PM</option></select></div>
+          <div class="form-field reveal"><label class="form-label">Guests</label><div class="form-counter"><button class="form-counter-btn" onclick="changeGuests(-1)" type="button">&minus;</button><span class="form-counter-val" id="guestCount">2</span><button class="form-counter-btn" onclick="changeGuests(1)" type="button">+</button></div></div>
+          <div class="form-field reveal"><label class="form-label">Occasion</label><select class="form-select"><option>Regular dinner</option><option>Birthday</option><option>Anniversary</option><option>Business dinner</option><option>Other</option></select></div>
+          <div class="form-field form-field-full reveal"><label class="form-label">Special Requests</label><textarea class="form-textarea" placeholder="Allergies, dietary restrictions, seating preferences..."></textarea></div>
+        </div>
+        <div style="margin-top:2.4rem" class="reveal"><button type="submit" class="btn btn-primary">Request Reservation <i class="btn-arrow">&rarr;</i></button></div>
+        <div style="margin-top:1.2rem;font-family:var(--font-m);font-size:.85rem;color:var(--gray-light);letter-spacing:.08em" class="reveal">Cancellation policy: 48 hours notice required.</div>
+      </form>
+    </div>
+    <div class="reveal" style="margin-top:8rem">
+      <div style="padding:4rem;background:var(--white);border-radius:var(--r-xl);border:1px solid var(--border-light)">
+        <div style="font-family:var(--font-m);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin-bottom:2.4rem">Practical Info</div>
+        <div style="margin-bottom:2.4rem"><div style="font-family:var(--font-m);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-light);margin-bottom:.6rem">Address</div><div style="font-size:1.5rem;color:var(--charcoal)">Caldera Cliffs, Oia<br>Santorini 847 02, Greece</div></div>
+        <div style="margin-bottom:2.4rem"><div style="font-family:var(--font-m);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-light);margin-bottom:.6rem">Hours</div><div style="font-size:1.5rem;color:var(--charcoal)">Tue&ndash;Sun, 7:00 PM&ndash;Midnight<br>Closed Mondays</div></div>
+        <div style="margin-bottom:2.4rem"><div style="font-family:var(--font-m);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-light);margin-bottom:.6rem">Season</div><div style="font-size:1.5rem;color:var(--charcoal)">April 15 &ndash; October 31</div></div>
+        <div style="margin-bottom:2.4rem"><div style="font-family:var(--font-m);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-light);margin-bottom:.6rem">Getting There</div><div style="font-size:1.4rem;color:var(--gray)">10 min from Oia port<br>Valet parking available</div></div>
+        <div class="greek-divider" style="margin:2.4rem 0"></div>
+        <div style="font-family:var(--font-m);font-size:.85rem;color:var(--gray);letter-spacing:.08em;line-height:1.8">For groups of 8+:<br><a href="#" style="color:var(--terra)">events@thalassa.gr</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S1.12 NEWSLETTER -->
+<section class="newsletter">
+  <div class="section-tag reveal" style="justify-content:center"><span style="color:rgba(255,255,255,.6)">Stay Connected</span></div>
+  <h3 class="reveal">New menus, winemaker evenings,<br>and seasonal stories.</h3>
+  <p class="reveal">Join our circle for exclusive invitations.</p>
+  <form class="nl-form reveal" onsubmit="return false">
+    <input type="email" placeholder="Your email address">
+    <button type="submit">Join</button>
+  </form>
+  <div class="nl-note reveal">Unsubscribe anytime. No spam.</div>
+</section>
+
+<!-- S1.13 RESERVE CTA -->
+<section class="reserve-cta" id="reserve">
+  <h2 class="reveal">Reserve your<br>table tonight.</h2>
+  <p class="sub reveal">Open April through October. Dinner service from 7:00 PM.</p>
+  <div class="reserve-avail reveal"><span>Tables available this week</span></div>
+  <div class="reveal"><a class="btn btn-primary" href="#">Book Online <i class="btn-arrow">&rarr;</i></a></div>
+  <div class="reserve-tel reveal"><a href="tel:+302100000000">+30 210 000 0000</a></div>
+  <div class="reserve-note reveal">For same-day reservations, please call.</div>
+</section>
+
+<!-- S1.14 FOOTER -->
+<footer class="footer" id="contact">
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">THALASSA</span>
+      <div class="footer-tagline">Modern Greek Gastronomy</div>
+      <div class="footer-addr">Oia, Santorini<br>Greece</div>
+      <div class="footer-hours">Dinner &middot; Tue&ndash;Sun &middot; 7 PM&ndash;midnight<br>Open April 15 &ndash; October 31</div>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#reserve">Reserve</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <ul>
+        <li><a href="tel:+302100000000">+30 210 000 0000</a></li>
+        <li><a href="#">hello@thalassa.gr</a></li>
+        <li><a href="#">WhatsApp</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Reservations</span>
+      <ul>
+        <li><a href="#reserve" class="btn btn-terra" style="font-size:.9rem;padding:1rem 2.4rem;display:inline-flex">Reserve Online</a></li>
+        <li><a href="#">Group bookings:<br>events@thalassa.gr</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2025 Thalassa Restaurant &middot; Privacy &middot; Terms</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══ THALASSA P1 — GSAP + Lenis + Preloader + Scroll Reveals ═══ */
+
+/* Testimonials data (kept from original) */
+var testis=[
+{q:'Thalassa is not just a restaurant. It is the best argument for travelling to Greece.',a:'Fiona MacTavish',s:'Cond\u00e9 Nast Traveller'},
+{q:'A meal that speaks of the sea with the eloquence of poetry. Unforgettable.',a:'Marco Bellini',s:'Financial Times'},
+{q:'Chef Papadakis has achieved something rare: a restaurant where every dish tells a story of place.',a:'Yuki Tanaka',s:'Monocle'},
+{q:'The tasting menu is a masterclass in restraint and flavor. Greece at its most refined.',a:'Elena Voss',s:'Michelin Guide'}
+];
+var ti=0;
+function showTesti(i){
+ti=i;var t=testis[i];
+document.getElementById('testiQuote').textContent=t.q;
+document.getElementById('testiAuthor').textContent=t.a;
+document.getElementById('testiSource').textContent=t.s;
+var dots=document.querySelectorAll('.testi-dot');
+dots.forEach(function(d,j){d.classList.toggle('active',j===i)});
+}
+function nextTesti(){showTesti((ti+1)%testis.length)}
+function prevTesti(){showTesti((ti-1+testis.length)%testis.length)}
+setInterval(nextTesti,6000);
+
+function changeGuests(d){
+var el=document.getElementById('guestCount');
+if(!el)return;
+var v=parseInt(el.textContent)+d;
+if(v<1)v=1;if(v>20)v=20;
+el.textContent=v;
+}
+
+/* ── Wait for GSAP + Lenis ── */
+function waitForGSAP(cb){
+if(window.gsap&&window.ScrollTrigger&&window.Lenis)cb();
+else setTimeout(function(){waitForGSAP(cb)},50);
+}
+waitForGSAP(initThalassa);
+
+function initThalassa(){
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Lenis ── */
+var lenis=new Lenis({duration:1.4,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true,wheelMultiplier:1});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(function(time){lenis.raf(time*1000)});
+gsap.ticker.lagSmoothing(0);
+window._lenis=lenis;
+
+/* Smooth scroll for anchor links */
+document.querySelectorAll('a[href^="#"]').forEach(function(link){
+link.addEventListener('click',function(e){
+e.preventDefault();
+var target=document.querySelector(link.getAttribute('href'));
+if(target)lenis.scrollTo(target,{offset:-90,duration:1.3});
+});
+});
+
+/* ── Preloader ── */
+initPreloader(function(){
+initNavbarGSAP();
+initScrollReveals();
+initHeroEntrance();
+});
+}
+
+/* ════ PRELOADER ════ */
+function initPreloader(onComplete){
+var loader=document.getElementById('preloader');
+var fill=document.getElementById('preloader-fill');
+var pct=document.getElementById('preloader-pct');
+var name=document.querySelector('.preloader__name');
+var tagline=document.querySelector('.preloader__tagline');
+var wavePath=document.querySelector('#wave-path');
+var wavePathBot=document.querySelector('.wave-path-bot');
+if(!loader){onComplete&&onComplete();return}
+document.body.style.overflow='hidden';
+
+var tl=gsap.timeline();
+tl.to(wavePath,{strokeDashoffset:0,duration:.8,ease:'power3.out'},.2);
+tl.to(wavePathBot,{strokeDashoffset:0,duration:.8,ease:'power3.out'},.35);
+tl.to(name,{opacity:1,y:0,duration:.7,ease:'power3.out'},.5);
+tl.to(tagline,{opacity:1,duration:.5,ease:'power3.out'},.8);
+
+var images=Array.from(document.images);
+var total=images.length||1;
+var loaded=0;
+function updateProgress(val){
+if(fill)fill.style.width=val+'%';
+if(pct)pct.textContent=Math.floor(val)+'%';
+}
+function checkDone(){
+loaded++;
+updateProgress((loaded/total)*100);
+if(loaded>=total)setTimeout(closePreloader,350);
+}
+if(images.length===0){
+var p=0;
+var iv=setInterval(function(){
+p+=Math.random()*14+4;
+if(p>=100){p=100;clearInterval(iv);updateProgress(100);setTimeout(closePreloader,400)}
+updateProgress(p);
+},60);
+}else{
+images.forEach(function(img){
+if(img.complete)checkDone();
+else{img.addEventListener('load',checkDone);img.addEventListener('error',checkDone)}
+});
+}
+function closePreloader(){
+var exitTl=gsap.timeline({onComplete:function(){
+loader.classList.add('hidden');
+document.body.style.overflow='';
+setTimeout(function(){loader.style.display='none';onComplete&&onComplete()},800);
+}});
+exitTl.to('.preloader__content',{opacity:0,y:-16,duration:.5,ease:'power2.in'});
+exitTl.to(loader,{opacity:0,duration:.7,ease:'power2.inOut'},'-.2');
+}
+}
+
+/* ════ NAVBAR GSAP ════ */
+function initNavbarGSAP(){
+var navbar=document.querySelector('.navbar');
+if(!navbar)return;
+ScrollTrigger.create({start:'top -60',onUpdate:function(self){
+navbar.classList.toggle('is-scrolled',self.progress>0);
+navbar.classList.toggle('scrolled',self.progress>0);
+}});
+}
+
+/* ════ HERO ENTRANCE ════ */
+function initHeroEntrance(){
+var hero=document.querySelector('.hero');
+if(!hero)return;
+var tl=gsap.timeline({defaults:{ease:'power4.out'}});
+var heroImg=hero.querySelector('.hero-bg img');
+if(heroImg)tl.from(heroImg,{scale:1.08,duration:2.4,ease:'power2.out'},0);
+var badge=hero.querySelector('.hero-badge');
+if(badge){gsap.set(badge,{opacity:0,x:-20});tl.to(badge,{opacity:1,x:0,duration:.7},.4)}
+var h1=hero.querySelector('h1');
+if(h1){gsap.set(h1,{opacity:0,y:32});tl.to(h1,{opacity:1,y:0,duration:1},.5)}
+var sub=hero.querySelector('.hero-sub');
+if(sub){gsap.set(sub,{opacity:0,y:20});tl.to(sub,{opacity:1,y:0,duration:.8},1.0)}
+var btns=hero.querySelector('.hero-btns');
+if(btns){gsap.set(btns,{opacity:0,y:16});tl.to(btns,{opacity:1,y:0,duration:.7},1.2)}
+var scroll=hero.querySelector('.hero-scroll');
+if(scroll){gsap.set(scroll,{opacity:0});tl.to(scroll,{opacity:1,duration:.6},1.6)}
+}
+
+/* ════ SCROLL REVEALS ════ */
+function initScrollReveals(){
+function onVisible(trigger,fn,start){
+ScrollTrigger.create({trigger:trigger,start:start||'top 82%',once:true,onEnter:fn});
+}
+
+/* Existing .reveal elements — use GSAP instead of IntersectionObserver */
+document.querySelectorAll('.reveal').forEach(function(el){
+gsap.set(el,{opacity:0,y:32});
+onVisible(el,function(){
+gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out'});
+});
+});
+
+/* Trust bar */
+var trustBar=document.querySelector('.trust-bar');
+if(trustBar){gsap.set(trustBar,{opacity:0});onVisible(trustBar,function(){gsap.to(trustBar,{opacity:1,duration:.8})})}
+
+/* Menu cards stagger */
+var menuCards=document.querySelectorAll('.menu-card');
+if(menuCards.length){
+gsap.set(menuCards,{opacity:0,y:40});
+onVisible(menuCards[0].parentElement,function(){
+gsap.to(menuCards,{opacity:1,y:0,duration:.85,stagger:.15,ease:'power3.out'});
+},'top 85%');
+}
+
+/* Gallery items stagger */
+document.querySelectorAll('.gallery-item').forEach(function(item,i){
+gsap.set(item,{opacity:0,y:28});
+onVisible(item,function(){
+gsap.to(item,{opacity:1,y:0,duration:.7,delay:(i%3)*.08,ease:'power3.out'});
+});
+});
+
+/* Team cards stagger */
+document.querySelectorAll('.team-card').forEach(function(card,i){
+gsap.set(card,{opacity:0,y:36});
+onVisible(card,function(){
+gsap.to(card,{opacity:1,y:0,duration:.8,delay:i*.12,ease:'power3.out'});
+});
+});
+
+/* Menu items slide from left */
+document.querySelectorAll('.menu-item').forEach(function(item,i){
+gsap.set(item,{opacity:0,x:-16});
+onVisible(item,function(){
+gsap.to(item,{opacity:1,x:0,duration:.55,delay:i*.05,ease:'power2.out'});
+},'top 90%');
+});
+
+/* Intro image clip reveal */
+var introImg=document.querySelector('.intro-img');
+if(introImg){
+gsap.set(introImg,{clipPath:'inset(100% 0 0 0)'});
+onVisible(introImg,function(){
+gsap.to(introImg,{clipPath:'inset(0% 0 0 0)',duration:1.3,ease:'power4.inOut'});
+});
+}
+
+/* Chef photo clip from right */
+var chefPhoto=document.querySelector('.chef-photo');
+if(chefPhoto){
+gsap.set(chefPhoto,{clipPath:'inset(0 100% 0 0)'});
+onVisible(chefPhoto,function(){
+gsap.to(chefPhoto,{clipPath:'inset(0 0% 0 0)',duration:1.4,ease:'power4.inOut'});
+});
+}
+
+/* Setting grid images scale */
+document.querySelectorAll('.setting-grid .big,.setting-grid .small').forEach(function(img,i){
+gsap.set(img,{opacity:0,scale:.95});
+onVisible(img,function(){
+gsap.to(img,{opacity:1,scale:1,duration:.9,delay:i*.1,ease:'power3.out'});
+});
+});
+
+/* Reserve form */
+var form=document.querySelector('.reserve-form');
+if(form){gsap.set(form,{opacity:0,y:32});onVisible(form,function(){gsap.to(form,{opacity:1,y:0,duration:.9,ease:'power3.out'})})}
+
+/* Newsletter children */
+var nl=document.querySelector('.newsletter');
+if(nl){
+gsap.set(nl.children,{opacity:0,y:20});
+onVisible(nl,function(){gsap.to(nl.children,{opacity:1,y:0,duration:.7,stagger:.15,ease:'power3.out'})});
+}
+
+/* Reserve CTA */
+var rcta=document.querySelector('.reserve-cta');
+if(rcta){
+var items=rcta.querySelectorAll('h2,.sub,.reserve-avail,.btn-primary,.reserve-tel,.reserve-note');
+gsap.set(items,{opacity:0,y:24});
+onVisible(rcta,function(){gsap.to(items,{opacity:1,y:0,duration:.75,stagger:.12,ease:'power3.out'})});
+}
+
+/* Hero parallax with GSAP */
+var heroBg=document.querySelector('.hero-bg img');
+if(heroBg){
+gsap.to(heroBg,{y:'30%',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+}
+}
+
+/* ════ TOAST ════ */
+window.showToast=function(message,type){
+document.querySelectorAll('.thalassa-toast').forEach(function(t){t.remove()});
+var toast=document.createElement('div');
+toast.className='thalassa-toast';
+toast.setAttribute('role','alert');
+toast.textContent=message;
+toast.style.background=type==='error'?'#C45A5A':'#1B3A5C';
+toast.style.color='#F4F0E8';
+document.body.appendChild(toast);
+gsap.to(toast,{opacity:1,y:0,duration:.4,ease:'back.out(2)',onComplete:function(){
+gsap.to(toast,{opacity:0,y:-12,duration:.4,delay:3,ease:'power2.in',onComplete:function(){toast.remove()}});
+}});
+};
+</script>
+</body>
+</html>
