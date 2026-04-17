@@ -435,6 +435,24 @@ TRANS += [
     ("Villa contemporaine Neuilly-sur-Seine — 2 850 000 euros", "Contemporary villa Neuilly-sur-Seine — 2,850,000 euros"),
     ('placeholder="12 rue du Faubourg, 75008 Paris"', 'placeholder="12 Faubourg Street, 75008 Paris"'),
 
+    ("Value my property gratuitement", "Value my property for free"),
+    # ── MAIN H2 SECTION TITLES ──
+    ("Contactez-nous", "Contact us"),
+    ("Combien vaut<br>votre bien ?", "How much is<br>your property worth?"),
+    ("Combien vaut votre bien ?", "How much is your property worth?"),
+    ("Tout ce que vous voulez savoir.", "Everything you want to know."),
+    ("L'immobilier autrement.", "Real estate, reimagined."),
+    ("Ce que disent<br>nos clients.", "What our<br>clients say."),
+    ("Ce que disent nos clients.", "What our clients say."),
+
+    # ── Team quotes (blockquotes) ──
+    ('"Un bien immobilier n\'est pas une transaction. C\'est un chapitre de vie."',
+     '"A property isn\'t a transaction. It\'s a chapter of a life."'),
+    ('"Un bon investissement immobilier, c\'est d\'abord un bon conseil fiscal."',
+     '"A good real estate investment starts with good tax advice."'),
+    ('"+12% de rendement net vs investissement solo"',
+     '"+12% net yield vs going it alone"'),
+
     # ── Final remnants ──
     ('" jours"', '" days"'),
     ('>28 jours<', '>28 days<'),
