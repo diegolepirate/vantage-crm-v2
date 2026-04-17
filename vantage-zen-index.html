@@ -611,6 +611,134 @@
     .exp-col.center { padding-top: 0; }
   }
 
+  /* ═══════════════════════════════════════
+     TALENTS — FUGA-style chefs section
+  ═══════════════════════════════════════ */
+  .talents {
+    background: #FAF4E6;
+    padding: 6rem 3rem 8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .talents-bg {
+    position: absolute;
+    left: -2rem; right: -2rem;
+    top: 0; bottom: 0;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    color: #F5B5C0;
+  }
+  .talents-bg-top,
+  .talents-bg-bottom {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: clamp(9rem, 22vw, 28rem);
+    line-height: .85;
+    white-space: nowrap;
+    letter-spacing: -.02em;
+  }
+  .talents-bg-top    { transform: translateY(-8%); }
+  .talents-bg-bottom {
+    transform: translateY(12%);
+    font-family: 'Italianno', cursive;
+    font-weight: 400;
+    font-size: clamp(8rem, 18vw, 22rem);
+    letter-spacing: 0;
+  }
+
+  .talents-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(280px, 520px) 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+    padding-top: 5rem;
+  }
+  .talent-photo-wrap {
+    position: relative;
+    aspect-ratio: 1 / 1.1;
+  }
+  .talent-photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #e6dfcf;
+  }
+  .talents-info {
+    padding-top: 4rem;
+  }
+  .talent-name {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 5vw, 5.6rem);
+    line-height: 1;
+    color: #3B67E0;
+    letter-spacing: -.01em;
+    margin-bottom: 4rem;
+  }
+  .talent-bio {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #3B67E0;
+    max-width: 46ch;
+    margin-bottom: 2.6rem;
+  }
+  .talent-more {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: 1.2rem 2.6rem;
+    background: #3B67E0;
+    color: #FAF4E6;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .talent-more:hover { background: #2d52bc; }
+
+  .talents-nav {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-left: calc(4rem + min(280px, 40%));
+  }
+  .talent-arrow {
+    width: 64px; height: 64px;
+    border: 1px solid #3B67E0;
+    background: transparent;
+    color: #3B67E0;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s;
+  }
+  .talent-arrow:hover { background: #3B67E0; color: #FAF4E6; }
+  .talent-arrow svg { width: 22px; height: 22px; }
+
+  .talent-slide { display: none; }
+  .talent-slide.is-active { display: contents; }
+
+  @media (max-width: 900px) {
+    .talents { padding: 4rem 1.6rem; }
+    .talents-grid { grid-template-columns: 1fr; gap: 2rem; padding-top: 2rem; }
+    .talents-info { padding-top: 1rem; }
+    .talent-name { margin-bottom: 2rem; }
+    .talents-nav { padding-left: 0; margin-top: 2rem; }
+    .talents-bg-top, .talents-bg-bottom { font-size: clamp(5rem, 18vw, 10rem); }
+  }
+
   @media (max-width: 960px) {
     .preamble { padding: 5rem 1.6rem; }
     .preamble-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -913,7 +1041,94 @@
     </div>
   </section>
 
+  <!-- TALENTS — chefs/bartenders profiles with big layered bg text -->
+  <section class="talents" aria-label="Our talents">
+    <div class="talents-bg" aria-hidden="true">
+      <div class="talents-bg-top">VANTAGE TALENTS</div>
+      <div class="talents-bg-bottom">Vantage c'est fait grâce à ses nombreux talents</div>
+    </div>
+
+    <div class="talents-grid">
+      <!-- Photo stage (slides swap here) -->
+      <div class="talent-photo-wrap">
+        <div class="talent-slide is-active">
+          <img class="talent-photo" src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=85" alt="Alexia Mercier, sommelière exécutive" loading="lazy">
+        </div>
+        <div class="talent-slide">
+          <img class="talent-photo" src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=85" alt="Marco Theodorakis, chef exécutif" loading="lazy">
+        </div>
+        <div class="talent-slide">
+          <img class="talent-photo" src="https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=85" alt="Léo Vassilakis, bartender en chef" loading="lazy">
+        </div>
+        <div class="talent-slide">
+          <img class="talent-photo" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=85" alt="Elena Papadakis, cheffe pâtissière" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Info stage (slides swap here in parallel) -->
+      <div class="talents-info">
+        <div class="talent-slide is-active">
+          <h3 class="talent-name">Alexia Mercier</h3>
+          <p class="talent-bio">
+            Cheffe Sommelière Exécutive chez Vantage, Alexia met ses quinze années entre Bourgogne et Santorin au service d'une carte qui fait dialoguer les assyrtiko grecs et les grands crus français. Ancienne du Bristol à Paris, elle a rejoint Vantage pour porter l'art d'accorder la mer et la vigne.
+          </p>
+          <button type="button" class="talent-more">En savoir plus →</button>
+        </div>
+        <div class="talent-slide">
+          <h3 class="talent-name">Marco Theodorakis</h3>
+          <p class="talent-bio">
+            Chef Exécutif formé à l'Arpège puis au Sushi Saito à Tokyo, Marco incarne la philosophie Vantage : rigueur japonaise, générosité méditerranéenne. Chaque matin, il trie lui-même les arrivages au port du Pirée avant de dessiner la carte du soir.
+          </p>
+          <button type="button" class="talent-more">En savoir plus →</button>
+        </div>
+        <div class="talent-slide">
+          <h3 class="talent-name">Léo Vassilakis</h3>
+          <p class="talent-bio">
+            Chef Barman de Vantage, Léo a fait ses armes au Connaught à Londres avant de rentrer chez lui à Athènes. Sa carte mêle mastiha de Chios, kumquat de Corfou et yuzu japonais — des cocktails qui se boivent comme des plats, et inversement.
+          </p>
+          <button type="button" class="talent-more">En savoir plus →</button>
+        </div>
+        <div class="talent-slide">
+          <h3 class="talent-name">Elena Papadakis</h3>
+          <p class="talent-bio">
+            Cheffe Pâtissière formée au Ritz Paris et à l'école Hattori de Tokyo, Elena réinvente les desserts grecs classiques — son baklava au matcha et ses loukoumades à la yuzu sont devenus la signature sucrée de la maison Vantage.
+          </p>
+          <button type="button" class="talent-more">En savoir plus →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="talents-nav">
+      <button type="button" class="talent-arrow" id="talent-prev" aria-label="Previous talent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="talent-arrow" id="talent-next" aria-label="Next talent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
   <script>
+    /* Talents carousel — arrow nav */
+    (function(){
+      const slides = document.querySelectorAll('.talent-slide');
+      const prev   = document.getElementById('talent-prev');
+      const next   = document.getElementById('talent-next');
+      if (!slides.length || !prev || !next) return;
+      let idx = 0;
+      const show = i => {
+        idx = (i + slides.length) % slides.length;
+        slides.forEach((s, j) => s.classList.toggle('is-active', j === idx));
+      };
+      prev.addEventListener('click', () => show(idx - 1));
+      next.addEventListener('click', () => show(idx + 1));
+      show(0);
+    })();
+
     (function(){
       const grid   = document.getElementById('exp-grid');
       const center = document.getElementById('exp-center');
