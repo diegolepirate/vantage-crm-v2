@@ -41,20 +41,7 @@
     width: 100%; height: 100%;
     object-fit: cover;
     z-index: 1;
-    display: block;
-    background: #000;
   }
-  .hero-loader {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    opacity: .9;
-    pointer-events: none;
-    transition: opacity .6s ease;
-  }
-  .hero-loader.is-hidden { opacity: 0; }
-  #hero-loader-ring { transition: stroke-dashoffset .2s linear; }
   /* subtle dark gradient top + bottom for legibility */
   .hero::before {
     content: '';
@@ -64,43 +51,6 @@
     z-index: 2;
     pointer-events: none;
   }
-
-  /* ══════════════════════════════════════
-     CURSOR SCRUB — progress bar + hint
-  ══════════════════════════════════════ */
-  .scrub-progress {
-    position: absolute;
-    left: 0; bottom: 0;
-    height: 2px; width: 0;
-    background: var(--vt-purple, #6B21A8);
-    box-shadow: 0 0 16px rgba(168, 85, 247, .5);
-    z-index: 15;
-    pointer-events: none;
-    transition: width .05s linear;
-  }
-  .scrub-hint {
-    position: fixed;
-    top: var(--hint-y, 50%);
-    left: var(--hint-x, 50%);
-    transform: translate(-50%, -120%);
-    z-index: 20;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 1.1rem;
-    letter-spacing: .12em;
-    color: #fff;
-    background: rgba(0, 0, 0, .55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: .5rem 1rem;
-    border: 1px solid rgba(255, 255, 255, .18);
-    border-radius: 999px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity .6s ease, transform .2s ease-out;
-    white-space: nowrap;
-  }
-  .scrub-hint.is-visible { opacity: 1; }
 
   /* ══════════════════════════════════════
      TOP BAR
@@ -322,28 +272,9 @@
 <body>
 
   <section class="hero">
-    <!-- Canvas-scrub: frame sequence preloaded, drawn on cursor move.
-         Smoother than video seek (no decoder hit per frame). -->
-    <canvas class="hero-video" id="hero-canvas" aria-hidden="true"></canvas>
-
-    <!-- Preloader ring while the frames fetch -->
-    <div class="hero-loader" id="hero-loader" aria-hidden="true">
-      <svg viewBox="0 0 48 48" width="48" height="48">
-        <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="2"/>
-        <circle id="hero-loader-ring" cx="24" cy="24" r="20" fill="none"
-                stroke="#fff" stroke-width="2" stroke-linecap="round"
-                stroke-dasharray="126" stroke-dashoffset="126"
-                transform="rotate(-90 24 24)"/>
-      </svg>
-    </div>
-
-    <!-- Cursor-scrub progress bar -->
-    <div class="scrub-progress" id="scrub-progress" aria-hidden="true"></div>
-
-    <!-- Scrub hint tooltip — fades after 3s -->
-    <div class="scrub-hint" id="scrub-hint" aria-hidden="true">
-      ← Explore →
-    </div>
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="./vantage-resto-hero.mp4" type="video/mp4">
+    </video>
 
     <div class="top-bar">
       <a href="javascript:void(0)" class="logo">VANTAGE RESTO</a>
@@ -368,144 +299,6 @@
     </div>
   </section>
 
-  <!-- Canvas frame-sequence scrub -->
-  <script>
-  (function() {
-    'use strict';
-
-    const canvas  = document.getElementById('hero-canvas');
-    const bar     = document.getElementById('scrub-progress');
-    const hint    = document.getElementById('scrub-hint');
-    const hero    = document.querySelector('.hero');
-    const loader  = document.getElementById('hero-loader');
-    const ring    = document.getElementById('hero-loader-ring');
-    if (!canvas || !hero) return;
-
-    const ctx = canvas.getContext('2d', { alpha: false });
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isCoarse      = matchMedia('(pointer: coarse)').matches;
-
-    const TOTAL = 140;       // matches _extract-frames.py
-    const PATH  = 'resto-frames/f_';
-    const EXT   = '.jpg';
-    const pad3  = n => String(n).padStart(3, '0');
-
-    const frames = new Array(TOTAL);
-    let loaded   = 0;
-    let currentIdx = -1;
-    let inView  = true;
-    let target  = 0;
-    let current = 0;
-
-    /* DPR + canvas sizing */
-    const sizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width  = Math.round(rect.width  * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      currentIdx = -1;  // force redraw on resize
-      draw();
-    };
-
-    /* Draw a frame cover-fit inside canvas */
-    const draw = () => {
-      const img = frames[currentIdx] || frames[0];
-      if (!img || !img.complete || !img.naturalWidth) return;
-      const cw = canvas.width, ch = canvas.height;
-      const iw = img.naturalWidth, ih = img.naturalHeight;
-      /* cover */
-      const rc = cw / ch, ri = iw / ih;
-      let dw, dh, dx, dy;
-      if (ri > rc) { dh = ch; dw = ch * ri; dx = (cw - dw) / 2; dy = 0; }
-      else         { dw = cw; dh = cw / ri; dx = 0; dy = (ch - dh) / 2; }
-      ctx.drawImage(img, dx, dy, dw, dh);
-    };
-
-    /* Preload all frames — first-frame first, then the rest in parallel */
-    const loadFrame = i => new Promise(res => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.onload  = () => { loaded++; updateLoader(); res(img); };
-      img.onerror = () => { loaded++; updateLoader(); res(null); };
-      img.src = PATH + pad3(i + 1) + EXT;
-      frames[i] = img;
-    });
-
-    const updateLoader = () => {
-      if (!ring) return;
-      const p = loaded / TOTAL;
-      ring.style.strokeDashoffset = (126 * (1 - p)).toFixed(1);
-      if (loaded === TOTAL && loader) {
-        loader.classList.add('is-hidden');
-        setTimeout(() => loader.remove(), 700);
-      }
-    };
-
-    /* Show first frame ASAP, then parallel-load the rest */
-    loadFrame(0).then(() => {
-      currentIdx = 0;
-      sizeCanvas();
-      /* Kick off the rest */
-      const queue = [];
-      for (let i = 1; i < TOTAL; i++) queue.push(loadFrame(i));
-    });
-
-    /* Cursor / touch → target */
-    const updateTarget = (clientX, clientY) => {
-      target = Math.min(1, Math.max(0, clientX / window.innerWidth));
-      if (hint) {
-        hint.style.setProperty('--hint-x', clientX + 'px');
-        hint.style.setProperty('--hint-y', clientY + 'px');
-      }
-    };
-    if (!isCoarse) {
-      window.addEventListener('mousemove', e => updateTarget(e.clientX, e.clientY), { passive: true });
-    }
-    window.addEventListener('touchmove', e => {
-      const t = e.touches[0];
-      if (t) updateTarget(t.clientX, t.clientY);
-    }, { passive: true });
-
-    /* Smooth interpolate + render loop */
-    const lerp = (a, b, t) => a + (b - a) * t;
-    let rafId = null;
-    const tick = () => {
-      rafId = requestAnimationFrame(tick);
-      if (!inView || reducedMotion) return;
-      current = lerp(current, target, 0.12);
-      const idx = Math.min(TOTAL - 1, Math.max(0, Math.floor(current * TOTAL)));
-      if (idx !== currentIdx) {
-        const img = frames[idx];
-        if (img && img.complete && img.naturalWidth) {
-          currentIdx = idx;
-          draw();
-        }
-      }
-      if (bar) bar.style.width = (current * 100).toFixed(2) + '%';
-    };
-    tick();
-
-    /* Viewport pause */
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(entries => {
-        entries.forEach(e => { inView = e.isIntersecting; });
-      }, { threshold: 0.1 }).observe(hero);
-    }
-
-    /* Resize */
-    window.addEventListener('resize', sizeCanvas, { passive: true });
-    if ('ResizeObserver' in window) new ResizeObserver(sizeCanvas).observe(hero);
-
-    /* Hint fade after 3s */
-    if (hint && !reducedMotion) {
-      hint.style.setProperty('--hint-x', (window.innerWidth / 2) + 'px');
-      hint.style.setProperty('--hint-y', (window.innerHeight / 2) + 'px');
-      setTimeout(() => hint.classList.add('is-visible'), 400);
-      setTimeout(() => hint.classList.remove('is-visible'), 3400);
-      setTimeout(() => { if (hint.parentNode) hint.parentNode.removeChild(hint); }, 4200);
-    }
-  })();
-  </script>
 
   <footer class="newsletter">
     <p class="newsletter-intro">Sign up for reservation updates and news from Vantage Resto.</p>
