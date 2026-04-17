@@ -311,8 +311,9 @@
   <section class="hero">
     <video class="hero-video" id="hero-video"
            muted playsinline preload="auto"
+           crossorigin="anonymous"
            aria-hidden="true">
-      <source src="./vantage-resto-hero.mp4" type="video/mp4">
+      <source src="./vantage-resto-hero-scrub.mp4" type="video/mp4">
     </video>
 
     <!-- Cursor-scrub progress bar -->
@@ -367,25 +368,30 @@
     let inView  = true;
     let tickerFn = null;
 
-    /* Wait for the video metadata before scrubbing */
-    const onReady = () => {
+    /* Force buffering the full clip before we enable scrubbing.
+       The video has all-keyframe GOP, so once loaded seeks are instant. */
+    video.load();
+    const markReady = () => {
+      if (ready) return;
       ready = true;
-      /* First frame paint — nudge time to 0 so the poster shows */
-      try { video.currentTime = 0; } catch (_) {}
+      console.log('[scrub] video ready — duration:', video.duration);
+      try { video.currentTime = 0.01; } catch (_) {}
     };
-    if (video.readyState >= 1) onReady();
-    else video.addEventListener('loadedmetadata', onReady, { once: true });
+    if (video.readyState >= 3) markReady();
+    else {
+      video.addEventListener('canplaythrough', markReady, { once: true });
+      video.addEventListener('loadeddata',     markReady, { once: true });
+      /* Safety: force ready after 4s even if events don't fire */
+      setTimeout(markReady, 4000);
+    }
 
-    /* On iOS Safari, user must interact once — attempt a silent play/pause */
+    /* iOS / autoplay guard — first user gesture triggers play/pause to unlock seek */
     const primeVideo = () => {
-      video.play().then(() => {
-        video.pause();
-      }).catch(() => { /* swallow — scrubbing still works on most browsers */ });
-      document.removeEventListener('click',      primeVideo);
-      document.removeEventListener('touchstart', primeVideo);
+      const p = video.play();
+      if (p && p.then) p.then(() => video.pause()).catch(() => {});
+      document.removeEventListener('pointerdown', primeVideo);
     };
-    document.addEventListener('click',      primeVideo, { once: true, passive: true });
-    document.addEventListener('touchstart', primeVideo, { once: true, passive: true });
+    document.addEventListener('pointerdown', primeVideo, { once: true, passive: true });
 
     /* Core: update target on pointer/touch move */
     const updateTarget = (clientX, clientY) => {
@@ -407,14 +413,17 @@
     /* Smooth scrub via GSAP ticker (lerp .06) */
     const lerp = (a, b, t) => a + (b - a) * t;
 
+    let lastT = -1;
     const attachTicker = () => {
       if (tickerFn || reducedMotion || typeof gsap === 'undefined') return;
       tickerFn = () => {
         if (!ready || !video.duration || !inView) return;
-        current = lerp(current, target, 0.06);
-        const t = current * video.duration;
-        /* Guard against seeking beyond buffered range (browser will stall) */
-        try { video.currentTime = Math.max(0, Math.min(video.duration - 0.01, t)); } catch (_) {}
+        current = lerp(current, target, 0.08);
+        const t = current * Math.max(0.01, video.duration - 0.05);
+        /* Only seek if position actually changed (avoid jitter) */
+        if (Math.abs(t - lastT) > 0.016) {
+          try { video.currentTime = t; lastT = t; } catch (_) {}
+        }
         if (bar) bar.style.width = (current * 100).toFixed(2) + '%';
       };
       gsap.ticker.add(tickerFn);
