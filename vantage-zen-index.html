@@ -467,11 +467,13 @@
     display: block;
   }
   .menu-card-img {
-    display: block;
-    width: 380px;
-    height: 380px;
+    display: block !important;
+    width: 380px !important;
+    height: 380px !important;
+    min-height: 380px;
     object-fit: cover;
-    background: #e6dfcf;       /* fallback tint before image loads */
+    background: #e6dfcf;
+    border-radius: 2px;
   }
   .menu-card-meta {
     font-family: 'Courier New', monospace;
@@ -753,7 +755,7 @@
 
       <!-- Pizza (red) -->
       <article class="menu-card c-red">
-        <img class="menu-card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="Pizza" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="Pizza" loading="lazy">
         <p class="menu-card-meta">Wood-fired · Daily</p>
         <h3 class="menu-card-name">Pizza</h3>
         <ul class="menu-card-list">
@@ -768,7 +770,7 @@
 
       <!-- Salads (green) -->
       <article class="menu-card c-green">
-        <img class="menu-card-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80" alt="Salads" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80" alt="Salads" loading="lazy">
         <p class="menu-card-meta">Garden-fresh · Seasonal</p>
         <h3 class="menu-card-name">Salads</h3>
         <ul class="menu-card-list">
@@ -783,7 +785,7 @@
 
       <!-- Seafood (blue) -->
       <article class="menu-card c-blue">
-        <img class="menu-card-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Seafood" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Seafood" loading="lazy">
         <p class="menu-card-meta">Caught the morning of</p>
         <h3 class="menu-card-name">Seafood</h3>
         <ul class="menu-card-list">
@@ -798,7 +800,7 @@
 
       <!-- Mains (gold) -->
       <article class="menu-card c-gold">
-        <img class="menu-card-img" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Mains" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Mains" loading="lazy">
         <p class="menu-card-meta">Signature · Chef's hand</p>
         <h3 class="menu-card-name">Mains</h3>
         <ul class="menu-card-list">
@@ -813,7 +815,7 @@
 
       <!-- Desserts (plum) -->
       <article class="menu-card c-plum">
-        <img class="menu-card-img" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="Desserts" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="Desserts" loading="lazy">
         <p class="menu-card-meta">House-made · Pastry chef</p>
         <h3 class="menu-card-name">Desserts</h3>
         <ul class="menu-card-list">
