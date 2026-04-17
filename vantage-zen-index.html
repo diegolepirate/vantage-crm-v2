@@ -533,7 +533,7 @@
   ═══════════════════════════════════════ */
   .experiences {
     background: #FAF4E6;
-    padding: 3rem 5rem 8rem;
+    padding: 3rem 2.5rem 8rem;
     overflow-x: clip;   /* 'clip' doesn't trigger overflow-y: auto like 'hidden' does */
   }
   .experiences-title {
@@ -573,23 +573,23 @@
   .exp-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 3rem;
-    max-width: 1700px;
+    gap: 1.4rem;
+    max-width: 1800px;
     margin: 0 auto;
     align-items: start;
   }
   .exp-col {
     display: flex;
     flex-direction: column;
-    gap: 4.5rem;
+    gap: 3.2rem;
     will-change: transform;
   }
-  .exp-col.center { padding-top: 6rem; }  /* center column offset-down at rest */
+  .exp-col.center { padding-top: 9rem; }  /* center column offset-down at rest */
 
   .exp-fig { margin: 0; }
   .exp-fig img {
     width: 100%;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 5;         /* taller, bigger photos (like FUGA gallery) */
     object-fit: cover;
     display: block;
     background: #e6dfcf;
@@ -919,7 +919,7 @@
       const center = document.getElementById('exp-center');
       if (!grid || !center) return;
 
-      const MAX_OFFSET = 60;  /* keep parallax subtle — center never drifts more than ±60px */
+      const MAX_OFFSET = 32;  /* very subtle parallax — center drifts max ±32px, stays inside side-col lines */
       let ticking = false;
 
       function onScroll() {
