@@ -425,7 +425,6 @@
   .menu-slider {
     background: #FAF4E6;
     padding: 4rem 0 8rem;
-    overflow: hidden;
   }
   .menu-slider-head {
     display: flex;
@@ -449,8 +448,10 @@
 
   .menu-track {
     display: flex;
+    align-items: flex-start;
     gap: 2.4rem;
     overflow-x: auto;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     padding: 0 5rem 2rem;
@@ -460,15 +461,17 @@
 
   .menu-card {
     flex: 0 0 380px;
+    width: 380px;
+    min-height: 700px;
     scroll-snap-align: start;
     background: transparent;
-    display: flex; flex-direction: column;
+    display: block;          /* simple block flow — no flex weirdness */
   }
   .menu-card-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
     display: block;
+    width: 380px;
+    height: 380px;
+    object-fit: cover;
   }
   .menu-card-meta {
     font-family: 'Courier New', monospace;
@@ -518,7 +521,8 @@
   @media (max-width: 900px) {
     .menu-slider { padding: 3rem 0 5rem; }
     .menu-slider-head { padding: 0 1.6rem 2rem; }
-    .menu-card { flex: 0 0 82vw; }
+    .menu-card { flex: 0 0 82vw; width: 82vw; min-height: auto; }
+    .menu-card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
     .menu-track { padding: 0 1.6rem 2rem; }
   }
 
