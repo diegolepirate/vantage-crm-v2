@@ -898,6 +898,92 @@
     .greek-media { aspect-ratio: 16 / 10; }
     .greek-grid { grid-template-columns: 1fr; padding: 1.8rem 1.4rem; gap: 2rem; }
   }
+
+  /* ═══════════════════════════════════════
+     GREEK TALES — oversized title + 3 island cards
+  ═══════════════════════════════════════ */
+  .tales {
+    position: relative;
+    background: #FAF4E6;
+    padding: 6rem 6vw 7rem;
+    overflow: hidden;
+  }
+  .tales-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    color: #3a4a1f;
+    font-size: clamp(5rem, 14vw, 14rem);
+    line-height: .88;
+    letter-spacing: -.02em;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    margin-left: -2vw;
+    pointer-events: none;
+  }
+  .tales-title .script {
+    font-family: 'Italianno', cursive;
+    font-weight: 400;
+    font-size: .55em;
+    color: #3a4a1f;
+    margin-right: .2em;
+    vertical-align: .15em;
+  }
+  .tales-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: -6rem;
+  }
+  .tales-card {
+    padding: 1.4rem 1.4rem 1.8rem;
+    color: #FAF4E6;
+    display: flex;
+    flex-direction: column;
+  }
+  .tales-card { transition: background .35s ease, transform .35s ease; }
+  .tales-card.c1 { background: #2a5fb4; }
+  .tales-card.c2 { background: #3a4a1f; }
+  .tales-card.c3 { background: #2a5fb4; }
+  .tales-card.c1:hover { background: #3a4a1f; }
+  .tales-card.c2:hover { background: #2a5fb4; }
+  .tales-card.c3:hover { background: #c97a3a; }
+  .tales-card:hover { transform: translateY(-4px); }
+  .tales-card-kicker {
+    font-family: 'Courier New', monospace;
+    font-size: .9rem;
+    letter-spacing: .02em;
+    margin-bottom: 1.2rem;
+  }
+  .tales-card-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 1.6rem;
+  }
+  .tales-card-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+  .tales-card-body {
+    font-family: 'Courier New', monospace;
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1100px) {
+    .tales-grid { grid-template-columns: 1fr; gap: 1.6rem; margin-top: -2rem; }
+    .tales-title { white-space: normal; font-size: clamp(3.4rem, 10vw, 6rem); }
+  }
+  @media (max-width: 640px) {
+    .tales { padding: 4rem 1.4rem 5rem; }
+  }
   </style>
 </head>
 <body>
@@ -1318,6 +1404,40 @@
           In Greece, a stranger is simply a friend you haven't met yet. The famed philoxenia — love of the guest — inspires every detail at Vantage: open arms, full tables, and the quiet pride of welcoming you home.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- GREEK TALES — oversized title + 3 island cards -->
+  <section class="tales" aria-label="Greek tales">
+    <h2 class="tales-title"><span class="script">&amp;</span>Eat in Greece</h2>
+
+    <div class="tales-grid">
+      <article class="tales-card c1">
+        <div class="tales-card-kicker">Cyclades&nbsp;|&nbsp;Santorini</div>
+        <img class="tales-card-photo" src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=900&q=85" alt="Santorini white village and caldera" loading="lazy">
+        <h3 class="tales-card-title">Eat in Greece</h3>
+        <p class="tales-card-body">
+          Perched above the caldera of Santorini, tables are set where the horizon meets the sea. Each dish is a soft ode to the islands — grilled fish, fresh tomatoes, olive oil of the sun — shared slowly as the sky turns pink.
+        </p>
+      </article>
+
+      <article class="tales-card c2">
+        <div class="tales-card-kicker">Ionian&nbsp;|&nbsp;Paxos</div>
+        <img class="tales-card-photo" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=900&q=85" alt="Turquoise cove with white pebble beach" loading="lazy">
+        <h3 class="tales-card-title">Live in Greece</h3>
+        <p class="tales-card-body">
+          On the hidden coves of Paxos, life slows to the rhythm of the cicadas. Turquoise water, warm pebbles, a gentle breeze — here, simply being is enough. Greece teaches us, softly, what it means to truly live.
+        </p>
+      </article>
+
+      <article class="tales-card c3">
+        <div class="tales-card-kicker">Dodecanese&nbsp;|&nbsp;Symi</div>
+        <img class="tales-card-photo" src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=900&q=85" alt="Paradise Greek island beach at golden hour" loading="lazy">
+        <h3 class="tales-card-title">Fall in love with Greece</h3>
+        <p class="tales-card-body">
+          A paradise beach at Symi, golden hour on the water, laughter drifting from a taverna on the shore. Greece is the kind of place that gently steals your heart — and gives you, in return, a memory you'll carry forever.
+        </p>
+      </article>
     </div>
   </section>
 
