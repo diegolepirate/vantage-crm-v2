@@ -424,7 +424,7 @@
   ═══════════════════════════════════════ */
   .menu-slider {
     background: #FAF4E6;
-    padding: 4rem 0 8rem;
+    padding: 4rem 0 3rem;
   }
   .menu-slider-head {
     display: flex;
@@ -462,16 +462,16 @@
   .menu-card {
     flex: 0 0 380px;
     width: 380px;
-    min-height: 700px;
     scroll-snap-align: start;
     background: transparent;
-    display: block;          /* simple block flow — no flex weirdness */
+    display: block;
   }
   .menu-card-img {
     display: block;
     width: 380px;
     height: 380px;
     object-fit: cover;
+    background: #e6dfcf;       /* fallback tint before image loads */
   }
   .menu-card-meta {
     font-family: 'Courier New', monospace;
@@ -531,7 +531,7 @@
   ═══════════════════════════════════════ */
   .experiences {
     background: #FAF4E6;
-    padding: 6rem 5rem 10rem;
+    padding: 3rem 5rem 8rem;
     overflow: hidden;
   }
   .experiences-title {
@@ -541,11 +541,9 @@
     line-height: 1;
     color: #3B67E0;
     text-align: right;
-    margin: 0 0 6rem;
+    margin: 0 auto 3rem;
     letter-spacing: -.01em;
     max-width: 1700px;
-    margin-left: auto;
-    margin-right: auto;
   }
   .experiences-title .script {
     display: inline-block;
@@ -581,6 +579,7 @@
     aspect-ratio: 3 / 2;
     object-fit: cover;
     display: block;
+    background: #e6dfcf;
   }
   .exp-fig figcaption {
     font-family: 'Courier New', monospace;
