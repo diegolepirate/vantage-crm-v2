@@ -3,193 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZenFlow Yoga — Find your balance</title>
-  <meta name="description" content="ZenFlow Yoga — class booking, meditation timer and guided practice. Find your balance, find yourself.">
+  <title>Vantage — Touch grace</title>
+  <meta name="description" content="Vantage — Touch grace. An invitation to escape.">
   <meta name="robots" content="index, follow">
 
-  <meta property="og:title" content="ZenFlow Yoga — Find your balance, find yourself">
-  <meta property="og:description" content="Class booking, meditation timer and guided practice.">
+  <meta property="og:title" content="Vantage — Touch grace">
+  <meta property="og:description" content="An invitation to escape.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0F1613">
+  <meta name="theme-color" content="#7C7B72">
+
+  <!-- Preload hero video for instant first paint -->
+  <link rel="preload" href="./vantage-zen-hero.mp4" as="video" type="video/mp4">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Serif display + clean sans — baseline, will iterate -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!--
+       Display: Libre Caslon Text (elegant classic serif).
+       Italic script (for the italic words): Italiana / Cormorant italic.
+       Body + nav: Inter.
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Italianno&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     height: 100%;
     font-family: 'Inter', sans-serif;
-    color: #F4F1EC;
-    background: #0F1613;
+    color: #FAF4E6;
+    background: #000;
     -webkit-font-smoothing: antialiased;
   }
   body { min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* ─────────────────────────────────────
-     TOP BAR
-  ───────────────────────────────────── */
-  .top {
-    position: absolute; top: 0; left: 0; right: 0;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 2rem 3rem;
-  }
-  .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 2.2rem;
-    letter-spacing: .02em;
-    color: #F4F1EC;
-    justify-self: start;
-    text-decoration: none;
-  }
-  .nav-center {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 1.1rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: rgba(244,241,236,.7);
-    justify-self: center;
-  }
-  .right {
-    justify-self: end;
-    display: flex; align-items: center; gap: 2rem;
-  }
-  .right a {
-    font-size: 1.1rem;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: rgba(244,241,236,.7);
-    text-decoration: none;
-    transition: color .2s;
-  }
-  .right a:hover { color: #F4F1EC; }
-  .menu-btn {
-    width: 28px; height: 22px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    background: none; border: none; cursor: pointer;
-  }
-  .menu-btn span {
-    display: block; width: 100%; height: 1.5px;
-    background: #F4F1EC;
-  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
 
-  /* ─────────────────────────────────────
-     HERO — placeholder, iterates later
-  ───────────────────────────────────── */
+  /* ═══════════════════════════════════════
+     HERO — full viewport video background
+  ═══════════════════════════════════════ */
   .hero {
     position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  /* subtle overlay for legibility */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,.12) 0%, transparent 30%, transparent 70%, rgba(0,0,0,.22) 100%);
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════
+     TOP BAR
+  ═══════════════════════════════════════ */
+  .top {
+    position: absolute;
+    top: 1.4rem; left: 1.4rem; right: 1.4rem;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+
+  /* Blue square logo */
+  .brand {
+    background: #3B67E0;
+    color: #FFFFFF;
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    letter-spacing: .04em;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: center;
+    text-transform: none;
+    min-height: 64px;
+  }
+
+  /* Cream nav pill */
+  .nav-pill {
+    background: #FAF4E6;
+    color: #1C1C1C;
+    padding: 0 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.6rem;
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    min-height: 64px;
+  }
+  .nav-pill a {
+    color: #1C1C1C;
+    padding: .4rem 0;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  .nav-pill a:hover { color: #3B67E0; }
+
+  /* Lang switcher — two small cream buttons stacked */
+  .lang {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    justify-self: end;
+  }
+  .lang a {
+    display: flex; align-items: center; justify-content: center;
+    background: #FAF4E6;
+    color: #1C1C1C;
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    padding: .4rem 1rem;
+    min-width: 52px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: background .2s;
+  }
+  .lang a:hover { background: #eae3d1; }
+
+  /* Contact pill — blue */
+  .contact {
+    background: #3B67E0;
+    color: #FFFFFF;
+    padding: 1.1rem 2.6rem;
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 400;
+    font-size: 1.35rem;
+    display: flex; align-items: center; gap: .6rem;
+    transition: background .2s;
+    min-height: 64px;
+  }
+  .contact:hover { background: #2d52bc; }
+  .contact .arrow { font-size: 1.2rem; }
+
+  /* ═══════════════════════════════════════
+     HERO HEADLINE
+  ═══════════════════════════════════════ */
+  .hero-inner {
+    position: relative;
+    z-index: 3;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 14rem 3rem 6rem;
     text-align: center;
-    padding: 6rem 2rem;
-    background:
-      radial-gradient(ellipse at 50% 40%, rgba(122, 158, 124, .15) 0%, transparent 60%),
-      #0F1613;
   }
-  .eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem; font-weight: 500;
-    letter-spacing: .28em;
-    text-transform: uppercase;
-    color: rgba(244,241,236,.5);
-    margin-bottom: 2rem;
-  }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(5rem, 10vw, 12rem);
-    line-height: .95;
-    letter-spacing: -.02em;
-    color: #F4F1EC;
-    margin-bottom: 2.4rem;
-    max-width: 16ch;
-  }
-  .hero-sub {
-    font-family: 'Cormorant Garamond', serif;
+  .headline {
+    font-family: 'Libre Caslon Text', serif;
     font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.5;
-    color: rgba(244,241,236,.75);
-    max-width: 48ch;
-    margin: 0 auto 3.2rem;
+    font-size: clamp(5rem, 8.5vw, 11rem);
+    line-height: 1.05;
+    color: #FAF4E6;
+    letter-spacing: -.01em;
+    text-shadow: 0 4px 24px rgba(0,0,0,.25);
   }
-  .hero-cta {
-    display: inline-flex; align-items: center; gap: .6rem;
-    padding: 1.2rem 2.8rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: #0F1613;
-    background: #F4F1EC;
-    border: 1px solid #F4F1EC;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: background .25s, color .25s;
+  .headline .script {
+    font-family: 'Italianno', 'Libre Caslon Text', cursive;
+    font-style: normal;
+    font-size: 1.35em;
+    line-height: .9;
+    color: #FAF4E6;
+    letter-spacing: 0;
   }
-  .hero-cta:hover {
-    background: transparent;
-    color: #F4F1EC;
-  }
+  .headline .line { display: block; }
 
-  /* Scroll hint */
-  .scroll-hint {
-    position: absolute;
-    bottom: 3rem; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Inter', sans-serif;
-    font-size: .95rem;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: rgba(244,241,236,.4);
-    animation: float 3s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(-50%, 0); opacity: .4; }
-    50%      { transform: translate(-50%, 6px); opacity: .7; }
-  }
-
-  @media (max-width: 768px) {
-    .top { padding: 1.4rem 1.4rem; }
-    .nav-center { display: none; }
+  @media (max-width: 960px) {
+    .top {
+      grid-template-columns: auto auto;
+      gap: .8rem;
+    }
+    .nav-pill { display: none; }
+    .brand { font-size: 2rem; padding: .8rem 1.4rem; min-height: 52px; }
+    .contact { font-size: 1.1rem; padding: .8rem 1.4rem; min-height: 52px; }
+    .lang a { font-size: 1rem; padding: .3rem .7rem; min-width: 44px; }
+    .hero-inner { padding: 10rem 1.6rem 4rem; }
   }
   </style>
 </head>
 <body>
 
-  <header class="top">
-    <a href="javascript:void(0)" class="logo">ZenFlow</a>
-    <div class="nav-center">Book a class</div>
-    <div class="right">
-      <a href="javascript:void(0)">Login</a>
-      <button class="menu-btn" type="button" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
   <section class="hero">
-    <p class="eyebrow">ZenFlow Yoga · Athens</p>
-    <h1 class="hero-title">Find your balance, find yourself.</h1>
-    <p class="hero-sub">
-      A quiet studio in the heart of Kolonaki — guided practice, breathwork and stillness, every day of the week.
-    </p>
-    <button class="hero-cta" type="button">Book a class</button>
+    <video class="hero-video"
+           autoplay muted loop playsinline preload="auto"
+           aria-hidden="true">
+      <source src="./vantage-zen-hero.mp4" type="video/mp4">
+    </video>
 
-    <div class="scroll-hint" aria-hidden="true">Scroll ↓</div>
+    <header class="top">
+      <a href="javascript:void(0)" class="brand">Vantage</a>
+
+      <nav class="nav-pill" aria-label="Primary">
+        <a href="javascript:void(0)">About</a>
+        <a href="javascript:void(0)">Programme</a>
+        <a href="javascript:void(0)">Event</a>
+        <a href="javascript:void(0)">Jobs</a>
+      </nav>
+
+      <div class="lang" aria-label="Language">
+        <a href="javascript:void(0)">EN</a>
+        <a href="javascript:void(0)">GR</a>
+      </div>
+
+      <a href="javascript:void(0)" class="contact">
+        Contact <span class="arrow">→</span>
+      </a>
+    </header>
+
+    <div class="hero-inner">
+      <h1 class="headline">
+        <span class="line">Touch <span class="script">grace</span></span>
+        <span class="line">with Vantage</span>
+      </h1>
+    </div>
   </section>
 
 </body>
