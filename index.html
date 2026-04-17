@@ -29364,21 +29364,69 @@ function generateTemplateHTML(t){
 function showUniPreviewModal(){
   var ex=document.getElementById('uniModal');if(ex)ex.remove();
   var t=uniPreview;if(!t)return;
-  var m=document.createElement('div');m.id='uniModal';m.className='uni-modal-bg';
-  m.onclick=function(e){if(e.target===m){m.remove();uniPreview=null}};
-  var modalDiv=document.createElement('div');
-  modalDiv.className='uni-modal';
-  modalDiv.onclick=function(e){e.stopPropagation()};
-  modalDiv.innerHTML='<div class="uni-modal-header"><div style="display:flex;align-items:center;gap:10px"><div class="uni-modal-dots"><span style="background:rgba(239,68,68,.8);cursor:pointer" onclick="document.getElementById(\'uniModal\').remove()"></span><span style="background:rgba(234,179,8,.8)"></span><span style="background:rgba(34,197,94,.8)"></span></div><span style="font-size:13px;color:rgba(255,255,255,.5)">'+t.name+' \u2014 '+t.subcategory+'</span></div>'
-    +'<div style="display:flex;align-items:center;gap:10px"><span style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1)">'+t.category+'</span>'
-    +'<button class="uni-modal-close" onclick="document.getElementById(\'uniModal\').remove()">&#10005;</button></div></div>';
+
+  /* Fullscreen container — no Mac mockup frame */
+  var m=document.createElement('div');
+  m.id='uniModal';
+  m.style.cssText='position:fixed;inset:0;z-index:99990;background:#000;opacity:0;transition:opacity .25s ease';
+  requestAnimationFrame(function(){m.style.opacity='1'});
+
+  /* Iframe fills the entire viewport */
   var iframe=document.createElement('iframe');
   iframe.title=t.name;
-  iframe.sandbox='allow-scripts';
+  iframe.sandbox='allow-scripts allow-same-origin allow-forms allow-popups';
   iframe.srcdoc=generateTemplateHTML(t);
-  modalDiv.appendChild(iframe);
-  m.appendChild(modalDiv);
+  iframe.style.cssText='width:100vw;height:100vh;border:none;background:#fff;display:block';
+  m.appendChild(iframe);
+
+  /* Preview mode badge — top-left, subtle */
+  var badge=document.createElement('div');
+  badge.style.cssText='position:fixed;top:1.6rem;left:1.6rem;z-index:99999;'
+    +'font-family:Inter,sans-serif;font-size:11px;font-weight:500;'
+    +'letter-spacing:.08em;color:#fff;opacity:.4;pointer-events:none;'
+    +'background:rgba(0,0,0,.5);backdrop-filter:blur(8px);'
+    +'padding:6px 12px;border-radius:20px;'
+    +'border:1px solid rgba(255,255,255,.15)';
+  badge.textContent='PREVIEW MODE \u2014 vantagebookweb.netlify.app';
+  m.appendChild(badge);
+
+  /* Close button — small red ✕ top-right */
+  var closeBtn=document.createElement('button');
+  closeBtn.type='button';
+  closeBtn.setAttribute('aria-label','Close preview');
+  closeBtn.style.cssText='position:fixed;top:1.2rem;right:1.2rem;z-index:99999;'
+    +'width:32px;height:32px;border-radius:50%;'
+    +'background:rgba(220,38,38,.9);color:#fff;'
+    +'border:1px solid rgba(255,255,255,.25);'
+    +'backdrop-filter:blur(8px);'
+    +'display:flex;align-items:center;justify-content:center;'
+    +'font-size:13px;font-weight:700;line-height:1;cursor:pointer;'
+    +'box-shadow:0 4px 16px rgba(220,38,38,.4);'
+    +'transition:background .2s,transform .2s';
+  closeBtn.innerHTML='&#10005;';
+  closeBtn.onmouseenter=function(){this.style.background='rgba(239,68,68,1)';this.style.transform='scale(1.08)'};
+  closeBtn.onmouseleave=function(){this.style.background='rgba(220,38,38,.9)';this.style.transform='scale(1)'};
+  closeBtn.onclick=function(){closeUniPreview()};
+  m.appendChild(closeBtn);
+
+  /* Escape key handler */
+  function escHandler(e){
+    if(e.key==='Escape'){closeUniPreview();}
+  }
+  m.__escHandler=escHandler;
+  document.addEventListener('keydown',escHandler);
+
   document.body.appendChild(m);
+  document.body.style.overflow='hidden';
+}
+
+function closeUniPreview(){
+  var m=document.getElementById('uniModal');
+  if(!m)return;
+  if(m.__escHandler)document.removeEventListener('keydown',m.__escHandler);
+  m.remove();
+  uniPreview=null;
+  document.body.style.overflow='';
 }
 
 function initUniverseGraph(){
