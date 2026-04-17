@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VANTAGE RESTO — Reservations</title>
 
+  <!-- Preload the hero video so it streams immediately -->
+  <link rel="preload" href="./vantage-resto-hero.mp4" as="video" type="video/mp4">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com">
@@ -550,7 +553,7 @@
 
     <article class="feature-card">
       <div class="feature-media">
-        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="none" aria-hidden="true">
           <source src="./vantage-resto-fish.mp4" type="video/mp4">
         </video>
       </div>
@@ -564,7 +567,7 @@
 
     <article class="feature-card">
       <div class="feature-media">
-        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="none" aria-hidden="true">
           <source src="./vantage-resto-pizza.mp4" type="video/mp4">
         </video>
       </div>
@@ -688,13 +691,36 @@
 
     show(0);
   })();
+
+  /* ═══════════════════════════════════════════════════════════════
+     Performance: lazy-play — pause videos when off-screen, resume
+     when visible again. Saves bandwidth + CPU + battery. */
+  (function() {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (v.preload === 'none' || v.preload === 'metadata') v.preload = 'auto';
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.15 });
+    /* Skip the hero — it should always play on first paint */
+    document.querySelectorAll('video').forEach(v => {
+      if (v.classList.contains('hero-video')) return;
+      io.observe(v);
+    });
+  })();
   </script>
 
   <!-- ABOUT — noma-style editorial split -->
   <section class="about" aria-label="About Vantage Resto">
     <div class="about-grid">
       <div class="about-media">
-        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="none" aria-hidden="true">
           <source src="./vantage-resto-about.mp4" type="video/mp4">
         </video>
       </div>
@@ -735,7 +761,7 @@
         </p>
       </div>
       <div class="about-media">
-        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="none" aria-hidden="true">
           <source src="./vantage-resto-story.mp4" type="video/mp4">
         </video>
       </div>
