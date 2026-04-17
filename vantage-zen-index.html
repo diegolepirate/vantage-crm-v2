@@ -424,45 +424,53 @@
   ═══════════════════════════════════════ */
   .menu-slider {
     background: #FAF4E6;
-    padding: 7rem 5rem 7rem;
+    padding: 4rem 0 3rem;
   }
   .menu-slider-head {
-    max-width: 1700px;
-    margin: 0 auto 4rem;
-  }
-  .menu-slider-eyebrow {
-    font-family: 'Courier New', monospace;
-    font-size: 1.1rem;
-    color: #3B67E0;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-  .menu-slider-title {
-    font-family: 'Libre Caslon Text', serif;
-    font-weight: 700;
-    font-size: clamp(3.2rem, 5.5vw, 7rem);
-    line-height: 1.05;
-    color: #3B67E0;
-    letter-spacing: -.01em;
-  }
-  /* Normal responsive grid — no horizontal scroll, no arrows */
-  .menu-track {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem 2.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 5rem 2rem;
     max-width: 1700px;
     margin: 0 auto;
   }
+  .menu-arrow {
+    width: 64px; height: 64px;
+    border: 1px solid #3B67E0;
+    background: transparent;
+    color: #3B67E0;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s;
+  }
+  .menu-arrow:hover { background: #3B67E0; color: #FAF4E6; }
+  .menu-arrow svg { width: 22px; height: 22px; }
+
+  .menu-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.4rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 5rem 2rem;
+    scrollbar-width: none;
+  }
+  .menu-track::-webkit-scrollbar { display: none; }
+
   .menu-card {
-    width: 100%;
+    flex: 0 0 380px;
+    width: 380px;
+    scroll-snap-align: start;
     background: transparent;
     display: block;
   }
   .menu-card-img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    display: block !important;
+    width: 380px !important;
+    height: 380px !important;
+    min-height: 380px;
     object-fit: cover;
     background: #e6dfcf;
     border-radius: 2px;
@@ -513,8 +521,11 @@
   .menu-card.c-plum   { color: #7D3F8F; }
 
   @media (max-width: 900px) {
-    .menu-slider { padding: 4rem 1.6rem; }
-    .menu-track { gap: 3rem 1.6rem; }
+    .menu-slider { padding: 3rem 0 5rem; }
+    .menu-slider-head { padding: 0 1.6rem 2rem; }
+    .menu-card { flex: 0 0 82vw; width: 82vw; min-height: auto; }
+    .menu-card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .menu-track { padding: 0 1.6rem 2rem; }
   }
 
   /* ═══════════════════════════════════════
@@ -736,18 +747,26 @@
 
   </section>
 
-  <!-- MENU — category cards, natural grid (no horizontal scroll) -->
+  <!-- MENU SLIDER — category cards with arrow nav -->
   <section class="menu-slider" aria-label="Menu categories">
-    <header class="menu-slider-head">
-      <p class="menu-slider-eyebrow">The Menu · Seasonal</p>
-      <h2 class="menu-slider-title">Flavours from the coast.</h2>
-    </header>
+    <div class="menu-slider-head">
+      <button type="button" class="menu-arrow" id="menu-prev" aria-label="Previous category">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="menu-arrow" id="menu-next" aria-label="Next category">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
 
     <div class="menu-track" id="menu-track">
 
       <!-- Pizza (red) -->
       <article class="menu-card c-red">
-        <img class="menu-card-img" style="background:#e6dfcf" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="Pizza" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="Pizza" loading="lazy">
         <p class="menu-card-meta">Wood-fired · Daily</p>
         <h3 class="menu-card-name">Pizza</h3>
         <ul class="menu-card-list">
@@ -762,7 +781,7 @@
 
       <!-- Salads (green) -->
       <article class="menu-card c-green">
-        <img class="menu-card-img" style="background:#e6dfcf" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80" alt="Salads" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80" alt="Salads" loading="lazy">
         <p class="menu-card-meta">Garden-fresh · Seasonal</p>
         <h3 class="menu-card-name">Salads</h3>
         <ul class="menu-card-list">
@@ -777,7 +796,7 @@
 
       <!-- Seafood (blue) -->
       <article class="menu-card c-blue">
-        <img class="menu-card-img" style="background:#e6dfcf" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Seafood" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Seafood" loading="lazy">
         <p class="menu-card-meta">Caught the morning of</p>
         <h3 class="menu-card-name">Seafood</h3>
         <ul class="menu-card-list">
@@ -792,7 +811,7 @@
 
       <!-- Mains (gold) -->
       <article class="menu-card c-gold">
-        <img class="menu-card-img" style="background:#e6dfcf" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Mains" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Mains" loading="lazy">
         <p class="menu-card-meta">Signature · Chef's hand</p>
         <h3 class="menu-card-name">Mains</h3>
         <ul class="menu-card-list">
@@ -807,7 +826,7 @@
 
       <!-- Desserts (plum) -->
       <article class="menu-card c-plum">
-        <img class="menu-card-img" style="background:#e6dfcf" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="Desserts" loading="lazy">
+        <img class="menu-card-img" width="380" height="380" style="width:380px;height:380px;background:#e6dfcf;display:block" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="Desserts" loading="lazy">
         <p class="menu-card-meta">House-made · Pastry chef</p>
         <h3 class="menu-card-name">Desserts</h3>
         <ul class="menu-card-list">
@@ -822,6 +841,23 @@
 
     </div>
   </section>
+
+  <script>
+    (function(){
+      const track = document.getElementById('menu-track');
+      const prev  = document.getElementById('menu-prev');
+      const next  = document.getElementById('menu-next');
+      if (!track || !prev || !next) return;
+      const step = () => {
+        const card = track.querySelector('.menu-card');
+        if (!card) return 400;
+        const gap = 24;
+        return card.getBoundingClientRect().width + gap;
+      };
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth' }));
+    })();
+  </script>
 
   <!-- EXPERIENCES — 3-col gallery, center column parallax -->
   <section class="experiences" aria-label="Experiences gallery">
