@@ -408,6 +408,56 @@
 
 
   /* ══════════════════════════════════════
+     ABOUT — noma-style editorial split
+  ══════════════════════════════════════ */
+  .about {
+    background: #f3f4f2;
+    padding: 6rem 3rem;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+  .about-media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #111;
+  }
+  .about-media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .about-copy {
+    padding: 1rem 0;
+    color: #1a1a1a;
+  }
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 3.6vw, 4.2rem);
+    line-height: 1.1;
+    letter-spacing: -.005em;
+    margin-bottom: 3.6rem;
+    color: #1a1a1a;
+  }
+  .about-copy p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: #1a1a1a;
+    margin-bottom: 1.6rem;
+    max-width: 42ch;
+  }
+
+  /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
   @media (max-width: 900px) {
@@ -430,6 +480,10 @@
     .mad-title-wrap { min-height: 180px; }
     .mad-title { font-size: clamp(4.5rem, 18vw, 8rem); }
     .mad-foot { flex-direction: column; gap: 1.6rem; align-items: flex-start; }
+    .about { padding: 3rem 1.4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-media { aspect-ratio: 3 / 4; }
+    .about-title { margin-bottom: 2rem; }
   }
   </style>
 </head>
@@ -624,6 +678,32 @@
     show(0);
   })();
   </script>
+
+  <!-- ABOUT — noma-style editorial split -->
+  <section class="about" aria-label="About Vantage Resto">
+    <div class="about-grid">
+      <div class="about-media">
+        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+          <source src="./vantage-resto-about.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="about-copy">
+        <h2 class="about-title">What is happening<br>at Vantage Resto?</h2>
+        <p>
+          For the past ten years, Vantage Resto has been an Athenian house dedicated to one thing: haute gastronomy served without pretension. Every plate is built around ingredients picked at dawn from local farms and brought to the kitchen before the doors open.
+        </p>
+        <p>
+          Our fish is line-caught the day before along the Aegean coast. Our vegetables come from three small family producers we visit every week. The wine list is a quiet love letter to France — Burgundy, Rhône, Champagne — hand-selected bottle by bottle, never via distributor.
+        </p>
+        <p>
+          We do not chase trends. We chase the right tomato, the right olive oil, the right stock that has reduced for six hours. Our chef's team is small — eleven cooks, no more — because we believe a dining room deserves full attention, never a production line.
+        </p>
+        <p>
+          Vantage Resto is where precision meets Mediterranean generosity. Come hungry. Leave knowing exactly why you came back.
+        </p>
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
