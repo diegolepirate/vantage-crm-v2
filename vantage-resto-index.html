@@ -306,36 +306,29 @@
   .feature-link:hover { opacity: .7; }
 
   /* ══════════════════════════════════════
-     MAD-STYLE CAROUSEL
+     MAD-STYLE CAROUSEL — simple display:none / block swap
   ══════════════════════════════════════ */
   .mad-carousel {
     background: #e9ecea;
     padding: 4rem 3rem 3rem;
-    overflow: hidden;
   }
   .mad-stage {
     position: relative;
-    min-height: 520px;
   }
   .mad-slide {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: center;
-    min-height: 520px;
-    /* Stack all slides in the same position, toggle via opacity */
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity .45s ease;
+    min-height: 480px;
+    animation: mad-in .4s ease;
   }
   .mad-slide.is-active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    position: relative;   /* the active one defines stage height */
+    display: grid;
+  }
+  @keyframes mad-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .mad-title-wrap {
     display: flex;
