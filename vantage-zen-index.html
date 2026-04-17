@@ -906,36 +906,28 @@
     position: relative;
     background: #FAF4E6;
     padding: 6rem 6vw 7rem;
-    overflow: hidden;
   }
   .tales-title {
     font-family: 'Libre Caslon Text', serif;
     font-weight: 700;
     color: #3a4a1f;
-    font-size: clamp(5rem, 14vw, 14rem);
-    line-height: .88;
+    font-size: clamp(3.4rem, 9vw, 8rem);
+    line-height: .95;
     letter-spacing: -.02em;
-    white-space: nowrap;
-    position: relative;
-    z-index: 1;
-    margin-left: -2vw;
-    pointer-events: none;
+    margin-bottom: 3rem;
   }
   .tales-title .script {
     font-family: 'Italianno', cursive;
     font-weight: 400;
-    font-size: .55em;
+    font-size: .7em;
     color: #3a4a1f;
-    margin-right: .2em;
-    vertical-align: .15em;
+    margin-right: .15em;
+    vertical-align: .1em;
   }
   .tales-grid {
-    position: relative;
-    z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-top: -6rem;
   }
   .tales-card {
     padding: 1.4rem 1.4rem 1.8rem;
@@ -978,8 +970,7 @@
   }
 
   @media (max-width: 1100px) {
-    .tales-grid { grid-template-columns: 1fr; gap: 1.6rem; margin-top: -2rem; }
-    .tales-title { white-space: normal; font-size: clamp(3.4rem, 10vw, 6rem); }
+    .tales-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   }
   @media (max-width: 640px) {
     .tales { padding: 4rem 1.4rem 5rem; }
