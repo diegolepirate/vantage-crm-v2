@@ -7,11 +7,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com">
   <!--
-       Logo font: Parisienne — flowing elegant script, close to the noma logo.
-       Body font: Cormorant Garamond (thin serif) for "Reservations" + Inter for UI.
+       Logo font: Switzer — bold geometric sans-serif (Fontshare CDN).
+       "Reservations" + labels: Cormorant Garamond (thin serif).
+       Body: Inter.
   -->
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@700,800,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,16 +65,18 @@
     padding: 2.2rem 3rem;
     color: #fff;
   }
-  /* Logo — Parisienne script, like "noma" */
+  /* Logo — Switzer bold, impact-style sans-serif */
   .logo {
-    font-family: 'Parisienne', cursive;
-    font-size: 2.8rem;
+    font-family: 'Switzer', 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
     line-height: 1;
-    letter-spacing: .01em;
+    letter-spacing: -.01em;
     color: #fff;
     text-shadow: 0 2px 10px rgba(0,0,0,.35);
     justify-self: start;
     text-decoration: none;
+    text-transform: none;
   }
   /* Center title — "Reservations" thin serif */
   .center-title {
