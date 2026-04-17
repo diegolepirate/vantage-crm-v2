@@ -792,6 +792,112 @@
     .lang a { font-size: 1rem; padding: .3rem .7rem; min-width: 44px; }
     .hero-inner { padding: 10rem 1.6rem 4rem; }
   }
+
+  /* ═══════════════════════════════════════
+     GREEK ESCAPE — video loop + editorial cards
+  ═══════════════════════════════════════ */
+  .greek {
+    background: #FAF4E6;
+    color: #1a1a1a;
+    padding: 7rem 6vw 6rem;
+  }
+  .greek-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr auto;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3.5rem;
+  }
+  .greek-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 4.6vw, 4.4rem);
+    line-height: .95;
+    color: #2a5fb4;
+    letter-spacing: -.01em;
+  }
+  .greek-title .script {
+    display: block;
+    font-family: 'Italianno', cursive;
+    font-weight: 400;
+    font-size: 1.1em;
+    color: #2a5fb4;
+    margin-top: .4rem;
+    padding-left: 2.2rem;
+  }
+  .greek-intro {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #1a1a1a;
+    padding-top: .8rem;
+  }
+  .greek-cta {
+    align-self: start;
+    margin-top: .6rem;
+    padding: 1.2rem 2rem;
+    background: #2a5fb4;
+    color: #FAF4E6;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    letter-spacing: .02em;
+    transition: background .2s ease;
+  }
+  .greek-cta:hover { background: #1e4a93; }
+
+  .greek-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    margin-bottom: 3.5rem;
+  }
+  .greek-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .greek-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    padding: 2.5rem 0 0;
+    border: 1px solid rgba(42,95,180,.25);
+    padding: 2.5rem 2.5rem;
+  }
+  .greek-card-kicker {
+    font-family: 'Courier New', monospace;
+    font-size: .85rem;
+    color: #1a1a1a;
+    margin-bottom: 1.2rem;
+    letter-spacing: .02em;
+  }
+  .greek-card-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: 1.65rem;
+    line-height: 1.05;
+    color: #2a5fb4;
+    margin-bottom: 1.2rem;
+  }
+  .greek-card-body {
+    font-family: 'Courier New', monospace;
+    font-size: .92rem;
+    line-height: 1.55;
+    color: #1a1a1a;
+  }
+
+  @media (max-width: 1100px) {
+    .greek-head { grid-template-columns: 1fr; gap: 1.8rem; }
+    .greek-grid { grid-template-columns: repeat(2, 1fr); gap: 2.4rem; }
+  }
+  @media (max-width: 640px) {
+    .greek { padding: 5rem 1.4rem 4rem; }
+    .greek-media { aspect-ratio: 16 / 10; }
+    .greek-grid { grid-template-columns: 1fr; padding: 1.8rem 1.4rem; gap: 2rem; }
+  }
   </style>
 </head>
 <body>
@@ -1158,6 +1264,60 @@
           <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+    </div>
+  </section>
+
+  <!-- GREEK ESCAPE — looping video + editorial cards -->
+  <section class="greek" aria-label="A Greek escape">
+    <div class="greek-head">
+      <h2 class="greek-title">
+        A Greek escape
+        <span class="script">beneath the sun</span>
+      </h2>
+      <p class="greek-intro">
+        Vantage is an invitation to slow down the Greek way — long lunches, bare feet on warm stone, the low hum of cicadas at golden hour. Our tables celebrate the savoury, sun-ripened gastronomy of the islands: wood-fired breads, olive oil pressed at dawn, fish pulled from the Aegean that same morning. And behind every plate, the unmistakable warmth of the Greek people — generous hosts who turn every guest into kin.
+      </p>
+      <button type="button" class="greek-cta">Discover Greece →</button>
+    </div>
+
+    <figure class="greek-media">
+      <video autoplay muted loop playsinline preload="metadata" poster="">
+        <source src="vantage-zen-greece.mp4" type="video/mp4">
+      </video>
+    </figure>
+
+    <div class="greek-grid">
+      <div class="greek-card">
+        <div class="greek-card-kicker">Aegean&nbsp;|&nbsp;Tranquillity</div>
+        <h3 class="greek-card-title">Island stillness</h3>
+        <p class="greek-card-body">
+          White-washed terraces, the deep blue of the Aegean, and a silence only broken by the breeze. Greece knows how to do nothing — beautifully — and we bring that same calm to every Vantage address.
+        </p>
+      </div>
+
+      <div class="greek-card">
+        <div class="greek-card-kicker">Cuisine&nbsp;|&nbsp;Gastronomy</div>
+        <h3 class="greek-card-title">Savoury feasts</h3>
+        <p class="greek-card-body">
+          Grilled octopus, saganaki bubbling in cast iron, honey-drenched loukoumades, tomatoes that taste of the sun. Our kitchens honour the savoury, soulful gastronomy that has fed generations on the islands.
+        </p>
+      </div>
+
+      <div class="greek-card">
+        <div class="greek-card-kicker">Sun&nbsp;|&nbsp;Well-being</div>
+        <h3 class="greek-card-title">Under the Greek sun</h3>
+        <p class="greek-card-body">
+          More than a light — a way of living. The Greek sun softens the shoulders, warms the heart, and gives food and skin alike that unmistakable Mediterranean glow. Vitamin D, vitamin joy.
+        </p>
+      </div>
+
+      <div class="greek-card">
+        <div class="greek-card-kicker">People&nbsp;|&nbsp;Philoxenia</div>
+        <h3 class="greek-card-title">Warm hospitality</h3>
+        <p class="greek-card-body">
+          In Greece, a stranger is simply a friend you haven't met yet. The famed philoxenia — love of the guest — inspires every detail at Vantage: open arms, full tables, and the quiet pride of welcoming you home.
+        </p>
+      </div>
     </div>
   </section>
 
