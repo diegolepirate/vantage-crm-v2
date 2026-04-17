@@ -419,6 +419,109 @@
     .family-events  { grid-column: 1 / -1; grid-row: auto; grid-template-columns: 1fr; }
   }
 
+  /* ═══════════════════════════════════════
+     MENU SLIDER — card carousel (FUGA-style)
+  ═══════════════════════════════════════ */
+  .menu-slider {
+    background: #FAF4E6;
+    padding: 4rem 5rem 8rem;
+  }
+  .menu-slider-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0 2rem;
+    max-width: 1700px;
+    margin: 0 auto;
+  }
+  .menu-arrow {
+    width: 64px; height: 64px;
+    border: 1px solid #3B67E0;
+    background: transparent;
+    color: #3B67E0;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, color .2s;
+  }
+  .menu-arrow:hover { background: #3B67E0; color: #FAF4E6; }
+  .menu-arrow svg { width: 22px; height: 22px; }
+
+  .menu-track {
+    display: flex;
+    gap: 2.4rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 5rem 2rem 0;
+    margin: 0 -5rem;
+    padding-left: 5rem;
+    scrollbar-width: none;
+  }
+  .menu-track::-webkit-scrollbar { display: none; }
+
+  .menu-card {
+    flex: 0 0 380px;
+    scroll-snap-align: start;
+    background: transparent;
+    display: flex; flex-direction: column;
+  }
+  .menu-card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+  .menu-card-meta {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: currentColor;
+    letter-spacing: .02em;
+    display: flex; align-items: center; gap: .4rem;
+    margin: 1.2rem 0 .6rem;
+  }
+  .menu-card-meta::before {
+    content: '◆';
+    font-size: .8rem;
+  }
+  .menu-card-name {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1;
+    margin-bottom: 1.6rem;
+  }
+  .menu-card-list {
+    list-style: none;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: currentColor;
+    padding: 0;
+  }
+  .menu-card-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: .35rem 0;
+    border-bottom: 1px dotted currentColor;
+  }
+  .menu-card-list li:last-child { border-bottom: none; }
+  .menu-card-list li .name { flex: 1; }
+  .menu-card-list li .price { flex-shrink: 0; font-weight: 700; }
+
+  /* Color variants per card */
+  .menu-card.c-red    { color: #C0392B; }
+  .menu-card.c-green  { color: #5B8C3A; }
+  .menu-card.c-blue   { color: #3B67E0; }
+  .menu-card.c-gold   { color: #B7812B; }
+  .menu-card.c-plum   { color: #7D3F8F; }
+
+  @media (max-width: 900px) {
+    .menu-slider { padding: 3rem 1.6rem 5rem; }
+    .menu-card { flex: 0 0 82vw; }
+    .menu-track { padding-left: 1.6rem; margin: 0 -1.6rem; }
+  }
+
   @media (max-width: 960px) {
     .preamble { padding: 5rem 1.6rem; }
     .preamble-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -554,6 +657,118 @@
     </div>
 
   </section>
+
+  <!-- MENU SLIDER — category cards with arrow nav -->
+  <section class="menu-slider" aria-label="Menu categories">
+    <div class="menu-slider-head">
+      <button type="button" class="menu-arrow" id="menu-prev" aria-label="Previous category">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="menu-arrow" id="menu-next" aria-label="Next category">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="menu-track" id="menu-track">
+
+      <!-- Pizza (red) -->
+      <article class="menu-card c-red">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="Pizza" loading="lazy">
+        <p class="menu-card-meta">Wood-fired · Daily</p>
+        <h3 class="menu-card-name">Pizza</h3>
+        <ul class="menu-card-list">
+          <li><span class="name">Margherita · San Marzano, basil</span><span class="price">€14</span></li>
+          <li><span class="name">Bufala · smoked buffalo mozzarella</span><span class="price">€18</span></li>
+          <li><span class="name">Tartufo · black truffle, fontina</span><span class="price">€24</span></li>
+          <li><span class="name">Ortolana · grilled vegetables</span><span class="price">€16</span></li>
+          <li><span class="name">Mare · baby octopus, taggiasca</span><span class="price">€22</span></li>
+          <li><span class="name">Calabrese · 'nduja, stracciatella</span><span class="price">€19</span></li>
+        </ul>
+      </article>
+
+      <!-- Salads (green) -->
+      <article class="menu-card c-green">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80" alt="Salads" loading="lazy">
+        <p class="menu-card-meta">Garden-fresh · Seasonal</p>
+        <h3 class="menu-card-name">Salads</h3>
+        <ul class="menu-card-list">
+          <li><span class="name">Horiatiki · tomato, feta, Kalamata</span><span class="price">€12</span></li>
+          <li><span class="name">Caesar · romaine, anchovy, parmigiano</span><span class="price">€14</span></li>
+          <li><span class="name">Burrata · heirloom tomato, basil oil</span><span class="price">€18</span></li>
+          <li><span class="name">Wild herbs · feta, watermelon</span><span class="price">€13</span></li>
+          <li><span class="name">Fig & prosciutto · balsamic</span><span class="price">€16</span></li>
+          <li><span class="name">Ouzo-cured salmon · dill</span><span class="price">€19</span></li>
+        </ul>
+      </article>
+
+      <!-- Seafood (blue) -->
+      <article class="menu-card c-blue">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80" alt="Seafood" loading="lazy">
+        <p class="menu-card-meta">Caught the morning of</p>
+        <h3 class="menu-card-name">Seafood</h3>
+        <ul class="menu-card-list">
+          <li><span class="name">Grilled octopus · lemon, oregano</span><span class="price">€26</span></li>
+          <li><span class="name">Seabass sashimi · Cretan olive oil</span><span class="price">€28</span></li>
+          <li><span class="name">Lobster linguine · bisque</span><span class="price">€38</span></li>
+          <li><span class="name">Red mullet · black garlic butter</span><span class="price">€32</span></li>
+          <li><span class="name">Sea urchin pasta · fresh tagliolini</span><span class="price">€34</span></li>
+          <li><span class="name">Fried calamari · squid ink aioli</span><span class="price">€22</span></li>
+        </ul>
+      </article>
+
+      <!-- Mains (gold) -->
+      <article class="menu-card c-gold">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Mains" loading="lazy">
+        <p class="menu-card-meta">Signature · Chef's hand</p>
+        <h3 class="menu-card-name">Mains</h3>
+        <ul class="menu-card-list">
+          <li><span class="name">Lamb chops · thyme, honey</span><span class="price">€32</span></li>
+          <li><span class="name">Slow-braised beef cheek · red wine</span><span class="price">€28</span></li>
+          <li><span class="name">Moussaka · béchamel, aubergine</span><span class="price">€24</span></li>
+          <li><span class="name">Souvlaki trio · pork, chicken, halloumi</span><span class="price">€26</span></li>
+          <li><span class="name">Duck breast · fig jus</span><span class="price">€30</span></li>
+          <li><span class="name">Wagyu tataki · yuzu, wasabi</span><span class="price">€42</span></li>
+        </ul>
+      </article>
+
+      <!-- Desserts (plum) -->
+      <article class="menu-card c-plum">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80" alt="Desserts" loading="lazy">
+        <p class="menu-card-meta">House-made · Pastry chef</p>
+        <h3 class="menu-card-name">Desserts</h3>
+        <ul class="menu-card-list">
+          <li><span class="name">Baklava · pistachio, thyme honey</span><span class="price">€9</span></li>
+          <li><span class="name">Loukoumades · Metaxa, cinnamon</span><span class="price">€10</span></li>
+          <li><span class="name">Matcha tiramisu · yuzu mascarpone</span><span class="price">€12</span></li>
+          <li><span class="name">Olive oil cake · vanilla ice cream</span><span class="price">€10</span></li>
+          <li><span class="name">Dark chocolate fondant · sea salt</span><span class="price">€11</span></li>
+          <li><span class="name">Fresh fig sorbet · basil</span><span class="price">€8</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const track = document.getElementById('menu-track');
+      const prev  = document.getElementById('menu-prev');
+      const next  = document.getElementById('menu-next');
+      if (!track || !prev || !next) return;
+      const step = () => {
+        const card = track.querySelector('.menu-card');
+        if (!card) return 400;
+        const gap = 24;
+        return card.getBoundingClientRect().width + gap;
+      };
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth' }));
+    })();
+  </script>
 
 </body>
 </html>
