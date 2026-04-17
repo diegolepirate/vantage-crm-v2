@@ -534,7 +534,7 @@
   .experiences {
     background: #FAF4E6;
     padding: 3rem 5rem 8rem;
-    overflow-x: hidden;
+    overflow-x: clip;   /* 'clip' doesn't trigger overflow-y: auto like 'hidden' does */
   }
   .experiences-title {
     font-family: 'Libre Caslon Text', serif;
