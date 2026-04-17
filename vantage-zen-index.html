@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenFlow Yoga — Find your balance</title>
+  <meta name="description" content="ZenFlow Yoga — class booking, meditation timer and guided practice. Find your balance, find yourself.">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="ZenFlow Yoga — Find your balance, find yourself">
+  <meta property="og:description" content="Class booking, meditation timer and guided practice.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0F1613">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Serif display + clean sans — baseline, will iterate -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    color: #F4F1EC;
+    background: #0F1613;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ─────────────────────────────────────
+     TOP BAR
+  ───────────────────────────────────── */
+  .top {
+    position: absolute; top: 0; left: 0; right: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 2rem 3rem;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 2.2rem;
+    letter-spacing: .02em;
+    color: #F4F1EC;
+    justify-self: start;
+    text-decoration: none;
+  }
+  .nav-center {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(244,241,236,.7);
+    justify-self: center;
+  }
+  .right {
+    justify-self: end;
+    display: flex; align-items: center; gap: 2rem;
+  }
+  .right a {
+    font-size: 1.1rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(244,241,236,.7);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .right a:hover { color: #F4F1EC; }
+  .menu-btn {
+    width: 28px; height: 22px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    background: none; border: none; cursor: pointer;
+  }
+  .menu-btn span {
+    display: block; width: 100%; height: 1.5px;
+    background: #F4F1EC;
+  }
+
+  /* ─────────────────────────────────────
+     HERO — placeholder, iterates later
+  ───────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(122, 158, 124, .15) 0%, transparent 60%),
+      #0F1613;
+  }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem; font-weight: 500;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: rgba(244,241,236,.5);
+    margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(5rem, 10vw, 12rem);
+    line-height: .95;
+    letter-spacing: -.02em;
+    color: #F4F1EC;
+    margin-bottom: 2.4rem;
+    max-width: 16ch;
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: rgba(244,241,236,.75);
+    max-width: 48ch;
+    margin: 0 auto 3.2rem;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: 1.2rem 2.8rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #0F1613;
+    background: #F4F1EC;
+    border: 1px solid #F4F1EC;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .25s, color .25s;
+  }
+  .hero-cta:hover {
+    background: transparent;
+    color: #F4F1EC;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: .95rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: rgba(244,241,236,.4);
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, 0); opacity: .4; }
+    50%      { transform: translate(-50%, 6px); opacity: .7; }
+  }
+
+  @media (max-width: 768px) {
+    .top { padding: 1.4rem 1.4rem; }
+    .nav-center { display: none; }
+  }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <a href="javascript:void(0)" class="logo">ZenFlow</a>
+    <div class="nav-center">Book a class</div>
+    <div class="right">
+      <a href="javascript:void(0)">Login</a>
+      <button class="menu-btn" type="button" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">ZenFlow Yoga · Athens</p>
+    <h1 class="hero-title">Find your balance, find yourself.</h1>
+    <p class="hero-sub">
+      A quiet studio in the heart of Kolonaki — guided practice, breathwork and stillness, every day of the week.
+    </p>
+    <button class="hero-cta" type="button">Book a class</button>
+
+    <div class="scroll-hint" aria-hidden="true">Scroll ↓</div>
+  </section>
+
+</body>
+</html>
