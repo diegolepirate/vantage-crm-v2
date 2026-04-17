@@ -984,6 +984,31 @@
   @media (max-width: 640px) {
     .tales { padding: 4rem 1.4rem 5rem; }
   }
+
+  /* ═══════════════════════════════════════
+     NEWSLETTER — centered editorial title
+  ═══════════════════════════════════════ */
+  .newsletter {
+    background: #FAF4E6;
+    padding: 6rem 1.4rem 8rem;
+    text-align: center;
+  }
+  .newsletter-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    color: #2a5fb4;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 1;
+    letter-spacing: -.01em;
+  }
+  .newsletter-title .script {
+    display: block;
+    font-family: 'Italianno', cursive;
+    font-weight: 400;
+    font-size: 1.05em;
+    color: #2a5fb4;
+    margin-top: .4rem;
+  }
   </style>
 </head>
 <body>
@@ -1439,6 +1464,14 @@
         </p>
       </article>
     </div>
+  </section>
+
+  <!-- NEWSLETTER — editorial title Vantage / choose the best -->
+  <section class="newsletter" aria-label="Vantage tagline">
+    <h2 class="newsletter-title">
+      Vantage
+      <span class="script">choose the best</span>
+    </h2>
   </section>
 
   <script>
