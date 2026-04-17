@@ -457,6 +457,15 @@
     max-width: 42ch;
   }
 
+  /* Mirrored variant: text on the left, media on the right */
+  .about--reverse { background: #eae8e3; }
+  .about--reverse .about-grid { grid-template-columns: 1fr 1.1fr; }
+  .about--reverse .about-copy { order: 1; }
+  .about--reverse .about-media { order: 2; }
+  .about--reverse .about-title {
+    font-style: italic;
+  }
+
   /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
@@ -484,6 +493,8 @@
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .about-media { aspect-ratio: 3 / 4; }
     .about-title { margin-bottom: 2rem; }
+    .about--reverse .about-copy,
+    .about--reverse .about-media { order: initial; }
   }
   </style>
 </head>
@@ -701,6 +712,32 @@
         <p>
           Vantage Resto is where precision meets Mediterranean generosity. Come hungry. Leave knowing exactly why you came back.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY — mirrored editorial split, poetic -->
+  <section class="about about--reverse" aria-label="Our story">
+    <div class="about-grid">
+      <div class="about-copy">
+        <h2 class="about-title">A table facing the sea,<br>a kitchen facing the sun.</h2>
+        <p>
+          Greece did not teach us to cook. Greece taught us to <em>listen</em>. To the rhythm of the morning market in Varvakios. To the crackle of olive wood under the grill. To the silence of a dining room when the first dish lands on the table and nobody speaks for a moment.
+        </p>
+        <p>
+          Our story begins on a small terrace in Pláka in 2015. Three chairs, two friends, one borrowed oven. A neighbour brought a basket of tomatoes. A fisherman walked by with a red mullet still flinching. That night we served six guests, and we understood what we had to do for the rest of our lives.
+        </p>
+        <p>
+          We believe a meal is a small act of geography. The sea behind us. The hills in front of us. The light above. Every plate should carry the postcode of the land it came from — and the hands that pulled it out of the ground the same morning.
+        </p>
+        <p>
+          This is not a restaurant. This is Greece, set for dinner.
+        </p>
+      </div>
+      <div class="about-media">
+        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+          <source src="./vantage-resto-story.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
