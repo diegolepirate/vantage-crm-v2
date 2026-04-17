@@ -424,13 +424,14 @@
   ═══════════════════════════════════════ */
   .menu-slider {
     background: #FAF4E6;
-    padding: 4rem 5rem 8rem;
+    padding: 4rem 0 8rem;
+    overflow: hidden;
   }
   .menu-slider-head {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0 0 2rem;
+    padding: 0 5rem 2rem;
     max-width: 1700px;
     margin: 0 auto;
   }
@@ -452,9 +453,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 0 5rem 2rem 0;
-    margin: 0 -5rem;
-    padding-left: 5rem;
+    padding: 0 5rem 2rem;
     scrollbar-width: none;
   }
   .menu-track::-webkit-scrollbar { display: none; }
@@ -517,9 +516,10 @@
   .menu-card.c-plum   { color: #7D3F8F; }
 
   @media (max-width: 900px) {
-    .menu-slider { padding: 3rem 1.6rem 5rem; }
+    .menu-slider { padding: 3rem 0 5rem; }
+    .menu-slider-head { padding: 0 1.6rem 2rem; }
     .menu-card { flex: 0 0 82vw; }
-    .menu-track { padding-left: 1.6rem; margin: 0 -1.6rem; }
+    .menu-track { padding: 0 1.6rem 2rem; }
   }
 
   /* ═══════════════════════════════════════
