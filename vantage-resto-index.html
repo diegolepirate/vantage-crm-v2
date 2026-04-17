@@ -470,6 +470,107 @@
   }
 
   /* ══════════════════════════════════════
+     FOOTER — Booking · Logo · Contact
+  ══════════════════════════════════════ */
+  .resto-footer {
+    background: #efece6;
+    padding: 6rem 3rem 4rem;
+    border-top: 1px solid rgba(0,0,0,.08);
+    color: #1a1a1a;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-col--left  { text-align: left;  }
+  .footer-col--right { text-align: right; }
+  .footer-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-bottom: .4rem;
+  }
+  .footer-block {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #1a1a1a;
+  }
+  .footer-block .days {
+    display: block;
+    font-size: .95rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin-top: 1rem;
+    margin-bottom: .3rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .footer-block .closed {
+    color: #8a8a8a;
+    font-style: italic;
+  }
+  .footer-block a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(26,26,26,.4);
+    transition: border-color .2s;
+  }
+  .footer-block a:hover { border-bottom-color: #1a1a1a; }
+
+  .footer-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-logo {
+    font-family: 'Switzer', 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.6rem, 6vw, 6.4rem);
+    line-height: 1;
+    letter-spacing: -.02em;
+    color: #1a1a1a;
+    text-transform: none;
+    text-align: center;
+  }
+
+  .footer-legal {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: .04em;
+    color: #6a6a6a;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-legal a { color: #6a6a6a; text-decoration: none; }
+  .footer-legal a:hover { color: #1a1a1a; }
+  .footer-legal nav { display: flex; gap: 1.6rem; flex-wrap: wrap; }
+
+  /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
   @media (max-width: 900px) {
@@ -498,6 +599,11 @@
     .about-title { margin-bottom: 2rem; }
     .about--reverse .about-copy,
     .about--reverse .about-media { order: initial; }
+
+    .resto-footer { padding: 3rem 1.4rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+    .footer-col--left, .footer-col--right { text-align: center; }
+    .footer-legal { flex-direction: column; text-align: center; gap: .6rem; }
   }
   </style>
 </head>
@@ -767,6 +873,60 @@
       </div>
     </div>
   </section>
+
+  <!-- FOOTER — Booking · Logo · Contact -->
+  <footer class="resto-footer" role="contentinfo">
+    <div class="footer-grid">
+
+      <div class="footer-col footer-col--left">
+        <p class="footer-heading">Booking &amp; Hours</p>
+        <div class="footer-block">
+          <p><a href="javascript:void(0)">Reservations</a></p>
+
+          <span class="days">Tuesday – Thursday</span>
+          17:00 – 23:00
+
+          <span class="days">Friday</span>
+          12:00 – 16:30<br>
+          18:00 – 23:00
+
+          <span class="days">Saturday · Sunday · Monday</span>
+          <span class="closed">Closed</span>
+        </div>
+      </div>
+
+      <div class="footer-col footer-center">
+        <div class="footer-logo">VANTAGE RESTO</div>
+      </div>
+
+      <div class="footer-col footer-col--right">
+        <p class="footer-heading">Contact</p>
+        <div class="footer-block">
+          <a href="mailto:hello@vantage-resto.gr">hello@vantage-resto.gr</a><br>
+          <a href="tel:+302101234567">+30 210 123 45 67</a>
+
+          <span class="days">Find us</span>
+          14 Adrianou Street<br>
+          Pláka, 105 55 Athens<br>
+          Greece
+
+          <span class="days">Follow</span>
+          <a href="javascript:void(0)">Instagram</a> &nbsp;·&nbsp;
+          <a href="javascript:void(0)">Journal</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-legal">
+      <p>© 2026 Vantage Resto — All rights reserved.</p>
+      <nav aria-label="Legal">
+        <a href="javascript:void(0)">Privacy</a>
+        <a href="javascript:void(0)">Terms</a>
+        <a href="javascript:void(0)">Cookies</a>
+      </nav>
+    </div>
+  </footer>
 
 </body>
 </html>
