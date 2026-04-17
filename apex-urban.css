@@ -1,0 +1,215 @@
+/* ═══════════════════════════════════════════════════════════════
+   APEX CONSULTING — URBAN SLATE MOOD
+   "Precision. Data. Tomorrow."
+   Apply: <link rel="stylesheet" href="apex-urban.css">
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --ax-ivory:       #F8F9FA;
+  --ax-white:       #FFFFFF;
+  --ax-cream:       #EDF0F2;
+  --ax-stone:       #DDE3E9;
+  --ax-linen:       #CDD6DE;
+
+  --ax-ink:         #1E2B33;
+  --ax-gray-1:      #38474F;
+  --ax-gray-2:      #5A6B78;
+  --ax-gray-3:      #8896A0;
+  --ax-gray-4:      #B8C4CC;
+  --ax-gray-5:      #D5DDE3;
+  --ax-gray-6:      #E8EDF0;
+
+  --ax-gold:        #2B6CB0;
+  --ax-gold-light:  #4A8EC2;
+  --ax-gold-dark:   #1E5494;
+  --ax-gold-pale:   #EBF4FF;
+  --ax-gold-ultra:  #F5F9FF;
+  --ax-gold-dim:    rgba(43,108,176,.10);
+  --ax-gold-glow:   rgba(43,108,176,.22);
+  --ax-gold-border: rgba(43,108,176,.22);
+
+  --ax-copper:       #B7621A;
+  --ax-copper-pale:  #FEF0E6;
+
+  --ax-grad-gold-line:
+    linear-gradient(to right,
+      transparent,
+      rgba(43,108,176,.35),
+      transparent);
+
+  --ax-grad-black-glow:
+    radial-gradient(ellipse at 60% 40%,
+      rgba(43,108,176,.06) 0%,
+      #1E2B33 60%);
+
+  --ax-shadow-gold:
+    0 4px 16px rgba(43,108,176,.20),
+    0 2px 6px  rgba(43,108,176,.12);
+  --ax-shadow-gold-lg:
+    0 8px 32px rgba(43,108,176,.25),
+    0 4px 12px rgba(43,108,176,.15);
+}
+
+body { background: var(--ax-ivory); color: var(--ax-ink); }
+
+.ax-biens, .ax-actu, .ax-equipe { background: var(--ax-ivory); }
+.ax-services, .ax-faq           { background: var(--ax-cream); }
+
+.ax-metrics    { background: #1E2B33; }
+.ax-barometre  { background: #1A262E; }
+.ax-temoignages{ background: #1E2B33; }
+.ax-footer     { background: #141E24 !important; }
+
+.ax-estimation__left  { background: #1E2B33; }
+.ax-estimation__right { background: var(--ax-white); }
+
+.ax-contact__info { background: var(--ax-cream); }
+.ax-contact__form { background: var(--ax-white); }
+
+.ax-hero {
+  background: radial-gradient(
+    ellipse at 65% 40%,
+    rgba(43,108,176,.05) 0%,
+    #1E2B33 60%
+  );
+}
+
+.ax-hero__scan {
+  background: linear-gradient(to right,
+    transparent,
+    rgba(43,108,176,.15),
+    rgba(43,108,176,.40),
+    rgba(43,108,176,.15),
+    transparent
+  ) !important;
+  box-shadow: 0 0 20px rgba(43,108,176,.15) !important;
+}
+
+.ax-navbar.scrolled {
+  background:      rgba(255,255,255,.96) !important;
+  border-bottom-color: rgba(43,108,176,.15) !important;
+}
+.ax-navbar.scrolled .ax-navbar__link { color: var(--ax-gray-2) !important; }
+.ax-navbar.scrolled .ax-navbar__link:hover { color: var(--ax-gold-dark) !important; }
+.ax-navbar.scrolled .ax-navbar__logo-apex,
+.ax-navbar.scrolled .ax-navbar__logo-sub  { color: var(--ax-ink) !important; }
+
+.ax-navbar__cta {
+  background: var(--ax-gold) !important;
+  color:      white !important;
+}
+.ax-navbar__cta:hover { background: var(--ax-gold-dark) !important; }
+
+.ax-label { color: var(--ax-gold-dark); }
+
+.ax-biens__filtre.is-active {
+  background:   var(--ax-gold) !important;
+  border-color: var(--ax-gold) !important;
+  color:        white !important;
+}
+.ax-biens__filtre:hover {
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+
+.ax-service-card {
+  background:   var(--ax-white) !important;
+  border-color: var(--ax-gray-5) !important;
+}
+.ax-service-card:hover {
+  border-color: var(--ax-gold-border) !important;
+}
+.ax-service-card__stat {
+  background:   var(--ax-gold-ultra) !important;
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+.ax-service-card__icon { color: var(--ax-gold) !important; }
+
+.ax-btn--primary {
+  background: var(--ax-gold) !important;
+  color:      white !important;
+  box-shadow: var(--ax-shadow-gold) !important;
+}
+.ax-btn--primary:hover { background: var(--ax-gold-dark) !important; }
+
+.ax-btn--outline-dark:hover {
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+  background:   var(--ax-gold-ultra) !important;
+}
+
+.ax-btn--ghost {
+  color:        var(--ax-gold-dark) !important;
+  border-color: var(--ax-gold-dark) !important;
+}
+
+.ax-input:focus, .ax-select:focus, .ax-textarea:focus {
+  border-color: var(--ax-gold) !important;
+  background:   var(--ax-gold-ultra) !important;
+  box-shadow:   0 0 0 3px var(--ax-gold-dim) !important;
+}
+.ax-field:focus-within .ax-label { color: var(--ax-gold-dark) !important; }
+
+.ax-barometre__curve {
+  stroke: var(--ax-gold) !important;
+}
+.ax-barometre__curve.is-drawn {
+  filter: drop-shadow(0 0 4px rgba(43,108,176,.35)) !important;
+}
+
+.ax-barometre__item-trend--up   { color: #5BAF7E !important; }
+.ax-barometre__item-trend--down { color: #C0392B !important; }
+
+.ax-barometre__item {
+  border-color: rgba(43,108,176,.12) !important;
+}
+.ax-barometre__item:hover {
+  border-color: rgba(43,108,176,.25) !important;
+  background:   rgba(43,108,176,.04) !important;
+}
+
+.ax-faq { background: var(--ax-cream); }
+.ax-faq__item.is-open { background: var(--ax-gold-ultra) !important; }
+.ax-faq__item.is-open .ax-faq__icon {
+  background:   var(--ax-gold-pale) !important;
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+.ax-faq__trigger:hover { color: var(--ax-gold-dark) !important; }
+
+.ax-actu__card:hover .ax-actu__card-title { color: var(--ax-gold-dark) !important; }
+.ax-actu__card-content { border-bottom-color: var(--ax-gray-5) !important; }
+.ax-actu__card:hover .ax-actu__card-content { border-bottom-color: var(--ax-gold-border) !important; }
+
+.ax-estimation__arg-check { color: var(--ax-gold) !important; }
+.ax-estimation__testi { border-left-color: var(--ax-gold) !important; }
+
+.ax-scroll-progress { background: var(--ax-gold) !important; }
+
+.ax-footer::before {
+  background: linear-gradient(to right,
+    transparent,
+    var(--ax-gold),
+    transparent
+  ) !important;
+  opacity: .35 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom,
+    var(--ax-gold-dim),
+    var(--ax-gold)
+  );
+}
+
+.ax-services__bg-num {
+  -webkit-text-stroke: 1px rgba(43,108,176,.05) !important;
+}
+
+.ax-back-to-top:hover {
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+  background:   var(--ax-gold-ultra) !important;
+  box-shadow:   var(--ax-shadow-gold) !important;
+}

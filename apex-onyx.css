@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════════════════════════
+   APEX CONSULTING — ONYX DARK MOOD
+   "Premium darkness. Exclusive elegance."
+   Apply: <link rel="stylesheet" href="apex-onyx.css">
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --ax-ivory:       #050508;
+  --ax-white:       #0A0A10;
+  --ax-cream:       #0D0D16;
+  --ax-stone:       #111118;
+  --ax-linen:       #181820;
+
+  --ax-ink:         #F0EDE8;
+  --ax-gray-1:      #C8C4BC;
+  --ax-gray-2:      #807C74;
+  --ax-gray-3:      #504C44;
+  --ax-gray-4:      #2E2C28;
+  --ax-gray-5:      #252320;
+  --ax-gray-6:      #1C1A18;
+
+  --ax-gold:        #D4A855;
+  --ax-gold-light:  #E0BC6E;
+  --ax-gold-dark:   #B88B30;
+  --ax-gold-pale:   #1E1810;
+  --ax-gold-ultra:  #16140C;
+  --ax-gold-dim:    rgba(212,168,85,.14);
+  --ax-gold-glow:   rgba(212,168,85,.30);
+  --ax-gold-border: rgba(212,168,85,.22);
+
+  --ax-white-90:    rgba(240,237,232,.90);
+  --ax-white-70:    rgba(240,237,232,.70);
+  --ax-white-50:    rgba(240,237,232,.50);
+  --ax-white-20:    rgba(240,237,232,.20);
+  --ax-white-08:    rgba(240,237,232,.08);
+
+  --ax-shadow-xs:   0 1px 2px  rgba(0,0,0,.4);
+  --ax-shadow-sm:   0 2px 8px  rgba(0,0,0,.5);
+  --ax-shadow-md:   0 4px 16px rgba(0,0,0,.6);
+  --ax-shadow-lg:   0 8px 32px rgba(0,0,0,.65);
+  --ax-shadow-xl:   0 16px 48px rgba(0,0,0,.70);
+  --ax-shadow-card: 0 12px 40px rgba(0,0,0,.60),
+                    0 4px 12px  rgba(0,0,0,.40);
+  --ax-shadow-gold: 0 4px 16px rgba(212,168,85,.22),
+                    0 2px 6px  rgba(212,168,85,.14);
+  --ax-shadow-gold-lg:
+                    0 8px 32px rgba(212,168,85,.28),
+                    0 4px 12px rgba(212,168,85,.18);
+
+  --ax-grad-black-glow:
+    radial-gradient(ellipse at 60% 40%,
+      rgba(212,168,85,.07) 0%,
+      #050508 60%);
+}
+
+body {
+  background: var(--ax-ivory);
+  color:      var(--ax-ink);
+}
+
+.ax-biens,
+.ax-equipe,
+.ax-actu,
+.ax-faq        { background: var(--ax-ivory); }
+
+.ax-services,
+.ax-contact__form { background: var(--ax-cream); }
+
+.ax-metrics,
+.ax-barometre,
+.ax-temoignages { background: var(--ax-void, #020205); }
+
+.ax-estimation__right { background: var(--ax-white); }
+
+.ax-footer { background: #030305; }
+
+.ax-hero {
+  background: radial-gradient(
+    ellipse at 65% 40%,
+    rgba(212,168,85,.06) 0%,
+    #050508 60%
+  );
+}
+
+.ax-hero__scan {
+  background: linear-gradient(to right,
+    transparent,
+    rgba(212,168,85,.18),
+    rgba(212,168,85,.45),
+    rgba(212,168,85,.18),
+    transparent
+  );
+  box-shadow: 0 0 24px rgba(212,168,85,.2);
+}
+
+.ax-navbar.scrolled {
+  background:      rgba(10,10,16,.94) !important;
+  border-bottom-color: rgba(212,168,85,.15) !important;
+}
+
+.ax-navbar.scrolled .ax-navbar__logo-apex,
+.ax-navbar.scrolled .ax-navbar__logo-sub,
+.ax-navbar.scrolled .ax-navbar__link {
+  color: var(--ax-ink) !important;
+}
+
+.ax-service-card {
+  background:   rgba(255,255,255,.03) !important;
+  border-color: rgba(255,255,255,.06) !important;
+}
+
+.ax-service-card:hover {
+  background:   rgba(212,168,85,.05) !important;
+  border-color: var(--ax-gold-border) !important;
+}
+
+.ax-service-card__stat {
+  background:   rgba(212,168,85,.08) !important;
+  border-color: rgba(212,168,85,.18) !important;
+  color:        var(--ax-gold-light) !important;
+}
+
+.ax-barometre__item {
+  background:   rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.06) !important;
+}
+
+.ax-input, .ax-select, .ax-textarea {
+  background:   rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.1) !important;
+  color:        var(--ax-ink) !important;
+}
+
+.ax-input:hover, .ax-select:hover, .ax-textarea:hover {
+  background:   rgba(255,255,255,.07) !important;
+  border-color: rgba(255,255,255,.15) !important;
+}
+
+.ax-input:focus, .ax-select:focus, .ax-textarea:focus {
+  background:   rgba(212,168,85,.06) !important;
+  border-color: var(--ax-gold) !important;
+}
+
+.ax-input::placeholder, .ax-textarea::placeholder {
+  color: var(--ax-gray-3) !important;
+}
+
+.ax-faq            { background: var(--ax-ivory); }
+.ax-faq__item      { border-bottom-color: var(--ax-gray-4); }
+.ax-faq__item:first-child { border-top-color: var(--ax-gray-4); }
+.ax-faq__question  { color: var(--ax-ink); }
+.ax-faq__answer    { color: var(--ax-gray-1); }
+
+.ax-faq__icon {
+  background:   var(--ax-stone) !important;
+  border-color: var(--ax-gray-4) !important;
+  color:        var(--ax-gray-2) !important;
+}
+
+.ax-faq__item.is-open .ax-faq__icon {
+  background:   var(--ax-gold-pale) !important;
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-light) !important;
+}
+
+.ax-actu__card-title    { color: var(--ax-ink); }
+.ax-actu__card:hover .ax-actu__card-title { color: var(--ax-gold-light); }
+.ax-actu__card-img {
+  filter: brightness(.75) saturate(.8) !important;
+}
+.ax-actu__card:hover .ax-actu__card-img {
+  filter: brightness(.65) saturate(.85) !important;
+}
+
+.ax-footer {
+  background: #030305 !important;
+}
+.ax-footer__logo-apex { color: var(--ax-white) !important; }
+
+::-webkit-scrollbar-track { background: #050508; }
+::-webkit-scrollbar-thumb { background: var(--ax-gold-dim); }
+
+.ax-services__bg-num {
+  -webkit-text-stroke: 1px rgba(212,168,85,.07) !important;
+}

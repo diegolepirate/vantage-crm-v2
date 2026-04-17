@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════════════
+   APEX CONSULTING — CÔTE NATURELLE MOOD
+   "L'art de vivre. The art of living."
+   Apply: <link rel="stylesheet" href="apex-cote.css">
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --ax-ivory:       #F5F0E8;
+  --ax-white:       #FAF7F2;
+  --ax-cream:       #EDE7DC;
+  --ax-stone:       #E3DBCF;
+  --ax-linen:       #D9D0C2;
+
+  --ax-ink:         #2C2418;
+  --ax-gray-1:      #4A3F32;
+  --ax-gray-2:      #7A6E62;
+  --ax-gray-3:      #A89E94;
+  --ax-gray-4:      #C8BEB4;
+  --ax-gray-5:      #DDD5CC;
+  --ax-gray-6:      #EAE4DC;
+
+  --ax-gold:        #7A8C6E;
+  --ax-gold-light:  #8FA082;
+  --ax-gold-dark:   #5E7050;
+  --ax-gold-pale:   #EDF0EA;
+  --ax-gold-ultra:  #F5F7F3;
+  --ax-gold-dim:    rgba(122,140,110,.12);
+  --ax-gold-glow:   rgba(122,140,110,.22);
+  --ax-gold-border: rgba(122,140,110,.25);
+
+  --ax-grad-gold-line:
+    linear-gradient(to right,
+      transparent,
+      rgba(122,140,110,.4),
+      transparent);
+
+  --ax-grad-black-glow:
+    radial-gradient(ellipse at 60% 40%,
+      rgba(122,140,110,.06) 0%,
+      #2C2418 60%);
+
+  --ax-shadow-gold:     0 4px 16px rgba(122,140,110,.18),
+                        0 2px 6px  rgba(122,140,110,.10);
+  --ax-shadow-gold-lg:  0 8px 32px rgba(122,140,110,.22),
+                        0 4px 12px rgba(122,140,110,.12);
+}
+
+body { background: var(--ax-ivory); color: var(--ax-ink); }
+
+.ax-biens, .ax-equipe, .ax-actu { background: var(--ax-ivory); }
+.ax-services, .ax-faq           { background: var(--ax-cream); }
+.ax-contact__info               { background: var(--ax-stone); }
+.ax-contact__form               { background: var(--ax-white); }
+
+.ax-metrics   { background: #2C2418; }
+.ax-barometre { background: #2C2418; }
+.ax-temoignages{ background: #2C2418; }
+.ax-footer     { background: #1C1610 !important; }
+
+.ax-estimation {
+  grid-template-columns: 1fr 1fr;
+}
+.ax-estimation__left  { background: #2C2418; }
+.ax-estimation__right { background: var(--ax-white); }
+
+.ax-hero {
+  background: radial-gradient(
+    ellipse at 65% 40%,
+    rgba(122,140,110,.06) 0%,
+    rgba(44,36,24,.4) 60%
+  );
+}
+
+.ax-hero__scan {
+  background: linear-gradient(to right,
+    transparent,
+    rgba(122,140,110,.15),
+    rgba(122,140,110,.35),
+    rgba(122,140,110,.15),
+    transparent
+  ) !important;
+}
+
+.ax-navbar.scrolled {
+  background:      rgba(245,240,232,.95) !important;
+  border-bottom-color: rgba(122,140,110,.2) !important;
+}
+.ax-navbar.scrolled .ax-navbar__link { color: var(--ax-gray-2) !important; }
+.ax-navbar.scrolled .ax-navbar__link:hover { color: var(--ax-gold-dark) !important; }
+.ax-navbar.scrolled .ax-navbar__logo-apex,
+.ax-navbar.scrolled .ax-navbar__logo-sub  { color: var(--ax-ink) !important; }
+
+.ax-navbar__cta {
+  background: var(--ax-gold) !important;
+  color:      white !important;
+}
+.ax-navbar__cta:hover {
+  background: var(--ax-gold-dark) !important;
+}
+
+.ax-label { color: var(--ax-gold-dark); }
+
+.ax-biens__filtre.is-active {
+  background:   var(--ax-ink) !important;
+  border-color: var(--ax-ink) !important;
+}
+.ax-biens__filtre:hover {
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+
+.ax-service-card {
+  background:   var(--ax-white) !important;
+  border-color: var(--ax-gray-5) !important;
+}
+.ax-service-card:hover {
+  border-color: var(--ax-gold-border) !important;
+}
+.ax-service-card__stat {
+  background:   var(--ax-gold-ultra) !important;
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+.ax-service-card__icon { color: var(--ax-gold-dark) !important; }
+
+.ax-btn--primary {
+  background: var(--ax-gold) !important;
+  color:      white !important;
+  box-shadow: var(--ax-shadow-gold) !important;
+}
+.ax-btn--primary:hover {
+  background: var(--ax-gold-light) !important;
+}
+.ax-btn--ghost {
+  color:        var(--ax-gold-dark) !important;
+  border-color: var(--ax-gold-dark) !important;
+}
+
+.ax-input:focus, .ax-select:focus, .ax-textarea:focus {
+  border-color: var(--ax-gold) !important;
+  background:   var(--ax-gold-ultra) !important;
+  box-shadow:   0 0 0 3px var(--ax-gold-dim) !important;
+}
+.ax-field:focus-within .ax-label { color: var(--ax-gold-dark) !important; }
+
+.ax-faq { background: var(--ax-cream); }
+.ax-faq__item.is-open { background: var(--ax-gold-ultra) !important; }
+.ax-faq__item.is-open .ax-faq__icon {
+  background:   var(--ax-gold-pale) !important;
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+}
+
+.ax-barometre__curve {
+  stroke: var(--ax-gold) !important;
+}
+.ax-barometre__curve.is-drawn {
+  filter: drop-shadow(0 0 4px rgba(122,140,110,.4)) !important;
+}
+.ax-barometre__item {
+  background:   rgba(255,255,255,.06) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+
+.ax-temoignages {
+  background: linear-gradient(
+    135deg,
+    #2C2418 0%,
+    #332820 50%,
+    #2C2418 100%
+  ) !important;
+}
+
+.ax-scroll-progress { background: var(--ax-gold) !important; }
+
+.ax-footer::before {
+  background: linear-gradient(to right,
+    transparent,
+    var(--ax-gold),
+    transparent
+  ) !important;
+  opacity: .4 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom,
+    var(--ax-gold-dim),
+    var(--ax-gold)
+  );
+}
+
+.ax-services__bg-num {
+  -webkit-text-stroke: 1px rgba(122,140,110,.05) !important;
+}
+
+.ax-back-to-top:hover {
+  border-color: var(--ax-gold-border) !important;
+  color:        var(--ax-gold-dark) !important;
+  background:   var(--ax-gold-ultra) !important;
+}

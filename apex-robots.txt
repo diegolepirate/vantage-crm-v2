@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+
+# Block admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_private/
+
+# Block search result pages
+Disallow: /search?
+
+# Block utility pages
+Disallow: /offline.html
+
+# Allow important pages explicitly
+Allow: /proprietes/
+Allow: /services
+Allow: /estimation
+Allow: /actualites/
+
+# Sitemap
+Sitemap: https://apex-consulting.fr/sitemap.xml
+
+# Crawl delay (be kind to server)
+Crawl-delay: 2
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
