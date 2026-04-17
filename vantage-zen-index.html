@@ -534,29 +534,40 @@
   .experiences {
     background: #FAF4E6;
     padding: 3rem 5rem 8rem;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .experiences-title {
     font-family: 'Libre Caslon Text', serif;
     font-weight: 700;
-    font-size: clamp(4rem, 7vw, 9rem);
-    line-height: 1;
+    font-size: clamp(3.2rem, 5.5vw, 7rem);
+    line-height: 1.1;
     color: #3B67E0;
     text-align: right;
     margin: 0 auto 3rem;
     letter-spacing: -.01em;
-    max-width: 1700px;
+    max-width: 1600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    padding-right: .2em;
+  }
+  .experiences-title .line {
+    display: block;
+    white-space: nowrap;
   }
   .experiences-title .script {
     display: inline-block;
     font-family: 'Italianno', 'Libre Caslon Text', cursive;
     font-style: normal;
     font-weight: 400;
-    font-size: 1.35em;
-    line-height: .85;
+    font-size: 1.1em;
+    line-height: .95;
     vertical-align: baseline;
     color: #3B67E0;
-    margin: 0 .1em;
+    margin: 0 .08em;
+  }
+  @media (max-width: 900px) {
+    .experiences-title .line { white-space: normal; }
   }
 
   .exp-grid {
@@ -851,7 +862,8 @@
   <!-- EXPERIENCES — 3-col gallery, center column parallax -->
   <section class="experiences" aria-label="Experiences gallery">
     <h2 class="experiences-title">
-      For everyone <span class="script">hungry</span><br>for unique experiences
+      <span class="line">For everyone <span class="script">hungry</span></span>
+      <span class="line">for unique experiences</span>
     </h2>
     <div class="exp-grid" id="exp-grid">
       <div class="exp-col left">
