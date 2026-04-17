@@ -306,6 +306,105 @@
   .feature-link:hover { opacity: .7; }
 
   /* ══════════════════════════════════════
+     MAD-STYLE CAROUSEL
+  ══════════════════════════════════════ */
+  .mad-carousel {
+    background: #e9ecea;
+    padding: 4rem 3rem 3rem;
+    overflow: hidden;
+  }
+  .mad-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 520px;
+  }
+  .mad-slide {
+    display: contents;
+  }
+  .mad-title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+  }
+  .mad-title {
+    font-family: 'Switzer', 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(5rem, 10vw, 13rem);
+    line-height: .86;
+    letter-spacing: -.03em;
+    color: #22a427;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .mad-media {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    background: #111;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .mad-media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity .5s ease;
+  }
+  .mad-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 2.4rem;
+    padding: 0 .2rem;
+  }
+  .mad-caption p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    margin-bottom: .6rem;
+    max-width: 56ch;
+  }
+  .mad-learn {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 2px;
+    background: none;
+    border-left: none; border-right: none; border-top: none;
+    cursor: pointer;
+  }
+  .mad-nav {
+    display: flex; gap: 1.6rem;
+    align-items: center;
+  }
+  .mad-arrow {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: none;
+    border: none;
+    color: #1a1a1a;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: opacity .2s, transform .2s;
+  }
+  .mad-arrow:hover { transform: scale(1.1); }
+  .mad-arrow:disabled { opacity: .3; cursor: default; }
+
+  /* Slide animation */
+  .mad-slide { opacity: 1; transition: opacity .4s ease; }
+  .mad-slide[hidden] { display: none !important; }
+
+  /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
   @media (max-width: 900px) {
@@ -322,6 +421,11 @@
     .newsletter .submit-btn { justify-self: start; }
     .feature-duo { grid-template-columns: 1fr; }
     .feature-media { aspect-ratio: 4 / 3; }
+    .mad-carousel { padding: 3rem 1.4rem 2rem; }
+    .mad-stage { grid-template-columns: 1fr; gap: 1.6rem; min-height: auto; }
+    .mad-title-wrap { min-height: 180px; }
+    .mad-title { font-size: clamp(4.5rem, 18vw, 8rem); }
+    .mad-foot { flex-direction: column; gap: 1.6rem; align-items: flex-start; }
   }
   </style>
 </head>
@@ -404,6 +508,119 @@
     </article>
 
   </section>
+
+  <!-- MAD-STYLE CAROUSEL — 4 slides with arrow nav -->
+  <section class="mad-carousel" aria-label="Menu highlights">
+    <div class="mad-stage" id="mad-stage">
+
+      <article class="mad-slide" data-slide="0">
+        <div class="mad-title-wrap"><h2 class="mad-title">PIZZA</h2></div>
+        <div class="mad-media">
+          <video autoplay muted loop playsinline preload="none" aria-hidden="true">
+            <source src="./resto-carousel-1-pizza.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="mad-slide" data-slide="1" hidden>
+        <div class="mad-title-wrap"><h2 class="mad-title">FISH</h2></div>
+        <div class="mad-media">
+          <video muted loop playsinline preload="none" aria-hidden="true">
+            <source src="./resto-carousel-2-fish.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="mad-slide" data-slide="2" hidden>
+        <div class="mad-title-wrap"><h2 class="mad-title">BURGERS</h2></div>
+        <div class="mad-media">
+          <video muted loop playsinline preload="none" aria-hidden="true">
+            <source src="./resto-carousel-3-burger.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+      <article class="mad-slide" data-slide="3" hidden>
+        <div class="mad-title-wrap"><h2 class="mad-title">SEAFOOD</h2></div>
+        <div class="mad-media">
+          <video muted loop playsinline preload="none" aria-hidden="true">
+            <source src="./resto-carousel-4-seafood.mp4" type="video/mp4">
+          </video>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="mad-foot">
+      <div class="mad-caption">
+        <p id="mad-caption-text">Our many quality pizzas — wood-fired, crafted in-house, served the moment they leave the oven.</p>
+        <button type="button" class="mad-learn">Learn More</button>
+      </div>
+      <div class="mad-nav">
+        <button type="button" class="mad-arrow" id="mad-prev" aria-label="Previous slide">
+          <svg width="48" height="24" viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <line x1="2" y1="12" x2="46" y2="12"/>
+            <polyline points="12,4 2,12 12,20"/>
+          </svg>
+        </button>
+        <button type="button" class="mad-arrow" id="mad-next" aria-label="Next slide">
+          <svg width="48" height="24" viewBox="0 0 48 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <line x1="2" y1="12" x2="46" y2="12"/>
+            <polyline points="36,4 46,12 36,20"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function() {
+    const captions = [
+      'Our many quality pizzas — wood-fired, crafted in-house, served the moment they leave the oven.',
+      'Our fish — seared, wild-caught and delivered straight from the boat each morning.',
+      'Our burgers — built on a brioche bun, stacked with flavour, finished with crisp golden fries.',
+      'Our seafood — breaded, fried, served hot, straight from the Aegean coast.'
+    ];
+    const slides = document.querySelectorAll('.mad-slide');
+    const total  = slides.length;
+    const prev   = document.getElementById('mad-prev');
+    const next   = document.getElementById('mad-next');
+    const cap    = document.getElementById('mad-caption-text');
+    let index = 0;
+
+    function show(i) {
+      index = (i + total) % total;
+      slides.forEach((s, j) => {
+        const active = j === index;
+        s.hidden = !active;
+        const v = s.querySelector('video');
+        if (v) {
+          if (active) {
+            /* Lazy-load only when shown */
+            if (v.preload === 'none') v.preload = 'auto';
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        }
+      });
+      if (cap) cap.textContent = captions[index];
+    }
+
+    if (prev) prev.addEventListener('click', () => show(index - 1));
+    if (next) next.addEventListener('click', () => show(index + 1));
+
+    /* Keyboard support */
+    document.addEventListener('keydown', e => {
+      const visible = document.querySelector('.mad-carousel')?.getBoundingClientRect();
+      if (!visible || visible.bottom < 0 || visible.top > window.innerHeight) return;
+      if (e.key === 'ArrowLeft')  show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+
+    show(0);
+  })();
+  </script>
 
 </body>
 </html>
