@@ -323,8 +323,20 @@
     gap: 3rem;
     align-items: center;
     min-height: 520px;
+    /* Stack all slides in the same position, toggle via opacity */
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .45s ease;
   }
-  .mad-slide[hidden] { display: none !important; }
+  .mad-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    position: relative;   /* the active one defines stage height */
+  }
   .mad-title-wrap {
     display: flex;
     align-items: center;
@@ -401,12 +413,6 @@
   .mad-arrow:hover { transform: scale(1.1); }
   .mad-arrow:disabled { opacity: .3; cursor: default; }
 
-  /* Slide fade transition when visible */
-  .mad-slide:not([hidden]) { animation: mad-fade .35s ease both; }
-  @keyframes mad-fade {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
 
   /* ══════════════════════════════════════
      RESPONSIVE
@@ -518,7 +524,7 @@
   <section class="mad-carousel" aria-label="Menu highlights">
     <div class="mad-stage" id="mad-stage">
 
-      <article class="mad-slide" data-slide="0">
+      <article class="mad-slide is-active" data-slide="0">
         <div class="mad-title-wrap"><h2 class="mad-title">PIZZA</h2></div>
         <div class="mad-media">
           <video autoplay muted loop playsinline preload="none" aria-hidden="true">
@@ -527,7 +533,7 @@
         </div>
       </article>
 
-      <article class="mad-slide" data-slide="1" hidden>
+      <article class="mad-slide" data-slide="1">
         <div class="mad-title-wrap"><h2 class="mad-title">FISH</h2></div>
         <div class="mad-media">
           <video muted loop playsinline preload="none" aria-hidden="true">
@@ -536,7 +542,7 @@
         </div>
       </article>
 
-      <article class="mad-slide" data-slide="2" hidden>
+      <article class="mad-slide" data-slide="2">
         <div class="mad-title-wrap"><h2 class="mad-title">BURGERS</h2></div>
         <div class="mad-media">
           <video muted loop playsinline preload="none" aria-hidden="true">
@@ -545,7 +551,7 @@
         </div>
       </article>
 
-      <article class="mad-slide" data-slide="3" hidden>
+      <article class="mad-slide" data-slide="3">
         <div class="mad-title-wrap"><h2 class="mad-title">SEAFOOD</h2></div>
         <div class="mad-media">
           <video muted loop playsinline preload="none" aria-hidden="true">
@@ -597,11 +603,10 @@
       index = (i + total) % total;
       slides.forEach((s, j) => {
         const active = j === index;
-        s.hidden = !active;
+        s.classList.toggle('is-active', active);
         const v = s.querySelector('video');
         if (v) {
           if (active) {
-            /* Lazy-load only when shown */
             if (v.preload === 'none') v.preload = 'auto';
             v.play().catch(() => {});
           } else {
