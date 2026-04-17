@@ -315,15 +315,16 @@
   }
   .mad-stage {
     position: relative;
+    min-height: 520px;
+  }
+  .mad-slide {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: center;
     min-height: 520px;
   }
-  .mad-slide {
-    display: contents;
-  }
+  .mad-slide[hidden] { display: none !important; }
   .mad-title-wrap {
     display: flex;
     align-items: center;
@@ -400,9 +401,12 @@
   .mad-arrow:hover { transform: scale(1.1); }
   .mad-arrow:disabled { opacity: .3; cursor: default; }
 
-  /* Slide animation */
-  .mad-slide { opacity: 1; transition: opacity .4s ease; }
-  .mad-slide[hidden] { display: none !important; }
+  /* Slide fade transition when visible */
+  .mad-slide:not([hidden]) { animation: mad-fade .35s ease both; }
+  @keyframes mad-fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   /* ══════════════════════════════════════
      RESPONSIVE
@@ -422,7 +426,8 @@
     .feature-duo { grid-template-columns: 1fr; }
     .feature-media { aspect-ratio: 4 / 3; }
     .mad-carousel { padding: 3rem 1.4rem 2rem; }
-    .mad-stage { grid-template-columns: 1fr; gap: 1.6rem; min-height: auto; }
+    .mad-stage { min-height: auto; }
+    .mad-slide { grid-template-columns: 1fr; gap: 1.6rem; min-height: auto; }
     .mad-title-wrap { min-height: 180px; }
     .mad-title { font-size: clamp(4.5rem, 18vw, 8rem); }
     .mad-foot { flex-direction: column; gap: 1.6rem; align-items: flex-start; }
