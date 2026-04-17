@@ -182,11 +182,85 @@
   }
   .headline .line { display: block; }
 
+  /* ═══════════════════════════════════════
+     PREAMBLE SECTION — FUGA-style
+  ═══════════════════════════════════════ */
+  .preamble {
+    background: #FAF4E6;
+    color: #3B67E0;
+    padding: 10rem 5rem;
+  }
+  .preamble-grid {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 6rem;
+    align-items: flex-start;
+  }
+  .preamble-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: clamp(4.2rem, 6.8vw, 9rem);
+    line-height: 1;
+    color: #3B67E0;
+    letter-spacing: -.01em;
+    margin-bottom: 1rem;
+  }
+  .preamble-title-script {
+    display: block;
+    font-family: 'Italianno', 'Libre Caslon Text', cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(3.6rem, 6vw, 8rem);
+    line-height: 1;
+    color: #3B67E0;
+    letter-spacing: .01em;
+    margin-top: 1.2rem;
+  }
+  .preamble-illustration {
+    margin-top: 5rem;
+    max-width: 320px;
+    color: #3B67E0;
+  }
+  .preamble-illustration svg { width: 100%; height: auto; display: block; }
+
+  .preamble-right { text-align: left; }
+  .preamble-eyebrow {
+    font-family: 'Inter', monospace;
+    font-size: 1.15rem;
+    color: #3B67E0;
+    text-align: right;
+    margin-bottom: 7rem;
+  }
+  .preamble-body {
+    font-family: 'Courier New', monospace;
+    font-weight: 400;
+    font-size: 1.35rem;
+    line-height: 1.7;
+    color: #3B67E0;
+    max-width: 46ch;
+    margin-bottom: 4rem;
+  }
+  .preamble-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+    padding: 1.6rem 3.2rem;
+    background: #3B67E0;
+    color: #FAF4E6;
+    font-family: 'Courier New', monospace;
+    font-size: 1.35rem;
+    transition: background .2s;
+  }
+  .preamble-cta:hover { background: #2d52bc; }
+
   @media (max-width: 960px) {
-    .top {
-      grid-template-columns: auto auto;
-      gap: .8rem;
-    }
+    .preamble { padding: 5rem 1.6rem; }
+    .preamble-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .preamble-eyebrow { text-align: left; margin-bottom: 1.6rem; }
+    .preamble-illustration { margin-top: 2rem; max-width: 220px; }
+    .top { grid-template-columns: auto auto; gap: .8rem; }
     .nav-pill { display: none; }
     .brand { font-size: 2rem; padding: .8rem 1.4rem; min-height: 52px; }
     .contact { font-size: 1.1rem; padding: .8rem 1.4rem; min-height: 52px; }
@@ -229,6 +303,39 @@
         <span class="line">Touch <span class="script">grace</span></span>
         <span class="line">with Vantage</span>
       </h1>
+    </div>
+  </section>
+
+  <!-- PREAMBLE — Vantage = Quality -->
+  <section class="preamble" aria-label="Preamble">
+    <div class="preamble-grid">
+      <div class="preamble-left">
+        <h2 class="preamble-title">Vantage = Quality</h2>
+        <span class="preamble-title-script">reimagined</span>
+
+        <div class="preamble-illustration" aria-hidden="true">
+          <svg viewBox="0 0 200 260" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Stylised fish outline — minimal line art -->
+            <path d="M30 130 Q40 95 90 92 Q150 90 170 120 Q178 128 178 138 Q170 145 150 148 Q155 160 150 170 Q142 175 134 168 Q128 160 130 150 Q95 155 65 148 Q42 142 30 130 Z"/>
+            <path d="M170 120 Q180 110 190 115 Q188 130 178 138"/>
+            <circle cx="148" cy="118" r="2.4" fill="currentColor"/>
+            <path d="M30 130 Q16 130 8 140 Q16 145 26 142"/>
+            <path d="M74 134 Q82 128 92 132"/>
+            <path d="M102 130 Q110 124 120 128"/>
+            <!-- wave line under -->
+            <path d="M20 210 Q50 202 80 210 T140 210 T200 210"/>
+            <path d="M10 230 Q40 222 70 230 T130 230 T190 230"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="preamble-right">
+        <p class="preamble-eyebrow">Preamble</p>
+        <p class="preamble-body">
+          Vantage is Greek cuisine re-imagined through a Japanese lens — seabass sashimi dressed in Cretan olive oil, tempura of wild zucchini flowers, soba noodles tossed in sea-urchin butter. Every dish is served on the waterfront and built from ingredients picked, caught or fished the same morning.
+        </p>
+        <a href="javascript:void(0)" class="preamble-cta">About &rarr;</a>
+      </div>
     </div>
   </section>
 
