@@ -30311,7 +30311,11 @@ function showUniPreviewModal(){
   var iframe=document.createElement('iframe');
   iframe.title=t.name;
   iframe.sandbox='allow-scripts allow-same-origin allow-forms allow-popups';
-  iframe.srcdoc=generateTemplateHTML(t);
+  if(t.url && /^https?:\/\//.test(t.url) && !/awwwards\.com/.test(t.url)){
+    iframe.src=t.url;
+  } else {
+    iframe.srcdoc=generateTemplateHTML(t);
+  }
   iframe.style.cssText='width:100vw;height:100vh;border:none;background:#fff;display:block';
   m.appendChild(iframe);
 
