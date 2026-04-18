@@ -72,6 +72,23 @@ nav .ig svg{width:18px;height:18px;fill:#1a1a1a}
 .see-all{margin-top:64px;display:inline-flex;background:#c9bda3;color:#1a1a1a;padding:14px 32px;border-radius:2px;font-size:13px;text-decoration:none}
 .see-all::before{content:"• ";color:#fff}
 
+/* SCROLL STACK PORTFOLIO */
+.stack-section{background:#efeae3;padding:120px 0 60px;overflow:visible}
+.stack-section h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1.1;text-align:center;color:#1a1a1a;padding:0 24px 60px;letter-spacing:-.01em}
+.stack-wrap{position:relative;max-width:1600px;margin:0 auto;padding:0 56px}
+.stack-item{position:sticky;height:78vh;border-radius:10px;overflow:hidden;margin-bottom:32vh;box-shadow:0 30px 80px rgba(0,0,0,.18);background-size:cover;background-position:center;will-change:transform}
+.stack-item:nth-child(1){top:100px}
+.stack-item:nth-child(2){top:120px}
+.stack-item:nth-child(3){top:140px}
+.stack-item:nth-child(4){top:160px}
+.stack-item:nth-child(5){top:180px}
+.stack-end{height:30vh}
+
+@media (max-width:900px){
+  .stack-wrap{padding:0 18px}
+  .stack-item{height:60vh;margin-bottom:22vh}
+}
+
 @media (max-width:900px){
   nav{padding:20px 24px}
   nav .links{display:none}
@@ -157,6 +174,18 @@ nav .ig svg{width:18px;height:18px;fill:#1a1a1a}
     <button class="arrow right" onclick="rotate(1)">›</button>
   </div>
   <a href="#all" class="see-all">See all properties</a>
+</section>
+
+<section class="stack-section">
+  <h2>A Portfolio Shaped<br>Around How You Live</h2>
+  <div class="stack-wrap">
+    <div class="stack-item" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="stack-item" style="background-image:url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="stack-item" style="background-image:url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="stack-item" style="background-image:url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="stack-item" style="background-image:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="stack-end"></div>
+  </div>
 </section>
 
 <script>
