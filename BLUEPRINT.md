@@ -225,3 +225,58 @@ Simpler companion to Full Kit. Taverna Helios · Athens. 4 modules, no live engi
 - [x] Finance: 4 KPIs + charts + invoices table + split-view editor with print preview
 - Data: 8 projects, 12 clients, 15 invoices, Greek VAT 24%
 - Deployed: https://vantagebookweb.netlify.app/vantage-agency-basic.html
+
+---
+
+## FULL KIT — AGENCY (`vantage-agency-kit.html`)
+Production-grade management suite for Vantage Web Agency (Athens). Single HTML file, Chart.js CDN.
+
+### 10 Modules
+1. **Overview 🏠** — Welcome header, 5 live KPI cards (revenue/active projects/hours tracked/invoices out/proposals), revenue trend line chart, project health rings, team activity today, live activity feed, deadlines & alerts.
+2. **Projects 🎯** — 8 project cards with filters/sort/view-toggle. Detail view: 4-column kanban (To Do/In Progress/Review/Done), click-to-cycle tasks, budget bar, timeline, notes, activity timeline. ~18 tasks/project.
+3. **Clients 👥** — 3-column layout (list 280px / detail with 5 sub-tabs / quick actions 220px). VIP gold border. 12 clients.
+4. **Time Tracker ⏱️** — Active timer hero (circular display, start/pause/stop counting real-time), today's entries, weekly bars grid. Sub-pages: Timesheet, Projects Time, Reports. 3 weeks of data.
+5. **Invoices 📄** — Stats, 15-invoice table, Quotes page, split-view create/edit w/ live preview, send/log-payment modals, Greek VAT 24%.
+6. **Finance 💸** — 5 KPI cards, revenue-vs-expenses bar chart, revenue-by-client donut, P&L summary, expense breakdown, expense tracker sub-page.
+7. **Team 👤** — 5 member cards (Matéo/Sofia/Andreas/Elena/Petros), detail page, weekly schedule grid, performance page.
+8. **Proposals 📧** — 5-stage kanban (Lead/Proposal Sent/Negotiation/Won/Lost), click-to-advance, detail view, 3 templates, analytics. 10 pre-loaded.
+9. **Reports 📊** — Date range picker, 5 reports (Revenue/Project/Team/Client/Proposals) each with chart + table + insights + CSV export.
+10. **Settings ⚙️** — Agency profile, team management, invoice defaults, project defaults, notifications, integrations.
+
+### Live Engine (2s delay, 35–75s intervals, visibility-paused, weighted)
+- `invoicePaid` (w=20) — outstanding↓ revenue↑ status→Paid, 💰 toast
+- `timeLogged` (w=35) — hours++, entry added, ⏱️ toast
+- `projectUpdate` (w=20) — activity feed, 🎯 toast
+- `newLead` (w=10) — pipeline add, 📧 toast
+- `taskCompleted` (w=15) — task→Done, progress++, ✅ toast
+
+### Buttons
+| Where | Action |
+|-------|--------|
+| Login | Sign in (demo any-creds) |
+| Topbar tabs 1–10 | Switch module |
+| Theme toggle | Light/dark + localStorage |
+| Audio btn | Web Audio toggle |
+| Sidebar Quick Actions | New project / New client / Start timer / New invoice |
+| End Week | Printable weekly report |
+| Project card | Open detail kanban |
+| Kanban task | Cycle status |
+| Client list item | Open detail |
+| Timer start/pause/stop | Live counter |
+| Invoice row | Open/send/log payment |
+| Proposal card | Advance stage |
+| CSV export (Reports) | Download CSV |
+
+### Audio (Web Audio API, ≤12% volume, default off)
+- invoice paid: 880→1100Hz 0.4s
+- new lead: 523+784Hz chime 0.4s
+- task done: 1200Hz click 0.2s
+- alert: 220Hz pulse 0.3s
+
+### Keyboard
+1–0 modules · N new (context) · T timer · / search · D theme · ? help · Esc close
+
+### Design
+Apple iOS/macOS. Light #F2F2F7/#FFF, dark #000/#1C1C1E. Accent #AF52DE purple, secondary #8B3DC7. 5 lava blobs (blur 70px, opacity .06/.12, z:0, mobile-off). System font, tabular-nums.
+
+### Deployed: https://vantagebookweb.netlify.app/vantage-agency-kit.html

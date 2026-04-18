@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FULL KIT — Vantage Web Agency</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-gray:#8E8E93;
+  --accent:#AF52DE;--accent-deep:#8B3DC7;--accent-soft:rgba(175,82,222,.14);--blob-op:.06;
+}
+html[data-theme="dark"]{--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--blob-op:.12}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;height:100vh;transition:background .3s,color .3s;overflow:hidden}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
+button{cursor:pointer;border:0;background:none;color:inherit;font-family:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+/* LAVA */
+.lava-container{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.lava-blob{position:absolute;background:radial-gradient(circle at 40% 40%,rgba(175,82,222,.35),rgba(139,61,199,.15) 60%,transparent 100%);filter:blur(70px);will-change:transform,border-radius;animation:lava-float linear infinite;opacity:var(--blob-op);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+.lava-1{width:520px;height:520px;top:-80px;left:65%;animation-duration:20s}
+.lava-2{width:380px;height:380px;top:45%;left:-60px;animation-duration:26s;animation-delay:-7s}
+.lava-3{width:300px;height:300px;top:72%;left:68%;animation-duration:22s;animation-delay:-11s}
+.lava-4{width:460px;height:460px;top:18%;left:28%;animation-duration:32s;animation-delay:-16s}
+.lava-5{width:260px;height:260px;top:82%;left:18%;animation-duration:24s;animation-delay:-9s}
+@keyframes lava-float{0%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-40px) scale(1.05)}50%{transform:translate(-20px,30px) scale(.95)}75%{transform:translate(35px,15px) scale(1.07)}100%{transform:translate(0,0) scale(1)}}
+@media (prefers-reduced-motion:reduce){.lava-blob{animation:none}}
+@media (max-width:900px){.lava-container{display:none}}
+
+/* LOGIN */
+.login-bg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10000;animation:fadeIn .5s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.login-card{background:var(--bg-secondary);border-radius:22px;padding:36px 32px;width:380px;max-width:90vw;box-shadow:0 24px 80px rgba(0,0,0,.15),0 0 0 1px var(--separator);z-index:2;animation:loginSlide .5s}
+@keyframes loginSlide{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+html[data-theme="dark"] .login-card{box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 0 1px var(--separator)}
+.login-logo{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 10px 30px rgba(175,82,222,.3);color:#fff}
+.login-card h1{font-weight:800;font-size:26px;text-align:center;letter-spacing:-.02em;line-height:1}
+.login-card .sub{text-align:center;font-size:11px;color:var(--label-tertiary);margin-top:6px;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.login-form{margin-top:24px}
+.login-demo{text-align:center;font-size:11px;color:var(--label-tertiary);margin-top:12px}
+.login-demo code{background:var(--fill-tertiary);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:10px}
+.login-foot{text-align:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--separator);font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.1em}
+.login-out{animation:loginOut .4s forwards}
+@keyframes loginOut{to{opacity:0;transform:translateY(-20px) scale(.98)}}
+
+/* SPLASH */
+.splash-bg{position:fixed;inset:0;background:#0A0A0F;color:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeIn .3s}
+.splash-logo{font-weight:800;font-size:52px;color:var(--accent);text-shadow:0 0 60px rgba(175,82,222,.5);letter-spacing:-.02em;line-height:1}
+.splash-sub{text-transform:uppercase;letter-spacing:.3em;color:rgba(255,255,255,.5);font-size:11px;margin-top:10px;font-weight:700}
+.splash-seq{margin-top:40px;font-size:13px;color:rgba(255,255,255,.7);height:22px;min-width:280px;text-align:center}
+.splash-bar{width:280px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:14px}
+.splash-bar div{height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width .4s ease}
+.splash-preview{margin-top:44px;padding:14px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;text-align:center;opacity:0;transition:opacity .5s}
+.splash-preview.show{opacity:1}
+.splash-preview .t{font-size:13px;font-weight:600}
+.splash-preview .d{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+.splash-out{animation:fadeOut .5s forwards}
+@keyframes fadeOut{to{opacity:0}}
+
+/* BUTTONS */
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;min-height:36px;justify-content:center}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px rgba(175,82,222,.5)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.sm{padding:6px 10px;font-size:12px;min-height:30px}
+.btn.xs{padding:4px 8px;font-size:11px;min-height:26px}
+.btn.full{width:100%}
+.btn.loading{pointer-events:none;opacity:.7}
+.btn.loading::after{content:'';display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;margin-left:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:11px 14px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s;margin-bottom:10px}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--accent-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* APP */
+.app-root{display:none;position:relative;z-index:1;height:100vh;flex-direction:column}
+.app-root.ready{display:flex;animation:appIn .5s}
+@keyframes appIn{from{opacity:0}to{opacity:1}}
+
+/* TOPBAR */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 14px;gap:14px;position:relative;z-index:50}
+.tb-left{display:flex;align-items:center;gap:10px}
+.tb-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.12em}
+.tb-logo .emoji{font-size:18px}
+.biz-badge{background:var(--accent-soft);color:var(--accent-deep);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em}
+html[data-theme="dark"] .biz-badge{color:#D9A8F2}
+.module-tabs{display:flex;gap:2px;background:var(--fill-tertiary);border-radius:10px;padding:3px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.module-tabs::-webkit-scrollbar{display:none}
+.module-tabs button{padding:6px 11px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary);white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:4px}
+.module-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(175,82,222,.3)}
+.tb-right{display:flex;align-items:center;gap:6px}
+.live-dot{display:inline-flex;align-items:center;gap:6px;background:var(--fill-tertiary);padding:5px 9px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.live-dot .d{width:7px;height:7px;border-radius:50%;background:var(--system-green);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.clock{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;background:var(--fill-tertiary);padding:5px 9px;border-radius:8px}
+.icon-btn{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--label-secondary);position:relative}
+.icon-btn:hover{background:var(--fill-tertiary);color:var(--label-primary)}
+.badge-cnt{position:absolute;top:2px;right:2px;background:var(--system-red);color:#fff;font-size:9px;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 3px}
+.ios-toggle{position:relative;display:inline-block;width:40px;height:24px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+.user{display:flex;align-items:center;gap:8px;padding:3px 10px 3px 4px;background:var(--fill-tertiary);border-radius:20px}
+.user .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.user-name{font-size:12px;font-weight:600}
+.user-role{font-size:10px;color:var(--label-tertiary);margin-top:-1px}
+
+/* GRID */
+.app-grid{display:grid;grid-template-columns:200px 1fr;flex:1;overflow:hidden;position:relative;z-index:1}
+aside.sidebar{background:color-mix(in srgb,var(--bg-primary) 82%,transparent);backdrop-filter:blur(10px);border-right:1px solid var(--separator);padding:12px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+aside.sidebar::-webkit-scrollbar{width:5px}
+aside.sidebar::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:3px}
+.side-box{background:var(--bg-secondary);border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .side-box{border:1px solid var(--separator);box-shadow:none}
+.side-box h4{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:8px}
+.sb-date{font-size:13px;font-weight:700}
+.sb-service{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.status-btn{margin-top:8px;width:100%;padding:7px;border-radius:8px;background:var(--system-green);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.sb-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:12px}
+.sb-row .l{color:var(--label-secondary);font-size:11px}
+.sb-row .v{font-weight:700;font-variant-numeric:tabular-nums}
+.sb-row .v.up{color:var(--system-green)}
+.alert-item{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;border-radius:8px;font-size:11px;margin-bottom:3px;line-height:1.4;animation:alertIn .3s}
+@keyframes alertIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.alert-item.red{background:rgba(255,59,48,.12);color:var(--system-red)}
+.alert-item.yellow{background:rgba(255,204,0,.18);color:#B58900}
+.alert-item.green{background:rgba(52,199,89,.15);color:var(--system-green)}
+.alert-item .t{margin-left:auto;font-size:9px;opacity:.7}
+.qa-btn{display:flex;align-items:center;gap:6px;width:100%;background:transparent;color:var(--label-primary);padding:7px 10px;border-radius:8px;font-size:12px;margin-bottom:2px;text-align:left;transition:background .15s}
+.qa-btn:hover{background:var(--fill-tertiary)}
+.end-btn{margin-top:auto;padding:8px;border-radius:8px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+main{overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:1}
+.main-body{flex:1;overflow-y:auto;padding:14px 20px 30px;animation:modFade .3s}
+@keyframes modFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.main-body::-webkit-scrollbar{width:8px}
+.main-body::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+.main-hd{padding:14px 20px 6px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.main-hd h1{font-size:24px;font-weight:800;letter-spacing:-.025em}
+.main-hd .sub{color:var(--label-tertiary);font-size:12px;margin-top:2px}
+
+/* CARDS */
+.card{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+.card h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.kcard{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:transform .2s}
+.kcard:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.kcard .v{font-size:22px;font-weight:800;margin-top:4px;letter-spacing:-.025em}
+.kcard .d{font-size:11px;margin-top:3px}
+.kcard.flash{animation:flashA 1s}
+@keyframes flashA{0%{box-shadow:0 0 0 0 var(--accent-soft)}50%{box-shadow:0 0 0 6px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.chart-host{position:relative;height:220px}
+.chart-host.sm{height:180px}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.b-green{background:rgba(52,199,89,.14);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.14);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.14);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.14);color:var(--system-blue)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+.b-purple{background:var(--accent-soft);color:var(--accent-deep)}
+html[data-theme="dark"] .b-purple{color:#D9A8F2}
+
+/* KANBAN */
+.kan{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kcol{background:var(--fill-tertiary);border-radius:10px;padding:10px;min-height:220px}
+.kcol-hd{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--label-secondary);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.kcol-hd .cnt{background:var(--bg-secondary);padding:2px 6px;border-radius:5px;font-size:10px}
+.ktask{background:var(--bg-secondary);border-radius:8px;padding:9px 10px;margin-bottom:6px;cursor:pointer;border-left:3px solid var(--system-blue);box-shadow:0 1px 3px rgba(0,0,0,.05);transition:transform .15s}
+.ktask:hover{transform:translateY(-1px)}
+.ktask.high{border-left-color:var(--system-red)}
+.ktask.med{border-left-color:var(--system-orange)}
+.ktask.low{border-left-color:var(--system-green)}
+.ktask .kt{font-size:12px;font-weight:600;margin-bottom:6px;line-height:1.3}
+.ktask .kb{display:flex;justify-content:space-between;font-size:10px;color:var(--label-tertiary)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.proj-card{background:var(--bg-secondary);border-radius:12px;padding:14px;cursor:pointer;transition:transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.proj-card:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .proj-card{border:1px solid var(--separator);box-shadow:none}
+.proj-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.proj-name{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.proj-client{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.progress-bar{height:6px;background:var(--fill-tertiary);border-radius:3px;overflow:hidden;margin:8px 0}
+.progress-bar div{height:100%;background:var(--accent);border-radius:3px;transition:width .6s}
+.proj-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--label-tertiary);margin-top:8px;padding-top:8px;border-top:1px solid var(--separator)}
+.proj-team{display:flex;margin-top:6px}
+.proj-team .av{width:22px;height:22px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;margin-left:-4px;border:2px solid var(--bg-secondary)}
+.proj-team .av:first-child{margin-left:0}
+
+/* CLIENTS */
+.cli-wrap{display:grid;grid-template-columns:280px 1fr 220px;gap:12px;height:calc(100vh - 130px)}
+.cli-col{background:var(--bg-secondary);border-radius:12px;padding:10px;overflow-y:auto;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .cli-col{border:1px solid var(--separator);box-shadow:none}
+.cli-item{padding:10px;border-radius:8px;cursor:pointer;margin-bottom:3px;transition:background .15s;border-left:3px solid transparent;display:flex;align-items:center;gap:8px}
+.cli-item:hover{background:var(--fill-tertiary)}
+.cli-item.sel{background:var(--accent-soft);border-left-color:var(--accent)}
+.cli-item.vip{border-left:3px solid #FFD700}
+.cli-item .av{width:32px;height:32px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cli-item .n{font-size:12px;font-weight:700}
+.cli-item .c{font-size:10px;color:var(--label-tertiary)}
+.cli-subtabs{display:flex;gap:4px;border-bottom:1px solid var(--separator);margin-bottom:12px;padding-bottom:4px}
+.cli-subtabs button{padding:6px 12px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary)}
+.cli-subtabs button.active{background:var(--fill-tertiary);color:var(--accent)}
+
+/* TIMER */
+.timer-hero{text-align:center;padding:40px 20px;background:var(--bg-secondary);border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px;position:relative;overflow:hidden}
+html[data-theme="dark"] .timer-hero{border:1px solid var(--separator)}
+.timer-hero::before{content:"";position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-soft),transparent 70%);pointer-events:none}
+.timer-circle{display:inline-block;width:240px;height:240px;border-radius:50%;background:conic-gradient(var(--accent) 0%,var(--fill-tertiary) 0%);position:relative;padding:10px;transition:background 1s}
+.timer-inner{width:100%;height:100%;background:var(--bg-secondary);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timer-val{font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--accent)}
+.timer-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--label-tertiary);margin-top:4px;font-weight:700}
+.timer-ctrls{display:flex;gap:10px;justify-content:center;margin-top:20px;position:relative}
+.timer-btn{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--fill-tertiary);color:var(--label-primary);transition:transform .15s}
+.timer-btn:hover{transform:scale(1.08)}
+.timer-btn.play{background:var(--accent);color:#fff;width:62px;height:62px;box-shadow:0 6px 20px rgba(175,82,222,.4)}
+.timer-entry{display:grid;grid-template-columns:80px 1fr auto auto;gap:10px;padding:10px 12px;border-radius:8px;background:var(--fill-tertiary);margin-bottom:5px;font-size:12px;align-items:center}
+.timer-entry .t{font-weight:700;font-variant-numeric:tabular-nums}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.week-day{background:var(--fill-tertiary);border-radius:8px;padding:10px;text-align:center}
+.week-day .d{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;font-weight:700}
+.week-day .v{font-size:18px;font-weight:800;color:var(--accent);margin-top:4px;font-variant-numeric:tabular-nums}
+.week-day .b{height:40px;display:flex;align-items:flex-end;margin-top:6px;justify-content:center}
+.week-day .b div{width:100%;background:var(--accent);border-radius:3px;transition:height .6s}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.team-card{background:var(--bg-secondary);border-radius:12px;padding:16px;cursor:pointer;transition:transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);text-align:center}
+.team-card:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .team-card{border:1px solid var(--separator);box-shadow:none}
+.team-av{width:64px;height:64px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;margin:0 auto 10px}
+.team-name{font-size:14px;font-weight:700}
+.team-role{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+
+/* INVOICES */
+.inv-list{background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .inv-list{border:1px solid var(--separator);box-shadow:none}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:700;border-bottom:1px solid var(--separator);background:var(--bg-secondary);position:sticky;top:0}
+table.t td{padding:10px;border-bottom:1px solid var(--separator)}
+table.t tr{cursor:pointer;transition:background .15s}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+.inv-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:calc(100vh - 140px)}
+.inv-edit,.inv-preview{background:var(--bg-secondary);border-radius:12px;padding:16px;overflow-y:auto;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .inv-edit,html[data-theme="dark"] .inv-preview{border:1px solid var(--separator);box-shadow:none}
+.inv-preview{background:#fff;color:#000}
+.inv-prev-hd{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:2px solid var(--accent);margin-bottom:14px}
+.inv-prev-hd h2{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--accent)}
+
+/* PROPOSALS KANBAN */
+.props-kan{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;height:calc(100vh - 150px);overflow:hidden}
+.props-col{background:var(--fill-tertiary);border-radius:12px;padding:10px;overflow-y:auto}
+.props-col .hd{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--label-secondary);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:0 2px}
+.prop-card{background:var(--bg-secondary);border-radius:9px;padding:10px;margin-bottom:6px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+html[data-theme="dark"] .prop-card{border:1px solid var(--separator);box-shadow:none}
+.prop-card:hover{transform:translateY(-1px)}
+.prop-card .t{font-size:12px;font-weight:700}
+.prop-card .c{font-size:10px;color:var(--label-tertiary);margin-top:2px}
+.prop-card .amt{font-size:13px;font-weight:800;color:var(--accent);margin-top:6px}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:fadeIn .2s}
+.modal{background:var(--bg-secondary);border-radius:18px;padding:22px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25),0 0 0 1px var(--separator);animation:modalIn .25s}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* TOASTS */
+.toast-container{position:fixed;top:62px;right:16px;z-index:9998;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--bg-secondary);border-radius:12px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.12);border-left:4px solid var(--accent);max-width:340px;animation:toastIn .3s;pointer-events:auto;position:relative;overflow:hidden;display:flex;gap:10px;align-items:flex-start}
+html[data-theme="dark"] .toast{border:1px solid var(--separator);border-left:4px solid var(--accent);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.toast.payment{border-left-color:var(--system-green)}
+.toast.time{border-left-color:var(--accent)}
+.toast.project{border-left-color:var(--system-blue)}
+.toast.lead{border-left-color:var(--system-orange)}
+.toast.task{border-left-color:var(--system-green)}
+.toast.alert{border-left-color:var(--system-red)}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+.toast .ic{font-size:18px;flex-shrink:0}
+.toast .body{flex:1;min-width:0}
+.toast .t{font-size:12px;font-weight:700}
+.toast .d{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.toast .progress{position:absolute;bottom:0;left:0;height:2px;background:var(--accent);width:100%;animation:toastProgress 4s linear forwards}
+@keyframes toastProgress{to{width:0%}}
+
+/* BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg-secondary) 92%,transparent);backdrop-filter:blur(20px);border-top:1px solid var(--separator);padding:6px 0 max(8px,env(safe-area-inset-bottom));z-index:100;justify-content:space-around}
+.bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;font-size:10px;color:var(--label-tertiary);border-radius:12px;margin:0 4px}
+.bottom-nav button.active{background:var(--accent-soft);color:var(--accent-deep)}
+.bottom-nav .ic{font-size:20px}
+html[data-theme="dark"] .bottom-nav button.active{color:#D9A8F2}
+@media (max-width:768px){.bottom-nav{display:flex}.app-grid{grid-template-columns:1fr}aside.sidebar{display:none}.module-tabs{display:none}.main-body{padding-bottom:70px}.kan,.props-kan{grid-template-columns:repeat(4,260px);overflow-x:auto}.inv-split,.cli-wrap{grid-template-columns:1fr;height:auto}.grid4,.grid5,.grid3{grid-template-columns:1fr 1fr}}
+
+/* WEEK REPORT */
+.eon-report{background:var(--bg-secondary);border-radius:14px;padding:28px;max-width:900px;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+html[data-theme="dark"] .eon-report{border:1px solid var(--separator)}
+.eon-hd{text-align:center;padding-bottom:20px;border-bottom:3px solid var(--accent);margin-bottom:20px}
+.eon-hd .name{font-weight:800;font-size:32px;color:var(--accent);letter-spacing:-.02em}
+.eon-hd .sub{font-size:13px;color:var(--label-secondary);margin-top:4px}
+
+/* SHORTCUTS */
+.shortcuts-tip{position:fixed;bottom:20px;left:20px;background:var(--bg-secondary);border-radius:14px;padding:20px;box-shadow:0 16px 50px rgba(0,0,0,.15);z-index:300;max-width:320px;animation:modalIn .25s;display:none}
+.shortcuts-tip.show{display:block}
+html[data-theme="dark"] .shortcuts-tip{border:1px solid var(--separator)}
+.shortcuts-tip h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px}
+.shortcuts-tip .row{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:4px 0;font-size:12px;align-items:center}
+.kbd{background:var(--fill-tertiary);padding:3px 8px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:10px;font-weight:700;text-align:center}
+
+@media print{.topbar,.sidebar,.bottom-nav,.toast-container,.shortcuts-tip,.lava-container{display:none!important}.app-grid{grid-template-columns:1fr!important}.main-body{padding:0!important;overflow:visible!important}html,body{overflow:visible!important;height:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="lava-container">
+  <div class="lava-blob lava-1"></div>
+  <div class="lava-blob lava-2"></div>
+  <div class="lava-blob lava-3"></div>
+  <div class="lava-blob lava-4"></div>
+  <div class="lava-blob lava-5"></div>
+</div>
+
+<div class="login-bg" id="loginBg">
+  <div class="login-card" id="loginCard">
+    <div class="login-logo">⚡</div>
+    <h1>Vantage Agency</h1>
+    <div class="sub">Web Agency Management</div>
+    <div class="login-form">
+      <label>Email</label>
+      <input type="email" class="fld" id="loginEmail" value="mateo@vantage.gr">
+      <label>Password</label>
+      <input type="password" class="fld" id="loginPass" value="demo2026">
+      <button class="btn primary full" id="loginBtn" style="margin-top:6px">Sign in →</button>
+      <div class="login-demo">Demo: any credentials work</div>
+    </div>
+    <div class="login-foot">Powered by Vantage · Athens, Greece</div>
+  </div>
+</div>
+
+<div class="splash-bg" id="splashBg" style="display:none">
+  <div class="splash-logo">Vantage</div>
+  <div class="splash-sub">Web Agency Suite</div>
+  <div class="splash-seq" id="splashSeq">Syncing projects...</div>
+  <div class="splash-bar"><div id="splashBarFill"></div></div>
+  <div class="splash-preview" id="splashPreview">
+    <div class="t">This Week — Apr 13-19</div>
+    <div class="d">8 active projects · 5 team members · €12,400 MTD</div>
+  </div>
+</div>
+
+<div class="toast-container" id="toasts"></div>
+
+<div class="app-root" id="appRoot">
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-logo"><span class="emoji">⚡</span> FULL KIT</div>
+      <span class="biz-badge">Vantage Agency</span>
+    </div>
+    <div class="module-tabs" id="moduleTabs"></div>
+    <div class="tb-right">
+      <div class="live-dot"><span class="d"></span>LIVE</div>
+      <div class="clock" id="clock">—</div>
+      <button class="icon-btn" id="audioBtn" title="Sound">🔇</button>
+      <button class="icon-btn" id="notifBtn">🔔<span class="badge-cnt" id="notifBadge" style="display:none">0</span></button>
+      <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+      <div class="user"><div class="av">MC</div><div><div class="user-name">Matéo</div><div class="user-role">Founder</div></div></div>
+    </div>
+  </div>
+  <div class="app-grid">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <div class="main-hd" id="mainHd"></div>
+      <div class="main-body" id="mainBody"></div>
+    </main>
+  </div>
+  <div class="bottom-nav" id="bottomNav"></div>
+</div>
+
+<div class="mbg" id="mProj"><div class="modal">
+  <h3 id="projTitle">New Project</h3>
+  <label>Project name</label><input class="fld" id="pName">
+  <label>Client</label><select class="fld" id="pClient"></select>
+  <label>Budget (€)</label><input type="number" class="fld" id="pBudget" value="1500">
+  <label>Description</label><textarea class="fld" id="pDesc" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mProj')">Cancel</button><button class="btn primary" onclick="saveProj()">Save</button></div>
+</div></div>
+
+<div class="mbg" id="mClient"><div class="modal">
+  <h3>New Client</h3>
+  <label>Contact name</label><input class="fld" id="clName">
+  <label>Company</label><input class="fld" id="clCompany">
+  <label>Email</label><input class="fld" id="clEmail">
+  <label>Phone</label><input class="fld" id="clPhone">
+  <label style="display:flex;align-items:center;gap:6px;text-transform:none;font-size:12px"><input type="checkbox" id="clVip"> VIP client</label>
+  <div class="row-btns"><button class="btn" onclick="closeM('mClient')">Cancel</button><button class="btn primary" onclick="saveClient()">Save</button></div>
+</div></div>
+
+<div class="mbg" id="mLead"><div class="modal">
+  <h3>New Lead</h3>
+  <label>Prospect company</label><input class="fld" id="ldCompany">
+  <label>Contact</label><input class="fld" id="ldContact">
+  <label>Estimated value (€)</label><input type="number" class="fld" id="ldValue" value="1500">
+  <div class="row-btns"><button class="btn" onclick="closeM('mLead')">Cancel</button><button class="btn primary" onclick="saveLead()">Add to pipeline</button></div>
+</div></div>
+
+<div class="mbg" id="mEndConfirm"><div class="modal">
+  <h3>Generate Weekly Report?</h3>
+  <p style="font-size:13px;color:var(--label-secondary)">This will produce the end-of-week summary for Apr 13–19, 2026.</p>
+  <div class="row-btns"><button class="btn" onclick="closeM('mEndConfirm')">Cancel</button><button class="btn primary" onclick="generateEndReport()">Generate →</button></div>
+</div></div>
+
+<div class="shortcuts-tip" id="shortcutsTip">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="row"><span class="kbd">1-0</span><span>Switch modules</span></div>
+  <div class="row"><span class="kbd">N</span><span>New (context)</span></div>
+  <div class="row"><span class="kbd">T</span><span>Start/stop timer</span></div>
+  <div class="row"><span class="kbd">/</span><span>Focus search</span></div>
+  <div class="row"><span class="kbd">D</span><span>Toggle theme</span></div>
+  <div class="row"><span class="kbd">Esc</span><span>Close modal</span></div>
+  <div class="row"><span class="kbd">?</span><span>Show this help</span></div>
+</div>
+
+<script>
+/* CONFIG */
+const MODULES=[
+  {id:'overview',name:'Overview',icon:'🏠'},
+  {id:'projects',name:'Projects',icon:'🎯'},
+  {id:'clients',name:'Clients',icon:'👥'},
+  {id:'time',name:'Time',icon:'⏱️'},
+  {id:'invoices',name:'Invoices',icon:'📄'},
+  {id:'finance',name:'Finance',icon:'💸'},
+  {id:'team',name:'Team',icon:'👤'},
+  {id:'proposals',name:'Proposals',icon:'📧'},
+  {id:'reports',name:'Reports',icon:'📊'},
+  {id:'settings',name:'Settings',icon:'⚙️'}
+];
+const MOBILE_NAV=['overview','projects','clients','time','invoices'];
+
+const TEAM=[
+  {id:'u1',name:'Matéo Chabbert',role:'Founder / Lead Developer',color:'#AF52DE',email:'mateo@vantage.gr',remote:false,hoursWeek:42,utilization:92,projects:['p1','p2','p3','p6','p7']},
+  {id:'u2',name:'Sofia Georgiou',role:'UI/UX Designer',color:'#FF9500',email:'sofia@vantage.gr',remote:false,hoursWeek:38,utilization:85,projects:['p1','p5','p6','p8']},
+  {id:'u3',name:'Andreas Petridis',role:'Frontend Developer',color:'#007AFF',email:'andreas@vantage.gr',remote:false,hoursWeek:40,utilization:88,projects:['p3','p6']},
+  {id:'u4',name:'Elena Nikolaou',role:'Backend Developer',color:'#34C759',email:'elena@vantage.gr',remote:true,hoursWeek:35,utilization:78,projects:['p2','p6']},
+  {id:'u5',name:'Petros Alexiou',role:'Project Manager',color:'#FF3B30',email:'petros@vantage.gr',remote:false,hoursWeek:36,utilization:80,projects:['p1','p2','p3','p6','p7','p8']}
+];
+
+const INITIAL_CLIENTS=[
+  {id:'c1',name:'Georgios Stavrou',company:'Stavros Hotels Group',email:'g.stavrou@stavroshotels.gr',phone:'+30 210 1234567',address:'Syntagma Sq, Athens',projects:2,revenue:8400,vip:true,notes:'Premium client — quarterly reviews'},
+  {id:'c2',name:'Maria Papadopoulos',company:'Elia Restaurant Santorini',email:'maria@elia-restaurant.gr',phone:'+30 228 6012345',address:'Oia, Santorini',projects:1,revenue:3200,vip:false,notes:'Full kit in progress'},
+  {id:'c3',name:'Nikos Theodorakis',company:'Villas Luxury Group',email:'nikos@villasluxury.gr',phone:'+30 228 9012345',address:'Mykonos Town',projects:1,revenue:2400,vip:true,notes:'Overdue project — rush support'},
+  {id:'c4',name:'Stavros Papadakis',company:'Stavros Auto Athens',email:'stavros@stavrosauto.gr',phone:'+30 210 2345678',address:'Piraeus, Athens',projects:1,revenue:1200,vip:false,notes:''},
+  {id:'c5',name:'Elena Georgiou',company:'Helios Wellness Center',email:'elena@helios-wellness.gr',phone:'+30 210 3456789',address:'Kolonaki, Athens',projects:1,revenue:1800,vip:false,notes:''},
+  {id:'c6',name:'Nikos Kontos',company:'Nikos Bakery Chain',email:'nikos@nikosbakery.gr',phone:'+30 210 4567890',address:'Exarcheia, Athens',projects:1,revenue:800,vip:false,notes:''},
+  {id:'c7',name:'Dimitris Andreou',company:'Dimitris & Partners Law',email:'dimitris@dp-law.gr',phone:'+30 210 5678901',address:'Kolonaki, Athens',projects:1,revenue:1600,vip:false,notes:''},
+  {id:'c8',name:'Katerina Nikolaou',company:'Katerina Fashion Athens',email:'kat@katerinafashion.gr',phone:'+30 210 6789012',address:'Ermou St, Athens',projects:1,revenue:1400,vip:false,notes:''},
+  {id:'c9',name:'Alexandros Marinakis',company:'Mykonos Beach Club',email:'alex@mykonosbeach.gr',phone:'+30 228 1023456',address:'Paradise Beach, Mykonos',projects:0,revenue:2200,vip:false,notes:'Past client — re-engage'},
+  {id:'c10',name:'Andreas Photiadis',company:'Andreas Photography',email:'andreas@andreasphoto.gr',phone:'+30 210 7890123',address:'Plaka, Athens',projects:0,revenue:600,vip:false,notes:''},
+  {id:'c11',name:'Elena Vasileiou',company:'Elena Architecture',email:'elena@elena-arch.gr',phone:'+30 210 8901234',address:'Kifissia, Athens',projects:0,revenue:1800,vip:false,notes:''},
+  {id:'c12',name:'Sofia Lambrou',company:'Sofia Yoga Studio',email:'sofia@sofiayoga.gr',phone:'+30 210 9012345',address:'Glyfada, Athens',projects:0,revenue:400,vip:false,notes:''}
+];
+
+const INITIAL_PROJECTS=[
+  {id:'p1',name:'Mykonos Villas Website',client:'Villas Luxury Group',status:'overdue',progress:85,deadline:'Tomorrow',deadlineDays:1,budget:2400,spent:2100,team:['u1','u2','u5'],desc:'Luxury villa booking website with custom CMS'},
+  {id:'p2',name:'Elia Restaurant Full Kit',client:'Elia Restaurant Santorini',status:'track',progress:60,deadline:'5 days',deadlineDays:5,budget:3200,spent:1800,team:['u1','u4','u5'],desc:'Complete restaurant management system'},
+  {id:'p3',name:'Athens Garage Landing',client:'Stavros Auto Athens',status:'risk',progress:40,deadline:'3 days',deadlineDays:3,budget:1200,spent:500,team:['u1','u3','u5'],desc:'Landing page + booking form'},
+  {id:'p4',name:'Helios Spa Website',client:'Helios Wellness Center',status:'track',progress:25,deadline:'12 days',deadlineDays:12,budget:1800,spent:400,team:['u1'],desc:'Wellness center booking website'},
+  {id:'p5',name:'Nikos Bakery Rebrand',client:'Nikos Bakery Chain',status:'track',progress:70,deadline:'8 days',deadlineDays:8,budget:800,spent:540,team:['u2'],desc:'Full brand refresh + new logo'},
+  {id:'p6',name:'Stavros Hotels CRM',client:'Stavros Hotels Group',status:'risk',progress:30,deadline:'4 days',deadlineDays:4,budget:4500,spent:1200,team:['u1','u2','u3','u4','u5'],desc:'Custom CRM for hotel chain'},
+  {id:'p7',name:'Dimitris Law Firm',client:'Dimitris & Partners Law',status:'track',progress:90,deadline:'2 days',deadlineDays:2,budget:1600,spent:1440,team:['u1','u5'],desc:'Corporate website'},
+  {id:'p8',name:'Katerina Fashion Store',client:'Katerina Fashion Athens',status:'track',progress:50,deadline:'15 days',deadlineDays:15,budget:1400,spent:680,team:['u2','u5'],desc:'E-commerce fashion boutique'}
+];
+
+const TASK_TEMPLATES=['Discovery call','Requirements doc','Wireframes','Design mockups','Design review','Brand palette','Logo concepts','HTML structure','CSS styling','JS interactions','Mobile responsive','Content upload','SEO meta tags','Performance audit','QA testing','Cross-browser test','Client review','Copy revisions','Image optimization','Deploy to staging','DNS setup','Production deploy','Handoff docs','Training session'];
+const PRIOS=['high','med','low'];
+const STATS=['todo','progress','review','done'];
+
+function buildTasks(p){
+  const total=18;const tasks=[];const doneCount=Math.round(p.progress/100*total);
+  for(let i=0;i<total;i++){
+    const name=TASK_TEMPLATES[i%TASK_TEMPLATES.length];
+    const status=i<doneCount?'done':i<doneCount+2?'review':i<doneCount+5?'progress':'todo';
+    const member=TEAM.find(t=>p.team.includes(t.id))||TEAM[0];
+    tasks.push({id:'tk'+p.id+'_'+i,name,assignee:member.name.split(' ')[0],prio:PRIOS[i%3],due:['Today','Tomorrow','2 days','3 days','5 days','1 week'][i%6],status});
+  }
+  return tasks;
+}
+
+const INITIAL_INVOICES=[
+  {num:'INV-047',client:'Stavros Hotels Group',date:'Apr 15',due:'Apr 30',amount:2400,status:'sent',items:[['Website maintenance Q1',1,1200],['CRM phase 2',1,1200]]},
+  {num:'INV-046',client:'Elia Restaurant Santorini',date:'Apr 10',due:'Apr 25',amount:1800,status:'paid',items:[['Full Kit — phase 1',1,1800]]},
+  {num:'INV-045',client:'Villas Luxury Group',date:'Apr 05',due:'Apr 20',amount:1800,status:'overdue',items:[['Website development — 50%',1,1800]]},
+  {num:'INV-044',client:'Stavros Auto Athens',date:'Mar 28',due:'Apr 12',amount:1200,status:'paid',items:[['Landing page + setup',1,1200]]},
+  {num:'INV-043',client:'Helios Wellness Center',date:'Mar 20',due:'Apr 04',amount:900,status:'paid',items:[['Website design — phase 1',1,900]]},
+  {num:'INV-042',client:'Nikos Bakery Chain',date:'Mar 15',due:'Mar 30',amount:400,status:'paid',items:[['Logo design',1,400]]},
+  {num:'INV-041',client:'Dimitris & Partners Law',date:'Mar 10',due:'Mar 25',amount:800,status:'paid',items:[['Website refresh',1,800]]},
+  {num:'INV-040',client:'Katerina Fashion Athens',date:'Mar 05',due:'Mar 20',amount:700,status:'paid',items:[['E-commerce setup',1,700]]},
+  {num:'INV-039',client:'Stavros Hotels Group',date:'Feb 28',due:'Mar 15',amount:3600,status:'paid',items:[['CRM phase 1',1,3600]]},
+  {num:'INV-038',client:'Mykonos Beach Club',date:'Feb 20',due:'Mar 07',amount:2200,status:'paid',items:[['Website revamp',1,2200]]},
+  {num:'INV-037',client:'Andreas Photography',date:'Feb 10',due:'Feb 25',amount:600,status:'paid',items:[['Portfolio website',1,600]]},
+  {num:'INV-036',client:'Elena Architecture',date:'Feb 01',due:'Feb 16',amount:1800,status:'paid',items:[['Studio website',1,1800]]},
+  {num:'INV-035',client:'Sofia Yoga Studio',date:'Jan 20',due:'Feb 04',amount:400,status:'paid',items:[['Booking page',1,400]]},
+  {num:'INV-034',client:'Helios Wellness Center',date:'Jan 10',due:'Jan 25',amount:900,status:'paid',items:[['Initial consultation',1,900]]},
+  {num:'INV-033',client:'Villas Luxury Group',date:'Jan 03',due:'Jan 18',amount:600,status:'paid',items:[['Concept + wireframes',1,600]]}
+];
+
+const INITIAL_PROPOSALS=[
+  {id:'pr1',company:'Olympia Hotel',contact:'Sotiris K.',value:4200,stage:'lead',notes:'Inbound from referral'},
+  {id:'pr2',company:'Athens Gym Co.',contact:'Dimitris N.',value:1800,stage:'lead',notes:'Cold outreach'},
+  {id:'pr3',company:'Paros Olive Oil',contact:'Yiannis V.',value:2600,stage:'sent',notes:'Proposal sent Apr 12'},
+  {id:'pr4',company:'Cretan Taverna',contact:'Maria T.',value:3200,stage:'sent',notes:'Full kit proposal sent'},
+  {id:'pr5',company:'Aegean Diving',contact:'Kostas M.',value:2100,stage:'sent',notes:'Landing + booking'},
+  {id:'pr6',company:'Rhodes Wedding Co.',contact:'Elena P.',value:5600,stage:'negotiation',notes:'Discussing scope'},
+  {id:'pr7',company:'Santorini Cruises',contact:'Nikolas S.',value:4800,stage:'negotiation',notes:'VAT details'},
+  {id:'pr8',company:'Heraklion Museum',contact:'Giorgos D.',value:3400,stage:'won',notes:'Kick-off next week'},
+  {id:'pr9',company:'Thessaloniki Café',contact:'Alex V.',value:900,stage:'won',notes:'Quick landing deal'},
+  {id:'pr10',company:'Corfu Beach Bar',contact:'Petros G.',value:1600,stage:'lost',notes:'Budget too high'}
+];
+
+const EXPENSE_DATA=[
+  {cat:'Software/SaaS',amount:420,icon:'💻',items:['Figma','Notion','Netlify','GitHub','Cloudflare']},
+  {cat:'Office rent',amount:680,icon:'🏢',items:['Co-working Athens']},
+  {cat:'Marketing',amount:240,icon:'📢',items:['Google Ads','LinkedIn']},
+  {cat:'Contractors',amount:1200,icon:'👷',items:['Copywriter freelance','Photo retouching']},
+  {cat:'Equipment',amount:180,icon:'🖥️',items:['Display adapter','Backup drive']},
+  {cat:'Travel',amount:120,icon:'✈️',items:['Mykonos client visit']}
+];
+
+const PROJECT_TEMPLATES=['Website Landing','Full Kit — Business','CRM Custom Build'];
+
+function uid(){return Math.random().toString(36).slice(2,10)}
+function rand(a,b){return Math.floor(a+Math.random()*(b-a+1))}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function money(v){return '€'+Math.round(Number(v||0)).toLocaleString('en-US')}
+function moneyF(v){return '€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmtClock(){return new Date().toLocaleTimeString('en-GB')}
+function fmtDur(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return (h?String(h).padStart(2,'0')+':':'')+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')}
+function $(s){return document.querySelector(s)}
+function $$(s){return [...document.querySelectorAll(s)]}
+function countUp(el,target,dur=900){if(!el)return;const start=+(el.textContent||'0').replace(/[^\d.-]/g,'')||0;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);const val=start+(target-start)*e;el.textContent=Math.round(val).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* TIME ENTRIES — 3 weeks of fake data */
+function buildTimeEntries(){
+  const entries=[];
+  const today=new Date('2026-04-18T10:00:00');
+  for(let d=0;d<21;d++){
+    const date=new Date(today);date.setDate(date.getDate()-d);
+    if(date.getDay()===0||date.getDay()===6)continue;
+    const daily=rand(2,5);
+    for(let i=0;i<daily;i++){
+      const p=pick(INITIAL_PROJECTS);
+      const m=pick(TEAM);
+      const hrs=rand(1,4);
+      entries.push({id:uid(),date:date.toISOString().slice(0,10),dateLabel:date.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}),project:p.name,projectId:p.id,member:m.name.split(' ')[0],memberId:m.id,hours:hrs,desc:pick(['Design work','Development','Client meeting','Code review','QA','Planning'])});
+    }
+  }
+  return entries;
+}
+
+let state={
+  module:'overview',
+  projectFilter:'all',projectSort:'deadline',openProject:null,kanColumnSort:{},
+  clientSearch:'',selectedClient:'c1',clientSubtab:'overview',
+  timerRunning:false,timerSeconds:0,timerStarted:null,timerProject:'p1',timerDesc:'',
+  timeSubpage:'today',
+  invoiceView:'list',invoiceEditing:null,
+  financeSubpage:'main',
+  teamSelected:null,teamSubpage:'cards',
+  propSelected:null,
+  reportType:'revenue',
+  settingsSubpage:'profile',
+  projects:JSON.parse(JSON.stringify(INITIAL_PROJECTS)),
+  clients:JSON.parse(JSON.stringify(INITIAL_CLIENTS)),
+  invoices:JSON.parse(JSON.stringify(INITIAL_INVOICES)),
+  proposals:JSON.parse(JSON.stringify(INITIAL_PROPOSALS)),
+  tasks:{},
+  timeEntries:[],
+  activity:[
+    {ic:'📄',t:'Invoice #047 sent — €2,400 — Stavros Hotels',time:'2h ago',who:'Matéo'},
+    {ic:'🎯',t:'Mykonos Villas — Phase 2 started',time:'4h ago',who:'Sofia'},
+    {ic:'👥',t:'New client: Athens Garage — €1,200',time:'1d ago',who:'Petros'},
+    {ic:'✅',t:'Invoice #046 paid — €1,800 — Elia Restaurant',time:'2d ago',who:'Matéo'},
+    {ic:'📝',t:'Proposal sent — Helios Spa — €1,800',time:'3d ago',who:'Petros'},
+    {ic:'🎯',t:'Nikos Bakery — Logo delivered',time:'4d ago',who:'Sofia'},
+    {ic:'💬',t:'Client call with Dimitris Law — scope review',time:'5d ago',who:'Petros'}
+  ],
+  alerts:[
+    {type:'red',text:'Mykonos Villas — overdue',time:'10:14'},
+    {type:'yellow',text:'Stavros CRM — at risk',time:'09:42'},
+    {type:'green',text:'Invoice #046 paid',time:'08:30'}
+  ],
+  kpi:{revenue:12400,revenueGoal:15000,activeProjects:8,hoursWeek:191,invoicesOut:2,proposalsOpen:5,outstandingAmt:4200},
+  revHistory:[['Nov',8600],['Dec',9200],['Jan',10400],['Feb',11200],['Mar',10800],['Apr',12400]],
+  notifCount:3,audioOn:false,audioCtx:null,charts:{}
+};
+state.projects.forEach(p=>{state.tasks[p.id]=buildTasks(p)});
+state.timeEntries=buildTimeEntries();
+
+/* LOGIN */
+$('#loginBtn').addEventListener('click',signIn);
+$('#loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')signIn()});
+function signIn(){
+  const btn=$('#loginBtn');btn.classList.add('loading');btn.textContent='Connecting...';
+  setTimeout(()=>btn.textContent='Authenticating...',800);
+  setTimeout(()=>btn.textContent='Loading workspace...',1400);
+  setTimeout(()=>{btn.textContent='Ready';$('#loginCard').classList.add('login-out');setTimeout(showSplash,400)},1900);
+}
+
+function showSplash(){
+  $('#loginBg').style.display='none';
+  $('#splashBg').style.display='flex';
+  const seqs=[['Syncing projects...',0,25],['Loading client data...',800,55],['Connecting time tracker...',1500,80],['Ready ✓',2100,100]];
+  seqs.forEach(([t,d,p])=>setTimeout(()=>{$('#splashSeq').textContent=t;$('#splashBarFill').style.width=p+'%'},d));
+  setTimeout(()=>$('#splashPreview').classList.add('show'),2400);
+  setTimeout(()=>{$('#splashBg').classList.add('splash-out');setTimeout(launchApp,500)},3000);
+}
+
+function launchApp(){
+  $('#splashBg').style.display='none';
+  $('#appRoot').classList.add('ready');
+  renderTopTabs();renderBottomNav();renderSidebar();renderMain();
+  setInterval(()=>{$('#clock').textContent=fmtClock()},1000);
+  setInterval(tickTimer,1000);
+  setTimeout(()=>LiveEngine.start(),2000);
+  showToast('project','✓ Signed in','Welcome back, Matéo');
+}
+
+function tickTimer(){
+  if(state.timerRunning){state.timerSeconds++;const el=$('#timerVal');if(el)el.textContent=fmtDur(state.timerSeconds)}
+}
+
+function renderTopTabs(){$('#moduleTabs').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')">${m.icon} ${m.name}</button>`).join('')}
+function renderBottomNav(){$('#bottomNav').innerHTML=MOBILE_NAV.map(id=>{const m=MODULES.find(x=>x.id===id);return `<button class="${state.module===id?'active':''}" onclick="setModule('${id}')"><span class="ic">${m.icon}</span>${m.name}</button>`}).join('')}
+function setModule(id){state.module=id;state.openProject=null;state.invoiceView='list';renderTopTabs();renderBottomNav();renderMain()}
+
+function renderSidebar(){
+  $('#sidebar').innerHTML=`
+    <div class="side-box">
+      <h4>This Week</h4>
+      <div class="sb-date">📅 Apr 13 – 19, 2026</div>
+      <div class="sb-service">Week 16 · On track</div>
+      <button class="status-btn" id="weekStatus">● ACTIVE</button>
+    </div>
+    <div class="side-box">
+      <h4>Live Numbers</h4>
+      <div class="sb-row"><span class="l">💰 Revenue MTD</span><span class="v up" id="sb-rev">${money(state.kpi.revenue)}</span></div>
+      <div class="sb-row"><span class="l">🎯 Projects</span><span class="v" id="sb-proj">${state.kpi.activeProjects}</span></div>
+      <div class="sb-row"><span class="l">⏱️ Hours</span><span class="v" id="sb-hrs">${state.kpi.hoursWeek}</span></div>
+      <div class="sb-row"><span class="l">📄 Outstanding</span><span class="v" id="sb-out">${money(state.kpi.outstandingAmt)}</span></div>
+    </div>
+    <div class="side-box">
+      <h4>Live Alerts</h4>
+      <div id="alertsList">${state.alerts.map(a=>`<div class="alert-item ${a.type}">${a.type==='red'?'🔴':a.type==='yellow'?'🟡':'🟢'}<div>${a.text}</div><span class="t">${a.time}</span></div>`).join('')}</div>
+    </div>
+    <div class="side-box">
+      <h4>Quick Actions</h4>
+      <button class="qa-btn" onclick="openProjectModal()">🎯 New project</button>
+      <button class="qa-btn" onclick="openClientModal()">👥 New client</button>
+      <button class="qa-btn" onclick="setModule('time');toggleTimer()">⏱ Start timer</button>
+      <button class="qa-btn" onclick="setModule('invoices');newInvoice()">📄 New invoice</button>
+    </div>
+    <button class="end-btn" onclick="openM('mEndConfirm')">End Week</button>
+  `;
+  $('#weekStatus').addEventListener('click',e=>{const b=e.target;if(b.textContent.includes('ACTIVE')){b.textContent='● CLOSED';b.style.background='var(--label-tertiary)'}else{b.textContent='● ACTIVE';b.style.background='var(--system-green)'}});
+}
+
+function renderMain(){
+  const body=$('#mainBody'),hd=$('#mainHd');body.innerHTML='';
+  const routes={overview:renderOverview,projects:renderProjects,clients:renderClients,time:renderTime,invoices:renderInvoices,finance:renderFinance,team:renderTeam,proposals:renderProposals,reports:renderReports,settings:renderSettings};
+  (routes[state.module]||renderOverview)(hd,body);
+  body.style.animation='none';requestAnimationFrame(()=>body.style.animation='modFade .3s');
+}
+
+/* ============ OVERVIEW ============ */
+function renderOverview(hd,body){
+  hd.innerHTML=`<div><h1>Welcome back, Matéo 👋</h1><div class="sub">Week 16 · ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</div></div><div><button class="btn primary sm" onclick="openProjectModal()">+ New Project</button></div>`;
+  const pct=Math.round(state.kpi.revenue/state.kpi.revenueGoal*100);
+  body.innerHTML=`
+    <div class="grid5" style="margin-bottom:14px">
+      <div class="kcard" id="kpi-rev"><div class="l">💰 Revenue MTD</div><div class="v">€<span id="ov-rev">0</span></div><div class="d" style="color:var(--system-green)">↑ ${pct}% of goal</div></div>
+      <div class="kcard"><div class="l">🎯 Active Projects</div><div class="v"><span id="ov-proj">0</span></div><div class="d" style="color:var(--label-tertiary)">${state.projects.filter(p=>p.status==='track').length} on track</div></div>
+      <div class="kcard"><div class="l">⏱ Hours This Week</div><div class="v"><span id="ov-hrs">0</span></div><div class="d" style="color:var(--label-tertiary)">${TEAM.length} team members</div></div>
+      <div class="kcard"><div class="l">📄 Invoices Out</div><div class="v"><span id="ov-inv">0</span></div><div class="d" style="color:var(--system-orange)">${money(state.kpi.outstandingAmt)} pending</div></div>
+      <div class="kcard"><div class="l">📧 Proposals Open</div><div class="v"><span id="ov-prop">0</span></div><div class="d" style="color:var(--label-tertiary)">${money(state.proposals.filter(p=>['lead','sent','negotiation'].includes(p.stage)).reduce((s,p)=>s+p.value,0))} pipeline</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:2fr 1fr;margin-bottom:14px">
+      <div class="card"><h3>Revenue Trend — Last 6 Months</h3><div class="chart-host"><canvas id="chRev"></canvas></div></div>
+      <div class="card"><h3>Project Health</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;padding:12px 0">
+          <div><div style="font-size:28px;font-weight:800;color:var(--system-green)">${state.projects.filter(p=>p.status==='track').length}</div><div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:4px">On Track</div></div>
+          <div><div style="font-size:28px;font-weight:800;color:var(--system-orange)">${state.projects.filter(p=>p.status==='risk').length}</div><div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:4px">At Risk</div></div>
+          <div><div style="font-size:28px;font-weight:800;color:var(--system-red)">${state.projects.filter(p=>p.status==='overdue').length}</div><div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:4px">Overdue</div></div>
+        </div>
+        <div style="border-top:1px solid var(--separator);padding-top:10px">
+          ${state.projects.slice(0,4).map(p=>`<div class="sb-row"><span>${p.name.slice(0,28)}</span><span class="v" style="color:${p.status==='track'?'var(--system-green)':p.status==='risk'?'var(--system-orange)':'var(--system-red)'}">${p.progress}%</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="grid2" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
+      <div class="card"><h3>Team Activity Today</h3>
+        ${TEAM.map(m=>{const h=state.timeEntries.filter(e=>e.memberId===m.id&&e.date==='2026-04-18').reduce((s,e)=>s+e.hours,0);return `<div class="sb-row" style="padding:8px 0"><span style="display:flex;align-items:center;gap:8px"><span class="av" style="width:26px;height:26px;border-radius:50%;background:${m.color};color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">${initials(m.name)}</span>${m.name.split(' ')[0]} · ${m.role.split(' ')[0]}</span><span class="v mono">${h}h</span></div>`}).join('')}
+      </div>
+      <div class="card"><h3>Live Activity Feed <span class="live-dot" style="font-size:9px;padding:3px 8px"><span class="d"></span>LIVE</span></h3>
+        <div id="activityFeed" style="max-height:260px;overflow-y:auto">${state.activity.map(a=>`<div class="sb-row" style="padding:8px 0;border-bottom:1px solid var(--separator)"><span style="font-size:12px"><span style="margin-right:6px">${a.ic}</span>${a.t}</span><span style="font-size:10px;color:var(--label-tertiary)">${a.time}</span></div>`).join('')}</div>
+      </div>
+    </div>
+    <div class="card"><h3>Deadlines & Alerts</h3>
+      ${state.projects.filter(p=>p.deadlineDays<=7).sort((a,b)=>a.deadlineDays-b.deadlineDays).map(p=>{const col=p.deadlineDays<=1?'var(--system-red)':p.deadlineDays<=3?'var(--system-orange)':'var(--system-green)';const dot=p.deadlineDays<=1?'🔴':p.deadlineDays<=3?'🟡':'🟢';return `<div class="sb-row" style="padding:8px 0"><span>${dot} <strong>${p.name}</strong> — ${p.client}</span><span class="v" style="color:${col}">${p.deadline}</span></div>`}).join('')}
+    </div>`;
+  countUp($('#ov-rev'),state.kpi.revenue);countUp($('#ov-proj'),state.kpi.activeProjects);countUp($('#ov-hrs'),state.kpi.hoursWeek);countUp($('#ov-inv'),state.invoices.filter(i=>i.status==='sent'||i.status==='overdue').length);countUp($('#ov-prop'),state.proposals.filter(p=>['lead','sent','negotiation'].includes(p.stage)).length);
+  setTimeout(()=>{const c=$('#chRev');if(!c)return;if(state.charts.rev)state.charts.rev.destroy();state.charts.rev=new Chart(c,{type:'line',data:{labels:state.revHistory.map(r=>r[0]),datasets:[{data:state.revHistory.map(r=>r[1]),borderColor:'#AF52DE',backgroundColor:'rgba(175,82,222,.15)',tension:.4,fill:true,pointRadius:4,pointBackgroundColor:'#AF52DE'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:11}}},y:{ticks:{callback:v=>'€'+v,font:{size:10}}}}}})},60);
+}
+
+/* ============ PROJECTS ============ */
+function renderProjects(hd,body){
+  if(state.openProject){renderProjectDetail(hd,body);return}
+  let list=[...state.projects];
+  if(state.projectFilter!=='all')list=list.filter(p=>p.status===state.projectFilter);
+  if(state.projectSort==='deadline')list.sort((a,b)=>a.deadlineDays-b.deadlineDays);
+  else if(state.projectSort==='budget')list.sort((a,b)=>b.budget-a.budget);
+  else if(state.projectSort==='progress')list.sort((a,b)=>b.progress-a.progress);
+  hd.innerHTML=`<div><h1>Projects</h1><div class="sub">${state.projects.length} active · ${state.projects.filter(p=>p.status==='track').length} on track · ${state.projects.filter(p=>p.status==='overdue').length} overdue</div></div><div><button class="btn primary sm" onclick="openProjectModal()">+ New Project</button></div>`;
+  body.innerHTML=`
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+      ${['all','track','risk','overdue'].map(f=>`<button class="btn sm ${state.projectFilter===f?'primary':''}" onclick="state.projectFilter='${f}';renderMain()">${f.charAt(0).toUpperCase()+f.slice(1)}</button>`).join('')}
+      <div style="margin-left:auto;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--label-tertiary)">Sort:
+        <select class="fld" style="margin:0;padding:6px 10px;width:auto" onchange="state.projectSort=this.value;renderMain()">
+          <option value="deadline" ${state.projectSort==='deadline'?'selected':''}>Deadline</option>
+          <option value="budget" ${state.projectSort==='budget'?'selected':''}>Budget</option>
+          <option value="progress" ${state.projectSort==='progress'?'selected':''}>Progress</option>
+        </select>
+      </div>
+    </div>
+    <div class="proj-grid">${list.map(p=>{const col=p.status==='track'?'b-green':p.status==='risk'?'b-orange':'b-red';const bpct=Math.round(p.spent/p.budget*100);return `<div class="proj-card" onclick="state.openProject='${p.id}';renderMain()">
+      <div class="proj-hd"><div><div class="proj-name">${p.name}</div><div class="proj-client">${p.client}</div></div><span class="badge ${col}">${p.status}</span></div>
+      <div style="font-size:11px;color:var(--label-tertiary);margin-top:6px;line-height:1.4">${p.desc}</div>
+      <div class="progress-bar"><div style="width:${p.progress}%"></div></div>
+      <div style="font-size:11px;display:flex;justify-content:space-between"><span class="mono">${p.progress}% complete</span><span class="mono">${money(p.spent)}/${money(p.budget)} (${bpct}%)</span></div>
+      <div class="proj-team">${p.team.map(tid=>{const m=TEAM.find(t=>t.id===tid);return `<div class="av" style="background:${m.color}" title="${m.name}">${initials(m.name)}</div>`}).join('')}</div>
+      <div class="proj-meta"><span>📅 ${p.deadline}</span><span>${state.tasks[p.id]?.filter(t=>t.status==='done').length||0}/${state.tasks[p.id]?.length||0} tasks</span></div>
+    </div>`}).join('')}</div>`;
+}
+
+function renderProjectDetail(hd,body){
+  const p=state.projects.find(x=>x.id===state.openProject);if(!p)return;
+  const tasks=state.tasks[p.id]||[];
+  const cols=[['todo','To Do'],['progress','In Progress'],['review','Review'],['done','Done']];
+  const bpct=Math.round(p.spent/p.budget*100);
+  hd.innerHTML=`<div><h1>${p.name}</h1><div class="sub">${p.client} · ${p.deadline}</div></div><div><button class="btn sm" onclick="state.openProject=null;renderMain()">← Back</button></div>`;
+  body.innerHTML=`
+    <div class="grid4" style="margin-bottom:14px">
+      <div class="kcard"><div class="l">Progress</div><div class="v">${p.progress}%</div><div class="progress-bar" style="margin-top:6px"><div style="width:${p.progress}%"></div></div></div>
+      <div class="kcard"><div class="l">Budget</div><div class="v">${money(p.spent)}</div><div class="d" style="color:${bpct>90?'var(--system-red)':'var(--label-tertiary)'}">${bpct}% of ${money(p.budget)}</div></div>
+      <div class="kcard"><div class="l">Timeline</div><div class="v">${p.deadline}</div><div class="d" style="color:${p.status==='overdue'?'var(--system-red)':'var(--label-tertiary)'}">${p.deadlineDays}d remaining</div></div>
+      <div class="kcard"><div class="l">Team</div><div class="v">${p.team.length}</div><div class="proj-team" style="margin-top:4px">${p.team.map(tid=>{const m=TEAM.find(t=>t.id===tid);return `<div class="av" style="background:${m.color}" title="${m.name}">${initials(m.name)}</div>`}).join('')}</div></div>
+    </div>
+    <div class="card" style="margin-bottom:14px"><h3>Tasks — Kanban</h3>
+      <div class="kan">${cols.map(([k,l])=>{const its=tasks.filter(t=>t.status===k);return `<div class="kcol"><div class="kcol-hd">${l}<span class="cnt">${its.length}</span></div>${its.map(t=>`<div class="ktask ${t.prio}" onclick="moveTask('${p.id}','${t.id}')"><div class="kt">${t.name}</div><div class="kb"><span>${t.assignee}</span><span>${t.due}</span></div></div>`).join('')||'<div style="text-align:center;padding:16px;color:var(--label-tertiary);font-size:11px">—</div>'}</div>`}).join('')}</div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>Notes</h3><div style="font-size:12px;line-height:1.5;color:var(--label-secondary)">${p.desc}</div><textarea class="fld" style="margin-top:10px" rows="3" placeholder="Add a note..."></textarea><button class="btn sm" onclick="showToast('project','📝 Note added','Saved to project log')">Save note</button></div>
+      <div class="card"><h3>Activity Timeline</h3>
+        <div class="sb-row"><span>🎯 Project started</span><span style="font-size:10px;color:var(--label-tertiary)">${p.deadlineDays+14}d ago</span></div>
+        <div class="sb-row"><span>✅ Milestone 1 completed</span><span style="font-size:10px;color:var(--label-tertiary)">${Math.max(1,p.deadlineDays)}d ago</span></div>
+        <div class="sb-row"><span>📝 Client feedback received</span><span style="font-size:10px;color:var(--label-tertiary)">2d ago</span></div>
+        <div class="sb-row"><span>🔥 ${tasks.filter(t=>t.status==='done').length} tasks done this week</span><span style="font-size:10px;color:var(--label-tertiary)">now</span></div>
+      </div>
+    </div>`;
+}
+
+window.moveTask=(pid,tid)=>{
+  const t=state.tasks[pid]?.find(x=>x.id===tid);if(!t)return;
+  const idx=STATS.indexOf(t.status);t.status=STATS[(idx+1)%STATS.length];
+  const p=state.projects.find(x=>x.id===pid);
+  const done=state.tasks[pid].filter(x=>x.status==='done').length;
+  p.progress=Math.round(done/state.tasks[pid].length*100);
+  if(t.status==='done'){showToast('task','✅ Task completed',t.name);playSound('task')}
+  renderMain();
+};
+
+window.openProjectModal=()=>{state.editingProject=null;$('#projTitle').textContent='New Project';$('#pName').value='';$('#pBudget').value=1500;$('#pDesc').value='';$('#pClient').innerHTML=state.clients.map(c=>`<option value="${c.id}">${c.company}</option>`).join('');openM('mProj')};
+window.saveProj=()=>{const name=$('#pName').value.trim();if(!name)return alert('Name required');const clientCo=$('#pClient').selectedOptions[0]?.textContent||'—';const np={id:uid(),name,client:clientCo,status:'track',progress:0,deadline:'30 days',deadlineDays:30,budget:+$('#pBudget').value,spent:0,team:['u1'],desc:$('#pDesc').value};state.projects.push(np);state.tasks[np.id]=[];closeM('mProj');showToast('project','🎯 Project created',name);renderMain()};
+
+/* ============ CLIENTS ============ */
+function renderClients(hd,body){
+  hd.innerHTML=`<div><h1>Clients</h1><div class="sub">${state.clients.length} total · ${state.clients.filter(c=>c.vip).length} VIP · ${state.clients.filter(c=>c.projects>0).length} active</div></div><div><button class="btn primary sm" onclick="openClientModal()">+ New Client</button></div>`;
+  const q=state.clientSearch.toLowerCase();
+  const list=state.clients.filter(c=>!q||c.name.toLowerCase().includes(q)||c.company.toLowerCase().includes(q));
+  const sel=state.clients.find(c=>c.id===state.selectedClient)||state.clients[0];
+  body.innerHTML=`<div class="cli-wrap">
+    <div class="cli-col">
+      <input class="fld" placeholder="Search clients..." id="clSearch" value="${state.clientSearch}" style="margin-bottom:8px">
+      ${list.map(c=>`<div class="cli-item ${sel&&sel.id===c.id?'sel':''} ${c.vip?'vip':''}" onclick="state.selectedClient='${c.id}';renderMain()">
+        <div class="av" style="background:${['#AF52DE','#FF9500','#007AFF','#34C759','#FF3B30'][c.id.charCodeAt(1)%5]}">${initials(c.name)}</div>
+        <div style="flex:1;min-width:0"><div class="n">${c.name}</div><div class="c">${c.company}</div></div>
+        ${c.vip?'<span style="font-size:12px">⭐</span>':''}
+      </div>`).join('')}
+    </div>
+    <div class="cli-col">${renderClientDetail(sel)}</div>
+    <div class="cli-col">
+      <h3 style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px">Quick Actions</h3>
+      <button class="qa-btn" onclick="alert('Emailing ${sel.email}')">📧 Send email</button>
+      <button class="qa-btn" onclick="alert('Call ${sel.phone}')">📞 Call</button>
+      <button class="qa-btn" onclick="state.openProject=state.projects.find(p=>p.client==='${sel.company}')?.id||null;setModule('projects')">🎯 View projects</button>
+      <button class="qa-btn" onclick="setModule('invoices')">📄 View invoices</button>
+      <button class="qa-btn" onclick="newInvoice('${sel.company}');setModule('invoices')">📝 New invoice</button>
+      <div style="border-top:1px solid var(--separator);margin:10px 0;padding-top:10px">
+        <div class="sb-row"><span class="l">Total revenue</span><span class="v">${money(sel.revenue)}</span></div>
+        <div class="sb-row"><span class="l">Projects</span><span class="v">${sel.projects}</span></div>
+        <div class="sb-row"><span class="l">Since</span><span class="v">Jan 2025</span></div>
+      </div>
+    </div>
+  </div>`;
+  const s=$('#clSearch');if(s){s.addEventListener('input',e=>{state.clientSearch=e.target.value;const list=$$('.cli-item');});s.addEventListener('change',e=>{state.clientSearch=e.target.value;renderMain()})}
+}
+
+function renderClientDetail(c){
+  if(!c)return '<div style="text-align:center;padding:40px;color:var(--label-tertiary)">Select a client</div>';
+  const tabs=['overview','projects','invoices','notes','activity'];
+  const projects=state.projects.filter(p=>p.client===c.company);
+  const invoices=state.invoices.filter(i=>i.client===c.company);
+  let content='';
+  if(state.clientSubtab==='overview'){
+    content=`<div class="grid2" style="margin-bottom:12px">
+      <div class="sb-row"><span class="l">Name</span><span class="v">${c.name}</span></div>
+      <div class="sb-row"><span class="l">Company</span><span class="v">${c.company}</span></div>
+      <div class="sb-row"><span class="l">Email</span><span class="v" style="font-size:11px">${c.email}</span></div>
+      <div class="sb-row"><span class="l">Phone</span><span class="v">${c.phone}</span></div>
+      <div class="sb-row"><span class="l">Address</span><span class="v" style="font-size:11px">${c.address}</span></div>
+      <div class="sb-row"><span class="l">Status</span><span class="badge ${c.projects?'b-green':'b-gray'}">${c.projects?'active':'inactive'}</span></div>
+    </div>
+    <div class="grid3">
+      <div class="kcard"><div class="l">Projects</div><div class="v">${c.projects}</div></div>
+      <div class="kcard"><div class="l">Revenue</div><div class="v">${money(c.revenue)}</div></div>
+      <div class="kcard"><div class="l">Invoices</div><div class="v">${invoices.length}</div></div>
+    </div>`;
+  } else if(state.clientSubtab==='projects'){
+    content=projects.length?projects.map(p=>`<div class="card" style="margin-bottom:8px;cursor:pointer" onclick="state.openProject='${p.id}';setModule('projects')"><div style="display:flex;justify-content:space-between"><strong>${p.name}</strong><span class="badge ${p.status==='track'?'b-green':p.status==='risk'?'b-orange':'b-red'}">${p.status}</span></div><div class="progress-bar"><div style="width:${p.progress}%"></div></div><div style="font-size:11px;color:var(--label-tertiary)">${p.progress}% · ${money(p.spent)}/${money(p.budget)}</div></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--label-tertiary)">No projects yet</div>';
+  } else if(state.clientSubtab==='invoices'){
+    content=invoices.length?`<table class="t"><thead><tr><th>Number</th><th>Date</th><th style="text-align:right">Amount</th><th>Status</th></tr></thead><tbody>${invoices.map(i=>`<tr><td class="mono">${i.num}</td><td>${i.date}</td><td style="text-align:right;font-weight:700">${money(i.amount)}</td><td><span class="badge ${i.status==='paid'?'b-green':i.status==='sent'?'b-blue':i.status==='overdue'?'b-red':'b-gray'}">${i.status}</span></td></tr>`).join('')}</tbody></table>`:'<div style="padding:20px;text-align:center;color:var(--label-tertiary)">No invoices</div>';
+  } else if(state.clientSubtab==='notes'){
+    content=`<textarea class="fld" rows="6" placeholder="Add notes about this client...">${c.notes}</textarea><button class="btn sm" onclick="showToast('project','📝 Notes saved','Client record updated')">Save notes</button>`;
+  } else {
+    content=`<div class="sb-row"><span>📄 Invoice ${invoices[0]?.num||'—'} sent</span><span style="font-size:10px;color:var(--label-tertiary)">2d ago</span></div><div class="sb-row"><span>💬 Client call completed</span><span style="font-size:10px;color:var(--label-tertiary)">5d ago</span></div><div class="sb-row"><span>📧 Email: Quarterly review scheduled</span><span style="font-size:10px;color:var(--label-tertiary)">1w ago</span></div><div class="sb-row"><span>🎯 New project started</span><span style="font-size:10px;color:var(--label-tertiary)">2w ago</span></div>`;
+  }
+  return `<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div class="av" style="width:56px;height:56px;border-radius:50%;background:${c.vip?'linear-gradient(135deg,#FFD700,#DAA520)':'var(--accent)'};color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">${initials(c.name)}</div><div><h2 style="font-size:20px;font-weight:800">${c.name} ${c.vip?'⭐':''}</h2><div style="font-size:12px;color:var(--label-tertiary)">${c.company} · ${c.address.split(',').pop().trim()}</div></div></div>
+  <div class="cli-subtabs">${tabs.map(t=>`<button class="${state.clientSubtab===t?'active':''}" onclick="state.clientSubtab='${t}';renderMain()">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}</div>
+  ${content}`;
+}
+
+window.openClientModal=()=>{$('#clName').value='';$('#clCompany').value='';$('#clEmail').value='';$('#clPhone').value='';$('#clVip').checked=false;openM('mClient')};
+window.saveClient=()=>{const name=$('#clName').value.trim();if(!name)return alert('Name required');const nc={id:uid(),name,company:$('#clCompany').value,email:$('#clEmail').value,phone:$('#clPhone').value,address:'Athens',projects:0,revenue:0,vip:$('#clVip').checked,notes:''};state.clients.push(nc);state.selectedClient=nc.id;closeM('mClient');showToast('project','👥 Client added',nc.company);renderMain()};
+
+/* ============ TIME TRACKER ============ */
+function renderTime(hd,body){
+  hd.innerHTML=`<div><h1>Time Tracker</h1><div class="sub">${state.timerRunning?'🔴 Tracking':'⏸ Ready'} · ${state.kpi.hoursWeek}h this week</div></div><div>${['today','timesheet','projects','reports'].map(s=>`<button class="btn sm ${state.timeSubpage===s?'primary':''}" onclick="state.timeSubpage='${s}';renderMain()">${s.charAt(0).toUpperCase()+s.slice(1)}</button>`).join(' ')}</div>`;
+  if(state.timeSubpage==='timesheet')return renderTimesheet(body);
+  if(state.timeSubpage==='projects')return renderTimeProjects(body);
+  if(state.timeSubpage==='reports')return renderTimeReports(body);
+  const today=state.timeEntries.filter(e=>e.date==='2026-04-18');
+  const weekDays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const weekStart=new Date('2026-04-13');
+  const weekData=weekDays.map((d,i)=>{const date=new Date(weekStart);date.setDate(date.getDate()+i);const ds=date.toISOString().slice(0,10);const h=state.timeEntries.filter(e=>e.date===ds).reduce((s,e)=>s+e.hours,0);return[d,h]});
+  const maxH=Math.max(...weekData.map(w=>w[1]),8);
+  const pct=state.timerRunning?((state.timerSeconds%3600)/36):0;
+  body.innerHTML=`
+    <div class="timer-hero">
+      <div class="timer-circle" id="timerCircle" style="background:conic-gradient(var(--accent) ${pct}%,var(--fill-tertiary) ${pct}%)">
+        <div class="timer-inner">
+          <div class="timer-val mono" id="timerVal">${fmtDur(state.timerSeconds)}</div>
+          <div class="timer-lbl">${state.projects.find(p=>p.id===state.timerProject)?.name||'No project'}</div>
+        </div>
+      </div>
+      <div class="timer-ctrls">
+        <button class="timer-btn" onclick="resetTimer()" title="Reset">⏮</button>
+        <button class="timer-btn play" onclick="toggleTimer()">${state.timerRunning?'⏸':'▶'}</button>
+        <button class="timer-btn" onclick="stopTimer()" title="Stop & log">⏹</button>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <select class="fld" style="width:240px;margin:0" onchange="state.timerProject=this.value;renderMain()">
+          ${state.projects.map(p=>`<option value="${p.id}" ${state.timerProject===p.id?'selected':''}>${p.name}</option>`).join('')}
+        </select>
+        <input class="fld" style="width:200px;margin:0" placeholder="What are you working on?" value="${state.timerDesc}" onchange="state.timerDesc=this.value">
+      </div>
+    </div>
+    <div class="grid2" style="grid-template-columns:1fr 2fr">
+      <div class="card"><h3>Today · Apr 18</h3>${today.length?today.map(e=>`<div class="timer-entry"><span class="t">${e.hours}h</span><span style="font-size:11px"><strong>${e.project}</strong><br><span style="color:var(--label-tertiary)">${e.desc}</span></span><span style="font-size:11px;color:var(--label-tertiary)">${e.member}</span><button class="btn xs" onclick="deleteEntry('${e.id}')">✕</button></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--label-tertiary)">No entries yet today</div>'}
+        <div style="border-top:1px solid var(--separator);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;font-weight:700"><span>Total</span><span class="mono">${today.reduce((s,e)=>s+e.hours,0)}h</span></div>
+      </div>
+      <div class="card"><h3>This Week</h3>
+        <div class="week-grid">${weekData.map(([d,h])=>`<div class="week-day"><div class="d">${d}</div><div class="v mono">${h}h</div><div class="b"><div style="height:${h/maxH*100}%"></div></div></div>`).join('')}</div>
+        <div style="border-top:1px solid var(--separator);margin-top:12px;padding-top:10px"><div class="sb-row"><span class="l">Total this week</span><span class="v mono">${weekData.reduce((s,w)=>s+w[1],0)}h</span></div><div class="sb-row"><span class="l">Billable</span><span class="v mono" style="color:var(--system-green)">${Math.round(weekData.reduce((s,w)=>s+w[1],0)*.85)}h</span></div><div class="sb-row"><span class="l">Target</span><span class="v mono">200h</span></div></div>
+      </div>
+    </div>`;
+}
+
+function renderTimesheet(body){
+  const grouped={};state.timeEntries.forEach(e=>{if(!grouped[e.date])grouped[e.date]=[];grouped[e.date].push(e)});
+  const dates=Object.keys(grouped).sort().reverse();
+  body.innerHTML=`<div class="card"><h3>Timesheet — Last 3 Weeks</h3><table class="t"><thead><tr><th>Date</th><th>Project</th><th>Member</th><th>Description</th><th style="text-align:right">Hours</th></tr></thead><tbody>${dates.flatMap(d=>grouped[d].map((e,i)=>`<tr><td>${i===0?e.dateLabel:''}</td><td>${e.project}</td><td>${e.member}</td><td style="color:var(--label-tertiary);font-size:12px">${e.desc}</td><td style="text-align:right;font-weight:700" class="mono">${e.hours}h</td></tr>`)).join('')}</tbody></table></div>`;
+}
+
+function renderTimeProjects(body){
+  const totals={};state.timeEntries.forEach(e=>{totals[e.projectId]=(totals[e.projectId]||0)+e.hours});
+  body.innerHTML=`<div class="card"><h3>Time by Project</h3>${state.projects.map(p=>{const h=totals[p.id]||0;const max=Math.max(...Object.values(totals),1);return `<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>${p.name}</strong><span class="mono">${h}h</span></div><div class="progress-bar"><div style="width:${h/max*100}%"></div></div></div>`}).join('')}</div>`;
+}
+
+function renderTimeReports(body){
+  const totals={};state.timeEntries.forEach(e=>{totals[e.memberId]=(totals[e.memberId]||0)+e.hours});
+  body.innerHTML=`<div class="grid2"><div class="card"><h3>Hours by Member</h3><div class="chart-host"><canvas id="chTM"></canvas></div></div><div class="card"><h3>Daily Average</h3>${TEAM.map(m=>{const h=totals[m.id]||0;const avg=(h/15).toFixed(1);return `<div class="sb-row"><span style="display:flex;align-items:center;gap:8px"><span class="av" style="width:22px;height:22px;border-radius:50%;background:${m.color};color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">${initials(m.name)}</span>${m.name.split(' ')[0]}</span><span class="v mono">${avg}h/day</span></div>`}).join('')}</div></div>`;
+  setTimeout(()=>{const c=$('#chTM');if(!c)return;if(state.charts.tm)state.charts.tm.destroy();state.charts.tm=new Chart(c,{type:'bar',data:{labels:TEAM.map(m=>m.name.split(' ')[0]),datasets:[{data:TEAM.map(m=>totals[m.id]||0),backgroundColor:TEAM.map(m=>m.color),borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}})},60);
+}
+
+window.toggleTimer=()=>{state.timerRunning=!state.timerRunning;if(state.timerRunning){state.timerStarted=Date.now();showToast('time','▶ Timer started',state.projects.find(p=>p.id===state.timerProject)?.name||'')}else{showToast('time','⏸ Paused',`${fmtDur(state.timerSeconds)} logged so far`)}renderMain()};
+window.resetTimer=()=>{state.timerSeconds=0;state.timerRunning=false;renderMain()};
+window.stopTimer=()=>{if(state.timerSeconds<60){showToast('alert','⚠ Too short','Timer must be at least 1 min');return}const h=+(state.timerSeconds/3600).toFixed(2);const p=state.projects.find(x=>x.id===state.timerProject);state.timeEntries.unshift({id:uid(),date:'2026-04-18',dateLabel:'Today',project:p.name,projectId:p.id,member:'Matéo',memberId:'u1',hours:h,desc:state.timerDesc||'Work session'});state.kpi.hoursWeek+=h;state.timerSeconds=0;state.timerRunning=false;showToast('time','⏱ Logged',`${h}h on ${p.name}`);playSound('time');renderMain();renderSidebar()};
+window.deleteEntry=id=>{state.timeEntries=state.timeEntries.filter(e=>e.id!==id);renderMain()};
+
+/* ============ INVOICES ============ */
+function renderInvoices(hd,body){
+  if(state.invoiceView==='edit')return renderInvoiceEditor(hd,body);
+  if(state.invoiceView==='quotes')return renderQuotes(hd,body);
+  hd.innerHTML=`<div><h1>Invoices</h1><div class="sub">${state.invoices.length} total · ${state.invoices.filter(i=>i.status==='paid').length} paid · ${state.invoices.filter(i=>i.status==='overdue').length} overdue</div></div><div style="display:flex;gap:6px"><button class="btn sm ${state.invoiceView==='list'?'primary':''}" onclick="state.invoiceView='list';renderMain()">Invoices</button><button class="btn sm" onclick="state.invoiceView='quotes';renderMain()">Quotes</button><button class="btn primary sm" onclick="newInvoice()">+ New Invoice</button></div>`;
+  const out=state.invoices.filter(i=>i.status==='sent'||i.status==='overdue').reduce((s,i)=>s+i.amount,0);
+  const paidM=state.invoices.filter(i=>i.status==='paid'&&i.date.startsWith('Apr')).reduce((s,i)=>s+i.amount,0);
+  body.innerHTML=`<div class="grid4" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Outstanding</div><div class="v">${money(out)}</div><div class="d" style="color:var(--system-orange)">${state.invoices.filter(i=>i.status==='sent'||i.status==='overdue').length} invoices</div></div>
+    <div class="kcard"><div class="l">Paid this month</div><div class="v" style="color:var(--system-green)">${money(paidM)}</div></div>
+    <div class="kcard"><div class="l">Overdue</div><div class="v" style="color:var(--system-red)">${state.invoices.filter(i=>i.status==='overdue').length}</div></div>
+    <div class="kcard"><div class="l">Total issued</div><div class="v">${state.invoices.length}</div></div>
+  </div>
+  <div class="card inv-list"><table class="t"><thead><tr><th>Number</th><th>Client</th><th>Date</th><th>Due</th><th style="text-align:right">Amount</th><th>Status</th><th></th></tr></thead><tbody>${state.invoices.map(inv=>`<tr onclick="openInvoice('${inv.num}')"><td class="mono" style="font-size:11px">${inv.num}</td><td>${inv.client}</td><td>${inv.date}</td><td>${inv.due}</td><td style="text-align:right;font-weight:800">${money(inv.amount)}</td><td><span class="badge ${inv.status==='paid'?'b-green':inv.status==='sent'?'b-blue':inv.status==='overdue'?'b-red':'b-gray'}">${inv.status}</span></td><td onclick="event.stopPropagation()">${inv.status==='sent'||inv.status==='overdue'?`<button class="btn xs primary" onclick="markPaid('${inv.num}')">Log payment</button>`:inv.status==='draft'?`<button class="btn xs" onclick="sendInvoice('${inv.num}')">Send</button>`:'—'}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function renderQuotes(hd,body){
+  body.innerHTML=`<div class="card"><h3>Quotes</h3><table class="t"><thead><tr><th>Number</th><th>Client</th><th>Date</th><th style="text-align:right">Amount</th><th>Status</th></tr></thead><tbody>
+    <tr><td class="mono">QT-012</td><td>Olympia Hotel</td><td>Apr 16</td><td style="text-align:right;font-weight:700">€4,200</td><td><span class="badge b-blue">sent</span></td></tr>
+    <tr><td class="mono">QT-011</td><td>Paros Olive Oil</td><td>Apr 12</td><td style="text-align:right;font-weight:700">€2,600</td><td><span class="badge b-orange">pending</span></td></tr>
+    <tr><td class="mono">QT-010</td><td>Rhodes Wedding Co.</td><td>Apr 08</td><td style="text-align:right;font-weight:700">€5,600</td><td><span class="badge b-green">accepted</span></td></tr>
+  </tbody></table></div>`;
+}
+
+function renderInvoiceEditor(hd,body){
+  const inv=state.invoiceEditing||{num:'INV-'+(1000+state.invoices.length+1),client:state.clients[0].company,date:'2026-04-18',due:'2026-05-18',items:[['Website development — Phase 1',1,1500]],notes:''};
+  state.invoiceEditing=inv;
+  const sub=inv.items.reduce((s,[,q,p])=>s+q*p,0);const vat=sub*.24;const total=sub+vat;
+  hd.innerHTML=`<div><h1>${inv.num}</h1><div class="sub">Draft invoice · Auto-saving</div></div><div style="display:flex;gap:6px"><button class="btn sm" onclick="state.invoiceView='list';state.invoiceEditing=null;renderMain()">← Back</button><button class="btn sm" onclick="window.print()">🖨 Print</button><button class="btn primary sm" onclick="saveInvoice()">Send invoice →</button></div>`;
+  body.innerHTML=`<div class="inv-split">
+    <div class="inv-edit"><h3 style="margin-bottom:12px">Edit</h3>
+      <label>Invoice number</label><input class="fld" id="iNum" value="${inv.num}">
+      <label>Client</label><select class="fld" id="iClient">${state.clients.map(c=>`<option ${c.company===inv.client?'selected':''}>${c.company}</option>`).join('')}</select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Issue date</label><input class="fld" id="iDate" value="${inv.date}"></div><div><label>Due date</label><input class="fld" id="iDue" value="${inv.due}"></div></div>
+      <label>Line items</label>
+      <div id="iItems">${inv.items.map((it,i)=>`<div style="display:grid;grid-template-columns:1fr 60px 80px 28px;gap:6px;margin-bottom:6px"><input class="fld" style="margin:0" value="${it[0]}" oninput="updInvItem(${i},0,this.value)"><input class="fld" style="margin:0" type="number" value="${it[1]}" oninput="updInvItem(${i},1,this.value)"><input class="fld" style="margin:0" type="number" value="${it[2]}" oninput="updInvItem(${i},2,this.value)"><button class="btn xs" onclick="rmInvItem(${i})">✕</button></div>`).join('')}</div>
+      <button class="btn sm" onclick="addInvItem()">+ Add line</button>
+      <label style="margin-top:14px">Notes</label><textarea class="fld" id="iNotes" rows="3">${inv.notes}</textarea>
+    </div>
+    <div class="inv-preview" id="invPreview">
+      <div class="inv-prev-hd"><div><h2>Vantage</h2><div style="font-size:11px;color:#666;margin-top:4px">Web Agency · Athens, Greece<br>mateo@vantage.gr · VAT GR801234567</div></div><div style="text-align:right"><div style="font-size:24px;font-weight:800;letter-spacing:-.02em">INVOICE</div><div style="font-size:13px;color:#666;margin-top:2px">${inv.num}</div></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;font-size:12px"><div><div style="color:#999;text-transform:uppercase;font-size:10px;letter-spacing:.08em;font-weight:700;margin-bottom:4px">Bill to</div><strong>${inv.client}</strong></div><div><div style="color:#999;text-transform:uppercase;font-size:10px;letter-spacing:.08em;font-weight:700;margin-bottom:4px">Issue / Due</div>${inv.date} / ${inv.due}</div></div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:14px"><thead><tr style="border-bottom:2px solid #000"><th style="text-align:left;padding:6px 0;font-size:10px;text-transform:uppercase">Description</th><th style="text-align:right;padding:6px;font-size:10px;text-transform:uppercase">Qty</th><th style="text-align:right;padding:6px;font-size:10px;text-transform:uppercase">Unit</th><th style="text-align:right;padding:6px 0;font-size:10px;text-transform:uppercase">Total</th></tr></thead><tbody>${inv.items.map(([n,q,p])=>`<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${n}</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">${q}</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">${moneyF(p)}</td><td style="text-align:right;padding:8px 0;font-weight:700;border-bottom:1px solid #eee">${moneyF(q*p)}</td></tr>`).join('')}</tbody></table>
+      <div style="display:flex;justify-content:flex-end"><div style="min-width:240px;font-size:12px"><div style="display:flex;justify-content:space-between;padding:4px 0"><span>Subtotal</span><span>${moneyF(sub)}</span></div><div style="display:flex;justify-content:space-between;padding:4px 0"><span>VAT 24%</span><span>${moneyF(vat)}</span></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px solid #000;font-size:15px;font-weight:800;margin-top:4px"><span>Total</span><span>${moneyF(total)}</span></div></div></div>
+      <div style="margin-top:20px;font-size:11px;color:#666;border-top:1px solid #eee;padding-top:10px">${inv.notes||'Thank you for your business.'}</div>
+    </div>
+  </div>`;
+  ['iNum','iClient','iDate','iDue','iNotes'].forEach(id=>{const el=$('#'+id);if(el)el.addEventListener('input',()=>{inv.num=$('#iNum').value;inv.client=$('#iClient').value;inv.date=$('#iDate').value;inv.due=$('#iDue').value;inv.notes=$('#iNotes').value;renderMain()})});
+}
+
+window.newInvoice=(clientName)=>{state.invoiceEditing={num:'INV-'+(1000+state.invoices.length+1),client:clientName||state.clients[0].company,date:'2026-04-18',due:'2026-05-18',items:[['Website development — Phase 1',1,1500]],notes:'',status:'draft'};state.invoiceView='edit';renderMain()};
+window.openInvoice=num=>{const inv=state.invoices.find(i=>i.num===num);state.invoiceEditing=JSON.parse(JSON.stringify(inv));state.invoiceView='edit';renderMain()};
+window.addInvItem=()=>{state.invoiceEditing.items.push(['New line item',1,500]);renderMain()};
+window.rmInvItem=i=>{state.invoiceEditing.items.splice(i,1);renderMain()};
+window.updInvItem=(i,f,v)=>{state.invoiceEditing.items[i][f]=f===0?v:(+v||0);const sub=state.invoiceEditing.items.reduce((s,[,q,p])=>s+q*p,0);state.invoiceEditing.amount=Math.round(sub*1.24)};
+window.saveInvoice=()=>{const inv=state.invoiceEditing;const sub=inv.items.reduce((s,[,q,p])=>s+q*p,0);inv.amount=Math.round(sub*1.24);inv.status='sent';const existing=state.invoices.findIndex(i=>i.num===inv.num);if(existing>=0)state.invoices[existing]=inv;else state.invoices.unshift(inv);state.invoiceEditing=null;state.invoiceView='list';showToast('payment','📄 Invoice sent',`${inv.num} — ${money(inv.amount)}`);renderMain()};
+window.sendInvoice=num=>{const i=state.invoices.find(x=>x.num===num);i.status='sent';showToast('payment','📤 Invoice sent',num);renderMain()};
+window.markPaid=num=>{const i=state.invoices.find(x=>x.num===num);i.status='paid';state.kpi.outstandingAmt=Math.max(0,state.kpi.outstandingAmt-i.amount);state.kpi.revenue+=i.amount;showToast('payment','💰 Payment logged',`${num} — ${money(i.amount)}`);playSound('payment');renderMain();renderSidebar()};
+
+/* ============ FINANCE ============ */
+function renderFinance(hd,body){
+  if(state.financeSubpage==='expenses')return renderExpenses(hd,body);
+  const paidTotal=state.invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+  const expensesTotal=EXPENSE_DATA.reduce((s,e)=>s+e.amount,0);
+  const profit=paidTotal-expensesTotal;
+  hd.innerHTML=`<div><h1>Finance</h1><div class="sub">Year-to-date · €${state.kpi.revenue.toLocaleString()} revenue</div></div><div><button class="btn sm ${state.financeSubpage==='main'?'primary':''}" onclick="state.financeSubpage='main';renderMain()">Summary</button> <button class="btn sm ${state.financeSubpage==='expenses'?'primary':''}" onclick="state.financeSubpage='expenses';renderMain()">Expenses</button></div>`;
+  body.innerHTML=`<div class="grid5" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Revenue</div><div class="v">${money(paidTotal)}</div><div class="d" style="color:var(--system-green)">↑ 14%</div></div>
+    <div class="kcard"><div class="l">Expenses</div><div class="v">${money(expensesTotal)}</div><div class="d" style="color:var(--label-tertiary)">Monthly avg</div></div>
+    <div class="kcard"><div class="l">Net Profit</div><div class="v" style="color:var(--system-green)">${money(profit)}</div><div class="d" style="color:var(--label-tertiary)">${Math.round(profit/paidTotal*100)}% margin</div></div>
+    <div class="kcard"><div class="l">Outstanding</div><div class="v">${money(state.kpi.outstandingAmt)}</div><div class="d" style="color:var(--system-orange)">${state.invoices.filter(i=>i.status==='overdue').length} overdue</div></div>
+    <div class="kcard"><div class="l">Avg Project</div><div class="v">${money(Math.round(paidTotal/state.projects.length))}</div><div class="d" style="color:var(--label-tertiary)">Per engagement</div></div>
+  </div>
+  <div class="grid2" style="margin-bottom:14px"><div class="card"><h3>Revenue vs Expenses</h3><div class="chart-host"><canvas id="chFin1"></canvas></div></div><div class="card"><h3>Revenue by Client</h3><div class="chart-host"><canvas id="chFin2"></canvas></div></div></div>
+  <div class="grid2"><div class="card"><h3>P&L Summary</h3>
+    <div class="sb-row"><span class="l">Revenue</span><span class="v">${money(paidTotal)}</span></div>
+    <div class="sb-row"><span class="l">COGS (contractors)</span><span class="v">${money(1200)}</span></div>
+    <div class="sb-row"><span class="l">Gross Profit</span><span class="v" style="color:var(--system-green)">${money(paidTotal-1200)}</span></div>
+    <div class="sb-row"><span class="l">Operating expenses</span><span class="v">${money(expensesTotal-1200)}</span></div>
+    <div class="sb-row"><span class="l">VAT collected (24%)</span><span class="v">${money(paidTotal*.24/1.24)}</span></div>
+    <div class="sb-row" style="border-top:2px solid var(--separator);padding-top:8px;margin-top:4px"><span class="l" style="font-size:13px;font-weight:800">Net Profit</span><span class="v" style="font-size:16px;color:var(--accent)">${money(profit)}</span></div>
+  </div>
+  <div class="card"><h3>Expense Breakdown</h3>${EXPENSE_DATA.map(e=>`<div class="sb-row"><span>${e.icon} ${e.cat}</span><span class="v">${money(e.amount)}</span></div>`).join('')}<div style="border-top:1px solid var(--separator);margin-top:8px;padding-top:8px" class="sb-row"><span class="l" style="font-weight:800">Total</span><span class="v">${money(expensesTotal)}</span></div></div></div>`;
+  setTimeout(()=>{
+    if(state.charts.fin1)state.charts.fin1.destroy();state.charts.fin1=new Chart($('#chFin1'),{type:'bar',data:{labels:state.revHistory.map(r=>r[0]),datasets:[{label:'Revenue',data:state.revHistory.map(r=>r[1]),backgroundColor:'#AF52DE',borderRadius:6},{label:'Expenses',data:state.revHistory.map(()=>rand(2500,3400)),backgroundColor:'rgba(175,82,222,.3)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>'€'+v}}}}});
+    if(state.charts.fin2)state.charts.fin2.destroy();
+    const byClient={};state.invoices.filter(i=>i.status==='paid').forEach(i=>{byClient[i.client]=(byClient[i.client]||0)+i.amount});
+    state.charts.fin2=new Chart($('#chFin2'),{type:'doughnut',data:{labels:Object.keys(byClient).slice(0,6),datasets:[{data:Object.values(byClient).slice(0,6),backgroundColor:['#AF52DE','#8B3DC7','#007AFF','#34C759','#FF9500','#FF3B30']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:10}}}}});
+  },60);
+}
+
+function renderExpenses(hd,body){
+  body.innerHTML=`<div class="card"><h3>Expense Tracker</h3>${EXPENSE_DATA.map(e=>`<div style="padding:10px 0;border-bottom:1px solid var(--separator)"><div style="display:flex;justify-content:space-between;align-items:center"><strong>${e.icon} ${e.cat}</strong><span style="font-weight:800;font-variant-numeric:tabular-nums">${money(e.amount)}</span></div><div style="font-size:11px;color:var(--label-tertiary);margin-top:3px">${e.items.join(' · ')}</div></div>`).join('')}<button class="btn full" style="margin-top:14px" onclick="showToast('project','➕ Expense logged','New expense added to tracker')">+ Add Expense</button></div>`;
+}
+
+/* ============ TEAM ============ */
+function renderTeam(hd,body){
+  if(state.teamSubpage==='schedule')return renderSchedule(hd,body);
+  if(state.teamSubpage==='performance')return renderPerformance(hd,body);
+  if(state.teamSelected){const m=TEAM.find(t=>t.id===state.teamSelected);if(m)return renderTeamDetail(hd,body,m)}
+  hd.innerHTML=`<div><h1>Team</h1><div class="sub">${TEAM.length} members · ${TEAM.filter(m=>!m.remote).length} on-site · ${TEAM.filter(m=>m.remote).length} remote</div></div><div><button class="btn sm ${state.teamSubpage==='cards'?'primary':''}" onclick="state.teamSubpage='cards';renderMain()">Team</button> <button class="btn sm" onclick="state.teamSubpage='schedule';renderMain()">Schedule</button> <button class="btn sm" onclick="state.teamSubpage='performance';renderMain()">Performance</button></div>`;
+  body.innerHTML=`<div class="team-grid">${TEAM.map(m=>`<div class="team-card" onclick="state.teamSelected='${m.id}';renderMain()">
+    <div class="team-av" style="background:${m.color}">${initials(m.name)}</div>
+    <div class="team-name">${m.name}</div>
+    <div class="team-role">${m.role}</div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--separator)">
+      <div class="sb-row"><span class="l">Projects</span><span class="v">${m.projects.length}</span></div>
+      <div class="sb-row"><span class="l">This week</span><span class="v">${m.hoursWeek}h</span></div>
+      <div class="sb-row"><span class="l">Utilization</span><span class="v" style="color:${m.utilization>85?'var(--system-green)':'var(--system-orange)'}">${m.utilization}%</span></div>
+      <div class="sb-row"><span class="l">Mode</span><span class="badge ${m.remote?'b-blue':'b-green'}">${m.remote?'Remote':'On-site'}</span></div>
+    </div>
+  </div>`).join('')}</div>`;
+}
+
+function renderTeamDetail(hd,body,m){
+  const projects=state.projects.filter(p=>p.team.includes(m.id));
+  const hrs=state.timeEntries.filter(e=>e.memberId===m.id).reduce((s,e)=>s+e.hours,0);
+  hd.innerHTML=`<div><h1>${m.name}</h1><div class="sub">${m.role} · ${m.email}</div></div><div><button class="btn sm" onclick="state.teamSelected=null;renderMain()">← Back</button></div>`;
+  body.innerHTML=`<div style="display:flex;align-items:center;gap:20px;margin-bottom:16px;padding:20px;background:var(--bg-secondary);border-radius:12px"><div class="team-av" style="background:${m.color};width:80px;height:80px;font-size:28px">${initials(m.name)}</div><div><h2 style="font-size:24px;font-weight:800">${m.name}</h2><div style="color:var(--label-tertiary);margin-top:4px">${m.role} · ${m.remote?'Remote':'Athens HQ'}</div><div style="margin-top:10px;font-size:13px"><a href="mailto:${m.email}" style="color:var(--accent)">${m.email}</a></div></div></div>
+  <div class="grid4" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Active projects</div><div class="v">${projects.length}</div></div>
+    <div class="kcard"><div class="l">Hours this week</div><div class="v">${m.hoursWeek}</div></div>
+    <div class="kcard"><div class="l">Utilization</div><div class="v">${m.utilization}%</div></div>
+    <div class="kcard"><div class="l">Hours logged (3w)</div><div class="v">${hrs}h</div></div>
+  </div>
+  <div class="card"><h3>Assigned projects</h3>${projects.map(p=>`<div class="sb-row" onclick="state.openProject='${p.id}';setModule('projects')" style="cursor:pointer;padding:10px 0"><span><strong>${p.name}</strong> — ${p.client}</span><span class="v">${p.progress}%</span></div>`).join('')}</div>`;
+}
+
+function renderSchedule(hd,body){
+  hd.innerHTML=`<div><h1>Weekly Schedule</h1><div class="sub">Apr 13 – 19, 2026</div></div><div><button class="btn sm" onclick="state.teamSubpage='cards';renderMain()">← Team</button></div>`;
+  const days=['Mon 13','Tue 14','Wed 15','Thu 16','Fri 17','Sat 18','Sun 19'];
+  body.innerHTML=`<div class="card"><div style="display:grid;grid-template-columns:160px repeat(7,1fr);gap:6px"><div></div>${days.map(d=>`<div style="font-size:11px;font-weight:700;text-align:center;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em">${d}</div>`).join('')}
+  ${TEAM.map(m=>{return `<div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600"><div class="team-av" style="width:28px;height:28px;font-size:10px;background:${m.color};margin:0">${initials(m.name)}</div>${m.name.split(' ')[0]}</div>${days.map((_,i)=>{const busy=Math.random()>.25;const load=busy?rand(4,8):0;return `<div style="background:${busy?'var(--accent-soft)':'var(--fill-tertiary)'};border-radius:6px;padding:10px;text-align:center;font-size:11px;font-weight:700;color:${busy?'var(--accent-deep)':'var(--label-tertiary)'}">${busy?load+'h':'—'}</div>`}).join('')}`}).join('')}
+  </div></div>`;
+}
+
+function renderPerformance(hd,body){
+  hd.innerHTML=`<div><h1>Team Performance</h1><div class="sub">Last 3 weeks</div></div><div><button class="btn sm" onclick="state.teamSubpage='cards';renderMain()">← Team</button></div>`;
+  body.innerHTML=`<div class="card"><h3>Member Performance</h3><table class="t"><thead><tr><th>Member</th><th>Role</th><th style="text-align:right">Hours</th><th style="text-align:right">Projects</th><th style="text-align:right">Utilization</th><th>Status</th></tr></thead><tbody>${TEAM.map(m=>{const h=state.timeEntries.filter(e=>e.memberId===m.id).reduce((s,e)=>s+e.hours,0);return `<tr><td><div style="display:flex;align-items:center;gap:8px"><div class="team-av" style="width:28px;height:28px;font-size:10px;background:${m.color};margin:0">${initials(m.name)}</div>${m.name}</div></td><td>${m.role}</td><td style="text-align:right;font-weight:700">${h}</td><td style="text-align:right">${m.projects.length}</td><td style="text-align:right">${m.utilization}%</td><td><span class="badge ${m.utilization>85?'b-green':m.utilization>70?'b-orange':'b-red'}">${m.utilization>85?'Excellent':m.utilization>70?'Good':'Low'}</span></td></tr>`}).join('')}</tbody></table></div>`;
+}
+
+/* ============ PROPOSALS ============ */
+function renderProposals(hd,body){
+  const stages=[['lead','Lead','📥'],['sent','Proposal Sent','📤'],['negotiation','Negotiation','💬'],['won','Won','✅'],['lost','Lost','❌']];
+  const pipeline=state.proposals.filter(p=>['lead','sent','negotiation'].includes(p.stage)).reduce((s,p)=>s+p.value,0);
+  const won=state.proposals.filter(p=>p.stage==='won').reduce((s,p)=>s+p.value,0);
+  hd.innerHTML=`<div><h1>Proposals</h1><div class="sub">${state.proposals.length} total · ${money(pipeline)} pipeline · ${money(won)} won</div></div><div><button class="btn primary sm" onclick="openLeadModal()">+ New Lead</button></div>`;
+  body.innerHTML=`<div class="grid4" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Open pipeline</div><div class="v">${money(pipeline)}</div></div>
+    <div class="kcard"><div class="l">Won this month</div><div class="v" style="color:var(--system-green)">${money(won)}</div></div>
+    <div class="kcard"><div class="l">Conversion</div><div class="v">${Math.round(state.proposals.filter(p=>p.stage==='won').length/state.proposals.length*100)}%</div></div>
+    <div class="kcard"><div class="l">Avg deal size</div><div class="v">${money(Math.round(state.proposals.reduce((s,p)=>s+p.value,0)/state.proposals.length))}</div></div>
+  </div>
+  <div class="props-kan">${stages.map(([k,l,i])=>{const items=state.proposals.filter(p=>p.stage===k);const total=items.reduce((s,p)=>s+p.value,0);return `<div class="props-col"><div class="hd"><span>${i} ${l}</span><span>${items.length} · ${money(total)}</span></div>${items.map(p=>`<div class="prop-card" onclick="advanceProposal('${p.id}')"><div class="t">${p.company}</div><div class="c">${p.contact} · ${p.notes}</div><div class="amt">${money(p.value)}</div></div>`).join('')||'<div style="text-align:center;color:var(--label-tertiary);padding:16px;font-size:11px">—</div>'}</div>`}).join('')}</div>
+  <div class="grid3" style="margin-top:14px"><div class="card"><h3>Templates</h3>${PROJECT_TEMPLATES.map(t=>`<button class="qa-btn" onclick="showToast('lead','📄 Template','${t} loaded')">📄 ${t}</button>`).join('')}</div><div class="card"><h3>Analytics</h3><div class="sb-row"><span class="l">Win rate</span><span class="v">${Math.round(state.proposals.filter(p=>p.stage==='won').length/(state.proposals.filter(p=>p.stage==='won'||p.stage==='lost').length||1)*100)}%</span></div><div class="sb-row"><span class="l">Avg time to close</span><span class="v">14 days</span></div><div class="sb-row"><span class="l">Lost reasons</span><span class="v" style="font-size:11px">Budget (70%)</span></div></div><div class="card"><h3>Next Actions</h3><div class="sb-row"><span>📞 Follow up Paros Olive Oil</span><span style="font-size:10px;color:var(--system-red)">Today</span></div><div class="sb-row"><span>📧 Send revised proposal Santorini</span><span style="font-size:10px;color:var(--system-orange)">Tomorrow</span></div><div class="sb-row"><span>🤝 Kick-off Heraklion Museum</span><span style="font-size:10px;color:var(--label-tertiary)">Next week</span></div></div></div>`;
+}
+
+window.advanceProposal=id=>{const p=state.proposals.find(x=>x.id===id);const order=['lead','sent','negotiation','won','lost'];const idx=order.indexOf(p.stage);p.stage=order[Math.min(idx+1,4)];showToast('lead','📧 Stage update',`${p.company} → ${p.stage}`);renderMain()};
+window.openLeadModal=()=>{$('#ldCompany').value='';$('#ldContact').value='';$('#ldValue').value=1500;openM('mLead')};
+window.saveLead=()=>{const co=$('#ldCompany').value.trim();if(!co)return alert('Company required');state.proposals.push({id:uid(),company:co,contact:$('#ldContact').value,value:+$('#ldValue').value,stage:'lead',notes:'Just added'});closeM('mLead');showToast('lead','📧 Lead added',co);playSound('lead');renderMain()};
+
+/* ============ REPORTS ============ */
+function renderReports(hd,body){
+  hd.innerHTML=`<div><h1>Reports</h1><div class="sub">Data insights · Apr 2026</div></div><div style="display:flex;gap:6px"><input class="fld" style="margin:0;width:140px" type="date" value="2026-04-01"><input class="fld" style="margin:0;width:140px" type="date" value="2026-04-18"></div>`;
+  const types=[['revenue','Revenue','💰'],['project','Projects','🎯'],['team','Team','👥'],['client','Clients','🏢'],['proposals','Proposals','📧']];
+  body.innerHTML=`<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">${types.map(([k,l,i])=>`<button class="btn sm ${state.reportType===k?'primary':''}" onclick="state.reportType='${k}';renderMain()">${i} ${l}</button>`).join('')}</div>
+  ${renderReportContent()}`;
+  setTimeout(()=>drawReportChart(),60);
+}
+
+function renderReportContent(){
+  if(state.reportType==='revenue'){
+    const paid=state.invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.amount,0);
+    return `<div class="grid2" style="grid-template-columns:2fr 1fr"><div class="card"><h3>Revenue by Month</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div><div class="card"><h3>Insights</h3><div class="sb-row"><span class="l">Best month</span><span class="v">Apr · ${money(12400)}</span></div><div class="sb-row"><span class="l">YoY growth</span><span class="v" style="color:var(--system-green)">+28%</span></div><div class="sb-row"><span class="l">Avg monthly</span><span class="v">${money(Math.round(paid/6))}</span></div><div class="sb-row"><span class="l">Trend</span><span class="v">↗ Up</span></div><button class="btn full" style="margin-top:10px" onclick="exportCSV('revenue')">⤓ Export CSV</button></div></div>
+    <div class="card" style="margin-top:14px"><h3>Monthly Detail</h3><table class="t"><thead><tr><th>Month</th><th style="text-align:right">Revenue</th><th style="text-align:right">Invoices</th><th style="text-align:right">Avg Deal</th></tr></thead><tbody>${state.revHistory.map(([m,v])=>`<tr><td><strong>${m}</strong></td><td style="text-align:right;font-weight:700">${money(v)}</td><td style="text-align:right">${rand(4,9)}</td><td style="text-align:right">${money(Math.round(v/rand(4,9)))}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  if(state.reportType==='project'){
+    return `<div class="card"><h3>Project Performance</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>All Projects</h3><table class="t"><thead><tr><th>Name</th><th>Client</th><th style="text-align:right">Budget</th><th style="text-align:right">Spent</th><th style="text-align:right">Margin</th><th>Status</th></tr></thead><tbody>${state.projects.map(p=>{const margin=Math.round((p.budget-p.spent)/p.budget*100);return `<tr><td><strong>${p.name}</strong></td><td>${p.client}</td><td style="text-align:right">${money(p.budget)}</td><td style="text-align:right">${money(p.spent)}</td><td style="text-align:right;color:${margin>30?'var(--system-green)':'var(--system-orange)'}">${margin}%</td><td><span class="badge ${p.status==='track'?'b-green':p.status==='risk'?'b-orange':'b-red'}">${p.status}</span></td></tr>`}).join('')}</tbody></table><button class="btn full" style="margin-top:10px" onclick="exportCSV('project')">⤓ Export CSV</button></div>`;
+  }
+  if(state.reportType==='team'){
+    return `<div class="card"><h3>Hours by Member</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>Team Breakdown</h3><table class="t"><thead><tr><th>Member</th><th>Role</th><th style="text-align:right">Hours</th><th style="text-align:right">Billable</th><th style="text-align:right">Utilization</th></tr></thead><tbody>${TEAM.map(m=>{const h=state.timeEntries.filter(e=>e.memberId===m.id).reduce((s,e)=>s+e.hours,0);return `<tr><td>${m.name}</td><td>${m.role}</td><td style="text-align:right">${h}h</td><td style="text-align:right">${Math.round(h*.85)}h</td><td style="text-align:right">${m.utilization}%</td></tr>`}).join('')}</tbody></table><button class="btn full" style="margin-top:10px" onclick="exportCSV('team')">⤓ Export CSV</button></div>`;
+  }
+  if(state.reportType==='client'){
+    return `<div class="card"><h3>Revenue by Client</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>Client Breakdown</h3><table class="t"><thead><tr><th>Company</th><th style="text-align:right">Revenue</th><th style="text-align:right">Projects</th><th>Status</th></tr></thead><tbody>${state.clients.filter(c=>c.revenue>0).sort((a,b)=>b.revenue-a.revenue).map(c=>`<tr><td><strong>${c.company}</strong> ${c.vip?'⭐':''}</td><td style="text-align:right;font-weight:700">${money(c.revenue)}</td><td style="text-align:right">${c.projects}</td><td><span class="badge ${c.projects>0?'b-green':'b-gray'}">${c.projects>0?'active':'past'}</span></td></tr>`).join('')}</tbody></table><button class="btn full" style="margin-top:10px" onclick="exportCSV('client')">⤓ Export CSV</button></div>`;
+  }
+  const stages={lead:0,sent:0,negotiation:0,won:0,lost:0};state.proposals.forEach(p=>stages[p.stage]++);
+  return `<div class="card"><h3>Proposal Pipeline</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+  <div class="card" style="margin-top:14px"><h3>All Proposals</h3><table class="t"><thead><tr><th>Company</th><th>Contact</th><th style="text-align:right">Value</th><th>Stage</th></tr></thead><tbody>${state.proposals.map(p=>`<tr><td><strong>${p.company}</strong></td><td>${p.contact}</td><td style="text-align:right;font-weight:700">${money(p.value)}</td><td><span class="badge ${p.stage==='won'?'b-green':p.stage==='lost'?'b-red':'b-purple'}">${p.stage}</span></td></tr>`).join('')}</tbody></table><button class="btn full" style="margin-top:10px" onclick="exportCSV('proposals')">⤓ Export CSV</button></div>`;
+}
+
+function drawReportChart(){
+  const c=$('#chReport');if(!c)return;
+  if(state.charts.report)state.charts.report.destroy();
+  const opts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+  if(state.reportType==='revenue'){state.charts.report=new Chart(c,{type:'bar',data:{labels:state.revHistory.map(r=>r[0]),datasets:[{data:state.revHistory.map(r=>r[1]),backgroundColor:'#AF52DE',borderRadius:6}]},options:{...opts,scales:{y:{ticks:{callback:v=>'€'+v}}}}});}
+  else if(state.reportType==='project'){state.charts.report=new Chart(c,{type:'bar',data:{labels:state.projects.map(p=>p.name.slice(0,16)),datasets:[{label:'Budget',data:state.projects.map(p=>p.budget),backgroundColor:'rgba(175,82,222,.3)',borderRadius:4},{label:'Spent',data:state.projects.map(p=>p.spent),backgroundColor:'#AF52DE',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});}
+  else if(state.reportType==='team'){state.charts.report=new Chart(c,{type:'bar',data:{labels:TEAM.map(m=>m.name.split(' ')[0]),datasets:[{data:TEAM.map(m=>state.timeEntries.filter(e=>e.memberId===m.id).reduce((s,e)=>s+e.hours,0)),backgroundColor:TEAM.map(m=>m.color),borderRadius:6}]},options:opts});}
+  else if(state.reportType==='client'){const top=state.clients.filter(c=>c.revenue>0).sort((a,b)=>b.revenue-a.revenue).slice(0,8);state.charts.report=new Chart(c,{type:'doughnut',data:{labels:top.map(c=>c.company),datasets:[{data:top.map(c=>c.revenue),backgroundColor:['#AF52DE','#8B3DC7','#007AFF','#34C759','#FF9500','#FF3B30','#FFCC00','#5AC8FA']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{size:10}}}}}});}
+  else {const stages={Lead:0,Sent:0,Negotiation:0,Won:0,Lost:0};state.proposals.forEach(p=>{const key=p.stage.charAt(0).toUpperCase()+p.stage.slice(1);stages[key]=(stages[key]||0)+p.value});state.charts.report=new Chart(c,{type:'bar',data:{labels:Object.keys(stages),datasets:[{data:Object.values(stages),backgroundColor:['#8E8E93','#007AFF','#FF9500','#34C759','#FF3B30'],borderRadius:6}]},options:{...opts,scales:{y:{ticks:{callback:v=>'€'+v}}}}});}
+}
+
+window.exportCSV=type=>{
+  let csv='';
+  if(type==='revenue')csv='Month,Revenue\n'+state.revHistory.map(r=>r.join(',')).join('\n');
+  else if(type==='project')csv='Name,Client,Budget,Spent,Status\n'+state.projects.map(p=>[p.name,p.client,p.budget,p.spent,p.status].join(',')).join('\n');
+  else if(type==='team')csv='Name,Role,HoursWeek,Utilization\n'+TEAM.map(m=>[m.name,m.role,m.hoursWeek,m.utilization].join(',')).join('\n');
+  else if(type==='client')csv='Company,Revenue,Projects,VIP\n'+state.clients.map(c=>[c.company,c.revenue,c.projects,c.vip].join(',')).join('\n');
+  else csv='Company,Contact,Value,Stage\n'+state.proposals.map(p=>[p.company,p.contact,p.value,p.stage].join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='vantage-'+type+'-report.csv';a.click();URL.revokeObjectURL(url);showToast('project','⤓ Exported',type+'-report.csv downloaded');
+};
+
+/* ============ SETTINGS ============ */
+function renderSettings(hd,body){
+  const tabs=[['profile','Agency Profile','🏢'],['team','Team','👤'],['invoice','Invoice Defaults','📄'],['project','Project Defaults','🎯'],['notif','Notifications','🔔'],['integrations','Integrations','🔌']];
+  hd.innerHTML=`<div><h1>Settings</h1><div class="sub">Manage your agency preferences</div></div>`;
+  body.innerHTML=`<div class="grid2" style="grid-template-columns:220px 1fr;gap:14px">
+    <div class="card" style="padding:8px">${tabs.map(([k,l,i])=>`<button class="qa-btn ${state.settingsSubpage===k?'':''}" style="${state.settingsSubpage===k?'background:var(--accent-soft);color:var(--accent-deep)':''}" onclick="state.settingsSubpage='${k}';renderMain()">${i} ${l}</button>`).join('')}</div>
+    <div class="card">${renderSettingsPanel()}</div>
+  </div>`;
+}
+
+function renderSettingsPanel(){
+  if(state.settingsSubpage==='profile')return `<h3>Agency Profile</h3><label>Agency name</label><input class="fld" value="Vantage Web Agency"><label>Founder</label><input class="fld" value="Matéo Chabbert"><label>Email</label><input class="fld" value="hello@vantage.gr"><label>Phone</label><input class="fld" value="+30 210 000 0000"><label>Address</label><input class="fld" value="Athens, Greece"><label>VAT Number</label><input class="fld" value="GR801234567"><button class="btn primary" style="margin-top:10px" onclick="showToast('project','✓ Saved','Profile updated')">Save changes</button>`;
+  if(state.settingsSubpage==='team')return `<h3>Team Management</h3>${TEAM.map(m=>`<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--separator)"><div class="team-av" style="width:36px;height:36px;background:${m.color};margin:0;font-size:12px">${initials(m.name)}</div><div style="flex:1"><strong>${m.name}</strong><div style="font-size:11px;color:var(--label-tertiary)">${m.email}</div></div><span class="badge ${m.remote?'b-blue':'b-green'}">${m.remote?'Remote':'On-site'}</span><button class="btn xs">Edit</button></div>`).join('')}<button class="btn primary" style="margin-top:10px" onclick="showToast('project','+ Invite','Invite sent')">+ Invite member</button>`;
+  if(state.settingsSubpage==='invoice')return `<h3>Invoice Defaults</h3><label>Starting number</label><input class="fld" value="INV-1048"><label>Default due (days)</label><input class="fld" type="number" value="30"><label>VAT rate (%)</label><input class="fld" type="number" value="24"><label>Currency</label><select class="fld"><option>EUR (€)</option><option>USD ($)</option></select><label>Default notes</label><textarea class="fld" rows="2">Thank you for your business. Payment via bank transfer.</textarea><button class="btn primary" style="margin-top:10px" onclick="showToast('project','✓ Saved','Invoice defaults updated')">Save</button>`;
+  if(state.settingsSubpage==='project')return `<h3>Project Defaults</h3><label>Default budget (€)</label><input class="fld" type="number" value="1500"><label>Default timeline (days)</label><input class="fld" type="number" value="30"><label>Auto-assign</label><select class="fld"><option>Matéo (founder)</option><option>Petros (PM)</option></select><label>Default tasks template</label><select class="fld">${PROJECT_TEMPLATES.map(t=>`<option>${t}</option>`).join('')}</select><button class="btn primary" style="margin-top:10px" onclick="showToast('project','✓ Saved','Project defaults updated')">Save</button>`;
+  if(state.settingsSubpage==='notif')return `<h3>Notification Preferences</h3>${['Invoice paid','New lead','Project overdue','Task completed','Daily digest','Weekly report'].map(n=>`<label style="display:flex;align-items:center;gap:10px;padding:8px 0;text-transform:none;font-size:13px;font-weight:500;color:var(--label-primary)"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--accent)"> ${n}</label>`).join('')}<button class="btn primary" style="margin-top:10px" onclick="showToast('project','✓ Saved','Notifications updated')">Save preferences</button>`;
+  return `<h3>Integrations</h3>${[['Stripe','💳','Connected'],['Google Calendar','📅','Connected'],['Slack','💬','Not connected'],['Figma','🎨','Connected'],['GitHub','🐙','Connected'],['Mailchimp','📧','Not connected']].map(([n,i,s])=>`<div style="display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--separator)"><div style="font-size:22px">${i}</div><div style="flex:1"><strong>${n}</strong></div><span class="badge ${s==='Connected'?'b-green':'b-gray'}">${s}</span><button class="btn xs">${s==='Connected'?'Configure':'Connect'}</button></div>`).join('')}`;
+}
+
+/* ============ LIVE ENGINE ============ */
+const LiveEngine={
+  running:false,timeout:null,
+  start(){if(this.running)return;this.running=true;this.tick()},
+  stop(){this.running=false;clearTimeout(this.timeout)},
+  tick(){
+    if(!this.running)return;
+    const events=[{fn:()=>this.invoicePaid(),w:20},{fn:()=>this.timeLogged(),w:35},{fn:()=>this.projectUpdate(),w:20},{fn:()=>this.newLead(),w:10},{fn:()=>this.taskCompleted(),w:15}];
+    const tot=events.reduce((s,e)=>s+e.w,0);let r=Math.random()*tot;
+    for(const e of events){r-=e.w;if(r<=0){try{e.fn()}catch(err){}break}}
+    this.timeout=setTimeout(()=>this.tick(),rand(35000,75000));
+  },
+  invoicePaid(){
+    const inv=state.invoices.find(i=>i.status==='sent'||i.status==='overdue');
+    if(!inv)return;
+    inv.status='paid';
+    state.kpi.outstandingAmt=Math.max(0,state.kpi.outstandingAmt-inv.amount);
+    state.kpi.revenue+=inv.amount;
+    showToast('payment','💰 Invoice paid',`${inv.num} — ${money(inv.amount)} from ${inv.client}`);
+    playSound('payment');
+    addActivity('💰',`Invoice ${inv.num} paid — ${money(inv.amount)} — ${inv.client}`,'Matéo');
+    if(state.module==='overview'||state.module==='invoices'||state.module==='finance')renderMain();
+    renderSidebar();
+  },
+  timeLogged(){
+    const p=pick(state.projects);const m=pick(TEAM);const h=rand(1,3);
+    state.timeEntries.unshift({id:uid(),date:'2026-04-18',dateLabel:'Today',project:p.name,projectId:p.id,member:m.name.split(' ')[0],memberId:m.id,hours:h,desc:pick(['Design work','Development','Client meeting','Code review','QA testing'])});
+    state.kpi.hoursWeek+=h;
+    showToast('time','⏱ Time logged',`${m.name.split(' ')[0]} · ${h}h on ${p.name}`);
+    playSound('time');
+    addActivity('⏱',`${m.name.split(' ')[0]} logged ${h}h on ${p.name}`,m.name);
+    if(state.module==='time'||state.module==='overview')renderMain();
+    renderSidebar();
+  },
+  projectUpdate(){
+    const p=pick(state.projects);
+    const msgs=[`${p.name} milestone reached`,`${p.client} feedback received on ${p.name}`,`${p.name} — new task added`,`${p.name} progress updated`];
+    const msg=pick(msgs);
+    showToast('project','🎯 Project update',msg);
+    addActivity('🎯',msg,pick(TEAM).name.split(' ')[0]);
+    if(state.module==='overview'||state.module==='projects')renderMain();
+  },
+  newLead(){
+    const cos=['Thessaloniki Tech','Chania Resort','Aegean Marina','Naxos Market','Delphi Spa'];
+    const contacts=['Nikos','Maria','Stavros','Elena','Dimitris'];
+    const co=pick(cos);
+    state.proposals.unshift({id:uid(),company:co,contact:pick(contacts),value:rand(1200,4800),stage:'lead',notes:'Inbound inquiry'});
+    showToast('lead','📧 New lead',`${co} · inbound inquiry`);
+    playSound('lead');
+    addActivity('📧',`New lead: ${co}`,'Petros');
+    if(state.module==='proposals'||state.module==='overview')renderMain();
+  },
+  taskCompleted(){
+    const pids=Object.keys(state.tasks);if(!pids.length)return;
+    const pid=pick(pids);const tasks=state.tasks[pid].filter(t=>t.status!=='done');
+    if(!tasks.length)return;
+    const t=pick(tasks);t.status='done';
+    const p=state.projects.find(x=>x.id===pid);
+    const doneCount=state.tasks[pid].filter(x=>x.status==='done').length;
+    p.progress=Math.round(doneCount/state.tasks[pid].length*100);
+    showToast('task','✅ Task completed',`${t.name} — ${p.name}`);
+    playSound('task');
+    addActivity('✅',`Task completed: ${t.name}`,t.assignee);
+    if(state.module==='projects'||state.module==='overview')renderMain();
+  }
+};
+
+function addActivity(ic,t,who){state.activity.unshift({ic,t,time:'just now',who});if(state.activity.length>12)state.activity.pop()}
+
+/* ============ TOASTS ============ */
+function showToast(type,title,desc){
+  const host=$('#toasts');
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML=`<div class="ic">${({payment:'💰',time:'⏱',project:'🎯',lead:'📧',task:'✅',alert:'⚠️'})[type]||'📣'}</div><div class="body"><div class="t">${title}</div><div class="d">${desc}</div></div><div class="progress"></div>`;
+  host.appendChild(t);
+  while(host.children.length>3)host.firstChild.remove();
+  t.addEventListener('click',()=>{t.classList.add('out');setTimeout(()=>t.remove(),300)});
+  setTimeout(()=>{if(t.parentNode){t.classList.add('out');setTimeout(()=>t.remove(),300)}},4000);
+  state.notifCount++;const b=$('#notifBadge');if(b){b.textContent=state.notifCount;b.style.display='flex'}
+}
+
+/* ============ AUDIO ============ */
+function initAudio(){if(state.audioCtx)return;try{state.audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}
+function playSound(type){
+  if(!state.audioOn||!state.audioCtx)return;
+  const cfg={payment:[880,1100,.4],lead:[523,784,.4],task:[1200,1200,.2],time:[660,880,.2],alert:[220,220,.3]};
+  const[f1,f2,dur]=cfg[type]||cfg.payment;
+  const o=state.audioCtx.createOscillator();const g=state.audioCtx.createGain();
+  o.connect(g);g.connect(state.audioCtx.destination);
+  o.frequency.setValueAtTime(f1,state.audioCtx.currentTime);
+  o.frequency.linearRampToValueAtTime(f2,state.audioCtx.currentTime+dur);
+  g.gain.setValueAtTime(.12,state.audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,state.audioCtx.currentTime+dur);
+  o.start();o.stop(state.audioCtx.currentTime+dur);
+}
+$('#audioBtn').addEventListener('click',()=>{initAudio();state.audioOn=!state.audioOn;$('#audioBtn').textContent=state.audioOn?'🔔':'🔇';localStorage.setItem('vantage-audio',state.audioOn?'on':'off')});
+if(localStorage.getItem('vantage-audio')==='on'){state.audioOn=true;$('#audioBtn').textContent='🔔'}
+
+/* ============ VISIBILITY ============ */
+document.addEventListener('visibilitychange',()=>{if(document.hidden)LiveEngine.stop();else LiveEngine.start()});
+
+/* ============ MODAL ============ */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* ============ THEME ============ */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('vantage-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('vantage-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+/* ============ NOTIF ============ */
+$('#notifBtn').addEventListener('click',()=>{state.notifCount=0;$('#notifBadge').style.display='none';showToast('project','🔔 Notifications','All caught up')});
+
+/* ============ KEYBOARD ============ */
+document.addEventListener('keydown',e=>{
+  const tg=document.activeElement.tagName;
+  if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return;
+  const num=parseInt(e.key);
+  if(!isNaN(num)){const id=num===0?MODULES[9].id:MODULES[num-1]?.id;if(id)setModule(id)}
+  else if(e.key==='n'||e.key==='N'){const m=state.module;if(m==='projects')openProjectModal();else if(m==='clients')openClientModal();else if(m==='invoices')newInvoice();else if(m==='proposals')openLeadModal();else showToast('project','+ New',`Context: ${m}`)}
+  else if(e.key==='t'||e.key==='T'){setModule('time');toggleTimer()}
+  else if(e.key==='d'||e.key==='D'){$('#themeToggle').click()}
+  else if(e.key==='/'){e.preventDefault();const s=$('#clSearch');if(s)s.focus();else setModule('clients')}
+  else if(e.key==='Escape'){$$('.mbg.open').forEach(m=>m.classList.remove('open'));$('#shortcutsTip').classList.remove('show')}
+  else if(e.key==='?'){$('#shortcutsTip').classList.toggle('show')}
+});
+$('#shortcutsTip').addEventListener('click',()=>$('#shortcutsTip').classList.remove('show'));
+
+/* ============ END OF WEEK REPORT ============ */
+window.generateEndReport=()=>{
+  closeM('mEndConfirm');LiveEngine.stop();
+  const body=$('#mainBody');
+  const paidW=state.invoices.filter(i=>i.status==='paid'&&i.date.startsWith('Apr')).reduce((s,i)=>s+i.amount,0);
+  const hours=state.timeEntries.filter(e=>e.date>='2026-04-13').reduce((s,e)=>s+e.hours,0);
+  body.innerHTML=`<div class="eon-report"><div class="eon-hd"><div class="name">Vantage</div><div class="sub">Weekly Report · Apr 13 – 19, 2026 · Matéo Chabbert (Founder)</div></div>
+    <div style="background:linear-gradient(135deg,var(--bg-secondary),color-mix(in srgb,var(--bg-secondary) 92%,var(--accent) 8%));border-radius:16px;padding:24px;text-align:center;margin-bottom:20px">
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--label-tertiary);font-weight:700">Executive Summary</div>
+      <div style="font-size:52px;font-weight:800;color:var(--accent);letter-spacing:-.03em;margin-top:8px">${money(paidW)}</div>
+      <div style="font-size:12px;color:var(--system-green);font-weight:700;margin-top:4px">↑ revenue collected this week</div>
+      <div style="font-size:13px;margin-top:12px;color:var(--label-secondary);line-height:1.5">${state.projects.filter(p=>p.status==='track').length} projects on track · ${hours}h logged · ${state.proposals.filter(p=>p.stage==='won').length} deals won</div>
+    </div>
+    <div class="grid4" style="margin-bottom:18px">
+      <div class="kcard"><div class="l">Revenue</div><div class="v">${money(paidW)}</div></div>
+      <div class="kcard"><div class="l">Hours</div><div class="v">${hours}h</div></div>
+      <div class="kcard"><div class="l">Projects</div><div class="v">${state.projects.length}</div></div>
+      <div class="kcard"><div class="l">New leads</div><div class="v">${state.proposals.filter(p=>p.stage==='lead').length}</div></div>
+    </div>
+    <div class="grid2" style="margin-bottom:18px">
+      <div class="card"><h3>Project Status</h3>${state.projects.map(p=>`<div class="sb-row"><span>${p.name}</span><span class="v" style="color:${p.status==='track'?'var(--system-green)':p.status==='risk'?'var(--system-orange)':'var(--system-red)'}">${p.progress}% · ${p.status}</span></div>`).join('')}</div>
+      <div class="card"><h3>Team Performance</h3>${TEAM.map(m=>{const h=state.timeEntries.filter(e=>e.memberId===m.id&&e.date>='2026-04-13').reduce((s,e)=>s+e.hours,0);return `<div class="sb-row"><span style="display:flex;align-items:center;gap:6px"><span class="team-av" style="width:22px;height:22px;font-size:9px;background:${m.color};margin:0">${initials(m.name)}</span>${m.name.split(' ')[0]}</span><span class="v">${h}h · ${m.utilization}%</span></div>`}).join('')}</div>
+    </div>
+    <div class="card" style="margin-bottom:18px"><h3>Financial Snapshot</h3>
+      <div class="sb-row"><span class="l">Revenue collected</span><span class="v">${money(paidW)}</span></div>
+      <div class="sb-row"><span class="l">VAT (24% incl.)</span><span class="v">${money(paidW*.24/1.24)}</span></div>
+      <div class="sb-row"><span class="l">Outstanding</span><span class="v">${money(state.kpi.outstandingAmt)}</span></div>
+      <div class="sb-row"><span class="l">Expenses</span><span class="v">${money(EXPENSE_DATA.reduce((s,e)=>s+e.amount,0))}</span></div>
+      <div class="sb-row" style="border-top:2px solid var(--separator);padding-top:8px;margin-top:4px"><span class="l" style="font-weight:800;font-size:13px">Net estimate</span><span class="v" style="font-size:16px;color:var(--accent)">${money(paidW-EXPENSE_DATA.reduce((s,e)=>s+e.amount,0)/4)}</span></div>
+    </div>
+    <div class="card" style="margin-bottom:18px"><h3>Next Week Priorities</h3>
+      <div class="sb-row"><span>🔴 Mykonos Villas — rush to completion</span><span class="v">Mon</span></div>
+      <div class="sb-row"><span>🟡 Stavros CRM — risk mitigation meeting</span><span class="v">Tue</span></div>
+      <div class="sb-row"><span>📧 Follow up Paros Olive Oil proposal</span><span class="v">Wed</span></div>
+      <div class="sb-row"><span>🤝 Kick-off Heraklion Museum</span><span class="v">Thu</span></div>
+      <div class="sb-row"><span>📊 Monthly review with Stavros Hotels</span><span class="v">Fri</span></div>
+    </div>
+    <label style="margin-top:18px">Manager Notes</label><textarea class="fld" rows="3" placeholder="Notes for next week..."></textarea>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:center"><button class="btn primary" onclick="window.print()">🖨 Print Report</button><button class="btn" onclick="exportCSV('revenue')">⤓ Export</button><button class="btn" onclick="renderMain()">Close</button></div>
+  </div>`;
+  $('#mainHd').innerHTML='';
+  showToast('project','✓ Report generated','Weekly summary ready');
+};
+</script>
+</body>
+</html>
