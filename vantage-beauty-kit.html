@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FULL KIT — Lumière Beauty Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#FAFAFA;--bg-secondary:#FFFFFF;--bg-tertiary:#FFF5F7;
+  --label-primary:#1a0a10;--label-secondary:rgba(60,20,30,.65);--label-tertiary:rgba(60,20,30,.4);
+  --separator:rgba(255,45,85,.10);--fill-primary:rgba(255,45,85,.08);--fill-secondary:rgba(255,45,85,.05);--fill-tertiary:#FFF0F3;
+  --accent:#FF2D55;--accent-deep:#E02347;--accent-soft:#FF6B9D;--accent-blush:#FFB3C6;--accent-tint:rgba(255,45,85,.10);
+  --sys-green:#34C759;--sys-red:#FF3B30;--sys-orange:#FF9500;--sys-blue:#5AC8FA;--sys-purple:#AF52DE;--sys-gold:#D4A574;
+  --blob-op:.06;
+}
+html[data-theme="dark"]{
+  --bg-primary:#0A0006;--bg-secondary:#1C0812;--bg-tertiary:#240E18;
+  --label-primary:#FFF0F3;--label-secondary:rgba(255,235,240,.65);--label-tertiary:rgba(255,235,240,.4);
+  --separator:rgba(255,45,85,.18);--fill-primary:rgba(255,45,85,.14);--fill-secondary:rgba(255,45,85,.08);--fill-tertiary:rgba(255,45,85,.10);
+  --blob-op:.10;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.ital,h1,h2,h3,.splash-logo,.login-title,.welcome,.client-name,.timer-val,.kpi-hero,.eon-hd .name{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.005em;height:100vh;transition:background .3s,color .3s;overflow:hidden}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
+button{cursor:pointer;border:0;background:none;color:inherit;font-family:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+.label-up{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+
+/* LAVA */
+.lava-container{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;animation:lavaIn 3s ease-out}
+@keyframes lavaIn{from{opacity:0}to{opacity:1}}
+.lava-blob{position:absolute;filter:blur(80px);will-change:transform,border-radius;animation:lava-float linear infinite;opacity:var(--blob-op);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+.lava-1{width:520px;height:520px;top:-80px;left:65%;background:radial-gradient(circle at 40% 40%,rgba(255,45,85,.15),rgba(255,107,157,.08) 60%,transparent 100%);animation-duration:24s}
+.lava-2{width:380px;height:380px;top:42%;left:-55px;background:radial-gradient(circle at 40% 40%,rgba(255,107,157,.18),rgba(255,179,198,.08) 60%,transparent 100%);animation-duration:29s;animation-delay:-7s}
+.lava-3{width:300px;height:300px;top:68%;left:70%;background:radial-gradient(circle at 40% 40%,rgba(255,179,198,.20),rgba(255,45,85,.06) 60%,transparent 100%);animation-duration:21s;animation-delay:-11s}
+.lava-4{width:460px;height:460px;top:20%;left:30%;background:radial-gradient(circle at 40% 40%,rgba(255,45,85,.10),transparent 70%);animation-duration:33s;animation-delay:-16s}
+.lava-5{width:260px;height:260px;top:82%;left:20%;background:radial-gradient(circle at 40% 40%,rgba(255,107,157,.15),transparent 70%);animation-duration:25s;animation-delay:-9s}
+@keyframes lava-float{
+  0%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+  20%{transform:translate(40px,-30px) scale(1.05);border-radius:55% 45% 60% 40%/50% 60% 40% 50%}
+  40%{transform:translate(-30px,40px) scale(.96);border-radius:50% 50% 45% 55%/60% 45% 55% 40%}
+  60%{transform:translate(35px,30px) scale(1.04);border-radius:45% 55% 50% 50%/55% 50% 50% 45%}
+  80%{transform:translate(-20px,-25px) scale(.98);border-radius:55% 45% 45% 55%/50% 50% 55% 45%}
+  100%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+}
+@media (prefers-reduced-motion:reduce){.lava-blob{animation:none}}
+@media (max-width:900px){.lava-container{display:none}}
+
+/* LOGIN */
+.login-bg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:10000;animation:fadeIn .5s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.login-card{background:var(--bg-secondary);border-radius:24px;padding:40px 32px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(255,45,85,.12),0 2px 8px rgba(0,0,0,.04);z-index:2;animation:loginSlide .6s cubic-bezier(.2,.8,.2,1);text-align:center}
+@keyframes loginSlide{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.login-logo{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 30px rgba(255,45,85,.25);color:#fff}
+.login-title{font-size:42px;color:var(--accent);line-height:1;font-weight:600;letter-spacing:.02em}
+.login-sub{font-size:10px;color:var(--label-tertiary);margin-top:8px;text-transform:uppercase;letter-spacing:.22em;font-weight:600}
+.rose-line{height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:18px auto;width:60%}
+.login-form{margin-top:20px;text-align:left}
+.login-demo{text-align:center;font-size:10px;color:var(--label-tertiary);margin-top:14px;letter-spacing:.06em}
+.login-demo code{background:var(--fill-tertiary);padding:3px 7px;border-radius:6px;font-size:10px;color:var(--accent);font-weight:600}
+.login-foot{text-align:center;margin-top:22px;padding-top:16px;border-top:1px solid var(--separator);font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.16em}
+.login-out{animation:loginOut .4s forwards}
+@keyframes loginOut{to{opacity:0;transform:translateY(-14px) scale(.98)}}
+.login-progress{height:2px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden;margin-top:14px;display:none}
+.login-progress.on{display:block}
+.login-progress div{height:100%;background:var(--accent);width:0;transition:width .4s}
+
+/* SPLASH */
+.splash-bg{position:fixed;inset:0;background:var(--bg-tertiary);color:var(--label-primary);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeIn .3s}
+.splash-logo{font-size:72px;color:var(--accent);letter-spacing:.02em;line-height:1;font-weight:500}
+.splash-sub{text-transform:uppercase;letter-spacing:.3em;color:var(--label-tertiary);font-size:10px;margin-top:10px;font-weight:700}
+.splash-seq{margin-top:44px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--label-secondary);height:24px;min-width:280px;text-align:center}
+.splash-bar{width:200px;height:2px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden;margin-top:18px}
+.splash-bar div{height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width .5s ease}
+.splash-preview{margin-top:40px;padding:14px 22px;background:var(--bg-secondary);border:1px solid var(--separator);border-radius:14px;text-align:center;opacity:0;transition:opacity .5s;box-shadow:0 4px 16px rgba(255,45,85,.08)}
+.splash-preview.show{opacity:1}
+.splash-preview .t{font-size:14px;font-weight:600}
+.splash-preview .d{font-size:11px;color:var(--label-tertiary);margin-top:4px}
+.splash-out{animation:fadeOut .5s forwards}
+@keyframes fadeOut{to{opacity:0}}
+
+/* BUTTONS — rounded */
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:100px;padding:10px 18px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;min-height:36px;justify-content:center;letter-spacing:.01em}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px rgba(255,45,85,.45)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.secondary{background:var(--accent-tint);color:var(--accent)}
+.btn.ghost{background:transparent;border:1.5px solid var(--accent);color:var(--accent)}
+.btn.sm{padding:7px 14px;font-size:12px;min-height:32px}
+.btn.xs{padding:5px 10px;font-size:11px;min-height:26px}
+.btn.full{width:100%}
+.btn.loading{pointer-events:none;opacity:.8}
+.btn.loading::after{content:'';display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;margin-left:4px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fld{width:100%;background:var(--fill-tertiary);border:1.5px solid rgba(255,45,85,.15);border-radius:12px;padding:11px 14px;color:var(--label-primary);outline:none;font-size:14px;transition:border-color .15s,box-shadow .15s;margin-bottom:10px}
+.fld:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-tint)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.1em}
+
+/* APP */
+.app-root{display:none;position:relative;z-index:1;height:100vh;flex-direction:column}
+.app-root.ready{display:flex;animation:appIn .5s}
+@keyframes appIn{from{opacity:0}to{opacity:1}}
+
+/* TOPBAR */
+.topbar{height:56px;background:color-mix(in srgb,var(--bg-secondary) 92%,transparent);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:50}
+.tb-left{display:flex;align-items:center;gap:10px}
+.tb-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--label-secondary)}
+.tb-logo .emoji{font-size:18px}
+.tb-logo .brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--accent);text-transform:none;letter-spacing:.01em;font-weight:600;margin-left:4px}
+.biz-badge{background:var(--accent-tint);color:var(--accent);padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.module-tabs{display:flex;gap:2px;background:var(--fill-tertiary);border-radius:100px;padding:4px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.module-tabs::-webkit-scrollbar{display:none}
+.module-tabs button{padding:7px 13px;border-radius:100px;font-size:12px;font-weight:600;color:var(--label-secondary);white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:4px}
+.module-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(255,45,85,.3)}
+.tb-right{display:flex;align-items:center;gap:6px}
+.live-dot{display:inline-flex;align-items:center;gap:6px;background:var(--fill-tertiary);padding:5px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.live-dot .d{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.clock{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;background:var(--fill-tertiary);padding:5px 10px;border-radius:100px}
+.icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--label-secondary);position:relative}
+.icon-btn:hover{background:var(--fill-tertiary);color:var(--accent)}
+.badge-cnt{position:absolute;top:2px;right:2px;background:var(--accent);color:#fff;font-size:9px;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;padding:0 3px}
+.theme-tog{width:38px;height:22px;border-radius:100px;background:var(--fill-tertiary);position:relative;cursor:pointer;transition:background .2s}
+.theme-tog.on{background:var(--accent)}
+.theme-tog::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .2s}
+.theme-tog.on::after{transform:translateX(16px)}
+.user{display:flex;align-items:center;gap:8px;padding:3px 11px 3px 4px;background:var(--fill-tertiary);border-radius:100px}
+.user .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.user-name{font-size:12px;font-weight:600}
+
+/* GRID */
+.app-grid{display:grid;grid-template-columns:210px 1fr;flex:1;overflow:hidden;position:relative;z-index:1}
+aside.sidebar{background:var(--bg-secondary);border-right:1px solid var(--separator);padding:14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+aside.sidebar::-webkit-scrollbar{width:5px}
+aside.sidebar::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:3px}
+.side-box{background:var(--bg-secondary);border-radius:14px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+html[data-theme="dark"] .side-box{border:1px solid var(--separator);box-shadow:none}
+.side-box h4{font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:8px}
+.sb-date{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:600;color:var(--accent)}
+.sb-service{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.status-btn{margin-top:10px;width:100%;padding:8px;border-radius:100px;background:var(--sys-green);color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.sb-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px}
+.sb-row .l{color:var(--label-secondary);font-size:11px}
+.sb-row .v{font-weight:700;font-variant-numeric:tabular-nums}
+.sb-row .v.up{color:var(--sys-green)}
+.alert-item{display:flex;align-items:flex-start;gap:6px;padding:7px 9px;border-radius:10px;font-size:11px;margin-bottom:3px;line-height:1.4;animation:alertIn .3s}
+@keyframes alertIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.alert-item.rose{background:rgba(255,45,85,.08);color:var(--accent)}
+.alert-item.yellow{background:rgba(255,149,0,.12);color:#B37000}
+.alert-item.green{background:rgba(52,199,89,.12);color:var(--sys-green)}
+.alert-item .t{margin-left:auto;font-size:9px;opacity:.7}
+.qa-btn{display:flex;align-items:center;gap:6px;width:100%;background:transparent;color:var(--label-primary);padding:8px 10px;border-radius:10px;font-size:12px;margin-bottom:2px;text-align:left;transition:background .15s}
+.qa-btn:hover{background:var(--fill-tertiary);color:var(--accent)}
+.end-btn{margin-top:auto;padding:9px;border-radius:100px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.end-btn:hover{opacity:1}
+
+main{overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:1}
+.main-body{flex:1;overflow-y:auto;padding:14px 22px 30px;animation:modFade .35s}
+@keyframes modFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.main-body::-webkit-scrollbar{width:8px}
+.main-body::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+.main-hd{padding:16px 22px 6px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.main-hd h1{font-size:28px;font-weight:600;letter-spacing:.005em;color:var(--label-primary)}
+.main-hd .sub{color:var(--label-tertiary);font-size:12px;margin-top:2px;letter-spacing:.02em}
+
+/* CARDS */
+.card{background:var(--bg-secondary);border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(255,45,85,.06),0 1px 3px rgba(0,0,0,.03)}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+.card h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.kcard{background:var(--bg-secondary);border-radius:16px;padding:14px;box-shadow:0 2px 12px rgba(255,45,85,.06),0 1px 3px rgba(0,0,0,.03);transition:transform .2s}
+.kcard:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.kcard .v{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;font-weight:600;margin-top:4px;letter-spacing:0;color:var(--label-primary)}
+.kcard .d{font-size:11px;margin-top:3px;color:var(--label-tertiary)}
+.kcard.flash{animation:flashA 1s}
+@keyframes flashA{0%{box-shadow:0 0 0 0 var(--accent-tint)}50%{box-shadow:0 0 0 8px var(--accent-tint)}100%{box-shadow:0 0 0 0 transparent}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.chart-host{position:relative;height:220px}
+.chart-host.sm{height:180px}
+
+.progress-bar{height:6px;background:var(--fill-tertiary);border-radius:100px;overflow:hidden;margin:8px 0}
+.progress-bar div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-soft));border-radius:100px;transition:width .6s}
+
+/* BADGES / STATUS pills */
+.badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.b-green{background:rgba(52,199,89,.14);color:var(--sys-green)}
+.b-red{background:rgba(255,59,48,.14);color:var(--sys-red)}
+.b-orange{background:rgba(255,149,0,.14);color:var(--sys-orange)}
+.b-blue{background:rgba(90,200,250,.18);color:#2B8DB0}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+.b-rose{background:var(--accent-tint);color:var(--accent)}
+.b-gold{background:linear-gradient(135deg,rgba(212,165,116,.25),rgba(245,210,140,.25));color:#B8895A;position:relative;overflow:hidden}
+.b-gold::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.b-platinum{background:linear-gradient(135deg,rgba(200,200,220,.35),rgba(235,235,250,.35));color:#6B6B7B;position:relative;overflow:hidden}
+.b-platinum::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);animation:shimmer 3s infinite}
+
+/* APPOINTMENTS */
+.appt-board{display:grid;grid-template-columns:60px repeat(4,1fr);gap:8px;height:calc(100vh - 220px);overflow-y:auto;position:relative}
+.appt-col{background:var(--fill-tertiary);border-radius:14px;padding:8px;position:relative;min-height:660px}
+.appt-col.time-col{background:transparent;padding:8px 0}
+.appt-head{display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--separator);margin-bottom:8px}
+.appt-head .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.appt-head .n{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;font-weight:600}
+.appt-head .r{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em}
+.appt-head .m{margin-left:auto;text-align:right;font-size:10px}
+.appt-head .m .c{font-weight:700;color:var(--accent)}
+.time-slot{font-size:10px;color:var(--label-tertiary);height:56px;text-align:right;padding-right:6px;font-variant-numeric:tabular-nums;font-weight:600}
+.appt-block{border-radius:100px;padding:8px 14px;margin-bottom:4px;font-size:11px;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1px solid transparent}
+.appt-block:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,45,85,.15)}
+.appt-block.confirmed{background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff}
+.appt-block.progress{background:var(--accent-deep);color:#fff;animation:pulseRose 2s infinite}
+@keyframes pulseRose{0%,100%{box-shadow:0 0 0 0 rgba(255,45,85,.4)}50%{box-shadow:0 0 0 6px rgba(255,45,85,0)}}
+.appt-block.done{background:rgba(52,199,89,.15);color:var(--sys-green);border-color:rgba(52,199,89,.3)}
+.appt-block.noshow{background:var(--fill-tertiary);color:var(--label-tertiary);text-decoration:line-through;opacity:.4}
+.appt-block .n{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:13px}
+.appt-block .s{font-size:10px;opacity:.85;margin-top:1px}
+.appt-block .d{font-size:9px;margin-top:2px;opacity:.75;display:flex;justify-content:space-between}
+
+/* CLIENTS */
+.cli-wrap{display:grid;grid-template-columns:280px 1fr 200px;gap:12px;height:calc(100vh - 140px)}
+.cli-col{background:var(--bg-secondary);border-radius:16px;padding:12px;overflow-y:auto;box-shadow:0 2px 12px rgba(255,45,85,.06)}
+html[data-theme="dark"] .cli-col{border:1px solid var(--separator);box-shadow:none}
+.cli-item{padding:10px;border-radius:12px;cursor:pointer;margin-bottom:3px;transition:background .15s;border-left:3px solid transparent;display:flex;align-items:center;gap:10px}
+.cli-item:hover{background:var(--fill-tertiary)}
+.cli-item.sel{background:var(--accent-tint);border-left-color:var(--accent)}
+.cli-item.vip{border-left:3px solid #D4A574;position:relative;overflow:hidden}
+.cli-item.vip::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 40%,rgba(212,165,116,.12) 50%,transparent 60%);animation:shimmer 4s infinite;pointer-events:none}
+.cli-item .av{width:34px;height:34px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cli-item .n{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:14px}
+.cli-item .c{font-size:10px;color:var(--label-tertiary);margin-top:1px}
+.cli-subtabs{display:flex;gap:4px;border-bottom:1px solid var(--separator);margin-bottom:12px;padding-bottom:4px;overflow-x:auto}
+.cli-subtabs button{padding:7px 14px;border-radius:100px;font-size:11px;font-weight:600;color:var(--label-secondary);white-space:nowrap}
+.cli-subtabs button.active{background:var(--accent-tint);color:var(--accent)}
+.client-name{font-size:28px;font-weight:600;color:var(--label-primary)}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.svc-card{background:var(--bg-secondary);border-radius:16px;padding:14px;transition:transform .2s;box-shadow:0 2px 12px rgba(255,45,85,.06);display:flex;flex-direction:column;gap:8px}
+.svc-card:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .svc-card{border:1px solid var(--separator);box-shadow:none}
+.svc-card .ic{width:44px;height:44px;border-radius:50%;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px}
+.svc-card .nm{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;font-weight:600}
+.svc-card .meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--label-tertiary);margin-top:4px}
+.svc-card .prc{font-size:20px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.svc-card .pop{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em}
+.dur-chip{background:var(--fill-tertiary);padding:3px 10px;border-radius:100px;font-size:10px;font-weight:600;color:var(--label-secondary)}
+
+/* REVENUE */
+.rev-hero{text-align:center;padding:40px 20px;background:var(--bg-secondary);border-radius:20px;box-shadow:0 4px 20px rgba(255,45,85,.08);margin-bottom:14px;position:relative;overflow:hidden}
+html[data-theme="dark"] .rev-hero{border:1px solid var(--separator)}
+.rev-hero::before{content:"";position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-tint),transparent 70%);pointer-events:none}
+.kpi-hero{font-size:72px;color:var(--accent);font-weight:600;letter-spacing:0;line-height:1}
+.rev-hero .sub-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--label-tertiary);font-weight:700;margin-top:10px}
+
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.prod-card{background:var(--bg-secondary);border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(255,45,85,.05);border:1px solid transparent}
+html[data-theme="dark"] .prod-card{border:1px solid var(--separator);box-shadow:none}
+.prod-card.low{border-color:rgba(255,149,0,.4);box-shadow:0 0 0 3px rgba(255,149,0,.08)}
+.prod-card.out{border-color:rgba(255,59,48,.5);box-shadow:0 0 0 3px rgba(255,59,48,.1)}
+.prod-card .br{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.prod-card .nm{font-size:13px;font-weight:600;margin-top:2px}
+.stock-bar{height:5px;background:var(--fill-tertiary);border-radius:100px;overflow:hidden;margin:8px 0 4px}
+.stock-bar div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-soft));border-radius:100px}
+.prod-card.low .stock-bar div{background:var(--sys-orange)}
+.prod-card.out .stock-bar div{background:var(--sys-red)}
+.qty-ctrl{display:flex;align-items:center;gap:4px;margin-top:6px}
+.qty-ctrl button{width:24px;height:24px;border-radius:50%;background:var(--fill-tertiary);font-size:12px;font-weight:700}
+.qty-ctrl span{flex:1;text-align:center;font-weight:700;font-size:13px}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.team-card{background:var(--bg-secondary);border-radius:18px;padding:18px;cursor:pointer;transition:transform .2s;box-shadow:0 2px 12px rgba(255,45,85,.06);text-align:center}
+.team-card:hover{transform:translateY(-3px)}
+html[data-theme="dark"] .team-card{border:1px solid var(--separator);box-shadow:none}
+.team-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;margin:0 auto 12px}
+.team-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;font-weight:600}
+.team-role{display:inline-block;font-size:10px;padding:3px 10px;background:var(--accent-tint);color:var(--accent);border-radius:100px;margin-top:4px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.status-dot{display:inline-flex;align-items:center;gap:5px;font-size:11px;margin-top:10px;font-weight:600}
+.status-dot .d{width:8px;height:8px;border-radius:50%}
+.status-dot.working .d{background:var(--sys-green)}
+.status-dot.break .d{background:var(--sys-orange)}
+.status-dot.off .d{background:var(--label-tertiary)}
+
+/* LOYALTY */
+.loy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.loy-card{background:var(--bg-secondary);border-radius:16px;padding:14px;box-shadow:0 2px 12px rgba(255,45,85,.06);display:flex;flex-direction:column;gap:6px}
+html[data-theme="dark"] .loy-card{border:1px solid var(--separator);box-shadow:none}
+.loy-card .hd{display:flex;align-items:center;gap:10px}
+.loy-card .av{width:38px;height:38px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.loy-card .pts{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:#B8895A;font-weight:600;letter-spacing:0}
+.loy-feed{max-height:400px;overflow-y:auto}
+.loy-feed-item{padding:10px;border-radius:12px;background:var(--fill-tertiary);margin-bottom:6px;font-size:12px;animation:alertIn .3s}
+
+/* TABLE */
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.1em;font-weight:700;border-bottom:1px solid var(--separator);background:var(--bg-secondary);position:sticky;top:0}
+table.t td{padding:10px;border-bottom:1px solid var(--separator)}
+table.t tr{transition:background .15s}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(40,10,20,.35);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:fadeIn .2s}
+.modal{background:var(--bg-secondary);border-radius:22px;padding:24px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(255,45,85,.2);animation:modalIn .25s}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;font-weight:600;margin-bottom:14px}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* TOASTS */
+.toast-container{position:fixed;top:68px;right:16px;z-index:9998;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--bg-secondary);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px rgba(255,45,85,.15);border-left:4px solid var(--accent);max-width:340px;animation:toastIn .3s;pointer-events:auto;position:relative;overflow:hidden;display:flex;gap:10px;align-items:flex-start}
+html[data-theme="dark"] .toast{border:1px solid var(--separator);border-left:4px solid var(--accent)}
+.toast.appt{border-left-color:var(--accent)}
+.toast.booking{border-left-color:var(--accent-soft)}
+.toast.loyalty{border-left-color:#D4A574}
+.toast.product{border-left-color:var(--sys-orange)}
+.toast.staff{border-left-color:var(--sys-purple)}
+.toast.alert{border-left-color:var(--sys-red)}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px)}}
+.toast .ic{font-size:18px;flex-shrink:0}
+.toast .body{flex:1;min-width:0}
+.toast .t{font-size:12px;font-weight:700}
+.toast .d{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.toast .progress{position:absolute;bottom:0;left:0;height:2px;background:var(--accent);width:100%;animation:toastProgress 4s linear forwards}
+@keyframes toastProgress{to{width:0%}}
+
+/* BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg-secondary) 94%,transparent);backdrop-filter:blur(20px);border-top:1px solid var(--separator);padding:6px 0 max(8px,env(safe-area-inset-bottom));z-index:100;justify-content:space-around}
+.bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;font-size:10px;color:var(--label-tertiary);border-radius:16px;margin:0 4px}
+.bottom-nav button.active{background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff}
+.bottom-nav .ic{font-size:20px}
+@media (max-width:768px){.bottom-nav{display:flex}.app-grid{grid-template-columns:1fr}aside.sidebar{display:none}.module-tabs{display:none}.main-body{padding-bottom:80px}.appt-board{grid-template-columns:50px 1fr;overflow-x:auto}.cli-wrap{grid-template-columns:1fr;height:auto}.grid4,.grid5,.grid3{grid-template-columns:1fr 1fr}}
+
+/* END OF DAY REPORT */
+.eon-report{background:var(--bg-secondary);border-radius:18px;padding:32px;max-width:920px;margin:0 auto;box-shadow:0 4px 20px rgba(255,45,85,.08)}
+html[data-theme="dark"] .eon-report{border:1px solid var(--separator)}
+.eon-hd{text-align:center;padding-bottom:20px;margin-bottom:20px;position:relative}
+.eon-hd .name{font-size:44px;color:var(--accent);letter-spacing:0;font-weight:600}
+.eon-hd .sub{font-size:12px;color:var(--label-secondary);margin-top:4px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.eon-hd::after{content:'';display:block;width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:18px auto 0}
+
+/* SHORTCUTS */
+.shortcuts-tip{position:fixed;bottom:20px;left:20px;background:var(--bg-secondary);border-radius:16px;padding:20px;box-shadow:0 16px 50px rgba(255,45,85,.2);z-index:300;max-width:320px;animation:modalIn .25s;display:none}
+.shortcuts-tip.show{display:block}
+html[data-theme="dark"] .shortcuts-tip{border:1px solid var(--separator)}
+.shortcuts-tip h4{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px}
+.shortcuts-tip .row{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:4px 0;font-size:12px;align-items:center}
+.kbd{background:var(--fill-tertiary);padding:3px 8px;border-radius:6px;font-family:"SF Mono",Menlo,monospace;font-size:10px;font-weight:700;text-align:center;color:var(--accent)}
+
+@media print{.topbar,.sidebar,.bottom-nav,.toast-container,.shortcuts-tip,.lava-container{display:none!important}.app-grid{grid-template-columns:1fr!important}.main-body{padding:0!important;overflow:visible!important}html,body{overflow:visible!important;height:auto!important;background:#fff!important}}
+</style>
+</head>
+<body>
+
+<div class="lava-container">
+  <div class="lava-blob lava-1"></div>
+  <div class="lava-blob lava-2"></div>
+  <div class="lava-blob lava-3"></div>
+  <div class="lava-blob lava-4"></div>
+  <div class="lava-blob lava-5"></div>
+</div>
+
+<div class="login-bg" id="loginBg">
+  <div class="login-card" id="loginCard">
+    <div class="login-logo">✦</div>
+    <div class="login-title">Lumière</div>
+    <div class="login-sub">Beauty Studio Management</div>
+    <div class="rose-line"></div>
+    <div class="login-form">
+      <label>Email</label>
+      <input type="email" class="fld" id="loginEmail" placeholder="sofia@lumiere-beauty.gr" value="sofia@lumiere.gr">
+      <label>Password</label>
+      <input type="password" class="fld" id="loginPass" value="demo2026">
+      <button class="btn primary full" id="loginBtn" style="margin-top:8px">Sign in →</button>
+      <div class="login-progress" id="loginProgress"><div></div></div>
+      <div class="login-demo">Demo: <code>sofia@lumiere.gr / demo2026</code></div>
+    </div>
+    <div class="login-foot">Powered by Vantage Web Agency</div>
+  </div>
+</div>
+
+<div class="splash-bg" id="splashBg" style="display:none">
+  <div class="splash-logo">Lumière</div>
+  <div class="splash-sub">Beauty Studio — Athens</div>
+  <div class="splash-seq ital" id="splashSeq">Preparing your appointments...</div>
+  <div class="splash-bar"><div id="splashBarFill"></div></div>
+  <div class="splash-preview" id="splashPreview">
+    <div class="t ital" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px">Today — Friday Service</div>
+    <div class="d">12 appointments · 4 stylists on duty · Revenue goal: €550</div>
+  </div>
+</div>
+
+<div class="toast-container" id="toasts"></div>
+
+<div class="app-root" id="appRoot">
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-logo"><span class="emoji">💄</span> FULL KIT <span class="brand">Lumière</span></div>
+      <span class="biz-badge">Beauty</span>
+    </div>
+    <div class="module-tabs" id="moduleTabs"></div>
+    <div class="tb-right">
+      <div class="live-dot"><span class="d"></span>LIVE</div>
+      <div class="clock" id="clock">—</div>
+      <button class="icon-btn" id="audioBtn" title="Sound">🔇</button>
+      <button class="icon-btn" id="notifBtn">🔔<span class="badge-cnt" id="notifBadge" style="display:none">0</span></button>
+      <div class="theme-tog" id="themeToggle" title="Theme"></div>
+      <div class="user"><div class="av">SP</div><div><div class="user-name">Sofia</div></div></div>
+    </div>
+  </div>
+  <div class="app-grid">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main>
+      <div class="main-hd" id="mainHd"></div>
+      <div class="main-body" id="mainBody"></div>
+    </main>
+  </div>
+  <div class="bottom-nav" id="bottomNav"></div>
+</div>
+
+<div class="mbg" id="mAppt"><div class="modal">
+  <h3>New Appointment</h3>
+  <label>Client</label><input class="fld" id="aClient" placeholder="Search or create client...">
+  <label>Service</label><select class="fld" id="aService"></select>
+  <label>Stylist</label><select class="fld" id="aStylist"></select>
+  <label>Time</label><input class="fld" id="aTime" value="15:00">
+  <label>Notes</label><textarea class="fld" id="aNotes" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mAppt')">Cancel</button><button class="btn primary" onclick="saveAppt()">Confirm Appointment →</button></div>
+</div></div>
+
+<div class="mbg" id="mClient"><div class="modal">
+  <h3>New Client</h3>
+  <label>Full name</label><input class="fld" id="clName">
+  <label>Phone</label><input class="fld" id="clPhone">
+  <label>Email</label><input class="fld" id="clEmail">
+  <label>Preferred stylist</label><select class="fld" id="clStylist"></select>
+  <label>Notes</label><textarea class="fld" id="clNotes" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mClient')">Cancel</button><button class="btn primary" onclick="saveClient()">Save Client</button></div>
+</div></div>
+
+<div class="mbg" id="mEndConfirm"><div class="modal">
+  <h3>Close Day & Generate Report?</h3>
+  <p style="font-size:13px;color:var(--label-secondary);line-height:1.5">This will produce the end-of-day summary for Friday, April 18, 2026.</p>
+  <div class="row-btns"><button class="btn" onclick="closeM('mEndConfirm')">Cancel</button><button class="btn primary" onclick="generateEndReport()">Generate →</button></div>
+</div></div>
+
+<div class="shortcuts-tip" id="shortcutsTip">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="row"><span class="kbd">1-0</span><span>Switch modules</span></div>
+  <div class="row"><span class="kbd">N</span><span>New appointment</span></div>
+  <div class="row"><span class="kbd">C</span><span>New client</span></div>
+  <div class="row"><span class="kbd">D</span><span>Toggle theme</span></div>
+  <div class="row"><span class="kbd">Esc</span><span>Close modal</span></div>
+  <div class="row"><span class="kbd">?</span><span>Show this help</span></div>
+</div>
+
+<script>
+/* ============== CONFIG ============== */
+const MODULES=[
+  {id:'overview',name:'Overview',icon:'🏠'},
+  {id:'appointments',name:'Appointments',icon:'📅'},
+  {id:'clients',name:'Clients',icon:'👥'},
+  {id:'services',name:'Services',icon:'💅'},
+  {id:'revenue',name:'Revenue',icon:'💰'},
+  {id:'products',name:'Products',icon:'📦'},
+  {id:'team',name:'Team',icon:'👤'},
+  {id:'loyalty',name:'Loyalty',icon:'⭐'},
+  {id:'reports',name:'Reports',icon:'📊'},
+  {id:'settings',name:'Settings',icon:'⚙️'}
+];
+const MOBILE_NAV=['overview','appointments','clients','revenue','loyalty'];
+
+const TEAM=[
+  {id:'t1',name:'Sofia Papadaki',role:'Lead Stylist',color:'#FF2D55',status:'working',todayAppts:4,todayRev:220,currentClient:'Petros M. — finishing in 8min',specialties:['Women\'s Cut','Bridal','Updo']},
+  {id:'t2',name:'Elena Georgiou',role:'Colorist',color:'#FF6B9D',status:'working',todayAppts:3,todayRev:305,currentClient:'Maria S. — Highlights (45min left)',specialties:['Balayage','Highlights','Color Correction']},
+  {id:'t3',name:'Maria Alexiou',role:'Nail Tech',color:'#D4A574',status:'break',todayAppts:5,todayRev:175,currentClient:'On break — back at 14:30',specialties:['Gel Nails','Nail Art','Pedicure']},
+  {id:'t4',name:'Katerina Vasiliou',role:'Beauty Therapist',color:'#AF52DE',status:'working',todayAppts:3,todayRev:160,currentClient:'Vicky N. — Facial (20min left)',specialties:['Facials','Eyebrow','Massage']}
+];
+
+/* 50 CLIENTS */
+const GREEK_F=['Maria','Eleni','Katerina','Sofia','Dimitra','Anna','Elena','Vasiliki','Georgia','Ioanna','Alexandra','Christina','Yianna','Vicky','Nikoleta','Stella','Athina','Konstantina','Angeliki','Foteini','Panagiota','Despina','Zoe','Evangelia','Theodora','Niki','Chrysanthi','Stavroula','Olga','Pelagia','Fotini','Irini'];
+const GREEK_M=['Nikos','Dimitris','Kostas','Yiannis','Petros','Stavros','Alexandros','Christos','Georgios','Andreas'];
+const GREEK_LAST=['Papadaki','Georgiou','Alexiou','Vasileiou','Stavrou','Nikolaou','Papadopoulos','Kontos','Andreou','Marinaki','Photiadis','Lambrou','Theodoraki','Kalogeras','Spiropoulos','Dimitriou','Ioannou','Christopoulos','Karali','Makris','Fragkou','Panou','Vlachou','Tsiolis','Economou'];
+
+function buildClients(){
+  const out=[];
+  const tiers=['Rose','Silver','Gold','Platinum'];
+  const tierWeights=[30,18,10,2];
+  for(let i=0;i<50;i++){
+    const female=i<42;
+    const first=female?GREEK_F[i%GREEK_F.length]:GREEK_M[(i-42)%GREEK_M.length];
+    const last=GREEK_LAST[i%GREEK_LAST.length];
+    const visits=rand(1,35);
+    const avg=rand(35,95);
+    const spent=visits*avg;
+    let tier='Rose';
+    const r=Math.random()*60;
+    if(r<2)tier='Platinum';else if(r<12)tier='Gold';else if(r<30)tier='Silver';
+    const points=Math.round(spent*1.1);
+    out.push({
+      id:'c'+(i+1),name:first+' '+last,phone:'+30 69'+rand(10000000,99999999),email:(first+'.'+last).toLowerCase()+'@email.gr',
+      birthday:`${rand(1,28)}/${rand(1,12)}`,anniversary:'Client since '+(2020+rand(0,5)),
+      visits,totalSpent:spent,avgTicket:avg,lastVisit:rand(1,60)+' days ago',lastService:pick(['Gel Manicure','Haircut','Balayage','Facial','Pedicure','Highlights','Blowdry','Eyebrow Tint']),
+      preferredStylist:TEAM[i%4].id,tier,points,
+      hairType:pick(['Fine','Medium','Thick','Curly']),colorFormula:pick(['6N + 20vol','Balayage base','7.3 + toner','Natural']),
+      allergies:i%7===0?'Sensitive to PPD':'None',
+      notes:i%5===0?'Prefers quiet appointments, loves herbal tea':''
+    });
+  }
+  return out;
+}
+
+/* APPOINTMENTS — Friday 18 April */
+const APPOINTMENTS=[
+  {id:'a1',stylistId:'t1',time:'10:00',client:'Maria Kouri',service:'Women\'s Cut',duration:45,price:45,status:'done'},
+  {id:'a2',stylistId:'t1',time:'11:00',client:'Elena Gatsis',service:'Balayage',duration:150,price:140,status:'done'},
+  {id:'a3',stylistId:'t1',time:'13:00',client:'Dimitra Vlachou',service:'Women\'s Cut',duration:45,price:45,status:'done'},
+  {id:'a4',stylistId:'t1',time:'15:30',client:'Petros Makris',service:'Beard Trim',duration:30,price:20,status:'progress'},
+  {id:'a5',stylistId:'t2',time:'09:30',client:'Stavros Panou',service:'Full Color',duration:120,price:95,status:'done'},
+  {id:'a6',stylistId:'t2',time:'14:00',client:'Alexandra Panou',service:'Toner',duration:60,price:55,status:'done'},
+  {id:'a7',stylistId:'t2',time:'16:00',client:'Maria Spiropoulos',service:'Highlights Full',duration:120,price:110,status:'progress'},
+  {id:'a8',stylistId:'t3',time:'10:00',client:'Katerina Nikolaou',service:'Classic Manicure',duration:45,price:30,status:'done'},
+  {id:'a9',stylistId:'t3',time:'10:30',client:'Sofia Andreou',service:'Classic Pedicure',duration:60,price:40,status:'done'},
+  {id:'a10',stylistId:'t3',time:'11:30',client:'Nikos Dimitriou',service:'Classic Manicure',duration:45,price:30,status:'done'},
+  {id:'a11',stylistId:'t3',time:'14:30',client:'Yianna Karali',service:'Gel Nails',duration:60,price:45,status:'done'},
+  {id:'a12',stylistId:'t3',time:'17:00',client:'Christina Lambrou',service:'Classic Manicure',duration:45,price:30,status:'confirmed'},
+  {id:'a13',stylistId:'t4',time:'10:00',client:'Eleni Papadopoulos',service:'Classic Facial',duration:60,price:70,status:'done'},
+  {id:'a14',stylistId:'t4',time:'12:00',client:'Dimitra Andreou',service:'Eyebrow Shaping',duration:20,price:20,status:'done'},
+  {id:'a15',stylistId:'t4',time:'16:00',client:'Vicky Nikolaou',service:'Aromatherapy Massage',duration:60,price:75,status:'progress'}
+];
+
+/* SERVICE MENU */
+const SERVICES=[
+  // HAIR
+  {cat:'Hair',icon:'✂️',name:'Women\'s Cut',duration:45,price:45,booked:42},
+  {cat:'Hair',icon:'✂️',name:'Men\'s Cut',duration:30,price:20,booked:28},
+  {cat:'Hair',icon:'✂️',name:'Children\'s Cut',duration:30,price:18,booked:12},
+  {cat:'Hair',icon:'✂️',name:'Blowdry',duration:30,price:30,booked:35},
+  {cat:'Hair',icon:'✂️',name:'Blowdry Long',duration:45,price:40,booked:22},
+  {cat:'Hair',icon:'✂️',name:'Updo',duration:60,price:65,booked:18},
+  {cat:'Hair',icon:'✂️',name:'Bridal',duration:120,price:150,booked:6},
+  {cat:'Hair',icon:'✂️',name:'Hair Treatment',duration:60,price:55,booked:20},
+  {cat:'Hair',icon:'✂️',name:'Keratin Treatment',duration:150,price:180,booked:8},
+  {cat:'Hair',icon:'✂️',name:'Scalp Treatment',duration:45,price:40,booked:15},
+  // COLOR
+  {cat:'Color',icon:'🎨',name:'Full Color Short',duration:90,price:75,booked:24},
+  {cat:'Color',icon:'🎨',name:'Full Color Long',duration:120,price:95,booked:18},
+  {cat:'Color',icon:'🎨',name:'Balayage',duration:150,price:140,booked:16},
+  {cat:'Color',icon:'🎨',name:'Highlights Partial',duration:90,price:80,booked:20},
+  {cat:'Color',icon:'🎨',name:'Highlights Full',duration:120,price:110,booked:14},
+  {cat:'Color',icon:'🎨',name:'Toner',duration:60,price:55,booked:22},
+  {cat:'Color',icon:'🎨',name:'Color Correction',duration:180,price:200,booked:4},
+  {cat:'Color',icon:'🎨',name:'Ombre',duration:120,price:130,booked:10},
+  // NAILS
+  {cat:'Nails',icon:'💅',name:'Classic Manicure',duration:45,price:30,booked:48},
+  {cat:'Nails',icon:'💅',name:'Gel Manicure',duration:60,price:45,booked:56},
+  {cat:'Nails',icon:'💅',name:'Shellac',duration:60,price:45,booked:24},
+  {cat:'Nails',icon:'💅',name:'Nail Art (per nail)',duration:5,price:3,booked:120},
+  {cat:'Nails',icon:'💅',name:'Extensions',duration:90,price:65,booked:12},
+  {cat:'Nails',icon:'💅',name:'Classic Pedicure',duration:60,price:40,booked:32},
+  {cat:'Nails',icon:'💅',name:'Gel Pedicure',duration:75,price:55,booked:22},
+  {cat:'Nails',icon:'💅',name:'Luxury Pedicure',duration:90,price:70,booked:14},
+  {cat:'Nails',icon:'💅',name:'Nail Removal',duration:30,price:20,booked:18},
+  // FACE & BODY
+  {cat:'Face',icon:'🌸',name:'Express Facial',duration:45,price:50,booked:22},
+  {cat:'Face',icon:'🌸',name:'Classic Facial',duration:60,price:70,booked:28},
+  {cat:'Face',icon:'🌸',name:'Anti-age Facial',duration:75,price:90,booked:18},
+  {cat:'Face',icon:'🌸',name:'Eyebrow Shaping',duration:20,price:20,booked:60},
+  {cat:'Face',icon:'🌸',name:'Eyebrow Tint',duration:15,price:15,booked:34},
+  {cat:'Face',icon:'🌸',name:'Lash Tint',duration:15,price:18,booked:26},
+  {cat:'Face',icon:'🌸',name:'Lash Lift',duration:45,price:55,booked:14},
+  {cat:'Face',icon:'🌸',name:'Face Waxing',duration:20,price:25,booked:20},
+  // MASSAGE
+  {cat:'Massage',icon:'💆',name:'Relaxing 30min',duration:30,price:40,booked:16},
+  {cat:'Massage',icon:'💆',name:'Relaxing 60min',duration:60,price:70,booked:22},
+  {cat:'Massage',icon:'💆',name:'Deep Tissue 60min',duration:60,price:80,booked:14},
+  {cat:'Massage',icon:'💆',name:'Hot Stone 60min',duration:60,price:85,booked:10},
+  {cat:'Massage',icon:'💆',name:'Aromatherapy 60min',duration:60,price:75,booked:18},
+  // PACKAGES
+  {cat:'Packages',icon:'🎁',name:'Bride Package',duration:300,price:380,booked:5},
+  {cat:'Packages',icon:'🎁',name:'Pamper Day',duration:180,price:180,booked:12},
+  {cat:'Packages',icon:'🎁',name:'Color & Style',duration:120,price:145,booked:18},
+  {cat:'Packages',icon:'🎁',name:'Nail Duo',duration:90,price:75,booked:24}
+];
+
+/* 40 PRODUCTS */
+const PRODUCTS=[
+  // HAIR 10
+  {br:'Olaplex',nm:'No. 3 Hair Perfector',cat:'Hair',stock:12,max:15,unit:'bottle',retail:32},
+  {br:'Wella',nm:'Professional Shampoo 1L',cat:'Hair',stock:3,max:10,unit:'bottle',retail:28},
+  {br:'Kerastase',nm:'Elixir Ultime Oil',cat:'Hair',stock:8,max:12,unit:'bottle',retail:48},
+  {br:'Schwarzkopf',nm:'BC Repair Mask',cat:'Hair',stock:10,max:12,unit:'jar',retail:24},
+  {br:'Moroccanoil',nm:'Treatment 100ml',cat:'Hair',stock:6,max:8,unit:'bottle',retail:42},
+  {br:'Redken',nm:'Extreme Shampoo',cat:'Hair',stock:9,max:12,unit:'bottle',retail:22},
+  {br:'Wella',nm:'EIMI Mousse Hold',cat:'Hair',stock:2,max:8,unit:'can',retail:0},
+  {br:'Olaplex',nm:'No. 6 Bond Smoother',cat:'Hair',stock:7,max:10,unit:'tube',retail:34},
+  {br:'Kerastase',nm:'Resistance Shampoo',cat:'Hair',stock:11,max:12,unit:'bottle',retail:30},
+  {br:'L\'Oréal Pro',nm:'Serie Expert Vitamino',cat:'Hair',stock:5,max:10,unit:'bottle',retail:0},
+  // COLOR 8
+  {br:'Wella',nm:'Koleston Perfect 6/0',cat:'Color',stock:0,max:12,unit:'tube',retail:0},
+  {br:'Wella',nm:'Developer 20vol 1L',cat:'Color',stock:8,max:10,unit:'bottle',retail:0},
+  {br:'Schwarzkopf',nm:'Igora Royal 7.3',cat:'Color',stock:6,max:10,unit:'tube',retail:0},
+  {br:'Wella',nm:'Color Toner Silver',cat:'Color',stock:4,max:8,unit:'tube',retail:0},
+  {br:'Schwarzkopf',nm:'Blonde Me Bleach',cat:'Color',stock:3,max:8,unit:'tub',retail:0},
+  {br:'Lumière',nm:'Aluminum Foils 500ct',cat:'Color',stock:9,max:12,unit:'roll',retail:0},
+  {br:'Redken',nm:'Shades EQ Gloss',cat:'Color',stock:7,max:10,unit:'bottle',retail:0},
+  {br:'L\'Oréal Pro',nm:'Majirel 6N',cat:'Color',stock:5,max:10,unit:'tube',retail:0},
+  // NAILS 10
+  {br:'OPI',nm:'Gel Color Rose',cat:'Nails',stock:14,max:16,unit:'bottle',retail:24},
+  {br:'OPI',nm:'Gel Color Red Classic',cat:'Nails',stock:11,max:16,unit:'bottle',retail:24},
+  {br:'Shellac',nm:'Base Coat',cat:'Nails',stock:8,max:10,unit:'bottle',retail:0},
+  {br:'CND',nm:'Top Coat Gloss',cat:'Nails',stock:9,max:10,unit:'bottle',retail:0},
+  {br:'Lumière',nm:'Acetone Pure 500ml',cat:'Nails',stock:4,max:12,unit:'bottle',retail:0},
+  {br:'OPI',nm:'Nail Strengthener',cat:'Nails',stock:7,max:10,unit:'bottle',retail:18},
+  {br:'OPI',nm:'Cuticle Oil',cat:'Nails',stock:12,max:12,unit:'bottle',retail:14},
+  {br:'Lumière',nm:'Nail Art Brushes Set',cat:'Nails',stock:6,max:8,unit:'set',retail:28},
+  {br:'OPI',nm:'Gel Color Nude Pink',cat:'Nails',stock:2,max:12,unit:'bottle',retail:24},
+  {br:'CND',nm:'Solar Oil',cat:'Nails',stock:10,max:10,unit:'bottle',retail:22},
+  // SKINCARE 6
+  {br:'La Roche-Posay',nm:'Vitamin C Serum',cat:'Skincare',stock:5,max:8,unit:'bottle',retail:42},
+  {br:'SkinCeuticals',nm:'Hyaluronic Acid',cat:'Skincare',stock:7,max:8,unit:'bottle',retail:58},
+  {br:'Lumière',nm:'Gentle Cleanser 200ml',cat:'Skincare',stock:9,max:12,unit:'bottle',retail:18},
+  {br:'Lumière',nm:'Clay Mask',cat:'Skincare',stock:4,max:8,unit:'jar',retail:24},
+  {br:'La Roche-Posay',nm:'Eye Cream Retinol',cat:'Skincare',stock:6,max:8,unit:'tube',retail:32},
+  {br:'SkinCeuticals',nm:'Sunscreen SPF50',cat:'Skincare',stock:3,max:10,unit:'tube',retail:38},
+  // TOOLS 6
+  {br:'Lumière',nm:'Nitrile Gloves 100pk',cat:'Tools',stock:16,max:20,unit:'box',retail:0},
+  {br:'Lumière',nm:'Cotton Rounds 500ct',cat:'Tools',stock:18,max:20,unit:'pack',retail:0},
+  {br:'Lumière',nm:'Cotton Towels White',cat:'Tools',stock:24,max:30,unit:'unit',retail:0},
+  {br:'Lumière',nm:'Bobby Pins 200pk',cat:'Tools',stock:8,max:10,unit:'box',retail:0},
+  {br:'Lumière',nm:'Disposable Capes 50pk',cat:'Tools',stock:5,max:10,unit:'pack',retail:0},
+  {br:'Lumière',nm:'Foot File Pro',cat:'Tools',stock:12,max:12,unit:'unit',retail:8}
+];
+
+/* ============ UTILS ============ */
+function uid(){return Math.random().toString(36).slice(2,10)}
+function rand(a,b){return Math.floor(a+Math.random()*(b-a+1))}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function money(v){return '€'+Math.round(Number(v||0)).toLocaleString('en-US')}
+function fmtClock(){return new Date().toLocaleTimeString('en-GB')}
+function $(s){return document.querySelector(s)}
+function $$(s){return [...document.querySelectorAll(s)]}
+function countUp(el,target,dur=900){if(!el)return;const start=+(el.textContent||'0').replace(/[^\d.-]/g,'')||0;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);const val=start+(target-start)*e;el.textContent=Math.round(val).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+function tierBadge(t){return {Rose:'b-rose',Silver:'b-gray',Gold:'b-gold',Platinum:'b-platinum'}[t]||'b-gray'}
+function tierIcon(t){return {Rose:'🌸',Silver:'🌟',Gold:'💛',Platinum:'💎'}[t]||'🌸'}
+
+/* ============ STATE ============ */
+let state={
+  module:'overview',
+  apptDay:'2026-04-18',
+  selectedAppt:null,
+  clientSearch:'',selectedClient:'c1',clientSubtab:'overview',
+  serviceTab:'Hair',
+  revenueTab:'today',
+  productTab:'All',productAlert:'',
+  teamSelected:null,
+  reportType:'revenue',
+  settingsSubpage:'profile',
+  clients:buildClients(),
+  appointments:JSON.parse(JSON.stringify(APPOINTMENTS)),
+  services:JSON.parse(JSON.stringify(SERVICES)),
+  products:JSON.parse(JSON.stringify(PRODUCTS)),
+  loyaltyFeed:[
+    {t:'Maria Kouri earned 45 points',ic:'✨',time:'just now'},
+    {t:'Elena Gatsis reached Gold tier',ic:'🌟',time:'12m ago'},
+    {t:'Sofia Andreou redeemed free blowdry',ic:'🎁',time:'25m ago'},
+    {t:'Dimitra Vlachou referred Yianna (+100pts)',ic:'💖',time:'1h ago'}
+  ],
+  kpi:{revenue:480,revGoal:550,apptsDone:9,apptsTotal:12,clients:11,newClients:2,vipToday:3,loyaltyPts:385,loyaltyRedemp:3,cashOpen:200,cashCollected:380},
+  revByHour:[['09',0],['10',85],['11',110],['12',45],['13',70],['14',95],['15',75],['16',0],['17',0],['18',0],['19',0]],
+  alerts:[
+    {type:'rose',text:'Sofia on 15-min break',time:'13:45'},
+    {type:'yellow',text:'Maria — next client in 8min',time:'14:22'},
+    {type:'rose',text:'Elena — gel refill low stock',time:'12:10'}
+  ],
+  notifCount:3,audioOn:false,audioCtx:null,charts:{}
+};
+
+/* ============ LOGIN ============ */
+$('#loginBtn').addEventListener('click',signIn);
+$('#loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')signIn()});
+function signIn(){
+  const btn=$('#loginBtn');btn.classList.add('loading');btn.textContent='Connecting...';
+  $('#loginProgress').classList.add('on');
+  const bar=$('#loginProgress div');
+  setTimeout(()=>{bar.style.width='30%';btn.textContent='Connecting to Lumière Studio...'},100);
+  setTimeout(()=>{bar.style.width='65%';btn.textContent='Loading today\'s appointments...'},800);
+  setTimeout(()=>{bar.style.width='100%';btn.textContent='Ready ✦';$('#loginCard').classList.add('login-out');setTimeout(showSplash,400)},1700);
+}
+
+function showSplash(){
+  $('#loginBg').style.display='none';
+  $('#splashBg').style.display='flex';
+  const seqs=[['Preparing your appointments...',0,25],['Loading client profiles...',800,55],['Syncing beauty inventory...',1500,80],['Ready for today ✦',2100,100]];
+  seqs.forEach(([t,d,p])=>setTimeout(()=>{$('#splashSeq').textContent=t;$('#splashBarFill').style.width=p+'%'},d));
+  setTimeout(()=>$('#splashPreview').classList.add('show'),2400);
+  setTimeout(()=>{$('#splashBg').classList.add('splash-out');setTimeout(launchApp,500)},3000);
+}
+
+function launchApp(){
+  $('#splashBg').style.display='none';
+  $('#appRoot').classList.add('ready');
+  renderTopTabs();renderBottomNav();renderSidebar();renderMain();
+  setInterval(()=>{$('#clock').textContent=fmtClock()},1000);
+  setTimeout(()=>LiveEngine.start(),2000);
+  showToast('appt','✦ Welcome back, Sofia','12 appointments booked today');
+}
+
+/* ============ NAV ============ */
+function renderTopTabs(){$('#moduleTabs').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')">${m.icon} ${m.name}</button>`).join('')}
+function renderBottomNav(){$('#bottomNav').innerHTML=MOBILE_NAV.map(id=>{const m=MODULES.find(x=>x.id===id);return `<button class="${state.module===id?'active':''}" onclick="setModule('${id}')"><span class="ic">${m.icon}</span>${m.name}</button>`}).join('')}
+function setModule(id){state.module=id;state.selectedAppt=null;state.teamSelected=null;renderTopTabs();renderBottomNav();renderMain()}
+
+/* ============ SIDEBAR ============ */
+function renderSidebar(){
+  $('#sidebar').innerHTML=`
+    <div class="side-box">
+      <h4>Today at a glance</h4>
+      <div class="sb-date">Friday 18 April</div>
+      <div class="sb-service">Friday Service</div>
+      <button class="status-btn" id="openStatus">● OPEN</button>
+    </div>
+    <div class="side-box">
+      <h4>Live Numbers</h4>
+      <div class="sb-row"><span class="l">💰 Revenue today</span><span class="v up" id="sb-rev">${money(state.kpi.revenue)}</span></div>
+      <div class="sb-row"><span class="l">💅 Appointments</span><span class="v" id="sb-appt">${state.kpi.apptsTotal}</span></div>
+      <div class="sb-row"><span class="l">👥 Clients today</span><span class="v">${state.kpi.clients}</span></div>
+      <div class="sb-row"><span class="l">⭐ Loyalty events</span><span class="v">${state.kpi.loyaltyRedemp}</span></div>
+    </div>
+    <div class="side-box">
+      <h4>Live Alerts</h4>
+      <div id="alertsList">${state.alerts.map(a=>`<div class="alert-item ${a.type}">${a.type==='rose'?'🌸':a.type==='yellow'?'🌼':'✦'}<div>${a.text}</div><span class="t">${a.time}</span></div>`).join('')}</div>
+    </div>
+    <div class="side-box">
+      <h4>Quick Actions</h4>
+      <button class="qa-btn" onclick="openApptModal()">+ New Appointment</button>
+      <button class="qa-btn" onclick="showToast('booking','🚶 Walk-in added','Check availability')">+ Walk-in</button>
+      <button class="qa-btn" onclick="setModule('appointments')">View schedule</button>
+    </div>
+    <button class="end-btn" onclick="openM('mEndConfirm')">End Day</button>
+  `;
+  $('#openStatus').addEventListener('click',e=>{const b=e.target;if(b.textContent.includes('OPEN')){b.textContent='● CLOSED';b.style.background='var(--label-tertiary)'}else{b.textContent='● OPEN';b.style.background='var(--sys-green)'}});
+}
+
+/* ============ MAIN ROUTER ============ */
+function renderMain(){
+  const body=$('#mainBody'),hd=$('#mainHd');body.innerHTML='';
+  const routes={overview:renderOverview,appointments:renderAppointments,clients:renderClients,services:renderServices,revenue:renderRevenue,products:renderProducts,team:renderTeam,loyalty:renderLoyalty,reports:renderReports,settings:renderSettings};
+  (routes[state.module]||renderOverview)(hd,body);
+  body.style.animation='none';requestAnimationFrame(()=>body.style.animation='modFade .35s');
+}
+
+/* ============ MODULE 1: OVERVIEW ============ */
+function renderOverview(hd,body){
+  hd.innerHTML=`<div><h1 class="ital welcome">Bonjour, Sofia ✦</h1><div class="sub">Friday 18 April · Lumière Athens</div></div><div style="display:flex;gap:6px"><button class="btn secondary sm" onclick="openApptModal()">+ Appointment</button><button class="btn secondary sm" onclick="showToast('booking','🚶 Walk-in','Added to schedule')">+ Walk-in</button><button class="btn primary sm" onclick="openClientModal()">+ Client</button></div>`;
+  const pct=Math.round(state.kpi.revenue/state.kpi.revGoal*100);
+  body.innerHTML=`
+    <div class="grid5" style="margin-bottom:14px">
+      <div class="kcard" id="kpi-rev"><div class="l">💰 Revenue today</div><div class="v">€<span id="ov-rev">0</span></div><div class="progress-bar"><div style="width:${pct}%"></div></div><div class="d" style="color:var(--sys-green)">↑ 15% vs yesterday · ${pct}% of €${state.kpi.revGoal}</div></div>
+      <div class="kcard"><div class="l">💅 Appointments</div><div class="v"><span id="ov-appt">0</span></div><div class="d">Done ${state.kpi.apptsDone} / Remaining ${state.kpi.apptsTotal-state.kpi.apptsDone}</div></div>
+      <div class="kcard"><div class="l">👥 Clients today</div><div class="v"><span id="ov-cli">0</span></div><div class="d">${state.kpi.newClients} new · ${state.kpi.vipToday} VIP</div></div>
+      <div class="kcard"><div class="l">⭐ Loyalty awarded</div><div class="v"><span id="ov-loy">0</span><span style="font-size:14px;color:var(--label-tertiary)"> pts</span></div><div class="d">${state.kpi.loyaltyRedemp} redemptions</div></div>
+      <div class="kcard"><div class="l">👤 Team on duty</div><div class="v">4/4</div><div class="d">1 on break</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:1.5fr 1fr 1fr;margin-bottom:14px">
+      <div class="card"><h3>Revenue trend</h3><div class="chart-host"><canvas id="chRev"></canvas></div></div>
+      <div class="card"><h3>Service goal</h3>
+        <div style="text-align:center;padding:18px 0">
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;color:var(--accent);font-weight:600">${pct}%</div>
+          <div class="label-up">of goal reached</div>
+          <div class="progress-bar" style="margin:12px 20px"><div style="width:${pct}%"></div></div>
+          <div style="font-size:12px;color:var(--label-tertiary)">${money(state.kpi.revenue)} of ${money(state.kpi.revGoal)}</div>
+        </div>
+      </div>
+      <div class="card"><h3>Top services</h3>
+        <div style="margin-top:8px">
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>🎨 Color</strong><span class="mono">€305</span></div><div class="progress-bar"><div style="width:100%"></div></div></div>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>💅 Nails</strong><span class="mono">€175</span></div><div class="progress-bar"><div style="width:58%"></div></div></div>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>✂️ Haircuts</strong><span class="mono">€110</span></div><div class="progress-bar"><div style="width:36%"></div></div></div>
+          <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>🌸 Face</strong><span class="mono">€160</span></div><div class="progress-bar"><div style="width:52%"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid2" style="grid-template-columns:1.5fr 1fr">
+      <div class="card"><h3>Live appointment feed <span class="live-dot" style="font-size:9px;padding:3px 8px"><span class="d"></span>LIVE</span></h3>
+        <div id="apptFeed" style="max-height:320px;overflow-y:auto">${state.appointments.slice().reverse().slice(0,8).map(a=>{const st=TEAM.find(t=>t.id===a.stylistId);return `<div class="sb-row" style="padding:8px 0;border-bottom:1px solid var(--separator)"><span style="font-size:12px"><strong>${a.time}</strong> — ${a.client}<div style="font-size:11px;color:var(--label-tertiary);margin-top:1px">${a.service} · ${st.name.split(' ')[0]}</div></span><span class="badge ${a.status==='done'?'b-green':a.status==='progress'?'b-rose':'b-blue'}">${a.status}</span></div>`}).join('')}</div>
+      </div>
+      <div class="card"><h3>Upcoming — next 3h</h3>
+        ${state.appointments.filter(a=>a.status==='confirmed'||a.status==='progress').slice(0,4).map(a=>{const st=TEAM.find(t=>t.id===a.stylistId);return `<div class="sb-row" style="padding:10px 0"><span><strong>${a.time}</strong> ${a.client}<div style="font-size:11px;color:var(--label-tertiary)">${a.service} · ${st.name.split(' ')[0]}</div></span><span style="font-size:11px;color:var(--accent);font-weight:700">in ${rand(5,45)}min</span></div>`}).join('')}
+        <div style="background:var(--fill-tertiary);border-radius:12px;padding:10px;margin-top:8px;text-align:center;font-size:12px">💅 2 walk-in slots available</div>
+      </div>
+    </div>`;
+  countUp($('#ov-rev'),state.kpi.revenue);countUp($('#ov-appt'),state.kpi.apptsTotal);countUp($('#ov-cli'),state.kpi.clients);countUp($('#ov-loy'),state.kpi.loyaltyPts);
+  setTimeout(()=>{const c=$('#chRev');if(!c)return;if(state.charts.rev)state.charts.rev.destroy();state.charts.rev=new Chart(c,{type:'line',data:{labels:state.revByHour.map(r=>r[0]+':00'),datasets:[{data:state.revByHour.map(r=>r[1]),borderColor:'#FF2D55',backgroundColor:'rgba(255,45,85,.15)',tension:.4,fill:true,pointRadius:3,pointBackgroundColor:'#FF2D55'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10}}},y:{ticks:{callback:v=>'€'+v,font:{size:10}}}}}})},60);
+}
+
+/* ============ MODULE 2: APPOINTMENTS ============ */
+function renderAppointments(hd,body){
+  hd.innerHTML=`<div><h1 class="ital">Appointments</h1><div class="sub">${state.kpi.apptsTotal} appts · ${money(state.kpi.revenue)} · 3 slots free</div></div><div style="display:flex;gap:6px;align-items:center"><button class="btn sm">← Fri 18 April →</button><button class="btn primary sm" onclick="openApptModal()">+ New Appointment</button></div>`;
+  const times=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
+  body.innerHTML=`
+    <div style="display:flex;gap:6px;margin-bottom:10px"><button class="btn sm primary">Day</button><button class="btn sm">Week</button><button class="btn sm">Month</button><button class="btn sm">Agenda</button></div>
+    <div class="appt-board">
+      <div class="appt-col time-col">${times.map(t=>`<div class="time-slot">${t}</div>`).join('')}</div>
+      ${TEAM.map(st=>{
+        const appts=state.appointments.filter(a=>a.stylistId===st.id);
+        return `<div class="appt-col">
+          <div class="appt-head">
+            <div class="av">${initials(st.name)}</div>
+            <div><div class="n">${st.name.split(' ')[0]}</div><div class="r">${st.role}</div></div>
+            <div class="m"><div class="c">${st.todayAppts} appts</div><div style="color:var(--label-tertiary)">${money(st.todayRev)}</div></div>
+          </div>
+          ${appts.map(a=>`<div class="appt-block ${a.status}" onclick="selectAppt('${a.id}')">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:10px;font-weight:700">${a.time}</span><span style="font-size:9px;opacity:.7">${a.duration}min</span></div>
+            <div class="n">${a.client}</div>
+            <div class="s">${a.service}</div>
+            <div class="d"><span>${a.status==='done'?'✅':a.status==='progress'?'● In progress':'Confirmed'}</span><span>€${a.price}</span></div>
+          </div>`).join('')}
+        </div>`;
+      }).join('')}
+    </div>
+    ${state.selectedAppt?renderApptDetail():''}
+  `;
+}
+
+function renderApptDetail(){
+  const a=state.appointments.find(x=>x.id===state.selectedAppt);if(!a)return '';
+  const st=TEAM.find(t=>t.id===a.stylistId);
+  return `<div style="position:fixed;right:0;top:56px;bottom:0;width:340px;background:var(--bg-secondary);box-shadow:-8px 0 24px rgba(255,45,85,.08);padding:20px;z-index:40;overflow-y:auto;animation:modFade .3s">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div class="label-up">Appointment</div><button class="btn xs" onclick="state.selectedAppt=null;renderMain()">✕</button></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700">${initials(a.client)}</div>
+      <div><div class="ital" style="font-size:20px;font-weight:600">${a.client}</div><div style="font-size:11px;color:var(--label-tertiary)">12 visits · +30 69 5554321</div></div>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:14px"><button class="btn xs secondary full">📞 Call</button><button class="btn xs secondary full">💬 Message</button></div>
+    <div style="background:var(--fill-tertiary);border-radius:12px;padding:12px;margin-bottom:14px">
+      <div class="label-up" style="margin-bottom:6px">Service</div>
+      <span class="badge b-rose">${a.service}</span>
+      <div style="font-size:12px;margin-top:8px;color:var(--label-secondary)">Stylist: ${st.name} · ${a.time} · ${a.duration}min</div>
+      <div style="font-size:22px;color:var(--accent);font-weight:700;margin-top:8px">€${a.price}</div>
+      <span class="badge ${a.status==='done'?'b-green':a.status==='progress'?'b-rose':'b-blue'}" style="margin-top:6px">${a.status}</span>
+    </div>
+    <div style="background:var(--fill-tertiary);border-radius:12px;padding:12px;margin-bottom:14px;font-size:12px">
+      <div class="label-up" style="margin-bottom:6px">Preferences</div>
+      Hair: Medium wavy · Prefers 11am · Allergies: none
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn primary sm">Check in</button>
+      <button class="btn secondary sm" onclick="completeAppt('${a.id}')">Complete</button>
+      <button class="btn sm">No-show</button>
+      <button class="btn sm">Reschedule</button>
+      <button class="btn sm">Rebook same</button>
+      <button class="btn ghost sm">Cancel</button>
+    </div>
+  </div>`;
+}
+
+window.selectAppt=id=>{state.selectedAppt=id;renderMain()};
+window.completeAppt=id=>{const a=state.appointments.find(x=>x.id===id);if(!a)return;a.status='done';state.kpi.revenue+=a.price;state.kpi.apptsDone++;showToast('appt','💅 Appointment complete',`${a.client} — €${a.price}`);playSound('appt');state.selectedAppt=null;renderMain();renderSidebar()};
+
+window.openApptModal=()=>{
+  $('#aService').innerHTML=state.services.map(s=>`<option>${s.name} · €${s.price}</option>`).join('');
+  $('#aStylist').innerHTML=TEAM.map(t=>`<option value="${t.id}">${t.name} — ${t.role}</option>`).join('');
+  $('#aClient').value='';$('#aNotes').value='';
+  openM('mAppt');
+};
+window.saveAppt=()=>{
+  const client=$('#aClient').value.trim()||'Walk-in';
+  const svcText=$('#aService').selectedOptions[0].textContent;
+  const [svcName,priceS]=svcText.split(' · €');
+  const svc=state.services.find(s=>s.name===svcName);
+  const stId=$('#aStylist').value;
+  const newA={id:uid(),stylistId:stId,time:$('#aTime').value,client,service:svcName,duration:svc.duration,price:svc.price,status:'confirmed'};
+  state.appointments.push(newA);
+  state.kpi.apptsTotal++;
+  closeM('mAppt');showToast('booking','📅 Appointment booked',`${client} · ${svcName}`);playSound('booking');
+  renderMain();renderSidebar();
+};
+
+/* ============ MODULE 3: CLIENTS ============ */
+function renderClients(hd,body){
+  hd.innerHTML=`<div><h1 class="ital">Clients</h1><div class="sub">${state.clients.length} total · ${state.clients.filter(c=>c.tier==='Gold'||c.tier==='Platinum').length} VIP · ${state.clients.filter(c=>c.visits>5).length} regulars</div></div><div><button class="btn primary sm" onclick="openClientModal()">+ New Client</button></div>`;
+  const q=state.clientSearch.toLowerCase();
+  const list=state.clients.filter(c=>!q||c.name.toLowerCase().includes(q));
+  const sel=state.clients.find(c=>c.id===state.selectedClient)||state.clients[0];
+  body.innerHTML=`<div class="cli-wrap">
+    <div class="cli-col">
+      <input class="fld" placeholder="Search clients..." id="clSearch" value="${state.clientSearch}" style="margin-bottom:6px">
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">${['All','VIP','New','Regular'].map(f=>`<button class="btn xs ${f==='All'?'secondary':''}">${f}</button>`).join('')}</div>
+      ${list.map(c=>`<div class="cli-item ${sel&&sel.id===c.id?'sel':''} ${c.tier==='Gold'||c.tier==='Platinum'?'vip':''}" onclick="state.selectedClient='${c.id}';renderMain()">
+        <div class="av" style="background:linear-gradient(135deg,${['#FF2D55','#FF6B9D','#D4A574','#AF52DE'][c.id.charCodeAt(1)%4]},#FFB3C6)">${initials(c.name)}</div>
+        <div style="flex:1;min-width:0"><div class="n">${c.name}</div><div class="c">${c.lastService} · ${c.lastVisit}</div></div>
+        <span class="badge ${tierBadge(c.tier)}" style="font-size:8px">${tierIcon(c.tier)}</span>
+      </div>`).join('')}
+    </div>
+    <div class="cli-col">${renderClientDetail(sel)}</div>
+    <div class="cli-col">
+      <h4 class="label-up" style="margin-bottom:10px">Quick Actions</h4>
+      <button class="qa-btn" onclick="openApptModal()">📅 Book</button>
+      <button class="qa-btn">📞 Call</button>
+      <button class="qa-btn">💌 Message</button>
+      <div style="border-top:1px solid var(--separator);margin:12px 0"></div>
+      <h4 class="label-up">Next appointment</h4>
+      <div style="font-size:12px;padding:8px 0">Apr 25 · 11:00<br><span style="color:var(--label-tertiary)">Balayage · Elena</span></div>
+      <div style="border-top:1px solid var(--separator);margin:12px 0"></div>
+      <h4 class="label-up">Last 3 visits</h4>
+      ${[0,1,2].map(i=>`<div style="font-size:11px;padding:4px 0;border-bottom:1px solid var(--separator)">${rand(3,60)}d ago — ${pick(['Haircut','Color','Manicure','Facial'])} <br><span style="color:var(--label-tertiary)">€${rand(30,120)} · ${pick(['Sofia','Elena','Maria','Katerina'])}</span></div>`).join('')}
+    </div>
+  </div>`;
+  const s=$('#clSearch');if(s){s.addEventListener('change',e=>{state.clientSearch=e.target.value;renderMain()})}
+}
+
+function renderClientDetail(c){
+  if(!c)return '<div style="text-align:center;padding:40px;color:var(--label-tertiary)">Select a client</div>';
+  const tabs=['overview','history','notes','preferences','photos','loyalty'];
+  let content='';
+  if(state.clientSubtab==='overview'){
+    content=`<div class="grid5" style="margin-bottom:14px">
+      <div class="kcard"><div class="l">Visits</div><div class="v">${c.visits}</div></div>
+      <div class="kcard"><div class="l">Total spent</div><div class="v">${money(c.totalSpent)}</div></div>
+      <div class="kcard"><div class="l">Avg ticket</div><div class="v">${money(c.avgTicket)}</div></div>
+      <div class="kcard"><div class="l">Last visit</div><div class="v" style="font-size:18px">${c.lastVisit}</div></div>
+      <div class="kcard"><div class="l">Since</div><div class="v" style="font-size:18px">${c.anniversary.split(' ').pop()}</div></div>
+    </div>
+    <div class="card" style="border:1.5px solid var(--accent-tint)">
+      <h3>Contact</h3>
+      <div class="sb-row"><span class="l">📞 Phone</span><span class="v">${c.phone}</span></div>
+      <div class="sb-row"><span class="l">✉ Email</span><span class="v" style="font-size:11px">${c.email}</span></div>
+      <div class="sb-row"><span class="l">🎂 Birthday</span><span class="v">${c.birthday}</span></div>
+      <div class="sb-row"><span class="l">✦ ${c.anniversary}</span><span></span></div>
+      ${c.birthday.includes('/4')||c.birthday.includes('/5')?'<div style="background:var(--accent-tint);border-radius:10px;padding:8px;margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">🌸 Birthday in 3 days!</div>':''}
+    </div>`;
+  } else if(state.clientSubtab==='history'){
+    content=Array.from({length:6},(_,i)=>{const daysAgo=(i+1)*rand(15,35);return `<div style="display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--separator)">
+      <div style="width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:4px;flex-shrink:0;position:relative">${i<5?'<div style="position:absolute;top:12px;left:5px;width:2px;height:60px;background:var(--fill-tertiary)"></div>':''}</div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:600">${pick(['Gel Manicure','Balayage','Women\'s Cut','Classic Facial','Highlights'])}</div>
+      <div style="font-size:11px;color:var(--label-tertiary);margin-top:2px">${daysAgo}d ago · ${pick(['Sofia','Elena','Maria','Katerina'])} · ${rand(30,180)}min · €${rand(30,180)}</div></div>
+      <div style="width:60px;height:60px;background:var(--fill-tertiary);border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--label-tertiary)">📸</div>
+    </div>`}).join('');
+  } else if(state.clientSubtab==='notes'){
+    content=`<textarea class="fld" rows="6" placeholder="Add notes...">${c.notes}</textarea><button class="btn sm primary" onclick="showToast('appt','📝 Saved','Client notes updated')">Save notes</button>`;
+  } else if(state.clientSubtab==='preferences'){
+    content=`<div style="margin-bottom:14px"><h4 class="label-up">Tags</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${['Hair: '+c.hairType,'Allergies: '+c.allergies,'Prefers Sofia','Prefers mornings','Quiet appointments'].map(t=>`<span class="badge b-rose">${t}</span>`).join('')}<button class="btn xs">+ Add tag</button></div></div>
+    <div class="card"><h3>Color formula</h3><textarea class="fld" rows="2">${c.colorFormula}</textarea><div style="font-size:11px;color:var(--label-tertiary)">Last updated: 15 days ago</div></div>`;
+  } else if(state.clientSubtab==='photos'){
+    content=`<div class="grid3">${Array.from({length:6},(_,i)=>`<div style="aspect-ratio:1;background:linear-gradient(135deg,var(--accent-tint),var(--fill-tertiary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent)">📸</div>`).join('')}</div>`;
+  } else {
+    const pts=c.points;
+    content=`<div style="text-align:center;padding:20px 0"><div class="ital" style="font-size:48px;color:#D4A574;font-weight:600">${pts} <span style="font-size:18px">points</span></div>
+    <span class="badge ${tierBadge(c.tier)}">${tierIcon(c.tier)} ${c.tier}</span></div>
+    <div class="progress-bar"><div style="width:${Math.min(pts/3000*100,100)}%;background:linear-gradient(90deg,#D4A574,#F5D28C)"></div></div>
+    <div style="font-size:11px;text-align:center;color:var(--label-tertiary);margin-top:4px">${3000-pts>0?3000-pts+' pts to Platinum':'Platinum member ✦'}</div>
+    <div style="margin-top:20px"><h4 class="label-up">Available rewards</h4>
+    <div style="margin-top:8px">${['Free blowdry (500pts)','15% off next service (800pts)','Free facial (1200pts)'].map(r=>`<div class="sb-row" style="padding:8px 0"><span>🎁 ${r}</span><button class="btn xs primary">Redeem</button></div>`).join('')}</div></div>`;
+  }
+  return `<div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700">${initials(c.name)}</div>
+    <div><h2 class="client-name">${c.name} ${c.tier==='Gold'||c.tier==='Platinum'?'✦':''}</h2><div style="margin-top:4px"><span class="badge ${tierBadge(c.tier)}">${tierIcon(c.tier)} ${c.tier}</span></div></div>
+  </div>
+  <div class="cli-subtabs">${tabs.map(t=>`<button class="${state.clientSubtab===t?'active':''}" onclick="state.clientSubtab='${t}';renderMain()">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}</div>
+  ${content}`;
+}
+
+window.openClientModal=()=>{$('#clName').value='';$('#clPhone').value='';$('#clEmail').value='';$('#clNotes').value='';$('#clStylist').innerHTML=TEAM.map(t=>`<option>${t.name}</option>`).join('');openM('mClient')};
+window.saveClient=()=>{const name=$('#clName').value.trim();if(!name)return alert('Name required');const nc={id:uid(),name,phone:$('#clPhone').value,email:$('#clEmail').value,birthday:'—',anniversary:'Client since 2026',visits:0,totalSpent:0,avgTicket:0,lastVisit:'Never',lastService:'—',preferredStylist:'t1',tier:'Rose',points:0,hairType:'—',colorFormula:'—',allergies:'None',notes:$('#clNotes').value};state.clients.unshift(nc);state.selectedClient=nc.id;closeM('mClient');showToast('booking','👥 Client added',name);renderMain()};
+
+/* ============ MODULE 4: SERVICES ============ */
+function renderServices(hd,body){
+  const cats=['Hair','Color','Nails','Face','Massage','Packages'];
+  const catIcons={Hair:'✂️',Color:'🎨',Nails:'💅',Face:'🌸',Massage:'💆',Packages:'🎁'};
+  hd.innerHTML=`<div><h1 class="ital">Services</h1><div class="sub">${state.services.length} services · ${new Set(state.services.map(s=>s.cat)).size} categories</div></div><div><button class="btn primary sm">+ Add Service</button></div>`;
+  const list=state.services.filter(s=>s.cat===state.serviceTab);
+  body.innerHTML=`
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">${cats.map(c=>`<button class="btn sm ${state.serviceTab===c?'primary':''}" onclick="state.serviceTab='${c}';renderMain()">${catIcons[c]} ${c}</button>`).join('')}</div>
+    <div class="svc-grid">${list.map(s=>`<div class="svc-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="ic">${s.icon}</div><span class="dur-chip">${s.duration}min</span></div>
+      <div class="nm">${s.name}</div>
+      <div class="prc">€${s.price}</div>
+      <div class="meta"><span class="pop">📈 ${s.booked} booked this month</span></div>
+      <div style="display:flex;gap:4px;margin-top:4px"><button class="btn xs full">Edit</button><button class="btn xs secondary full">Active</button></div>
+    </div>`).join('')}</div>`;
+}
+
+/* ============ MODULE 5: REVENUE ============ */
+function renderRevenue(hd,body){
+  hd.innerHTML=`<div><h1 class="ital">Revenue</h1><div class="sub">Friday 18 April · Last updated 2s ago</div></div><div style="display:flex;gap:6px">${['today','week','month','year'].map(t=>`<button class="btn sm ${state.revenueTab===t?'primary':''}" onclick="state.revenueTab='${t}';renderMain()">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}</div>`;
+  const pct=Math.round(state.kpi.revenue/state.kpi.revGoal*100);
+  body.innerHTML=`
+    <div class="rev-hero">
+      <div class="label-up">Today's revenue</div>
+      <div class="kpi-hero" id="rev-hero">€${state.kpi.revenue}</div>
+      <div style="color:var(--sys-green);font-weight:700;font-size:14px;margin-top:4px">↑ 15% vs yesterday</div>
+      <div class="progress-bar" style="max-width:400px;margin:16px auto 6px"><div style="width:${pct}%"></div></div>
+      <div class="sub-lbl">${pct}% of €${state.kpi.revGoal} goal · Last updated 2s ago</div>
+    </div>
+    <div class="grid4" style="margin-bottom:14px">
+      <div class="kcard"><div class="l">💵 Cash</div><div class="v">€180</div></div>
+      <div class="kcard"><div class="l">💳 Card</div><div class="v">€300</div></div>
+      <div class="kcard"><div class="l">💅 Appointments</div><div class="v">${state.kpi.apptsTotal}</div></div>
+      <div class="kcard"><div class="l">🎟 Avg ticket</div><div class="v">€${Math.round(state.kpi.revenue/state.kpi.apptsDone)}</div></div>
+    </div>
+    <div class="grid2" style="margin-bottom:14px"><div class="card"><h3>Revenue by hour today</h3><div class="chart-host"><canvas id="chRevH"></canvas></div></div><div class="card"><h3>By service category</h3><div class="chart-host"><canvas id="chRevC"></canvas></div></div></div>
+    <div class="grid2" style="margin-bottom:14px">
+      <div class="card"><h3>Stylist performance</h3>
+        ${TEAM.map(t=>`<div class="sb-row" style="padding:8px 0"><span style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;border-radius:50%;background:${t.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">${initials(t.name)}</div>${t.name.split(' ')[0]} · ${t.todayAppts} appts</span><span class="v" style="color:${t.id==='t2'?'var(--accent)':'var(--label-primary)'}">${money(t.todayRev)} ${t.id==='t2'?'💰':''}</span></div>`).join('')}
+      </div>
+      <div class="card"><h3>Comparison</h3>
+        <div class="sb-row"><span class="l">vs Yesterday</span><span class="v up">+15%</span></div>
+        <div class="sb-row"><span class="l">vs Last Friday</span><span class="v up">+8%</span></div>
+        <div class="sb-row"><span class="l">vs Week avg</span><span class="v up">+12%</span></div>
+        <div class="sb-row"><span class="l">Best day this month</span><span class="v">€720 (Sat)</span></div>
+      </div>
+    </div>
+    <div class="card"><h3>Cash count</h3>
+      <div class="grid4">
+        <div class="kcard"><div class="l">Opening</div><div class="v" style="font-size:22px">€200</div></div>
+        <div class="kcard"><div class="l">Collected</div><div class="v" style="font-size:22px">€380</div></div>
+        <div class="kcard"><div class="l">Expected</div><div class="v" style="font-size:22px">€380</div></div>
+        <div class="kcard"><div class="l">Variance</div><div class="v" style="font-size:22px;color:var(--sys-green)">€0 ✓</div></div>
+      </div>
+      <button class="btn secondary" style="margin-top:12px" onclick="window.print()">🖨 Print daily summary</button>
+    </div>
+  `;
+  setTimeout(()=>{
+    if(state.charts.revH)state.charts.revH.destroy();
+    state.charts.revH=new Chart($('#chRevH'),{type:'line',data:{labels:state.revByHour.map(r=>r[0]+':00'),datasets:[{data:state.revByHour.map(r=>r[1]),borderColor:'#FF2D55',backgroundColor:'rgba(255,45,85,.2)',fill:true,tension:.35,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'€'+v}}}}});
+    if(state.charts.revC)state.charts.revC.destroy();
+    state.charts.revC=new Chart($('#chRevC'),{type:'doughnut',data:{labels:['Color','Nails','Hair','Face','Massage'],datasets:[{data:[305,175,110,160,75],backgroundColor:['#FF2D55','#FF6B9D','#FFB3C6','#D4A574','#AF52DE']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:10}}}}});
+  },60);
+}
+
+/* ============ MODULE 6: PRODUCTS ============ */
+function renderProducts(hd,body){
+  const low=state.products.filter(p=>p.stock>0&&p.stock<=3).length;
+  const out=state.products.filter(p=>p.stock===0).length;
+  const ok=state.products.length-low-out;
+  const cats=['All','Hair','Color','Nails','Skincare','Tools','Retail'];
+  hd.innerHTML=`<div><h1 class="ital">Products</h1><div class="sub">${state.products.length} items · ${state.products.filter(p=>p.retail>0).length} retail</div></div><div style="display:flex;gap:6px"><span class="badge b-red">🔴 Out ${out}</span><span class="badge b-orange">🟡 Low ${low}</span><span class="badge b-green">🟢 OK ${ok}</span></div>`;
+  let list=state.products;
+  if(state.productTab==='Retail')list=list.filter(p=>p.retail>0);
+  else if(state.productTab!=='All')list=list.filter(p=>p.cat===state.productTab);
+  body.innerHTML=`
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">${cats.map(c=>`<button class="btn sm ${state.productTab===c?'primary':''}" onclick="state.productTab='${c}';renderMain()">${c}</button>`).join('')}</div>
+    <div class="prod-grid">${list.map((p,i)=>{const pct=Math.round(p.stock/p.max*100);const cls=p.stock===0?'out':p.stock<=3?'low':'';return `<div class="prod-card ${cls}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="br">${p.br}</div><div class="nm">${p.nm}</div></div><span class="badge b-rose">${p.cat}</span></div>
+      <div class="stock-bar"><div style="width:${pct}%"></div></div>
+      <div style="font-size:11px;color:var(--label-tertiary);display:flex;justify-content:space-between"><span>${p.stock} / ${p.max} ${p.unit}</span>${p.retail?`<span style="color:var(--accent);font-weight:700">€${p.retail}</span>`:''}</div>
+      <div class="qty-ctrl"><button onclick="adjStock(${i},-1)">−</button><span>${p.stock}</span><button onclick="adjStock(${i},1)">+</button></div>
+    </div>`}).join('')}</div>`;
+}
+
+window.adjStock=(i,d)=>{const p=state.products[i];p.stock=Math.max(0,Math.min(p.max,p.stock+d));renderMain()};
+
+/* ============ MODULE 7: TEAM ============ */
+function renderTeam(hd,body){
+  if(state.teamSelected){const m=TEAM.find(t=>t.id===state.teamSelected);if(m)return renderTeamDetail(hd,body,m)}
+  hd.innerHTML=`<div><h1 class="ital">Team</h1><div class="sub">${TEAM.length} stylists · ${TEAM.filter(t=>t.status==='working').length} working · ${TEAM.filter(t=>t.status==='break').length} on break</div></div><div style="display:flex;gap:6px"><button class="btn sm primary">Cards</button><button class="btn sm">Schedule</button><button class="btn sm">Performance</button></div>`;
+  body.innerHTML=`<div class="team-grid">${TEAM.map(m=>`<div class="team-card" onclick="state.teamSelected='${m.id}';renderMain()">
+    <div class="team-av">${initials(m.name)}</div>
+    <div class="team-name">${m.name}</div>
+    <div class="team-role">${m.role}</div>
+    <div class="status-dot ${m.status}"><span class="d"></span>${m.status==='working'?'Working':m.status==='break'?'On break':'Off'}</div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--separator)">
+      <div class="sb-row"><span class="l">Today</span><span class="v">${m.todayAppts} appts</span></div>
+      <div class="sb-row"><span class="l">Revenue</span><span class="v" style="color:var(--accent)">${money(m.todayRev)}</span></div>
+      <div style="font-size:11px;color:var(--label-tertiary);margin-top:8px;font-style:italic">${m.currentClient}</div>
+    </div>
+    <div style="display:flex;gap:4px;margin-top:10px"><button class="btn xs secondary full">Schedule</button><button class="btn xs full">Edit</button></div>
+  </div>`).join('')}</div>`;
+}
+
+function renderTeamDetail(hd,body,m){
+  hd.innerHTML=`<div><h1 class="ital">${m.name}</h1><div class="sub">${m.role} · ${m.status}</div></div><div><button class="btn sm" onclick="state.teamSelected=null;renderMain()">← Back</button></div>`;
+  body.innerHTML=`<div class="card" style="text-align:center;padding:28px"><div class="team-av" style="width:100px;height:100px;font-size:34px">${initials(m.name)}</div><div class="team-name" style="font-size:28px;margin-top:10px">${m.name}</div><div class="team-role">${m.role}</div></div>
+  <div class="grid4" style="margin-top:14px">
+    <div class="kcard"><div class="l">Today appts</div><div class="v">${m.todayAppts}</div></div>
+    <div class="kcard"><div class="l">Today revenue</div><div class="v">${money(m.todayRev)}</div></div>
+    <div class="kcard"><div class="l">Month total</div><div class="v">${money(m.todayRev*20)}</div></div>
+    <div class="kcard"><div class="l">Commission</div><div class="v">${money(m.todayRev*20*0.35)}</div></div>
+  </div>
+  <div class="grid2" style="margin-top:14px"><div class="card"><h3>Specialties</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${m.specialties.map(s=>`<span class="badge b-rose">${s}</span>`).join('')}</div></div>
+  <div class="card"><h3>Top 5 clients</h3>${state.clients.filter(c=>c.preferredStylist===m.id).slice(0,5).map(c=>`<div class="sb-row" style="padding:6px 0"><span>${c.name}</span><span class="v">${c.visits} visits</span></div>`).join('')}</div></div>`;
+}
+
+/* ============ MODULE 8: LOYALTY ============ */
+function renderLoyalty(hd,body){
+  const tiers={Rose:0,Silver:0,Gold:0,Platinum:0};
+  state.clients.forEach(c=>tiers[c.tier]++);
+  hd.innerHTML=`<div><h1 class="ital">Loyalty</h1><div class="sub">${state.clients.length} members · ${state.kpi.loyaltyPts}pts awarded today</div></div><div><button class="btn primary sm">+ Award points</button></div>`;
+  body.innerHTML=`
+    <div class="grid4" style="margin-bottom:14px">
+      <div class="kcard"><div class="l">🌸 Rose</div><div class="v">${tiers.Rose}</div><div class="d">0-499 pts</div></div>
+      <div class="kcard"><div class="l">🌟 Silver</div><div class="v">${tiers.Silver}</div><div class="d">500-1499 pts</div></div>
+      <div class="kcard"><div class="l">💛 Gold</div><div class="v" style="color:#B8895A">${tiers.Gold}</div><div class="d">1500-2999 pts</div></div>
+      <div class="kcard"><div class="l">💎 Platinum</div><div class="v">${tiers.Platinum}</div><div class="d">3000+ pts</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:2fr 1fr">
+      <div class="loy-grid">${state.clients.slice().sort((a,b)=>b.points-a.points).slice(0,12).map(c=>`<div class="loy-card">
+        <div class="hd"><div class="av" style="background:linear-gradient(135deg,${['#FF2D55','#FF6B9D','#D4A574','#AF52DE'][c.id.charCodeAt(1)%4]},#FFB3C6)">${initials(c.name)}</div>
+        <div style="flex:1"><div class="ital" style="font-size:15px;font-weight:600">${c.name}</div><span class="badge ${tierBadge(c.tier)}" style="font-size:9px">${tierIcon(c.tier)} ${c.tier}</span></div></div>
+        <div class="pts">${c.points} <span style="font-size:12px;color:var(--label-tertiary)">pts</span></div>
+        <div style="font-size:11px;color:var(--label-tertiary)">${c.visits} visits · ${money(c.totalSpent)}</div>
+        <div style="display:flex;gap:4px;margin-top:6px"><button class="btn xs secondary full">Add</button><button class="btn xs full">Redeem</button></div>
+      </div>`).join('')}</div>
+      <div class="card"><h3>Live feed ✨</h3>
+        <div class="loy-feed" id="loyFeed">${state.loyaltyFeed.map(f=>`<div class="loy-feed-item">${f.ic} ${f.t}<div style="font-size:10px;color:var(--label-tertiary);margin-top:2px">${f.time}</div></div>`).join('')}</div>
+        <div style="border-top:1px solid var(--separator);margin-top:12px;padding-top:12px">
+          <div class="sb-row"><span class="l">Today pts awarded</span><span class="v" style="color:#B8895A">${state.kpi.loyaltyPts}</span></div>
+          <div class="sb-row"><span class="l">Redemptions</span><span class="v">${state.kpi.loyaltyRedemp}</span></div>
+          <div class="sb-row"><span class="l">Tier upgrades</span><span class="v">1</span></div>
+          <div class="sb-row"><span class="l">New members</span><span class="v">1</span></div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ============ MODULE 9: REPORTS ============ */
+function renderReports(hd,body){
+  const types=[['revenue','Revenue','💰'],['services','Services','💅'],['clients','Clients','👥'],['team','Team','👤'],['loyalty','Loyalty','⭐']];
+  hd.innerHTML=`<div><h1 class="ital">Reports</h1><div class="sub">Apr 1 – 18, 2026</div></div><div style="display:flex;gap:6px"><input type="date" class="fld" style="margin:0;width:140px" value="2026-04-01"><input type="date" class="fld" style="margin:0;width:140px" value="2026-04-18"><button class="btn sm secondary" onclick="exportCSV(state.reportType)">⤓ Export CSV</button></div>`;
+  body.innerHTML=`<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">${types.map(([k,l,i])=>`<button class="btn sm ${state.reportType===k?'primary':''}" onclick="state.reportType='${k}';renderMain()">${i} ${l}</button>`).join('')}</div>
+  ${renderReportContent()}`;
+  setTimeout(drawReportChart,60);
+}
+
+function renderReportContent(){
+  if(state.reportType==='revenue'){
+    return `<div class="grid2" style="grid-template-columns:2fr 1fr"><div class="card"><h3>Revenue by day</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div><div class="card"><h3>Summary</h3><div class="sb-row"><span class="l">Total MTD</span><span class="v">€8,400</span></div><div class="sb-row"><span class="l">Daily avg</span><span class="v">€465</span></div><div class="sb-row"><span class="l">Best day</span><span class="v">Sat €720</span></div><div class="sb-row"><span class="l">Growth</span><span class="v up">+14%</span></div></div></div>`;
+  }
+  if(state.reportType==='services'){
+    return `<div class="card"><h3>Top 10 services</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>Breakdown</h3><table class="t"><thead><tr><th>Service</th><th>Category</th><th style="text-align:right">Bookings</th><th style="text-align:right">Revenue</th></tr></thead><tbody>${state.services.slice().sort((a,b)=>b.booked-a.booked).slice(0,12).map(s=>`<tr><td><strong>${s.name}</strong></td><td>${s.cat}</td><td style="text-align:right">${s.booked}</td><td style="text-align:right;font-weight:700">${money(s.booked*s.price)}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  if(state.reportType==='clients'){
+    return `<div class="card"><h3>Top spenders</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>Top 10 clients</h3><table class="t"><thead><tr><th>Name</th><th>Tier</th><th style="text-align:right">Visits</th><th style="text-align:right">Spent</th></tr></thead><tbody>${state.clients.slice().sort((a,b)=>b.totalSpent-a.totalSpent).slice(0,10).map(c=>`<tr><td><strong>${c.name}</strong></td><td><span class="badge ${tierBadge(c.tier)}">${c.tier}</span></td><td style="text-align:right">${c.visits}</td><td style="text-align:right;font-weight:700">${money(c.totalSpent)}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  if(state.reportType==='team'){
+    return `<div class="card"><h3>Revenue by stylist</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+    <div class="card" style="margin-top:14px"><h3>Team performance</h3><table class="t"><thead><tr><th>Stylist</th><th>Role</th><th style="text-align:right">Appts</th><th style="text-align:right">Revenue</th><th style="text-align:right">Avg ticket</th></tr></thead><tbody>${TEAM.map(t=>`<tr><td>${t.name}</td><td>${t.role}</td><td style="text-align:right">${t.todayAppts}</td><td style="text-align:right;font-weight:700">${money(t.todayRev)}</td><td style="text-align:right">${money(t.todayRev/t.todayAppts)}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  return `<div class="card"><h3>Tier distribution</h3><div class="chart-host"><canvas id="chReport"></canvas></div></div>
+  <div class="card" style="margin-top:14px"><h3>Loyalty metrics</h3><div class="grid4"><div class="kcard"><div class="l">Pts issued</div><div class="v">${state.kpi.loyaltyPts*30}</div></div><div class="kcard"><div class="l">Pts redeemed</div><div class="v">${state.kpi.loyaltyPts*12}</div></div><div class="kcard"><div class="l">Redemption rate</div><div class="v">40%</div></div><div class="kcard"><div class="l">Top earner</div><div class="v" style="font-size:18px">Elena G.</div></div></div></div>`;
+}
+
+function drawReportChart(){
+  const c=$('#chReport');if(!c)return;
+  if(state.charts.report)state.charts.report.destroy();
+  const opts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+  const ROSE=['#FF2D55','#FF6B9D','#FFB3C6','#D4A574','#AF52DE','#E02347','#F5D28C','#FFC2D1'];
+  if(state.reportType==='revenue'){state.charts.report=new Chart(c,{type:'bar',data:{labels:['W1','W2','W3','This W'],datasets:[{data:[2100,2400,2200,2700],backgroundColor:'#FF2D55',borderRadius:6}]},options:{...opts,scales:{y:{ticks:{callback:v=>'€'+v}}}}});}
+  else if(state.reportType==='services'){const top=state.services.slice().sort((a,b)=>b.booked-a.booked).slice(0,10);state.charts.report=new Chart(c,{type:'bar',data:{labels:top.map(s=>s.name.slice(0,14)),datasets:[{data:top.map(s=>s.booked),backgroundColor:'#FF2D55',borderRadius:6}]},options:{...opts,indexAxis:'y'}});}
+  else if(state.reportType==='clients'){const top=state.clients.slice().sort((a,b)=>b.totalSpent-a.totalSpent).slice(0,8);state.charts.report=new Chart(c,{type:'bar',data:{labels:top.map(c=>c.name.split(' ')[0]),datasets:[{data:top.map(c=>c.totalSpent),backgroundColor:ROSE,borderRadius:6}]},options:{...opts,scales:{y:{ticks:{callback:v=>'€'+v}}}}});}
+  else if(state.reportType==='team'){state.charts.report=new Chart(c,{type:'bar',data:{labels:TEAM.map(t=>t.name.split(' ')[0]),datasets:[{data:TEAM.map(t=>t.todayRev),backgroundColor:TEAM.map(t=>t.color),borderRadius:6}]},options:{...opts,scales:{y:{ticks:{callback:v=>'€'+v}}}}});}
+  else {const tiers={Rose:0,Silver:0,Gold:0,Platinum:0};state.clients.forEach(c=>tiers[c.tier]++);state.charts.report=new Chart(c,{type:'doughnut',data:{labels:Object.keys(tiers),datasets:[{data:Object.values(tiers),backgroundColor:['#FFB3C6','#C0C0D0','#D4A574','#9FB5C8']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});}
+}
+
+window.exportCSV=type=>{
+  let csv='';
+  if(type==='revenue')csv='Date,Revenue\n2026-04-18,'+state.kpi.revenue;
+  else if(type==='services')csv='Service,Category,Booked,Price\n'+state.services.map(s=>[s.name,s.cat,s.booked,s.price].join(',')).join('\n');
+  else if(type==='clients')csv='Name,Tier,Visits,Spent,Points\n'+state.clients.map(c=>[c.name,c.tier,c.visits,c.totalSpent,c.points].join(',')).join('\n');
+  else if(type==='team')csv='Name,Role,Appts,Revenue\n'+TEAM.map(t=>[t.name,t.role,t.todayAppts,t.todayRev].join(',')).join('\n');
+  else csv='Client,Tier,Points\n'+state.clients.map(c=>[c.name,c.tier,c.points].join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='lumiere-'+type+'.csv';a.click();URL.revokeObjectURL(url);
+  showToast('appt','⤓ Exported',type+'.csv downloaded');
+};
+
+/* ============ MODULE 10: SETTINGS ============ */
+function renderSettings(hd,body){
+  const tabs=[['profile','Salon profile','🏢'],['team','Team','👤'],['services','Services','💅'],['booking','Booking rules','📅'],['notif','Notifications','🔔'],['loyalty','Loyalty settings','⭐']];
+  hd.innerHTML=`<div><h1 class="ital">Settings</h1><div class="sub">Manage Lumière preferences</div></div>`;
+  body.innerHTML=`<div class="grid2" style="grid-template-columns:240px 1fr;gap:14px">
+    <div class="card" style="padding:8px">${tabs.map(([k,l,i])=>`<button class="qa-btn" style="${state.settingsSubpage===k?'background:var(--accent-tint);color:var(--accent);font-weight:700':''}" onclick="state.settingsSubpage='${k}';renderMain()">${i} ${l}</button>`).join('')}</div>
+    <div class="card">${renderSettingsPanel()}</div>
+  </div>`;
+}
+
+function renderSettingsPanel(){
+  if(state.settingsSubpage==='profile')return `<h3>Salon profile</h3><label>Name</label><input class="fld" value="Lumière Beauty Studio"><label>Manager</label><input class="fld" value="Sofia Papadaki"><label>Address</label><input class="fld" value="Kolonaki, Athens"><label>Phone</label><input class="fld" value="+30 210 772 4455"><label>Email</label><input class="fld" value="hello@lumiere-beauty.gr"><label>Instagram</label><input class="fld" value="@lumiere.beauty.athens"><label>Opening hours</label><input class="fld" value="Mon-Fri 9:00-20:00 · Sat 9:00-18:00"><button class="btn primary" style="margin-top:10px" onclick="showToast('appt','✓ Saved','Profile updated')">Save</button>`;
+  if(state.settingsSubpage==='team')return `<h3>Team</h3>${TEAM.map(m=>`<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--separator)"><div style="width:36px;height:36px;border-radius:50%;background:${m.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">${initials(m.name)}</div><div style="flex:1"><strong>${m.name}</strong><div style="font-size:11px;color:var(--label-tertiary)">${m.role} · 35% commission</div></div><button class="btn xs">Edit</button></div>`).join('')}<button class="btn primary" style="margin-top:10px">+ Add stylist</button>`;
+  if(state.settingsSubpage==='services')return `<h3>Services</h3><p style="font-size:12px;color:var(--label-tertiary);margin-bottom:12px">Manage all ${state.services.length} services from the Services module.</p><button class="btn secondary" onclick="setModule('services')">Go to Services →</button>`;
+  if(state.settingsSubpage==='booking')return `<h3>Booking rules</h3><label>Min notice (hours)</label><input class="fld" type="number" value="2"><label>Max advance (days)</label><input class="fld" type="number" value="60"><label>Buffer between appts (min)</label><input class="fld" type="number" value="10"><label>Max per day per stylist</label><input class="fld" type="number" value="12"><button class="btn primary" style="margin-top:10px">Save rules</button>`;
+  if(state.settingsSubpage==='notif')return `<h3>Notifications</h3><label>Reminder hours before</label><input class="fld" type="number" value="24"><label style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:13px;margin:14px 0"><input type="checkbox" checked> Auto-confirm bookings</label><label>No-show policy</label><textarea class="fld" rows="3">€15 fee applied after 2 no-shows. Card on file required for new clients.</textarea><button class="btn primary">Save</button>`;
+  return `<h3>Loyalty program</h3><label>Points per €</label><input class="fld" type="number" value="1"><label>Silver threshold</label><input class="fld" type="number" value="500"><label>Gold threshold</label><input class="fld" type="number" value="1500"><label>Platinum threshold</label><input class="fld" type="number" value="3000"><label>Birthday bonus multiplier</label><input class="fld" type="number" value="2"><label>Referral bonus (pts)</label><input class="fld" type="number" value="100"><button class="btn primary">Save</button>`;
+}
+
+/* ============ LIVE ENGINE ============ */
+const LiveEngine={
+  running:false,timeout:null,
+  start(){if(this.running)return;this.running=true;this.tick()},
+  stop(){this.running=false;clearTimeout(this.timeout)},
+  tick(){
+    if(!this.running)return;
+    const events=[{fn:()=>this.apptComplete(),w:35},{fn:()=>this.newBooking(),w:25},{fn:()=>this.loyaltyEvent(),w:20},{fn:()=>this.productAlert(),w:10},{fn:()=>this.staffUpdate(),w:10}];
+    const tot=events.reduce((s,e)=>s+e.w,0);let r=Math.random()*tot;
+    for(const e of events){r-=e.w;if(r<=0){try{e.fn()}catch(err){}break}}
+    this.timeout=setTimeout(()=>this.tick(),rand(35000,75000));
+  },
+  apptComplete(){
+    const a=state.appointments.find(x=>x.status==='progress'||x.status==='confirmed');
+    if(!a)return;
+    a.status='done';state.kpi.revenue+=a.price;state.kpi.apptsDone++;
+    const st=TEAM.find(t=>t.id===a.stylistId);
+    showToast('appt','💅 Appointment complete',`${a.client} · ${a.service} · €${a.price}`);
+    playSound('appt');
+    const el=$('#rev-hero');if(el){el.textContent='€'+state.kpi.revenue;$('#kpi-rev')?.classList.add('flash');setTimeout(()=>$('#kpi-rev')?.classList.remove('flash'),1000)}
+    if(state.module==='overview'||state.module==='appointments'||state.module==='revenue')renderMain();
+    renderSidebar();
+  },
+  newBooking(){
+    const names=['Yianna K.','Christos M.','Dimitra V.','Sofia L.','Nikoleta P.','Stella A.'];
+    const svcs=['Gel Manicure','Balayage','Women\'s Cut','Classic Facial','Highlights','Blowdry'];
+    const name=pick(names);const svc=pick(svcs);const hr=rand(11,19);
+    showToast('booking','📅 New booking',`${name} · ${svc} at ${hr}:00`);
+    playSound('booking');
+    state.kpi.apptsTotal++;
+    if(state.module==='overview'||state.module==='appointments')renderMain();
+    renderSidebar();
+  },
+  loyaltyEvent(){
+    const events=[{ic:'✨',msg:'earned '+rand(25,85)+' points'},{ic:'🌟',msg:'reached Gold tier'},{ic:'🎁',msg:'redeemed free blowdry'},{ic:'💖',msg:'referred a new client (+100pts)'},{ic:'✦',msg:'reached 10th visit milestone'}];
+    const ev=pick(events);const name=pick(state.clients).name.split(' ')[0]+' '+pick(state.clients).name.split(' ')[1][0]+'.';
+    state.loyaltyFeed.unshift({t:`${name} ${ev.msg}`,ic:ev.ic,time:'just now'});
+    if(state.loyaltyFeed.length>10)state.loyaltyFeed.pop();
+    showToast('loyalty','⭐ '+ev.ic+' Loyalty',`${name} ${ev.msg}`);
+    playSound('loyalty');
+    state.kpi.loyaltyPts+=rand(20,80);
+    if(state.module==='loyalty'||state.module==='overview')renderMain();
+  },
+  productAlert(){
+    const p=pick(state.products.filter(x=>x.stock<=5));
+    if(!p)return;
+    showToast('product','📦 Low stock',`${p.br} ${p.nm} · ${p.stock} left`);
+    if(state.module==='products')renderMain();
+  },
+  staffUpdate(){
+    const m=pick(TEAM);const msgs=[`${m.name.split(' ')[0]} started next appointment`,`${m.name.split(' ')[0]} completed appointment`,`${m.name.split(' ')[0]} on break`,`${m.name.split(' ')[0]} back from break`];
+    showToast('staff','👤 Team update',pick(msgs));
+    if(state.module==='team')renderMain();
+  }
+};
+
+/* ============ TOASTS ============ */
+function showToast(type,title,desc){
+  const host=$('#toasts');
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML=`<div class="ic">${({appt:'💅',booking:'📅',loyalty:'⭐',product:'📦',staff:'👤',alert:'⚠️'})[type]||'✦'}</div><div class="body"><div class="t">${title}</div><div class="d">${desc}</div></div><div class="progress"></div>`;
+  host.appendChild(t);
+  while(host.children.length>3)host.firstChild.remove();
+  t.addEventListener('click',()=>{t.classList.add('out');setTimeout(()=>t.remove(),300)});
+  setTimeout(()=>{if(t.parentNode){t.classList.add('out');setTimeout(()=>t.remove(),300)}},4000);
+  state.notifCount++;const b=$('#notifBadge');if(b){b.textContent=state.notifCount;b.style.display='flex'}
+}
+
+/* ============ AUDIO ============ */
+function initAudio(){if(state.audioCtx)return;try{state.audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}
+function playSound(type){
+  if(!state.audioOn||!state.audioCtx)return;
+  const ctx=state.audioCtx;
+  const play=(freq,start,dur,vol=.08)=>{const o=ctx.createOscillator();const g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=freq;o.type='sine';g.gain.setValueAtTime(vol,ctx.currentTime+start);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+start+dur);o.start(ctx.currentTime+start);o.stop(ctx.currentTime+start+dur)};
+  if(type==='appt'){play(880,0,.5);play(1047,.1,.4)}
+  else if(type==='booking'){play(523,0,.4);play(659,.08,.3);play(784,.16,.3)}
+  else if(type==='loyalty'){[523,659,784,988,1175].forEach((f,i)=>play(f,i*.1,.3))}
+  else if(type==='alert')play(330,0,.3);
+}
+$('#audioBtn').addEventListener('click',()=>{initAudio();state.audioOn=!state.audioOn;$('#audioBtn').textContent=state.audioOn?'🔔':'🔇';localStorage.setItem('fk-beauty-audio',state.audioOn?'on':'off')});
+if(localStorage.getItem('fk-beauty-audio')==='on'){state.audioOn=true;$('#audioBtn').textContent='🔔'}
+
+/* ============ VISIBILITY ============ */
+document.addEventListener('visibilitychange',()=>{if(document.hidden)LiveEngine.stop();else LiveEngine.start()});
+
+/* ============ MODAL ============ */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* ============ THEME ============ */
+$('#themeToggle').addEventListener('click',()=>{const isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';$('#themeToggle').classList.toggle('on',!isDark);localStorage.setItem('fk-beauty-theme',isDark?'light':'dark');renderMain()});
+if(localStorage.getItem('fk-beauty-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').classList.add('on')}
+
+/* ============ NOTIF ============ */
+$('#notifBtn').addEventListener('click',()=>{state.notifCount=0;$('#notifBadge').style.display='none';showToast('appt','🔔 Notifications','All caught up')});
+
+/* ============ KEYBOARD ============ */
+document.addEventListener('keydown',e=>{
+  const tg=document.activeElement.tagName;
+  if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return;
+  const num=parseInt(e.key);
+  if(!isNaN(num)){const id=num===0?MODULES[9].id:MODULES[num-1]?.id;if(id)setModule(id)}
+  else if(e.key==='n'||e.key==='N'){openApptModal()}
+  else if(e.key==='c'||e.key==='C'){openClientModal()}
+  else if(e.key==='d'||e.key==='D'){$('#themeToggle').click()}
+  else if(e.key==='Escape'){$$('.mbg.open').forEach(m=>m.classList.remove('open'));$('#shortcutsTip').classList.remove('show');state.selectedAppt=null;renderMain()}
+  else if(e.key==='?'){$('#shortcutsTip').classList.toggle('show')}
+});
+$('#shortcutsTip').addEventListener('click',()=>$('#shortcutsTip').classList.remove('show'));
+
+/* ============ END OF DAY REPORT ============ */
+window.generateEndReport=()=>{
+  closeM('mEndConfirm');LiveEngine.stop();
+  const body=$('#mainBody');
+  body.innerHTML=`<div class="eon-report">
+    <div class="eon-hd"><div class="name ital">Lumière Beauty Studio</div><div class="sub">End of Day Report · Friday 18 April 2026 · Athens, Greece</div></div>
+    <div style="text-align:center;padding:24px;background:linear-gradient(135deg,var(--bg-tertiary),var(--bg-secondary));border-radius:18px;margin-bottom:20px">
+      <div class="label-up">Today's Revenue</div>
+      <div class="ital" style="font-size:64px;color:var(--accent);font-weight:600;margin-top:8px">${money(state.kpi.revenue)}</div>
+      <div style="font-size:13px;color:var(--label-secondary);margin-top:8px">${state.kpi.apptsDone} appointments · €${Math.round(state.kpi.revenue/state.kpi.apptsDone)} avg · ${state.kpi.newClients} new clients · ${state.kpi.loyaltyPts}pts awarded</div>
+    </div>
+    <div class="grid2" style="margin-bottom:18px">
+      <div class="card"><h3>By service</h3>
+        <div class="sb-row"><span>🎨 Color</span><span class="v">€305</span></div>
+        <div class="sb-row"><span>💅 Nails</span><span class="v">€175</span></div>
+        <div class="sb-row"><span>✂️ Haircuts</span><span class="v">€110</span></div>
+        <div class="sb-row"><span>🌸 Face</span><span class="v">€160</span></div>
+        <div class="sb-row"><span>💆 Massage</span><span class="v">€75</span></div>
+      </div>
+      <div class="card"><h3>By stylist</h3>${TEAM.map(t=>`<div class="sb-row"><span style="display:flex;align-items:center;gap:6px"><div style="width:22px;height:22px;border-radius:50%;background:${t.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">${initials(t.name)}</div>${t.name.split(' ')[0]}</span><span class="v">${t.todayAppts} appts · ${money(t.todayRev)}</span></div>`).join('')}</div>
+    </div>
+    <div class="grid2" style="margin-bottom:18px">
+      <div class="card"><h3>Client highlights</h3><div class="sb-row"><span>✦ 2 first-time clients today</span><span class="v" style="color:var(--accent)">+2</span></div><div class="sb-row"><span>🌟 Elena G. → Gold tier</span><span></span></div><div class="sb-row"><span>💖 Dimitra V. referred a friend</span><span></span></div></div>
+      <div class="card"><h3>Products used</h3><div class="sb-row"><span>Wella Color 6N</span><span class="v">3 tubes</span></div><div class="sb-row"><span>Olaplex No. 3</span><span class="v">2 bottles</span></div><div class="sb-row"><span>OPI Gel Rose</span><span class="v">5 applications</span></div><div style="font-size:11px;color:var(--sys-orange);margin-top:8px;font-weight:600">🔴 1 out of stock · 🟡 5 low — reorder soon</div></div>
+    </div>
+    <div class="card" style="margin-bottom:18px"><h3>Tomorrow preview</h3>
+      <div class="sb-row"><span>📅 Appointments booked</span><span class="v">14</span></div>
+      <div class="sb-row"><span>⏰ First appointment</span><span class="v">09:00 Sofia</span></div>
+      <div class="sb-row"><span>💰 Projected revenue</span><span class="v">€620</span></div>
+    </div>
+    <label style="margin-top:18px">Manager notes</label><textarea class="fld" rows="3" placeholder="Notes for tomorrow..."></textarea>
+    <div style="display:flex;gap:8px;margin-top:18px;justify-content:center">
+      <button class="btn primary" onclick="window.print()">🖨 Print</button>
+      <button class="btn secondary" onclick="exportCSV('revenue')">⤓ Export</button>
+      <button class="btn" onclick="renderMain()">Close</button>
+    </div>
+  </div>`;
+  $('#mainHd').innerHTML='';
+  showToast('appt','✦ Report generated','End of day summary ready');
+};
+</script>
+</body>
+</html>
