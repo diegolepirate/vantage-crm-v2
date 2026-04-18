@@ -196,6 +196,36 @@
   .vc-band .vc-dash.b2 { width: 70px; height: 10px; bottom: 14%; right: 8%; transform: rotate(32deg); }
   .vc-band .vc-dash.b3 { width: 48px; height: 8px; top: 58%; left: 42%; transform: rotate(-48deg); opacity: .8; }
 
+  /* ════════ SLOGAN ════════ */
+  .vc-slogan {
+    position: relative;
+    padding: 7rem 4vw 8rem;
+    text-align: center;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .vc-slogan-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.4rem, 6.2vw, 5.4rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .vc-slogan-line { display: block; }
+  .vc-slogan-cycle {
+    display: inline-block;
+    min-width: 5.5ch;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .vc-slogan-cycle.is-out { opacity: 0; transform: translateY(-10px); }
+  .vc-slogan .vc-dash.s1 { width: 60px; height: 9px; top: 18%; left: 14%; transform: rotate(-24deg); opacity: .55; }
+  .vc-slogan .vc-dash.s2 { width: 80px; height: 10px; top: 40%; right: 10%; transform: rotate(38deg); opacity: .45; }
+  .vc-slogan .vc-dash.s3 { width: 50px; height: 8px; bottom: 22%; left: 22%; transform: rotate(62deg); opacity: .6; }
+  .vc-slogan .vc-dash.s4 { width: 70px; height: 10px; bottom: 16%; right: 24%; transform: rotate(-42deg); opacity: .4; }
+
   @media (max-width: 960px) {
     .vc-head { grid-template-columns: auto auto; gap: 1rem 2rem; }
     .vc-nav { grid-column: 1 / -1; gap: 1.8rem; font-size: 1rem; justify-content: flex-start; }
@@ -252,6 +282,36 @@
       </figure>
     </div>
   </section>
+
+  <!-- SLOGAN with cycling word -->
+  <section class="vc-slogan" aria-label="Vantage'cook slogan">
+    <span class="vc-dash s1" aria-hidden="true"></span>
+    <span class="vc-dash s2" aria-hidden="true"></span>
+    <span class="vc-dash s3" aria-hidden="true"></span>
+    <span class="vc-dash s4" aria-hidden="true"></span>
+
+    <h2 class="vc-slogan-title">
+      <span class="vc-slogan-line">Your <span class="vc-slogan-cycle" id="cookCycle">Community</span></span>
+      <span class="vc-slogan-line">Your story, with souvlaki</span>
+    </h2>
+  </section>
+
+  <script>
+    (function(){
+      var el = document.getElementById('cookCycle');
+      if (!el) return;
+      var words = ['Community', 'Family', 'Table', 'Journey', 'Feast', 'Heritage', 'Island', 'Spirit'];
+      var i = 0;
+      setInterval(function(){
+        el.classList.add('is-out');
+        setTimeout(function(){
+          i = (i + 1) % words.length;
+          el.textContent = words[i];
+          el.classList.remove('is-out');
+        }, 350);
+      }, 4000);
+    })();
+  </script>
 
 </body>
 </html>
