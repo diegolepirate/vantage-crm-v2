@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VANTAGE'COOK — Greek flavor, served sharp.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EFE2;
+    --ink: #111111;
+    --dim: #4a4a4a;
+    --yellow: #E8C547;
+    --yellow-deep: #D4B83A;
+    --accent: #E85A2B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+  /* ════════ HEADER ════════ */
+  .vc-head {
+    padding: 2.4rem 4vw 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  .vc-logo {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2rem;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .vc-nav {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .vc-nav a { position: relative; padding: .3rem 0; transition: opacity .2s; }
+  .vc-nav a:hover { opacity: .6; }
+  .vc-order {
+    position: relative;
+    padding: 1rem 2.4rem;
+    border: 1.5px solid var(--ink);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+    transition: background .2s, color .2s;
+  }
+  .vc-order:hover { background: var(--ink); color: var(--bg); }
+  .vc-order-bag {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+  }
+  .vc-order-bag::before {
+    content: '';
+    position: absolute;
+    inset: 4px 0 0 0;
+    border: 1.5px solid currentColor;
+    border-radius: 2px;
+  }
+  .vc-order-bag::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 8px;
+    border: 1.5px solid currentColor;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+  }
+  .vc-order-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 18px;
+    height: 18px;
+    background: var(--yellow);
+    color: var(--ink);
+    border-radius: 50%;
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ════════ HERO ════════ */
+  .vc-hero {
+    padding: 6rem 4vw 4rem;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+  }
+  .vc-hero-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(4.5rem, 11vw, 11rem);
+    line-height: .88;
+    letter-spacing: -.04em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  .vc-hero-title span { display: block; }
+  .vc-hero-side {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .vc-hero-headline {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    line-height: 1.25;
+    max-width: 28ch;
+  }
+  .vc-hero-sub {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--dim);
+    max-width: 34ch;
+  }
+
+  /* decorative yellow dashes (like FRIESDAY) */
+  .vc-dash {
+    position: absolute;
+    background: var(--yellow);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .vc-dash.d1 { width: 70px; height: 10px; top: 8%; right: 18%; transform: rotate(-28deg); }
+  .vc-dash.d2 { width: 55px; height: 9px; top: 45%; right: 42%; transform: rotate(42deg); }
+  .vc-dash.d3 { width: 90px; height: 11px; bottom: 10%; left: 46%; transform: rotate(12deg); }
+  .vc-dash.d4 { width: 44px; height: 8px; top: 20%; left: 38%; transform: rotate(58deg); opacity: .6; }
+
+  /* ════════ BIG IMAGE BAND (souvlaki) ════════ */
+  .vc-band {
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .vc-band-bg {
+    position: absolute;
+    inset: 15% 0 15% 0;
+    background: var(--yellow);
+  }
+  .vc-band-pattern {
+    position: absolute;
+    inset: 15% 0 15% 0;
+    opacity: .22;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none' stroke='%23111' stroke-width='1.2'><path d='M20 30 Q25 25 30 30 T40 30 M50 50 Q55 45 60 50 T70 50'/><circle cx='15' cy='60' r='3'/><circle cx='60' cy='20' r='3'/><path d='M45 15 L55 15 M10 45 L20 45'/></svg>");
+    background-size: 80px 80px;
+    mix-blend-mode: multiply;
+  }
+  .vc-band-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 4vw 4rem;
+  }
+  .vc-band-frame {
+    position: relative;
+    width: min(86%, 1100px);
+    aspect-ratio: 16/9;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f0e4c6;
+    box-shadow: 0 30px 60px rgba(0,0,0,.12);
+  }
+  .vc-band-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* decorative dashes on band */
+  .vc-band .vc-dash.b1 { width: 60px; height: 9px; top: 28%; left: 6%; transform: rotate(-22deg); }
+  .vc-band .vc-dash.b2 { width: 70px; height: 10px; bottom: 14%; right: 8%; transform: rotate(32deg); }
+  .vc-band .vc-dash.b3 { width: 48px; height: 8px; top: 58%; left: 42%; transform: rotate(-48deg); opacity: .8; }
+
+  @media (max-width: 960px) {
+    .vc-head { grid-template-columns: auto auto; gap: 1rem 2rem; }
+    .vc-nav { grid-column: 1 / -1; gap: 1.8rem; font-size: 1rem; justify-content: flex-start; }
+    .vc-hero { grid-template-columns: 1fr; padding: 3rem 6vw; gap: 2rem; }
+    .vc-hero-side { padding-top: 0; }
+    .vc-band-frame { aspect-ratio: 4/3; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="vc-head">
+    <a href="#" class="vc-logo">Vantage'cook</a>
+    <nav class="vc-nav">
+      <a href="#about">About Us</a>
+      <a href="#menu">Menu</a>
+      <a href="#franchise">Franchise</a>
+    </nav>
+    <a href="#order" class="vc-order">
+      <span>Order</span>
+      <span class="vc-order-bag"><span class="vc-order-badge">0</span></span>
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="vc-hero" aria-label="Greek flavor">
+    <span class="vc-dash d1" aria-hidden="true"></span>
+    <span class="vc-dash d2" aria-hidden="true"></span>
+    <span class="vc-dash d3" aria-hidden="true"></span>
+    <span class="vc-dash d4" aria-hidden="true"></span>
+
+    <h1 class="vc-hero-title">
+      <span>Greek</span>
+      <span>Flavor</span>
+    </h1>
+    <div class="vc-hero-side">
+      <p class="vc-hero-headline">A Greek Kitchen for True Flavor Lovers!</p>
+      <p class="vc-hero-sub">Souvlaki, tzatziki, olive oil and sunshine. Hand-pulled pita, flame-grilled meat, every bite tastes of the Aegean.</p>
+    </div>
+  </section>
+
+  <!-- SOUVLAKI IMAGE BAND -->
+  <section class="vc-band" aria-label="Souvlaki Munch">
+    <div class="vc-band-bg" aria-hidden="true"></div>
+    <div class="vc-band-pattern" aria-hidden="true"></div>
+    <span class="vc-dash b1" aria-hidden="true"></span>
+    <span class="vc-dash b2" aria-hidden="true"></span>
+    <span class="vc-dash b3" aria-hidden="true"></span>
+
+    <div class="vc-band-inner">
+      <figure class="vc-band-frame">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1600&q=85" alt="Greek souvlaki chef pouring olive oil and tzatziki over a bowl" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+</body>
+</html>
