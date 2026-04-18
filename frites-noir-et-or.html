@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOIR + OR — Frites Belges de Haute Couture.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --bg: #0A0907;
+    --ink: #F3EDDF;
+    --ink-dim: #7A7362;
+    --gold: #C9A961;
+    --gold-bright: #E8C878;
+    --line: rgba(201,169,97,0.22);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--gold); color: var(--bg); }
+  .serif { font-family: 'Bodoni Moda', 'Playfair Display', serif; font-weight: 400; letter-spacing: -0.01em; }
+  .play { font-family: 'Playfair Display', serif; }
+
+  /* Gold shimmer */
+  .gold-text {
+    background: linear-gradient(135deg, #C9A961 0%, #E8C878 35%, #F3EDDF 50%, #E8C878 65%, #C9A961 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+  @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, var(--bg), transparent); }
+  .nav .brand { font-family: 'Bodoni Moda', serif; font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .nav .brand .plus { color: var(--gold); margin: 0 4px; }
+  .nav ul { display: flex; gap: 32px; list-style: none; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; }
+  .nav a { color: inherit; text-decoration: none; transition: color .2s; }
+  .nav a:hover { color: var(--gold); }
+  .nav .right { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
+
+  main { padding-top: 80px; }
+
+  /* Hero */
+  .hero { min-height: 100vh; padding: 60px 40px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; }
+  .hero::before {
+    content: ""; position: absolute; top: 30%; left: 50%; width: 800px; height: 800px; transform: translate(-50%,-50%);
+    background: radial-gradient(circle, rgba(201,169,97,0.08), transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero .eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+  .hero .eyebrow .line { width: 40px; height: 1px; background: var(--gold); display: inline-block; }
+  .hero h1 { font-family: 'Bodoni Moda', serif; font-size: clamp(60px, 9vw, 160px); font-weight: 400; line-height: 0.98; letter-spacing: -0.03em; margin-bottom: 40px; }
+  .hero h1 em { font-style: italic; }
+  .hero h1 .gold-word { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; }
+  .hero p.lede { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 19px; line-height: 1.6; color: var(--ink-dim); max-width: 460px; margin-bottom: 40px; font-weight: 400; }
+
+  .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-top: 32px; border-top: 1px solid var(--line); margin-bottom: 40px; }
+  .hero-meta .label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 8px; }
+  .hero-meta .val { font-family: 'Bodoni Moda', serif; font-size: 18px; font-style: italic; }
+
+  .hero-cta-row { display: flex; gap: 16px; align-items: center; }
+  .cta-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+    color: var(--bg); border: none;
+    padding: 20px 36px;
+    font-family: 'Bodoni Moda', serif; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500;
+    cursor: pointer; transition: all .3s;
+    position: relative; overflow: hidden;
+  }
+  .cta-gold::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left .6s; }
+  .cta-gold:hover::before { left: 100%; }
+  .cta-gold:hover { letter-spacing: 0.3em; }
+
+  .cta-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 20px 28px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
+  .cta-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Hero product */
+  .hero-product {
+    aspect-ratio: 3/4; position: relative;
+    border: 1px solid var(--gold);
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(201,169,97,0.06) 0%, transparent 60%);
+  }
+  .hero-product::before {
+    content: ""; position: absolute; inset: -1px;
+    border: 1px solid var(--line);
+    transform: translate(12px, 12px);
+    pointer-events: none;
+  }
+  .hero-product .frame { width: 100%; height: 100%; position: relative; overflow: hidden; background: #141210; }
+  .hero-product .frame::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(201,169,97,0.04) 14px 28px); }
+  .hero-product .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
+  .hero-product .ph .big { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 36px; color: var(--gold); letter-spacing: -0.01em; }
+  .hero-product .ph small { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-dim); margin-top: 12px; }
+  .hero-product .corner-tl { position: absolute; top: 24px; left: 24px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+  .hero-product .corner-br { position: absolute; bottom: 24px; right: 24px; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 14px; color: var(--gold); }
+  .hero-product .ornament { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Bodoni Moda', serif; font-size: 16px; color: var(--gold); }
+
+  /* Divider */
+  .divider { text-align: center; padding: 40px 0; font-size: 22px; color: var(--gold); letter-spacing: 1em; font-family: 'Bodoni Moda', serif; }
+
+  /* Tagline */
+  .tagline { padding: 160px 40px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; }
+  .tagline::before {
+    content: "♦ ♦ ♦"; position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
+    color: var(--gold); letter-spacing: 2em; font-size: 12px;
+  }
+  .tagline .sub { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 14px; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 48px; text-transform: uppercase; }
+  .tagline h2 { font-family: 'Bodoni Moda', serif; font-size: clamp(50px, 9vw, 160px); font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+  .tagline h2 .l { display: block; transition: letter-spacing .4s; cursor: default; }
+  .tagline h2 .l:hover { letter-spacing: 0; }
+  .tagline h2 em { font-style: italic; }
+  .tagline h2 .ornament { color: var(--gold); font-family: 'Playfair Display', serif; font-style: italic; }
+
+  /* Menu */
+  .menu { padding: 120px 40px; position: relative; }
+  .menu-head { text-align: center; margin-bottom: 80px; }
+  .menu-head .kicker { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .menu-head h3 { font-family: 'Bodoni Moda', serif; font-size: clamp(56px, 8vw, 140px); font-weight: 400; letter-spacing: -0.02em; line-height: 0.95; }
+  .menu-head h3 em { font-style: italic; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1400px; margin: 0 auto; }
+  .card { text-align: center; position: relative; transition: transform .4s; }
+  .card:hover { transform: translateY(-8px); }
+  .card .rank { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 18px; color: var(--gold); margin-bottom: 16px; }
+  .card .shot {
+    aspect-ratio: 3/4; position: relative; overflow: hidden;
+    background: #141210;
+    margin-bottom: 32px;
+    border: 1px solid var(--line);
+    transition: border-color .3s;
+  }
+  .card:hover .shot { border-color: var(--gold); }
+  .card .shot::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent 0 14px, rgba(201,169,97,0.04) 14px 28px); }
+  .card .shot .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 30px; text-align: center; }
+  .card .shot .ph .big { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 28px; color: var(--gold); }
+  .card .shot .ph small { font-size: 9px; letter-spacing: 0.18em; color: var(--ink-dim); margin-top: 10px; text-transform: uppercase; }
+  .card .shot .monogram { position: absolute; top: 20px; left: 20px; width: 40px; height: 40px; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 16px; color: var(--gold); }
+  .card .shot .tag-lr { position: absolute; bottom: 20px; right: 20px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .card h4 { font-family: 'Bodoni Moda', serif; font-size: 32px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .card h4 em { font-style: italic; }
+  .card .price { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 24px; color: var(--gold); margin-bottom: 16px; }
+  .card .desc { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 14px; line-height: 1.6; color: var(--ink-dim); max-width: 280px; margin: 0 auto 28px; }
+  .card .add { background: transparent; color: var(--ink); border: 1px solid var(--gold); padding: 14px 28px; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all .2s; font-weight: 500; }
+  .card .add:hover { background: var(--gold); color: var(--bg); }
+
+  /* Locations */
+  .locations { padding: 140px 40px; border-top: 1px solid var(--line); position: relative; text-align: center; }
+  .locations .kicker { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .locations h3 { font-family: 'Bodoni Moda', serif; font-size: clamp(50px, 7vw, 120px); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 80px; }
+  .locations h3 em { font-style: italic; }
+
+  .loc-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; max-width: 1200px; margin: 0 auto; }
+  .loc { padding: 40px 20px; position: relative; cursor: pointer; transition: transform .3s; text-align: center; }
+  .loc:hover { transform: translateY(-6px); }
+  .loc:not(:last-child)::after { content: ""; position: absolute; right: -30px; top: 20%; bottom: 20%; width: 1px; background: var(--line); }
+  .loc .num { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 16px; color: var(--gold); margin-bottom: 20px; }
+  .loc .city { font-family: 'Bodoni Moda', serif; font-size: clamp(40px, 4.5vw, 80px); font-weight: 400; letter-spacing: -0.02em; line-height: 0.95; margin-bottom: 20px; overflow-wrap: break-word; }
+  .loc.soon .city { font-style: italic; color: var(--gold); }
+  .loc .addr { font-family: 'Bodoni Moda', serif; font-style: italic; font-size: 14px; line-height: 1.8; color: var(--ink-dim); margin-bottom: 20px; }
+  .loc .status { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); padding-top: 20px; border-top: 1px solid var(--line); display: inline-flex; align-items: center; gap: 10px; }
+  .loc .status .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 999px; }
+
+  /* Footer */
+  footer { padding: 80px 40px 40px; border-top: 1px solid var(--line); text-align: center; }
+  .footer-big { font-family: 'Bodoni Moda', serif; font-size: clamp(60px, 14vw, 200px); font-weight: 400; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 60px; }
+  .footer-big em { font-style: italic; }
+  .footer-big .plus { color: var(--gold); }
+  .footer-bot { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-dim); padding-top: 32px; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 20px; }
+  .footer-bot a { color: inherit; text-decoration: none; margin: 0 14px; transition: color .2s; }
+  .footer-bot a:hover { color: var(--gold); }
+
+  /* Tweaks */
+  .tweaks { position: fixed; bottom: 20px; right: 20px; background: #141210; border: 1px solid var(--gold); padding: 20px; z-index: 100; min-width: 240px; display: none; }
+  .tweaks.open { display: block; }
+  .tweaks h4 { font-family: 'Bodoni Moda', serif; font-size: 16px; margin-bottom: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .tweaks label { display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; margin: 10px 0 6px; color: var(--ink-dim); }
+  .tweaks .swatch-row { display: flex; gap: 6px; }
+  .tweaks .swatch { flex: 1; height: 28px; border: 1px solid var(--line); cursor: pointer; }
+  .tweaks .swatch.active { outline: 1px solid var(--gold); outline-offset: 1px; }
+
+  @media (max-width: 900px) {
+    .hero, .cards, .loc-row, .hero-meta { grid-template-columns: 1fr; }
+    .nav ul { display: none; }
+    .loc:not(:last-child)::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "gold": "#C9A961",
+  "bg": "#0A0907"
+}/*EDITMODE-END*/;
+
+function Nav() {
+  return (
+    <nav className="nav">
+      <div className="brand">Noir <span className="plus">+</span> Or</div>
+      <ul>
+        <li><a href="#menu">La Carte</a></li>
+        <li><a href="#locations">Maisons</a></li>
+        <li><a href="#">Atelier</a></li>
+        <li><a href="#">Presse</a></li>
+      </ul>
+      <div className="right">Panier · 0</div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero" data-screen-label="01 Hero">
+      <div>
+        <div className="eyebrow"><span className="line"></span>Maison depuis MMXXIII</div>
+        <h1>
+          The <em>craft</em><br/>
+          of the <span className="gold-word gold-text">golden</span><br/>
+          Belgian frite.
+        </h1>
+        <p className="lede">A study in precision — Bintje potatoes from Flanders, fried twice in pure beef dripping, finished with sel gris. Served in under four minutes.</p>
+        <div className="hero-meta">
+          <div>
+            <div className="label">La Pomme</div>
+            <div className="val">Bintje, Flandres</div>
+          </div>
+          <div>
+            <div className="label">La Graisse</div>
+            <div className="val">Graisse de bœuf</div>
+          </div>
+          <div>
+            <div className="label">Le Sel</div>
+            <div className="val">Sel gris de Guérande</div>
+          </div>
+          <div>
+            <div className="label">Le Temps</div>
+            <div className="val">Servi en 4 minutes</div>
+          </div>
+        </div>
+        <div className="hero-cta-row">
+          <button className="cta-gold" onClick={() => document.getElementById('menu').scrollIntoView({behavior:'smooth'})}>
+            Commander
+          </button>
+          <button className="cta-ghost">Nos Maisons →</button>
+        </div>
+      </div>
+      <div className="hero-product">
+        <div className="ornament">N</div>
+        <div className="corner-tl">Nº 01 — Signature</div>
+        <div className="frame">
+          <div className="ph">
+            <div className="big">La Frite Noire</div>
+            <small>[ Product shot · Cornet de papier ]</small>
+          </div>
+        </div>
+        <div className="corner-br">400g · £6.50</div>
+      </div>
+    </section>
+  );
+}
+
+function Tagline() {
+  return (
+    <section className="tagline" data-screen-label="02 Tagline">
+      <div className="sub">— Le Manifeste —</div>
+      <h2>
+        <span className="l">The <em>Crunch</em>.</span>
+        <span className="l">The <em>Fluff</em>. <span className="ornament">❦</span></span>
+        <span className="l">The <em className="gold-text">Obsession</em>.</span>
+      </h2>
+    </section>
+  );
+}
+
+const MENU = [
+  { id: 1, rank: "Nº I", monogram: "N", name: "La Classique", nameEm: "Classique", price: "£6.50", tag: "Signature", desc: "Bintje, graisse de bœuf, sel gris, mayonnaise maison. La frite, dans sa forme la plus pure.", shotBig: "La Classique", shotDesc: "[ Cornet de papier · vue du dessus ]" },
+  { id: 2, rank: "Nº II", monogram: "T", name: "La Truffée", nameEm: "Truffée", price: "£9.00", tag: "Maison", desc: "Truffe du Périgord, Parmesan affiné vingt-quatre mois, aïoli à la truffe servi à part.", shotBig: "La Truffée", shotDesc: "[ Planche en chêne · truffe râpée ]" },
+  { id: 3, rank: "Nº III", monogram: "B", name: "La Bitterballen", nameEm: "Bitterballen", price: "£11.50", tag: "Limitée", desc: "Quatre bitterballen maison, frites, moutarde à l'ancienne, échalote confite.", shotBig: "Les Bitterballen", shotDesc: "[ Boîte double · vue zénithale ]" },
+];
+
+function Menu() {
+  const [added, setAdded] = useState({});
+  const toggle = (id) => { setAdded(a=>({...a,[id]:true})); setTimeout(()=>setAdded(a=>({...a,[id]:false})),1400); };
+  return (
+    <section className="menu" id="menu" data-screen-label="03 Menu">
+      <div className="menu-head">
+        <div className="kicker">— La Carte —</div>
+        <h3>Trois plats.<br/><em>Rien de plus.</em></h3>
+      </div>
+      <div className="cards">
+        {MENU.map(m => (
+          <div className="card" key={m.id}>
+            <div className="rank">{m.rank}</div>
+            <div className="shot">
+              <div className="monogram">{m.monogram}</div>
+              <div className="tag-lr">{m.tag}</div>
+              <div className="ph">
+                <div className="big">{m.shotBig}</div>
+                <small>{m.shotDesc}</small>
+              </div>
+            </div>
+            <h4>{m.name}</h4>
+            <div className="price">{m.price}</div>
+            <div className="desc">{m.desc}</div>
+            <button className="add" onClick={() => toggle(m.id)}>
+              {added[m.id] ? "Ajoutée ✓" : "Commander"}
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Locations() {
+  const locs = [
+    { num: "i", city: "Sheffield", addr: "14 Division Street\nS1 4GF\n11:00 – 23:00", status: "Ouvert" },
+    { num: "ii", city: "Bradford", addr: "28 North Parade\nBD1 3HZ\n11:00 – 22:00", status: "Ouvert" },
+    { num: "iii", city: "Leeds", addr: "Ouverture\nAutomne 2026\n—", status: "Bientôt", soon: true },
+  ];
+  return (
+    <section className="locations" id="locations" data-screen-label="04 Locations">
+      <div className="kicker">— Nos Maisons —</div>
+      <h3>Trois <em>maisons</em> en Yorkshire.</h3>
+      <div className="loc-row">
+        {locs.map(l => (
+          <div className={"loc " + (l.soon ? "soon" : "")} key={l.num}>
+            <div className="num">Maison {l.num}</div>
+            <div className="city">{l.city}</div>
+            <div className="addr">{l.addr.split('\n').map((x,i)=><div key={i}>{x}</div>)}</div>
+            <div className="status"><span className="dot"></span>{l.status}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <div className="footer-big">
+        <em>Noir</em> <span className="plus">+</span> <em className="gold-text">Or</em>.
+      </div>
+      <div className="footer-bot">
+        <div>
+          <a>Instagram</a><a>Journal</a><a>Stockists</a>
+        </div>
+        <div>bonjour@noiretor.co</div>
+        <div>© MMXXVI · Yorkshire × Flandres</div>
+      </div>
+    </footer>
+  );
+}
+
+function Tweaks({ state, setState, open }) {
+  const golds = ["#C9A961", "#D4AF37", "#B8860B", "#E8C878"];
+  const bgs = ["#0A0907", "#0E0D0A", "#15120E", "#1A1612"];
+  return (
+    <div className={"tweaks " + (open ? "open" : "")}>
+      <h4>Tweaks</h4>
+      <label>Or</label>
+      <div className="swatch-row">
+        {golds.map(c => <div key={c} className={"swatch "+(state.gold===c?"active":"")} style={{background:c}} onClick={()=>setState(s=>({...s,gold:c}))}/>)}
+      </div>
+      <label>Noir</label>
+      <div className="swatch-row">
+        {bgs.map(c => <div key={c} className={"swatch "+(state.bg===c?"active":"")} style={{background:c}} onClick={()=>setState(s=>({...s,bg:c}))}/>)}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState(TWEAKS_DEFAULTS);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    document.documentElement.style.setProperty('--gold', state.gold);
+    document.documentElement.style.setProperty('--bg', state.bg);
+    if (window.parent !== window) window.parent.postMessage({type:'__edit_mode_set_keys', edits: state}, '*');
+  }, [state]);
+  useEffect(() => {
+    const h = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({type:'__edit_mode_available'}, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+  return (
+    <main>
+      <Nav />
+      <Hero />
+      <Tagline />
+      <Menu />
+      <Locations />
+      <Footer />
+      <Tweaks state={state} setState={setState} open={open} />
+    </main>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
