@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BASIC KIT — Agora Athens Store</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-gray:#8E8E93;
+  --accent:#007AFF;--accent-deep:#0062CC;--accent-soft:rgba(0,122,255,.12);--accent-softer:rgba(0,122,255,.06);
+  --card-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+html[data-theme="dark"]{--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--card-shadow:none}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;height:100vh;overflow:hidden;transition:background .3s,color .3s}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum','ss01','cv01'}
+button{cursor:pointer;border:0;background:none;color:inherit;font-family:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.14em}
+.biz-pill{background:var(--accent-soft);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.biz-name{font-size:13px;font-weight:600}
+.module-tabs{display:flex;gap:2px;background:var(--fill-tertiary);border-radius:10px;padding:3px;justify-self:center}
+.module-tabs button{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--label-secondary);display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.module-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(0,122,255,.35)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-date{font-size:12px;color:var(--label-secondary);font-weight:600;padding:6px 10px;background:var(--fill-tertiary);border-radius:8px}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+
+main{height:calc(100vh - 52px);overflow-y:auto;padding:18px 22px 30px;position:relative;z-index:1}
+main::-webkit-scrollbar{width:8px}
+main::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+.page{animation:fadeUp .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.page-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.page-hd h1{font-size:26px;font-weight:800;letter-spacing:-.025em}
+.page-hd .sub{font-size:12px;color:var(--label-tertiary);margin-top:3px}
+
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;min-height:36px;justify-content:center}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px rgba(0,122,255,.5)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.secondary{background:var(--accent-soft);color:var(--accent)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:6px 10px;font-size:12px;min-height:30px}
+.btn.xs{padding:4px 8px;font-size:11px;min-height:26px}
+
+.card{background:var(--bg-secondary);border-radius:12px;padding:16px;box-shadow:var(--card-shadow)}
+html[data-theme="dark"] .card{border:1px solid var(--separator)}
+.card h3{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+
+.kgrid{display:grid;gap:12px;margin-bottom:14px}
+.kgrid.g4{grid-template-columns:repeat(4,1fr)}
+.kgrid.g3{grid-template-columns:repeat(3,1fr)}
+.kgrid.g2{grid-template-columns:repeat(2,1fr)}
+.kcard{background:var(--bg-secondary);border-radius:12px;padding:16px;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator)}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:flex;align-items:center;gap:6px}
+.kcard .v{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.025em}
+.kcard .d{font-size:11px;margin-top:3px;color:var(--label-tertiary)}
+.kcard .d.up{color:var(--system-green)}.kcard .d.down{color:var(--system-red)}
+.kcard .dots{display:flex;gap:4px;margin-top:8px;font-size:10px;color:var(--label-secondary)}
+.kcard .dot{display:inline-flex;align-items:center;gap:3px}
+.kcard .dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--fill-primary)}
+.kcard .dot.proc::before{background:var(--accent)}
+.kcard .dot.ship::before{background:var(--system-purple)}
+.kcard .dot.deliv::before{background:var(--system-green)}
+
+.chart-host{position:relative;height:240px}
+.chart-host.sm{height:180px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:10px 12px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s;margin-bottom:8px}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--accent-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+
+.pills{display:flex;gap:4px;background:var(--fill-tertiary);border-radius:10px;padding:3px}
+.pills button{padding:6px 12px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary)}
+.pills button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+html[data-theme="dark"] .pills button.active{background:var(--fill-primary)}
+
+.fil-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.fil-pills button{padding:5px 12px;border-radius:14px;background:var(--fill-tertiary);font-size:11px;color:var(--label-secondary);font-weight:600}
+.fil-pills button.active{background:var(--accent);color:#fff}
+
+.badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.b-green{background:rgba(52,199,89,.14);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.14);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.14);color:var(--system-blue)}
+.b-purple{background:rgba(175,82,222,.14);color:var(--system-purple)}
+.b-yellow{background:rgba(255,204,0,.14);color:#B58900}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+
+/* order status badges per spec */
+.s-pending{background:rgba(255,204,0,.12);color:#B58900}
+.s-processing{background:rgba(255,149,0,.12);color:var(--system-orange)}
+.s-shipped{background:rgba(0,122,255,.12);color:var(--system-blue)}
+.s-delivered{background:rgba(52,199,89,.12);color:var(--system-green)}
+.s-cancelled{background:rgba(255,59,48,.12);color:var(--system-red)}
+.s-refunded{background:rgba(142,142,147,.12);color:var(--system-gray)}
+
+.stat-pills{display:flex;gap:8px;flex-wrap:wrap}
+.stat-pill{background:var(--bg-secondary);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--card-shadow)}
+html[data-theme="dark"] .stat-pill{border:1px solid var(--separator)}
+.stat-pill strong{color:var(--accent);font-weight:800}
+
+/* ORDERS */
+.ord-row{display:grid;grid-template-columns:92px 1fr auto auto auto auto;gap:12px;padding:12px 14px;border-bottom:1px solid var(--separator);align-items:center;font-size:13px;transition:background .1s;cursor:pointer;border-left:3px solid transparent}
+.ord-row:hover{background:var(--fill-tertiary);border-left-color:var(--accent)}
+.ord-row.pending{border-left-color:var(--system-yellow)}
+.ord-row.processing{border-left-color:var(--accent)}
+.ord-row.shipped{border-left-color:var(--system-purple)}
+.ord-row.delivered{border-left-color:var(--system-green)}
+.ord-row.cancelled{border-left-color:var(--system-red)}
+.ord-num{font-family:"SF Mono",Menlo,monospace;color:var(--accent);font-weight:700;font-size:12px}
+.ord-meta{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.ord-cust{display:flex;align-items:center;gap:10px}
+.ord-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0}
+.ord-name{font-weight:700;font-size:12px}
+.ord-items{background:var(--fill-tertiary);border-radius:12px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--label-secondary)}
+.ord-amt{font-weight:800;font-variant-numeric:tabular-nums}
+.ord-time{font-size:10px;color:var(--label-tertiary);text-align:right}
+
+/* CUSTOMERS */
+.cli-row{display:grid;grid-template-columns:44px 1fr auto auto auto;gap:12px;padding:12px 14px;border-bottom:1px solid var(--separator);align-items:center;font-size:13px;transition:background .1s;cursor:pointer}
+.cli-row:hover{background:var(--fill-tertiary)}
+.cli-row.vip{border-left:3px solid var(--system-orange)}
+.cli-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.cli-main .n{font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}
+.cli-main .meta{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.cli-stats{text-align:right;font-size:11px;color:var(--label-secondary)}
+.cli-stats strong{color:var(--label-primary);font-weight:700}
+.vip-badge{background:linear-gradient(135deg,#FFB800,#FF9500);color:#fff;padding:2px 7px;border-radius:5px;font-size:9px;font-weight:800;letter-spacing:.06em}
+.cli-cat{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--label-tertiary);font-weight:700;padding:14px 10px 6px}
+
+/* SIDE PANEL */
+.side-panel{position:fixed;top:52px;right:0;bottom:0;width:340px;background:var(--bg-secondary);box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:40;transform:translateX(100%);transition:transform .25s;overflow-y:auto;padding:18px}
+.side-panel.open{transform:translateX(0)}
+html[data-theme="dark"] .side-panel{border-left:1px solid var(--separator)}
+.side-panel .close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:8px;background:var(--fill-tertiary);display:flex;align-items:center;justify-content:center;font-size:16px}
+.sp-section{padding:12px 0;border-bottom:1px solid var(--separator)}
+.sp-section:last-child{border-bottom:0}
+.sp-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:6px}
+.sp-big-av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;margin-bottom:10px}
+
+/* TOP PRODUCTS LIST */
+.tp-row{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:center;padding:8px 0;font-size:12px;border-bottom:1px solid var(--separator)}
+.tp-row:last-child{border:0}
+.tp-rank{font-weight:800;color:var(--accent);font-size:13px}
+.tp-qty{font-size:10px;color:var(--label-tertiary);background:var(--fill-tertiary);padding:2px 7px;border-radius:10px;font-weight:700}
+.tp-amt{font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ALERTS */
+.inv-alerts{display:flex;flex-direction:column;gap:8px}
+.inv-alert{padding:10px 12px;border-radius:10px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px}
+.inv-alert.red{background:rgba(255,59,48,.12);color:var(--system-red)}
+.inv-alert.yellow{background:rgba(255,149,0,.12);color:var(--system-orange)}
+.inv-alert.green{background:rgba(52,199,89,.12);color:var(--system-green)}
+
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.prod-card{background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.prod-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+html[data-theme="dark"] .prod-card{border:1px solid var(--separator)}
+.prod-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#fff;position:relative}
+.prod-img.food{background:linear-gradient(135deg,#F5D76E,#E8A93C)}
+.prod-img.home{background:linear-gradient(135deg,#6FB3D8,#4A90B8)}
+.prod-img.wellness{background:linear-gradient(135deg,#C8A2C8,#9B7AA8)}
+.prod-img.fashion{background:linear-gradient(135deg,#FF9AAD,#E8728A)}
+.prod-img.art{background:linear-gradient(135deg,#8CB4E8,#5A8CC8)}
+.prod-img .catbadge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.85);color:var(--label-primary);padding:3px 8px;border-radius:10px;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.prod-body{padding:12px}
+.prod-name{font-weight:700;font-size:13px;line-height:1.3}
+.prod-price-row{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.prod-price{font-weight:800;color:var(--accent);font-size:16px}
+.prod-compare{font-size:11px;color:var(--label-tertiary);text-decoration:line-through}
+.prod-bar{height:5px;background:var(--fill-tertiary);border-radius:3px;overflow:hidden;margin:10px 0 6px}
+.prod-bar>div{height:100%;background:linear-gradient(90deg,var(--system-green),#2AAB4B);border-radius:3px;transition:width .6s}
+.prod-bar.low>div{background:var(--system-orange)}
+.prod-bar.out>div{background:var(--system-red)}
+.prod-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--label-secondary)}
+.prod-sold{font-size:10px;color:var(--label-tertiary);margin-top:4px}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:16px;padding:22px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15);animation:modalIn .25s}
+html[data-theme="dark"] .modal{border:1px solid var(--separator)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:14px;background:var(--fill-tertiary);font-size:11px;font-weight:600;margin:2px 4px 2px 0}
+
+/* BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg-secondary) 92%,transparent);backdrop-filter:blur(20px);border-top:1px solid var(--separator);padding:6px 8px max(10px,env(safe-area-inset-bottom));z-index:50;justify-content:space-around;gap:4px}
+.bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:10px;color:var(--label-tertiary);border-radius:10px;min-height:48px}
+.bottom-nav button.active{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.bottom-nav .ic{font-size:20px}
+@media (max-width:768px){
+  .bottom-nav{display:flex}.module-tabs{display:none}.tb-date{display:none}
+  main{padding:14px 14px 80px}
+  .kgrid.g4,.kgrid.g3{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .side-panel{width:100%;top:0}
+  .ord-row{grid-template-columns:1fr auto;gap:8px}
+  .ord-row>*:nth-child(n+3){display:none}
+  .cli-row{grid-template-columns:40px 1fr auto}
+  .cli-row>*:nth-child(3),.cli-row>*:nth-child(4){display:none}
+}
+
+.shortcuts-tip{position:fixed;bottom:20px;left:20px;background:var(--bg-secondary);border-radius:14px;padding:18px;box-shadow:0 16px 50px rgba(0,0,0,.15);z-index:300;max-width:280px;display:none;animation:modalIn .25s}
+.shortcuts-tip.show{display:block}
+html[data-theme="dark"] .shortcuts-tip{border:1px solid var(--separator)}
+.shortcuts-tip h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px}
+.shortcuts-tip .row{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:4px 0;font-size:12px;align-items:center}
+.kbd{background:var(--fill-tertiary);padding:3px 8px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:10px;font-weight:700;text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{.topbar,.bottom-nav,.shortcuts-tip,.side-panel{display:none!important}main{padding:0!important;height:auto!important;overflow:visible!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo">🛒 BASIC KIT</div>
+    <span class="biz-pill">E-Commerce</span>
+    <span class="biz-name">Agora Athens Store</span>
+  </div>
+  <div class="module-tabs" id="moduleTabs"></div>
+  <div class="tb-right">
+    <div class="tb-date">Friday 18 April</div>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+    <div class="avatar">NK</div>
+  </div>
+</div>
+
+<main id="mainBody"></main>
+<div class="bottom-nav" id="bottomNav"></div>
+<div class="side-panel" id="sidePanel"></div>
+
+<!-- STATUS CHANGE MODAL -->
+<div class="mbg" id="mStatus"><div class="modal">
+  <h3>Change Order Status</h3>
+  <div id="statusBody"></div>
+  <div class="row-btns"><button class="btn" onclick="closeM('mStatus')">Cancel</button><button class="btn primary" onclick="saveStatus()">Update Status</button></div>
+</div></div>
+
+<!-- CUSTOMER MODAL -->
+<div class="mbg" id="mCustomer"><div class="modal">
+  <h3>New Customer</h3>
+  <label>Full name *</label><input class="fld" id="cuName" placeholder="Maria Papadopoulos">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Email</label><input class="fld" id="cuEmail" placeholder="email@..."></div><div><label>Phone</label><input class="fld" id="cuPhone" placeholder="+30 69..."></div></div>
+  <label>Shipping address</label><textarea class="fld" id="cuAddr" rows="2" placeholder="Street, City, Postal, Country"></textarea>
+  <label>Notes</label><textarea class="fld" id="cuNotes" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mCustomer')">Cancel</button><button class="btn primary" onclick="saveCustomer()">Add Customer</button></div>
+</div></div>
+
+<!-- PRODUCT MODAL -->
+<div class="mbg" id="mProd"><div class="modal">
+  <h3 id="prodTitle">Add Product</h3>
+  <label>Name *</label><input class="fld" id="pName">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>SKU</label><input class="fld" id="pSku" placeholder="auto"></div><div><label>Category</label><select class="fld" id="pCat"><option value="food">Food & Delicacies</option><option value="home">Home & Ceramics</option><option value="wellness">Wellness & Candles</option><option value="fashion">Fashion & Accessories</option><option value="art">Art & Prints</option></select></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Price (€)</label><input type="number" step=".01" class="fld" id="pPrice"></div><div><label>Compare price</label><input type="number" step=".01" class="fld" id="pCompare"></div></div>
+  <label>Description</label><textarea class="fld" id="pDesc" rows="2"></textarea>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><div><label>Stock</label><input type="number" class="fld" id="pStock" value="0"></div><div><label>Low threshold</label><input type="number" class="fld" id="pMin" value="5"></div><div><label>Status</label><select class="fld" id="pStatus"><option>Active</option><option>Draft</option></select></div></div>
+  <div class="row-btns"><button class="btn" onclick="closeM('mProd')">Cancel</button><button class="btn primary" onclick="saveProd()">Save Product</button></div>
+</div></div>
+
+<!-- SHORTCUTS TIP -->
+<div class="shortcuts-tip" id="shortcutsTip">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="row"><span class="kbd">1</span><span>Dashboard</span></div>
+  <div class="row"><span class="kbd">2</span><span>Orders</span></div>
+  <div class="row"><span class="kbd">3</span><span>Products</span></div>
+  <div class="row"><span class="kbd">4</span><span>Customers</span></div>
+  <div class="row"><span class="kbd">N</span><span>New (context)</span></div>
+  <div class="row"><span class="kbd">D</span><span>Toggle theme</span></div>
+  <div class="row"><span class="kbd">Esc</span><span>Close</span></div>
+</div>
+
+<script>
+const MODULES=[
+  {id:'dashboard',name:'Dashboard',icon:'📊'},
+  {id:'orders',name:'Orders',icon:'📦'},
+  {id:'products',name:'Products',icon:'🛍️'},
+  {id:'customers',name:'Customers',icon:'👥'}
+];
+
+/* PRODUCTS — 45 items */
+const PRODUCTS=[
+  // Food & Delicacies (12)
+  {id:'p1',name:'Greek Olive Oil Extra Virgin 500ml',cat:'food',price:18,compare:22,stock:24,min:8,sold:47,status:'Active'},
+  {id:'p2',name:'Thyme Honey Jar 450g',cat:'food',price:22,compare:0,stock:8,min:10,sold:31,status:'Active'},
+  {id:'p3',name:'Kalamata Olive Set 3 jars',cat:'food',price:28,compare:32,stock:15,min:5,sold:28,status:'Active'},
+  {id:'p4',name:'Greek Oregano Herbs Pack',cat:'food',price:12,compare:0,stock:32,min:10,sold:24,status:'Active'},
+  {id:'p5',name:'Santorini Fava Bean Spread',cat:'food',price:14,compare:0,stock:11,min:6,sold:19,status:'Active'},
+  {id:'p6',name:'Cretan Sesame Bar Pasteli x6',cat:'food',price:16,compare:0,stock:20,min:8,sold:22,status:'Active'},
+  {id:'p7',name:'Mastiha Liqueur Chios 200ml',cat:'food',price:24,compare:28,stock:6,min:8,sold:18,status:'Active'},
+  {id:'p8',name:'Greek Coffee Gift Set',cat:'food',price:32,compare:0,stock:14,min:5,sold:15,status:'Active'},
+  {id:'p9',name:'Aegean Sea Salt Flakes 200g',cat:'food',price:10,compare:0,stock:3,min:8,sold:38,status:'Active'},
+  {id:'p10',name:'Tsipouro Artisan 500ml',cat:'food',price:20,compare:0,stock:9,min:4,sold:12,status:'Active'},
+  {id:'p11',name:'Fig Spread Premium 250g',cat:'food',price:15,compare:18,stock:18,min:6,sold:16,status:'Active'},
+  {id:'p12',name:'Ouzo Miniature Gift Set',cat:'food',price:35,compare:0,stock:7,min:3,sold:14,status:'Active'},
+  // Home & Ceramics (10)
+  {id:'p13',name:'Athens Hand-painted Bowl large',cat:'home',price:45,compare:0,stock:12,min:4,sold:22,status:'Active'},
+  {id:'p14',name:'Santorini Blue Ceramic Mug x2',cat:'home',price:28,compare:0,stock:16,min:6,sold:18,status:'Active'},
+  {id:'p15',name:'Greek Key Pattern Plate Set',cat:'home',price:55,compare:65,stock:8,min:4,sold:14,status:'Active'},
+  {id:'p16',name:'Olive Wood Serving Board',cat:'home',price:38,compare:0,stock:10,min:4,sold:12,status:'Active'},
+  {id:'p17',name:'Aegean Sea Glass Vase',cat:'home',price:42,compare:0,stock:6,min:8,sold:9,status:'Active'},
+  {id:'p18',name:'Hand-thrown Espresso Cups x4',cat:'home',price:36,compare:0,stock:14,min:5,sold:11,status:'Active'},
+  {id:'p19',name:'Marble Brass Candle Holder',cat:'home',price:32,compare:0,stock:9,min:4,sold:8,status:'Active'},
+  {id:'p20',name:'Woven Placemat Set Greek',cat:'home',price:24,compare:0,stock:20,min:6,sold:15,status:'Active'},
+  {id:'p21',name:'Terracotta Flower Pot',cat:'home',price:22,compare:0,stock:11,min:4,sold:10,status:'Active'},
+  {id:'p22',name:'Pomegranate Decorative Bowl',cat:'home',price:48,compare:0,stock:5,min:6,sold:7,status:'Active'},
+  // Wellness & Candles (8)
+  {id:'p23',name:'Santorini Sunset Candle 200g',cat:'wellness',price:22,compare:0,stock:6,min:8,sold:34,status:'Active'},
+  {id:'p24',name:'Aegean Breeze Soy Candle',cat:'wellness',price:18,compare:0,stock:14,min:6,sold:28,status:'Active'},
+  {id:'p25',name:'Greek Herbs Olive Soap Set',cat:'wellness',price:24,compare:0,stock:22,min:8,sold:21,status:'Active'},
+  {id:'p26',name:'Mastic Rose Face Cream',cat:'wellness',price:35,compare:42,stock:8,min:4,sold:16,status:'Active'},
+  {id:'p27',name:'Olive Oil Body Scrub',cat:'wellness',price:28,compare:0,stock:10,min:4,sold:14,status:'Active'},
+  {id:'p28',name:'Lavender Eye Pillow',cat:'wellness',price:20,compare:0,stock:15,min:5,sold:12,status:'Active'},
+  {id:'p29',name:'Greek Mountain Tea Sideritis',cat:'wellness',price:14,compare:0,stock:25,min:10,sold:19,status:'Active'},
+  {id:'p30',name:'Healing Herbs Diffuser Set',cat:'wellness',price:38,compare:0,stock:7,min:4,sold:9,status:'Active'},
+  // Fashion & Accessories (8)
+  {id:'p31',name:'Greek Eye Nazar Bracelet',cat:'fashion',price:16,compare:0,stock:0,min:10,sold:42,status:'Active'},
+  {id:'p32',name:'Linen Beach Kaftan one size',cat:'fashion',price:65,compare:78,stock:4,min:6,sold:18,status:'Active'},
+  {id:'p33',name:'Handmade Leather Sandals',cat:'fashion',price:85,compare:0,stock:8,min:4,sold:12,status:'Active'},
+  {id:'p34',name:'Evil Eye Keychain Gold',cat:'fashion',price:12,compare:0,stock:35,min:12,sold:38,status:'Active'},
+  {id:'p35',name:'Athens Map Tote Bag',cat:'fashion',price:22,compare:0,stock:20,min:6,sold:24,status:'Active'},
+  {id:'p36',name:'Greek Mythology Print T-Shirt',cat:'fashion',price:28,compare:0,stock:14,min:5,sold:16,status:'Active'},
+  {id:'p37',name:'Aegean Blue Silk Scarf',cat:'fashion',price:45,compare:55,stock:6,min:4,sold:8,status:'Active'},
+  {id:'p38',name:'Olive Leaf Pendant Necklace',cat:'fashion',price:32,compare:0,stock:12,min:4,sold:14,status:'Active'},
+  // Art & Prints (7)
+  {id:'p39',name:'Athens Acropolis Art Print A3',cat:'art',price:24,compare:0,stock:18,min:6,sold:22,status:'Active'},
+  {id:'p40',name:'Santorini Sunset Photo Print',cat:'art',price:28,compare:0,stock:15,min:5,sold:19,status:'Active'},
+  {id:'p41',name:'Greek Gods Illustration Set',cat:'art',price:38,compare:0,stock:10,min:4,sold:11,status:'Active'},
+  {id:'p42',name:'Cyclades Map Watercolor Print',cat:'art',price:32,compare:0,stock:12,min:4,sold:14,status:'Active'},
+  {id:'p43',name:'Athens Neighborhood Map',cat:'art',price:26,compare:0,stock:9,min:4,sold:10,status:'Active'},
+  {id:'p44',name:'Olive Tree Botanical Print',cat:'art',price:22,compare:0,stock:16,min:5,sold:12,status:'Active'},
+  {id:'p45',name:'Aegean Blue Abstract Print',cat:'art',price:35,compare:0,stock:8,min:4,sold:8,status:'Active'}
+];
+PRODUCTS.forEach(p=>{p.sku='AGO-'+p.id.slice(1).padStart(4,'0');p.stockStatus=p.stock===0?'out':p.stock<p.min?'low':'ok'});
+
+const CAT_INFO={food:{name:'Food & Delicacies',icon:'🍯',letter:'F'},home:{name:'Home & Ceramics',icon:'🏺',letter:'H'},wellness:{name:'Wellness & Candles',icon:'🕯️',letter:'W'},fashion:{name:'Fashion & Accessories',icon:'👗',letter:'A'},art:{name:'Art & Prints',icon:'📸',letter:'P'}};
+
+/* CUSTOMERS — 40 */
+const CUSTOMERS=[
+  {id:'c1',name:'Maria Papadopoulos',email:'maria.p@email.gr',phone:'+30 694 111 2233',city:'Athens',country:'Greece',flag:'🇬🇷',orders:12,spent:1180,lastOrder:'2026-04-18',tier:'vip',notes:'VIP — loyal customer'},
+  {id:'c2',name:'Nikos Georgiou',email:'nikos.g@email.gr',phone:'+30 694 222 3344',city:'Thessaloniki',country:'Greece',flag:'🇬🇷',orders:8,spent:680,lastOrder:'2026-04-17',tier:'regular',notes:''},
+  {id:'c3',name:'Emma Schmidt',email:'emma.s@email.de',phone:'+49 171 888 9900',city:'Berlin',country:'Germany',flag:'🇩🇪',orders:5,spent:430,lastOrder:'2026-04-16',tier:'regular',notes:'Tourist — repeat buyer'},
+  {id:'c4',name:'Katerina Nikolaou',email:'kat.n@email.gr',phone:'+30 694 333 4455',city:'Athens',country:'Greece',flag:'🇬🇷',orders:10,spent:920,lastOrder:'2026-04-15',tier:'vip',notes:''},
+  {id:'c5',name:'James Wilson',email:'j.wilson@email.com',phone:'+44 7700 900123',city:'London',country:'UK',flag:'🇬🇧',orders:4,spent:380,lastOrder:'2026-04-14',tier:'regular',notes:''},
+  {id:'c6',name:'Sofia Andreou',email:'sofia.a@email.gr',phone:'+30 694 444 5566',city:'Patras',country:'Greece',flag:'🇬🇷',orders:11,spent:1050,lastOrder:'2026-04-18',tier:'vip',notes:'Loves candles'},
+  {id:'c7',name:'Lucia Rossi',email:'l.rossi@email.it',phone:'+39 320 111 2233',city:'Milan',country:'Italy',flag:'🇮🇹',orders:3,spent:260,lastOrder:'2026-04-13',tier:'regular',notes:''},
+  {id:'c8',name:'Dimitra Vasileiou',email:'dimitra.v@email.gr',phone:'+30 694 555 6677',city:'Athens',country:'Greece',flag:'🇬🇷',orders:7,spent:540,lastOrder:'2026-04-12',tier:'regular',notes:''},
+  {id:'c9',name:'Pierre Dubois',email:'p.dubois@email.fr',phone:'+33 6 12 34 56 78',city:'Paris',country:'France',flag:'🇫🇷',orders:6,spent:620,lastOrder:'2026-04-18',tier:'regular',notes:''},
+  {id:'c10',name:'Stavros Papas',email:'stavros.p@email.gr',phone:'+30 694 666 7788',city:'Athens',country:'Greece',flag:'🇬🇷',orders:9,spent:780,lastOrder:'2026-04-17',tier:'vip',notes:''},
+  {id:'c11',name:'Anna Mueller',email:'a.mueller@email.de',phone:'+49 172 999 0011',city:'Munich',country:'Germany',flag:'🇩🇪',orders:4,spent:340,lastOrder:'2026-04-10',tier:'regular',notes:''},
+  {id:'c12',name:'Elena Georgakis',email:'elena.g@email.gr',phone:'+30 694 777 8899',city:'Heraklion',country:'Greece',flag:'🇬🇷',orders:13,spent:1200,lastOrder:'2026-04-18',tier:'vip',notes:'VIP — Crete orders'},
+  {id:'c13',name:'Marco Bianchi',email:'m.bianchi@email.it',phone:'+39 333 444 5566',city:'Rome',country:'Italy',flag:'🇮🇹',orders:2,spent:180,lastOrder:'2026-04-11',tier:'regular',notes:''},
+  {id:'c14',name:'Yianna Karagianni',email:'yianna.k@email.gr',phone:'+30 694 888 9900',city:'Athens',country:'Greece',flag:'🇬🇷',orders:8,spent:660,lastOrder:'2026-04-16',tier:'regular',notes:''},
+  {id:'c15',name:'Sarah Johnson',email:'s.johnson@email.com',phone:'+1 212 555 0198',city:'New York',country:'USA',flag:'🇺🇸',orders:3,spent:310,lastOrder:'2026-04-09',tier:'regular',notes:''},
+  {id:'c16',name:'Petros Manolakis',email:'petros.m@email.gr',phone:'+30 694 999 0011',city:'Athens',country:'Greece',flag:'🇬🇷',orders:5,spent:420,lastOrder:'2026-04-15',tier:'regular',notes:''},
+  {id:'c17',name:'Julia Weber',email:'j.weber@email.de',phone:'+49 173 222 3344',city:'Hamburg',country:'Germany',flag:'🇩🇪',orders:6,spent:580,lastOrder:'2026-04-14',tier:'regular',notes:''},
+  {id:'c18',name:'Alexandra Papas',email:'alex.p@email.gr',phone:'+30 694 100 1122',city:'Volos',country:'Greece',flag:'🇬🇷',orders:4,spent:360,lastOrder:'2026-04-08',tier:'regular',notes:''},
+  {id:'c19',name:'Thomas Brown',email:'t.brown@email.com',phone:'+44 7700 900456',city:'Manchester',country:'UK',flag:'🇬🇧',orders:2,spent:140,lastOrder:'2026-04-07',tier:'new',notes:''},
+  {id:'c20',name:'Maria Stavrou',email:'maria.s@email.gr',phone:'+30 694 211 2233',city:'Athens',country:'Greece',flag:'🇬🇷',orders:11,spent:950,lastOrder:'2026-04-17',tier:'vip',notes:''},
+  {id:'c21',name:'Giuseppe Ferrari',email:'g.ferrari@email.it',phone:'+39 340 555 6677',city:'Florence',country:'Italy',flag:'🇮🇹',orders:4,spent:320,lastOrder:'2026-04-06',tier:'regular',notes:''},
+  {id:'c22',name:'Christina Lambrou',email:'christina.l@email.gr',phone:'+30 694 322 3344',city:'Athens',country:'Greece',flag:'🇬🇷',orders:3,spent:245,lastOrder:'2026-04-18',tier:'new',notes:'New — gave promo'},
+  {id:'c23',name:'Hans Becker',email:'h.becker@email.de',phone:'+49 174 333 4455',city:'Frankfurt',country:'Germany',flag:'🇩🇪',orders:5,spent:480,lastOrder:'2026-04-13',tier:'regular',notes:''},
+  {id:'c24',name:'Anastasia Petrou',email:'a.petrou@email.gr',phone:'+30 694 433 4455',city:'Athens',country:'Greece',flag:'🇬🇷',orders:7,spent:590,lastOrder:'2026-04-11',tier:'regular',notes:''},
+  {id:'c25',name:'Charlotte Martin',email:'c.martin@email.fr',phone:'+33 6 98 76 54 32',city:'Nice',country:'France',flag:'🇫🇷',orders:3,spent:280,lastOrder:'2026-04-05',tier:'regular',notes:''},
+  {id:'c26',name:'Eleni Christou',email:'eleni.c@email.gr',phone:'+30 694 544 5566',city:'Athens',country:'Greece',flag:'🇬🇷',orders:9,spent:720,lastOrder:'2026-04-16',tier:'vip',notes:''},
+  {id:'c27',name:'David Miller',email:'d.miller@email.com',phone:'+1 415 555 0134',city:'San Francisco',country:'USA',flag:'🇺🇸',orders:2,spent:175,lastOrder:'2026-04-03',tier:'new',notes:''},
+  {id:'c28',name:'Ioanna Markou',email:'ioanna.m@email.gr',phone:'+30 694 655 6677',city:'Athens',country:'Greece',flag:'🇬🇷',orders:6,spent:490,lastOrder:'2026-04-14',tier:'regular',notes:''},
+  {id:'c29',name:'Stefan Klein',email:'s.klein@email.de',phone:'+49 175 444 5566',city:'Cologne',country:'Germany',flag:'🇩🇪',orders:1,spent:68,lastOrder:'2026-04-02',tier:'new',notes:'First order'},
+  {id:'c30',name:'Thanasis Kostas',email:'thanasis.k@email.gr',phone:'+30 694 766 7788',city:'Athens',country:'Greece',flag:'🇬🇷',orders:8,spent:640,lastOrder:'2026-04-12',tier:'regular',notes:''},
+  {id:'c31',name:'Sophie Laurent',email:'s.laurent@email.fr',phone:'+33 6 11 22 33 44',city:'Lyon',country:'France',flag:'🇫🇷',orders:4,spent:365,lastOrder:'2026-04-08',tier:'regular',notes:''},
+  {id:'c32',name:'Despina Vlahos',email:'d.vlahos@email.gr',phone:'+30 694 877 8899',city:'Athens',country:'Greece',flag:'🇬🇷',orders:10,spent:860,lastOrder:'2026-04-15',tier:'vip',notes:''},
+  {id:'c33',name:'Oliver Taylor',email:'o.taylor@email.com',phone:'+44 7700 900789',city:'Edinburgh',country:'UK',flag:'🇬🇧',orders:3,spent:250,lastOrder:'2026-04-04',tier:'regular',notes:''},
+  {id:'c34',name:'Giorgos Makris',email:'g.makris@email.gr',phone:'+30 694 988 9900',city:'Piraeus',country:'Greece',flag:'🇬🇷',orders:5,spent:380,lastOrder:'2026-04-10',tier:'regular',notes:''},
+  {id:'c35',name:'Isabella Conti',email:'i.conti@email.it',phone:'+39 345 111 2233',city:'Naples',country:'Italy',flag:'🇮🇹',orders:2,spent:130,lastOrder:'2026-04-01',tier:'new',notes:''},
+  {id:'c36',name:'Fotini Iliopoulou',email:'fotini.i@email.gr',phone:'+30 694 099 0011',city:'Athens',country:'Greece',flag:'🇬🇷',orders:7,spent:560,lastOrder:'2026-04-09',tier:'regular',notes:''},
+  {id:'c37',name:'Paul Fischer',email:'p.fischer@email.de',phone:'+49 176 555 6677',city:'Stuttgart',country:'Germany',flag:'🇩🇪',orders:6,spent:510,lastOrder:'2026-04-17',tier:'regular',notes:''},
+  {id:'c38',name:'Stella Gerakis',email:'stella.g@email.gr',phone:'+30 694 100 2233',city:'Rhodes',country:'Greece',flag:'🇬🇷',orders:4,spent:340,lastOrder:'2026-03-28',tier:'regular',notes:'Inactive 3wks'},
+  {id:'c39',name:'Carlos Garcia',email:'c.garcia@email.es',phone:'+34 612 345 678',city:'Barcelona',country:'Spain',flag:'🇪🇸',orders:1,spent:45,lastOrder:'2026-03-20',tier:'new',notes:''},
+  {id:'c40',name:'Vasiliki Oikonomou',email:'v.oikonomou@email.gr',phone:'+30 694 211 3344',city:'Athens',country:'Greece',flag:'🇬🇷',orders:2,spent:110,lastOrder:'2026-02-15',tier:'new',notes:'Inactive'}
+];
+
+/* ORDERS — 50 */
+const ORDER_STATUSES=['pending','processing','shipped','delivered','cancelled'];
+const PAY_METHODS=['Card','PayPal','Cash on delivery'];
+const SHIP_METHODS=['Standard (3-5d)','Express (1-2d)','Economy (5-7d)'];
+const SOURCES=['Web','Mobile','Manual'];
+
+function buildOrders(){
+  const seed=[
+    // Today (18 Apr) — mix
+    {d:'2026-04-18',t:'09:12',cid:'c1',items:[{pid:'p1',q:2},{pid:'p3',q:1}],status:'delivered'},
+    {d:'2026-04-18',t:'09:48',cid:'c6',items:[{pid:'p23',q:1},{pid:'p25',q:2}],status:'delivered'},
+    {d:'2026-04-18',t:'10:22',cid:'c9',items:[{pid:'p13',q:1}],status:'shipped'},
+    {d:'2026-04-18',t:'10:55',cid:'c12',items:[{pid:'p33',q:1},{pid:'p34',q:2}],status:'shipped'},
+    {d:'2026-04-18',t:'11:14',cid:'c22',items:[{pid:'p1',q:1},{pid:'p9',q:2}],status:'processing'},
+    {d:'2026-04-18',t:'11:38',cid:'c4',items:[{pid:'p15',q:1},{pid:'p17',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'12:05',cid:'c14',items:[{pid:'p6',q:2},{pid:'p11',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'12:40',cid:'c37',items:[{pid:'p39',q:2}],status:'pending'},
+    {d:'2026-04-18',t:'13:11',cid:'c20',items:[{pid:'p45',q:1},{pid:'p42',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'13:45',cid:'c26',items:[{pid:'p2',q:2},{pid:'p8',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'14:08',cid:'c2',items:[{pid:'p29',q:3}],status:'shipped'},
+    {d:'2026-04-18',t:'14:32',cid:'c10',items:[{pid:'p16',q:1},{pid:'p20',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'15:02',cid:'c32',items:[{pid:'p24',q:2},{pid:'p30',q:1}],status:'processing'},
+    {d:'2026-04-18',t:'15:35',cid:'c5',items:[{pid:'p36',q:1},{pid:'p35',q:1}],status:'pending'},
+    {d:'2026-04-18',t:'16:10',cid:'c28',items:[{pid:'p18',q:1}],status:'shipped'},
+    {d:'2026-04-18',t:'16:42',cid:'c7',items:[{pid:'p40',q:1},{pid:'p44',q:1}],status:'shipped'},
+    {d:'2026-04-18',t:'17:05',cid:'c36',items:[{pid:'p14',q:1}],status:'pending'},
+    {d:'2026-04-18',t:'17:28',cid:'c17',items:[{pid:'p32',q:1}],status:'delivered'},
+    // Last 30 days
+    {d:'2026-04-17',t:'10:15',cid:'c20',items:[{pid:'p1',q:3},{pid:'p7',q:1}],status:'delivered'},
+    {d:'2026-04-17',t:'11:22',cid:'c2',items:[{pid:'p13',q:1},{pid:'p19',q:1}],status:'delivered'},
+    {d:'2026-04-17',t:'14:40',cid:'c10',items:[{pid:'p33',q:1}],status:'delivered'},
+    {d:'2026-04-17',t:'16:18',cid:'c37',items:[{pid:'p41',q:1}],status:'delivered'},
+    {d:'2026-04-16',t:'09:35',cid:'c3',items:[{pid:'p23',q:2},{pid:'p25',q:1}],status:'delivered'},
+    {d:'2026-04-16',t:'12:50',cid:'c14',items:[{pid:'p5',q:2}],status:'delivered'},
+    {d:'2026-04-16',t:'15:07',cid:'c26',items:[{pid:'p16',q:1},{pid:'p17',q:1}],status:'delivered'},
+    {d:'2026-04-15',t:'10:22',cid:'c4',items:[{pid:'p24',q:1},{pid:'p28',q:1}],status:'delivered'},
+    {d:'2026-04-15',t:'14:18',cid:'c16',items:[{pid:'p38',q:1},{pid:'p34',q:2}],status:'delivered'},
+    {d:'2026-04-15',t:'17:00',cid:'c32',items:[{pid:'p42',q:2}],status:'delivered'},
+    {d:'2026-04-14',t:'11:45',cid:'c5',items:[{pid:'p1',q:1},{pid:'p11',q:2}],status:'delivered'},
+    {d:'2026-04-14',t:'15:30',cid:'c17',items:[{pid:'p39',q:1}],status:'delivered'},
+    {d:'2026-04-14',t:'16:55',cid:'c28',items:[{pid:'p35',q:1},{pid:'p36',q:1}],status:'delivered'},
+    {d:'2026-04-13',t:'10:05',cid:'c7',items:[{pid:'p40',q:1}],status:'delivered'},
+    {d:'2026-04-13',t:'13:28',cid:'c23',items:[{pid:'p14',q:2}],status:'delivered'},
+    {d:'2026-04-12',t:'09:55',cid:'c8',items:[{pid:'p26',q:1}],status:'delivered'},
+    {d:'2026-04-12',t:'14:12',cid:'c30',items:[{pid:'p1',q:2},{pid:'p3',q:1}],status:'delivered'},
+    {d:'2026-04-11',t:'11:30',cid:'c13',items:[{pid:'p44',q:1}],status:'delivered'},
+    {d:'2026-04-11',t:'16:22',cid:'c24',items:[{pid:'p20',q:1}],status:'delivered'},
+    {d:'2026-04-10',t:'10:48',cid:'c11',items:[{pid:'p23',q:1}],status:'delivered'},
+    {d:'2026-04-10',t:'14:35',cid:'c34',items:[{pid:'p6',q:2}],status:'delivered'},
+    {d:'2026-04-09',t:'12:10',cid:'c15',items:[{pid:'p42',q:1},{pid:'p39',q:1}],status:'delivered'},
+    {d:'2026-04-09',t:'15:45',cid:'c36',items:[{pid:'p25',q:1}],status:'delivered'},
+    {d:'2026-04-08',t:'10:20',cid:'c18',items:[{pid:'p1',q:1}],status:'delivered'},
+    {d:'2026-04-08',t:'16:05',cid:'c31',items:[{pid:'p32',q:1}],status:'delivered'},
+    {d:'2026-04-07',t:'11:15',cid:'c19',items:[{pid:'p34',q:2}],status:'delivered'},
+    {d:'2026-04-06',t:'14:40',cid:'c21',items:[{pid:'p13',q:1}],status:'delivered'},
+    {d:'2026-04-05',t:'10:30',cid:'c25',items:[{pid:'p40',q:1}],status:'delivered'},
+    {d:'2026-04-04',t:'13:20',cid:'c33',items:[{pid:'p8',q:1}],status:'cancelled'},
+    {d:'2026-04-03',t:'15:10',cid:'c27',items:[{pid:'p41',q:1}],status:'delivered'},
+    {d:'2026-04-02',t:'11:50',cid:'c29',items:[{pid:'p21',q:1}],status:'cancelled'},
+    {d:'2026-04-01',t:'12:35',cid:'c35',items:[{pid:'p28',q:1}],status:'delivered'}
+  ];
+  return seed.map((o,i)=>{
+    const subtotal=o.items.reduce((s,it)=>{const p=PRODUCTS.find(x=>x.id===it.pid);return s+(p?p.price*it.q:0)},0);
+    const shipping=subtotal>=80?0:4.90;
+    return {
+      id:'#AG-'+String(2041+i).padStart(4,'0'),
+      date:o.d,time:o.t,cid:o.cid,items:o.items,status:o.status,
+      subtotal,shipping,total:subtotal+shipping,
+      source:SOURCES[i%3],
+      shipMethod:SHIP_METHODS[i%3],
+      payment:PAY_METHODS[i%3],
+      tracking:o.status==='shipped'||o.status==='delivered'?'ELTA'+(1000000+i):'',
+      custNote:i%5===0?'Please gift-wrap':'',
+      intNote:''
+    };
+  });
+}
+
+let state={
+  module:'dashboard',dashView:'today',orderFilter:'all',orderSearch:'',orderDate:'today',
+  productFilter:'all',productCat:'all',productSearch:'',productView:'grid',
+  customerFilter:'all',customerSearch:'',
+  selectedOrder:null,selectedCustomer:null,charts:{},
+  statusOrder:null,newStatus:'processing',
+  orders:buildOrders()
+};
+
+/* HELPERS */
+function $(s){return document.querySelector(s)}
+function $$(s){return [...document.querySelectorAll(s)]}
+function uid(){return Math.random().toString(36).slice(2,10)}
+function initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function money(v){return '€'+Math.round(Number(v||0)).toLocaleString('en-US')}
+function moneyF(v){return '€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function countUp(el,target,dur=1400){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+function relDate(d){const now=new Date('2026-04-18');const then=new Date(d);const diff=Math.round((now-then)/(1000*60*60*24));if(diff===0)return 'today';if(diff===1)return 'yesterday';if(diff<7)return diff+'d ago';if(diff<30)return Math.round(diff/7)+'w ago';if(diff<365)return Math.round(diff/30)+'mo ago';return Math.round(diff/365)+'y ago'}
+function getCustomer(id){return CUSTOMERS.find(c=>c.id===id)}
+function getProduct(id){return PRODUCTS.find(p=>p.id===id)}
+function itemCount(o){return o.items.reduce((s,i)=>s+i.q,0)}
+
+/* RENDER */
+function renderTopTabs(){$('#moduleTabs').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')">${m.icon} ${m.name}</button>`).join('')}
+function renderBottomNav(){$('#bottomNav').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')"><span class="ic">${m.icon}</span>${m.name}</button>`).join('')}
+function setModule(id){state.module=id;closeSidePanel();renderTopTabs();renderBottomNav();renderMain()}
+
+function renderMain(){
+  const body=$('#mainBody');body.innerHTML='';
+  if(state.module==='dashboard')renderDashboard(body);
+  else if(state.module==='orders')renderOrders(body);
+  else if(state.module==='products')renderProducts(body);
+  else renderCustomers(body);
+  const page=body.querySelector('.page');if(page){page.style.animation='none';requestAnimationFrame(()=>page.style.animation='fadeUp .3s')}
+}
+
+/* DASHBOARD */
+function renderDashboard(body){
+  if(state.dashView==='week')return renderDashboardWeek(body);
+  if(state.dashView==='month')return renderDashboardMonth(body);
+  const today=state.orders.filter(o=>o.date==='2026-04-18');
+  const revToday=today.reduce((s,o)=>s+o.total,0);
+  const processing=today.filter(o=>o.status==='processing').length;
+  const shipped=today.filter(o=>o.status==='shipped').length;
+  const delivered=today.filter(o=>o.status==='delivered').length;
+  const pending=today.filter(o=>o.status==='pending').length;
+  const aov=today.length?revToday/today.length:0;
+  // Top products today
+  const tally={};today.forEach(o=>o.items.forEach(it=>{tally[it.pid]=(tally[it.pid]||0)+it.q}));
+  const topProds=Object.entries(tally).map(([pid,q])=>{const p=getProduct(pid);return {p,q,rev:p.price*q}}).sort((a,b)=>b.q-a.q).slice(0,5);
+  // last 7 days revenue
+  const labels7=['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
+  const dates7=['2026-04-12','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-18'];
+  const rev7=dates7.map(d=>state.orders.filter(o=>o.date===d).reduce((s,o)=>s+o.total,0));
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd">
+      <div><h1>Good morning, Nikos 👋</h1><div class="sub">Friday 18 April — Athens, Greece</div></div>
+      <div class="pills"><button class="${state.dashView==='today'?'active':''}" onclick="state.dashView='today';renderMain()">Today</button><button class="${state.dashView==='week'?'active':''}" onclick="state.dashView='week';renderMain()">Week</button><button class="${state.dashView==='month'?'active':''}" onclick="state.dashView='month';renderMain()">Month</button></div>
+    </div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">💰 Revenue Today</div><div class="v mono">€<span id="k-rev">0</span></div><div class="d up">↑ 22% vs yesterday</div><div class="d" style="margin-top:2px">${today.length} orders today</div></div>
+      <div class="kcard"><div class="l">📦 Orders Today</div><div class="v mono"><span id="k-ord">0</span></div><div class="dots"><span class="dot proc">${processing} Processing</span><span class="dot ship">${shipped} Shipped</span><span class="dot deliv">${delivered} Delivered</span></div></div>
+      <div class="kcard"><div class="l">🎫 Avg Order Value</div><div class="v mono">€<span id="k-aov">0</span>.30</div><div class="d up">↑ €4.20 vs week</div></div>
+      <div class="kcard"><div class="l">👥 New Customers</div><div class="v mono"><span id="k-cust">0</span></div><div class="d">12 returning · 6 new</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:60% 40%;margin-bottom:14px">
+      <div class="card"><h3>Revenue — Last 7 days</h3><div class="chart-host"><canvas id="revChart"></canvas></div></div>
+      <div class="card"><h3>Today at a glance</h3>
+        <div class="sp-label" style="margin-bottom:8px">Top products today</div>
+        ${topProds.map((t,i)=>`<div class="tp-row"><span class="tp-rank">${i+1}</span><span>${t.p.name.split(' ').slice(0,4).join(' ')}</span><span class="tp-qty">${t.q}x</span><span class="tp-amt">${money(t.rev)}</span></div>`).join('')}
+        <div class="stat-pills" style="margin-top:12px"><span class="stat-pill">Sessions <strong>342</strong></span><span class="stat-pill">Conversion <strong>5.3%</strong></span><span class="stat-pill">Cart abandon <strong>68%</strong></span></div>
+      </div>
+    </div>
+    <div class="grid2" style="grid-template-columns:60% 40%">
+      <div class="card"><h3>Recent orders<button class="btn xs secondary" onclick="setModule('orders')">View all orders →</button></h3>
+        <div>${today.slice(-8).reverse().map(o=>{const c=getCustomer(o.cid);return `<div class="ord-row ${o.status}" onclick="openOrderDetail('${o.id}')"><span class="ord-num">${o.id}</span><div class="ord-cust"><div class="ord-av">${initials(c.name)}</div><div><div class="ord-name">${c.name}</div><div class="ord-meta">${itemCount(o)} items</div></div></div><span class="ord-items">${itemCount(o)}</span><span class="ord-amt">${moneyF(o.total)}</span><span class="badge s-${o.status}">${o.status}</span><span class="ord-time">${o.time}</span></div>`}).join('')}</div>
+      </div>
+      <div class="card"><h3>Alerts</h3>
+        <div class="inv-alerts">
+          <div class="inv-alert red">🔴 <strong>${processing+pending}</strong> orders need processing</div>
+          <div class="inv-alert yellow">🟡 Olive Oil Set — low stock (8 left)</div>
+          <div class="inv-alert yellow">🟡 Santorini Candle — low (6 left)</div>
+          <div class="inv-alert green">🟢 ${delivered} deliveries completed today</div>
+        </div>
+        <div class="sp-label" style="margin:14px 0 8px">Pending actions</div>
+        <div style="display:flex;flex-direction:column;gap:6px"><button class="btn primary sm" onclick="state.orderFilter='processing';setModule('orders')">Process ${processing} orders →</button><button class="btn secondary sm" onclick="state.productFilter='low';setModule('products')">Restock items →</button></div>
+      </div>
+    </div>
+  </div>`;
+  setTimeout(()=>{
+    countUp($('#k-rev'),Math.round(revToday));
+    countUp($('#k-ord'),today.length);
+    countUp($('#k-aov'),69);
+    countUp($('#k-cust'),6);
+    drawRevChart(labels7,rev7);
+  },30);
+}
+function drawRevChart(labels,data){
+  const ctx=$('#revChart');if(!ctx)return;
+  if(state.charts.rev)state.charts.rev.destroy();
+  const colors=labels.map((_,i)=>i===labels.length-1?'#007AFF':'rgba(0,122,255,.35)');
+  state.charts.rev=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'€'+c.parsed.y}}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v,font:{size:10}}}}}});
+}
+function renderDashboardWeek(body){
+  const labels=['Sat 12','Sun 13','Mon 14','Tue 15','Wed 16','Thu 17','Fri 18'];
+  const dates=['2026-04-12','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-18'];
+  const rev=dates.map(d=>state.orders.filter(o=>o.date===d).reduce((s,o)=>s+o.total,0));
+  const orders=dates.map(d=>state.orders.filter(o=>o.date===d).length);
+  const total=rev.reduce((s,v)=>s+v,0);
+  const totalOrd=orders.reduce((s,v)=>s+v,0);
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Dashboard — Week</h1><div class="sub">Apr 12 → Apr 18, 2026</div></div>
+    <div class="pills"><button onclick="state.dashView='today';renderMain()">Today</button><button class="active">Week</button><button onclick="state.dashView='month';renderMain()">Month</button></div></div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">Week Revenue</div><div class="v mono">${money(total)}</div><div class="d up">↑ 12% vs last week</div></div>
+      <div class="kcard"><div class="l">Week Orders</div><div class="v mono">${totalOrd}</div><div class="d">Avg ${Math.round(totalOrd/7)}/day</div></div>
+      <div class="kcard"><div class="l">Week AOV</div><div class="v mono">${money(total/totalOrd)}</div><div class="d up">↑ €3 vs week</div></div>
+      <div class="kcard"><div class="l">New customers</div><div class="v mono">24</div><div class="d">+6 vs last week</div></div>
+    </div>
+    <div class="card"><h3>7-day revenue</h3><div class="chart-host"><canvas id="weekChart"></canvas></div></div>
+  </div>`;
+  setTimeout(()=>{
+    const ctx=$('#weekChart');if(!ctx)return;
+    if(state.charts.week)state.charts.week.destroy();
+    state.charts.week=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:rev,backgroundColor:'#007AFF',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v}}}}});
+  },30);
+}
+function renderDashboardMonth(body){
+  const labels=Array.from({length:30},(_,i)=>i+1);
+  const data=labels.map(d=>800+Math.round(Math.sin(d/4)*250+Math.random()*300+d*8));
+  const total=data.reduce((s,v)=>s+v,0);
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Dashboard — April</h1><div class="sub">April 2026</div></div>
+    <div class="pills"><button onclick="state.dashView='today';renderMain()">Today</button><button onclick="state.dashView='week';renderMain()">Week</button><button class="active">Month</button></div></div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">Month Revenue</div><div class="v mono">${money(total)}</div><div class="d up">↑ 18% vs March</div></div>
+      <div class="kcard"><div class="l">Month Orders</div><div class="v mono">247</div><div class="d">Avg 8/day</div></div>
+      <div class="kcard"><div class="l">Month AOV</div><div class="v mono">${money(total/247)}</div><div class="d up">↑ €5</div></div>
+      <div class="kcard"><div class="l">Return customers</div><div class="v mono">62%</div><div class="d up">↑ 4pts</div></div>
+    </div>
+    <div class="card"><h3>Monthly revenue trend</h3><div class="chart-host"><canvas id="monChart"></canvas></div></div>
+  </div>`;
+  setTimeout(()=>{
+    const ctx=$('#monChart');if(!ctx)return;
+    if(state.charts.mon)state.charts.mon.destroy();
+    state.charts.mon=new Chart(ctx,{type:'line',data:{labels,datasets:[{data,borderColor:'#007AFF',backgroundColor:'rgba(0,122,255,.1)',fill:true,tension:.35,borderWidth:2,pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v}}}}});
+  },30);
+}
+
+/* ORDERS */
+function renderOrders(body){
+  let list=state.orders.slice();
+  if(state.orderFilter!=='all')list=list.filter(o=>o.status===state.orderFilter);
+  if(state.orderDate==='today')list=list.filter(o=>o.date==='2026-04-18');
+  else if(state.orderDate==='week')list=list.filter(o=>{const d=new Date('2026-04-18')-new Date(o.date);return d<=7*86400000});
+  const q=state.orderSearch.toLowerCase();
+  if(q)list=list.filter(o=>{const c=getCustomer(o.cid);return o.id.toLowerCase().includes(q)||c.name.toLowerCase().includes(q)});
+  list.sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  const counts={pending:0,processing:0,shipped:0,delivered:0,cancelled:0};
+  state.orders.filter(o=>o.date==='2026-04-18').forEach(o=>counts[o.status]++);
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Orders</h1><div class="sub"><strong>18 orders today</strong> · 247 this month</div></div>
+    <div style="display:flex;gap:8px"><button class="btn" onclick="alert('Export CSV: '+list.length+' orders')">⬇ Export CSV</button></div></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+      <input class="fld" style="margin:0;flex:1;min-width:200px" id="ordSearch" placeholder="🔍 Search order# or customer..." value="${state.orderSearch}">
+      <div class="pills" style="margin:0"><button class="${state.orderDate==='today'?'active':''}" onclick="state.orderDate='today';renderMain()">Today</button><button class="${state.orderDate==='week'?'active':''}" onclick="state.orderDate='week';renderMain()">Week</button><button class="${state.orderDate==='month'?'active':''}" onclick="state.orderDate='month';renderMain()">Month</button></div>
+    </div>
+    <div class="fil-pills">${[['all','All'],['pending','Pending'],['processing','Processing'],['shipped','Shipped'],['delivered','Delivered'],['cancelled','Cancelled']].map(([k,l])=>`<button class="${state.orderFilter===k?'active':''}" onclick="state.orderFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="stat-pills" style="margin-bottom:14px">
+      <span class="stat-pill">Pending <strong>${counts.pending}</strong></span>
+      <span class="stat-pill">Processing <strong>${counts.processing}</strong></span>
+      <span class="stat-pill">Shipped <strong>${counts.shipped}</strong></span>
+      <span class="stat-pill">Delivered <strong>${counts.delivered}</strong></span>
+    </div>
+    <div class="card" style="padding:0">${list.length?list.slice(0,50).map(o=>{const c=getCustomer(o.cid);return `<div class="ord-row ${o.status}" onclick="openOrderDetail('${o.id}')">
+      <div><div class="ord-num">${o.id}</div><div class="ord-meta">${o.date.slice(5)} · ${o.time}</div></div>
+      <div class="ord-cust"><div class="ord-av">${initials(c.name)}</div><div><div class="ord-name">${c.name}</div><div class="ord-meta">${c.city}, ${c.country}</div></div></div>
+      <span class="ord-items">${itemCount(o)} items</span>
+      <span class="ord-amt">${moneyF(o.total)}</span>
+      <span class="badge s-${o.status}">${o.status}</span>
+      <button class="btn xs secondary" onclick="event.stopPropagation();openOrderDetail('${o.id}')">View</button>
+    </div>`}).join(''):'<div style="padding:40px;text-align:center;color:var(--label-tertiary)">No orders match</div>'}</div>
+  </div>`;
+  $('#ordSearch').addEventListener('input',e=>{state.orderSearch=e.target.value;renderMain();setTimeout(()=>{const el=$('#ordSearch');el.focus();el.setSelectionRange(el.value.length,el.value.length)},30)});
+}
+
+window.openOrderDetail=id=>{
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  const c=getCustomer(o.cid);state.selectedOrder=id;
+  $('#sidePanel').innerHTML=`<button class="close" onclick="closeSidePanel()">✕</button>
+    <div class="sp-section">
+      <div style="font-family:'SF Mono',Menlo,monospace;color:var(--accent);font-size:20px;font-weight:800">${o.id}</div>
+      <div style="font-size:11px;color:var(--label-tertiary);margin-top:3px">${o.date} · ${o.time} · Source: ${o.source}</div>
+      <div style="margin-top:8px"><span class="badge s-${o.status}">${o.status}</span> <button class="btn xs" onclick="openStatusModal('${o.id}')">Change status ▾</button></div>
+    </div>
+    <div class="sp-section"><div class="sp-label">Customer</div>
+      <div style="display:flex;gap:10px;align-items:center"><div class="cli-av" style="width:36px;height:36px;font-size:12px">${initials(c.name)}</div><div style="flex:1"><div style="font-weight:700;font-size:13px">${c.name}</div><div style="font-size:11px;color:var(--label-tertiary)">${c.email} · ${c.phone}</div><div style="font-size:11px;color:var(--label-secondary);margin-top:2px">${c.orders} orders · ${money(c.spent)} total</div></div></div>
+      <button class="btn xs secondary" style="width:100%;margin-top:8px" onclick="setModule('customers');setTimeout(()=>openCustomerDetail('${c.id}'),100)">View customer profile →</button>
+    </div>
+    <div class="sp-section"><div class="sp-label">Order items</div>
+      ${o.items.map(it=>{const p=getProduct(it.pid);return `<div style="display:grid;grid-template-columns:36px 1fr auto;gap:10px;padding:6px 0;align-items:center;font-size:12px"><div style="width:36px;height:36px;border-radius:8px;background:var(--fill-tertiary);display:flex;align-items:center;justify-content:center;font-size:18px">${CAT_INFO[p.cat].icon}</div><div><div style="font-weight:600">${p.name}</div><div style="font-size:10px;color:var(--label-tertiary)">${it.q} × ${moneyF(p.price)}</div></div><span class="mono" style="font-weight:700">${moneyF(p.price*it.q)}</span></div>`}).join('')}
+    </div>
+    <div class="sp-section"><div class="sp-label">Summary</div>
+      <div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px"><span style="color:var(--label-secondary)">Subtotal</span><span class="mono">${moneyF(o.subtotal)}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px"><span style="color:var(--label-secondary)">Shipping</span><span class="mono">${o.shipping===0?'Free':moneyF(o.shipping)}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 10px;background:var(--accent-softer);border-radius:8px;margin-top:6px;font-weight:800"><span>Total</span><span class="mono" style="color:var(--accent);font-size:16px">${moneyF(o.total)}</span></div>
+      <div style="font-size:11px;color:var(--label-tertiary);margin-top:6px">Payment: ${o.payment}</div>
+    </div>
+    <div class="sp-section"><div class="sp-label">Shipping</div>
+      <div style="font-size:12px;line-height:1.5"><strong>${c.name}</strong><br>${c.city}, ${c.country} ${c.flag}<br><span style="color:var(--label-tertiary)">${o.shipMethod}</span></div>
+      ${o.tracking?`<label>Tracking #</label><input class="fld" value="${o.tracking}" onblur="state.orders.find(x=>x.id==='${o.id}').tracking=this.value">`:''}
+    </div>
+    <div class="sp-section"><div class="sp-label">Notes</div>
+      ${o.custNote?`<div style="padding:8px 10px;background:var(--fill-tertiary);border-radius:8px;font-size:12px;margin-bottom:6px">💬 ${o.custNote}</div>`:''}
+      <textarea class="fld" rows="2" placeholder="Internal note..." onblur="state.orders.find(x=>x.id==='${o.id}').intNote=this.value">${o.intNote||''}</textarea>
+    </div>
+    <div class="sp-section"><div class="sp-label">Actions</div><div style="display:flex;flex-wrap:wrap;gap:6px">
+      ${o.status==='pending'||o.status==='processing'?`<button class="btn sm secondary" onclick="quickStatus('${o.id}','processing')">Mark Processing</button>`:''}
+      ${o.status!=='shipped'&&o.status!=='delivered'&&o.status!=='cancelled'?`<button class="btn sm primary" onclick="quickStatus('${o.id}','shipped')">Mark Shipped</button>`:''}
+      ${o.status==='shipped'?`<button class="btn sm primary" onclick="quickStatus('${o.id}','delivered')">Mark Delivered</button>`:''}
+      ${o.status!=='cancelled'&&o.status!=='delivered'?`<button class="btn sm danger" onclick="if(confirm('Cancel ${o.id}?'))quickStatus('${o.id}','cancelled')">Cancel</button>`:''}
+      <button class="btn sm" onclick="window.print()">Print packing slip</button>
+    </div></div>`;
+  $('#sidePanel').classList.add('open');
+};
+window.closeSidePanel=()=>$('#sidePanel').classList.remove('open');
+window.quickStatus=(id,st)=>{const o=state.orders.find(x=>x.id===id);o.status=st;openOrderDetail(id);renderMain()};
+window.openStatusModal=id=>{
+  state.statusOrder=id;const o=state.orders.find(x=>x.id===id);state.newStatus=o.status;
+  $('#statusBody').innerHTML=`<label>Current status</label><div><span class="badge s-${o.status}">${o.status}</span></div>
+    <label>New status</label><select class="fld" id="newSt" onchange="state.newStatus=this.value">${ORDER_STATUSES.map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${s}</option>`).join('')}<option value="refunded">refunded</option></select>
+    <label>Tracking # (if shipping)</label><input class="fld" id="newTrack" value="${o.tracking||''}" placeholder="ELTA...">
+    <label>Reason (if cancelling)</label><textarea class="fld" id="newReason" rows="2"></textarea>`;
+  openM('mStatus');
+};
+window.saveStatus=()=>{const o=state.orders.find(x=>x.id===state.statusOrder);o.status=state.newStatus;const t=$('#newTrack').value;if(t)o.tracking=t;closeM('mStatus');openOrderDetail(o.id);renderMain()};
+
+/* PRODUCTS */
+function renderProducts(body){
+  let list=PRODUCTS.slice();
+  if(state.productFilter==='low')list=list.filter(p=>p.stockStatus==='low');
+  else if(state.productFilter==='out')list=list.filter(p=>p.stockStatus==='out');
+  else if(state.productFilter==='active')list=list.filter(p=>p.status==='Active');
+  else if(state.productFilter==='draft')list=list.filter(p=>p.status==='Draft');
+  if(state.productCat!=='all')list=list.filter(p=>p.cat===state.productCat);
+  const q=state.productSearch.toLowerCase();
+  if(q)list=list.filter(p=>p.name.toLowerCase().includes(q));
+  const active=PRODUCTS.filter(p=>p.status==='Active').length;
+  const low=PRODUCTS.filter(p=>p.stockStatus==='low').length;
+  const out=PRODUCTS.filter(p=>p.stockStatus==='out').length;
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Products</h1><div class="sub"><strong>${PRODUCTS.length} products</strong></div></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" onclick="openNewProd()">+ Add Product</button></div></div>
+    <div class="stat-pills" style="margin-bottom:12px">
+      <span class="stat-pill">Active <strong>${active}</strong></span>
+      <span class="stat-pill">Draft <strong>3</strong></span>
+      <span class="stat-pill">Low stock <strong>${low}</strong></span>
+      <span class="stat-pill">Out <strong>${out}</strong></span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+      <input class="fld" style="margin:0;flex:1;min-width:200px" id="prodSearch" placeholder="🔍 Search products..." value="${state.productSearch}">
+    </div>
+    <div class="fil-pills">${[['all','All categories'],...Object.entries(CAT_INFO).map(([k,v])=>[k,v.icon+' '+v.name])].map(([k,l])=>`<button class="${state.productCat===k?'active':''}" onclick="state.productCat='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="fil-pills">${[['all','All'],['active','Active'],['draft','Draft'],['low','Low stock'],['out','Out of stock']].map(([k,l])=>`<button class="${state.productFilter===k?'active':''}" onclick="state.productFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="prod-grid">${list.map(p=>{const pct=Math.min(100,p.stock/(p.min*2)*100);return `<div class="prod-card" onclick="alert('Edit ${p.name}')">
+      <div class="prod-img ${p.cat}">${CAT_INFO[p.cat].letter}<span class="catbadge">${CAT_INFO[p.cat].icon} ${p.cat}</span></div>
+      <div class="prod-body">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-price-row"><span class="prod-price">${moneyF(p.price)}</span>${p.compare?`<span class="prod-compare">${moneyF(p.compare)}</span>`:''}</div>
+        <div class="prod-bar ${p.stockStatus}"><div style="width:${pct}%"></div></div>
+        <div class="prod-meta"><span>${p.stock} units left</span><span class="badge ${p.stockStatus==='out'?'b-red':p.stockStatus==='low'?'b-orange':'b-green'}">${p.stockStatus==='out'?'OUT':p.stockStatus==='low'?'LOW':'OK'}</span></div>
+        <div class="prod-sold">${p.sold} sold this month</div>
+      </div>
+    </div>`}).join('')||'<div style="padding:40px;text-align:center;color:var(--label-tertiary);grid-column:1/-1">No products match</div>'}</div>
+  </div>`;
+  $('#prodSearch').addEventListener('input',e=>{state.productSearch=e.target.value;renderMain();setTimeout(()=>{const el=$('#prodSearch');el.focus();el.setSelectionRange(el.value.length,el.value.length)},30)});
+}
+window.openNewProd=()=>{['pName','pSku','pDesc'].forEach(x=>$('#'+x).value='');$('#pPrice').value='';$('#pCompare').value='';$('#pStock').value=0;$('#pMin').value=5;openM('mProd')};
+window.saveProd=()=>{const name=$('#pName').value.trim();if(!name)return alert('Name required');alert('Product "'+name+'" saved');closeM('mProd')};
+
+/* CUSTOMERS */
+function renderCustomers(body){
+  let list=CUSTOMERS.slice();
+  if(state.customerFilter==='vip')list=list.filter(c=>c.tier==='vip');
+  else if(state.customerFilter==='new')list=list.filter(c=>c.tier==='new');
+  else if(state.customerFilter==='returning')list=list.filter(c=>c.tier==='regular');
+  else if(state.customerFilter==='inactive')list=list.filter(c=>{const d=new Date('2026-04-18')-new Date(c.lastOrder);return d>30*86400000});
+  const q=state.customerSearch.toLowerCase();
+  if(q)list=list.filter(c=>c.name.toLowerCase().includes(q)||c.email.toLowerCase().includes(q));
+  list.sort((a,b)=>a.name.localeCompare(b.name));
+  const groups={};list.forEach(c=>{const l=c.name[0].toUpperCase();(groups[l]=groups[l]||[]).push(c)});
+  const vip=CUSTOMERS.filter(c=>c.tier==='vip').length;
+  const active=CUSTOMERS.filter(c=>{const d=new Date('2026-04-18')-new Date(c.lastOrder);return d<=30*86400000}).length;
+  const nw=CUSTOMERS.filter(c=>c.tier==='new').length;
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Customers</h1><div class="sub"><strong>${CUSTOMERS.length} customers total</strong></div></div>
+    <div style="display:flex;gap:8px;align-items:center"><input class="fld" style="margin:0;width:220px" id="cuSearch" placeholder="🔍 Name, email, order#..." value="${state.customerSearch}"><button class="btn" onclick="alert('Export CSV')">⬇ Export</button><button class="btn primary" onclick="openM('mCustomer')">+ Add Customer</button></div></div>
+    <div class="stat-pills" style="margin-bottom:14px">
+      <span class="stat-pill">Total <strong>${CUSTOMERS.length}</strong></span>
+      <span class="stat-pill">VIP <strong>${vip}</strong></span>
+      <span class="stat-pill">Active 30d <strong>${active}</strong></span>
+      <span class="stat-pill">New 30d <strong>${nw}</strong></span>
+    </div>
+    <div class="fil-pills">${[['all','All'],['vip','VIP'],['returning','Returning'],['new','New'],['inactive','Inactive']].map(([k,l])=>`<button class="${state.customerFilter===k?'active':''}" onclick="state.customerFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="card" style="padding:0">${renderCustomerGroups(groups)}</div>
+  </div>`;
+  $('#cuSearch').addEventListener('input',e=>{state.customerSearch=e.target.value;renderMain();setTimeout(()=>{const el=$('#cuSearch');el.focus();el.setSelectionRange(el.value.length,el.value.length)},30)});
+}
+function renderCustomerGroups(groups){
+  const entries=Object.entries(groups);
+  if(!entries.length)return '<div style="padding:40px;text-align:center;color:var(--label-tertiary)">No customers match</div>';
+  return entries.map(([letter,cs])=>{
+    const rows=cs.map(c=>{
+      const tierBadge=c.tier==='vip'?'<span class="vip-badge">VIP</span>':c.tier==='new'?'<span class="badge b-blue">NEW</span>':'';
+      const vipCls=c.tier==='vip'?'vip':'';
+      return `<div class="cli-row ${vipCls}" onclick="openCustomerDetail('${c.id}')">
+        <div class="cli-av">${initials(c.name)}</div>
+        <div class="cli-main"><div class="n">${c.name} ${tierBadge}</div><div class="meta">${c.email} · ${c.city} ${c.flag}</div></div>
+        <div class="cli-stats"><div><strong>${c.orders}</strong> orders</div><div>${relDate(c.lastOrder)}</div></div>
+        <div class="cli-stats"><div><strong>${money(c.spent)}</strong></div><div>total spent</div></div>
+        <button class="btn xs secondary">View</button>
+      </div>`;
+    }).join('');
+    return `<div class="cli-cat">${letter}</div>${rows}`;
+  }).join('');
+}
+window.openCustomerDetail=id=>{
+  const c=getCustomer(id);if(!c)return;
+  const avg=c.orders?c.spent/c.orders:0;
+  const customerOrders=state.orders.filter(o=>o.cid===id).slice(0,5);
+  const monthsCust=Math.max(1,Math.round((new Date('2026-04-18')-new Date('2025-08-01'))/(30*86400000)));
+  $('#sidePanel').innerHTML=`<button class="close" onclick="closeSidePanel()">✕</button>
+    <div class="sp-section"><div style="display:flex;gap:12px;align-items:center"><div class="sp-big-av" style="width:64px;height:64px;margin:0;font-size:22px">${initials(c.name)}</div><div style="flex:1"><div style="font-size:18px;font-weight:800">${c.name}</div>${c.tier==='vip'?'<span class="vip-badge" style="margin-top:4px;display:inline-block">VIP</span>':''}<span class="badge b-blue" style="margin-left:4px">${c.orders} orders</span><div style="font-size:12px;color:var(--label-tertiary);margin-top:4px">${c.email}</div></div></div>
+      <div style="display:flex;gap:6px;margin-top:10px"><button class="btn sm" style="flex:1" onclick="alert('Edit ${c.name}')">✎ Edit</button></div></div>
+    <div class="sp-section"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="padding:10px;background:var(--fill-tertiary);border-radius:10px"><div style="font-size:10px;text-transform:uppercase;color:var(--label-tertiary);font-weight:700">Total Orders</div><div style="font-size:18px;font-weight:800;color:var(--accent)">${c.orders}</div></div>
+      <div style="padding:10px;background:var(--fill-tertiary);border-radius:10px"><div style="font-size:10px;text-transform:uppercase;color:var(--label-tertiary);font-weight:700">Total Spent</div><div style="font-size:18px;font-weight:800;color:var(--accent)">${money(c.spent)}</div></div>
+      <div style="padding:10px;background:var(--fill-tertiary);border-radius:10px"><div style="font-size:10px;text-transform:uppercase;color:var(--label-tertiary);font-weight:700">Avg Order</div><div style="font-size:18px;font-weight:800">${money(avg)}</div></div>
+      <div style="padding:10px;background:var(--fill-tertiary);border-radius:10px"><div style="font-size:10px;text-transform:uppercase;color:var(--label-tertiary);font-weight:700">Last Order</div><div style="font-size:13px;font-weight:700;margin-top:4px">${relDate(c.lastOrder)}</div></div>
+    </div></div>
+    <div class="sp-section"><div class="sp-label">Contact</div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span style="color:var(--label-secondary)">✉️ Email</span><strong>${c.email}</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span style="color:var(--label-secondary)">📞 Phone</span><strong>${c.phone}</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span style="color:var(--label-secondary)">📍 Location</span><strong>${c.city}, ${c.country} ${c.flag}</strong></div>
+    </div>
+    <div class="sp-section"><div class="sp-label">Order history</div>
+      ${customerOrders.length?customerOrders.map(o=>`<div style="display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;padding:5px 0;font-size:11px;align-items:center"><span class="mono" style="color:var(--accent);font-weight:700">${o.id}</span><span style="color:var(--label-tertiary)">${o.date.slice(5)} · ${itemCount(o)} items</span><span class="mono" style="font-weight:700">${moneyF(o.total)}</span><span class="badge s-${o.status}">${o.status}</span></div>`).join(''):'<div style="font-size:11px;color:var(--label-tertiary)">No orders yet</div>'}
+      ${c.orders>5?`<button class="btn xs" style="margin-top:6px">View all ${c.orders} orders →</button>`:''}
+    </div>
+    <div class="sp-section"><div class="sp-label">Address book</div>
+      <div style="font-size:12px;line-height:1.5;padding:8px 10px;background:var(--fill-tertiary);border-radius:8px"><strong>${c.name}</strong><br>${c.city}<br>${c.country} ${c.flag}</div>
+    </div>
+    <div class="sp-section"><div class="sp-label">Notes</div><textarea class="fld" rows="2" placeholder="Add notes..." onblur="(CUSTOMERS.find(x=>x.id==='${c.id}')).notes=this.value">${c.notes||''}</textarea></div>
+    <div class="sp-section" style="background:var(--accent-softer);border-radius:10px;padding:12px">
+      <div class="sp-label">Lifetime value</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>Total spent</span><strong class="mono" style="color:var(--accent)">${money(c.spent)}</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>Orders placed</span><strong>${c.orders}</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>Customer since</span><strong>Aug 2025</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>Duration</span><strong>${monthsCust} months</strong></div>
+    </div>`;
+  $('#sidePanel').classList.add('open');
+};
+window.saveCustomer=()=>{const name=$('#cuName').value.trim();if(!name)return alert('Name required');alert('Customer "'+name+'" added');['cuName','cuEmail','cuPhone','cuAddr','cuNotes'].forEach(x=>$('#'+x).value='');closeM('mCustomer')};
+
+/* MODAL */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('bk-ecom-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('bk-ecom-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{
+  if(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='TEXTAREA'||document.activeElement.tagName==='SELECT')return;
+  const n=parseInt(e.key);
+  if(n>=1&&n<=4){setModule(MODULES[n-1].id)}
+  else if(e.key==='n'||e.key==='N'){if(state.module==='customers')openM('mCustomer');else if(state.module==='products')openNewProd()}
+  else if(e.key==='d'||e.key==='D'){$('#themeToggle').click()}
+  else if(e.key==='Escape'){$$('.mbg.open').forEach(m=>m.classList.remove('open'));closeSidePanel();$('#shortcutsTip').classList.remove('show')}
+  else if(e.key==='?'){$('#shortcutsTip').classList.toggle('show')}
+});
+$('#shortcutsTip').addEventListener('click',()=>$('#shortcutsTip').classList.remove('show'));
+
+/* INIT */
+renderTopTabs();renderBottomNav();renderMain();
+</script>
+</body>
+</html>
