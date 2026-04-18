@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vantage — Greek Luxury Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#efeae3;color:#1a1a1a;font-family:'Inter',sans-serif;scroll-behavior:smooth}
+.serif{font-family:'Cormorant Garamond',serif;font-weight:400}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:28px 56px;background:rgba(239,234,227,.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+nav .links{display:flex;gap:40px}
+nav a{color:#fff;text-decoration:none;font-size:14px;letter-spacing:.02em;mix-blend-mode:difference}
+nav .logo{font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;letter-spacing:.08em;mix-blend-mode:difference;font-style:italic}
+nav .right{display:flex;align-items:center;gap:18px}
+nav .cta{background:#d4c5a9;color:#1a1a1a;padding:12px 24px;border-radius:2px;font-size:13px;letter-spacing:.04em;mix-blend-mode:normal}
+nav .ig{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#d4c5a9;border-radius:2px}
+nav .ig svg{width:18px;height:18px;fill:#1a1a1a}
+
+/* HERO */
+.hero{position:relative;height:100vh;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 100%)}
+.hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:140px 56px 60px;color:#fff}
+.hero-tags{display:flex;justify-content:space-between;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.hero-tags span::before{content:"• ";color:#d4c5a9}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(80px,14vw,220px);line-height:.9;letter-spacing:-.02em;font-weight:300}
+.hero-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.3);padding-top:24px}
+.hero-bottom .scroll{display:flex;align-items:center;gap:14px;font-size:13px;letter-spacing:.08em}
+.hero-bottom .scroll .dot{width:36px;height:36px;border:1px solid rgba(255,255,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.side-badge{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:3;background:#fff;color:#1a1a1a;padding:22px 10px;writing-mode:vertical-rl;text-orientation:mixed;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+
+/* INTRO */
+.intro{padding:140px 56px 100px;background:#efeae3}
+.intro .label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:36px;color:#b8a88a;margin-bottom:48px}
+.intro h2{font-size:clamp(40px,5.5vw,80px);line-height:1.1;letter-spacing:-.01em;font-weight:400;max-width:1500px;color:#1a1a1a}
+.intro p{margin-top:44px;max-width:1100px;font-size:15px;line-height:1.7;color:#3a3a3a}
+.intro .btn{display:inline-flex;align-items:center;gap:10px;margin-top:56px;background:#c9bda3;color:#1a1a1a;padding:14px 28px;border-radius:2px;font-size:13px;letter-spacing:.04em}
+.intro .btn::before{content:"• ";color:#fff}
+
+/* SECTION DELIBERATE */
+.deliberate{padding:40px 56px 140px}
+.deliberate .top{font-size:14px;color:#1a1a1a;margin-bottom:20px;letter-spacing:.02em}
+.deliberate .line{height:1px;background:#1a1a1a;opacity:.15;margin-bottom:40px}
+.slider{position:relative;height:620px;border-radius:6px;overflow:hidden}
+.slider .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease}
+.slider .slide.active{opacity:1}
+.slider-overlay{position:absolute;left:0;right:0;bottom:0;background:rgba(160,170,150,.55);backdrop-filter:blur(8px);padding:36px 56px;color:#fff}
+.slider-overlay p{font-size:14px;line-height:1.7;max-width:1400px}
+.slider-overlay .btn{display:inline-flex;margin-top:22px;background:#c9bda3;color:#1a1a1a;padding:12px 24px;border-radius:2px;font-size:13px}
+.slider-overlay .btn::before{content:"• ";color:#fff}
+
+/* PROJECTS */
+.projects{padding:120px 56px 160px;text-align:center}
+.projects .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:#b8a88a;margin-bottom:12px}
+.projects h2{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,7vw,108px);font-weight:400;letter-spacing:-.01em;margin-bottom:72px}
+.carousel{position:relative;display:flex;gap:32px;justify-content:center;align-items:stretch;max-width:1600px;margin:0 auto;min-height:500px}
+.card{flex:1;max-width:720px;position:relative;border-radius:10px;overflow:hidden;min-height:500px;background-size:cover;background-position:center;transition:background-image .8s ease;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.55) 100%)}
+.card .tag{position:absolute;top:22px;left:22px;z-index:2;background:rgba(201,189,163,.85);color:#1a1a1a;padding:8px 16px;border-radius:3px;font-size:12px;letter-spacing:.04em}
+.card .title{position:absolute;left:32px;bottom:84px;z-index:2;color:#fff;font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;line-height:1.05;max-width:80%}
+.card .more{position:absolute;left:32px;bottom:32px;z-index:2;background:#c9bda3;color:#1a1a1a;padding:10px 20px;border-radius:2px;font-size:13px;text-decoration:none}
+.card .more::before{content:"• ";color:#fff}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;background:#c9bda3;color:#1a1a1a;border:0;border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;z-index:5}
+.arrow.left{left:-10px}
+.arrow.right{right:-10px}
+.see-all{margin-top:64px;display:inline-flex;background:#c9bda3;color:#1a1a1a;padding:14px 32px;border-radius:2px;font-size:13px;text-decoration:none}
+.see-all::before{content:"• ";color:#fff}
+
+@media (max-width:900px){
+  nav{padding:20px 24px}
+  nav .links{display:none}
+  .hero-content{padding:120px 24px 40px}
+  .intro,.deliberate,.projects{padding-left:24px;padding-right:24px}
+  .carousel{flex-direction:column;align-items:center}
+  .arrow{display:none}
+  .side-badge{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="links">
+    <a href="#projects">Properties</a>
+    <a href="#services">Services</a>
+    <a href="#about">About Us</a>
+    <a href="#vision">Vision</a>
+  </div>
+  <div class="logo">Vantage</div>
+  <div class="right">
+    <a href="#contact" class="cta">Contact Us</a>
+    <a href="#ig" class="ig"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.5 1s.8.9 1 1.5c.2.4.3 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-1 1.5s-.9.8-1.5 1c-.4.2-1.1.3-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.5-1s-.8-.9-1-1.5c-.2-.4-.3-1.1-.4-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 1-1.5s.9-.8 1.5-1c.4-.2 1.1-.3 2.3-.4C8.4 2.2 8.8 2.2 12 2.2zm0 5.3a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.4a2.9 2.9 0 110-5.8 2.9 2.9 0 010 5.8zm4.7-7.6a1.05 1.05 0 100 2.1 1.05 1.05 0 000-2.1z"/></svg></a>
+  </div>
+</nav>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="vantage-estate-hero.mp4" type="video/mp4">
+  </video>
+  <div class="side-badge">W. Nominee</div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span>Curated</span>
+      <span>Aegean</span>
+      <span>Considered</span>
+    </div>
+    <h1 class="hero-title">Greek<br>luxury living</h1>
+    <div class="hero-bottom">
+      <div></div>
+      <div class="scroll"><div class="dot">↓</div>Scroll to explore</div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="label">Vantage Estates</div>
+  <h2>Connecting Greece's most discerning clients with extraordinary homes—where Aegean light, architectural grace, and a life of considered luxury meet.</h2>
+  <p>At Vantage, we curate a private network of villas, seaside estates, and heritage residences across Greece's most coveted destinations. From Athens to Mykonos, Santorini to Corfu, we connect buyers, sellers, and long-stay tenants through bespoke introductions—built on trust, discretion, and an uncompromising standard of taste.</p>
+  <a href="#projects" class="btn">Featured properties</a>
+</section>
+
+<section class="deliberate">
+  <div class="top">A Considered Approach to Mediterranean Living</div>
+  <div class="line"></div>
+  <div class="slider" id="slider">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?auto=format&fit=crop&w=2000&q=80')"></div>
+    <div class="slider-overlay">
+      <p>Vantage distinguishes itself through a deliberately limited portfolio—each property personally vetted for architectural integrity, provenance, and the quality of its setting. We act as a trusted intermediary, guiding Greek and international clients through acquisitions, seasonal rentals, and private introductions with the same standard of care we would apply to our own home.</p>
+      <a href="#contact" class="btn">Speak with a curator</a>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="sub">Vantage Private Collection</div>
+  <h2>Our Properties</h2>
+  <div class="carousel">
+    <button class="arrow left" onclick="rotate(-1)">‹</button>
+    <div class="card" id="card1">
+      <div class="tag">Current listings</div>
+      <div class="title">Villa Helios, Mykonos</div>
+      <a class="more" href="#">See more</a>
+    </div>
+    <div class="card" id="card2">
+      <div class="tag">Seasonal rental</div>
+      <div class="title">Cape Sounion Estate</div>
+      <a class="more" href="#">See more</a>
+    </div>
+    <button class="arrow right" onclick="rotate(1)">›</button>
+  </div>
+  <a href="#all" class="see-all">See all properties</a>
+</section>
+
+<script>
+// Hero slider rotation (every 4s)
+(function(){
+  var slides=document.querySelectorAll('#slider .slide');
+  var i=0;
+  setInterval(function(){
+    slides[i].classList.remove('active');
+    i=(i+1)%slides.length;
+    slides[i].classList.add('active');
+  },4000);
+})();
+
+// Projects carousel — 6 villas rotating in 2 cards every 5s
+var villas=[
+  {img:'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80',tag:'Current listings',title:'Villa Helios, Mykonos'},
+  {img:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',tag:'Seasonal rental',title:'Cape Sounion Estate'},
+  {img:'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=1600&q=80',tag:'Private sale',title:'Santorini Cliff House'},
+  {img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80',tag:'Current listings',title:'Corfu Garden Villa'},
+  {img:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80',tag:'New development',title:'Paros Modernist'},
+  {img:'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?auto=format&fit=crop&w=1600&q=80',tag:'Seasonal rental',title:'Athens Riviera Residence'}
+];
+var idx=0;
+function render(){
+  var c1=document.getElementById('card1'),c2=document.getElementById('card2');
+  var a=villas[idx%villas.length],b=villas[(idx+1)%villas.length];
+  c1.style.backgroundImage="url('"+a.img+"')";
+  c1.querySelector('.tag').textContent=a.tag;
+  c1.querySelector('.title').textContent=a.title;
+  c2.style.backgroundImage="url('"+b.img+"')";
+  c2.querySelector('.tag').textContent=b.tag;
+  c2.querySelector('.title').textContent=b.title;
+}
+function rotate(dir){ idx=(idx+dir*2+villas.length)%villas.length; render(); }
+render();
+setInterval(function(){ idx=(idx+2)%villas.length; render(); },5000);
+</script>
+
+</body>
+</html>
