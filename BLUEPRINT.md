@@ -216,3 +216,12 @@ Simpler companion to Full Kit. Taverna Helios · Athens. 4 modules, no live engi
 | 4. Inventory (20 items + alerts) | done ✅ |
 | Keyboard shortcuts | done ✅ |
 | Mobile bottom nav | done ✅ |
+
+## BASIC KIT AGENCY — vantage-agency-basic.html
+- Vantage Web Agency (Athens) — purple #AF52DE accent, 3 lava blobs
+- [x] Dashboard: 4 KPIs + revenue chart + today's tasks + deadlines + activity feed
+- [x] Projects: filter pills, sort, status cards + kanban task detail view
+- [x] Clients: searchable list + VIP flag + slide-in detail panel (projects, invoices)
+- [x] Finance: 4 KPIs + charts + invoices table + split-view editor with print preview
+- Data: 8 projects, 12 clients, 15 invoices, Greek VAT 24%
+- Deployed: https://vantagebookweb.netlify.app/vantage-agency-basic.html

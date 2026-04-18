@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BASIC KIT — Vantage Web Agency</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-gray:#8E8E93;
+  --purple:#AF52DE;--purple-deep:#8B3AB8;--purple-soft:rgba(175,82,222,.14);--blob-op:.05;
+}
+html[data-theme="dark"]{--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--blob-op:.09}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;height:100vh;overflow:hidden;transition:background .3s,color .3s}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum','ss01','cv01'}
+button{cursor:pointer;border:0;background:none;color:inherit;font-family:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+/* BLOBS */
+.lava{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.blob{position:absolute;background:radial-gradient(circle at 40% 40%,rgba(175,82,222,.18),rgba(139,58,184,.08) 60%,transparent 100%);filter:blur(70px);opacity:var(--blob-op);will-change:transform,border-radius;animation:lava-float linear infinite;border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+.blob-1{width:480px;height:480px;top:-60px;left:60%;animation-duration:24s}
+.blob-2{width:340px;height:340px;top:50%;left:-50px;animation-duration:28s;animation-delay:-8s}
+.blob-3{width:280px;height:280px;top:75%;left:65%;animation-duration:20s;animation-delay:-12s}
+@keyframes lava-float{
+  0%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+  25%{transform:translate(25px,-35px) scale(1.04);border-radius:45% 55% 40% 60%/60% 40% 55% 45%}
+  50%{transform:translate(-20px,25px) scale(.95);border-radius:55% 45% 60% 40%/40% 60% 45% 55%}
+  75%{transform:translate(30px,15px) scale(1.06);border-radius:40% 60% 45% 55%/55% 45% 60% 40%}
+  100%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+@media (max-width:900px){.lava{display:none}}
+
+/* TOPBAR */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.14em}
+.biz-pill{background:var(--purple-soft);color:var(--purple-deep);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.biz-name{font-size:13px;font-weight:600}
+.module-tabs{display:flex;gap:2px;background:var(--fill-tertiary);border-radius:10px;padding:3px;justify-self:center}
+.module-tabs button{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--label-secondary);display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.module-tabs button.active{background:var(--purple);color:#fff;box-shadow:0 2px 8px rgba(175,82,222,.35)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-date{font-size:12px;color:var(--label-secondary);font-weight:600;padding:6px 10px;background:var(--fill-tertiary);border-radius:8px}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--purple)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+
+/* MAIN */
+main{height:calc(100vh - 52px);overflow-y:auto;padding:18px 22px 30px;position:relative;z-index:1}
+main::-webkit-scrollbar{width:8px}
+main::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+.page{animation:fadeUp .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.page-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.page-hd h1{font-size:26px;font-weight:800;letter-spacing:-.025em}
+.page-hd .sub{font-size:12px;color:var(--label-tertiary);margin-top:3px}
+
+/* BUTTONS */
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;min-height:36px;justify-content:center}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--purple);color:#fff;box-shadow:0 4px 14px -4px rgba(175,82,222,.5)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:6px 10px;font-size:12px;min-height:30px}
+.btn.xs{padding:4px 8px;font-size:11px;min-height:26px}
+
+/* CARDS */
+.card{background:var(--bg-secondary);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+.card h3{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+
+.kgrid{display:grid;gap:12px;margin-bottom:14px}
+.kgrid.g4{grid-template-columns:repeat(4,1fr)}
+.kgrid.g3{grid-template-columns:repeat(3,1fr)}
+.kgrid.g2{grid-template-columns:repeat(2,1fr)}
+.kcard{background:var(--bg-secondary);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:flex;align-items:center;gap:6px}
+.kcard .v{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.025em}
+.kcard .d{font-size:11px;margin-top:3px}
+.kcard .d.up{color:var(--system-green)}.kcard .d.down{color:var(--system-red)}
+.kcard .bar{height:4px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden;margin-top:8px}
+.kcard .bar div{height:100%;background:var(--purple);border-radius:2px;transition:width .8s}
+.kcard .mini-dots{display:flex;gap:4px;margin-top:8px;font-size:10px}
+.kcard .mini-dot{width:8px;height:8px;border-radius:50%}
+
+.chart-host{position:relative;height:260px}
+.chart-host.sm{height:200px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* FORMS */
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:10px 12px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s;margin-bottom:8px}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--purple-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.b-green{background:rgba(52,199,89,.14);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.14);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.14);color:var(--system-blue)}
+.b-purple{background:var(--purple-soft);color:var(--purple)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+.b-gold{background:rgba(255,214,10,.2);color:#B58900}
+
+/* PILLS */
+.fil-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.fil-pills button{padding:5px 12px;border-radius:14px;background:var(--fill-tertiary);font-size:11px;color:var(--label-secondary);font-weight:600}
+.fil-pills button.active{background:var(--purple);color:#fff}
+
+.pills{display:flex;gap:4px;background:var(--fill-tertiary);border-radius:10px;padding:3px}
+.pills button{padding:6px 12px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary)}
+.pills button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* TABLES */
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:700;border-bottom:1px solid var(--separator)}
+table.t td{padding:11px 10px;border-bottom:1px solid var(--separator)}
+table.t tr:last-child td{border:0}
+table.t tbody tr{transition:background .1s;cursor:pointer}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+/* WELCOME */
+.welcome{background:var(--bg-secondary);border-radius:14px;padding:18px;margin-bottom:14px;background:linear-gradient(135deg,var(--bg-secondary) 0%,color-mix(in srgb,var(--bg-secondary) 92%,var(--purple) 8%) 100%);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+html[data-theme="dark"] .welcome{border:1px solid var(--separator);box-shadow:none}
+.welcome h2{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.welcome .d{font-size:13px;color:var(--label-tertiary);margin-top:3px}
+
+/* TASKS CHECKLIST */
+.check-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:13px}
+.check-row:last-child{border:0}
+.check-row input{width:18px;height:18px;accent-color:var(--purple);cursor:pointer}
+.check-row.done span{text-decoration:line-through;color:var(--label-tertiary)}
+
+/* DEADLINES */
+.deadline-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--separator);font-size:12px}
+.deadline-row:last-child{border:0}
+.deadline-row .d{margin-left:auto;font-size:11px;font-weight:700}
+
+/* ACTIVITY */
+.act-row{display:grid;grid-template-columns:30px 1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:12px;align-items:flex-start}
+.act-row:last-child{border:0}
+.act-ic{width:30px;height:30px;border-radius:8px;background:var(--purple-soft);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.act-time{font-size:10px;color:var(--label-tertiary);white-space:nowrap}
+
+/* PROJECT CARDS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.proj-card{background:var(--bg-secondary);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.04);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.proj-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+html[data-theme="dark"] .proj-card{border:1px solid var(--separator);box-shadow:none}
+.proj-bar{height:4px;background:var(--purple)}
+.proj-bar.track{background:var(--purple)}
+.proj-bar.risk{background:var(--system-orange)}
+.proj-bar.overdue{background:var(--system-red)}
+.proj-bar.done{background:var(--system-green)}
+.proj-body{padding:14px 16px}
+.proj-name{font-size:15px;font-weight:800;letter-spacing:-.01em;margin-bottom:2px}
+.proj-client{font-size:11px;color:var(--purple);font-weight:600}
+.proj-prog{margin-top:12px}
+.proj-prog-bar{height:6px;background:var(--fill-tertiary);border-radius:3px;overflow:hidden;margin-top:4px}
+.proj-prog-bar div{height:100%;background:var(--purple);border-radius:3px;transition:width .8s}
+.proj-chips{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.proj-chip{background:var(--fill-tertiary);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.proj-chip.red{background:rgba(255,59,48,.12);color:var(--system-red)}
+.proj-chip.orange{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.proj-chip.green{background:rgba(52,199,89,.14);color:var(--system-green)}
+.proj-team{display:flex;margin-top:10px}
+.proj-team .av{width:26px;height:26px;border-radius:50%;border:2px solid var(--bg-secondary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin-left:-6px}
+.proj-team .av:first-child{margin-left:0}
+.proj-foot{display:flex;gap:6px;padding:10px 16px;border-top:1px solid var(--separator);background:var(--fill-tertiary)}
+.proj-foot .btn{flex:1;justify-content:center;font-size:11px;padding:6px;background:transparent}
+.proj-foot .btn:hover{background:var(--bg-secondary)}
+
+/* KANBAN */
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kcol{background:var(--fill-tertiary);border-radius:12px;padding:12px;min-height:280px}
+.kcol-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--label-secondary)}
+.kcol-hd .cnt{background:var(--bg-secondary);color:var(--label-secondary);padding:2px 7px;border-radius:10px;font-size:10px}
+.ktask{background:var(--bg-secondary);border-radius:10px;padding:10px;margin-bottom:6px;cursor:pointer;font-size:12px;border-left:3px solid transparent}
+.ktask.high{border-left-color:var(--system-red)}
+.ktask.med{border-left-color:var(--system-orange)}
+.ktask.low{border-left-color:var(--system-green)}
+.ktask .kt{font-weight:600;margin-bottom:4px}
+.ktask .kb{display:flex;justify-content:space-between;font-size:10px;color:var(--label-tertiary)}
+
+/* CLIENT LIST */
+.client-wrap{display:grid;grid-template-columns:1fr 360px;gap:14px;height:calc(100vh - 140px)}
+.client-wrap.no-panel{grid-template-columns:1fr}
+.client-list{background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04);display:flex;flex-direction:column}
+html[data-theme="dark"] .client-list{border:1px solid var(--separator);box-shadow:none}
+.client-filters{padding:12px 14px;border-bottom:1px solid var(--separator);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.client-filters input{flex:1;min-width:180px;background:var(--fill-tertiary);border:0;border-radius:10px;padding:8px 12px;outline:none;font-size:13px;color:var(--label-primary)}
+.client-rows{flex:1;overflow-y:auto}
+.client-row{display:grid;grid-template-columns:42px 1fr 60px 110px 110px 10px auto;gap:12px;padding:12px 14px;border-bottom:1px solid var(--separator);align-items:center;font-size:13px;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
+.client-row:hover{background:var(--fill-tertiary)}
+.client-row.sel{background:var(--purple-soft);border-left-color:var(--purple)}
+.client-row.vip{border-left-color:var(--system-yellow)}
+.client-av{width:42px;height:42px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.client-name{font-weight:700}
+.client-company{font-size:11px;color:var(--label-tertiary);margin-top:2px}
+.client-row .num{font-weight:700;font-variant-numeric:tabular-nums}
+.client-row .dot{width:10px;height:10px;border-radius:50%;background:var(--system-green)}
+.client-row .dot.inactive{background:var(--label-tertiary)}
+
+.client-detail{background:var(--bg-secondary);border-radius:12px;padding:18px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.08);animation:slideIn .25s}
+@keyframes slideIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+html[data-theme="dark"] .client-detail{border:1px solid var(--separator)}
+.dp-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.dp-row{display:flex;justify-content:space-between;padding:8px 0;font-size:12px;border-bottom:1px solid var(--separator);align-items:center}
+.dp-row:last-child{border:0}
+.dp-row .l{color:var(--label-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.dp-row .v a{color:var(--purple);text-decoration:none}
+
+.hero-client{background:linear-gradient(135deg,var(--bg-secondary),color-mix(in srgb,var(--bg-secondary) 92%,var(--purple) 8%));border-radius:12px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.hero-client::before{content:"";position:absolute;top:-40%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,var(--purple-soft),transparent 70%);pointer-events:none}
+.hero-av{width:56px;height:56px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.hero-name{font-size:18px;font-weight:800}
+.hero-company{font-size:12px;color:var(--label-secondary);margin-top:2px}
+
+/* FINANCE INVOICES */
+.inv-table{background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+html[data-theme="dark"] .inv-table{border:1px solid var(--separator);box-shadow:none}
+
+/* INVOICE PREVIEW */
+.inv-editor{display:grid;grid-template-columns:55% 45%;gap:14px;height:calc(100vh - 150px)}
+.inv-preview-pane{overflow-y:auto}
+.inv-form{background:var(--bg-secondary);border-radius:12px;padding:16px;overflow-y:auto;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+html[data-theme="dark"] .inv-form{border:1px solid var(--separator);box-shadow:none}
+.inv-preview{background:#FFFFFF;color:#000;border-radius:12px;padding:36px 40px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+html[data-theme="dark"] .inv-preview{background:#FFFFFF;color:#000}
+.inv-hd{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:3px solid var(--purple)}
+.inv-biz{font-size:12px;color:#444;line-height:1.5}
+.inv-biz .bn{font-size:17px;font-weight:800;color:#000;margin-bottom:4px}
+.inv-title{text-align:right}
+.inv-title h1{font-size:36px;font-weight:800;color:var(--purple);letter-spacing:-.03em}
+.inv-title .meta{font-size:11px;color:#444;margin-top:8px;line-height:1.6}
+.inv-bill{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:18px 0;font-size:12px}
+.inv-bill h4{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#888;margin-bottom:6px;font-weight:700}
+.inv-bill .cn{font-size:14px;font-weight:700;color:#000}
+.inv-items{width:100%;border-collapse:collapse;margin-top:14px;font-size:12px}
+.inv-items th{background:#f8f8f8;padding:10px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #ddd}
+.inv-items td{padding:10px 8px;border-bottom:1px solid #eee;color:#000}
+.inv-items .rt{text-align:right}
+.inv-totals{margin-top:14px;margin-left:auto;width:260px;font-size:12px}
+.inv-totals .row{display:flex;justify-content:space-between;padding:4px 0;color:#444}
+.inv-totals .row.total{font-size:18px;font-weight:800;color:var(--purple);padding:10px 0 4px;border-top:3px solid var(--purple);margin-top:8px}
+.inv-foot{margin-top:28px;padding-top:14px;border-top:1px solid #ddd;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:11px;color:#555}
+.inv-foot h4{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#888;margin-bottom:5px;font-weight:700}
+
+.line-row{display:grid;grid-template-columns:1fr 60px 80px 80px 24px;gap:6px;padding:6px 0;border-bottom:1px solid var(--separator);align-items:center}
+.line-row .fld{margin:0;padding:6px 8px;font-size:12px}
+.line-row .del{width:24px;height:24px;border-radius:6px;background:var(--fill-tertiary);font-size:12px;color:var(--label-tertiary)}
+.line-row .del:hover{background:rgba(255,59,48,.12);color:var(--system-red)}
+.line-row .tot{font-weight:700;text-align:right;font-size:12px}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:16px;padding:22px;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2),0 0 0 1px var(--separator);animation:modalIn .25s}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg-secondary) 92%,transparent);backdrop-filter:blur(20px);border-top:1px solid var(--separator);padding:6px 8px max(10px,env(safe-area-inset-bottom));z-index:50;justify-content:space-around;gap:4px}
+.bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:10px;color:var(--label-tertiary);border-radius:10px;min-height:48px}
+.bottom-nav button.active{background:var(--purple-soft);color:var(--purple);font-weight:700}
+.bottom-nav .ic{font-size:20px}
+@media (max-width:768px){.bottom-nav{display:flex}.module-tabs{display:none}.tb-date{display:none}main{padding-bottom:80px}.kgrid.g4{grid-template-columns:1fr 1fr}.grid2,.client-wrap{grid-template-columns:1fr}.inv-editor{grid-template-columns:1fr}.proj-grid{grid-template-columns:1fr}.kan{grid-template-columns:1fr}}
+
+/* SHORTCUTS */
+.shortcuts-tip{position:fixed;bottom:20px;left:20px;background:var(--bg-secondary);border-radius:14px;padding:18px;box-shadow:0 16px 50px rgba(0,0,0,.15);z-index:300;max-width:280px;display:none;animation:modalIn .25s}
+.shortcuts-tip.show{display:block}
+html[data-theme="dark"] .shortcuts-tip{border:1px solid var(--separator)}
+.shortcuts-tip h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px}
+.shortcuts-tip .row{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:4px 0;font-size:12px;align-items:center}
+.kbd{background:var(--fill-tertiary);padding:3px 8px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:10px;font-weight:700;text-align:center}
+
+@media print{.topbar,.bottom-nav,.shortcuts-tip,.inv-form{display:none!important}.inv-editor{grid-template-columns:1fr!important}main{padding:0!important;height:auto!important;overflow:visible!important}.inv-preview{box-shadow:none!important;padding:30px!important}}
+</style>
+</head>
+<body>
+
+<div class="lava">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo">💼 BASIC KIT</div>
+    <span class="biz-pill">Agency</span>
+    <span class="biz-name">Vantage Web Agency</span>
+  </div>
+  <div class="module-tabs" id="moduleTabs"></div>
+  <div class="tb-right">
+    <div class="tb-date">Friday 18 April</div>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+    <div class="avatar">MT</div>
+  </div>
+</div>
+
+<main id="mainBody"></main>
+
+<div class="bottom-nav" id="bottomNav"></div>
+
+<!-- MODALS -->
+<div class="mbg" id="mProj"><div class="modal">
+  <h3 id="projTitle">New Project</h3>
+  <label>Project name *</label><input class="fld" id="pName">
+  <label>Client</label><select class="fld" id="pClient"></select>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Start date</label><input type="date" class="fld" id="pStart"></div><div><label>Deadline</label><input type="date" class="fld" id="pDeadline"></div></div>
+  <label>Budget (€)</label><input type="number" class="fld" id="pBudget" value="2000">
+  <label>Description</label><textarea class="fld" id="pDesc" rows="2"></textarea>
+  <div class="row-btns"><button class="btn danger" id="pDelete" style="display:none" onclick="deleteProj()">Delete</button><button class="btn" onclick="closeM('mProj')">Cancel</button><button class="btn primary" onclick="saveProj()">Save</button></div>
+</div></div>
+
+<div class="mbg" id="mClient"><div class="modal">
+  <h3 id="clTitle">New Client</h3>
+  <label>Name *</label><input class="fld" id="clName">
+  <label>Company</label><input class="fld" id="clCompany">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Email</label><input type="email" class="fld" id="clEmail"></div><div><label>Phone</label><input type="tel" class="fld" id="clPhone"></div></div>
+  <label>Website</label><input class="fld" id="clWebsite" placeholder="https://">
+  <label>Address</label><input class="fld" id="clAddress">
+  <label><input type="checkbox" id="clVip" style="margin-right:6px">🌟 VIP client</label>
+  <label>Notes</label><textarea class="fld" id="clNotes" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mClient')">Cancel</button><button class="btn primary" onclick="saveClient()">Save</button></div>
+</div></div>
+
+<div class="mbg" id="mTask"><div class="modal">
+  <h3>New Task</h3>
+  <label>Title *</label><input class="fld" id="tkName">
+  <label>Assignee</label><select class="fld" id="tkAssignee"><option>Matéo</option><option>Sofia</option><option>Andreas</option></select>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Priority</label><select class="fld" id="tkPrio"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select></div><div><label>Due date</label><input type="date" class="fld" id="tkDue"></div></div>
+  <div class="row-btns"><button class="btn" onclick="closeM('mTask')">Cancel</button><button class="btn primary" onclick="saveTask()">Add Task</button></div>
+</div></div>
+
+<!-- SHORTCUTS -->
+<div class="shortcuts-tip" id="shortcutsTip">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="row"><span class="kbd">1-4</span><span>Switch modules</span></div>
+  <div class="row"><span class="kbd">N</span><span>New (context-aware)</span></div>
+  <div class="row"><span class="kbd">D</span><span>Toggle theme</span></div>
+  <div class="row"><span class="kbd">Esc</span><span>Close modal</span></div>
+  <div class="row"><span class="kbd">?</span><span>Show this help</span></div>
+</div>
+
+<script>
+/* DATA */
+const MODULES=[
+  {id:'dashboard',name:'Dashboard',icon:'📊'},
+  {id:'projects',name:'Projects',icon:'🎯'},
+  {id:'clients',name:'Clients',icon:'👥'},
+  {id:'finance',name:'Finance',icon:'💰'}
+];
+
+const TEAM_COLORS={'Matéo':'#AF52DE','Sofia':'#FF9500','Andreas':'#007AFF'};
+
+let state={
+  module:'dashboard',projectsFilter:'all',projectsSort:'deadline',openProject:null,
+  clientSearch:'',clientFilter:'all',selectedClient:null,
+  invoiceEditing:null,invoiceView:'list',
+  todayTasks:[
+    {t:'Send proposal to Stavros Hotels',done:true},
+    {t:'Review Elia Restaurant design',done:false},
+    {t:'Deploy Mykonos Villas site',done:false},
+    {t:'Client call — Andreas 15:00',done:false},
+    {t:'Invoice #047 follow-up',done:false}
+  ],
+  projects:[
+    {id:'p1',name:'Mykonos Villas Website',client:'Villas Luxury Group',status:'overdue',progress:85,tasksDone:17,tasksTotal:20,deadline:'Tomorrow',deadlineDays:1,budget:2400,spent:2100,team:['Matéo','Sofia'],desc:'Luxury villa booking website with custom CMS'},
+    {id:'p2',name:'Elia Restaurant Full Kit',client:'Elia Restaurant Santorini',status:'track',progress:60,tasksDone:12,tasksTotal:20,deadline:'5 days',deadlineDays:5,budget:3200,spent:1800,team:['Matéo'],desc:'Complete restaurant management system'},
+    {id:'p3',name:'Athens Garage Landing',client:'Stavros Auto Athens',status:'risk',progress:40,tasksDone:8,tasksTotal:20,deadline:'3 days',deadlineDays:3,budget:1200,spent:500,team:['Matéo','Andreas'],desc:'Landing page + booking form for auto service'},
+    {id:'p4',name:'Helios Spa Website',client:'Helios Wellness Center',status:'track',progress:25,tasksDone:5,tasksTotal:20,deadline:'12 days',deadlineDays:12,budget:1800,spent:400,team:['Matéo'],desc:'Wellness center booking website'},
+    {id:'p5',name:'Nikos Bakery Rebrand',client:'Nikos Bakery Chain',status:'track',progress:70,tasksDone:14,tasksTotal:20,deadline:'8 days',deadlineDays:8,budget:800,spent:540,team:['Sofia'],desc:'Full brand refresh + new logo'},
+    {id:'p6',name:'Stavros Hotels CRM',client:'Stavros Hotels Group',status:'risk',progress:30,tasksDone:6,tasksTotal:20,deadline:'4 days',deadlineDays:4,budget:4500,spent:1200,team:['Matéo','Andreas','Sofia'],desc:'Custom CRM for hotel chain (5 properties)'},
+    {id:'p7',name:'Dimitris Law Firm',client:'Dimitris & Partners',status:'track',progress:90,tasksDone:18,tasksTotal:20,deadline:'2 days',deadlineDays:2,budget:1600,spent:1440,team:['Matéo'],desc:'Law firm corporate website'},
+    {id:'p8',name:'Katerina Fashion Store',client:'Katerina Fashion Athens',status:'track',progress:50,tasksDone:10,tasksTotal:20,deadline:'15 days',deadlineDays:15,budget:1400,spent:680,team:['Sofia'],desc:'E-commerce fashion boutique'}
+  ],
+  tasks:{
+    p1:[{id:'t1',name:'Hero section design',assignee:'Matéo',prio:'high',due:'Today',status:'done'},{id:'t2',name:'Booking calendar integration',assignee:'Sofia',prio:'high',due:'Tomorrow',status:'progress'},{id:'t3',name:'Mobile responsive QA',assignee:'Matéo',prio:'high',due:'Tomorrow',status:'todo'},{id:'t4',name:'SEO meta tags',assignee:'Sofia',prio:'med',due:'Tomorrow',status:'todo'}],
+    p2:[{id:'t5',name:'Floor map module',assignee:'Matéo',prio:'high',due:'2 days',status:'progress'},{id:'t6',name:'Kitchen display interface',assignee:'Matéo',prio:'high',due:'3 days',status:'progress'},{id:'t7',name:'Loyalty system',assignee:'Matéo',prio:'med',due:'5 days',status:'todo'},{id:'t8',name:'Print CSS for invoices',assignee:'Matéo',prio:'low',due:'5 days',status:'done'}]
+  },
+  clients:[
+    {id:'c1',name:'Georgios Stavrou',company:'Stavros Hotels Group',email:'g.stavrou@stavroshotels.gr',phone:'+30 210 1234567',website:'stavroshotels.gr',address:'Syntagma Sq, Athens',projects:2,revenue:8400,status:'active',vip:true,notes:'Premium client — quarterly review meetings'},
+    {id:'c2',name:'Maria Papadopoulos',company:'Elia Restaurant Santorini',email:'maria@elia-restaurant.gr',phone:'+30 228 6012345',website:'elia-restaurant.gr',address:'Oia, Santorini',projects:1,revenue:3200,status:'active',vip:false,notes:'Full kit in progress'},
+    {id:'c3',name:'Nikos Theodorakis',company:'Villas Luxury Group',email:'nikos@villasluxury.gr',phone:'+30 228 9012345',website:'villasluxury.gr',address:'Mykonos Town',projects:1,revenue:2400,status:'active',vip:true,notes:'Overdue project — rush support'},
+    {id:'c4',name:'Stavros Papadakis',company:'Stavros Auto Athens',email:'stavros@stavrosauto.gr',phone:'+30 210 2345678',website:'stavrosauto.gr',address:'Piraeus, Athens',projects:1,revenue:1200,status:'active',vip:false,notes:''},
+    {id:'c5',name:'Elena Georgiou',company:'Helios Wellness Center',email:'elena@helios-wellness.gr',phone:'+30 210 3456789',website:'helios-wellness.gr',address:'Kolonaki, Athens',projects:1,revenue:1800,status:'active',vip:false,notes:''},
+    {id:'c6',name:'Nikos Kontos',company:'Nikos Bakery Chain',email:'nikos@nikosbakery.gr',phone:'+30 210 4567890',website:'nikosbakery.gr',address:'Exarcheia, Athens',projects:1,revenue:800,status:'active',vip:false,notes:''},
+    {id:'c7',name:'Dimitris Andreou',company:'Dimitris & Partners Law',email:'dimitris@dp-law.gr',phone:'+30 210 5678901',website:'dp-law.gr',address:'Kolonaki, Athens',projects:1,revenue:1600,status:'active',vip:false,notes:''},
+    {id:'c8',name:'Katerina Nikolaou',company:'Katerina Fashion Athens',email:'kat@katerinafashion.gr',phone:'+30 210 6789012',website:'katerinafashion.gr',address:'Ermou St, Athens',projects:1,revenue:1400,status:'active',vip:false,notes:''},
+    {id:'c9',name:'Alexandros Marinakis',company:'Mykonos Beach Club',email:'alex@mykonosbeach.gr',phone:'+30 228 1023456',website:'mykonosbeach.gr',address:'Paradise Beach, Mykonos',projects:0,revenue:2200,status:'inactive',vip:false,notes:'Past client — re-engage summer'},
+    {id:'c10',name:'Andreas Petridis',company:'Andreas Photography',email:'andreas@andreasphoto.gr',phone:'+30 210 7890123',website:'andreasphoto.gr',address:'Plaka, Athens',projects:0,revenue:600,status:'inactive',vip:false,notes:''},
+    {id:'c11',name:'Elena Vasileiou',company:'Elena Architecture',email:'elena@elena-arch.gr',phone:'+30 210 8901234',website:'elena-arch.gr',address:'Kifissia, Athens',projects:0,revenue:1800,status:'inactive',vip:false,notes:''},
+    {id:'c12',name:'Sofia Lambrou',company:'Sofia Yoga Studio',email:'sofia@sofiayoga.gr',phone:'+30 210 9012345',website:'sofiayoga.gr',address:'Glyfada, Athens',projects:0,revenue:400,status:'inactive',vip:false,notes:''}
+  ],
+  invoices:[
+    {num:'INV-047',client:'Stavros Hotels Group',date:'Apr 15',due:'Apr 30',amount:2400,status:'sent',items:[['Website maintenance Q1',1,1200],['CRM phase 2',1,1200]]},
+    {num:'INV-046',client:'Elia Restaurant Santorini',date:'Apr 10',due:'Apr 25',amount:1800,status:'paid',items:[['Full Kit — phase 1',1,1800]]},
+    {num:'INV-045',client:'Villas Luxury Group',date:'Apr 05',due:'Apr 20',amount:1800,status:'overdue',items:[['Website development — 50%',1,1800]]},
+    {num:'INV-044',client:'Stavros Auto Athens',date:'Mar 28',due:'Apr 12',amount:1200,status:'paid',items:[['Landing page + setup',1,1200]]},
+    {num:'INV-043',client:'Helios Wellness Center',date:'Mar 20',due:'Apr 04',amount:900,status:'paid',items:[['Website design — phase 1',1,900]]},
+    {num:'INV-042',client:'Nikos Bakery Chain',date:'Mar 15',due:'Mar 30',amount:400,status:'paid',items:[['Logo design',1,400]]},
+    {num:'INV-041',client:'Dimitris & Partners',date:'Mar 10',due:'Mar 25',amount:800,status:'paid',items:[['Website refresh',1,800]]},
+    {num:'INV-040',client:'Katerina Fashion Athens',date:'Mar 05',due:'Mar 20',amount:700,status:'paid',items:[['E-commerce setup',1,700]]},
+    {num:'INV-039',client:'Stavros Hotels Group',date:'Feb 28',due:'Mar 15',amount:3600,status:'paid',items:[['CRM phase 1',1,3600]]},
+    {num:'INV-038',client:'Mykonos Beach Club',date:'Feb 20',due:'Mar 07',amount:2200,status:'paid',items:[['Website revamp',1,2200]]},
+    {num:'INV-037',client:'Andreas Photography',date:'Feb 10',due:'Feb 25',amount:600,status:'paid',items:[['Portfolio website',1,600]]},
+    {num:'INV-036',client:'Elena Architecture',date:'Feb 01',due:'Feb 16',amount:1800,status:'paid',items:[['Studio website',1,1800]]},
+    {num:'INV-035',client:'Sofia Yoga Studio',date:'Jan 20',due:'Feb 04',amount:400,status:'paid',items:[['Booking page',1,400]]},
+    {num:'INV-034',client:'Helios Wellness Center',date:'Jan 10',due:'Jan 25',amount:900,status:'paid',items:[['Initial consultation',1,900]]},
+    {num:'INV-033',client:'Villas Luxury Group',date:'Jan 03',due:'Jan 18',amount:600,status:'paid',items:[['Concept + wireframes',1,600]]}
+  ],
+  activity:[
+    {ic:'📄',t:'Invoice #047 sent — €2,400 — Stavros Hotels',time:'2h ago'},
+    {ic:'🎯',t:'Mykonos Villas — Phase 2 started',time:'4h ago'},
+    {ic:'👥',t:'New client: Athens Garage — €1,200',time:'1d ago'},
+    {ic:'✅',t:'Invoice #046 paid — €1,800 — Elia Restaurant',time:'2d ago'},
+    {ic:'📝',t:'Proposal sent — Helios Spa — €1,800',time:'3d ago'},
+    {ic:'🎯',t:'Nikos Bakery — Logo delivered',time:'4d ago'},
+    {ic:'💬',t:'Client call with Dimitris Law — scope review',time:'5d ago'}
+  ],
+  revenue:{month:12400,monthGoal:15000,year:68400,avgProject:1850,outstanding:4200,overdue:1800},
+  revHistory:[['Nov',8600],['Dec',9200],['Jan',10400],['Feb',11200],['Mar',10800],['Apr',12400]],
+  newInvoice:{num:'INV-048',client:'Stavros Hotels Group',issue:'2026-04-18',due:'2026-05-18',items:[['Website maintenance — April',1,800]],notes:''},
+  chart:null,chart2:null
+};
+
+/* HELPERS */
+function $(s){return document.querySelector(s)}
+function $$(s){return [...document.querySelectorAll(s)]}
+function uid(){return Math.random().toString(36).slice(2,10)}
+function initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function money(v){return '€'+Math.round(Number(v||0)).toLocaleString('en-US')}
+function moneyF(v){return '€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function countUp(el,target,dur=1500){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* RENDER */
+function renderTopTabs(){$('#moduleTabs').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')">${m.icon} ${m.name}</button>`).join('')}
+function renderBottomNav(){$('#bottomNav').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')"><span class="ic">${m.icon}</span>${m.name}</button>`).join('')}
+function setModule(id){state.module=id;state.openProject=null;state.selectedClient=null;state.invoiceView='list';renderTopTabs();renderBottomNav();renderMain()}
+
+function renderMain(){
+  const body=$('#mainBody');body.innerHTML='';
+  if(state.module==='dashboard')renderDashboard(body);
+  else if(state.module==='projects')state.openProject?renderProjectDetail(body):renderProjects(body);
+  else if(state.module==='clients')renderClients(body);
+  else state.invoiceView==='edit'?renderInvoiceEditor(body):renderFinance(body);
+  const page=body.querySelector('.page');if(page){page.style.animation='none';requestAnimationFrame(()=>page.style.animation='fadeUp .3s')}
+}
+
+/* DASHBOARD */
+function renderDashboard(body){
+  const projTrack=state.projects.filter(p=>p.status==='track').length;
+  const projRisk=state.projects.filter(p=>p.status==='risk').length;
+  const projOverdue=state.projects.filter(p=>p.status==='overdue').length;
+  const outstandingCount=state.invoices.filter(i=>i.status==='sent'||i.status==='overdue').length;
+  const overdueCount=state.invoices.filter(i=>i.status==='overdue').length;
+  body.innerHTML=`<div class="page">
+    <div class="welcome"><h2>Good morning, Matéo 👋</h2><div class="d">Friday 18 April — Athens, Greece</div></div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">💰 Revenue This Month</div><div class="v mono">€<span id="k-rev">0</span></div><div class="d up">↑ +18% vs last month</div><div class="bar"><div style="width:${state.revenue.month/state.revenue.monthGoal*100}%"></div></div><div style="font-size:10px;color:var(--label-tertiary);margin-top:4px">Goal: ${money(state.revenue.monthGoal)}</div></div>
+      <div class="kcard"><div class="l">🎯 Active Projects</div><div class="v mono">${state.projects.length}</div><div class="mini-dots"><span class="mini-dot" style="background:var(--system-green)"></span>${projTrack} on track · <span class="mini-dot" style="background:var(--system-orange)"></span>${projRisk} at risk · <span class="mini-dot" style="background:var(--system-red)"></span>${projOverdue} overdue</div></div>
+      <div class="kcard"><div class="l">⏰ Hours This Week</div><div class="v mono">34.5h</div><div class="d" style="color:var(--label-tertiary)">Billable 28h (81%)</div><div class="bar"><div style="width:${34.5/40*100}%"></div></div></div>
+      <div class="kcard"><div class="l">📄 Outstanding</div><div class="v mono">${money(state.revenue.outstanding)}</div><div class="d">${outstandingCount} invoices · <span class="badge b-red" style="padding:1px 6px;font-size:9px">${overdueCount} overdue</span></div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:60% 40%;margin-bottom:14px">
+      <div class="card"><h3>Revenue — Last 6 Months</h3><div class="chart-host"><canvas id="revChart"></canvas></div></div>
+      <div class="card">
+        <h3>This Week</h3>
+        <div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:6px">Today's tasks</div>
+        ${state.todayTasks.map((t,i)=>`<div class="check-row ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="state.todayTasks[${i}].done=this.checked;renderMain()"><span>${t.t}</span></div>`).join('')}
+        <div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:14px;margin-bottom:6px">Deadlines (next 7 days)</div>
+        ${state.projects.filter(p=>p.deadlineDays<=7).sort((a,b)=>a.deadlineDays-b.deadlineDays).map(p=>{const col=p.deadlineDays<=1?'var(--system-red)':p.deadlineDays<=3?'var(--system-orange)':'var(--system-green)';const dot=p.deadlineDays<=1?'🔴':p.deadlineDays<=3?'🟡':'🟢';return `<div class="deadline-row">${dot}<span>${p.name}</span><span class="d" style="color:${col}">${p.deadline}</span></div>`}).join('')}
+      </div>
+    </div>
+    <div class="grid2" style="grid-template-columns:55% 45%">
+      <div class="card"><h3>Active Projects<button class="btn xs" onclick="setModule('projects')">View all →</button></h3>
+        ${state.projects.slice(0,5).map(p=>`<div style="padding:10px 0;border-bottom:1px solid var(--separator);cursor:pointer" onclick="state.openProject='${p.id}';setModule('projects')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px"><div><strong style="font-size:13px">${p.name}</strong><div style="font-size:10px;color:var(--purple)">${p.client}</div></div><span class="badge ${p.status==='track'?'b-green':p.status==='risk'?'b-orange':p.status==='overdue'?'b-red':'b-gray'}">${p.deadline}</span></div>
+          <div class="proj-prog-bar"><div style="width:${p.progress}%"></div></div>
+          <div style="font-size:10px;color:var(--label-tertiary);margin-top:3px">${p.tasksDone}/${p.tasksTotal} tasks · ${money(p.spent)}/${money(p.budget)}</div>
+        </div>`).join('')}
+      </div>
+      <div class="card"><h3>Recent Activity</h3>
+        ${state.activity.map(a=>`<div class="act-row"><div class="act-ic">${a.ic}</div><div>${a.t}</div><div class="act-time">${a.time}</div></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+  setTimeout(()=>{countUp($('#k-rev'),state.revenue.month);drawRevChart()},30);
+}
+function drawRevChart(){
+  const ctx=$('#revChart');if(!ctx)return;
+  if(state.chart)state.chart.destroy();
+  const current=state.revHistory.length-1;
+  state.chart=new Chart(ctx,{type:'bar',data:{labels:state.revHistory.map(x=>x[0]),datasets:[{data:state.revHistory.map(x=>x[1]),backgroundColor:state.revHistory.map((_,i)=>i===current?'#FF9500':'rgba(175,82,222,.85)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'€'+c.parsed.y.toLocaleString()}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v,font:{size:10}}}}}});
+}
+
+/* PROJECTS */
+function renderProjects(body){
+  let list=state.projects.slice();
+  if(state.projectsFilter==='track')list=list.filter(p=>p.status==='track');
+  else if(state.projectsFilter==='risk')list=list.filter(p=>p.status==='risk');
+  else if(state.projectsFilter==='overdue')list=list.filter(p=>p.status==='overdue');
+  else if(state.projectsFilter==='done')list=list.filter(p=>p.status==='done');
+  if(state.projectsSort==='deadline')list.sort((a,b)=>a.deadlineDays-b.deadlineDays);
+  else if(state.projectsSort==='budget')list.sort((a,b)=>b.budget-a.budget);
+  else if(state.projectsSort==='progress')list.sort((a,b)=>b.progress-a.progress);
+  else list.sort((a,b)=>a.client.localeCompare(b.client));
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Projects</h1><div class="sub"><strong>${state.projects.length} active</strong> · ${state.projects.filter(p=>p.status==='overdue').length} overdue · ${state.projects.filter(p=>p.status==='risk').length} at risk</div></div>
+    <div style="display:flex;gap:10px"><select class="fld" style="width:auto;margin:0" id="projSort" onchange="state.projectsSort=this.value;renderMain()"><option value="deadline">Sort: Deadline</option><option value="budget">Sort: Budget</option><option value="progress">Sort: Progress</option><option value="client">Sort: Client</option></select><button class="btn primary" onclick="openNewProject()">+ New Project</button></div></div>
+    <div class="fil-pills">${[['all','All'],['track','On track'],['risk','At risk'],['overdue','Overdue']].map(([k,l])=>`<button class="${state.projectsFilter===k?'active':''}" onclick="state.projectsFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="proj-grid">${list.map(p=>{const dlCol=p.deadlineDays<=1?'red':p.deadlineDays<=3?'orange':'green';const budgetPct=p.spent/p.budget*100;return `<div class="proj-card" onclick="state.openProject='${p.id}';renderMain()">
+      <div class="proj-bar ${p.status}"></div>
+      <div class="proj-body">
+        <div class="proj-name">${p.name}</div>
+        <div class="proj-client">${p.client}</div>
+        <div class="proj-prog">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--label-tertiary);margin-bottom:3px"><span>Progress</span><span style="font-weight:800;color:var(--label-primary)">${p.progress}%</span></div>
+          <div class="proj-prog-bar"><div style="width:${p.progress}%"></div></div>
+          <div style="font-size:10px;color:var(--label-tertiary);margin-top:4px">${p.tasksDone}/${p.tasksTotal} tasks done</div>
+        </div>
+        <div class="proj-chips">
+          <span class="proj-chip ${dlCol}">📅 ${p.deadline}</span>
+          <span class="proj-chip">💰 ${money(p.budget)}</span>
+          <span class="proj-chip ${budgetPct>90?'red':budgetPct>75?'orange':''}">⏰ ${Math.round(budgetPct)}% used</span>
+        </div>
+        <div class="proj-team">${p.team.slice(0,3).map(n=>`<div class="av" style="background:${TEAM_COLORS[n]||'var(--purple)'}" title="${n}">${n.charAt(0)}</div>`).join('')}${p.team.length>3?`<div class="av" style="background:var(--fill-tertiary);color:var(--label-primary)">+${p.team.length-3}</div>`:''}</div>
+      </div>
+      <div class="proj-foot"><button class="btn" onclick="event.stopPropagation();state.openProject='${p.id}';renderMain()">Open project →</button><button class="btn" onclick="event.stopPropagation();editProject('${p.id}')">Edit ✎</button></div>
+    </div>`}).join('')||'<div style="grid-column:1/-1;text-align:center;color:var(--label-tertiary);padding:40px">No projects match</div>'}
+    </div>
+  </div>`;
+}
+function renderProjectDetail(body){
+  const p=state.projects.find(x=>x.id===state.openProject);if(!p){state.openProject=null;return renderProjects(body)}
+  const tasks=state.tasks[p.id]||[];
+  const cols=[['todo','To Do'],['progress','In Progress'],['done','Done']];
+  body.innerHTML=`<div class="page">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><button class="btn sm" onclick="state.openProject=null;renderMain()">← Back</button><div style="flex:1"><h1 style="font-size:22px;font-weight:800">${p.name}</h1><div style="font-size:12px;color:var(--purple)">${p.client}</div></div><span class="badge ${p.status==='track'?'b-green':p.status==='risk'?'b-orange':p.status==='overdue'?'b-red':'b-gray'}">${p.status}</span><button class="btn sm" onclick="editProject('${p.id}')">✎ Edit</button><button class="btn sm" onclick="alert('Archived')">📦 Archive</button></div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">Progress</div><div class="v mono">${p.progress}%</div></div>
+      <div class="kcard"><div class="l">Days Remaining</div><div class="v mono">${p.deadlineDays}</div></div>
+      <div class="kcard"><div class="l">Budget Used</div><div class="v mono">${Math.round(p.spent/p.budget*100)}%</div><div class="d" style="color:var(--label-tertiary)">${money(p.spent)}/${money(p.budget)}</div></div>
+      <div class="kcard"><div class="l">Team</div><div class="v mono">${p.team.length}</div><div class="d" style="color:var(--label-tertiary)">${p.team.join(', ')}</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:2fr 1fr">
+      <div class="card"><h3>Tasks<button class="btn primary sm" onclick="openNewTask()">+ Add task</button></h3>
+        <div class="kan">${cols.map(([k,l])=>{const its=tasks.filter(t=>t.status===k);return `<div class="kcol"><div class="kcol-hd">${l}<span class="cnt">${its.length}</span></div>${its.map(t=>`<div class="ktask ${t.prio}" onclick="moveTask('${p.id}','${t.id}')"><div class="kt">${t.name}</div><div class="kb"><span>${t.assignee}</span><span>${t.due}</span></div></div>`).join('')||'<div style="text-align:center;padding:20px;color:var(--label-tertiary);font-size:11px">—</div>'}</div>`}).join('')}</div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:14px"><h3>Details</h3>
+          <div class="dp-row"><span class="l">Client</span><span>${p.client}</span></div>
+          <div class="dp-row"><span class="l">Start</span><span>Apr 1, 2026</span></div>
+          <div class="dp-row"><span class="l">Deadline</span><span>${p.deadline}</span></div>
+          <div class="dp-row"><span class="l">Budget</span><span>${money(p.budget)}</span></div>
+          <div class="dp-row"><span class="l">Spent</span><span>${money(p.spent)}</span></div>
+          <div class="dp-row"><span class="l">Remaining</span><span style="color:var(--system-green)">${money(p.budget-p.spent)}</span></div>
+          <div class="bar" style="height:6px;background:var(--fill-tertiary);border-radius:3px;margin-top:8px;overflow:hidden"><div style="height:100%;background:${p.spent/p.budget>.9?'var(--system-red)':p.spent/p.budget>.75?'var(--system-orange)':'var(--purple)'};width:${Math.min(100,p.spent/p.budget*100)}%;transition:width .8s"></div></div>
+          <label style="margin-top:12px">Description</label>
+          <div style="font-size:12px;color:var(--label-secondary);padding:8px;background:var(--fill-tertiary);border-radius:8px">${p.desc}</div>
+          <label style="margin-top:10px">Notes</label>
+          <textarea class="fld" rows="3" placeholder="Project notes..." onblur="p.notes=this.value">${p.notes||''}</textarea>
+        </div>
+        <div class="card"><h3>Recent Activity</h3>
+          <div class="act-row"><div class="act-ic">✅</div><div>Hero section design completed</div><div class="act-time">2h ago</div></div>
+          <div class="act-row"><div class="act-ic">💬</div><div>Client feedback received</div><div class="act-time">6h ago</div></div>
+          <div class="act-row"><div class="act-ic">🎯</div><div>Phase 2 kicked off</div><div class="act-time">1d ago</div></div>
+          <div class="act-row"><div class="act-ic">📄</div><div>Invoice sent</div><div class="act-time">3d ago</div></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+window.moveTask=(pid,tid)=>{const t=state.tasks[pid]?.find(x=>x.id===tid);if(!t)return;const order=['todo','progress','done'];const idx=order.indexOf(t.status);t.status=order[(idx+1)%3];renderMain()};
+window.openNewProject=()=>{state.editingProject=null;$('#projTitle').textContent='New Project';$('#pDelete').style.display='none';$('#pName').value='';$('#pClient').innerHTML=state.clients.map(c=>`<option value="${c.id}">${c.company}</option>`).join('');$('#pStart').value='2026-04-18';$('#pDeadline').value='2026-05-18';$('#pBudget').value=2000;$('#pDesc').value='';openM('mProj')};
+window.editProject=id=>{const p=state.projects.find(x=>x.id===id);state.editingProject=id;$('#projTitle').textContent='Edit Project';$('#pDelete').style.display='inline-flex';$('#pName').value=p.name;$('#pClient').innerHTML=state.clients.map(c=>`<option value="${c.id}" ${c.company===p.client?'selected':''}>${c.company}</option>`).join('');$('#pBudget').value=p.budget;$('#pDesc').value=p.desc;openM('mProj')};
+window.saveProj=()=>{const name=$('#pName').value.trim();if(!name)return alert('Name required');const clientCompany=$('#pClient').selectedOptions[0]?.textContent||'—';if(state.editingProject){const p=state.projects.find(x=>x.id===state.editingProject);Object.assign(p,{name,client:clientCompany,budget:+$('#pBudget').value||0,desc:$('#pDesc').value})}else{state.projects.push({id:uid(),name,client:clientCompany,status:'track',progress:0,tasksDone:0,tasksTotal:0,deadline:'—',deadlineDays:30,budget:+$('#pBudget').value||0,spent:0,team:['Matéo'],desc:$('#pDesc').value})}closeM('mProj');renderMain()};
+window.deleteProj=()=>{if(!confirm('Delete this project?'))return;state.projects=state.projects.filter(p=>p.id!==state.editingProject);state.openProject=null;closeM('mProj');renderMain()};
+window.openNewTask=()=>{$('#tkName').value='';$('#tkDue').value='2026-04-25';openM('mTask')};
+window.saveTask=()=>{const name=$('#tkName').value.trim();if(!name||!state.openProject)return alert('Name required');const pid=state.openProject;if(!state.tasks[pid])state.tasks[pid]=[];state.tasks[pid].push({id:uid(),name,assignee:$('#tkAssignee').value,prio:$('#tkPrio').value,due:$('#tkDue').value.slice(5),status:'todo'});closeM('mTask');renderMain()};
+
+/* CLIENTS */
+function renderClients(body){
+  let list=state.clients.slice();
+  if(state.clientFilter==='active')list=list.filter(c=>c.status==='active');
+  else if(state.clientFilter==='inactive')list=list.filter(c=>c.status==='inactive');
+  else if(state.clientFilter==='vip')list=list.filter(c=>c.vip);
+  const q=state.clientSearch.toLowerCase();
+  if(q)list=list.filter(c=>c.name.toLowerCase().includes(q)||c.company.toLowerCase().includes(q));
+  const showPanel=state.selectedClient;
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Clients</h1><div class="sub"><strong>${state.clients.length} clients</strong> · ${state.clients.filter(c=>c.status==='active').length} active</div></div>
+    <div><button class="btn primary" onclick="openNewClient()">+ New Client</button></div></div>
+    <div class="client-wrap${showPanel?'':' no-panel'}">
+      <div class="client-list">
+        <div class="client-filters">
+          <input id="clSearch" placeholder="🔍 Search name, company..." value="${state.clientSearch}">
+          <div class="fil-pills" style="margin:0">${[['all','All'],['active','Active'],['inactive','Inactive'],['vip','VIP']].map(([k,l])=>`<button class="${state.clientFilter===k?'active':''}" onclick="state.clientFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+        </div>
+        <div class="client-rows">${list.map(c=>`<div class="client-row ${state.selectedClient===c.id?'sel':''} ${c.vip?'vip':''}" onclick="state.selectedClient='${c.id}';renderMain()"><div class="client-av" style="background:${c.vip?'linear-gradient(135deg,#FFD700,#DAA520)':'var(--purple)'}">${initials(c.name)}</div><div><div class="client-name">${c.name} ${c.vip?'⭐':''}</div><div class="client-company">${c.company}</div></div><span class="num">${c.projects}</span><span class="num">${money(c.revenue)}</span><span style="color:var(--label-tertiary);font-size:11px">—</span><span class="dot ${c.status==='inactive'?'inactive':''}"></span><button class="btn xs" onclick="event.stopPropagation();setModule('finance');state.invoiceView='edit';state.newInvoice.client=c.company;renderMain()">Invoice →</button></div>`).join('')||'<div style="padding:40px;text-align:center;color:var(--label-tertiary)">No clients match</div>'}</div>
+      </div>
+      ${showPanel?renderClientPanel():''}
+    </div>
+  </div>`;
+  const search=$('#clSearch');if(search){search.addEventListener('input',e=>{state.clientSearch=e.target.value;renderMain();setTimeout(()=>$('#clSearch').focus(),30)});search.focus()}
+}
+function renderClientPanel(){
+  const c=state.clients.find(x=>x.id===state.selectedClient);if(!c)return '';
+  const projects=state.projects.filter(p=>p.client===c.company);
+  const invoices=state.invoices.filter(i=>i.client===c.company).slice(0,3);
+  return `<div class="client-detail">
+    <div class="dp-hd"><h3 style="font-size:16px;font-weight:800">Client Detail</h3><button style="font-size:16px" onclick="state.selectedClient=null;renderMain()">✕</button></div>
+    <div class="hero-client"><div class="hero-av" style="background:${c.vip?'linear-gradient(135deg,#FFD700,#DAA520)':'var(--purple)'}">${initials(c.name)}</div><div style="position:relative"><div class="hero-name">${c.name} ${c.vip?'<span class="badge b-gold">VIP</span>':''}</div><div class="hero-company">${c.company}</div><span class="badge ${c.status==='active'?'b-green':'b-gray'}" style="margin-top:4px">${c.status}</span></div></div>
+    <div style="display:flex;gap:6px;margin-bottom:12px"><button class="btn sm" onclick="editClient('${c.id}')">✎ Edit</button><button class="btn primary sm" onclick="setModule('finance');state.invoiceView='edit';state.newInvoice.client=c.company;renderMain()">+ Invoice</button><button class="btn sm" onclick="openNewProject()">+ Project</button></div>
+    <div class="kgrid g2"><div class="kcard"><div class="l">Revenue</div><div class="v mono" style="font-size:18px">${money(c.revenue)}</div></div><div class="kcard"><div class="l">Projects</div><div class="v mono" style="font-size:18px">${c.projects}</div></div></div>
+    <div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:12px 0 6px">Contact</div>
+    <div class="dp-row"><span class="l">Email</span><span class="v"><a href="mailto:${c.email}">${c.email}</a></span></div>
+    <div class="dp-row"><span class="l">Phone</span><span class="v"><a href="tel:${c.phone}">${c.phone}</a></span></div>
+    <div class="dp-row"><span class="l">Website</span><span class="v"><a href="https://${c.website}" target="_blank">${c.website}</a></span></div>
+    <div class="dp-row"><span class="l">Address</span><span>${c.address}</span></div>
+    ${projects.length?`<div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:14px 0 6px">Projects</div>${projects.map(p=>`<div style="padding:8px;background:var(--fill-tertiary);border-radius:8px;margin-bottom:4px;cursor:pointer" onclick="state.openProject='${p.id}';setModule('projects')"><div style="font-weight:600;font-size:12px">${p.name}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span class="badge ${p.status==='track'?'b-green':p.status==='risk'?'b-orange':'b-red'}">${p.status}</span><span style="font-size:11px;color:var(--label-tertiary)">${p.progress}%</span></div></div>`).join('')}`:''}
+    ${invoices.length?`<div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:14px 0 6px">Recent Invoices</div>${invoices.map(inv=>`<div class="dp-row"><span style="font-family:monospace">${inv.num}</span><span><span class="badge ${inv.status==='paid'?'b-green':inv.status==='sent'?'b-blue':inv.status==='overdue'?'b-red':'b-gray'}">${inv.status}</span> ${money(inv.amount)}</span></div>`).join('')}`:''}
+    <label style="margin-top:14px">Notes</label><textarea class="fld" rows="3" onblur="c.notes=this.value">${c.notes||''}</textarea>
+  </div>`;
+}
+window.openNewClient=()=>{state.editingClient=null;$('#clTitle').textContent='New Client';['clName','clCompany','clEmail','clPhone','clWebsite','clAddress','clNotes'].forEach(id=>$('#'+id).value='');$('#clVip').checked=false;openM('mClient')};
+window.editClient=id=>{const c=state.clients.find(x=>x.id===id);state.editingClient=id;$('#clTitle').textContent='Edit Client';$('#clName').value=c.name;$('#clCompany').value=c.company;$('#clEmail').value=c.email;$('#clPhone').value=c.phone;$('#clWebsite').value=c.website;$('#clAddress').value=c.address;$('#clNotes').value=c.notes;$('#clVip').checked=c.vip;openM('mClient')};
+window.saveClient=()=>{const name=$('#clName').value.trim();if(!name)return alert('Name required');const data={name,company:$('#clCompany').value,email:$('#clEmail').value,phone:$('#clPhone').value,website:$('#clWebsite').value,address:$('#clAddress').value,notes:$('#clNotes').value,vip:$('#clVip').checked};if(state.editingClient){Object.assign(state.clients.find(c=>c.id===state.editingClient),data)}else{state.clients.push({id:uid(),...data,projects:0,revenue:0,status:'active'})}closeM('mClient');renderMain()};
+
+/* FINANCE */
+function renderFinance(body){
+  const paidThisMonth=state.invoices.filter(i=>i.status==='paid'&&i.date.startsWith('Apr')).reduce((s,i)=>s+i.amount,0);
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Finance</h1><div class="sub">Invoices · Revenue · Goals</div></div><div><button class="btn primary" onclick="openInvoiceEditor()">+ New Invoice</button></div></div>
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">💰 Revenue This Month</div><div class="v mono">${money(state.revenue.month)}</div><div class="d up">Goal ${money(state.revenue.monthGoal)}</div><div class="bar"><div style="width:${state.revenue.month/state.revenue.monthGoal*100}%"></div></div></div>
+      <div class="kcard"><div class="l">📄 Outstanding</div><div class="v mono">${money(state.revenue.outstanding)}</div><div class="d" style="color:var(--system-red)">Overdue: ${money(state.revenue.overdue)}</div></div>
+      <div class="kcard"><div class="l">📈 This Year</div><div class="v mono">${money(state.revenue.year)}</div><div class="d up">↑ +24% vs last year</div></div>
+      <div class="kcard"><div class="l">💸 Avg Project</div><div class="v mono">${money(state.revenue.avgProject)}</div><div class="d up">↑ +€200 vs Q1</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:60% 40%;margin-bottom:14px">
+      <div class="card"><h3>Revenue & Invoices</h3><div class="chart-host"><canvas id="finChart"></canvas></div></div>
+      <div class="card"><h3>Invoice Status</h3><div class="chart-host"><canvas id="statusChart"></canvas></div></div>
+    </div>
+    <div class="card inv-table" style="padding:0">
+      <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Recent Invoices<span style="font-size:11px;color:var(--label-tertiary);font-weight:500;margin-left:8px">${state.invoices.length} total</span></h3><div style="font-size:11px"><span style="color:var(--purple);font-weight:700">Outstanding: ${money(state.revenue.outstanding)}</span> · <span style="color:var(--system-red);font-weight:700">Overdue: ${money(state.revenue.overdue)}</span></div></div>
+      <table class="t"><thead><tr><th>#</th><th>Client</th><th>Date</th><th>Due</th><th style="text-align:right">Amount</th><th>Status</th><th></th></tr></thead><tbody>${state.invoices.map(inv=>`<tr><td style="font-family:monospace;font-size:11px">${inv.num}</td><td><strong>${inv.client}</strong></td><td>${inv.date}</td><td>${inv.due}</td><td style="text-align:right;font-weight:800">${money(inv.amount)}</td><td><span class="badge ${inv.status==='paid'?'b-green':inv.status==='sent'?'b-blue':inv.status==='overdue'?'b-red':'b-gray'}">${inv.status}</span></td><td><button class="btn xs" onclick="openInvoicePreview('${inv.num}')">View</button> ${inv.status!=='paid'?`<button class="btn xs" onclick="markPaid('${inv.num}')">Mark paid</button>`:''}</td></tr>`).join('')}</tbody></table>
+    </div>
+  </div>`;
+  setTimeout(()=>{
+    const ctx=$('#finChart');if(ctx){if(state.chart)state.chart.destroy();state.chart=new Chart(ctx,{type:'bar',data:{labels:state.revHistory.map(x=>x[0]),datasets:[{label:'Revenue',data:state.revHistory.map(x=>x[1]),backgroundColor:'#AF52DE',borderRadius:6},{label:'Invoiced',data:state.revHistory.map(x=>x[1]*1.1),backgroundColor:'rgba(175,82,222,.4)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v}}}}})}
+    const ctx2=$('#statusChart');if(ctx2){if(state.chart2)state.chart2.destroy();const statuses={paid:0,sent:0,overdue:0,draft:0};state.invoices.forEach(i=>statuses[i.status]=(statuses[i.status]||0)+i.amount);state.chart2=new Chart(ctx2,{type:'doughnut',data:{labels:['Paid','Sent','Overdue','Draft'],datasets:[{data:[statuses.paid,statuses.sent,statuses.overdue,statuses.draft||6400],backgroundColor:['#34C759','#AF52DE','#FF3B30','#8E8E93']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}})}
+  },30);
+}
+window.markPaid=num=>{const inv=state.invoices.find(i=>i.num===num);inv.status='paid';renderMain()};
+window.openInvoicePreview=num=>{alert(`View invoice ${num} — would open preview modal`)};
+window.openInvoiceEditor=()=>{state.invoiceView='edit';state.newInvoice={num:'INV-'+(48+Math.floor(Math.random()*10)),client:state.clients[0]?.company||'',issue:'2026-04-18',due:'2026-05-18',items:[['Service description',1,500]],notes:''};renderMain()};
+function renderInvoiceEditor(body){
+  const inv=state.newInvoice;
+  const sub=inv.items.reduce((s,[,q,p])=>s+q*p,0);
+  const vat=sub*.24;
+  const total=sub+vat;
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div style="display:flex;align-items:center;gap:12px"><button class="btn sm" onclick="state.invoiceView='list';renderMain()">← Back</button><h1 style="font-size:22px">New Invoice</h1></div>
+    <div style="display:flex;gap:8px"><button class="btn" onclick="alert('Saved as draft')">Save Draft</button><button class="btn" onclick="window.print()">🖨 Print/PDF</button><button class="btn primary" onclick="alert('Invoice sent to '+inv.client);state.invoiceView='list';renderMain()">Send to Client</button></div></div>
+    <div class="inv-editor">
+      <div class="inv-preview-pane">
+        <div class="inv-preview" id="invPrev">
+          <div class="inv-hd"><div class="inv-biz"><div class="bn">Vantage Web Agency</div>14 Ermou St, Athens 10563<br>+30 210 000 0000 · hello@vantage.gr<br>VAT: EL999999999</div><div class="inv-title"><h1>INVOICE</h1><div class="meta"><strong>${inv.num}</strong><br>Issued: ${inv.issue}<br>Due: ${inv.due}</div></div></div>
+          <div class="inv-bill"><div><h4>Bill To</h4><div class="cn">${inv.client}</div><div style="color:#444;line-height:1.5;font-size:11px;margin-top:4px">—</div></div><div><h4>Status</h4><div class="cn" style="color:var(--purple);text-transform:uppercase">Draft</div></div></div>
+          <table class="inv-items"><thead><tr><th>Description</th><th class="rt">Qty</th><th class="rt">Unit</th><th class="rt">Total</th></tr></thead><tbody>${inv.items.map(([d,q,p])=>`<tr><td>${d}</td><td class="rt">${q}</td><td class="rt">${money(p)}</td><td class="rt" style="font-weight:800">${money(q*p)}</td></tr>`).join('')}</tbody></table>
+          <div class="inv-totals"><div class="row"><span>Subtotal</span><span>${money(sub)}</span></div><div class="row"><span>VAT 24%</span><span>${money(vat)}</span></div><div class="row total"><span>TOTAL</span><span>${money(total)}</span></div></div>
+          ${inv.notes?`<div style="margin-top:20px;padding:12px;background:#f8f8f8;border-radius:6px;font-size:11px;color:#555">${inv.notes}</div>`:''}
+          <div class="inv-foot"><div><h4>Payment Terms</h4>Due ${inv.due}<br>Net 30 days</div><div><h4>Bank Details</h4>Piraeus Bank<br>IBAN: GR16 0110 2300 0000<br>BIC: PIRBGRAA</div></div>
+        </div>
+      </div>
+      <div class="inv-form">
+        <label>Invoice number</label><input class="fld" value="${inv.num}" onchange="state.newInvoice.num=this.value;renderMain()">
+        <label>Client</label><select class="fld" onchange="state.newInvoice.client=this.value;renderMain()">${state.clients.map(c=>`<option ${c.company===inv.client?'selected':''}>${c.company}</option>`).join('')}</select>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Issue date</label><input type="date" class="fld" value="${inv.issue}" onchange="state.newInvoice.issue=this.value;renderMain()"></div><div><label>Due date</label><input type="date" class="fld" value="${inv.due}" onchange="state.newInvoice.due=this.value;renderMain()"></div></div>
+        <label style="margin-top:14px">Line items</label>
+        ${inv.items.map((it,i)=>`<div class="line-row"><input class="fld" value="${it[0]}" placeholder="Description" onchange="state.newInvoice.items[${i}][0]=this.value;renderMain()"><input type="number" class="fld" value="${it[1]}" onchange="state.newInvoice.items[${i}][1]=+this.value||1;renderMain()"><input type="number" step="0.01" class="fld" value="${it[2]}" onchange="state.newInvoice.items[${i}][2]=+this.value||0;renderMain()"><span class="tot">${money(it[1]*it[2])}</span><button class="del" onclick="state.newInvoice.items.splice(${i},1);renderMain()">×</button></div>`).join('')}
+        <button class="btn sm" style="margin-top:8px;width:100%" onclick="state.newInvoice.items.push(['New line',1,100]);renderMain()">+ Add line</button>
+        <div style="padding:14px;background:var(--fill-tertiary);border-radius:10px;margin-top:14px">
+          <div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px"><span style="color:var(--label-tertiary)">Subtotal</span><span style="font-weight:700">${money(sub)}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px"><span style="color:var(--label-tertiary)">VAT 24%</span><span style="font-weight:700">${money(vat)}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0 0;border-top:1px solid var(--separator);margin-top:4px;font-size:14px;font-weight:800"><span>Total</span><span style="color:var(--purple)">${money(total)}</span></div>
+        </div>
+        <label>Notes (optional)</label><textarea class="fld" rows="2" placeholder="Thank you for your business..." onchange="state.newInvoice.notes=this.value">${inv.notes}</textarea>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* MODALS */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('ag-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('ag-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{
+  if(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='TEXTAREA'||document.activeElement.tagName==='SELECT')return;
+  const n=parseInt(e.key);
+  if(n>=1&&n<=4){setModule(MODULES[n-1].id)}
+  else if(e.key==='n'||e.key==='N'){if(state.module==='projects')openNewProject();else if(state.module==='clients')openNewClient();else if(state.module==='finance')openInvoiceEditor();else alert('New task — add a todo for today')}
+  else if(e.key==='d'||e.key==='D'){$('#themeToggle').click()}
+  else if(e.key==='Escape'){$$('.mbg.open').forEach(m=>m.classList.remove('open'));$('#shortcutsTip').classList.remove('show')}
+  else if(e.key==='?'){$('#shortcutsTip').classList.toggle('show')}
+});
+$('#shortcutsTip').addEventListener('click',()=>$('#shortcutsTip').classList.remove('show'));
+
+/* INIT */
+renderTopTabs();renderBottomNav();renderMain();
+</script>
+</body>
+</html>
