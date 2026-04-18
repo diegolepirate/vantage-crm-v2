@@ -196,6 +196,219 @@
   .vc-band .vc-dash.b2 { width: 70px; height: 10px; bottom: 14%; right: 8%; transform: rotate(32deg); }
   .vc-band .vc-dash.b3 { width: 48px; height: 8px; top: 58%; left: 42%; transform: rotate(-48deg); opacity: .8; }
 
+  /* ════════ LOCATIONS ════════ */
+  .vc-loc {
+    position: relative;
+    background: var(--bg);
+    padding: 7rem 4vw 8rem;
+    overflow: hidden;
+  }
+  .vc-loc-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(6rem, 14vw, 14rem);
+    line-height: .9;
+    letter-spacing: -.02em;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(42,95,180,.22);
+    text-transform: uppercase;
+  }
+  .vc-loc-bg-row {
+    display: flex;
+    width: max-content;
+    animation: vc-marquee 40s linear infinite;
+  }
+  .vc-loc-bg-row.reverse { animation-name: vc-marquee-rev; animation-duration: 48s; }
+  .vc-loc-bg-row span { padding-right: 1em; }
+  @keyframes vc-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes vc-marquee-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  .vc-loc-head {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .vc-loc-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .vc-loc-tabs {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .vc-loc-tab {
+    padding: .9rem 2rem;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 999px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: background .25s, color .25s, transform .25s;
+  }
+  .vc-loc-tab:hover { transform: translateY(-2px); }
+  .vc-loc-tab.is-active { background: #2a5fb4; color: #FAF4E6; }
+
+  .vc-loc-stage {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .vc-loc-card {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 2.4rem 2.4rem;
+    border-radius: 18px;
+    max-width: 340px;
+    transform: translateX(30px);
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 20px 40px rgba(0,0,0,.12);
+  }
+  .vc-loc-card-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .vc-loc-card-body {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .vc-loc-photo {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #111;
+  }
+  .vc-loc-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity .45s ease;
+  }
+  .vc-loc-photo img.is-out { opacity: 0; }
+
+  /* ════════ MENU (hover cards) ════════ */
+  .vc-menu {
+    position: relative;
+    background: var(--bg);
+    padding: 7rem 4vw 8rem;
+    overflow: hidden;
+  }
+  .vc-menu-head {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+  }
+  .vc-menu-kicker {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: .8rem;
+  }
+  .vc-menu-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .vc-menu-title .accent { color: #2a5fb4; }
+  .vc-menu-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .vc-menu-item {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .vc-menu-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s ease;
+  }
+  .vc-menu-item:hover img { transform: scale(1.04); }
+  .vc-menu-card {
+    position: absolute;
+    inset: auto 1rem 1rem 1rem;
+    padding: 1.4rem 1.4rem;
+    background: rgba(10,10,10,.88);
+    backdrop-filter: blur(10px);
+    color: var(--bg);
+    border-radius: 14px;
+    transform: translateY(120%);
+    transition: transform .4s cubic-bezier(.22,.8,.2,1);
+  }
+  .vc-menu-item:hover .vc-menu-card { transform: translateY(0); }
+  .vc-menu-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: .5rem;
+  }
+  .vc-menu-card-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+  }
+  .vc-menu-card-price {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.1rem;
+    color: #2a5fb4;
+  }
+  .vc-menu-card-body {
+    font-family: 'Archivo', sans-serif;
+    font-size: .88rem;
+    line-height: 1.5;
+    opacity: .9;
+  }
+  .vc-menu .vc-dash { background: #2a5fb4; opacity: .45; }
+  .vc-menu .vc-dash.m1 { width: 70px; height: 10px; top: 10%; left: 6%; transform: rotate(-20deg); }
+  .vc-menu .vc-dash.m2 { width: 60px; height: 9px; top: 30%; right: 8%; transform: rotate(32deg); }
+  .vc-menu .vc-dash.m3 { width: 80px; height: 10px; bottom: 18%; left: 40%; transform: rotate(-48deg); opacity: .3; }
+
   /* ════════ SLOGAN ════════ */
   .vc-slogan {
     position: relative;
@@ -283,6 +496,86 @@
     </div>
   </section>
 
+  <!-- LOCATIONS -->
+  <section class="vc-loc" aria-label="Locations">
+    <div class="vc-loc-bg" aria-hidden="true">
+      <div class="vc-loc-bg-row">
+        <span>SOUVLAKI · MOUSSAKA · TZATZIKI · GYROS · DOLMADES · SPANAKOPITA · </span>
+        <span>SOUVLAKI · MOUSSAKA · TZATZIKI · GYROS · DOLMADES · SPANAKOPITA · </span>
+      </div>
+      <div class="vc-loc-bg-row reverse">
+        <span>ΣΟΥΒΛΑΚΙ · ΜΟΥΣΑΚΑΣ · ΤΖΑΤΖΙΚΙ · ΓΥΡΟΣ · ΝΤΟΛΜΑΔΕΣ · ΣΠΑΝΑΚΟΠΙΤΑ · </span>
+        <span>ΣΟΥΒΛΑΚΙ · ΜΟΥΣΑΚΑΣ · ΤΖΑΤΖΙΚΙ · ΓΥΡΟΣ · ΝΤΟΛΜΑΔΕΣ · ΣΠΑΝΑΚΟΠΙΤΑ · </span>
+      </div>
+    </div>
+
+    <div class="vc-loc-head">
+      <h2 class="vc-loc-title">Locations</h2>
+      <div class="vc-loc-tabs" role="tablist">
+        <button class="vc-loc-tab is-active" data-img="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1400&q=85" data-title="The Taverna" data-body="Our flagship Athens-inspired taverna in the heart of Paris. Flame-grilled souvlaki, natural wine, candlelit tables.">Paris 8</button>
+        <button class="vc-loc-tab" data-img="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&q=85" data-title="The Harbour" data-body="A sun-soaked harbourside kitchen where the catch of the day meets Aegean olive oil. Barefoot dining, salt on the breeze.">Marseille</button>
+        <button class="vc-loc-tab" data-img="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=1400&q=85" data-title="Coming Soon" data-body="A new Vantage'cook escape is landing on the Riviera. Rooftop, long tables, golden hour forever. Stay tuned.">Coming Soon</button>
+      </div>
+    </div>
+
+    <div class="vc-loc-stage">
+      <div class="vc-loc-card">
+        <h3 class="vc-loc-card-title" id="locTitle">The Taverna</h3>
+        <p class="vc-loc-card-body" id="locBody">Our flagship Athens-inspired taverna in the heart of Paris. Flame-grilled souvlaki, natural wine, candlelit tables.</p>
+      </div>
+      <figure class="vc-loc-photo">
+        <img id="locPhoto" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1400&q=85" alt="Greek restaurant at night">
+      </figure>
+    </div>
+  </section>
+
+  <!-- MENU (hover cards) -->
+  <section class="vc-menu" aria-label="Our menu">
+    <span class="vc-dash m1" aria-hidden="true"></span>
+    <span class="vc-dash m2" aria-hidden="true"></span>
+    <span class="vc-dash m3" aria-hidden="true"></span>
+
+    <div class="vc-menu-head">
+      <div class="vc-menu-kicker">Taste the sun</div>
+      <h2 class="vc-menu-title">Our <span class="accent">Menu</span></h2>
+    </div>
+
+    <div class="vc-menu-grid">
+      <article class="vc-menu-item">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=1000&q=85" alt="Souvlaki bowl with tzatziki">
+        <div class="vc-menu-card">
+          <div class="vc-menu-card-top">
+            <span class="vc-menu-card-name">Souvlaki Bowl</span>
+            <span class="vc-menu-card-price">14€</span>
+          </div>
+          <p class="vc-menu-card-body">Flame-grilled pork skewers, handmade tzatziki, fresh pita, sun tomatoes, red onion, olive oil.</p>
+        </div>
+      </article>
+
+      <article class="vc-menu-item">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1000&q=85" alt="Greek salad">
+        <div class="vc-menu-card">
+          <div class="vc-menu-card-top">
+            <span class="vc-menu-card-name">Horiatiki</span>
+            <span class="vc-menu-card-price">12€</span>
+          </div>
+          <p class="vc-menu-card-body">The Greek salad — vine tomatoes, cucumber, red onion, Kalamata olives, a thick slab of feta, oregano.</p>
+        </div>
+      </article>
+
+      <article class="vc-menu-item">
+        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=1000&q=85" alt="Greek pizza">
+        <div class="vc-menu-card">
+          <div class="vc-menu-card-top">
+            <span class="vc-menu-card-name">Aegean Pizza</span>
+            <span class="vc-menu-card-price">16€</span>
+          </div>
+          <p class="vc-menu-card-body">Wood-fired dough, San Marzano, feta, Kalamata olives, oregano, fresh basil. Mediterranean in every bite.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- SLOGAN with cycling word -->
   <section class="vc-slogan" aria-label="Vantage'cook slogan">
     <span class="vc-dash s1" aria-hidden="true"></span>
@@ -297,6 +590,29 @@
   </section>
 
   <script>
+    /* Location tabs — swap photo + card copy */
+    (function(){
+      var tabs = document.querySelectorAll('.vc-loc-tab');
+      var photo = document.getElementById('locPhoto');
+      var title = document.getElementById('locTitle');
+      var body = document.getElementById('locBody');
+      if (!tabs.length || !photo) return;
+      tabs.forEach(function(t){
+        t.addEventListener('click', function(){
+          if (t.classList.contains('is-active')) return;
+          tabs.forEach(function(x){ x.classList.remove('is-active'); });
+          t.classList.add('is-active');
+          photo.classList.add('is-out');
+          setTimeout(function(){
+            photo.src = t.dataset.img;
+            title.textContent = t.dataset.title;
+            body.textContent = t.dataset.body;
+            photo.classList.remove('is-out');
+          }, 250);
+        });
+      });
+    })();
+
     (function(){
       var el = document.getElementById('cookCycle');
       if (!el) return;
