@@ -1040,6 +1040,7 @@
     color: #2a5fb4;
     padding: 5rem 4vw 2.5rem;
     border-top: 1px solid rgba(42,95,180,.25);
+    overflow: hidden;
   }
   .v-foot-top {
     display: grid;
@@ -1090,13 +1091,15 @@
   .v-foot-word {
     font-family: 'Libre Caslon Text', serif;
     font-weight: 700;
-    font-size: clamp(7rem, 26vw, 26rem);
+    font-size: clamp(4rem, 18.5vw, 17rem);
     line-height: .85;
     color: #2a5fb4;
     letter-spacing: -.02em;
     margin-top: 3rem;
     text-align: center;
     user-select: none;
+    white-space: nowrap;
+    max-width: 100%;
   }
 
   @media (max-width: 1100px) {
