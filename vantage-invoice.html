@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoice & Quote Builder</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);
+  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
+  --text:#1D1D1F;--text-2:rgba(29,29,31,.62);--text-3:rgba(29,29,31,.4);
+  --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;--yellow:#FFD60A;
+  --shadow:0 12px 40px rgba(0,0,0,.06);
+}
+html[data-theme="dark"]{--bg:#1C1C1E;--surface:#2C2C2E;--surface-2:#3A3A3C;--border:rgba(255,255,255,.08);--text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.4);--shadow:0 12px 40px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
+.mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px}
+
+/* TOPBAR */
+.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 20px;gap:20px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:.12em}
+.logo .ldot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.sector{background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:10px;font-size:13px;outline:none;cursor:pointer}
+.sector option{background:var(--surface)}
+.tb-center{display:flex;gap:6px;justify-content:center}
+.pill-nav{background:transparent;border:1px solid var(--border);color:var(--text-2);padding:7px 14px;border-radius:20px;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.pill-nav:hover{background:var(--surface-2);color:var(--text)}
+.pill-nav.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:10px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:var(--border)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.outline{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.xs{padding:4px 8px;font-size:11px}
+.btn.ghost{background:transparent}
+.btn.danger{background:rgba(255,69,58,.12);border-color:rgba(255,69,58,.3);color:var(--err)}
+.icon-btn{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-2)}
+.icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.avatar{width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11px}
+
+/* APP */
+.app{display:grid;grid-template-columns:220px 1fr;height:calc(100vh - 56px)}
+aside.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:14px 10px;display:flex;flex-direction:column;overflow-y:auto}
+.side-title{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;padding:10px 10px 6px}
+.side-btn{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-radius:8px;font-size:13px;color:var(--text-2);text-align:left;margin-bottom:1px;opacity:0;animation:sb .4s forwards}
+@keyframes sb{to{opacity:1}}
+.side-btn:hover{background:var(--surface-2);color:var(--text)}
+.side-btn.active{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.side-btn .cnt{font-size:10px;background:var(--surface-2);color:var(--text-3);padding:1px 6px;border-radius:10px}
+.side-btn.active .cnt{background:var(--accent);color:#fff}
+.side-stats{margin-top:auto;padding:12px;background:var(--surface-2);border-radius:12px}
+.side-stats .row{display:flex;justify-content:space-between;padding:4px 0;font-size:11px}
+.side-stats .l{color:var(--text-3);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.side-stats .v{font-weight:700;font-size:12px;font-family:"SF Mono",Menlo,Consolas,monospace}
+
+main{overflow:hidden;display:flex;flex-direction:column;background:var(--bg)}
+.main-hd{padding:16px 22px 8px;display:flex;justify-content:space-between;align-items:center}
+.main-hd h1{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.main-hd .sub{color:var(--text-3);font-size:12px;margin-top:2px}
+.main-body{flex:1;overflow-y:auto;padding:0 22px 30px}
+.main-body::-webkit-scrollbar{width:6px}
+.main-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* KPI CARDS */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px}
+.kcard .l{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.kcard .v{font-size:22px;font-weight:700;margin-top:6px;letter-spacing:-.02em;font-family:"SF Mono",Menlo,Consolas,monospace}
+.kcard .d{font-size:11px;margin-top:3px}
+.kcard .d.up{color:var(--ok)}.kcard .d.down{color:var(--err)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.card h3{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+
+/* FILTERS */
+.list-filters{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.list-filters input,.list-filters select{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);outline:none;font-size:12px}
+
+/* TABLE */
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--border);cursor:pointer}
+table.t th:hover{color:var(--text)}
+table.t td{padding:11px 10px;border-bottom:1px solid var(--border)}
+table.t tr:last-child td{border:0}
+table.t tbody tr{cursor:pointer;transition:background .1s}
+table.t tbody tr:hover{background:var(--surface-2)}
+.pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.pill.draft{background:var(--surface-2);color:var(--text-2)}
+.pill.sent{background:rgba(10,132,255,.15);color:var(--info)}
+.pill.paid{background:rgba(48,209,88,.15);color:var(--ok)}
+.pill.overdue{background:rgba(255,69,58,.15);color:var(--err)}
+.pill.partial{background:rgba(255,159,10,.15);color:var(--warn)}
+.pill.cancelled{background:var(--surface-2);color:var(--text-3);text-decoration:line-through}
+.pill.accepted{background:rgba(48,209,88,.15);color:var(--ok)}
+.pill.declined{background:rgba(255,69,58,.15);color:var(--err)}
+.pill.expired{background:rgba(255,159,10,.15);color:var(--warn)}
+.pill.ok{background:rgba(48,209,88,.15);color:var(--ok)}
+.pill.warn{background:rgba(255,159,10,.15);color:var(--warn)}
+.pill.bad{background:rgba(255,69,58,.15);color:var(--err)}
+
+.av{width:26px;height:26px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:10px;margin-right:6px;vertical-align:middle}
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--text-2)}
+
+/* DOC DETAIL */
+.doc-wrap{display:grid;grid-template-columns:1.8fr 1fr;gap:18px}
+.doc-actions{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.doc-actions .left{display:flex;align-items:center;gap:12px}
+.doc-actions .right{display:flex;gap:6px;flex-wrap:wrap}
+
+/* INVOICE PREVIEW (print-ready) */
+.inv-preview{background:#fff;color:#000;border:1px solid var(--border);border-radius:14px;padding:44px 48px;min-height:900px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;position:relative}
+html[data-theme="dark"] .inv-preview{background:#fff;color:#000}
+.inv-preview .inv-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:24px;border-bottom:3px solid var(--accent)}
+.inv-preview .biz{font-size:12px;color:#444;line-height:1.5}
+.inv-preview .biz .bn{font-size:18px;font-weight:700;color:#000;margin-bottom:4px;letter-spacing:-.01em}
+.inv-preview .title{text-align:right}
+.inv-preview .title h1{font-size:44px;font-weight:800;color:var(--accent);letter-spacing:-.03em;line-height:.9}
+.inv-preview .title .meta{font-size:11px;color:#444;margin-top:10px;line-height:1.6}
+.inv-preview .title .meta strong{color:#000}
+.inv-preview .bill-block{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:24px;margin-bottom:24px;font-size:12px}
+.inv-preview .bill-block h4{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#888;margin-bottom:8px;font-weight:700}
+.inv-preview .bill-block .cn{font-size:14px;font-weight:600;color:#000;margin-bottom:2px}
+.inv-preview .bill-block .ca{color:#444;line-height:1.5}
+.inv-preview .items{width:100%;border-collapse:collapse;margin-top:18px;font-size:12px}
+.inv-preview .items th{background:#f8f8f8;padding:10px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#555;font-weight:700;text-align:left;border-bottom:1px solid #ddd}
+.inv-preview .items td{padding:12px 8px;border-bottom:1px solid #eee;color:#000}
+.inv-preview .items .rt{text-align:right}
+.inv-preview .items .desc{font-size:13px;color:#000}
+.inv-preview .items .sec-hd{background:var(--accent-soft);font-weight:700;color:var(--accent);padding:8px 10px;text-transform:uppercase;font-size:10px;letter-spacing:.08em}
+.inv-preview .totals{margin-top:20px;margin-left:auto;width:320px;font-size:12px}
+.inv-preview .totals .row{display:flex;justify-content:space-between;padding:6px 0;color:#444}
+.inv-preview .totals .row.sub{border-top:1px solid #ddd;padding-top:10px;margin-top:4px}
+.inv-preview .totals .row.total{font-size:22px;font-weight:800;color:var(--accent);padding:14px 0 4px;border-top:3px solid var(--accent);margin-top:10px;letter-spacing:-.02em}
+.inv-preview .footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;display:grid;grid-template-columns:1fr 1fr;gap:30px;font-size:11px;color:#555;line-height:1.6}
+.inv-preview .footer h4{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#888;margin-bottom:6px;font-weight:700}
+.inv-preview .legal{margin-top:30px;text-align:center;font-size:9px;color:#999;letter-spacing:.04em}
+
+/* DETAILS PANEL */
+.det-panel{display:flex;flex-direction:column;gap:14px}
+.det-panel h3{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:10px}
+.det-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.det-row:last-child{border:0}
+.det-row .l{color:var(--text-3);font-size:11px}
+.det-row .v{font-weight:600;font-family:"SF Mono",Menlo,Consolas,monospace}
+.act-log .row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:6px 0;font-size:12px;align-items:center}
+.act-log .ic{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px}
+.act-log .t{font-weight:500}
+.act-log .d{font-size:10px;color:var(--text-3)}
+
+/* EDITOR */
+.ed-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;height:calc(100vh - 130px)}
+.ed-preview{overflow-y:auto}
+.ed-form{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;overflow-y:auto}
+.ed-form h3{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin:14px 0 8px}
+.ed-form h3:first-child{margin-top:0}
+label{display:block;font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600;margin-top:10px}
+.fld{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--text);outline:none;font-size:13px}
+.fld:focus{border-color:var(--accent)}
+.fld.sm{padding:6px 8px;font-size:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+
+.items-hd{display:grid;grid-template-columns:2.5fr .7fr .8fr .9fr .7fr .8fr 24px;gap:4px;padding:8px 0 4px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);font-weight:600}
+.item-row{display:grid;grid-template-columns:2.5fr .7fr .8fr .9fr .7fr .8fr 24px;gap:4px;padding:4px 0;border-bottom:1px solid var(--border);align-items:center;animation:ri .25s}
+@keyframes ri{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.item-row.out{animation:ro .2s forwards}
+@keyframes ro{to{opacity:0;max-height:0;transform:translateX(-10px)}}
+.item-row .fld{padding:5px 7px;font-size:11px}
+.item-row .tot{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:600;font-size:12px;text-align:right}
+.item-row .del{width:22px;height:22px;border-radius:50%;background:var(--surface-2);color:var(--text-3);font-size:13px;display:flex;align-items:center;justify-content:center}
+.item-row .del:hover{background:rgba(255,69,58,.15);color:var(--err)}
+
+/* DASHBOARD */
+.chart-host{position:relative;height:240px}
+.chart-host.sm{height:180px}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(14px);z-index:100;display:none;align-items:center;justify-content:center}
+.mbg.open{display:flex;animation:mf .2s}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:22px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:ms .25s}
+@keyframes ms{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+.modal .row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* PRINT */
+@media print{
+  .topbar,.sidebar,.main-hd,.doc-actions,.det-panel,.mbg{display:none !important}
+  .app{grid-template-columns:1fr !important;height:auto !important}
+  main{overflow:visible !important}
+  .main-body{overflow:visible !important;padding:0 !important}
+  .doc-wrap{display:block !important}
+  .inv-preview{border:0 !important;box-shadow:none !important;padding:30px !important;min-height:auto !important;page-break-inside:avoid}
+  body,html{overflow:visible !important;height:auto !important}
+}
+
+@media (max-width:1200px){.app{grid-template-columns:180px 1fr}.doc-wrap{grid-template-columns:1fr}.ed-wrap{grid-template-columns:1fr}.kgrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo"><span class="ldot"></span>INVOICE</div>
+    <select class="sector" id="sector">
+      <option value="restaurant">🍽️ Restaurant</option>
+      <option value="realestate">🏠 Real Estate</option>
+      <option value="garage">🔧 Garage</option>
+      <option value="retail">👗 Retail</option>
+      <option value="agency">💼 Agency</option>
+    </select>
+  </div>
+  <div class="tb-center">
+    <button class="pill-nav active" data-p="invoices" onclick="setPage('invoices')">📄 Invoices</button>
+    <button class="pill-nav" data-p="quotes" onclick="setPage('quotes')">📋 Quotes</button>
+    <button class="pill-nav" data-p="clients" onclick="setPage('clients')">👥 Clients</button>
+    <button class="pill-nav" data-p="dashboard" onclick="setPage('dashboard')">📊 Dashboard</button>
+    <button class="pill-nav" data-p="settings" onclick="setPage('settings')">⚙️ Settings</button>
+  </div>
+  <div class="tb-right">
+    <button class="btn outline sm" onclick="newDoc('quote')">+ Quote</button>
+    <button class="btn primary sm" onclick="newDoc('invoice')">+ Invoice</button>
+    <button class="icon-btn" id="themeBtn">🌙</button>
+    <div class="avatar" style="background:linear-gradient(135deg,var(--accent),var(--purple))">AM</div>
+  </div>
+</div>
+
+<div class="app">
+<aside class="sidebar" id="sidebar"></aside>
+<main>
+  <div class="main-hd" id="mainHd"></div>
+  <div class="main-body" id="mainBody"></div>
+</main>
+</div>
+
+<!-- SEND MODAL -->
+<div class="mbg" id="mSend"><div class="modal">
+  <h3>Send Invoice</h3>
+  <label>To</label><input type="email" class="fld" id="snTo">
+  <label>CC (optional)</label><input type="email" class="fld" id="snCc">
+  <label>Subject</label><input type="text" class="fld" id="snSubj">
+  <label>Message</label><textarea class="fld" id="snMsg" rows="4"></textarea>
+  <label><input type="checkbox" id="snAttach" checked> Attach PDF</label>
+  <div class="row-btns"><button class="btn ghost" onclick="closeModal('mSend')">Cancel</button><button class="btn" onclick="schedSend()">Schedule</button><button class="btn primary" onclick="doSend()">Send Now</button></div>
+</div></div>
+
+<!-- LOG PAYMENT MODAL -->
+<div class="mbg" id="mPay"><div class="modal">
+  <h3>Log Payment</h3>
+  <label>Amount Paid (€)</label><input type="number" step="0.01" class="fld" id="pyAmt">
+  <label>Date</label><input type="date" class="fld" id="pyDate">
+  <label>Method</label><select class="fld" id="pyMethod"><option>Bank transfer</option><option>Card</option><option>Cash</option><option>Check</option><option>PayPal</option></select>
+  <label>Reference / Transaction ID</label><input type="text" class="fld" id="pyRef">
+  <label>Notes</label><textarea class="fld" id="pyNotes" rows="2"></textarea>
+  <div class="row-btns"><button class="btn ghost" onclick="closeModal('mPay')">Cancel</button><button class="btn primary" onclick="logPayment()">Record Payment</button></div>
+</div></div>
+
+<!-- DUPLICATE MODAL -->
+<div class="mbg" id="mDup"><div class="modal">
+  <h3>Duplicate Document</h3>
+  <label>New Number</label><input type="text" class="fld" id="dpNum">
+  <label>New Date</label><input type="date" class="fld" id="dpDate">
+  <label>Client</label><select class="fld" id="dpClient"></select>
+  <div class="row-btns"><button class="btn ghost" onclick="closeModal('mDup')">Cancel</button><button class="btn primary" onclick="doDup()">Duplicate</button></div>
+</div></div>
+
+<script>
+/* ========= CONFIG ========= */
+const SECTORS={
+  restaurant:{accent:'#FF9500',services:['Catering service','Private dining','Event catering','Menu consultation','Wine pairing','Chef hire','Venue rental']},
+  realestate:{accent:'#30D158',services:['Sales commission','Rental commission','Property valuation','Property management','Legal facilitation','Marketing package','Staging consultation']},
+  garage:{accent:'#0A84FF',services:['Labor hours','Engine diagnostic','MOT inspection','Oil change','Brake service','Tire replacement','Bodywork','Parts supply']},
+  retail:{accent:'#FF375F',services:['Product sale','Alterations','Home delivery','Gift wrapping','Personal shopping','Styling consultation','Exchange fee']},
+  agency:{accent:'#BF5AF2',services:['Website design','Web development','SEO optimization','Monthly retainer','Maintenance','Strategy consulting','Logo design','Brand identity']}
+};
+
+const FIRST=['Alexandra','Nikos','Eleni','Dimitris','Sofia','Kostas','Maria','Yannis','Anna','Giorgos','Katerina','Panagiotis','Ioanna','Stavros','Despina','Vassilis','Athina','Manos','Eirini','Christos'];
+const LAST=['Papadopoulos','Georgiou','Nikolaidis','Ioannou','Dimitriou','Papadakis','Karagiannis','Konstantinou','Stavrou','Marinakis','Petrou','Zervas','Mavros','Angelopoulos'];
+const COMPANIES=['Hellas Trading Co.','Athens Capital Partners','Aegean Ventures Ltd','Kronos Industries','Mediterranean Solutions','Acropolis Group','Olive Branch Holdings','Blue Horizon SA','Delphi Advisory','Spartan Logistics'];
+const ADDR=['14 Ermou St, Athens 10563','88 Kolonaki Sq, Athens 10674','22 Syntagma Ave, Athens 10557','7 Monastiraki, Athens 10555','44 Glyfada Beach Rd, Athens 16675','11 Kifissia Ave, Athens 14562','63 Piraeus Harbor, Piraeus 18535'];
+
+/* ========= STATE ========= */
+let state={
+  sector:'restaurant',page:'invoices',filter:'all',docType:'invoices',
+  documents:[],clients:[],selected:null,
+  editing:null,editingDoc:null,
+  search:'',dateFrom:'',dateTo:'',sort:'date',page_num:1,
+  charts:{},
+  business:{name:'Vantage Business',address:'10 Rue de Paris, 75001 Paris',email:'contact@vantage.com',phone:'+30 210 000 0000',vat:'EL999999999',siret:'FR123456789'},
+  defaults:{prefix:'INV-',start:1000,vat:24,terms:'net30',dueOffset:30,currency:'EUR'},
+  bank:{name:'Piraeus Bank',iban:'GR16 0110 2300 0000 2300 0000 000',bic:'PIRBGRAA'}
+};
+
+/* ========= HELPERS ========= */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const rand=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const randF=(a,b)=>+(a+Math.random()*(b-a)).toFixed(2);
+const pick=a=>a[rand(0,a.length-1)];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const money=v=>'€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const moneyShort=v=>'€'+Math.round(Number(v||0)).toLocaleString('en-US');
+const fmtDate=d=>{if(!d)return '—';const dt=d instanceof Date?d:new Date(d);return dt.toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'})};
+const toISO=d=>(d instanceof Date?d:new Date(d)).toISOString().slice(0,10);
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const initials=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+
+/* ========= DATA GEN ========= */
+function genClients(sector){
+  const list=[];
+  for(let i=0;i<20;i++){
+    const fn=pick(FIRST),ln=pick(LAST);
+    const isCo=Math.random()<.5;
+    list.push({id:uid(),name:isCo?pick(COMPANIES):`${fn} ${ln}`,contact:isCo?`${fn} ${ln}`:'',email:`${fn.toLowerCase()}.${ln.toLowerCase()}@mail.com`,phone:`+30 69 ${rand(10,99)} ${rand(1000,9999)}`,address:pick(ADDR),vat:isCo?`EL${rand(100000000,999999999)}`:'',color:`hsl(${rand(0,360)},55%,55%)`,totalInvoiced:0,totalPaid:0,avgPayDays:rand(5,45)});
+  }
+  return list;
+}
+
+function genDocs(sector,clients){
+  const S=SECTORS[sector];const list=[];const now=Date.now();let invNum=1000,qtNum=500;
+  // invoices
+  for(let i=0;i<50;i++){
+    const c=pick(clients);const issue=new Date(now-rand(0,200)*86400000);const due=addDays(issue,rand(15,45));
+    const items=[];const nItems=rand(1,4);
+    for(let j=0;j<nItems;j++){const qty=rand(1,10);const desc=pick(S.services);const unitPrice=sector==='realestate'?rand(500,8000):sector==='garage'?rand(45,600):sector==='restaurant'?rand(80,800):sector==='retail'?rand(25,450):rand(200,3500);items.push({id:uid(),desc,qty,unit:pick(['unit','hr','day','piece']),unitPrice,vat:24,discount:Math.random()<.15?rand(5,15):0})}
+    const statuses=['draft','sent','paid','overdue','partial','cancelled'];
+    let status;const r=Math.random();
+    if(r<.35)status='paid';else if(r<.55)status='sent';else if(r<.65)status='draft';else if(r<.82)status='overdue';else if(r<.92)status='partial';else status='cancelled';
+    if(due<new Date()&&status==='sent')status='overdue';
+    const tot=computeTotal(items);
+    list.push({id:uid(),type:'invoice',number:`${state.defaults.prefix}${(invNum++).toString().padStart(4,'0')}`,issueDate:issue,dueDate:due,client:c,items,notes:'Thank you for your business.',terms:'net30',status,paid:status==='paid'?tot.total:status==='partial'?+(tot.total*randF(.3,.7)).toFixed(2):0,activities:genActivities(issue,status),payments:status==='paid'?[{id:uid(),date:addDays(issue,rand(5,25)),amount:tot.total,method:'Bank transfer',ref:`TXN${rand(100000,999999)}`,notes:''}]:[]});
+  }
+  // quotes
+  for(let i=0;i<15;i++){
+    const c=pick(clients);const issue=new Date(now-rand(0,60)*86400000);const exp=addDays(issue,30);
+    const items=[];for(let j=0;j<rand(1,4);j++){const desc=pick(S.services);items.push({id:uid(),desc,qty:rand(1,10),unit:'unit',unitPrice:rand(100,5000),vat:24,discount:0})}
+    const qstat=['draft','sent','accepted','declined','expired'];
+    let status;const r=Math.random();if(r<.3)status='accepted';else if(r<.5)status='sent';else if(r<.65)status='draft';else if(r<.82)status='declined';else status='expired';
+    if(exp<new Date()&&status==='sent')status='expired';
+    list.push({id:uid(),type:'quote',number:`QT-${(qtNum++).toString().padStart(4,'0')}`,issueDate:issue,dueDate:exp,expiryDate:exp,client:c,items,notes:'Valid for 30 days.',terms:'net30',status,paid:0,activities:genActivities(issue,status),payments:[]});
+  }
+  // update client totals
+  list.forEach(d=>{if(d.type==='invoice'){d.client.totalInvoiced+=computeTotal(d.items).total;d.client.totalPaid+=d.paid}});
+  return list.sort((a,b)=>b.issueDate-a.issueDate);
+}
+function genActivities(issue,status){
+  const acts=[{id:uid(),type:'created',ic:'✨',title:'Document created',date:issue}];
+  if(['sent','paid','overdue','partial','accepted','declined','expired'].includes(status))acts.push({id:uid(),type:'sent',ic:'📤',title:'Sent to client',date:addDays(issue,1)});
+  if(['paid','partial'].includes(status))acts.push({id:uid(),type:'viewed',ic:'👁',title:'Viewed by client',date:addDays(issue,3)});
+  if(status==='paid')acts.push({id:uid(),type:'paid',ic:'✓',title:'Payment received',date:addDays(issue,rand(5,25))});
+  if(status==='partial')acts.push({id:uid(),type:'partial',ic:'◐',title:'Partial payment received',date:addDays(issue,rand(5,20))});
+  if(status==='overdue')acts.push({id:uid(),type:'reminder',ic:'🔔',title:'Reminder sent',date:addDays(issue,35)});
+  return acts.sort((a,b)=>b.date-a.date);
+}
+function computeTotal(items){
+  let sub=0,vatTotals={},disc=0;
+  items.forEach(it=>{const line=it.qty*it.unitPrice;const d=line*(it.discount||0)/100;const net=line-d;sub+=net;disc+=d;const v=net*(it.vat||0)/100;vatTotals[it.vat]=(vatTotals[it.vat]||0)+v});
+  const vatSum=Object.values(vatTotals).reduce((a,b)=>a+b,0);
+  return {subtotal:sub,discount:disc,vatTotals,vatSum,total:sub+vatSum};
+}
+
+/* ========= SECTOR ========= */
+function applySector(){
+  const S=SECTORS[state.sector];
+  document.documentElement.style.setProperty('--accent',S.accent);
+  document.documentElement.style.setProperty('--accent-soft',S.accent+'26');
+  state.clients=genClients(state.sector);
+  state.documents=genDocs(state.sector,state.clients);
+  state.selected=null;
+  renderAll();
+}
+
+function setPage(p){state.page=p;state.selected=null;$$('.pill-nav').forEach(b=>b.classList.toggle('active',b.dataset.p===p));renderAll()}
+
+/* ========= RENDER ========= */
+function renderAll(){renderSidebar();renderMain()}
+
+function renderSidebar(){
+  const host=$('#sidebar');
+  const invs=state.documents.filter(d=>d.type==='invoice');
+  const qts=state.documents.filter(d=>d.type==='quote');
+  const outstanding=invs.filter(d=>d.status==='sent'||d.status==='overdue'||d.status==='partial').reduce((s,d)=>s+(computeTotal(d.items).total-d.paid),0);
+  const now=new Date();const m=new Date(now.getFullYear(),now.getMonth(),1);
+  const paidMonth=invs.filter(d=>d.status==='paid'&&d.payments[0]&&d.payments[0].date>=m).reduce((s,d)=>s+computeTotal(d.items).total,0);
+  const overdue=invs.filter(d=>d.status==='overdue').length;
+
+  let html=`<button class="side-btn${state.filter==='all'?' active':''}" onclick="setFilter('all','${state.docType}')"><span>All documents</span><span class="cnt">${state.documents.length}</span></button>`;
+  html+=`<div class="side-title">📄 Invoices</div>`;
+  [['all','All'],['draft','Draft'],['sent','Sent'],['paid','Paid'],['overdue','Overdue'],['cancelled','Cancelled']].forEach(([k,l])=>{const n=k==='all'?invs.length:invs.filter(d=>d.status===k).length;html+=`<button class="side-btn${state.filter===k&&state.docType==='invoices'?' active':''}" onclick="setFilter('${k}','invoices')"><span>${l}</span><span class="cnt">${n}</span></button>`});
+  html+=`<div class="side-title">📋 Quotes</div>`;
+  [['all','All'],['draft','Draft'],['sent','Sent'],['accepted','Accepted'],['declined','Declined'],['expired','Expired']].forEach(([k,l])=>{const n=k==='all'?qts.length:qts.filter(d=>d.status===k).length;html+=`<button class="side-btn${state.filter==='q-'+k?' active':''}" onclick="setFilter('q-${k}','quotes')"><span>${l}</span><span class="cnt">${n}</span></button>`});
+  html+=`<div class="side-stats"><div class="row"><span class="l">Outstanding</span><span class="v">${moneyShort(outstanding)}</span></div><div class="row"><span class="l">Paid (month)</span><span class="v">${moneyShort(paidMonth)}</span></div><div class="row"><span class="l">Overdue</span><span class="v" style="color:var(--err)">${overdue}</span></div></div>`;
+  host.innerHTML=html;
+}
+window.setFilter=(f,t)=>{state.filter=f;state.docType=t;state.page=t==='quotes'?'quotes':'invoices';state.selected=null;$$('.pill-nav').forEach(b=>b.classList.toggle('active',b.dataset.p===state.page));renderAll()};
+
+function renderMain(){
+  const hd=$('#mainHd'),body=$('#mainBody');
+  if(state.editing)return renderEditor(hd,body);
+  if(state.selected)return renderDocDetail(hd,body);
+  if(state.page==='invoices'||state.page==='quotes')return renderDocList(hd,body);
+  if(state.page==='clients')return renderClientsPage(hd,body);
+  if(state.page==='dashboard')return renderDashboard(hd,body);
+  if(state.page==='settings')return renderSettings(hd,body);
+}
+
+function renderDocList(hd,body){
+  const type=state.page==='quotes'?'quote':'invoice';
+  const allDocs=state.documents.filter(d=>d.type===type);
+  hd.innerHTML=`<div><h1>${type==='invoice'?'Invoices':'Quotes'}</h1><div class="sub">${allDocs.length} documents</div></div><div><button class="btn primary sm" onclick="newDoc('${type}')">+ New ${type}</button></div>`;
+  // KPIs
+  const totalOut=allDocs.filter(d=>['sent','overdue','partial'].includes(d.status)).reduce((s,d)=>s+(computeTotal(d.items).total-d.paid),0);
+  const now=new Date();const m=new Date(now.getFullYear(),now.getMonth(),1);
+  const paidMonth=allDocs.filter(d=>d.status==='paid'&&d.payments[0]&&d.payments[0].date>=m).reduce((s,d)=>s+computeTotal(d.items).total,0);
+  const overdueList=allDocs.filter(d=>d.status==='overdue');
+  const overdueSum=overdueList.reduce((s,d)=>s+computeTotal(d.items).total,0);
+  const avgPay=state.clients.reduce((s,c)=>s+c.avgPayDays,0)/state.clients.length;
+
+  // Filter
+  let list=allDocs;
+  if(state.filter!=='all'&&state.filter!=='q-all'){
+    const st=state.filter.replace('q-','');
+    list=list.filter(d=>d.status===st);
+  }
+  const q=state.search.toLowerCase();
+  if(q)list=list.filter(d=>d.number.toLowerCase().includes(q)||d.client.name.toLowerCase().includes(q));
+  if(state.dateFrom)list=list.filter(d=>d.issueDate>=new Date(state.dateFrom));
+  if(state.dateTo)list=list.filter(d=>d.issueDate<=new Date(state.dateTo));
+  list.sort((a,b)=>state.sort==='date'?b.issueDate-a.issueDate:state.sort==='amount'?computeTotal(b.items).total-computeTotal(a.items).total:a.number.localeCompare(b.number));
+
+  const pp=15;const start=(state.page_num-1)*pp;const page=list.slice(start,start+pp);
+
+  body.innerHTML=`<div class="kgrid">
+    <div class="kcard"><div class="l">Outstanding</div><div class="v">${moneyShort(totalOut)}</div><div class="d" style="color:var(--text-2)">${allDocs.filter(d=>['sent','overdue','partial'].includes(d.status)).length} documents</div></div>
+    <div class="kcard"><div class="l">Paid this month</div><div class="v">${moneyShort(paidMonth)}</div><div class="d up">▲ collected</div></div>
+    <div class="kcard"><div class="l">Overdue</div><div class="v" style="color:var(--err)">${moneyShort(overdueSum)}</div><div class="d down">${overdueList.length} invoices</div></div>
+    <div class="kcard"><div class="l">Avg payment</div><div class="v">${Math.round(avgPay)}d</div><div class="d" style="color:var(--text-2)">after invoice</div></div>
+  </div>
+  <div class="card">
+    <div class="list-filters">
+      <input type="text" id="lSearch" placeholder="Search number or client..." style="flex:1">
+      <input type="date" id="lFrom">
+      <input type="date" id="lTo">
+      <select id="lSort"><option value="date">Sort: Date</option><option value="amount">Sort: Amount</option><option value="number">Sort: Number</option></select>
+    </div>
+    <table class="t"><thead><tr><th>Number</th><th>Client</th><th>Issue</th><th>${type==='invoice'?'Due':'Expiry'}</th><th style="text-align:right">Net</th><th style="text-align:right">VAT</th><th style="text-align:right">Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+    ${page.map(d=>{const t=computeTotal(d.items);return `<tr onclick="openDoc('${d.id}')">
+      <td><strong>${d.number}</strong></td>
+      <td><span class="av" style="background:${d.client.color}">${initials(d.client.name)}</span>${d.client.name}</td>
+      <td>${fmtDate(d.issueDate)}</td>
+      <td>${fmtDate(d.dueDate)}</td>
+      <td class="mono" style="text-align:right">${money(t.subtotal-t.discount)}</td>
+      <td class="mono" style="text-align:right">${money(t.vatSum)}</td>
+      <td class="mono" style="text-align:right;font-weight:700">${money(t.total)}</td>
+      <td><span class="pill ${d.status}">${d.status}</span></td>
+      <td onclick="event.stopPropagation()"><button class="btn xs" onclick="openDoc('${d.id}')">👁</button> <button class="btn xs" onclick="editDoc('${d.id}')">✏️</button> <button class="btn xs" onclick="openSend('${d.id}')">📤</button> <button class="btn xs" onclick="printDoc('${d.id}')">🖨️</button></td>
+    </tr>`}).join('')||'<tr><td colspan="9" style="text-align:center;color:var(--text-3);padding:24px">No documents</td></tr>'}
+    </tbody></table>
+    <div class="pagination"><span>Showing ${page.length ? start+1 : 0}-${start+page.length} of ${list.length}</span><div><button class="btn xs" onclick="state.page_num=Math.max(1,state.page_num-1);renderMain()">Prev</button> <button class="btn xs" onclick="state.page_num=Math.min(${Math.ceil(list.length/pp)},state.page_num+1);renderMain()">Next</button></div></div>
+  </div>`;
+  $('#lSearch').value=state.search;$('#lSearch').addEventListener('input',e=>{state.search=e.target.value;state.page_num=1;renderMain()});
+  $('#lFrom').value=state.dateFrom;$('#lFrom').addEventListener('change',e=>{state.dateFrom=e.target.value;renderMain()});
+  $('#lTo').value=state.dateTo;$('#lTo').addEventListener('change',e=>{state.dateTo=e.target.value;renderMain()});
+  $('#lSort').value=state.sort;$('#lSort').addEventListener('change',e=>{state.sort=e.target.value;renderMain()});
+}
+
+window.openDoc=id=>{state.selected=id;renderMain()};
+window.editDoc=id=>{state.editing=id;state.editingDoc=JSON.parse(JSON.stringify(state.documents.find(x=>x.id===id)));state.editingDoc.issueDate=new Date(state.editingDoc.issueDate);state.editingDoc.dueDate=new Date(state.editingDoc.dueDate);renderMain()};
+window.newDoc=type=>{
+  const num=type==='invoice'?`${state.defaults.prefix}${(state.documents.filter(d=>d.type==='invoice').length+1001).toString().padStart(4,'0')}`:`QT-${(state.documents.filter(d=>d.type==='quote').length+501).toString().padStart(4,'0')}`;
+  const nd={id:uid(),type,number:num,issueDate:new Date(),dueDate:addDays(new Date(),30),client:state.clients[0],items:[{id:uid(),desc:SECTORS[state.sector].services[0],qty:1,unit:'unit',unitPrice:0,vat:state.defaults.vat,discount:0}],notes:'',terms:state.defaults.terms,status:'draft',paid:0,activities:[{id:uid(),type:'created',ic:'✨',title:'Document created',date:new Date()}],payments:[]};
+  state.editing='new';state.editingDoc=nd;
+  renderMain();
+};
+
+/* DOC DETAIL */
+function renderDocDetail(hd,body){
+  const d=state.documents.find(x=>x.id===state.selected);if(!d)return;
+  const t=computeTotal(d.items);const remaining=t.total-d.paid;
+  hd.innerHTML='';
+  body.innerHTML=`<div class="doc-actions">
+    <div class="left"><button class="btn sm" onclick="state.selected=null;renderMain()">← Back</button><strong>${d.number}</strong><span class="pill ${d.status}">${d.status}</span></div>
+    <div class="right">
+      <button class="btn sm" onclick="editDoc('${d.id}')">Edit</button>
+      <button class="btn sm" onclick="openSend('${d.id}')">📤 Send</button>
+      <button class="btn sm" onclick="printDoc('${d.id}')">🖨️ Print</button>
+      <button class="btn sm" onclick="printDoc('${d.id}')">⤓ PDF</button>
+      ${d.type==='invoice'&&d.status!=='paid'?`<button class="btn primary sm" onclick="openPay('${d.id}')">Mark Paid</button>`:''}
+      ${d.type==='quote'&&d.status==='accepted'?`<button class="btn primary sm" onclick="convertToInv('${d.id}')">Convert to Invoice</button>`:''}
+      <button class="btn sm" onclick="openDup('${d.id}')">Duplicate</button>
+      <button class="btn sm danger" onclick="delDoc('${d.id}')">Delete</button>
+    </div>
+  </div>
+  <div class="doc-wrap">
+    <div>${renderInvoicePreview(d)}</div>
+    <div class="det-panel">
+      <div class="card"><h3>Client</h3><div style="display:flex;gap:10px;align-items:center;margin-bottom:10px"><div class="av" style="background:${d.client.color};width:36px;height:36px;font-size:13px">${initials(d.client.name)}</div><div><div style="font-weight:600">${d.client.name}</div><div style="font-size:11px;color:var(--text-3)">${d.client.email}</div></div></div>
+        <div class="det-row"><span class="l">Phone</span><span class="v" style="font-family:inherit">${d.client.phone}</span></div>
+        <div class="det-row"><span class="l">Address</span><span class="v" style="font-family:inherit;font-weight:400;font-size:12px">${d.client.address}</span></div>
+        ${d.client.vat?`<div class="det-row"><span class="l">VAT</span><span class="v">${d.client.vat}</span></div>`:''}
+      </div>
+      ${d.type==='invoice'?`<div class="card"><h3>Payment Tracking</h3>
+        <div class="det-row"><span class="l">Amount due</span><span class="v">${money(t.total)}</span></div>
+        <div class="det-row"><span class="l">Paid</span><span class="v" style="color:var(--ok)">${money(d.paid)}</span></div>
+        <div class="det-row"><span class="l">Remaining</span><span class="v" style="color:${remaining>0?'var(--err)':'var(--ok)'}">${money(remaining)}</span></div>
+        <div class="det-row"><span class="l">Due date</span><span class="v" style="font-family:inherit">${fmtDate(d.dueDate)}</span></div>
+        <button class="btn primary sm" style="width:100%;margin-top:10px" onclick="openPay('${d.id}')">+ Log Payment</button>
+        ${d.payments.length?`<div style="margin-top:12px;font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600">Payment History</div>${d.payments.map(p=>`<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:12px"><div style="display:flex;justify-content:space-between"><strong>${money(p.amount)}</strong><span style="color:var(--text-3)">${fmtDate(p.date)}</span></div><div style="font-size:10px;color:var(--text-3)">${p.method} · ${p.ref}</div></div>`).join('')}`:''}
+      </div>`:''}
+      <div class="card act-log"><h3>Activity</h3>${d.activities.map(a=>`<div class="row"><div class="ic">${a.ic}</div><div><div class="t">${a.title}</div><div class="d">${fmtDate(a.date)}</div></div></div>`).join('')}</div>
+      <div class="card"><h3>Reminders</h3>
+        <div class="det-row"><span class="l">Auto before due</span><span class="v" style="font-family:inherit">7 days</span></div>
+        <div class="det-row"><span class="l">Auto after due</span><span class="v" style="font-family:inherit">3, 7, 14 days</span></div>
+        <button class="btn sm" style="width:100%;margin-top:10px" onclick="sendReminder('${d.id}')">Send Reminder Now</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderInvoicePreview(d){
+  const t=computeTotal(d.items);const b=state.business;
+  const vatRows=Object.entries(t.vatTotals).filter(([,v])=>v>0).map(([rate,v])=>`<div class="row"><span>VAT ${rate}%</span><span class="mono">${money(v)}</span></div>`).join('');
+  return `<div class="inv-preview">
+    <div class="inv-header">
+      <div class="biz"><div class="bn">${b.name}</div>${b.address}<br>${b.phone} · ${b.email}<br>VAT: ${b.vat}</div>
+      <div class="title"><h1>${d.type==='invoice'?'INVOICE':'QUOTE'}</h1><div class="meta"><strong>${d.number}</strong><br>Issued: ${fmtDate(d.issueDate)}<br>${d.type==='invoice'?'Due':'Expires'}: ${fmtDate(d.dueDate)}</div></div>
+    </div>
+    <div class="bill-block">
+      <div><h4>Bill To</h4><div class="cn">${d.client.name}</div><div class="ca">${d.client.address}<br>${d.client.email} · ${d.client.phone}${d.client.vat?`<br>VAT: ${d.client.vat}`:''}</div></div>
+      <div><h4>Status</h4><div class="cn" style="color:var(--accent);text-transform:uppercase">${d.status}</div><div class="ca" style="margin-top:6px">Payment terms: ${d.terms}<br>Currency: EUR</div></div>
+    </div>
+    <table class="items"><thead><tr><th>Description</th><th class="rt">Qty</th><th>Unit</th><th class="rt">Unit €</th><th class="rt">VAT %</th><th class="rt">Total €</th></tr></thead><tbody>
+    ${d.items.map(it=>{const line=it.qty*it.unitPrice;const disc=line*(it.discount||0)/100;const net=line-disc;return `<tr><td class="desc">${it.desc}${it.discount?`<span style="color:var(--accent);font-size:10px"> · -${it.discount}%</span>`:''}</td><td class="rt mono">${it.qty}</td><td>${it.unit}</td><td class="rt mono">${money(it.unitPrice)}</td><td class="rt mono">${it.vat}%</td><td class="rt mono" style="font-weight:700">${money(net)}</td></tr>`}).join('')}
+    </tbody></table>
+    <div class="totals">
+      <div class="row"><span>Subtotal</span><span class="mono">${money(t.subtotal)}</span></div>
+      ${t.discount>0?`<div class="row" style="color:var(--accent)"><span>Discount</span><span class="mono">-${money(t.discount)}</span></div>`:''}
+      ${vatRows}
+      <div class="row total"><span>TOTAL</span><span class="mono">${money(t.total)}</span></div>
+    </div>
+    <div class="footer">
+      <div><h4>Payment Terms</h4>Due: ${fmtDate(d.dueDate)}<br>Terms: ${d.terms.toUpperCase()}<br>${d.notes||'Thank you for your business.'}</div>
+      <div><h4>Bank Details</h4>${state.bank.name}<br>IBAN: ${state.bank.iban}<br>BIC: ${state.bank.bic}</div>
+    </div>
+    <div class="legal">${b.name} · ${b.address} · VAT ${b.vat} · SIRET ${b.siret}</div>
+  </div>`;
+}
+
+/* EDITOR */
+function renderEditor(hd,body){
+  const d=state.editingDoc;const S=SECTORS[state.sector];
+  hd.innerHTML='';
+  body.innerHTML=`<div class="doc-actions">
+    <div class="left"><button class="btn sm" onclick="state.editing=null;state.editingDoc=null;renderMain()">← Back</button><strong>${d.id==='new'||!state.documents.find(x=>x.id===d.id)?'New':'Edit'} ${d.type}</strong></div>
+    <div class="right"><button class="btn sm" onclick="saveDraft()">Save Draft</button><button class="btn sm" onclick="saveAndPreview()">Preview</button><button class="btn primary sm" onclick="saveAndSend()">Send</button><button class="btn sm" onclick="printEditor()">Print/PDF</button></div>
+  </div>
+  <div class="ed-wrap">
+    <div class="ed-preview" id="edPreview">${renderInvoicePreview(d)}</div>
+    <div class="ed-form">
+      <h3>Document</h3>
+      <label>Type</label><select class="fld" id="eType"><option value="invoice" ${d.type==='invoice'?'selected':''}>Invoice</option><option value="quote" ${d.type==='quote'?'selected':''}>Quote</option><option value="proforma">Pro-forma</option></select>
+      <div class="row2"><div><label>Number</label><input type="text" class="fld" id="eNum" value="${d.number}"></div><div><label>Reference/PO</label><input type="text" class="fld" id="eRef"></div></div>
+      <div class="row2"><div><label>Issue Date</label><input type="date" class="fld" id="eIssue" value="${toISO(d.issueDate)}"></div><div><label>${d.type==='invoice'?'Due':'Expiry'} Date</label><input type="date" class="fld" id="eDue" value="${toISO(d.dueDate)}"></div></div>
+
+      <h3>Client</h3>
+      <label>Select from library</label><select class="fld" id="eClient">${state.clients.map(c=>`<option value="${c.id}" ${c.id===d.client.id?'selected':''}>${c.name}</option>`).join('')}</select>
+
+      <h3>Line Items</h3>
+      <div class="items-hd"><span>Description</span><span>Qty</span><span>Unit</span><span>€/unit</span><span>VAT %</span><span>Total</span><span></span></div>
+      <div id="itemRows"></div>
+      <button class="btn sm" style="margin-top:8px;width:100%" onclick="addItem()">+ Add line</button>
+      <button class="btn sm ghost" style="margin-top:4px;width:100%" onclick="addItem(true)">+ Add section header</button>
+
+      <h3>Totals</h3>
+      <div id="edTotals"></div>
+
+      <h3>Terms & Notes</h3>
+      <label>Payment Terms</label><select class="fld" id="eTerms"><option value="receipt">Due on receipt</option><option value="net15">Net 15</option><option value="net30" ${d.terms==='net30'?'selected':''}>Net 30</option><option value="net60">Net 60</option></select>
+      <label>Client-facing notes</label><textarea class="fld" id="eNotes" rows="2">${d.notes}</textarea>
+      <label>Internal notes (private)</label><textarea class="fld" id="eIntNotes" rows="2"></textarea>
+
+      <h3>Customization</h3>
+      <label>Accent color</label><input type="color" class="fld" id="eAccent" value="${S.accent}">
+      <label>Language</label><select class="fld"><option>English</option><option>French</option><option>Greek</option></select>
+    </div>
+  </div>`;
+  renderItemRows();
+  $('#eType').addEventListener('change',e=>{d.type=e.target.value;updPreview()});
+  $('#eNum').addEventListener('input',e=>{d.number=e.target.value;updPreview()});
+  $('#eIssue').addEventListener('change',e=>{d.issueDate=new Date(e.target.value);updPreview()});
+  $('#eDue').addEventListener('change',e=>{d.dueDate=new Date(e.target.value);updPreview()});
+  $('#eClient').addEventListener('change',e=>{d.client=state.clients.find(c=>c.id===e.target.value);updPreview()});
+  $('#eTerms').addEventListener('change',e=>{d.terms=e.target.value;updPreview()});
+  $('#eNotes').addEventListener('input',e=>{d.notes=e.target.value;updPreview()});
+  $('#eAccent').addEventListener('input',e=>{document.documentElement.style.setProperty('--accent',e.target.value);updPreview()});
+}
+
+function renderItemRows(){
+  const host=$('#itemRows');const d=state.editingDoc;host.innerHTML='';
+  d.items.forEach(it=>{
+    const el=document.createElement('div');el.className='item-row';el.dataset.id=it.id;
+    el.innerHTML=`<input type="text" class="fld" data-f="desc" value="${it.desc}" list="serviceList"><input type="number" step="0.01" class="fld" data-f="qty" value="${it.qty}"><input type="text" class="fld" data-f="unit" value="${it.unit}"><input type="number" step="0.01" class="fld" data-f="unitPrice" value="${it.unitPrice}"><input type="number" step="0.1" class="fld" data-f="vat" value="${it.vat}"><span class="tot">${money(it.qty*it.unitPrice*(1-(it.discount||0)/100))}</span><button class="del" onclick="removeItem('${it.id}')">×</button>`;
+    el.querySelectorAll('[data-f]').forEach(inp=>inp.addEventListener('input',e=>{const f=e.target.dataset.f;it[f]=f==='desc'||f==='unit'?e.target.value:+e.target.value||0;el.querySelector('.tot').textContent=money(it.qty*it.unitPrice*(1-(it.discount||0)/100));updPreview();updTotals()}));
+    host.appendChild(el);
+  });
+  // Datalist for autocomplete
+  if(!document.getElementById('serviceList')){const dl=document.createElement('datalist');dl.id='serviceList';SECTORS[state.sector].services.forEach(s=>{const o=document.createElement('option');o.value=s;dl.appendChild(o)});document.body.appendChild(dl)}
+  updTotals();
+}
+function updTotals(){
+  const t=computeTotal(state.editingDoc.items);
+  const vatRows=Object.entries(t.vatTotals).filter(([,v])=>v>0).map(([rate,v])=>`<div class="det-row"><span class="l">VAT ${rate}%</span><span class="v">${money(v)}</span></div>`).join('');
+  $('#edTotals').innerHTML=`<div class="det-row"><span class="l">Subtotal</span><span class="v">${money(t.subtotal)}</span></div>${t.discount>0?`<div class="det-row"><span class="l">Discount</span><span class="v" style="color:var(--accent)">-${money(t.discount)}</span></div>`:''}${vatRows}<div class="det-row" style="border-top:2px solid var(--accent);margin-top:4px;padding-top:8px"><span class="l" style="font-weight:700">TOTAL</span><span class="v" style="color:var(--accent);font-size:16px">${money(t.total)}</span></div>`;
+}
+function updPreview(){$('#edPreview').innerHTML=renderInvoicePreview(state.editingDoc);updTotals()}
+window.addItem=isHeader=>{const S=SECTORS[state.sector];state.editingDoc.items.push({id:uid(),desc:isHeader?'— SECTION —':pick(S.services),qty:1,unit:'unit',unitPrice:0,vat:state.defaults.vat,discount:0});renderItemRows();updPreview()};
+window.removeItem=id=>{const row=document.querySelector(`.item-row[data-id="${id}"]`);if(row)row.classList.add('out');setTimeout(()=>{state.editingDoc.items=state.editingDoc.items.filter(i=>i.id!==id);renderItemRows();updPreview()},200)};
+
+window.saveDraft=()=>{const d=state.editingDoc;d.status='draft';saveToList();alert('Saved as draft')};
+window.saveAndPreview=()=>{saveToList();state.selected=state.editingDoc.id;state.editing=null;state.editingDoc=null;renderMain()};
+window.saveAndSend=()=>{const d=state.editingDoc;d.status='sent';d.activities.unshift({id:uid(),type:'sent',ic:'📤',title:'Sent to client',date:new Date()});saveToList();state.selected=d.id;state.editing=null;state.editingDoc=null;openSend(d.id);renderMain()};
+window.printEditor=()=>window.print();
+function saveToList(){const d=state.editingDoc;const ex=state.documents.findIndex(x=>x.id===d.id);if(ex>=0)state.documents[ex]=d;else{d.id=uid();state.documents.unshift(d)}}
+
+/* CLIENTS */
+function renderClientsPage(hd,body){
+  hd.innerHTML=`<div><h1>Clients</h1><div class="sub">${state.clients.length} clients</div></div>`;
+  body.innerHTML=`<div class="card"><table class="t"><thead><tr><th>Client</th><th>Company</th><th style="text-align:right">Invoiced</th><th style="text-align:right">Paid</th><th style="text-align:right">Outstanding</th><th>Last invoice</th><th style="text-align:right">Avg pay</th><th></th></tr></thead><tbody>
+  ${state.clients.map(c=>{const invs=state.documents.filter(d=>d.type==='invoice'&&d.client.id===c.id);const out=invs.reduce((s,d)=>s+(computeTotal(d.items).total-d.paid),0);const last=invs[0]?.issueDate;return `<tr onclick="setPage('invoices');state.search='${c.name}';renderMain()"><td><span class="av" style="background:${c.color}">${initials(c.name)}</span>${c.name}</td><td>${c.contact||'—'}</td><td class="mono" style="text-align:right">${money(c.totalInvoiced)}</td><td class="mono" style="text-align:right;color:var(--ok)">${money(c.totalPaid)}</td><td class="mono" style="text-align:right;color:${out>0?'var(--err)':'var(--text-3)'}">${money(out)}</td><td>${last?fmtDate(last):'—'}</td><td class="mono" style="text-align:right">${c.avgPayDays}d</td><td onclick="event.stopPropagation()"><button class="btn xs primary" onclick="newDocForClient('${c.id}')">+ Invoice</button></td></tr>`}).join('')}
+  </tbody></table></div>`;
+}
+window.newDocForClient=id=>{const c=state.clients.find(x=>x.id===id);newDoc('invoice');state.editingDoc.client=c;renderMain()};
+
+/* DASHBOARD */
+function renderDashboard(hd,body){
+  hd.innerHTML=`<div><h1>Dashboard</h1></div>`;
+  const invs=state.documents.filter(d=>d.type==='invoice');const qts=state.documents.filter(d=>d.type==='quote');
+  const yr=new Date().getFullYear();const yrInvs=invs.filter(d=>d.issueDate.getFullYear()===yr);
+  const totalInv=yrInvs.reduce((s,d)=>s+computeTotal(d.items).total,0);
+  const collected=yrInvs.reduce((s,d)=>s+d.paid,0);
+  const outstanding=yrInvs.filter(d=>['sent','overdue','partial'].includes(d.status)).reduce((s,d)=>s+(computeTotal(d.items).total-d.paid),0);
+  const overdue=yrInvs.filter(d=>d.status==='overdue').reduce((s,d)=>s+computeTotal(d.items).total,0);
+  const qtAccepted=qts.filter(d=>d.status==='accepted').length;const convRate=qts.length?Math.round(qtAccepted/qts.length*100):0;
+
+  body.innerHTML=`<div class="kgrid" style="grid-template-columns:repeat(5,1fr)">
+    <div class="kcard"><div class="l">Total Invoiced</div><div class="v">${moneyShort(totalInv)}</div></div>
+    <div class="kcard"><div class="l">Collected</div><div class="v" style="color:var(--ok)">${moneyShort(collected)}</div></div>
+    <div class="kcard"><div class="l">Outstanding</div><div class="v" style="color:var(--warn)">${moneyShort(outstanding)}</div></div>
+    <div class="kcard"><div class="l">Overdue</div><div class="v" style="color:var(--err)">${moneyShort(overdue)}</div></div>
+    <div class="kcard"><div class="l">Quote Conversion</div><div class="v">${convRate}%</div></div>
+  </div>
+  <div class="grid2" style="margin-bottom:14px"><div class="card"><h3>Revenue Collected — Last 12 Months</h3><div class="chart-host"><canvas id="dcRev"></canvas></div></div><div class="card"><h3>Invoice Status Breakdown</h3><div class="chart-host"><canvas id="dcStatus"></canvas></div></div></div>
+  <div class="grid2" style="margin-bottom:14px"><div class="card"><h3>Top 10 Clients by Revenue</h3><div class="chart-host"><canvas id="dcTop"></canvas></div></div><div class="card"><h3>Avg Payment Time Trend</h3><div class="chart-host"><canvas id="dcPay"></canvas></div></div></div>
+  <div class="grid2"><div class="card"><h3>Overdue Invoices</h3><table class="t"><thead><tr><th>Client</th><th style="text-align:right">Amount</th><th style="text-align:right">Days</th><th></th></tr></thead><tbody>${invs.filter(d=>d.status==='overdue').slice(0,8).map(d=>{const days=Math.floor((new Date()-d.dueDate)/86400000);return `<tr onclick="openDoc('${d.id}')"><td>${d.client.name}</td><td class="mono" style="text-align:right">${money(computeTotal(d.items).total)}</td><td style="text-align:right;color:var(--err);font-weight:600">${days}d</td><td><button class="btn xs" onclick="event.stopPropagation();sendReminder('${d.id}')">Remind</button></td></tr>`}).join('')||'<tr><td colspan="4" style="color:var(--text-3);text-align:center;padding:14px">None</td></tr>'}</tbody></table></div>
+    <div class="card"><h3>Quotes Expiring Soon</h3><table class="t"><thead><tr><th>Client</th><th style="text-align:right">Amount</th><th style="text-align:right">Days left</th><th></th></tr></thead><tbody>${qts.filter(d=>d.status==='sent'&&d.expiryDate>new Date()&&d.expiryDate<addDays(new Date(),14)).slice(0,8).map(d=>{const days=Math.ceil((d.expiryDate-new Date())/86400000);return `<tr onclick="openDoc('${d.id}')"><td>${d.client.name}</td><td class="mono" style="text-align:right">${money(computeTotal(d.items).total)}</td><td style="text-align:right;color:var(--warn);font-weight:600">${days}d</td><td><button class="btn xs" onclick="event.stopPropagation();sendReminder('${d.id}')">Follow up</button></td></tr>`}).join('')||'<tr><td colspan="4" style="color:var(--text-3);text-align:center;padding:14px">None</td></tr>'}</tbody></table></div>
+  </div>`;
+  setTimeout(()=>{
+    const accent=SECTORS[state.sector].accent;
+    const months=[];const revs=[];for(let i=11;i>=0;i--){const m=new Date();m.setMonth(m.getMonth()-i);months.push(m.toLocaleDateString('en-US',{month:'short'}));const mStart=new Date(m.getFullYear(),m.getMonth(),1),next=new Date(m.getFullYear(),m.getMonth()+1,1);revs.push(invs.filter(d=>d.status==='paid'&&d.payments[0]&&d.payments[0].date>=mStart&&d.payments[0].date<next).reduce((s,d)=>s+computeTotal(d.items).total,0))}
+    if(state.charts.dcRev)state.charts.dcRev.destroy();state.charts.dcRev=new Chart($('#dcRev'),{type:'bar',data:{labels:months,datasets:[{data:revs,backgroundColor:accent+'cc',borderRadius:6}]},options:chartOpts()});
+    const statusCount={draft:0,sent:0,paid:0,overdue:0,partial:0,cancelled:0};invs.forEach(d=>statusCount[d.status]=(statusCount[d.status]||0)+1);
+    if(state.charts.dcStatus)state.charts.dcStatus.destroy();state.charts.dcStatus=new Chart($('#dcStatus'),{type:'doughnut',data:{labels:Object.keys(statusCount),datasets:[{data:Object.values(statusCount),backgroundColor:['#8E8E93','#0A84FF','#30D158','#FF453A','#FF9F0A','#636366']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}}}});
+    const topClients=state.clients.slice().sort((a,b)=>b.totalInvoiced-a.totalInvoiced).slice(0,10);
+    if(state.charts.dcTop)state.charts.dcTop.destroy();state.charts.dcTop=new Chart($('#dcTop'),{type:'bar',data:{labels:topClients.map(c=>c.name.length>20?c.name.slice(0,20)+'…':c.name),datasets:[{data:topClients.map(c=>c.totalInvoiced),backgroundColor:accent,borderRadius:5}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>'€'+Math.round(v/1000)+'k'}}}}});
+    const payMonths=Array.from({length:8},(_,i)=>i);const payAvg=payMonths.map(()=>rand(10,45));
+    if(state.charts.dcPay)state.charts.dcPay.destroy();state.charts.dcPay=new Chart($('#dcPay'),{type:'line',data:{labels:payMonths.map(w=>`W${w}`),datasets:[{label:'Days',data:payAvg,borderColor:accent,backgroundColor:accent+'22',tension:.4,fill:true,pointRadius:0}]},options:chartOpts()});
+  },50);
+}
+function chartOpts(){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{font:{size:10}}}}}}
+
+/* SETTINGS */
+function renderSettings(hd,body){
+  hd.innerHTML=`<div><h1>Settings</h1></div>`;
+  body.innerHTML=`<div class="grid2">
+    <div class="card"><h3>Business Profile</h3>
+      <label>Business name</label><input type="text" class="fld" value="${state.business.name}" id="bsName">
+      <label>Logo</label><input type="file" class="fld">
+      <label>Address</label><input type="text" class="fld" value="${state.business.address}" id="bsAddr">
+      <label>Phone</label><input type="tel" class="fld" value="${state.business.phone}">
+      <label>Email</label><input type="email" class="fld" value="${state.business.email}">
+      <label>VAT Number</label><input type="text" class="fld" value="${state.business.vat}">
+      <label>SIRET / Registration</label><input type="text" class="fld" value="${state.business.siret}">
+      <button class="btn primary" style="margin-top:14px" onclick="saveBusiness()">Save</button>
+    </div>
+    <div class="card"><h3>Invoice Defaults</h3>
+      <div class="row2"><div><label>Number prefix</label><input type="text" class="fld" value="${state.defaults.prefix}"></div><div><label>Starting #</label><input type="number" class="fld" value="${state.defaults.start}"></div></div>
+      <label>Default VAT rate</label><input type="number" class="fld" value="${state.defaults.vat}">
+      <label>Default payment terms</label><select class="fld"><option>Due on receipt</option><option selected>Net 30</option><option>Net 60</option></select>
+      <label>Currency</label><select class="fld"><option>EUR (€)</option><option>USD ($)</option></select>
+    </div>
+    <div class="card"><h3>Bank Details</h3>
+      <label>Bank name</label><input type="text" class="fld" value="${state.bank.name}">
+      <label>IBAN</label><input type="text" class="fld" value="${state.bank.iban}">
+      <label>BIC / SWIFT</label><input type="text" class="fld" value="${state.bank.bic}">
+      <label>Payment methods</label><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">${['Bank transfer','Card','Cash','Check','PayPal','Stripe'].map(m=>`<label style="display:inline-flex;align-items:center;gap:4px;font-size:12px;text-transform:none;letter-spacing:0;color:var(--text)"><input type="checkbox" checked>${m}</label>`).join('')}</div>
+    </div>
+    <div class="card"><h3>Templates</h3>
+      <label>Invoice template</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">${['Classic','Modern','Minimal','Bold'].map(t=>`<button class="btn sm" style="padding:14px;${t==='Classic'?'background:var(--accent-soft);color:var(--accent);border-color:var(--accent)':''}">${t}</button>`).join('')}</div>
+      <label>Font size</label><input type="range" class="fld" min="11" max="16" value="13">
+    </div>
+    <div class="card"><h3>Legal</h3>
+      <label>Default terms & conditions</label><textarea class="fld" rows="3">Payment is due within 30 days of invoice date. Late payments may incur fees of 1.5% per month.</textarea>
+      <label>Late payment clause</label><input type="text" class="fld" value="1.5% per month after 30 days">
+      <label>Legal footer</label><input type="text" class="fld" value="Registered in Athens, Greece">
+    </div>
+    <div class="card"><h3>Reminders</h3>
+      <label><input type="checkbox" checked> Auto-reminder before due</label><input type="number" class="fld" value="7" style="width:80px;display:inline-block;margin-left:8px"> days before
+      <label><input type="checkbox" checked> Auto-reminder after due</label><input type="text" class="fld" value="3, 7, 14" style="width:120px;display:inline-block;margin-left:8px"> days after
+      <label>Email template</label><textarea class="fld" rows="3">Dear [Client], This is a friendly reminder that invoice [Number] is due. Thank you.</textarea>
+    </div>
+  </div>`;
+}
+window.saveBusiness=()=>{state.business.name=$('#bsName').value;state.business.address=$('#bsAddr').value;alert('Saved')};
+
+/* ACTIONS */
+window.openSend=id=>{const d=state.documents.find(x=>x.id===id);state.selected=id;$('#snTo').value=d.client.email;$('#snSubj').value=`${d.type==='invoice'?'Invoice':'Quote'} ${d.number} from ${state.business.name}`;$('#snMsg').value=`Dear ${d.client.name},\n\nPlease find attached ${d.type} ${d.number} for ${money(computeTotal(d.items).total)}.\n\nPayment is due by ${fmtDate(d.dueDate)}.\n\nBest regards,\n${state.business.name}`;openModal('mSend')};
+window.doSend=()=>{const d=state.documents.find(x=>x.id===state.selected);d.status=d.type==='invoice'?'sent':'sent';d.activities.unshift({id:uid(),type:'sent',ic:'📤',title:'Sent to '+$('#snTo').value,date:new Date()});closeModal('mSend');alert('Sent!');renderMain()};
+window.schedSend=()=>{alert('Scheduled — will send in 24 hours');closeModal('mSend')};
+window.openPay=id=>{state.selected=id;const d=state.documents.find(x=>x.id===id);const t=computeTotal(d.items);$('#pyAmt').value=(t.total-d.paid).toFixed(2);$('#pyDate').value=toISO(new Date());openModal('mPay')};
+window.logPayment=()=>{const d=state.documents.find(x=>x.id===state.selected);const amt=+$('#pyAmt').value;d.payments.push({id:uid(),date:new Date($('#pyDate').value),amount:amt,method:$('#pyMethod').value,ref:$('#pyRef').value,notes:$('#pyNotes').value});d.paid+=amt;const t=computeTotal(d.items);d.status=d.paid>=t.total-0.01?'paid':'partial';d.activities.unshift({id:uid(),type:'paid',ic:'✓',title:`Payment received ${money(amt)}`,date:new Date()});closeModal('mPay');$('#pyAmt').value='';$('#pyRef').value='';$('#pyNotes').value='';renderMain()};
+window.openDup=id=>{state.selected=id;const d=state.documents.find(x=>x.id===id);$('#dpNum').value=d.number+'-COPY';$('#dpDate').value=toISO(new Date());$('#dpClient').innerHTML=state.clients.map(c=>`<option value="${c.id}" ${c.id===d.client.id?'selected':''}>${c.name}</option>`).join('');openModal('mDup')};
+window.doDup=()=>{const orig=state.documents.find(x=>x.id===state.selected);const c=state.clients.find(x=>x.id===$('#dpClient').value);const newD={...JSON.parse(JSON.stringify(orig)),id:uid(),number:$('#dpNum').value,issueDate:new Date($('#dpDate').value),dueDate:addDays(new Date($('#dpDate').value),30),client:c,status:'draft',paid:0,payments:[],activities:[{id:uid(),type:'created',ic:'✨',title:'Duplicated from '+orig.number,date:new Date()}]};state.documents.unshift(newD);closeModal('mDup');state.selected=newD.id;renderMain()};
+window.delDoc=id=>{if(!confirm('Delete this document?'))return;state.documents=state.documents.filter(x=>x.id!==id);state.selected=null;renderAll()};
+window.printDoc=id=>{state.selected=id;renderMain();setTimeout(()=>window.print(),100)};
+window.convertToInv=id=>{const q=state.documents.find(x=>x.id===id);const inv={...JSON.parse(JSON.stringify(q)),id:uid(),type:'invoice',number:`${state.defaults.prefix}${(state.documents.filter(d=>d.type==='invoice').length+1001).toString().padStart(4,'0')}`,status:'draft',issueDate:new Date(),dueDate:addDays(new Date(),30),paid:0,payments:[],activities:[{id:uid(),type:'created',ic:'✨',title:'Converted from quote '+q.number,date:new Date()}]};state.documents.unshift(inv);state.selected=inv.id;renderMain()};
+window.sendReminder=id=>{const d=state.documents.find(x=>x.id===id);d.activities.unshift({id:uid(),type:'reminder',ic:'🔔',title:'Reminder sent',date:new Date()});alert('Reminder sent to '+d.client.email);renderMain()};
+
+/* MODAL */
+window.openModal=id=>$('#'+id).classList.add('open');
+window.closeModal=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+window.toggleTheme=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';$('#themeBtn').textContent=d.dataset.theme==='light'?'🌙':'☀️';renderMain()};
+$('#themeBtn').addEventListener('click',toggleTheme);
+$('#sector').addEventListener('change',e=>{state.sector=e.target.value;applySector()});
+
+applySector();
+</script>
+</body>
+</html>
