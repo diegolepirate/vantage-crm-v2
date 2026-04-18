@@ -201,6 +201,65 @@ table.t .total td{font-weight:700;border-top:2px solid var(--border)}
 .sub-tab:hover{color:var(--text)}
 
 @media (max-width:1200px){.app{grid-template-columns:240px 360px 1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}.kgrid,.scen{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.be-stats{grid-template-columns:1fr}}
+/* ── APPLE DESIGN SYSTEM (aliases + helpers) ── */
+:root{
+  --bg-primary:var(--bg);--bg-secondary:var(--surface);--bg-tertiary:var(--bg);--bg-grouped:var(--surface);
+  --label-primary:var(--text);--label-secondary:var(--text-2);--label-tertiary:var(--text-3);
+  --separator:var(--border);--separator-opaque:#C6C6C8;
+  --fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-pink:#FF2D55;--system-teal:#5AC8FA;--system-gray:#8E8E93;
+}
+html[data-theme="dark"]{--separator-opaque:#38383A;--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24)}
+/* Typography helpers */
+.title-large{font-size:34px;font-weight:700;letter-spacing:.37px}
+.title-1{font-size:28px;font-weight:700;letter-spacing:.36px}
+.title-2{font-size:22px;font-weight:700;letter-spacing:.35px}
+.title-3{font-size:20px;font-weight:600;letter-spacing:.38px}
+.headline{font-size:17px;font-weight:600;letter-spacing:-.41px}
+.body-ios{font-size:17px;font-weight:400;letter-spacing:-.41px}
+.callout{font-size:16px;font-weight:400;letter-spacing:-.32px}
+.subheadline{font-size:15px;font-weight:400;letter-spacing:-.24px}
+.footnote{font-size:13px;font-weight:400;letter-spacing:-.08px}
+.caption{font-size:12px;font-weight:400}
+/* iOS Toggle */
+.ios-toggle{position:relative;display:inline-block;width:51px;height:31px;cursor:pointer}
+.ios-toggle input{opacity:0;width:0;height:0;position:absolute}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s ease}
+.ios-toggle input:checked + .ios-toggle-track{background:var(--accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:27px;height:27px;background:#FFF;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.15);transition:transform .2s ease;pointer-events:none}
+.ios-toggle input:checked ~ .ios-toggle-thumb{transform:translateX(20px)}
+/* Segmented */
+.segmented{display:inline-flex;background:var(--fill-tertiary);border-radius:9px;padding:2px;gap:2px}
+.segmented-item{padding:6px 16px;border-radius:7px;font-size:13px;font-weight:600;color:var(--label-secondary);cursor:pointer;transition:all .2s;border:0;background:transparent}
+.segmented-item.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08)}
+/* Badges */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.2px}
+.badge-green{background:rgba(52,199,89,.12);color:#34C759}
+.badge-red{background:rgba(255,59,48,.12);color:#FF3B30}
+.badge-orange{background:rgba(255,149,0,.12);color:#FF9500}
+.badge-blue{background:rgba(0,122,255,.12);color:#007AFF}
+.badge-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+/* iOS button variants */
+.btn-primary{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:14px 20px;font-size:17px;font-weight:600;letter-spacing:-.41px;cursor:pointer;transition:opacity .15s,transform .1s}
+.btn-primary:hover{opacity:.85}.btn-primary:active{transform:scale(.97);opacity:.7}
+.btn-secondary{background:var(--accent-soft);color:var(--accent);border:0;border-radius:12px;padding:14px 20px;font-size:17px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn-secondary:hover{opacity:.75}
+.btn-ghost{background:var(--fill-tertiary);color:var(--label-primary);border:0;border-radius:12px;padding:14px 20px;font-size:17px;cursor:pointer}
+.btn-destructive{background:rgba(255,59,48,.12);color:#FF3B30;border:0;border-radius:12px;padding:14px 20px;font-size:17px;font-weight:600;cursor:pointer}
+/* iOS input */
+.ios-input{background:var(--fill-tertiary);border:0;border-radius:10px;padding:12px 16px;font-size:17px;color:var(--label-primary);width:100%;outline:none;transition:background .15s}
+.ios-input:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--accent-soft)}
+.ios-input::placeholder{color:var(--label-tertiary)}
+/* Grouped list */
+.list-grouped{background:var(--bg-secondary);border-radius:12px;overflow:hidden}
+.list-row{display:flex;align-items:center;min-height:44px;padding:0 16px;border-bottom:1px solid var(--separator);gap:12px}
+.list-row:last-child{border-bottom:0}
+.list-row-chevron::after{content:'\203A';color:var(--label-tertiary);font-size:18px;margin-left:auto}
+/* Topbar blur */
+.topbar{backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8)}
+/* Modal overlay refined */
+.mbg{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
 </style>
 </head>
 <body>
