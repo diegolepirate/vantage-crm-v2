@@ -8,8 +8,8 @@
 <style>
 :root{
   --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);
-  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
-  --text:#1D1D1F;--text-2:rgba(29,29,31,.62);--text-3:rgba(29,29,31,.4);
+  --bg:#F2F2F7;--surface:#FFFFFF;--surface-2:rgba(118,118,128,.12);--border:rgba(60,60,67,.12);
+  --text:#000000;--text-2:rgba(60,60,67,.6);--text-3:rgba(60,60,67,.3);
   --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;
   --shadow:0 12px 40px rgba(0,0,0,.06);
 }
@@ -18,7 +18,7 @@ html[data-theme="dark"]{
   --text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.4);
   --shadow:0 12px 40px rgba(0,0,0,.4);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s}
 .num,.mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -275,10 +275,10 @@ table.t .total td{font-weight:700;border-top:2px solid var(--border)}
 /* ========= SECTOR CONFIG ========= */
 const SECTORS={
   restaurant:{accent:'#FF9500',productsLabel:'Dishes',categories:['Ingredients','Labor','Overhead','Packaging','Delivery'],colors:['#FF9500','#FF6B35','#FFC542','#A67C52','#8B5CF6']},
-  realestate:{accent:'#30D158',productsLabel:'Services',categories:['Commission','Legal','Marketing','Admin','Other'],colors:['#30D158','#34C759','#5AC8FA','#AF52DE','#8E8E93']},
-  garage:{accent:'#0A84FF',productsLabel:'Services & Repairs',categories:['Parts','Labor','Tools','Overhead','Warranty'],colors:['#0A84FF','#5AC8FA','#FFCC02','#FF9500','#30D158']},
-  retail:{accent:'#FF375F',productsLabel:'Items',categories:['Purchase','Shipping','Storage','Packaging','Returns'],colors:['#FF375F','#FF2D55','#FF9500','#BF5AF2','#AF52DE']},
-  agency:{accent:'#BF5AF2',productsLabel:'Projects',categories:['Time','Software','Subcontractors','Overhead','Other'],colors:['#BF5AF2','#AF52DE','#5AC8FA','#FF9500','#8E8E93']}
+  realestate:{accent:'#34C759',productsLabel:'Services',categories:['Commission','Legal','Marketing','Admin','Other'],colors:['#30D158','#34C759','#5AC8FA','#AF52DE','#8E8E93']},
+  garage:{accent:'#007AFF',productsLabel:'Services & Repairs',categories:['Parts','Labor','Tools','Overhead','Warranty'],colors:['#0A84FF','#5AC8FA','#FFCC02','#FF9500','#30D158']},
+  retail:{accent:'#FF2D55',productsLabel:'Items',categories:['Purchase','Shipping','Storage','Packaging','Returns'],colors:['#FF375F','#FF2D55','#FF9500','#BF5AF2','#AF52DE']},
+  agency:{accent:'#AF52DE',productsLabel:'Projects',categories:['Time','Software','Subcontractors','Overhead','Other'],colors:['#BF5AF2','#AF52DE','#5AC8FA','#FF9500','#8E8E93']}
 };
 
 const PRODUCTS_TEMPLATES={

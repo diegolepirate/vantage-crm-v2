@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VANTAGE — Premium Web Agency · Athens</title>
+  <meta name="description" content="Vantage Web Agency builds premium landing pages from Athens, Greece. Precision code, cinematic motion, zero compromise. Built different. Coded perfect.">
+  <meta name="author" content="Vantage Web Agency">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <meta property="og:title" content="VANTAGE — Built different. Coded perfect.">
+  <meta property="og:description" content="Premium landing pages engineered in Athens. One agency, one standard: ship nothing average.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./super_hero_1.png">
+  <meta name="theme-color" content="#0A0A0F">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="./super_hero_1.png" as="image" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+
+  <style>
+  /* ═══════════════════════════════════════════════════════════════
+     VANTAGE — DESIGN TOKENS
+  ═══════════════════════════════════════════════════════════════ */
+  :root {
+    --vt-black:        #0A0A0F;
+    --vt-void:         #050508;
+    --vt-purple-deep:  #1E0A3C;
+    --vt-purple:       #6B21A8;
+    --vt-purple-mid:   #7C3AED;
+    --vt-purple-light: #A855F7;
+    --vt-purple-glow:  rgba(168, 85, 247, .15);
+    --vt-purple-dim:   rgba(168, 85, 247, .08);
+    --vt-white:        #F8F8FF;
+    --vt-white-70:     rgba(248, 248, 255, .70);
+    --vt-white-40:     rgba(248, 248, 255, .40);
+    --vt-white-10:     rgba(248, 248, 255, .10);
+
+    --vt-font-title:  'Rajdhani', 'Inter', sans-serif;
+    --vt-font-body:   'Inter', sans-serif;
+    --vt-font-quote:  'Cormorant Garamond', Georgia, serif;
+
+    --vt-ease: cubic-bezier(0.76, 0, 0.24, 1);
+    --vt-r-card: 24px 24px 24px 4px;
+    --vt-r-btn:  999px;
+
+    --vt-nav-h: 72px;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESET
+  ═══════════════════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 62.5%; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--vt-font-body);
+    font-size: 1.7rem;
+    font-weight: 300;
+    line-height: 1.65;
+    background: var(--vt-black);
+    color: var(--vt-white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img, video { max-width: 100%; display: block; }
+  button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+  a { color: inherit; text-decoration: none; }
+  input, textarea, select { font: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--vt-purple-light);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  ::selection { background: var(--vt-purple); color: var(--vt-white); }
+  .vt-sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TYPOGRAPHY
+  ═══════════════════════════════════════════════════════════════ */
+  h1, h2, h3, h4 { font-family: var(--vt-font-title); font-weight: 700; letter-spacing: -.01em; line-height: 1; }
+  h1 { font-size: clamp(7.2rem, 10vw, 14rem); line-height: .88; letter-spacing: -.03em; }
+  h2 { font-size: clamp(4rem, 6vw, 7.2rem); }
+  h3 { font-size: clamp(2.4rem, 3vw, 3.6rem); }
+
+  .vt-eyebrow {
+    font-family: var(--vt-font-body);
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--vt-purple-light);
+    margin-bottom: 2rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     FILM GRAIN
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .032;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 300px 300px;
+    animation: vt-grain 8s steps(2) infinite;
+    mix-blend-mode: overlay;
+  }
+  @keyframes vt-grain {
+    0%,100% { transform: translate(0,0); }
+    12%     { transform: translate(-8%, 6%); }
+    25%     { transform: translate(5%, -7%); }
+    37%     { transform: translate(-6%, 4%); }
+    50%     { transform: translate(7%, 8%); }
+    62%     { transform: translate(-9%, -5%); }
+    75%     { transform: translate(4%, 7%); }
+    87%     { transform: translate(-5%, -8%); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     NAVBAR
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--vt-nav-h);
+    z-index: 9000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(2rem, 4vw, 4.8rem);
+    transition: background .4s var(--vt-ease), backdrop-filter .4s var(--vt-ease), border-color .4s var(--vt-ease);
+    border-bottom: 1px solid transparent;
+  }
+  #vt-navbar.scrolled {
+    background: rgba(10, 10, 15, .85);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border-bottom-color: rgba(168, 85, 247, .15);
+  }
+  .vt-logo {
+    display: inline-flex; align-items: center; gap: 1rem;
+    font-family: var(--vt-font-title); font-weight: 700;
+    letter-spacing: .12em;
+  }
+  .vt-logo-emblem {
+    font-size: 2rem;
+    color: var(--vt-purple-light);
+    text-shadow: 0 0 16px var(--vt-purple-glow);
+  }
+  .vt-logo-text { font-size: 1.6rem; }
+  .vt-nav-links { display: flex; gap: 3rem; align-items: center; }
+  .vt-nav-link {
+    font-size: 1.15rem; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--vt-white-70);
+    transition: color .25s var(--vt-ease);
+  }
+  .vt-nav-link:hover { color: var(--vt-purple-light); }
+  .vt-cta-nav {
+    padding: 1rem 2rem; min-height: 44px;
+    background: var(--vt-purple);
+    color: var(--vt-white);
+    border: 1px solid var(--vt-purple);
+    border-radius: var(--vt-r-btn);
+    font-size: 1.2rem; font-weight: 600; letter-spacing: .08em;
+    box-shadow: 0 0 0 0 var(--vt-purple-glow);
+    transition: all .3s var(--vt-ease);
+    position: relative; overflow: hidden; isolation: isolate;
+  }
+  .vt-cta-nav:hover {
+    background: var(--vt-purple-mid);
+    border-color: var(--vt-purple-mid);
+    box-shadow: 0 0 32px var(--vt-purple-glow);
+    transform: translateY(-1px);
+  }
+  .vt-cta-nav::before {
+    content: ''; position: absolute;
+    top: 0; left: -75%; width: 50%; height: 100%;
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.2) 50%, transparent 100%);
+    transform: skewX(-18deg);
+    transition: left .8s var(--vt-ease);
+  }
+  .vt-cta-nav:hover::before { left: 120%; }
+  .vt-burger {
+    display: none;
+    width: 44px; height: 44px;
+    align-items: center; justify-content: center;
+    border-radius: 8px;
+  }
+  .vt-burger span, .vt-burger span::before, .vt-burger span::after {
+    display: block; width: 22px; height: 1.5px;
+    background: currentColor;
+  }
+  .vt-burger span { position: relative; }
+  .vt-burger span::before,
+  .vt-burger span::after { content: ''; position: absolute; left: 0; }
+  .vt-burger span::before { top: -7px; }
+  .vt-burger span::after  { top: 7px; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLOBAL BUTTON STYLES
+  ═══════════════════════════════════════════════════════════════ */
+  .vt-btn {
+    display: inline-flex; align-items: center; gap: .8rem;
+    padding: 1.4rem 3.2rem; min-height: 44px;
+    font-family: var(--vt-font-body);
+    font-size: 1.3rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    border-radius: var(--vt-r-btn);
+    transition: all .3s var(--vt-ease);
+    position: relative; overflow: hidden; isolation: isolate;
+  }
+  .vt-btn--primary {
+    background: var(--vt-purple);
+    color: var(--vt-white);
+    border: 1px solid var(--vt-purple);
+    box-shadow: 0 0 24px var(--vt-purple-dim);
+  }
+  .vt-btn--primary::before {
+    content: ''; position: absolute;
+    top: 0; left: -75%; width: 50%; height: 100%;
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.22) 50%, transparent 100%);
+    transform: skewX(-18deg);
+    transition: left .8s var(--vt-ease);
+  }
+  .vt-btn--primary:hover::before { left: 120%; }
+  .vt-btn--primary:hover {
+    background: var(--vt-purple-mid);
+    border-color: var(--vt-purple-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px var(--vt-purple-glow);
+  }
+  .vt-btn--ghost {
+    background: transparent;
+    color: var(--vt-white);
+    border: 1px solid var(--vt-white-10);
+  }
+  .vt-btn--ghost:hover {
+    border-color: var(--vt-purple-light);
+    color: var(--vt-purple-light);
+    background: var(--vt-purple-dim);
+  }
+  .vt-btn--service {
+    background: transparent;
+    color: var(--vt-purple-light);
+    border: 1px solid rgba(168, 85, 247, .25);
+  }
+  .vt-btn--service:hover {
+    border-color: var(--vt-purple-light);
+    background: var(--vt-purple-dim);
+  }
+  .vt-btn:active { transform: scale(.98); }
+  .vt-btn--full { width: 100%; justify-content: center; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 1 — HERO
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-hero {
+    position: relative;
+    min-height: 100vh;
+    padding: calc(var(--vt-nav-h) + 12rem) clamp(2rem, 4vw, 4.8rem) 14rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center; justify-items: center;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    background: radial-gradient(ellipse at 50% 20%, rgba(168,85,247,.10), transparent 60%), var(--vt-black);
+  }
+
+  /* Giant ghost VANTAGE text */
+  .vt-hero-ghost {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--vt-font-title);
+    font-weight: 700;
+    font-size: clamp(14rem, 26vw, 32rem);
+    color: rgba(255, 255, 255, .06);
+    letter-spacing: -.04em;
+    white-space: nowrap;
+    pointer-events: none; user-select: none;
+    z-index: 0; line-height: 1;
+  }
+
+  /* Animated circle video backdrop behind hero PNG
+     — 2× size vs static version
+     — black background knocked out via mix-blend-mode: screen */
+  .vt-hero-circle {
+    position: absolute;
+    top: 52%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(680px, 124vmin, 1520px);
+    aspect-ratio: 1 / 1;
+    pointer-events: none;
+    z-index: 1;
+    animation: vt-circle-breathe 6s ease-in-out infinite;
+  }
+  .vt-hero-circle-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    background: transparent;
+    mix-blend-mode: screen;
+    filter: saturate(1.3) contrast(1.15) brightness(1.05);
+  }
+  @keyframes vt-circle-breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: .95; }
+    50%      { transform: translate(-50%, -50%) scale(1.04); opacity: 1; }
+  }
+
+  /* Hero PNG — floats in front of the video circle */
+  .vt-hero-png-wrap {
+    position: relative;
+    z-index: 2;
+    width: clamp(280px, 42vmin, 520px);
+    aspect-ratio: 3 / 4;
+    margin: 0 auto -2rem;     /* pull content closer (overlap slightly) */
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .vt-hero-png {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: contrast(1.08) saturate(1.12) brightness(1.02);
+    /* No mix-blend — the PNG is already fully transparent via rembg */
+  }
+
+  .vt-hero-content {
+    position: relative;
+    z-index: 3;
+    margin-top: -4rem;         /* bring tagline right under the character */
+  }
+  .vt-hero-eyebrow {
+    font-family: var(--vt-font-body);
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--vt-purple-light);
+    margin-bottom: 1.6rem;
+  }
+  .vt-hero-tagline-1,
+  .vt-hero-tagline-2 {
+    font-family: var(--vt-font-title);
+    font-weight: 700;
+    font-size: clamp(3.6rem, 5.2vw, 6.4rem);
+    line-height: 1.05;
+    color: var(--vt-white);
+    letter-spacing: -.02em;
+  }
+  .vt-hero-tagline-2 {
+    color: var(--vt-purple-light);
+    margin-bottom: 2.4rem;
+  }
+  .vt-hero-body {
+    max-width: 56ch;
+    margin: 0 auto 3.6rem;
+    color: var(--vt-white-70);
+    font-size: 1.7rem; line-height: 1.7;
+  }
+  .vt-hero-actions {
+    display: flex; gap: 1.6rem; flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Avatar marquee at bottom */
+  .vt-hero-marquee {
+    position: absolute;
+    bottom: 3rem; left: 0; right: 0;
+    z-index: 3;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .vt-marquee-track {
+    display: flex; gap: 16px;
+    width: max-content;
+    animation: vt-marquee 24s linear infinite;
+  }
+  .vt-hero-marquee:hover .vt-marquee-track { animation-play-state: paused; }
+  @keyframes vt-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .vt-avatar {
+    width: 64px; height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(168, 85, 247, .4);
+    background:
+      radial-gradient(circle at 50% 30%, var(--vt-purple-dim), transparent 70%),
+      var(--vt-void);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .3s var(--vt-ease), transform .3s var(--vt-ease);
+  }
+  .vt-avatar:hover { border-color: var(--vt-purple-light); transform: scale(1.08); }
+  .vt-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    filter: contrast(1.05) saturate(1.1);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION HEADERS (shared)
+  ═══════════════════════════════════════════════════════════════ */
+  .vt-section-head {
+    max-width: 760px;
+    margin: 0 auto 6rem;
+    text-align: center;
+  }
+  .vt-section-head h2 { margin-bottom: 1.6rem; }
+  .vt-section-head p {
+    color: var(--vt-white-70);
+    font-size: 1.7rem;
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 2 — SERVICES (glassmorphism)
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-services {
+    padding: 14rem clamp(2rem, 4vw, 4.8rem);
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(168,85,247,.08), transparent 50%),
+      var(--vt-purple-deep);
+  }
+  .vt-services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4rem;
+    max-width: 1200px; margin: 0 auto;
+    align-items: stretch;
+  }
+  .vt-service-card {
+    position: relative;
+    background: rgba(255, 255, 255, .04);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, .10);
+    border-radius: var(--vt-r-card);
+    padding: 4rem 3.2rem;
+    display: flex; flex-direction: column;
+    transition: transform .5s var(--vt-ease), border-color .5s var(--vt-ease), box-shadow .5s var(--vt-ease);
+    contain: layout style;
+  }
+  .vt-service-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(168, 85, 247, .45);
+    box-shadow: 0 24px 64px -20px var(--vt-purple-glow);
+  }
+  .vt-service-card--featured {
+    border: 1.5px solid var(--vt-purple);
+    background: rgba(124, 58, 237, .10);
+    transform: scale(1.04);
+    box-shadow: 0 16px 48px -16px var(--vt-purple-glow);
+  }
+  .vt-service-card--featured:hover { transform: scale(1.04) translateY(-10px); }
+  .vt-service-tier {
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: .3em; color: var(--vt-purple-light);
+    margin-bottom: 1.6rem;
+  }
+  .vt-service-name {
+    font-size: 2.6rem; color: var(--vt-white);
+    margin-bottom: 1.6rem;
+  }
+  .vt-service-price {
+    display: flex; align-items: baseline; gap: .6rem;
+    margin-bottom: 2.4rem;
+  }
+  .vt-price-num {
+    font-family: var(--vt-font-title);
+    font-size: 5rem; font-weight: 700;
+    color: var(--vt-purple-light);
+    line-height: 1;
+  }
+  .vt-price-currency {
+    font-size: 1.6rem; color: var(--vt-white-70);
+  }
+  .vt-service-desc {
+    font-size: 1.45rem; line-height: 1.6;
+    color: var(--vt-white-70);
+    margin-bottom: 2.4rem;
+  }
+  .vt-service-features {
+    list-style: none;
+    border-top: 1px solid var(--vt-white-10);
+    padding-top: 2rem;
+    margin-bottom: 3.2rem;
+    flex: 1;
+  }
+  .vt-service-features li {
+    position: relative;
+    padding: .8rem 0 .8rem 2rem;
+    font-size: 1.35rem;
+    color: var(--vt-white);
+  }
+  .vt-service-features li::before {
+    content: '◈'; position: absolute; left: 0; top: 1rem;
+    color: var(--vt-purple-light); font-size: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 3 — POWERS
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-powers {
+    padding: 14rem clamp(2rem, 4vw, 4.8rem);
+    background: var(--vt-black);
+  }
+  .vt-powers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .vt-power-card {
+    padding: 4rem 3.2rem;
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid var(--vt-white-10);
+    border-radius: var(--vt-r-card);
+    text-align: center;
+    transition: all .4s var(--vt-ease);
+    contain: layout style;
+  }
+  .vt-power-card:hover {
+    border-color: var(--vt-purple-light);
+    background: var(--vt-purple-dim);
+    transform: translateY(-8px);
+  }
+  .vt-power-icon {
+    font-size: 3.2rem;
+    color: var(--vt-purple-light);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+  .vt-power-name {
+    font-size: 2.4rem; color: var(--vt-white);
+    margin-bottom: 1.2rem;
+  }
+  .vt-power-desc {
+    font-size: 1.45rem; line-height: 1.6;
+    color: var(--vt-white-70);
+    margin-bottom: 3rem;
+  }
+  .vt-power-stat {
+    display: block;
+    font-family: var(--vt-font-title);
+    font-size: 4.8rem; font-weight: 700;
+    color: var(--vt-purple-light);
+    line-height: 1;
+  }
+  .vt-power-unit {
+    font-size: 1.8rem; color: var(--vt-white-70);
+    margin-left: .4rem; font-weight: 400;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 4 — GALLERY
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-gallery {
+    padding: 14rem clamp(2rem, 4vw, 4.8rem);
+    background: var(--vt-void);
+  }
+  .vt-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .vt-gallery-item {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: var(--vt-r-card);
+    background:
+      radial-gradient(circle at 50% 30%, var(--vt-purple-dim), transparent 70%),
+      var(--vt-void);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.6rem;
+    transition: transform .5s var(--vt-ease);
+    contain: layout style;
+  }
+  .vt-gallery-item:hover { transform: translateY(-6px); }
+  .vt-gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: contrast(1.08) saturate(1.15);
+    transition: filter .4s var(--vt-ease), transform .8s var(--vt-ease);
+  }
+  .vt-gallery-item:hover img {
+    filter: contrast(1.15) saturate(1.3);
+    transform: scale(1.04);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 5 — CTA FINAL
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-cta {
+    position: relative;
+    min-height: 100vh;
+    padding: 14rem clamp(2rem, 4vw, 4.8rem);
+    background: var(--vt-void);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .vt-cta-bg-image {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto; height: 100%;
+    max-height: 900px;
+    object-fit: contain;
+    opacity: .22;
+    filter: blur(1.5px);
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .vt-cta-content {
+    position: relative; z-index: 2;
+    max-width: 720px;
+  }
+  .vt-cta-content h2 { margin-bottom: 2.4rem; }
+  .vt-cta-content p {
+    font-size: 1.8rem; color: var(--vt-white-70);
+    margin-bottom: 4rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECTION 6 — CONTACT + FOOTER
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-contact {
+    padding: 14rem clamp(2rem, 4vw, 4.8rem) 6rem;
+    background: var(--vt-black);
+  }
+  .vt-contact-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .vt-contact-info .vt-eyebrow { margin-bottom: 1.6rem; }
+  .vt-contact-info h3 {
+    font-size: clamp(2.8rem, 3.2vw, 4rem);
+    color: var(--vt-white);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+  .vt-contact-info address {
+    font-style: normal;
+    color: var(--vt-white-70);
+    line-height: 1.8;
+    margin-bottom: 2.4rem;
+  }
+  .vt-contact-email {
+    display: inline-block;
+    color: var(--vt-purple-light);
+    border-bottom: 1px solid rgba(168, 85, 247, .3);
+    transition: border-color .3s var(--vt-ease);
+    font-weight: 500;
+  }
+  .vt-contact-email:hover { border-color: var(--vt-purple-light); }
+
+  #vt-contact-form { display: flex; flex-direction: column; gap: 1.8rem; }
+  .vt-field { display: flex; flex-direction: column; gap: .8rem; }
+  .vt-label {
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--vt-white-40);
+  }
+  .vt-input, .vt-select, .vt-textarea {
+    padding: 1.4rem 1.8rem;
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid var(--vt-white-10);
+    border-radius: 10px;
+    color: var(--vt-white);
+    font-family: var(--vt-font-body);
+    font-size: 1.5rem;
+    transition: all .3s var(--vt-ease);
+  }
+  .vt-input:focus, .vt-select:focus, .vt-textarea:focus {
+    outline: none;
+    border-color: var(--vt-purple-light);
+    background: rgba(168, 85, 247, .06);
+  }
+  .vt-input::placeholder, .vt-textarea::placeholder { color: var(--vt-white-40); }
+  .vt-textarea { resize: vertical; min-height: 120px; }
+  .vt-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='rgba(248,248,255,.5)' stroke-width='1.5'><path d='M1 1l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1.8rem center;
+    padding-right: 4rem;
+  }
+
+  /* FOOTER — embedded at bottom of contact section */
+  .vt-footer {
+    margin-top: 10rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--vt-white-10);
+    max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+  .vt-footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 2rem;
+    font-size: 1.2rem; color: var(--vt-white-40);
+  }
+  .vt-footer-row nav {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .vt-legal-link {
+    font-size: 1.2rem; color: var(--vt-white-40);
+    transition: color .25s var(--vt-ease);
+  }
+  .vt-legal-link:hover { color: var(--vt-purple-light); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TOAST + BACK TO TOP + SCROLL PROGRESS
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-toast-container {
+    position: fixed; bottom: 2.4rem; right: 2.4rem;
+    z-index: 9700;
+    display: flex; flex-direction: column-reverse; gap: 1rem;
+    max-width: 360px;
+  }
+  .vt-toast {
+    padding: 1.4rem 1.8rem;
+    background: rgba(10, 10, 15, .92);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(168, 85, 247, .3);
+    border-radius: 12px;
+    color: var(--vt-white);
+    font-size: 1.4rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    animation: vt-toast-in .4s var(--vt-ease);
+  }
+  @keyframes vt-toast-in {
+    from { transform: translateY(16px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .vt-back-to-top {
+    position: fixed; bottom: 2.4rem; left: 2.4rem;
+    z-index: 9700;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--vt-purple);
+    color: var(--vt-white);
+    border-radius: 50%;
+    box-shadow: 0 8px 24px var(--vt-purple-glow);
+    opacity: 0; pointer-events: none;
+    transition: all .3s var(--vt-ease);
+  }
+  .vt-back-to-top.is-visible { opacity: 1; pointer-events: auto; }
+  .vt-back-to-top:hover {
+    background: var(--vt-purple-mid);
+    transform: translateY(-2px);
+  }
+  #vt-scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0;
+    background: linear-gradient(to right, var(--vt-purple), var(--vt-purple-light));
+    z-index: 9850;
+    transition: width .1s linear;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MOBILE MENU
+  ═══════════════════════════════════════════════════════════════ */
+  #vt-mobile-menu {
+    position: fixed; inset: 0;
+    z-index: 9100;
+    background: rgba(10, 10, 15, .95);
+    backdrop-filter: blur(24px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .4s var(--vt-ease);
+  }
+  #vt-mobile-menu.is-open { opacity: 1; pointer-events: auto; }
+  .vt-mobile-close {
+    position: absolute; top: 1.6rem; right: 1.6rem;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem; color: var(--vt-white);
+  }
+  .vt-mobile-link {
+    font-family: var(--vt-font-title);
+    font-size: 3.2rem; font-weight: 600;
+    color: var(--vt-white);
+    padding: .8rem 0;
+  }
+  .vt-mobile-link:hover { color: var(--vt-purple-light); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SCROLL REVEALS
+  ═══════════════════════════════════════════════════════════════ */
+  .vt-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .9s var(--vt-ease), transform 1s var(--vt-ease);
+  }
+  .vt-reveal.is-in { opacity: 1; transform: translateY(0); }
+  .vt-reveal[data-delay="1"] { transition-delay: .08s; }
+  .vt-reveal[data-delay="2"] { transition-delay: .16s; }
+  .vt-reveal[data-delay="3"] { transition-delay: .24s; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .vt-nav-links, .vt-cta-nav:not(.vt-mobile-cta) { display: none; }
+    .vt-burger { display: inline-flex; }
+  }
+  @media (max-width: 768px) {
+    #vt-navbar.scrolled {
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+      background: rgba(10, 10, 15, .94);
+    }
+    .vt-service-card {
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+      background: rgba(255, 255, 255, .05);
+    }
+    #vt-hero { padding-top: calc(var(--vt-nav-h) + 8rem); padding-bottom: 12rem; }
+    .vt-hero-ghost { font-size: clamp(9rem, 28vw, 16rem); }
+    .vt-hero-tagline-1, .vt-hero-tagline-2 { font-size: clamp(2.8rem, 7vw, 4.4rem); }
+    .vt-services-grid,
+    .vt-powers-grid   { grid-template-columns: 1fr; }
+    .vt-service-card--featured { transform: none; }
+    .vt-service-card--featured:hover { transform: translateY(-10px); }
+    .vt-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .vt-contact-split { grid-template-columns: 1fr; gap: 4rem; }
+    .vt-footer-row { flex-direction: column; align-items: flex-start; text-align: left; }
+  }
+  @media (min-width: 769px) and (max-width: 1023px) {
+    .vt-services-grid,
+    .vt-powers-grid    { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     REDUCED MOTION
+  ═══════════════════════════════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+    #vt-grain { display: none; }
+    .vt-reveal { opacity: 1 !important; transform: none !important; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- FILM GRAIN -->
+  <div id="vt-grain" aria-hidden="true"></div>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="vt-scroll-progress" role="progressbar"
+       aria-label="Page scroll progress"
+       aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- NAVBAR -->
+  <nav id="vt-navbar" aria-label="Primary navigation">
+    <a href="javascript:void(0)" class="vt-logo"
+       data-action="scroll-top"
+       aria-label="VANTAGE — back to top">
+      <span class="vt-logo-emblem" aria-hidden="true">◈</span>
+      <span class="vt-logo-text">VANTAGE</span>
+    </a>
+    <div class="vt-nav-links" role="list">
+      <a href="#vt-services" class="vt-nav-link" role="listitem">Services</a>
+      <a href="#vt-powers"   class="vt-nav-link" role="listitem">Powers</a>
+      <a href="#vt-gallery"  class="vt-nav-link" role="listitem">Gallery</a>
+      <a href="#vt-contact"  class="vt-nav-link" role="listitem">Contact</a>
+    </div>
+    <button class="vt-cta-nav" type="button"
+            data-action="scroll-to-contact"
+            aria-label="Work with us — contact Vantage Web Agency">
+      Work with us
+    </button>
+    <button class="vt-burger" type="button"
+            data-action="toggle-mobile-menu"
+            aria-label="Open navigation menu"
+            aria-expanded="false" aria-controls="vt-mobile-menu">
+      <span aria-hidden="true"></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="vt-mobile-menu" aria-hidden="true" aria-label="Mobile navigation">
+    <button class="vt-mobile-close" type="button"
+            data-action="close-mobile-menu" aria-label="Close menu">✕</button>
+    <a href="#vt-services" class="vt-mobile-link">Services</a>
+    <a href="#vt-powers"   class="vt-mobile-link">Powers</a>
+    <a href="#vt-gallery"  class="vt-mobile-link">Gallery</a>
+    <a href="#vt-contact"  class="vt-mobile-link">Contact</a>
+    <button class="vt-cta-nav vt-mobile-cta" type="button" data-action="scroll-to-contact">
+      Work with us
+    </button>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ════════════════════════════════════
+         1 · HERO
+    ════════════════════════════════════ -->
+    <section id="vt-hero" aria-labelledby="vt-hero-title">
+      <div class="vt-hero-ghost" aria-hidden="true">VANTAGE</div>
+      <div class="vt-hero-circle" aria-hidden="true">
+        <video class="vt-hero-circle-video"
+               autoplay muted loop playsinline
+               preload="auto"
+               aria-hidden="true">
+          <source src="./vantage-hero-circle.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="vt-hero-png-wrap" aria-hidden="true">
+        <img src="./super_hero_1.png"
+             alt=""
+             class="vt-hero-png"
+             width="720" height="1280"
+             fetchpriority="high">
+      </div>
+
+      <div class="vt-hero-content">
+        <p class="vt-hero-eyebrow">Vantage Web Agency — Athens, Greece</p>
+        <h1 id="vt-hero-title" class="vt-sr-only">Vantage</h1>
+        <p class="vt-hero-tagline-1">Built different.</p>
+        <p class="vt-hero-tagline-2">Coded perfect.</p>
+        <p class="vt-hero-body">
+          We engineer landing pages for founders who refuse to blend in — precision code, cinematic motion, zero compromise.
+        </p>
+        <div class="vt-hero-actions">
+          <button class="vt-btn vt-btn--primary" type="button"
+                  data-action="scroll-to-contact"
+                  aria-label="Work with us — scroll to contact">
+            Work with us
+          </button>
+          <button class="vt-btn vt-btn--ghost" type="button"
+                  data-action="scroll-to-gallery"
+                  aria-label="See our work — scroll to gallery">
+            See our work →
+          </button>
+        </div>
+      </div>
+
+      <div class="vt-hero-marquee" aria-hidden="true">
+        <div class="vt-marquee-track">
+          <div class="vt-avatar"><img src="./super_hero_1.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_4.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_5.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_6.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_1.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_4.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_5.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_6.png" alt=""></div>
+          <!-- duplicate for seamless loop -->
+          <div class="vt-avatar"><img src="./super_hero_1.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_4.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_5.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_6.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_1.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_4.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_5.png" alt=""></div>
+          <div class="vt-avatar"><img src="./super_hero_6.png" alt=""></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         2 · SERVICES
+    ════════════════════════════════════ -->
+    <section id="vt-services" aria-labelledby="vt-services-title">
+      <header class="vt-section-head vt-reveal">
+        <p class="vt-eyebrow">What we actually do</p>
+        <h2 id="vt-services-title">Three ways to work with Vantage.</h2>
+        <p>Premium templates, custom builds, or ongoing care — pick the one that fits the mission.</p>
+      </header>
+
+      <div class="vt-services-grid">
+
+        <article class="vt-service-card vt-reveal" data-delay="1">
+          <p class="vt-service-tier">STARTER</p>
+          <h3 class="vt-service-name">Premium Templates</h3>
+          <p class="vt-service-price">
+            <span class="vt-price-num">800</span>
+            <span class="vt-price-currency">€ from</span>
+          </p>
+          <p class="vt-service-desc">Production-ready landing pages, delivered in 48 hours. Hand-engineered, not AI-spun, with one client per template per city.</p>
+          <ul class="vt-service-features">
+            <li>All source files — HTML, CSS, JS — fully editable</li>
+            <li>Delivered in 48 hours, live within a week</li>
+            <li>One template sold per city, then retired</li>
+          </ul>
+          <button class="vt-btn vt-btn--service vt-btn--full" type="button"
+                  data-action="scroll-to-contact" data-service="templates"
+                  aria-label="Get started with Premium Templates">
+            Get started →
+          </button>
+        </article>
+
+        <article class="vt-service-card vt-service-card--featured vt-reveal" data-delay="2" aria-label="Recommended service">
+          <p class="vt-service-tier">SIGNATURE</p>
+          <h3 class="vt-service-name">Custom Sites</h3>
+          <p class="vt-service-price">
+            <span class="vt-price-num">4500</span>
+            <span class="vt-price-currency">€ from</span>
+          </p>
+          <p class="vt-service-desc">Fully bespoke websites, designed and coded from scratch to carry your exact brand weight. Three-week sprint, unlimited revisions inside it.</p>
+          <ul class="vt-service-features">
+            <li>Three-week build sprint with weekly reviews</li>
+            <li>Unlimited revisions during the sprint</li>
+            <li>90+ Lighthouse on performance, a11y, SEO</li>
+          </ul>
+          <button class="vt-btn vt-btn--primary vt-btn--full" type="button"
+                  data-action="scroll-to-contact" data-service="custom"
+                  aria-label="Work with us on a Custom Site">
+            Work with us →
+          </button>
+        </article>
+
+        <article class="vt-service-card vt-reveal" data-delay="3">
+          <p class="vt-service-tier">ONGOING</p>
+          <h3 class="vt-service-name">Maintenance</h3>
+          <p class="vt-service-price">
+            <span class="vt-price-num">250</span>
+            <span class="vt-price-currency">€ / month</span>
+          </p>
+          <p class="vt-service-desc">We watch your site so you never have to. Monthly checks, instant fixes, quarterly performance reports — SLA under four hours.</p>
+          <ul class="vt-service-features">
+            <li>Monthly uptime and performance audits</li>
+            <li>SLA response under four hours on any issue</li>
+            <li>Quarterly written report with recommendations</li>
+          </ul>
+          <button class="vt-btn vt-btn--service vt-btn--full" type="button"
+                  data-action="scroll-to-contact" data-service="maintenance"
+                  aria-label="Get started with Maintenance plan">
+            Get started →
+          </button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         3 · POWERS
+    ════════════════════════════════════ -->
+    <section id="vt-powers" aria-labelledby="vt-powers-title">
+      <header class="vt-section-head vt-reveal">
+        <p class="vt-eyebrow">His Powers · Our Standards</p>
+        <h2 id="vt-powers-title">Three capabilities. Zero compromise.</h2>
+      </header>
+
+      <div class="vt-powers-grid">
+
+        <article class="vt-power-card vt-reveal" data-delay="1">
+          <div class="vt-power-icon" aria-hidden="true">🛡</div>
+          <h3 class="vt-power-name">Strength</h3>
+          <p class="vt-power-desc">Every line audited, tested, built to last. No abandonware, no silent breakage — only work that holds.</p>
+          <span class="vt-power-stat" data-counter="100" data-suffix="%" aria-label="100 percent precision">0</span>
+        </article>
+
+        <article class="vt-power-card vt-reveal" data-delay="2">
+          <div class="vt-power-icon" aria-hidden="true">⚡</div>
+          <h3 class="vt-power-name">Speed</h3>
+          <p class="vt-power-desc">Sub-second loads, instant interactions, zero render-blocking scripts. Performance is the first line of the brief.</p>
+          <span class="vt-power-stat" data-counter="0" data-suffix="ms" aria-label="Zero millisecond reaction time">999</span>
+        </article>
+
+        <article class="vt-power-card vt-reveal" data-delay="3">
+          <div class="vt-power-icon" aria-hidden="true">◎</div>
+          <h3 class="vt-power-name">Precision</h3>
+          <p class="vt-power-desc">Pixel-level control, frame-level timing, word-level copy. Nothing on the page is there by accident.</p>
+          <span class="vt-power-stat" aria-label="Infinite endurance">∞</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         4 · GALLERY
+    ════════════════════════════════════ -->
+    <section id="vt-gallery" aria-labelledby="vt-gallery-title">
+      <header class="vt-section-head vt-reveal">
+        <p class="vt-eyebrow">Portraits from the universe</p>
+        <h2 id="vt-gallery-title">The hero, seen up close.</h2>
+        <p>A living archive of Vantage — moments captured between missions.</p>
+      </header>
+
+      <div class="vt-gallery-grid">
+        <figure class="vt-gallery-item vt-reveal" data-delay="1">
+          <img src="./super_hero_1.png" alt="Vantage — full body in deep purple armor"
+               width="720" height="1280" loading="lazy">
+        </figure>
+        <figure class="vt-gallery-item vt-reveal" data-delay="2">
+          <img src="./super_hero_4.png" alt="Vantage — close up, chest emblem illuminated"
+               width="720" height="1280" loading="lazy">
+        </figure>
+        <figure class="vt-gallery-item vt-reveal" data-delay="3">
+          <img src="./super_hero_5.png" alt="Vantage — armor detail under studio light"
+               width="720" height="1280" loading="lazy">
+        </figure>
+        <figure class="vt-gallery-item vt-reveal" data-delay="3">
+          <img src="./super_hero_6.png" alt="Vantage — mask close-up, glowing eyes"
+               width="720" height="1280" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         5 · CTA FINAL
+    ════════════════════════════════════ -->
+    <section id="vt-cta" aria-labelledby="vt-cta-title">
+      <img src="./super_hero_1.png" alt="" aria-hidden="true"
+           class="vt-cta-bg-image"
+           width="800" height="1200" loading="lazy">
+      <div class="vt-cta-content vt-reveal">
+        <p class="vt-eyebrow">Your move.</p>
+        <h2 id="vt-cta-title">Join the Universe.</h2>
+        <p>You have a project. We have a standard. Let's build something that refuses to be forgettable.</p>
+        <button class="vt-btn vt-btn--primary" type="button"
+                data-action="scroll-to-contact"
+                aria-label="Work with us — scroll to contact">
+          Work with us →
+        </button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         6 · CONTACT + FOOTER
+    ════════════════════════════════════ -->
+    <section id="vt-contact" aria-labelledby="vt-contact-title">
+      <div class="vt-contact-split">
+
+        <div class="vt-contact-info vt-reveal">
+          <p class="vt-eyebrow">Get in touch</p>
+          <h3 id="vt-contact-title">Let us build<br>something extraordinary.</h3>
+          <address>
+            Athens, Greece<br>
+            <a href="mailto:hello@vantage-agency.com"
+               class="vt-contact-email"
+               aria-label="Email Vantage Web Agency">
+              hello@vantage-agency.com
+            </a>
+          </address>
+          <p style="color:var(--vt-white-40);font-size:1.35rem;">
+            Response within 24 hours. Always in English.
+          </p>
+        </div>
+
+        <form id="vt-contact-form" class="vt-reveal" data-delay="1"
+              aria-label="Contact form" novalidate>
+          <div class="vt-field">
+            <label for="ct-name" class="vt-label">Full name *</label>
+            <input type="text" id="ct-name" name="name"
+                   class="vt-input" placeholder="Your name"
+                   autocomplete="name"
+                   required aria-required="true">
+          </div>
+          <div class="vt-field">
+            <label for="ct-email" class="vt-label">Email *</label>
+            <input type="email" id="ct-email" name="email"
+                   class="vt-input" placeholder="your@email.com"
+                   autocomplete="email"
+                   required aria-required="true">
+          </div>
+          <div class="vt-field">
+            <label for="ct-service" class="vt-label">Service</label>
+            <select id="ct-service" name="service" class="vt-select">
+              <option value="">Select a service</option>
+              <option value="templates">Premium Templates — €800</option>
+              <option value="custom">Custom Site — €4,500</option>
+              <option value="maintenance">Maintenance — €250/mo</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+          <div class="vt-field">
+            <label for="ct-message" class="vt-label">Message *</label>
+            <textarea id="ct-message" name="message"
+                      class="vt-textarea"
+                      placeholder="Tell us about your project"
+                      rows="4"
+                      required aria-required="true"></textarea>
+          </div>
+          <button type="submit" class="vt-btn vt-btn--primary vt-btn--full"
+                  aria-label="Send message to Vantage Web Agency">
+            Send message →
+          </button>
+        </form>
+
+      </div>
+
+      <footer class="vt-footer" role="contentinfo">
+        <div class="vt-footer-row">
+          <p>© 2026 Vantage Web Agency — All rights reserved.</p>
+          <nav aria-label="Legal links">
+            <button type="button" class="vt-legal-link" data-action="privacy">Privacy</button>
+            <button type="button" class="vt-legal-link" data-action="terms">Terms</button>
+            <button type="button" class="vt-legal-link" data-action="cookie-prefs">Cookies</button>
+          </nav>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- TOAST -->
+  <div id="vt-toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- BACK TO TOP -->
+  <button class="vt-back-to-top" type="button" id="vt-btt"
+          data-action="scroll-top" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 14 14"
+         fill="none" stroke="currentColor"
+         stroke-width="1.8" aria-hidden="true">
+      <path d="M7 11V3M3 7l4-4 4 4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- CDN: GSAP + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <script>
+  /* ═══════════════════════════════════════════════════════════════
+     VANTAGE — app logic
+  ═══════════════════════════════════════════════════════════════ */
+  (function() {
+    'use strict';
+
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ───── Toast helper ───── */
+    function toast(msg, ms = 3200) {
+      const box = document.getElementById('vt-toast-container');
+      if (!box) return;
+      const el = document.createElement('div');
+      el.className = 'vt-toast';
+      el.textContent = msg;
+      box.appendChild(el);
+      setTimeout(() => {
+        el.style.transition = 'opacity .4s, transform .4s';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(10px)';
+        setTimeout(() => el.remove(), 400);
+      }, ms);
+    }
+    window.__vtToast = toast;
+
+    /* ───── Smooth scroll to anchor ───── */
+    const scrollTo = sel => {
+      const target = document.querySelector(sel);
+      if (!target) return;
+      const y = target.getBoundingClientRect().top + window.scrollY - 60;
+      if (window.__vtLenis) {
+        window.__vtLenis.scrollTo(y, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    };
+
+    /* ───── data-action router ───── */
+    document.addEventListener('click', e => {
+      const t = e.target.closest('[data-action]');
+      if (!t) return;
+      const action = t.dataset.action;
+      switch (action) {
+        case 'scroll-top':
+          e.preventDefault();
+          if (window.__vtLenis) window.__vtLenis.scrollTo(0, { duration: 1.2 });
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+          break;
+        case 'scroll-to-contact': {
+          e.preventDefault();
+          const svc = t.dataset.service;
+          scrollTo('#vt-contact');
+          if (svc) {
+            setTimeout(() => {
+              const sel = document.getElementById('ct-service');
+              if (sel) { sel.value = svc; sel.dispatchEvent(new Event('change')); }
+              const name = document.getElementById('ct-name');
+              if (name) name.focus();
+            }, 900);
+          }
+          break;
+        }
+        case 'scroll-to-gallery': e.preventDefault(); scrollTo('#vt-gallery'); break;
+        case 'close-mobile-menu': {
+          const m = document.getElementById('vt-mobile-menu');
+          if (m) { m.classList.remove('is-open'); m.setAttribute('aria-hidden', 'true'); }
+          const b = document.querySelector('.vt-burger');
+          if (b) b.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          break;
+        }
+        case 'toggle-mobile-menu': {
+          const m = document.getElementById('vt-mobile-menu');
+          if (!m) break;
+          const open = !m.classList.contains('is-open');
+          m.classList.toggle('is-open', open);
+          m.setAttribute('aria-hidden', open ? 'false' : 'true');
+          t.setAttribute('aria-expanded', open ? 'true' : 'false');
+          document.body.style.overflow = open ? 'hidden' : '';
+          break;
+        }
+        case 'privacy':      toast('Privacy policy page coming soon.'); break;
+        case 'terms':        toast('Terms page coming soon.'); break;
+        case 'cookie-prefs': toast('Cookie preferences coming soon.'); break;
+      }
+    });
+
+    /* Close mobile menu on link click */
+    document.querySelectorAll('#vt-mobile-menu a').forEach(a => {
+      a.addEventListener('click', () => {
+        const m = document.getElementById('vt-mobile-menu');
+        if (m) { m.classList.remove('is-open'); m.setAttribute('aria-hidden', 'true'); }
+        const b = document.querySelector('.vt-burger');
+        if (b) b.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* Smooth-scroll anchor links */
+    document.querySelectorAll('a[href^="#vt-"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (!document.querySelector(id)) return;
+        e.preventDefault();
+        scrollTo(id);
+      });
+    });
+
+    /* ───── Navbar scrolled + back-to-top + scroll progress ───── */
+    const navbar = document.getElementById('vt-navbar');
+    const btt    = document.getElementById('vt-btt');
+    const bar    = document.getElementById('vt-scroll-progress');
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      if (navbar) navbar.classList.toggle('scrolled', y > 30);
+      if (btt)    btt.classList.toggle('is-visible', y > 600);
+      if (bar) {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        const w = h > 0 ? (y / h) * 100 : 0;
+        bar.style.width = w + '%';
+        bar.setAttribute('aria-valuenow', Math.round(w));
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ───── Lenis smooth scroll ───── */
+    if (typeof Lenis !== 'undefined' && !reducedMotion) {
+      const lenis = new Lenis({
+        duration: 1.15,
+        smoothWheel: true,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      window.__vtLenis = lenis;
+      /* Sync ScrollTrigger with Lenis */
+      if (typeof ScrollTrigger !== 'undefined') {
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(time => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+      }
+    }
+
+    /* ───── Scroll reveals via GSAP ScrollTrigger ───── */
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reducedMotion) {
+      gsap.registerPlugin(ScrollTrigger);
+      document.querySelectorAll('.vt-reveal').forEach(el => {
+        const delay = (+el.dataset.delay || 0) * .08;
+        gsap.fromTo(el,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1, y: 0,
+            duration: .9, ease: 'power2.out', delay,
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+          });
+      });
+    } else {
+      /* Fallback IntersectionObserver */
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: .12 });
+      document.querySelectorAll('.vt-reveal').forEach(el => io.observe(el));
+    }
+
+    /* ───── Counter animation (powers section) ───── */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.counter, 10);
+      const suffix = el.dataset.suffix || '';
+      if (isNaN(target)) return;
+      const duration = 1800;
+      const start = performance.now();
+      const from = parseInt(el.textContent, 10) || 0;
+      function tick(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = Math.round(from + (target - from) * eased);
+        el.textContent = val + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else      el.innerHTML = target + (suffix ? `<span class="vt-power-unit">${suffix}</span>` : '');
+      }
+      requestAnimationFrame(tick);
+    }
+    const counterIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.target.dataset.counter) {
+          animateCounter(e.target);
+          counterIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: .5 });
+    document.querySelectorAll('.vt-power-stat[data-counter]').forEach(el => counterIO.observe(el));
+
+    /* ───── Form submit ───── */
+    const form = document.getElementById('vt-contact-form');
+    if (form) {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('ct-email');
+        if (email && !email.value.includes('@')) {
+          toast('That email does not look right. Mind checking?');
+          return;
+        }
+        const btn = form.querySelector('button[type="submit"]');
+        const orig = btn ? btn.innerHTML : '';
+        if (btn) { btn.innerHTML = 'Sending…'; btn.disabled = true; }
+        setTimeout(() => {
+          if (btn) { btn.innerHTML = 'Sent ✓'; }
+          toast('Message sent. We will reply within 24 hours.');
+          setTimeout(() => {
+            form.reset();
+            if (btn) { btn.innerHTML = orig; btn.disabled = false; }
+          }, 3000);
+        }, 900);
+      });
+    }
+
+    console.log('%c VANTAGE %c 6-section premium build ',
+                'background:#7C3AED;color:#fff;font-weight:bold;padding:2px 8px;border-radius:4px',
+                'color:#A855F7;padding:2px 8px');
+  })();
+  </script>
+
+</body>
+</html>

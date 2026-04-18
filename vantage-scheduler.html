@@ -8,13 +8,13 @@
 <style>
 :root{
   --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);
-  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
-  --text:#1D1D1F;--text-2:rgba(29,29,31,.62);--text-3:rgba(29,29,31,.4);
-  --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;--yellow:#FFD60A;
+  --bg:#F2F2F7;--surface:#FFFFFF;--surface-2:rgba(118,118,128,.12);--border:rgba(60,60,67,.12);
+  --text:#000000;--text-2:rgba(60,60,67,.6);--text-3:rgba(60,60,67,.3);
+  --ok:#34C759;--warn:#FF9500;--err:#FF3B30;--info:#007AFF;--purple:#AF52DE;--pink:#FF2D55;--yellow:#FFCC00;
   --shadow:0 12px 40px rgba(0,0,0,.06);
 }
-html[data-theme="dark"]{--bg:#1C1C1E;--surface:#2C2C2E;--surface-2:#3A3A3C;--border:rgba(255,255,255,.08);--text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.4);--shadow:0 12px 40px rgba(0,0,0,.4)}
-*{margin:0;padding:0;box-sizing:border-box}
+html[data-theme="dark"]{--bg:#000000;--surface:#1C1C1E;--surface-2:#2C2C2E;--border:rgba(84,84,88,.6);--text:#FFFFFF;--text-2:rgba(235,235,245,.6);--text-3:rgba(235,235,245,.3);--shadow:0 12px 40px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
 .mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -324,10 +324,10 @@ label{display:block;font-size:10px;color:var(--text-3);text-transform:uppercase;
 /* CONFIG */
 const SECTORS={
   restaurant:{accent:'#FF9500',roles:['Server','Cook','Bartender','Host','Manager'],rateRange:[10,15]},
-  realestate:{accent:'#30D158',roles:['Senior Agent','Agent','Admin','Assistant','Manager'],rateRange:[15,25]},
-  garage:{accent:'#0A84FF',roles:['Mechanic','Technician','Reception','Apprentice','Manager'],rateRange:[14,20]},
-  retail:{accent:'#FF375F',roles:['Sales Associate','Cashier','Visual Merchandiser','Stock','Manager'],rateRange:[10,14]},
-  agency:{accent:'#BF5AF2',roles:['Developer','Designer','PM','Strategist','Manager'],rateRange:[20,45]}
+  realestate:{accent:'#34C759',roles:['Senior Agent','Agent','Admin','Assistant','Manager'],rateRange:[15,25]},
+  garage:{accent:'#007AFF',roles:['Mechanic','Technician','Reception','Apprentice','Manager'],rateRange:[14,20]},
+  retail:{accent:'#FF2D55',roles:['Sales Associate','Cashier','Visual Merchandiser','Stock','Manager'],rateRange:[10,14]},
+  agency:{accent:'#AF52DE',roles:['Developer','Designer','PM','Strategist','Manager'],rateRange:[20,45]}
 };
 
 const ROLE_COLORS=['#FF9500','#0A84FF','#30D158','#BF5AF2','#FF375F','#FFD60A','#5AC8FA','#FF6B35'];

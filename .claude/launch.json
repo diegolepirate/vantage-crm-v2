@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "summit-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "3999", "-s", "."],
+      "port": 3999
+    }
+  ]
+}

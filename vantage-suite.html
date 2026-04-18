@@ -8,9 +8,9 @@
 <style>
 :root{
   --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);
-  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
-  --text:#1D1D1F;--text-2:rgba(29,29,31,.62);--text-3:rgba(29,29,31,.4);
-  --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;--yellow:#FFD60A;
+  --bg:#F2F2F7;--surface:#FFFFFF;--surface-2:rgba(118,118,128,.12);--border:rgba(60,60,67,.12);
+  --text:#000000;--text-2:rgba(60,60,67,.6);--text-3:rgba(60,60,67,.3);
+  --ok:#34C759;--warn:#FF9500;--err:#FF3B30;--info:#007AFF;--purple:#AF52DE;--pink:#FF2D55;--yellow:#FFCC00;
   --shadow:0 12px 40px rgba(0,0,0,.06);
 }
 html[data-theme="dark"]{
@@ -18,7 +18,7 @@ html[data-theme="dark"]{
   --text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.4);
   --shadow:0 12px 40px rgba(0,0,0,.4);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
 .mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -458,10 +458,10 @@ table.t tbody tr:hover{background:var(--surface-2)}
 /* ========= CONFIG ========= */
 const SECTORS={
   restaurant:{accent:'#FF9500',products:'Dishes',clientsLabel:'Regulars',cats:['Déjeuner','Dîner','Bar','Livraison','Événements'],tags:['Window seat','Vegetarian','Regular wine','Gluten-free','Birthday','Couple','Business lunch','Private room'],costCats:['Ingredients','Labor','Overhead','Packaging','Delivery'],costColors:['#FF9500','#FF6B35','#FFC542','#A67C52','#8B5CF6'],productNames:['Signature Burger','Pasta Carbonara','Greek Salad','Seafood Risotto','Grilled Lamb','Truffle Pizza','Mezze Platter','Tiramisu','Wine Pairing','Sunday Brunch','Business Lunch','Seasonal Soup','Kids Menu','Cocktail Special','Wedding Menu']},
-  realestate:{accent:'#30D158',products:'Services',clientsLabel:'Prospects',cats:['Vente','Location','Gestion','Conseil','Autre'],tags:['Budget €400K','3 rooms','Central Athens','Sea view','First-time buyer','Investor','Family'],costCats:['Commission','Legal','Marketing','Admin','Other'],costColors:['#30D158','#34C759','#5AC8FA','#AF52DE','#8E8E93'],productNames:['Buyer Representation','Seller Listing','Property Management','Rental Brokerage','Investment Advisory','Valuation Service','Staging','Market Analysis','Legal Facilitation','Property Tour','Open House','Portfolio Review','Commercial Lease','Land Acquisition','Development Advisory']},
-  garage:{accent:'#0A84FF',products:'Services',clientsLabel:'Vehicle Owners',cats:['Main d\u2019œuvre','Pièces','Pneumatiques','Carrosserie','Autre'],tags:['Peugeot 308','Annual service','Summer tires','Winter tires','Diesel','Hybrid','Fleet','Warranty'],costCats:['Parts','Labor','Tools','Overhead','Warranty'],costColors:['#0A84FF','#5AC8FA','#FFCC02','#FF9500','#30D158'],productNames:['Oil Change','Brake Service','Tire Replacement','Engine Diagnostic','Transmission Repair','AC Service','Battery Replacement','Full Service','Bodywork','MOT Inspection','Wheel Alignment','Exhaust Repair','Suspension Work','Windshield Replacement','Annual Maintenance']},
-  retail:{accent:'#FF375F',products:'Items',clientsLabel:'Customers',cats:['Vêtements','Accessoires','Chaussures','Outlet','Online'],tags:['Size M','Premium','Online','In-store','Loyalty card','Birthday','VIP'],costCats:['Purchase','Shipping','Storage','Packaging','Returns'],costColors:['#FF375F','#FF2D55','#FF9500','#BF5AF2','#AF52DE'],productNames:['Premium Jacket','Designer Jeans','Leather Bag','Running Shoes','Silk Scarf','Cashmere Sweater','Wool Coat','Dress Shirt','Evening Dress','Swimwear Set','Sneakers','Belt','Sunglasses','Watch','Perfume']},
-  agency:{accent:'#BF5AF2',products:'Projects',clientsLabel:'Clients',cats:['Sites','Templates','Maintenance','Conseil','Autre'],tags:['Landing page','Retainer','SEO','Strategy','Startup','Enterprise'],costCats:['Time','Software','Subcontractors','Overhead','Other'],costColors:['#BF5AF2','#AF52DE','#5AC8FA','#FF9500','#8E8E93'],productNames:['Landing Page','Full Website','Brand Identity','SEO Package','Monthly Retainer','Social Media','E-commerce','App Design','Content Strategy','Video Production','Email Campaign','PPC Management','Logo Design','Marketing Audit','Website Redesign']}
+  realestate:{accent:'#34C759',products:'Services',clientsLabel:'Prospects',cats:['Vente','Location','Gestion','Conseil','Autre'],tags:['Budget €400K','3 rooms','Central Athens','Sea view','First-time buyer','Investor','Family'],costCats:['Commission','Legal','Marketing','Admin','Other'],costColors:['#30D158','#34C759','#5AC8FA','#AF52DE','#8E8E93'],productNames:['Buyer Representation','Seller Listing','Property Management','Rental Brokerage','Investment Advisory','Valuation Service','Staging','Market Analysis','Legal Facilitation','Property Tour','Open House','Portfolio Review','Commercial Lease','Land Acquisition','Development Advisory']},
+  garage:{accent:'#007AFF',products:'Services',clientsLabel:'Vehicle Owners',cats:['Main d\u2019œuvre','Pièces','Pneumatiques','Carrosserie','Autre'],tags:['Peugeot 308','Annual service','Summer tires','Winter tires','Diesel','Hybrid','Fleet','Warranty'],costCats:['Parts','Labor','Tools','Overhead','Warranty'],costColors:['#0A84FF','#5AC8FA','#FFCC02','#FF9500','#30D158'],productNames:['Oil Change','Brake Service','Tire Replacement','Engine Diagnostic','Transmission Repair','AC Service','Battery Replacement','Full Service','Bodywork','MOT Inspection','Wheel Alignment','Exhaust Repair','Suspension Work','Windshield Replacement','Annual Maintenance']},
+  retail:{accent:'#FF2D55',products:'Items',clientsLabel:'Customers',cats:['Vêtements','Accessoires','Chaussures','Outlet','Online'],tags:['Size M','Premium','Online','In-store','Loyalty card','Birthday','VIP'],costCats:['Purchase','Shipping','Storage','Packaging','Returns'],costColors:['#FF375F','#FF2D55','#FF9500','#BF5AF2','#AF52DE'],productNames:['Premium Jacket','Designer Jeans','Leather Bag','Running Shoes','Silk Scarf','Cashmere Sweater','Wool Coat','Dress Shirt','Evening Dress','Swimwear Set','Sneakers','Belt','Sunglasses','Watch','Perfume']},
+  agency:{accent:'#AF52DE',products:'Projects',clientsLabel:'Clients',cats:['Sites','Templates','Maintenance','Conseil','Autre'],tags:['Landing page','Retainer','SEO','Strategy','Startup','Enterprise'],costCats:['Time','Software','Subcontractors','Overhead','Other'],costColors:['#BF5AF2','#AF52DE','#5AC8FA','#FF9500','#8E8E93'],productNames:['Landing Page','Full Website','Brand Identity','SEO Package','Monthly Retainer','Social Media','E-commerce','App Design','Content Strategy','Video Production','Email Campaign','PPC Management','Logo Design','Marketing Audit','Website Redesign']}
 };
 
 const SIDEBAR_ITEMS={

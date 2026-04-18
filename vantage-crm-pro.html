@@ -11,15 +11,15 @@
   --accent-soft:rgba(255,149,0,.14);
   --bg:#1C1C1E;--surface:#2C2C2E;--surface-2:#3A3A3C;--border:rgba(255,255,255,.08);
   --text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.38);
-  --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;--yellow:#FFD60A;
+  --ok:#34C759;--warn:#FF9500;--err:#FF3B30;--info:#007AFF;--purple:#AF52DE;--pink:#FF2D55;--yellow:#FFCC00;
   --shadow:0 12px 40px rgba(0,0,0,.4);
 }
 html[data-theme="light"]{
-  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
+  --bg:#F2F2F7;--surface:#FFFFFF;--surface-2:rgba(118,118,128,.12);--border:rgba(60,60,67,.12);
   --text:#1D1D1F;--text-2:rgba(29,29,31,.6);--text-3:rgba(29,29,31,.38);
   --shadow:0 12px 40px rgba(0,0,0,.08);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",system-ui,sans-serif;font-size:14px;font-feature-settings:"tnum","ss01";letter-spacing:-.01em;overflow:hidden;height:100vh}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 input,select,textarea{font-family:inherit;font-size:14px}
@@ -432,10 +432,10 @@ html[data-theme="light"] .mbg{background:rgba(0,0,0,.4)}
 /* ========= SECTORS ========= */
 const SECTORS={
   restaurant:{accent:'#FF9500',label:'Regulars',tags:['Window seat','Vegetarian','Gluten-free','Regular wine','Birthday October','Couple','Business lunch','Private room','Kosher','Vegan'],cats:['Regular','Event','Corporate','Tourist','Private dining'],linked:['Co-diner','Group']},
-  realestate:{accent:'#30D158',label:'Prospects',tags:['Budget €400K','3 rooms','Central Athens','Sea view','First-time buyer','Investor','Family','Long-term','Furnished','Garden'],cats:['Buyer','Seller','Investor','Tenant','Landlord'],linked:['Co-buyer','Notary']},
-  garage:{accent:'#0A84FF',label:'Vehicle Owners',tags:['Peugeot 308','Annual service','Summer tires','Winter tires','Diesel','Hybrid','Fleet','Warranty','Leasing','Extended'],cats:['Private','Fleet','Leasing','Warranty','Insurance'],linked:['Secondary driver']},
-  retail:{accent:'#FF375F',label:'Customers',tags:['Size M','Premium','Online','In-store','Loyalty card','Birthday March','VIP','Size 42','Casual','Formal'],cats:['Regular','Online','Wholesale','VIP','Corporate'],linked:['Referrer']},
-  agency:{accent:'#BF5AF2',label:'Clients',tags:['Landing page','Retainer','Monthly hosting','SEO','Strategy','Startup','Enterprise','B2B','B2C','E-commerce'],cats:['Retainer','Project','Consulting','Partner','Startup'],linked:['Team contact']}
+  realestate:{accent:'#34C759',label:'Prospects',tags:['Budget €400K','3 rooms','Central Athens','Sea view','First-time buyer','Investor','Family','Long-term','Furnished','Garden'],cats:['Buyer','Seller','Investor','Tenant','Landlord'],linked:['Co-buyer','Notary']},
+  garage:{accent:'#007AFF',label:'Vehicle Owners',tags:['Peugeot 308','Annual service','Summer tires','Winter tires','Diesel','Hybrid','Fleet','Warranty','Leasing','Extended'],cats:['Private','Fleet','Leasing','Warranty','Insurance'],linked:['Secondary driver']},
+  retail:{accent:'#FF2D55',label:'Customers',tags:['Size M','Premium','Online','In-store','Loyalty card','Birthday March','VIP','Size 42','Casual','Formal'],cats:['Regular','Online','Wholesale','VIP','Corporate'],linked:['Referrer']},
+  agency:{accent:'#AF52DE',label:'Clients',tags:['Landing page','Retainer','Monthly hosting','SEO','Strategy','Startup','Enterprise','B2B','B2C','E-commerce'],cats:['Retainer','Project','Consulting','Partner','Startup'],linked:['Team contact']}
 };
 
 const NAV=[
