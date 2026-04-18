@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BASIC KIT — Taverna Helios</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-gray:#8E8E93;
+  --amber:#FF9500;--amber-deep:#FF6B00;--amber-soft:rgba(255,149,0,.14);--blob-op:.05;
+}
+html[data-theme="dark"]{--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--blob-op:.09}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;height:100vh;overflow:hidden;transition:background .3s,color .3s}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum','ss01','cv01'}
+button{cursor:pointer;border:0;background:none;color:inherit;font-family:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+/* LAVA BLOBS */
+.lava{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.blob{position:absolute;background:radial-gradient(circle at 40% 40%,rgba(255,149,0,.18),rgba(255,107,0,.08) 60%,transparent 100%);filter:blur(70px);opacity:var(--blob-op);will-change:transform,border-radius;animation:lava-float linear infinite;border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+.blob-1{width:480px;height:480px;top:-60px;left:60%;animation-duration:24s}
+.blob-2{width:340px;height:340px;top:50%;left:-50px;animation-duration:28s;animation-delay:-8s}
+.blob-3{width:280px;height:280px;top:75%;left:65%;animation-duration:20s;animation-delay:-12s}
+@keyframes lava-float{
+  0%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+  25%{transform:translate(25px,-35px) scale(1.04);border-radius:45% 55% 40% 60%/60% 40% 55% 45%}
+  50%{transform:translate(-20px,25px) scale(.95);border-radius:55% 45% 60% 40%/40% 60% 45% 55%}
+  75%{transform:translate(30px,15px) scale(1.06);border-radius:40% 60% 45% 55%/55% 45% 60% 40%}
+  100%{transform:translate(0,0) scale(1);border-radius:60% 40% 55% 45%/45% 55% 40% 60%}
+}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+@media (max-width:900px){.lava{display:none}}
+
+/* TOPBAR */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.14em}
+.biz-pill{background:var(--amber-soft);color:var(--amber-deep);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.biz-name{font-size:13px;font-weight:600}
+.module-tabs{display:flex;gap:2px;background:var(--fill-tertiary);border-radius:10px;padding:3px;justify-self:center}
+.module-tabs button{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;color:var(--label-secondary);display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.module-tabs button.active{background:var(--amber);color:#fff;box-shadow:0 2px 8px rgba(255,149,0,.35)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-date{font-size:12px;color:var(--label-secondary);font-weight:600;padding:6px 10px;background:var(--fill-tertiary);border-radius:8px}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--amber)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber-deep));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+
+/* MAIN */
+main{height:calc(100vh - 52px);overflow-y:auto;padding:18px 22px 30px;position:relative;z-index:1}
+main::-webkit-scrollbar{width:8px}
+main::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+.page{animation:fadeUp .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.page-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.page-hd h1{font-size:26px;font-weight:800;letter-spacing:-.025em}
+.page-hd .sub{font-size:12px;color:var(--label-tertiary);margin-top:3px}
+
+/* BUTTONS */
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;min-height:36px;justify-content:center}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--amber);color:#fff;box-shadow:0 4px 14px -4px rgba(255,149,0,.5)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:6px 10px;font-size:12px;min-height:30px}
+.btn.xs{padding:4px 8px;font-size:11px;min-height:26px}
+
+/* CARDS */
+.card{background:var(--bg-secondary);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+.card h3{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+
+/* KPI */
+.kgrid{display:grid;gap:12px;margin-bottom:14px}
+.kgrid.g4{grid-template-columns:repeat(4,1fr)}
+.kgrid.g3{grid-template-columns:repeat(3,1fr)}
+.kgrid.g2{grid-template-columns:repeat(2,1fr)}
+.kcard{background:var(--bg-secondary);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;display:flex;align-items:center;gap:6px}
+.kcard .v{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.025em}
+.kcard .d{font-size:11px;margin-top:3px}
+.kcard .d.up{color:var(--system-green)}.kcard .d.down{color:var(--system-red)}
+
+.chart-host{position:relative;height:260px}
+.chart-host.sm{height:200px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* FORMS */
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:10px 12px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s;margin-bottom:8px}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--amber-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* PILLS */
+.pills{display:flex;gap:4px;background:var(--fill-tertiary);border-radius:10px;padding:3px}
+.pills button{padding:6px 12px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary)}
+.pills button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+html[data-theme="dark"] .pills button.active{background:var(--fill-primary)}
+
+.fil-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.fil-pills button{padding:5px 12px;border-radius:14px;background:var(--fill-tertiary);font-size:11px;color:var(--label-secondary);font-weight:600}
+.fil-pills button.active{background:var(--amber);color:#fff}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.b-green{background:rgba(52,199,89,.14);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.14);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.14);color:var(--system-blue)}
+.b-purple{background:rgba(175,82,222,.14);color:var(--system-purple)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+
+/* TABLES */
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:700;border-bottom:1px solid var(--separator)}
+table.t td{padding:11px 10px;border-bottom:1px solid var(--separator)}
+table.t tr:last-child td{border:0}
+table.t tbody tr{transition:background .1s}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+/* GROUPED LIST */
+.glist{background:var(--bg-secondary);border-radius:12px;overflow:hidden}
+.glist-row{display:grid;grid-template-columns:60px 1fr auto auto;gap:10px;padding:10px 14px;border-bottom:1px solid var(--separator);font-size:13px;align-items:center}
+.glist-row:last-child{border:0}
+.glist-time{font-weight:700;font-variant-numeric:tabular-nums}
+.glist-amt{font-weight:700;font-variant-numeric:tabular-nums}
+
+/* STATUS ACCENTS */
+.row-confirmed{border-left:3px solid var(--system-blue)}
+.row-seated{border-left:3px solid var(--system-green)}
+.row-pending{border-left:3px solid var(--system-orange)}
+.row-noshow{border-left:3px solid var(--system-red)}
+.row-cancelled{border-left:3px solid var(--label-tertiary);opacity:.6}
+.row-completed{border-left:3px solid var(--system-gray)}
+
+/* MINI DOTS (tables indicator) */
+.mini-dots{display:flex;gap:3px;margin-top:6px}
+.mini-dot{width:9px;height:9px;border-radius:50%;background:var(--fill-tertiary)}
+.mini-dot.on{background:var(--amber)}
+
+/* TOP DISHES */
+.dish-row{display:grid;grid-template-columns:30px 1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:13px;align-items:center}
+.dish-row:last-child{border:0}
+.dish-medal{font-size:18px;text-align:center}
+
+/* RESERVATIONS */
+.resa-row{display:grid;grid-template-columns:70px 1fr 60px 60px 110px 100px auto;gap:10px;padding:12px 14px;border-bottom:1px solid var(--separator);align-items:center;font-size:13px;transition:background .1s}
+.resa-row:hover{background:var(--fill-tertiary)}
+.resa-row:last-child{border:0}
+.resa-row .actions{display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.resa-row:hover .actions{opacity:1}
+.resa-row.row-seated{background:rgba(52,199,89,.04)}
+.resa-row.row-confirmed{background:rgba(0,122,255,.04)}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--separator);border-radius:12px;overflow:hidden;border:1px solid var(--separator)}
+.cal-hd-cell{background:var(--fill-tertiary);padding:8px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--label-tertiary);font-weight:700}
+.cal-cell{background:var(--bg-secondary);min-height:90px;padding:8px;cursor:pointer;display:flex;flex-direction:column;transition:background .15s}
+.cal-cell:hover{background:var(--fill-tertiary)}
+.cal-cell.muted{opacity:.4}
+.cal-cell.today{background:var(--amber-soft)}
+.cal-cell.today .day{color:var(--amber-deep);font-weight:800}
+.cal-cell .day{font-size:13px;font-weight:600}
+.cal-cell .dots{display:flex;flex-wrap:wrap;gap:2px;margin-top:6px}
+.cal-cell .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.cal-cell .cnt{font-size:10px;color:var(--label-tertiary);margin-top:auto}
+
+/* STAFF */
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.staff-card{background:var(--bg-secondary);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .2s}
+.staff-card:hover{transform:translateY(-2px)}
+html[data-theme="dark"] .staff-card{border:1px solid var(--separator);box-shadow:none}
+.staff-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.staff-av{width:44px;height:44px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.staff-name{font-size:14px;font-weight:700}
+.staff-role{font-size:10px;color:var(--label-tertiary);margin-top:2px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.staff-status{display:inline-block;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.staff-status.working{background:rgba(52,199,89,.15);color:var(--system-green)}
+.staff-status.break{background:rgba(255,204,0,.2);color:#B58900}
+.staff-status.off{background:var(--fill-tertiary);color:var(--label-secondary)}
+.staff-meta{font-size:11px;color:var(--label-secondary);padding:8px 0;border-top:1px solid var(--separator);margin-top:8px}
+.staff-actions{display:flex;gap:6px;margin-top:10px}
+.staff-actions .btn{flex:1;font-size:11px;padding:6px}
+
+/* TIPS CARD */
+.tips-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.tips-dist{display:flex;flex-direction:column;gap:4px;margin-top:10px}
+.tips-person{display:flex;justify-content:space-between;padding:6px 10px;background:var(--fill-tertiary);border-radius:8px;font-size:12px}
+
+/* INVENTORY */
+.inv-alerts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.inv-alert{padding:12px 16px;border-radius:12px;border-left:4px solid}
+.inv-alert.red{background:rgba(255,59,48,.08);border-color:var(--system-red)}
+.inv-alert.yellow{background:rgba(255,149,0,.08);border-color:var(--system-orange)}
+.inv-alert.green{background:rgba(52,199,89,.08);border-color:var(--system-green)}
+.inv-alert .l{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.inv-alert .v{font-size:20px;font-weight:800;margin-top:2px}
+
+.inv-filters{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.inv-filters input{flex:1;min-width:200px;background:var(--fill-tertiary);border:0;border-radius:10px;padding:9px 12px;color:var(--label-primary);outline:none;font-size:13px}
+
+.inv-cat{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--label-tertiary);font-weight:700;padding:14px 10px 6px;display:flex;align-items:center;gap:8px}
+
+.inv-row{display:grid;grid-template-columns:30px 1.5fr 140px 100px 70px 70px 100px;gap:12px;padding:10px 12px;border-bottom:1px solid var(--separator);align-items:center;font-size:13px;transition:background .1s}
+.inv-row:hover{background:var(--fill-tertiary)}
+.inv-ic{font-size:16px;text-align:center}
+.inv-bar{height:6px;background:var(--fill-tertiary);border-radius:3px;overflow:hidden}
+.inv-bar div{height:100%;background:var(--system-green);border-radius:3px;transition:width .4s,background .4s}
+.inv-bar.low div{background:var(--system-orange)}
+.inv-bar.out div{background:var(--system-red)}
+.inv-qty-ctrl{display:flex;align-items:center;gap:3px;justify-content:flex-end}
+.qty-btn{width:26px;height:26px;border-radius:7px;background:var(--fill-tertiary);color:var(--label-primary);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.qty-btn:hover{background:var(--amber-soft);color:var(--amber-deep)}
+.qty-v{font-weight:800;font-size:12px;min-width:38px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:16px;padding:22px;width:100%;max-width:460px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2),0 0 0 1px var(--separator);animation:modalIn .25s}
+@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* STEPPER */
+.stepper{display:inline-flex;align-items:center;gap:0;background:var(--fill-tertiary);border-radius:10px;overflow:hidden}
+.stepper button{width:34px;height:34px;font-size:16px;font-weight:700}
+.stepper button:hover{background:var(--amber-soft);color:var(--amber-deep)}
+.stepper input{width:44px;background:transparent;border:0;outline:none;text-align:center;font-weight:800;font-size:14px;color:var(--label-primary)}
+
+/* BOTTOM NAV MOBILE */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg-secondary) 92%,transparent);backdrop-filter:blur(20px);border-top:1px solid var(--separator);padding:6px 8px max(10px,env(safe-area-inset-bottom));z-index:50;justify-content:space-around;gap:4px}
+.bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:10px;color:var(--label-tertiary);border-radius:10px;min-height:48px}
+.bottom-nav button.active{background:var(--amber-soft);color:var(--amber-deep);font-weight:700}
+.bottom-nav .ic{font-size:20px}
+@media (max-width:768px){.bottom-nav{display:flex}.module-tabs{display:none}.tb-date{display:none}main{padding-bottom:80px}.kgrid.g4,.kgrid.g3{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.resa-row{grid-template-columns:60px 1fr 50px;font-size:12px}.resa-row>*:nth-child(n+4){display:none}.inv-row{grid-template-columns:24px 1fr 80px;font-size:12px}.inv-row>*:nth-child(n+4){display:none}.inv-row>*:last-child{display:flex!important}.staff-grid{grid-template-columns:1fr}.inv-alerts{grid-template-columns:1fr}}
+
+/* SHORTCUTS TIP */
+.shortcuts-tip{position:fixed;bottom:20px;left:20px;background:var(--bg-secondary);border-radius:14px;padding:18px;box-shadow:0 16px 50px rgba(0,0,0,.15);z-index:300;max-width:280px;display:none;animation:modalIn .25s}
+.shortcuts-tip.show{display:block}
+html[data-theme="dark"] .shortcuts-tip{border:1px solid var(--separator)}
+.shortcuts-tip h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--label-tertiary);font-weight:700;margin-bottom:10px}
+.shortcuts-tip .row{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:4px 0;font-size:12px;align-items:center}
+.kbd{background:var(--fill-tertiary);padding:3px 8px;border-radius:5px;font-family:"SF Mono",Menlo,monospace;font-size:10px;font-weight:700;text-align:center}
+
+@media print{.topbar,.bottom-nav,.shortcuts-tip{display:none!important}main{padding:0!important;height:auto!important;overflow:visible!important}}
+</style>
+</head>
+<body>
+
+<div class="lava">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo">🍽️ BASIC KIT</div>
+    <span class="biz-pill">Restaurant</span>
+    <span class="biz-name">Taverna Helios</span>
+  </div>
+  <div class="module-tabs" id="moduleTabs"></div>
+  <div class="tb-right">
+    <div class="tb-date">Friday 18 April</div>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+    <div class="avatar">MP</div>
+  </div>
+</div>
+
+<main id="mainBody"></main>
+
+<div class="bottom-nav" id="bottomNav"></div>
+
+<!-- MODALS -->
+<div class="mbg" id="mTx"><div class="modal">
+  <h3>Add Transaction</h3>
+  <label>Amount (€)</label><input type="number" step="0.01" class="fld" id="txAmt" placeholder="0.00">
+  <label>Description</label><input class="fld" id="txDesc" placeholder="Table 5 — dinner for 4">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Table</label><input class="fld" id="txTable" placeholder="T5"></div><div><label>Category</label><select class="fld" id="txCat"><option>Dinner</option><option>Lunch</option><option>Bar</option><option>Event</option></select></div></div>
+  <label>Payment</label><select class="fld" id="txPay"><option>Card</option><option>Cash</option><option>Transfer</option></select>
+  <div class="row-btns"><button class="btn" onclick="closeM('mTx')">Cancel</button><button class="btn primary" onclick="saveTx()">Add</button></div>
+</div></div>
+
+<div class="mbg" id="mResa"><div class="modal">
+  <h3 id="resaTitle">New Reservation</h3>
+  <label>Name *</label><input class="fld" id="rName" placeholder="Customer name">
+  <label>Phone</label><input class="fld" id="rPhone" placeholder="+30 69 ...">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Date</label><input type="date" class="fld" id="rDate"></div><div><label>Time</label><select class="fld" id="rTime">${Array.from({length:13},(_,i)=>`<option>${String(18+Math.floor(i/2)).padStart(2,'0')}:${i%2?30:'00'}</option>`).join('')}</select></div></div>
+  <label>Party size</label><div class="stepper"><button onclick="stepCovers(-1)">−</button><input type="number" id="rCovers" value="2" min="1" max="20"><button onclick="stepCovers(1)">+</button></div>
+  <label>Table preference</label><select class="fld" id="rTable"><option>Any</option><option>T1</option><option>T2</option><option>T3</option><option>T4</option><option>T5</option><option>T6</option><option>T7</option><option>T8</option><option>T9</option><option>T10</option><option>T11</option><option>T12</option></select>
+  <label>Occasion</label><select class="fld" id="rOcc"><option>Normal</option><option>Birthday</option><option>Anniversary</option><option>Business</option></select>
+  <label>Special requests</label><textarea class="fld" id="rNotes" rows="2" placeholder="Allergies, preferences..."></textarea>
+  <div class="row-btns"><button class="btn danger" id="resaDelete" style="display:none" onclick="deleteResa()">Delete</button><button class="btn" onclick="closeM('mResa')">Cancel</button><button class="btn primary" onclick="saveResa()">Save</button></div>
+</div></div>
+
+<div class="mbg" id="mStaff"><div class="modal">
+  <h3>Add Staff</h3>
+  <label>Name *</label><input class="fld" id="sName">
+  <label>Role</label><select class="fld" id="sRole"><option>Server</option><option>Head Chef</option><option>Sous Chef</option><option>Bartender</option><option>Cashier</option><option>Runner</option><option>Host</option></select>
+  <label>Phone</label><input type="tel" class="fld" id="sPhone">
+  <label>Start time tonight</label><input type="time" class="fld" id="sStart" value="18:00">
+  <div class="row-btns"><button class="btn" onclick="closeM('mStaff')">Cancel</button><button class="btn primary" onclick="saveStaff()">Add to tonight</button></div>
+</div></div>
+
+<div class="mbg" id="mInvItem"><div class="modal">
+  <h3>Add Inventory Item</h3>
+  <label>Name *</label><input class="fld" id="iName">
+  <label>Category</label><select class="fld" id="iCat"><option>Proteins</option><option>Produce</option><option>Beverages</option><option>Dry goods</option></select>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>Quantity</label><input type="number" step="0.1" class="fld" id="iQty" value="0"></div><div><label>Unit</label><select class="fld" id="iUnit"><option>kg</option><option>g</option><option>L</option><option>mL</option><option>btl</option><option>pcs</option><option>pack</option></select></div></div>
+  <label>Minimum level</label><input type="number" step="0.1" class="fld" id="iMin" value="1">
+  <label>Supplier</label><input class="fld" id="iSup" placeholder="Hellas Supply">
+  <div class="row-btns"><button class="btn" onclick="closeM('mInvItem')">Cancel</button><button class="btn primary" onclick="saveInvItem()">Add Item</button></div>
+</div></div>
+
+<!-- SHORTCUTS TIP -->
+<div class="shortcuts-tip" id="shortcutsTip">
+  <h4>⌨️ Keyboard Shortcuts</h4>
+  <div class="row"><span class="kbd">1-4</span><span>Switch modules</span></div>
+  <div class="row"><span class="kbd">N</span><span>New (context-aware)</span></div>
+  <div class="row"><span class="kbd">D</span><span>Toggle theme</span></div>
+  <div class="row"><span class="kbd">Esc</span><span>Close modal</span></div>
+  <div class="row"><span class="kbd">?</span><span>Show this help</span></div>
+</div>
+
+<script>
+/* DATA */
+const MODULES=[
+  {id:'dashboard',name:'Dashboard',icon:'📊'},
+  {id:'reservations',name:'Reservations',icon:'📅'},
+  {id:'staff',name:'Staff',icon:'👥'},
+  {id:'inventory',name:'Inventory',icon:'📦'}
+];
+
+const ROLE_COLORS={'Head Chef':'#FF6B00','Sous Chef':'#FF9500','Server':'#007AFF','Bartender':'#AF52DE','Cashier':'#34C759','Runner':'#8E8E93','Host':'#5AC8FA'};
+
+let state={
+  module:'dashboard',dashboardView:'today',resaView:'list',resaFilter:'all',invFilter:'all',invCatFilter:'all',invSearch:'',editingResa:null,
+
+  revenue:1847,covers:67,tablesActive:8,tablesTotal:12,avgTicket:27.60,
+
+  weekData:[{d:'Mon',v:1240},{d:'Tue',v:1420},{d:'Wed',v:1380},{d:'Thu',v:1590},{d:'Fri',v:1847},{d:'Sat',v:2100},{d:'Sun',v:843}],
+
+  topDishes:[['🥇','Lamb Kleftiko',47],['🥈','Grilled Sea Bass',38],['🥉','Moussaka',31]],
+
+  transactions:[
+    {t:'19:42',desc:'Table 5 — Dinner for 3',amt:94,pay:'Card'},
+    {t:'19:38',desc:'Bar — Cocktails (2)',amt:28,pay:'Cash'},
+    {t:'19:31',desc:'Table 2 — Wine selection',amt:45,pay:'Card'},
+    {t:'19:15',desc:'Table 8 — Full menu (4)',amt:156,pay:'Card'},
+    {t:'19:02',desc:'Table 3 — Dinner (3)',amt:112,pay:'Card'},
+    {t:'18:55',desc:'Table 1 — Early dinner',amt:62,pay:'Cash'},
+    {t:'18:40',desc:'Bar — Wine by glass',amt:34,pay:'Card'},
+    {t:'18:25',desc:'Table 6 — Appetizer + drinks',amt:48,pay:'Card'},
+    {t:'18:10',desc:'Takeaway — Moussaka',amt:22,pay:'Cash'},
+    {t:'17:55',desc:'Table 7 — Lunch late',amt:68,pay:'Card'}
+  ],
+
+  reservations:[
+    {id:'r1',time:'19:00',name:'Stavros Papadopoulos',covers:2,table:'T1',phone:'+30 69 12 345678',status:'seated',occ:'Normal',notes:''},
+    {id:'r2',time:'19:00',name:'Elena Georgiou',covers:4,table:'T2',phone:'+30 69 23 456789',status:'seated',occ:'Normal',notes:''},
+    {id:'r3',time:'19:15',name:'Andreas Alexiou',covers:3,table:'T3',phone:'+30 69 34 567890',status:'seated',occ:'Business',notes:''},
+    {id:'r4',time:'19:30',name:'Nikos Petridis',covers:4,table:'T5',phone:'+30 69 45 678901',status:'seated',occ:'Birthday',notes:'Cake at 21:00'},
+    {id:'r5',time:'19:30',name:'Maria Konstantinou',covers:2,table:'T6',phone:'+30 69 56 789012',status:'seated',occ:'Anniversary',notes:''},
+    {id:'r6',time:'19:45',name:'Sofia Vasileiou',covers:4,table:'T8',phone:'+30 69 67 890123',status:'seated',occ:'Normal',notes:''},
+    {id:'r7',time:'20:30',name:'Dimitris Andreou',covers:4,table:'T7',phone:'+30 69 78 901234',status:'confirmed',occ:'Normal',notes:'Vegetarian'},
+    {id:'r8',time:'21:00',name:'Katerina Nikolaou',covers:3,table:'T11',phone:'+30 69 89 012345',status:'confirmed',occ:'Normal',notes:''},
+    {id:'r9',time:'21:30',name:'Yannis Marinakis',covers:2,table:'T12',phone:'+30 69 90 123456',status:'pending',occ:'Normal',notes:''},
+    {id:'r10',time:'22:00',name:'Lefteris Tsiolis',covers:5,table:'Any',phone:'+30 69 01 234567',status:'pending',occ:'Business',notes:'Wine list please'}
+  ],
+
+  staff:[
+    {id:'s1',name:'Marco Papadakis',role:'Head Chef',clock:'16:30',status:'working',assign:'Kitchen',phone:'+30 69 11 111111'},
+    {id:'s2',name:'Elena Stavrou',role:'Sous Chef',clock:'17:00',status:'working',assign:'Kitchen',phone:'+30 69 22 222222'},
+    {id:'s3',name:'Dimitris Alexiou',role:'Server',clock:'18:00',status:'working',assign:'T1-T2-T3',phone:'+30 69 33 333333'},
+    {id:'s4',name:'Sofia Georgiou',role:'Server',clock:'18:00',status:'working',assign:'T5-T6-T8',phone:'+30 69 44 444444'},
+    {id:'s5',name:'Andreas Nikolaou',role:'Server',clock:'18:00',status:'break',assign:'T7-T9',phone:'+30 69 55 555555'},
+    {id:'s6',name:'Yiannis Petridis',role:'Bartender',clock:'17:30',status:'working',assign:'Bar',phone:'+30 69 66 666666'},
+    {id:'s7',name:'Katerina Vasileiou',role:'Cashier',clock:'18:00',status:'working',assign:'Front',phone:'+30 69 77 777777'},
+    {id:'s8',name:'Petros Andreou',role:'Runner',clock:'18:30',status:'working',assign:'All',phone:'+30 69 88 888888'}
+  ],
+
+  tips:{cash:47,card:80,method:'equal'},
+
+  inventory:[
+    {id:'i1',cat:'Proteins',icon:'🥩',name:'Lamb (shoulder)',qty:4.2,min:3,unit:'kg',supplier:'Kostas Meats'},
+    {id:'i2',cat:'Proteins',icon:'🥩',name:'Beef (tenderloin)',qty:.8,min:2,unit:'kg',supplier:'Kostas Meats'},
+    {id:'i3',cat:'Proteins',icon:'🥩',name:'Chicken (breast)',qty:2.8,min:2,unit:'kg',supplier:'Kostas Meats'},
+    {id:'i4',cat:'Proteins',icon:'🥩',name:'Fresh octopus',qty:1.2,min:1,unit:'kg',supplier:'Piraeus Fish'},
+    {id:'i5',cat:'Proteins',icon:'🥩',name:'Sea bass (whole)',qty:3.4,min:2,unit:'kg',supplier:'Piraeus Fish'},
+    {id:'i6',cat:'Produce',icon:'🥬',name:'Cherry tomatoes',qty:.4,min:1,unit:'kg',supplier:'Athens Farmers'},
+    {id:'i7',cat:'Produce',icon:'🥬',name:'Cucumber',qty:8,min:6,unit:'pcs',supplier:'Athens Farmers'},
+    {id:'i8',cat:'Produce',icon:'🥬',name:'Lemons',qty:12,min:10,unit:'pcs',supplier:'Athens Farmers'},
+    {id:'i9',cat:'Produce',icon:'🥬',name:'Fresh herbs (mixed)',qty:.2,min:.15,unit:'kg',supplier:'Athens Farmers'},
+    {id:'i10',cat:'Produce',icon:'🥬',name:'Eggplant',qty:6,min:4,unit:'pcs',supplier:'Athens Farmers'},
+    {id:'i11',cat:'Beverages',icon:'🍷',name:'Pinot Grigio',qty:2,min:6,unit:'btl',supplier:'Hellas Wine Co.'},
+    {id:'i12',cat:'Beverages',icon:'🍷',name:'Assyrtiko (Santorini)',qty:8,min:4,unit:'btl',supplier:'Hellas Wine Co.'},
+    {id:'i13',cat:'Beverages',icon:'🍷',name:'House red',qty:6,min:4,unit:'btl',supplier:'Hellas Wine Co.'},
+    {id:'i14',cat:'Beverages',icon:'🍹',name:'Aperol',qty:1,min:2,unit:'btl',supplier:'Drinks Hellas'},
+    {id:'i15',cat:'Beverages',icon:'💧',name:'San Pellegrino',qty:24,min:12,unit:'btl',supplier:'Drinks Hellas'},
+    {id:'i16',cat:'Dry goods',icon:'🫒',name:'Olive oil (extra virgin)',qty:2,min:1,unit:'L',supplier:'Kalamata Gold'},
+    {id:'i17',cat:'Dry goods',icon:'🧀',name:'Feta cheese',qty:1.2,min:.8,unit:'kg',supplier:'Athens Dairy'},
+    {id:'i18',cat:'Dry goods',icon:'🫙',name:'Truffle oil',qty:0,min:1,unit:'btl',supplier:'Specialty Foods'},
+    {id:'i19',cat:'Dry goods',icon:'🍝',name:'Pasta (mixed)',qty:3,min:2,unit:'kg',supplier:'Italian Pantry'},
+    {id:'i20',cat:'Dry goods',icon:'🍚',name:'Rice (arborio)',qty:2.5,min:1,unit:'kg',supplier:'Italian Pantry'}
+  ],
+
+  serviceOpen:true,
+  chart:null
+};
+
+// Compute inventory status
+state.inventory.forEach(i=>i.status=i.qty===0?'out':i.qty<i.min?'low':'ok');
+
+/* HELPERS */
+function $(s){return document.querySelector(s)}
+function $$(s){return [...document.querySelectorAll(s)]}
+function rand(a,b){return Math.floor(a+Math.random()*(b-a+1))}
+function uid(){return Math.random().toString(36).slice(2,10)}
+function initials(n){return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}
+function money(v){return '€'+Math.round(Number(v||0)).toLocaleString('en-US')}
+function moneyF(v){return '€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function countUp(el,target,dur=1400){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* RENDER */
+function renderTopTabs(){$('#moduleTabs').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')">${m.icon} ${m.name}</button>`).join('')}
+function renderBottomNav(){$('#bottomNav').innerHTML=MODULES.map(m=>`<button class="${state.module===m.id?'active':''}" onclick="setModule('${m.id}')"><span class="ic">${m.icon}</span>${m.name}</button>`).join('')}
+function setModule(id){state.module=id;renderTopTabs();renderBottomNav();renderMain()}
+
+function renderMain(){
+  const body=$('#mainBody');body.innerHTML='';
+  if(state.module==='dashboard')renderDashboard(body);
+  else if(state.module==='reservations')renderReservations(body);
+  else if(state.module==='staff')renderStaff(body);
+  else renderInventory(body);
+  const page=body.querySelector('.page');if(page){page.style.animation='none';requestAnimationFrame(()=>page.style.animation='fadeUp .3s')}
+}
+
+/* DASHBOARD */
+function renderDashboard(body){
+  if(state.dashboardView==='week')return dashWeek(body);
+  if(state.dashboardView==='month')return dashMonth(body);
+
+  const dots=Array.from({length:state.tablesTotal},(_,i)=>`<div class="mini-dot ${i<state.tablesActive?'on':''}"></div>`).join('');
+  const cashTotal=state.transactions.filter(t=>t.pay==='Cash').reduce((s,t)=>s+t.amt,0);
+  const cardTotal=state.transactions.filter(t=>t.pay==='Card').reduce((s,t)=>s+t.amt,0);
+  const weekTotal=state.weekData.reduce((s,d)=>s+d.v,0);
+  const bestDay=state.weekData.reduce((m,d)=>d.v>m.v?d:m);
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd">
+      <div><h1>Dashboard</h1><div class="sub">Friday 18 April 2026 · Dinner Service 19:00 → 23:30</div></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn ${state.serviceOpen?'primary':''}" onclick="state.serviceOpen=!state.serviceOpen;renderMain()">${state.serviceOpen?'● OPEN':'○ CLOSED'}</button>
+        <div class="pills"><button class="${state.dashboardView==='today'?'active':''}" onclick="state.dashboardView='today';renderMain()">Today</button><button class="${state.dashboardView==='week'?'active':''}" onclick="state.dashboardView='week';renderMain()">Week</button><button class="${state.dashboardView==='month'?'active':''}" onclick="state.dashboardView='month';renderMain()">Month</button></div>
+      </div>
+    </div>
+
+    <div class="kgrid g4">
+      <div class="kcard"><div class="l">💰 Revenue Today</div><div class="v mono">€<span id="k-rev">0</span></div><div class="d up">↑ +12% vs yesterday</div></div>
+      <div class="kcard"><div class="l">🍽️ Covers Today</div><div class="v mono"><span id="k-cov">0</span></div><div class="d" style="color:var(--label-tertiary)">Lunch 28 · Dinner 39</div></div>
+      <div class="kcard"><div class="l">🪑 Tables Active</div><div class="v mono">${state.tablesActive}/${state.tablesTotal}</div><div class="mini-dots">${dots}</div></div>
+      <div class="kcard"><div class="l">🎫 Avg Ticket</div><div class="v mono">€<span id="k-avg">0</span></div><div class="d up">↑ €2.40 vs last week</div></div>
+    </div>
+
+    <div class="grid2" style="grid-template-columns:60% 40%;margin-bottom:14px">
+      <div class="card"><h3>Revenue — Last 7 Days</h3><div class="chart-host"><canvas id="revChart"></canvas></div></div>
+      <div class="card"><h3>Overview</h3>
+        <div style="padding:6px 0"><div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">This week</div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>Revenue</span><span style="font-weight:800">${money(weekTotal)}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>Covers</span><span style="font-weight:800">312</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>Best day</span><span style="font-weight:800">${bestDay.d} ${money(bestDay.v)}</span></div>
+        </div>
+        <div style="padding:8px 0;border-top:1px solid var(--separator);margin-top:6px"><div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px">This month</div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>Revenue</span><span style="font-weight:800">€24,680</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span>vs last month</span><span style="font-weight:800;color:var(--system-green)">+8%</span></div>
+        </div>
+        <div style="padding:10px 0 0;border-top:1px solid var(--separator);margin-top:6px">
+          <div style="font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:8px">Top dishes this week</div>
+          ${state.topDishes.map(([m,n,q])=>`<div class="dish-row"><div class="dish-medal">${m}</div><div style="font-weight:600">${n}</div><div class="mono" style="font-weight:700;color:var(--amber-deep)">${q}×</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Today's Transactions<button class="btn primary sm" onclick="openTx()">+ Add transaction</button></h3>
+      <div class="glist">${state.transactions.map(t=>`<div class="glist-row"><span class="glist-time mono">${t.t}</span><span>${t.desc}</span><span class="glist-amt mono">${moneyF(t.amt)}</span><span class="badge ${t.pay==='Card'?'b-blue':t.pay==='Cash'?'b-green':'b-gray'}">${t.pay}</span></div>`).join('')}</div>
+      <div style="display:flex;gap:10px;margin-top:12px;padding:10px 14px;background:var(--fill-tertiary);border-radius:10px;font-size:13px;font-weight:700"><span>Cash: ${money(cashTotal)}</span><span>·</span><span>Card: ${money(cardTotal)}</span><span style="margin-left:auto">Total: ${money(state.revenue)}</span></div>
+    </div>
+  </div>`;
+
+  setTimeout(()=>{countUp($('#k-rev'),state.revenue);countUp($('#k-cov'),state.covers);countUp($('#k-avg'),state.avgTicket);drawRevChart()},30);
+}
+function drawRevChart(){
+  const ctx=$('#revChart');if(!ctx)return;
+  if(state.chart)state.chart.destroy();
+  const today=state.weekData.findIndex(d=>d.d==='Fri');
+  state.chart=new Chart(ctx,{type:'bar',data:{labels:state.weekData.map(d=>d.d),datasets:[{data:state.weekData.map(d=>d.v),backgroundColor:state.weekData.map((_,i)=>i===today?'#FF9500':'rgba(255,149,0,.4)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'€'+c.parsed.y.toLocaleString()}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v,font:{size:10}}}}}});
+}
+function dashWeek(body){
+  const total=state.weekData.reduce((s,d)=>s+d.v,0);
+  body.innerHTML=`<div class="page"><div class="page-hd"><div><h1>Week Overview</h1><div class="sub">Apr 14 → Apr 20, 2026</div></div><div class="pills"><button onclick="state.dashboardView='today';renderMain()">Today</button><button class="active">Week</button><button onclick="state.dashboardView='month';renderMain()">Month</button></div></div>
+  <div class="kgrid g4"><div class="kcard"><div class="l">Weekly Revenue</div><div class="v mono">${money(total)}</div></div><div class="kcard"><div class="l">Covers</div><div class="v mono">312</div></div><div class="kcard"><div class="l">Avg Ticket</div><div class="v mono">€26.98</div></div><div class="kcard"><div class="l">Best day</div><div class="v mono">Sat</div></div></div>
+  <div class="card"><h3>Revenue by Day</h3><div class="chart-host"><canvas id="revChart"></canvas></div></div></div>`;
+  setTimeout(drawRevChart,30);
+}
+function dashMonth(body){
+  const monthData=Array.from({length:30},(_,i)=>({d:'Apr '+(i+1),v:rand(800,2400)}));
+  const total=monthData.reduce((s,d)=>s+d.v,0);
+  body.innerHTML=`<div class="page"><div class="page-hd"><div><h1>Month Overview</h1><div class="sub">April 2026</div></div><div class="pills"><button onclick="state.dashboardView='today';renderMain()">Today</button><button onclick="state.dashboardView='week';renderMain()">Week</button><button class="active">Month</button></div></div>
+  <div class="kgrid g4"><div class="kcard"><div class="l">Monthly Revenue</div><div class="v mono">${money(total)}</div></div><div class="kcard"><div class="l">vs Last Month</div><div class="v mono" style="color:var(--system-green)">+8%</div></div><div class="kcard"><div class="l">Best day</div><div class="v mono">Apr 13</div></div><div class="kcard"><div class="l">Avg daily</div><div class="v mono">${money(total/30)}</div></div></div>
+  <div class="card"><h3>Daily Revenue — April</h3><div class="chart-host"><canvas id="monthChart"></canvas></div></div></div>`;
+  setTimeout(()=>{const ctx=$('#monthChart');if(!ctx)return;if(state.chart)state.chart.destroy();state.chart=new Chart(ctx,{type:'line',data:{labels:monthData.map(d=>d.d.replace('Apr ','')),datasets:[{data:monthData.map(d=>d.v),borderColor:'#FF9500',backgroundColor:'rgba(255,149,0,.15)',tension:.3,fill:true,pointRadius:0,pointHoverRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{callback:v=>'€'+v}}}}})},30);
+}
+
+/* RESERVATIONS */
+function renderReservations(body){
+  if(state.resaView==='calendar')return resaCalendar(body);
+  let list=state.reservations.slice();
+  if(state.resaFilter!=='all')list=list.filter(r=>r.status===state.resaFilter);
+  list.sort((a,b)=>a.time.localeCompare(b.time));
+  const covers=state.reservations.reduce((s,r)=>s+r.covers,0);
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Reservations</h1><div class="sub">Tonight — Friday 18 April · <strong>${state.reservations.length} reservations · ${covers} covers</strong></div></div><div style="display:flex;gap:10px;align-items:center"><div class="pills"><button class="${state.resaView==='list'?'active':''}" onclick="state.resaView='list';renderMain()">List</button><button class="${state.resaView==='calendar'?'active':''}" onclick="state.resaView='calendar';renderMain()">Calendar</button></div><button class="btn primary" onclick="openNewResa()">+ New Reservation</button></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="display:flex;gap:4px;align-items:center;font-size:12px;color:var(--label-secondary)"><button class="btn sm" onclick="alert('Yesterday')">← Yesterday</button><strong style="padding:0 10px">Tonight</strong><button class="btn sm" onclick="alert('Tomorrow')">Tomorrow →</button></div></div>
+    <div class="fil-pills">${[['all','All'],['confirmed','Confirmed'],['pending','Pending'],['seated','Seated'],['completed','Completed'],['cancelled','Cancelled']].map(([k,l])=>`<button class="${state.resaFilter===k?'active':''}" onclick="state.resaFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="resa-row" style="background:var(--fill-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--label-tertiary);font-weight:700;padding:10px 14px;border-bottom:2px solid var(--separator)"><span>Time</span><span>Name</span><span>Covers</span><span>Table</span><span>Phone</span><span>Status</span><span></span></div>
+      ${list.map(r=>`<div class="resa-row row-${r.status}"><span class="glist-time mono">${r.time}</span><div><div style="font-weight:700">${r.name}</div>${r.notes?`<div style="font-size:10px;color:var(--label-tertiary);margin-top:2px">📝 ${r.notes}</div>`:''}${r.occ!=='Normal'?`<div style="font-size:10px;color:var(--amber-deep);margin-top:2px">🎉 ${r.occ}</div>`:''}</div><span><strong>${r.covers}</strong>p</span><span>${r.table}</span><span class="mono" style="font-size:11px">${r.phone}</span><span class="badge ${r.status==='seated'?'b-green':r.status==='confirmed'?'b-blue':r.status==='pending'?'b-orange':r.status==='cancelled'?'b-gray':r.status==='noshow'?'b-red':'b-gray'}">${r.status}</span><div class="actions">${r.status==='pending'?`<button class="btn xs" title="Confirm" onclick="changeStatus('${r.id}','confirmed')">✓</button>`:''}${r.status==='confirmed'?`<button class="btn xs" title="Seat" onclick="changeStatus('${r.id}','seated')">→</button>`:''}${r.status!=='completed'&&r.status!=='cancelled'?`<button class="btn xs" title="No-show" onclick="changeStatus('${r.id}','noshow')">✗</button>`:''}<button class="btn xs" title="Edit" onclick="editResa('${r.id}')">✎</button><button class="btn xs" title="Call" onclick="window.open('tel:${r.phone}')">📞</button></div></div>`).join('')||'<div style="padding:40px;text-align:center;color:var(--label-tertiary)">No reservations match</div>'}
+    </div>
+  </div>`;
+}
+function resaCalendar(body){
+  const today=new Date();const y=today.getFullYear(),m=today.getMonth();
+  const first=new Date(y,m,1),last=new Date(y,m+1,0);
+  const start=(first.getDay()+6)%7;
+  const cells=[];for(let i=0;i<start;i++){const d=new Date(y,m,-start+i+1);cells.push({d,muted:true})}
+  for(let i=1;i<=last.getDate();i++)cells.push({d:new Date(y,m,i)});
+  while(cells.length%7)cells.push({d:new Date(y,m+1,cells.length-start-last.getDate()+1),muted:true});
+  const resaByDay={};state.reservations.forEach(r=>{const k='2026-04-18';(resaByDay[k]=resaByDay[k]||[]).push(r)});
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Reservations Calendar</h1></div><div style="display:flex;gap:10px"><div class="pills"><button onclick="state.resaView='list';renderMain()">List</button><button class="active">Calendar</button></div><button class="btn primary" onclick="openNewResa()">+ New</button></div></div>
+    <div class="cal-grid">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="cal-hd-cell">${d}</div>`).join('')}
+    ${cells.map(c=>{const isToday=c.d.toDateString()===today.toDateString();const k=c.d.toISOString().slice(0,10);const list=resaByDay[k]||[];return `<div class="cal-cell ${c.muted?'muted':''} ${isToday?'today':''}" onclick="state.resaView='list';renderMain()"><div class="day">${c.d.getDate()}</div><div class="dots">${list.slice(0,6).map(()=>`<div class="dot"></div>`).join('')}</div>${list.length?`<div class="cnt">${list.length} reservation${list.length>1?'s':''}</div>`:''}</div>`}).join('')}
+    </div>
+  </div>`;
+}
+window.changeStatus=(id,st)=>{const r=state.reservations.find(x=>x.id===id);r.status=st;renderMain()};
+window.openNewResa=()=>{state.editingResa=null;$('#resaTitle').textContent='New Reservation';$('#resaDelete').style.display='none';$('#rName').value='';$('#rPhone').value='';$('#rDate').value='2026-04-18';$('#rTime').value='20:00';$('#rCovers').value=2;$('#rTable').value='Any';$('#rOcc').value='Normal';$('#rNotes').value='';openM('mResa')};
+window.editResa=id=>{const r=state.reservations.find(x=>x.id===id);state.editingResa=id;$('#resaTitle').textContent='Edit Reservation';$('#resaDelete').style.display='inline-flex';$('#rName').value=r.name;$('#rPhone').value=r.phone;$('#rDate').value='2026-04-18';$('#rTime').value=r.time;$('#rCovers').value=r.covers;$('#rTable').value=r.table;$('#rOcc').value=r.occ;$('#rNotes').value=r.notes;openM('mResa')};
+window.stepCovers=n=>{const inp=$('#rCovers');inp.value=Math.max(1,Math.min(20,(+inp.value||2)+n))};
+window.saveResa=()=>{const name=$('#rName').value.trim();if(!name)return alert('Name required');const data={name,phone:$('#rPhone').value,time:$('#rTime').value,covers:+$('#rCovers').value,table:$('#rTable').value,occ:$('#rOcc').value,notes:$('#rNotes').value};if(state.editingResa){Object.assign(state.reservations.find(r=>r.id===state.editingResa),data)}else{state.reservations.push({id:uid(),status:'pending',...data})}closeM('mResa');renderMain()};
+window.deleteResa=()=>{if(!confirm('Delete this reservation?'))return;state.reservations=state.reservations.filter(r=>r.id!==state.editingResa);closeM('mResa');renderMain()};
+
+/* STAFF */
+function renderStaff(body){
+  const onDuty=state.staff.filter(s=>s.status!=='off').length;
+  const totalTips=state.tips.cash+state.tips.card;
+  const staffCount=state.staff.filter(s=>s.status!=='off').length;
+  const distribution=distributeTips(totalTips,staffCount);
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Staff</h1><div class="sub">Friday Dinner Service · <strong>${onDuty} on duty</strong></div></div><div style="display:flex;gap:8px"><button class="btn" onclick="alert('Start service')">Start Service</button><button class="btn primary" onclick="openNewStaff()">+ Add Staff</button></div></div>
+    <div class="staff-grid" style="margin-bottom:14px">${state.staff.map(s=>`<div class="staff-card"><div class="staff-top"><div class="staff-av" style="background:${ROLE_COLORS[s.role]||'var(--amber)'}">${initials(s.name)}</div><div style="flex:1"><div class="staff-name">${s.name}</div><div class="staff-role">${s.role}</div></div><span class="staff-status ${s.status}">${s.status}</span></div><div class="staff-meta">Clocked in: <strong>${s.clock}</strong> · <strong>${computeHours(s.clock)}h</strong> worked<br>📍 ${s.assign}</div><div class="staff-actions">${s.status==='working'?`<button class="btn xs" onclick="toggleBreak('${s.id}')">On break</button><button class="btn xs" onclick="clockOut('${s.id}')">Clock out</button>`:s.status==='break'?`<button class="btn xs" onclick="toggleBreak('${s.id}')">Back</button><button class="btn xs" onclick="clockOut('${s.id}')">Clock out</button>`:`<button class="btn xs" onclick="clockIn('${s.id}')">Clock in</button>`}<button class="btn xs" onclick="alert('Edit ${s.name}')">✎</button></div></div>`).join('')}</div>
+    <div class="card"><h3>💰 Tips Calculator</h3>
+      <div class="tips-inputs"><div><label>Cash tips (€)</label><input type="number" step="0.01" class="fld" value="${state.tips.cash}" onchange="state.tips.cash=+this.value||0;renderMain()"></div><div><label>Card tips (€)</label><input type="number" step="0.01" class="fld" value="${state.tips.card}" onchange="state.tips.card=+this.value||0;renderMain()"></div><div><label>Total</label><input type="text" class="fld" value="${moneyF(totalTips)}" readonly></div></div>
+      <label>Distribution</label>
+      <div class="pills" style="margin-bottom:10px"><button class="${state.tips.method==='equal'?'active':''}" onclick="state.tips.method='equal';renderMain()">Equal</button><button class="${state.tips.method==='hours'?'active':''}" onclick="state.tips.method='hours';renderMain()">By hours</button><button class="${state.tips.method==='custom'?'active':''}" onclick="state.tips.method='custom';renderMain()">Custom</button></div>
+      <div class="tips-dist">${state.staff.filter(s=>s.status!=='off').map((s,i)=>`<div class="tips-person"><span><strong>${s.name}</strong> · ${s.role}</span><span class="mono" style="font-weight:800;color:var(--amber-deep)">${moneyF(distribution[i])}</span></div>`).join('')}</div>
+      <button class="btn" style="margin-top:12px" onclick="window.print()">🖨 Print tips sheet</button>
+    </div>
+  </div>`;
+}
+function computeHours(clock){const [h,m]=clock.split(':').map(Number);const now=new Date();return ((now.getHours()*60+now.getMinutes())-(h*60+m))/60|0}
+function distributeTips(total,n){if(!n)return[];if(state.tips.method==='equal')return Array(n).fill(total/n);if(state.tips.method==='hours'){const hrs=state.staff.filter(s=>s.status!=='off').map(s=>computeHours(s.clock)||1);const sum=hrs.reduce((a,b)=>a+b,0);return hrs.map(h=>total*h/sum)}return Array(n).fill(total/n)}
+window.toggleBreak=id=>{const s=state.staff.find(x=>x.id===id);s.status=s.status==='break'?'working':'break';renderMain()};
+window.clockOut=id=>{const s=state.staff.find(x=>x.id===id);if(confirm(`Clock out ${s.name}?`)){s.status='off';renderMain()}};
+window.clockIn=id=>{const s=state.staff.find(x=>x.id===id);s.status='working';s.clock=new Date().toTimeString().slice(0,5);renderMain()};
+window.openNewStaff=()=>{$('#sName').value='';$('#sPhone').value='';$('#sStart').value=new Date().toTimeString().slice(0,5);openM('mStaff')};
+window.saveStaff=()=>{const name=$('#sName').value.trim();if(!name)return alert('Name required');state.staff.push({id:uid(),name,role:$('#sRole').value,clock:$('#sStart').value,status:'working',assign:'—',phone:$('#sPhone').value});closeM('mStaff');renderMain()};
+
+/* INVENTORY */
+function renderInventory(body){
+  const out=state.inventory.filter(i=>i.status==='out').length;
+  const low=state.inventory.filter(i=>i.status==='low').length;
+  const ok=state.inventory.filter(i=>i.status==='ok').length;
+  let list=state.inventory.slice();
+  if(state.invFilter==='out')list=list.filter(i=>i.status==='out');
+  else if(state.invFilter==='low')list=list.filter(i=>i.status==='low');
+  else if(state.invFilter==='ok')list=list.filter(i=>i.status==='ok');
+  if(state.invCatFilter!=='all')list=list.filter(i=>i.cat===state.invCatFilter);
+  const q=state.invSearch.toLowerCase();
+  if(q)list=list.filter(i=>i.name.toLowerCase().includes(q)||i.supplier.toLowerCase().includes(q));
+  const lowOut=state.inventory.filter(i=>i.status==='low'||i.status==='out');
+
+  // Group by category
+  const byCat={};list.forEach(i=>{(byCat[i.cat]=byCat[i.cat]||[]).push(i)});
+
+  body.innerHTML=`<div class="page">
+    <div class="page-hd"><div><h1>Inventory</h1><div class="sub">${state.inventory.length} items · ${low} low · ${out} out of stock</div></div><div style="display:flex;gap:8px"><button class="btn primary" onclick="openNewInv()">+ Add Item</button></div></div>
+    <div class="inv-alerts">
+      <div class="inv-alert red"><div class="l">🔴 Out of stock</div><div class="v">${out}</div></div>
+      <div class="inv-alert yellow"><div class="l">🟡 Low stock</div><div class="v">${low}</div></div>
+      <div class="inv-alert green"><div class="l">🟢 Well stocked</div><div class="v">${ok}</div></div>
+    </div>
+    <div class="inv-filters">
+      <input id="invSearch" placeholder="🔍 Search items, suppliers..." value="${state.invSearch}">
+      <div class="fil-pills" style="margin:0">${[['all','All'],['ok','OK'],['low','Low'],['out','Out']].map(([k,l])=>`<button class="${state.invFilter===k?'active':''}" onclick="state.invFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+      <div class="fil-pills" style="margin:0">${[['all','All'],['Proteins','🥩'],['Produce','🥬'],['Beverages','🍷'],['Dry goods','🧂']].map(([k,l])=>`<button class="${state.invCatFilter===k?'active':''}" onclick="state.invCatFilter='${k}';renderMain()">${l}</button>`).join('')}</div>
+    </div>
+    <div class="grid2" style="grid-template-columns:${lowOut.length?'2fr 1fr':'1fr'}">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="inv-row" style="background:var(--fill-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--label-tertiary);font-weight:700;padding:10px 14px;border-bottom:2px solid var(--separator)"><span></span><span>Item</span><span>Level</span><span>Supplier</span><span>Qty</span><span>Min</span><span style="text-align:right">Actions</span></div>
+        ${Object.entries(byCat).map(([cat,items])=>`<div class="inv-cat">${items[0].icon} ${cat} <span style="color:var(--label-tertiary);font-weight:500;text-transform:none;letter-spacing:0">(${items.length})</span></div>${items.map(i=>`<div class="inv-row"><span class="inv-ic">${i.icon}</span><div><div style="font-weight:600">${i.name}</div>${i.status!=='ok'?`<span class="badge ${i.status==='out'?'b-red':'b-orange'}" style="margin-top:2px">${i.status==='out'?'OUT':'LOW'}</span>`:''}</div><div class="inv-bar ${i.status}"><div style="width:${Math.min(100,i.qty/(i.min*2)*100)}%"></div></div><span style="font-size:11px;color:var(--label-tertiary)">${i.supplier}</span><span class="mono" style="font-weight:700">${i.qty} ${i.unit}</span><span class="mono" style="color:var(--label-tertiary)">${i.min}</span><div class="inv-qty-ctrl"><button class="qty-btn" onclick="adjInv('${i.id}',-1)">−</button><span class="qty-v">${i.qty}</span><button class="qty-btn" onclick="adjInv('${i.id}',1)">+</button></div></div>`).join('')}`).join('')||'<div style="padding:40px;text-align:center;color:var(--label-tertiary)">No items match</div>'}
+      </div>
+      ${lowOut.length?`<div class="card"><h3>⚠️ Items needing attention</h3>${lowOut.map(i=>`<div style="padding:10px 0;border-bottom:1px solid var(--separator)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><strong>${i.icon} ${i.name}</strong><span class="badge ${i.status==='out'?'b-red':'b-orange'}">${i.status}</span></div><div style="font-size:11px;color:var(--label-tertiary);margin-bottom:6px">Current: ${i.qty} ${i.unit} · Min: ${i.min} · ${i.supplier}</div><button class="btn xs primary" onclick="alert('Order sent to ${i.supplier}')">Order now →</button></div>`).join('')}<button class="btn" style="width:100%;margin-top:10px" onclick="window.print()">🖨 Print order sheet</button></div>`:''}
+    </div>
+  </div>`;
+  $('#invSearch').addEventListener('input',e=>{state.invSearch=e.target.value;renderMain();setTimeout(()=>$('#invSearch').focus(),50)});
+}
+window.adjInv=(id,d)=>{const i=state.inventory.find(x=>x.id===id);const step=i.unit==='kg'||i.unit==='L'?.5:1;i.qty=Math.max(0,+(i.qty+d*step).toFixed(1));i.status=i.qty===0?'out':i.qty<i.min?'low':'ok';renderMain()};
+window.openNewInv=()=>{['iName','iSup'].forEach(x=>$('#'+x).value='');$('#iQty').value=0;$('#iMin').value=1;openM('mInvItem')};
+window.saveInvItem=()=>{const name=$('#iName').value.trim();if(!name)return alert('Name required');const cat=$('#iCat').value;const icons={Proteins:'🥩',Produce:'🥬',Beverages:'🍷','Dry goods':'🧂'};const qty=+$('#iQty').value||0;const min=+$('#iMin').value||1;state.inventory.push({id:uid(),cat,icon:icons[cat],name,qty,min,unit:$('#iUnit').value,supplier:$('#iSup').value||'—',status:qty===0?'out':qty<min?'low':'ok'});closeM('mInvItem');renderMain()};
+
+/* TRANSACTION */
+window.openTx=()=>{['txAmt','txDesc','txTable'].forEach(x=>$('#'+x).value='');openM('mTx')};
+window.saveTx=()=>{const amt=+$('#txAmt').value;if(!amt)return alert('Amount required');state.transactions.unshift({t:new Date().toTimeString().slice(0,5),desc:($('#txTable').value?$('#txTable').value+' — ':'')+($('#txDesc').value||$('#txCat').value),amt,pay:$('#txPay').value});if(state.transactions.length>12)state.transactions.pop();state.revenue+=amt;closeM('mTx');renderMain()};
+
+/* MODAL */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('bk-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('bk-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+/* KEYBOARD */
+document.addEventListener('keydown',e=>{
+  if(document.activeElement.tagName==='INPUT'||document.activeElement.tagName==='TEXTAREA'||document.activeElement.tagName==='SELECT')return;
+  const n=parseInt(e.key);
+  if(n>=1&&n<=4){setModule(MODULES[n-1].id)}
+  else if(e.key==='n'||e.key==='N'){if(state.module==='reservations')openNewResa();else if(state.module==='staff')openNewStaff();else if(state.module==='inventory')openNewInv();else openTx()}
+  else if(e.key==='d'||e.key==='D'){$('#themeToggle').click()}
+  else if(e.key==='Escape'){$$('.mbg.open').forEach(m=>m.classList.remove('open'));$('#shortcutsTip').classList.remove('show')}
+  else if(e.key==='?'){$('#shortcutsTip').classList.toggle('show')}
+});
+$('#shortcutsTip').addEventListener('click',()=>$('#shortcutsTip').classList.remove('show'));
+
+/* INIT */
+renderTopTabs();renderBottomNav();renderMain();
+</script>
+</body>
+</html>

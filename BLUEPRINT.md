@@ -205,3 +205,14 @@ Restaurant: ELIA — Santorini, Greece · Friday dinner service · Manager: Marc
 | Mobile bottom nav | done ✅ |
 
 Registered in Book Universe id:66, Productivity/Hospitality premium.
+
+## BASIC KIT RESTAURANT — `vantage-restaurant-basic.html`
+Simpler companion to Full Kit. Taverna Helios · Athens. 4 modules, no live engine, static realistic data. Light design with 3 subtle lava blobs (#FF9500). Registered in Book id:67 classic tier.
+| Module | Status |
+|---|---|
+| 1. Dashboard (Today/Week/Month) | done ✅ |
+| 2. Reservations (list + calendar) | done ✅ |
+| 3. Staff (cards + tips) | done ✅ |
+| 4. Inventory (20 items + alerts) | done ✅ |
+| Keyboard shortcuts | done ✅ |
+| Mobile bottom nav | done ✅ |
