@@ -129,3 +129,79 @@ _One line per prompt applied_
 - **MAJOR RESTRUCTURE — 6 sections only.** Rebuilt `vantage-index.html` from scratch. New structure: Hero → Services → Powers → Gallery → CTA → Contact+Footer. Retired preloader / origin scrollytelling / universe carousel / lore timeline. **Tech:** GSAP + ScrollTrigger + Lenis via CDN (all fetched, ticker-synced with ScrollTrigger for Lenis smooth-scroll integration). **Hero:** ghost `VANTAGE` wordmark (`clamp(14rem→32rem)` opacity .06), violet radial circle 60vmin (breathing 6s), hero PNG floating in front with `mix-blend-mode: screen`, tagline "Built different. Coded perfect.", primary "Work with us" + ghost "See our work →", infinite avatar marquee (16 avatars, 24s linear). **Services:** 3 glassmorphism cards, middle card `--featured` (violet border, scale 1.04, larger shadow), prices €800/€4500/€250-per-month. Each button scrolls to `#vt-contact` and pre-fills the `<select>` via `data-service`. **Powers:** 3 cards with animated counters (0→100% / 999→0ms / ∞) via IntersectionObserver + cubic easing. **Gallery:** 4-col grid of transparent PNG heroes (super_hero_1/4/5/6). **CTA:** full-screen hero-image backdrop at .22 opacity, centered "Join the Universe." headline. **Contact:** split form + embedded footer (copyright, legal toast-stubs). **Animations:** GSAP `fromTo` reveals on every `.vt-reveal` element, ScrollTrigger `once: true`, `power2.out` ease, 0.9s duration, data-delay stagger. Fallback IntersectionObserver when GSAP unavailable. **All rules held:** 0 × `href="#"`, 0 × `cursor:none`, 0 × uniform 8px card radius, 100% English, film grain position:fixed opacity:.032, violet #6B21A8 accent everywhere, Rajdhani Bold on all titles, every button wired with a real action + aria-label.
 - **TOOL-SPECIFIC ACCENT COLOR SYSTEM.** Each standalone tool now has its own unique accent color, independent of the sector dropdown. The sector color stays only for sector-specific data (category badges, sector dropdown border-left). Tool accent drives: primary buttons, active nav states, segmented control, focus rings, blob backgrounds, progress bars, FAB, notification badges, KPI accents. Implementation: each tool file injects `:root{--tool-accent:#XXX;--tool-accent-soft:rgba(R,G,B,.14)}` + `body{--accent:var(--tool-accent)!important}` before `</style>`. The `!important` on body overrides any JS `setProperty('--accent')` call (JS lacks !important). Dark mode uses brighter variants. Blobs picked up via `.blob,body::before,body::after{background:var(--tool-accent)!important}`. Sector dropdown gets `border-left:3px solid var(--tool-accent)` as visual hint. **Color map:** Revenue Dashboard `#007AFF`→`#409CFF`, CRM Pro/Visual `#34C759`→`#30D158`, Margin Calculator `#FF9500`→`#FF9F0A`, Staff Scheduler `#AF52DE`→`#BF5AF2`, Invoice Generator `#5856D6`→`#6E6CF0`, Inventory Manager `#32ADE6`→`#5AC8FA`, Booking System `#FF2D55`→`#FF375F`. Suite V1 and Suite V2 left sector-driven (they host multiple tools). Zero functionality or data changed; only CSS variables.
 - **Suite Unified (5 tools).** Created `vantage-suite-unified.html` — Dashboard + CRM + Calculator + Scheduler + Invoices in one app. Each tool has its own accent color (#007AFF / #34C759 / #FF9500 / #AF52DE / #5856D6) that drives ALL UI chrome (buttons, active states, blob color). Blob background uses `var(--tool-accent)` with `transition: background .8s ease` so switching tools triggers a smooth color morph. Topbar segmented shows all 5 tools always (not sector-filtered like older Suite V2). Sidebar changes per tool with context-aware sub-pages. Global search across clients/products/invoices with type badges + click-to-navigate. Notifications panel with tool routing (click → opens relevant tool + item). Cross-tool: top clients in Dashboard → CRM detail, Invoice client link → CRM. Print CSS for invoice preview. 50 clients, 140 transactions, 9 products, 12 staff × 4 weeks shifts, 50 invoices, 16 tasks. Registered in Book as id:65 Productivity/All-in-One. BLUEPRINT confirms sector dropdown is NOT the driver in this version — tool color IS the driver.
+
+---
+
+# FULL KIT RESTAURANT — `vantage-restaurant-kit.html`
+
+Restaurant: ELIA — Santorini, Greece · Friday dinner service · Manager: Marco
+
+## MODULES
+| # | Name | Pages | Status |
+|---|------|-------|--------|
+| 1 | Overview | Hero KPIs, live feed, rings, top dishes | todo |
+| 2 | Floor Map | Tables visual + timers + detail panel | todo |
+| 3 | Orders | Tables list + order builder + menu | todo |
+| 4 | Bookings | Timeline + list + new modal | todo |
+| 5 | Kitchen | Dark bg, ticket cards, timers, checklist | todo |
+| 6 | Inventory | 60 items, low-stock alerts, +/- | todo |
+| 7 | Staff | 8 cards, clock-in status, tips pool | todo |
+| 8 | Revenue | Live CA hero, charts, cash count | todo |
+| 9 | Loyalty | Members, tiers, live feed | todo |
+| 10 | Invoices | List + create + print | todo |
+
+## LIVE ENGINE
+| Event | Interval | Status |
+|-------|----------|--------|
+| newTransaction (40%) | 35-75s random | todo |
+| tableStatusChange (20%) | 35-75s random | todo |
+| kitchenUpdate (20%) | 35-75s random | todo |
+| stockAlert (5%) | 35-75s random | todo |
+| newReservation (10%) | 35-75s random | todo |
+| loyaltyEvent (5%) | 35-75s random | todo |
+| Timer ticks (1s) | 1000ms | todo |
+| Clock tick (1s) | 1000ms | todo |
+
+## KEY BUTTONS
+| Selector | action | status |
+|----------|--------|--------|
+| `#loginBtn` | sign-in-flow | todo |
+| `#openServiceBtn` | toggle open/close service | todo |
+| `#endServiceBtn` | generate end of night report | todo |
+| `#audioToggle` | mute/unmute sounds | todo |
+| `#themeToggle` | light/dark | todo |
+| module tabs `[data-module]` | switch module | todo |
+| floor table cards | open detail panel | todo |
+| bay quick-add `+Walk-in` | new reservation modal | todo |
+| `+ Reservation` | new reservation modal | todo |
+| kitchen ticket DONE | mark ticket complete | todo |
+| bottom-nav buttons (mobile) | switch module | todo |
+
+## KEYBOARD SHORTCUTS
+1-0 = modules / N = new / / = search / D = theme / Esc = close / ? = help
+
+
+## STATUS UPDATE (first pass complete)
+| Module | Status |
+|---|---|
+| 1. Overview | done ✅ |
+| 2. Floor Map | done ✅ |
+| 3. Orders | done ✅ |
+| 4. Bookings | done ✅ (list view) |
+| 5. Kitchen | done ✅ (dark mode, pulse) |
+| 6. Inventory | done ✅ |
+| 7. Staff | done ✅ |
+| 8. Revenue | done ✅ |
+| 9. Loyalty | done ✅ |
+| 10. Invoices | done ✅ |
+| Login flow | done ✅ |
+| Splash | done ✅ |
+| Live Engine (6 event types) | done ✅ |
+| Toast system | done ✅ |
+| Lava blobs (5) | done ✅ |
+| Keyboard shortcuts | done ✅ |
+| Audio tones | done ✅ |
+| End-of-night report | done ✅ |
+| Mobile bottom nav | done ✅ |
+
+Registered in Book Universe id:66, Productivity/Hospitality premium.
