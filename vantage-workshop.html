@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop Manager</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --tool-accent:#FF453A;--tool-accent-soft:rgba(255,69,58,.12);--tool-accent-strong:rgba(255,69,58,.28);
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-gray:#8E8E93;
+  --accent:var(--tool-accent);--accent-soft:var(--tool-accent-soft);--blob-op:.05;
+}
+html[data-theme="dark"]{--tool-accent:#FF6961;--tool-accent-soft:rgba(255,105,97,.22);--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--blob-op:.09}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum','ss01','cv01'}
+.plate{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:800;letter-spacing:.1em;background:#FFCC00;color:#000;padding:3px 9px;border-radius:4px;border:2px solid #000;display:inline-block;font-size:13px;box-shadow:0 2px 4px rgba(0,0,0,.15)}
+html[data-theme="dark"] .plate{box-shadow:0 2px 4px rgba(0,0,0,.4)}
+button{cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+/* BLOBS */
+.blob{position:fixed;pointer-events:none;z-index:0;filter:blur(80px);opacity:var(--blob-op);will-change:transform,border-radius;background:var(--tool-accent)}
+.blob-1{width:clamp(400px,45vw,580px);height:clamp(400px,45vw,580px);top:-10%;right:-8%;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;animation:wblobA 26s ease-in-out infinite}
+.blob-2{width:clamp(320px,34vw,420px);height:clamp(320px,34vw,420px);bottom:-12%;left:-6%;border-radius:40% 60% 55% 45%/45% 45% 55% 55%;animation:wblobB 31s ease-in-out infinite -10s}
+.blob-3{width:clamp(240px,24vw,320px);height:clamp(240px,24vw,320px);top:40%;right:30%;border-radius:50% 50% 40% 60%/30% 60% 40% 70%;animation:wblobC 20s ease-in-out infinite -6s}
+@keyframes wblobA{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;transform:translate(0,0) scale(1)}33%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(35px,-25px) scale(1.06)}66%{border-radius:40% 60% 30% 70%/40% 40% 60% 50%;transform:translate(-20px,18px) scale(.96)}}
+@keyframes wblobB{0%,100%{border-radius:40% 60% 55% 45%/45% 45% 55% 55%;transform:translate(0,0) scale(1)}50%{border-radius:55% 45% 40% 60%/55% 40% 60% 45%;transform:translate(-30px,20px) scale(1.04)}}
+@keyframes wblobC{0%,100%{border-radius:50% 50% 40% 60%/30% 60% 40% 70%;transform:translate(0,0) scale(1)}50%{border-radius:60% 40% 55% 45%/50% 35% 65% 45%;transform:translate(20px,30px) scale(.98)}}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+@media (max-width:900px){.blob{display:none}}
+
+/* TOPBAR */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.16em}
+.logo .wrench{width:22px;height:22px;background:var(--tool-accent);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.biz-name{background:transparent;border:0;color:var(--label-primary);font-size:13px;font-weight:500;outline:none;padding:4px 8px;border-radius:6px;min-width:140px}
+.biz-name:hover,.biz-name:focus{background:var(--fill-tertiary)}
+.segmented{display:inline-flex;background:var(--fill-tertiary);border-radius:9px;padding:2px;gap:2px}
+.segmented button{padding:6px 12px;border-radius:7px;font-size:12px;font-weight:600;color:var(--label-secondary);transition:all .2s}
+.segmented button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+html[data-theme="dark"] .segmented button.active{background:var(--fill-primary)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all .15s;border:0;min-height:36px}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--tool-accent);color:#fff;box-shadow:0 4px 14px -4px color-mix(in srgb,var(--tool-accent) 50%,transparent)}
+.btn.primary:hover{filter:brightness(1.05);box-shadow:0 6px 22px -4px color-mix(in srgb,var(--tool-accent) 60%,transparent)}
+.btn.secondary{background:var(--tool-accent-soft);color:var(--tool-accent)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:5px 10px;font-size:12px;min-height:30px}
+.btn.xs{padding:4px 8px;font-size:11px;min-height:26px}
+.tb-clock{display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--label-tertiary)}
+.tb-clock .t{font-size:14px;font-weight:700;color:var(--label-primary);font-variant-numeric:tabular-nums}
+.tb-tech{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--label-secondary);background:var(--fill-tertiary);padding:5px 10px;border-radius:8px}
+.tb-tech .d{width:8px;height:8px;border-radius:50%;background:var(--system-green)}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--tool-accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+
+/* APP */
+.app{display:grid;grid-template-columns:230px 1fr;height:calc(100vh - 52px);position:relative;z-index:1}
+aside.sidebar{background:color-mix(in srgb,var(--bg-primary) 85%,transparent);backdrop-filter:blur(10px);border-right:1px solid var(--separator);padding:12px;display:flex;flex-direction:column;overflow-y:auto;gap:10px;position:relative;z-index:10}
+aside.sidebar::-webkit-scrollbar{width:6px}
+aside.sidebar::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:3px}
+
+.side-box{background:var(--bg-secondary);border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .side-box{border:1px solid var(--separator);box-shadow:none}
+.side-box h4{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:10px}
+.sb-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;align-items:center}
+.sb-row .l{color:var(--label-secondary);display:flex;align-items:center;gap:6px}
+.sb-row .l .d{width:8px;height:8px;border-radius:50%}
+.sb-row .l .d.orange{background:var(--system-orange)}.sb-row .l .d.blue{background:var(--system-blue)}.sb-row .l .d.green{background:var(--system-green)}.sb-row .l .d.red{background:var(--system-red)}
+.sb-row .v{font-weight:700;font-variant-numeric:tabular-nums}
+
+.alert-item{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:8px;font-size:11px;margin-bottom:3px;line-height:1.35}
+.alert-item.red{background:rgba(255,69,58,.1);color:var(--system-red);animation:pulse 2.5s infinite}
+.alert-item.yellow{background:rgba(255,204,0,.15);color:#B58900}
+.alert-item.green{background:rgba(52,199,89,.12);color:var(--system-green)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.75}}
+
+.tech-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:5px 6px;border-radius:7px;font-size:11px;transition:background .15s}
+.tech-row:hover{background:var(--fill-tertiary)}
+.tech-av{width:28px;height:28px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.tech-info{min-width:0}
+.tech-info .n{font-weight:600;font-size:11px}
+.tech-info .j{font-size:9px;color:var(--label-tertiary);font-weight:500}
+.tech-dot{width:8px;height:8px;border-radius:50%}
+.tech-dot.working{background:var(--system-orange)}
+.tech-dot.available{background:var(--system-green)}
+.tech-dot.break{background:var(--label-tertiary)}
+
+.qa-btn{display:flex;align-items:center;gap:8px;width:100%;background:transparent;color:var(--label-primary);padding:7px 10px;border-radius:8px;font-size:12px;margin-bottom:2px;text-align:left;transition:background .15s;min-height:36px}
+.qa-btn:hover{background:var(--fill-tertiary)}
+.qa-btn.primary{background:var(--tool-accent);color:#fff;justify-content:center;font-weight:700}
+.qa-btn.primary:hover{filter:brightness(1.05)}
+
+main{overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:1}
+.main-hd{padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.main-hd h1{font-size:26px;font-weight:800;letter-spacing:-.025em}
+.main-hd .sub{color:var(--label-tertiary);font-size:12px;margin-top:2px}
+.main-body{flex:1;overflow-y:auto;padding:0 22px 30px;position:relative;z-index:1}
+.main-body::-webkit-scrollbar{width:8px;height:8px}
+.main-body::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+
+/* STATS PILLS */
+.stat-pills{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.stat-pill{background:var(--bg-secondary);border-radius:12px;padding:10px 16px;box-shadow:0 2px 8px rgba(0,0,0,.04);display:flex;flex-direction:column;min-width:120px}
+html[data-theme="dark"] .stat-pill{border:1px solid var(--separator);box-shadow:none}
+.stat-pill .l{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.stat-pill .v{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-top:2px;font-variant-numeric:tabular-nums}
+
+/* FLOOR VIEW */
+.floor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-bottom:18px}
+.bay-card{background:var(--bg-secondary);border-radius:14px;padding:0;box-shadow:0 2px 10px rgba(0,0,0,.05);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer;display:flex;flex-direction:column;min-height:280px}
+.bay-card:hover{transform:translateY(-3px);box-shadow:0 6px 22px rgba(0,0,0,.1)}
+html[data-theme="dark"] .bay-card{border:1px solid var(--separator);box-shadow:none}
+.bay-status{height:6px;background:var(--label-tertiary);transition:background .3s}
+.bay-card.WAITING .bay-status{background:var(--system-blue)}
+.bay-card.PROGRESS .bay-status{background:var(--system-orange)}
+.bay-card.READY .bay-status{background:var(--system-green)}
+.bay-card.OVERDUE .bay-status{background:var(--system-red);animation:pulseBar 1.2s infinite}
+.bay-card.EMPTY .bay-status{background:var(--label-tertiary);opacity:.5}
+@keyframes pulseBar{0%,100%{opacity:1;box-shadow:inset 0 0 16px rgba(255,255,255,.4)}50%{opacity:.6}}
+.bay-hd{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 16px 10px;border-bottom:1px solid var(--separator)}
+.bay-num{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.bay-num small{font-size:11px;color:var(--label-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:.08em;display:block;margin-top:3px}
+.bay-tech{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--label-secondary)}
+.bay-tech .av{width:24px;height:24px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9px}
+.bay-body{padding:12px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.bay-vehicle{display:flex;align-items:center;gap:10px}
+.car-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.bay-vehicle .info{flex:1;min-width:0}
+.bay-vehicle .mk{font-size:13px;font-weight:700;letter-spacing:-.01em}
+.bay-vehicle .plate{font-size:11px;margin-top:3px}
+.bay-job{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+.svc-chip{background:var(--fill-tertiary);color:var(--label-primary);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600}
+.prio{padding:2px 7px;border-radius:5px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.prio.urgent{background:rgba(255,69,58,.15);color:var(--system-red)}
+.prio.normal{background:var(--fill-tertiary);color:var(--label-secondary)}
+.prio.low{background:rgba(52,199,89,.12);color:var(--system-green)}
+.bay-timer{background:var(--fill-tertiary);border-radius:8px;padding:10px 12px}
+.bay-timer-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px}
+.bay-timer-row .l{color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.bay-timer-row .v{font-weight:800;font-variant-numeric:tabular-nums}
+.time-bar{height:4px;background:var(--fill-primary);border-radius:2px;overflow:hidden}
+.time-bar div{height:100%;background:var(--system-green);border-radius:2px;transition:width .5s,background .3s}
+.time-bar.warn div{background:var(--system-orange)}
+.time-bar.over div{background:var(--system-red)}
+.bay-client{font-size:11px;color:var(--label-secondary);display:flex;justify-content:space-between;align-items:center}
+.bay-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;color:var(--label-tertiary);padding:30px}
+.bay-empty .plus{width:50px;height:50px;border-radius:50%;background:var(--fill-tertiary);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:8px}
+.bay-actions{padding:10px 12px;display:flex;gap:6px;border-top:1px solid var(--separator)}
+.bay-actions .btn{flex:1;justify-content:center;font-size:11px;padding:8px}
+.bay-overdue-badge{position:absolute;top:12px;right:14px;background:var(--system-red);color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase;animation:pulse 1.2s infinite;letter-spacing:.08em}
+
+/* WAITING QUEUE */
+.queue{background:var(--bg-secondary);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px}
+html[data-theme="dark"] .queue{border:1px solid var(--separator);box-shadow:none}
+.queue h3{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.queue .cnt{background:var(--system-blue);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+.queue-list{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.queue-list::-webkit-scrollbar{height:6px}
+.queue-list::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:3px}
+.queue-item{min-width:240px;background:var(--fill-tertiary);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;border-left:3px solid var(--system-blue);cursor:grab;transition:transform .15s}
+.queue-item:hover{transform:translateY(-2px)}
+.queue-item.urgent{border-left-color:var(--system-red)}
+.queue-item .q-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.queue-item .wait{font-size:10px;color:var(--label-tertiary)}
+
+/* KANBAN */
+.kan{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kcol{background:var(--fill-tertiary);border-radius:14px;padding:12px;min-height:500px}
+.kcol.drag-over{background:var(--tool-accent-soft)}
+.kcol-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 2px}
+.kcol-hd.WAITING{color:var(--system-blue)}
+.kcol-hd.PROGRESS{color:var(--system-orange)}
+.kcol-hd.READY{color:var(--system-green)}
+.kcol-hd.COMPLETED{color:var(--label-secondary)}
+.kcol-hd .cnt{background:var(--bg-secondary);color:var(--label-secondary);padding:2px 8px;border-radius:10px;font-size:10px}
+.ktask{background:var(--bg-secondary);border-radius:10px;padding:10px;margin-bottom:8px;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;gap:6px;border-left:3px solid transparent}
+.ktask:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.ktask.dragging{opacity:.5}
+html[data-theme="dark"] .ktask{border:1px solid var(--separator);box-shadow:none}
+.ktask.urgent{border-left-color:var(--system-red)}
+.ktask .kt-car{font-size:13px;font-weight:700}
+.ktask .kt-row{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--label-tertiary)}
+
+/* VEHICLES PAGE */
+.vsearch{background:var(--bg-secondary);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px}
+html[data-theme="dark"] .vsearch{border:1px solid var(--separator);box-shadow:none}
+.vsearch input{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:14px 18px;font-size:16px;outline:none;color:var(--label-primary);transition:background .15s}
+.vsearch input:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--tool-accent-soft)}
+
+.veh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.veh-card{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;gap:8px}
+.veh-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+html[data-theme="dark"] .veh-card{border:1px solid var(--separator);box-shadow:none}
+.veh-top{display:flex;gap:10px;align-items:center}
+.veh-top .car-icon{width:48px;height:48px;font-size:24px}
+.veh-top .info{flex:1}
+.veh-top .mk{font-size:15px;font-weight:700}
+.veh-top .plate{margin-top:4px;font-size:12px}
+.veh-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;color:var(--label-secondary)}
+.veh-row .l{color:var(--label-tertiary)}
+.veh-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.veh-stat{background:var(--fill-tertiary);border-radius:8px;padding:6px 10px;text-align:center}
+.veh-stat .v{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.veh-stat .l{font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:1px}
+
+/* Vehicle detail */
+.veh-hero{background:var(--bg-secondary);border-radius:14px;padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:20px;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;overflow:hidden}
+.veh-hero::before{content:"";position:absolute;top:-40%;right:-10%;width:300px;height:300px;background:radial-gradient(circle,var(--tool-accent-soft),transparent 70%);pointer-events:none}
+html[data-theme="dark"] .veh-hero{border:1px solid var(--separator)}
+.veh-hero .car-icon{width:72px;height:72px;font-size:32px}
+.veh-hero .plate{font-size:22px;padding:6px 16px}
+.veh-hero h2{font-size:24px;font-weight:800;letter-spacing:-.025em;margin-top:6px}
+.veh-hero .meta{font-size:13px;color:var(--label-secondary);margin-top:4px}
+
+/* Timeline */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:2px;background:var(--separator)}
+.tl-item{position:relative;margin-bottom:16px;padding:14px;background:var(--bg-secondary);border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+html[data-theme="dark"] .tl-item{border:1px solid var(--separator);box-shadow:none}
+.tl-item::before{content:"";position:absolute;left:-18px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--tool-accent);box-shadow:0 0 0 3px var(--bg-primary)}
+.tl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.tl-date{font-size:11px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+/* CLIENTS / PARTS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--bg-secondary);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+.card h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+
+.kcard{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 8px 20px rgba(0,0,0,.08)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.kcard .v{font-size:24px;font-weight:800;margin-top:4px;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+.kcard .d{font-size:11px;margin-top:3px;color:var(--label-tertiary)}
+
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:700;border-bottom:1px solid var(--separator);cursor:pointer}
+table.t td{padding:11px 10px;border-bottom:1px solid var(--separator)}
+table.t tbody tr{cursor:pointer;transition:background .1s}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.1px;text-transform:uppercase}
+.b-green{background:rgba(52,199,89,.12);color:var(--system-green)}
+.b-red{background:rgba(255,69,58,.12);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.12);color:var(--system-blue)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+
+.chart-host{position:relative;height:240px}
+
+/* DETAIL PANEL */
+.job-wrap{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.job-wrap.no-panel{grid-template-columns:1fr}
+.detail-panel{background:var(--bg-secondary);border-radius:14px;padding:16px;overflow-y:auto;box-shadow:0 2px 12px rgba(0,0,0,.08);animation:slideL .25s;max-height:calc(100vh - 180px)}
+@keyframes slideL{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+html[data-theme="dark"] .detail-panel{border:1px solid var(--separator)}
+.dp-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dp-hd h3{font-size:15px;font-weight:800}
+.dp-row{display:flex;justify-content:space-between;padding:8px 0;font-size:12px;border-bottom:1px solid var(--separator)}
+.dp-row:last-of-type{border:0}
+.dp-row .l{color:var(--label-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.svc-check{display:grid;grid-template-columns:20px 1fr auto;gap:8px;padding:6px 0;font-size:12px;align-items:center}
+.svc-check input{accent-color:var(--tool-accent);width:18px;height:18px}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:mf .2s}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:18px;padding:22px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25),0 0 0 1px var(--separator);animation:ms .25s}
+@keyframes ms{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.steps{display:flex;gap:4px;margin-bottom:16px}
+.steps .step{flex:1;height:3px;background:var(--fill-tertiary);border-radius:2px;transition:background .3s}
+.steps .step.active{background:var(--tool-accent)}
+.row-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:10px 12px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s;min-height:40px}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--tool-accent-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:700;margin:10px 0 5px;text-transform:uppercase;letter-spacing:.08em}
+
+.svc-multi{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.svc-btn{padding:10px 8px;border-radius:10px;background:var(--fill-tertiary);font-size:11px;font-weight:600;text-align:center;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px}
+.svc-btn:hover{background:var(--fill-secondary)}
+.svc-btn.selected{background:var(--tool-accent-soft);color:var(--tool-accent);box-shadow:inset 0 0 0 2px var(--tool-accent)}
+.svc-btn .i{font-size:18px}
+
+/* Prio pills in modal */
+.prio-row{display:flex;gap:6px;margin-top:6px}
+.prio-row button{flex:1;padding:8px;border-radius:8px;background:var(--fill-tertiary);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.prio-row button.selected.urgent{background:rgba(255,69,58,.15);color:var(--system-red);box-shadow:inset 0 0 0 2px var(--system-red)}
+.prio-row button.selected.normal{background:var(--tool-accent-soft);color:var(--tool-accent);box-shadow:inset 0 0 0 2px var(--tool-accent)}
+.prio-row button.selected.low{background:rgba(52,199,89,.12);color:var(--system-green);box-shadow:inset 0 0 0 2px var(--system-green)}
+
+/* Bay grid in modal */
+.bay-grid-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.bay-mini{padding:14px 8px;border-radius:10px;background:var(--fill-tertiary);text-align:center;cursor:pointer;transition:all .15s}
+.bay-mini:hover:not(.occupied){background:var(--fill-secondary)}
+.bay-mini.selected{background:var(--tool-accent-soft);color:var(--tool-accent);box-shadow:inset 0 0 0 2px var(--tool-accent)}
+.bay-mini.occupied{opacity:.5;cursor:not-allowed}
+.bay-mini .n{font-size:14px;font-weight:800}
+.bay-mini .s{font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+.fade{animation:fu .25s}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:1200px){.app{grid-template-columns:200px 1fr}.job-wrap{grid-template-columns:1fr}.detail-panel{display:none}.kan{grid-template-columns:repeat(2,1fr)}.floor-grid{grid-template-columns:1fr 1fr}.veh-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:800px){.floor-grid,.veh-grid,.kan{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo"><div class="wrench">🔧</div>WORKSHOP</div>
+    <input type="text" class="biz-name" id="bizName" value="Athens Auto Service">
+  </div>
+  <div class="segmented" style="margin:0 auto">
+    <button class="active" data-p="floor">🏭 Floor</button>
+    <button data-p="jobs">🔧 Jobs</button>
+    <button data-p="vehicles">🚗 Vehicles</button>
+    <button data-p="clients">👥 Clients</button>
+    <button data-p="parts">📦 Parts</button>
+    <button data-p="reports">📊 Reports</button>
+  </div>
+  <div class="tb-right">
+    <button class="btn primary" onclick="openNewJob()">+ New Job</button>
+    <div class="tb-clock"><div class="t" id="clockT">00:00:00</div><div id="clockD">—</div></div>
+    <div class="tb-tech"><span class="d"></span><span id="techOnDuty">6</span> on duty</div>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+  </div>
+</div>
+
+<div class="app">
+<aside class="sidebar" id="sidebar"></aside>
+<main>
+  <div class="main-hd" id="mainHd"></div>
+  <div class="main-body" id="mainBody"></div>
+</main>
+</div>
+
+<!-- NEW JOB MODAL -->
+<div class="mbg" id="mNew"><div class="modal">
+  <h3 id="mNewTitle">New Job</h3>
+  <div class="steps"><div class="step active"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>
+  <div id="njStep1">
+    <label>Search existing plate or client</label><input class="fld" id="njSearch" placeholder="e.g. ABC-1234 or Papadopoulos">
+    <div id="njSearchRes" style="max-height:140px;overflow-y:auto;margin-top:6px"></div>
+    <label style="margin-top:14px">Or new vehicle</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <input class="fld" id="njPlate" placeholder="Plate (XXX-0000)">
+      <input class="fld" id="njMake" placeholder="Make (BMW, VW...)">
+      <input class="fld" id="njModel" placeholder="Model">
+      <input class="fld" id="njYear" placeholder="Year" type="number">
+      <input class="fld" id="njColor" placeholder="Color">
+      <input class="fld" id="njMileage" placeholder="Mileage (km)" type="number">
+    </div>
+    <label>Owner name</label><input class="fld" id="njClient" placeholder="Client name">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input class="fld" id="njPhone" placeholder="Phone"><input class="fld" id="njEmail" placeholder="Email"></div>
+  </div>
+  <div id="njStep2" style="display:none">
+    <label>Services required</label><div class="svc-multi" id="svcMulti"></div>
+    <label>Priority</label><div class="prio-row"><button data-prio="urgent" class="selected urgent">Urgent</button><button data-prio="normal" class="selected normal" style="box-shadow:none">Normal</button><button data-prio="low" class="selected low" style="box-shadow:none">Low</button></div>
+    <label>Estimated time (minutes)</label><input type="number" class="fld" id="njEst" value="60">
+    <label>Client notes</label><textarea class="fld" id="njNotes" rows="2"></textarea>
+  </div>
+  <div id="njStep3" style="display:none">
+    <label>Assign bay</label><div class="bay-grid-mini" id="bayMini"></div>
+    <label>Technician</label><select class="fld" id="njTech"></select>
+    <label>Estimated completion</label><input type="datetime-local" class="fld" id="njETA">
+  </div>
+  <div id="njStep4" style="display:none">
+    <label>Parts needed (optional)</label>
+    <input class="fld" id="njPartSearch" placeholder="Search parts to reserve...">
+    <div id="njPartsList" style="margin-top:6px;max-height:160px;overflow-y:auto"></div>
+    <label>Selected parts</label>
+    <div id="njPartsSelected"></div>
+  </div>
+  <div class="row-btns">
+    <button class="btn" onclick="closeM('mNew')">Cancel</button>
+    <button class="btn" id="njBack" style="display:none" onclick="njStep(-1)">Back</button>
+    <button class="btn primary" id="njNext" onclick="njStep(1)">Next →</button>
+    <button class="btn primary" id="njSave" style="display:none" onclick="saveJob()">Create Job</button>
+  </div>
+</div></div>
+
+<!-- COMPLETE JOB MODAL -->
+<div class="mbg" id="mComplete"><div class="modal">
+  <h3>Complete Job</h3>
+  <div id="cjSummary"></div>
+  <label>Actual time (min)</label><input type="number" class="fld" id="cjTime">
+  <label>Final mileage (km)</label><input type="number" class="fld" id="cjMileage">
+  <label>Mechanic notes</label><textarea class="fld" id="cjNotes" rows="3"></textarea>
+  <label>Parts used (any additions?)</label><textarea class="fld" id="cjParts" rows="2"></textarea>
+  <div class="row-btns"><button class="btn" onclick="closeM('mComplete')">Cancel</button><button class="btn primary" onclick="confirmComplete()">Complete & Invoice →</button></div>
+</div></div>
+
+<script>
+/* CONFIG */
+const TECHS=[
+  {id:'t1',name:'Dimitris Papadakis',color:'#FF453A',status:'working'},
+  {id:'t2',name:'Nikos Georgiou',color:'#007AFF',status:'working'},
+  {id:'t3',name:'Kostas Marinakis',color:'#AF52DE',status:'available'},
+  {id:'t4',name:'Yannis Nikolaidis',color:'#34C759',status:'break'},
+  {id:'t5',name:'Stavros Petrou',color:'#FF9500',status:'working'},
+  {id:'t6',name:'Manos Zervas',color:'#32ADE6',status:'available'},
+  {id:'t7',name:'Andreas Ioannou',color:'#FFCC00',status:'working'},
+  {id:'t8',name:'Panagiotis Stavrou',color:'#FF2D55',status:'working'}
+];
+
+const BAYS=[
+  {id:'b1',num:1,type:'Lift',name:'Bay 1'},
+  {id:'b2',num:2,type:'Lift',name:'Bay 2'},
+  {id:'b3',num:3,type:'Ground',name:'Bay 3'},
+  {id:'b4',num:4,type:'Ground',name:'Bay 4'},
+  {id:'b5',num:5,type:'MOT',name:'MOT'},
+  {id:'b6',num:6,type:'Wash',name:'Wash'}
+];
+
+const SERVICES=[
+  {n:'Oil Change',i:'🛢️',t:45},
+  {n:'Brake Service',i:'🔧',t:120},
+  {n:'Tire Change',i:'🛞',t:60},
+  {n:'Full Service',i:'⚙️',t:240},
+  {n:'Diagnostics',i:'📟',t:45},
+  {n:'MOT',i:'📋',t:90},
+  {n:'Battery',i:'🔋',t:30},
+  {n:'AC Service',i:'❄️',t:60},
+  {n:'Exhaust',i:'🔊',t:90},
+  {n:'Bodywork',i:'🎨',t:300},
+  {n:'Alignment',i:'🎯',t:75},
+  {n:'Transmission',i:'⚙️',t:240}
+];
+
+const MAKES=[['BMW','#007AFF'],['Mercedes','#8E8E93'],['VW','#2E86AB'],['Toyota','#FF453A'],['Peugeot','#3A5F8F'],['Renault','#FFCC00'],['Audi','#8E8E93'],['Ford','#1E3A8A'],['Opel','#FF9500'],['Fiat','#34C759']];
+const MODELS={'BMW':['320i','X3','M3','330d','118i'],'Mercedes':['C-Class','E-Class','A-Class','GLC','CLA'],'VW':['Golf','Polo','Passat','Tiguan','T-Roc'],'Toyota':['Corolla','Yaris','RAV4','C-HR','Hilux'],'Peugeot':['208','308','3008','508','2008'],'Renault':['Clio','Megane','Captur','Kadjar','Scenic'],'Audi':['A3','A4','Q5','A6','Q3'],'Ford':['Focus','Fiesta','Kuga','Mondeo','Puma'],'Opel':['Corsa','Astra','Mokka','Insignia','Crossland'],'Fiat':['500','Panda','Tipo','Punto','Doblo']};
+const COLORS=['Black','White','Silver','Blue','Red','Gray','Green','Beige'];
+const COLOR_HEX={'Black':'#000','White':'#F2F2F7','Silver':'#C6C6C8','Blue':'#007AFF','Red':'#FF453A','Gray':'#8E8E93','Green':'#34C759','Beige':'#D4B88A'};
+
+const FIRST=['Alexandra','Nikos','Eleni','Dimitris','Sofia','Kostas','Maria','Yannis','Anna','Giorgos','Katerina','Panagiotis','Ioanna','Stavros','Despina','Vassilis','Athina','Manos','Eirini','Christos','Elena','Petros','Fotini','Thanos','Lydia','Markos','Chrysa'];
+const LAST=['Papadopoulos','Georgiou','Nikolaidis','Ioannou','Dimitriou','Papadakis','Karagiannis','Konstantinou','Stavrou','Marinakis','Petrou','Zervas','Mavros','Angelopoulos'];
+
+const PARTS_CATS=[['Brakes','🔧'],['Engine','⚙️'],['Filters','🔁'],['Tires','🛞'],['Fluids','🛢️'],['Electrical','⚡'],['Body','🎨'],['Exhaust','🔊'],['Suspension','🛠️']];
+
+let state={
+  page:'floor',
+  clients:[],vehicles:[],jobs:[],parts:[],
+  selectedBayId:null,selectedJobId:null,selectedVehicleId:null,selectedClientId:null,
+  njStep:1,njData:{services:[],priority:'normal',parts:[]},
+  timers:{},
+  charts:{}
+};
+
+/* HELPERS */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const rand=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const pick=a=>a[rand(0,a.length-1)];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const initials=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const money=v=>'€'+Math.round(v).toLocaleString('en-US');
+const fmtDate=d=>(d instanceof Date?d:new Date(d)).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+const fmtTime=d=>(d instanceof Date?d:new Date(d)).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+const fmtDur=m=>{if(m<60)return m+'m';const h=Math.floor(m/60),r=m%60;return r?`${h}h${r}m`:`${h}h`};
+const fmtPlate=p=>p.toUpperCase().replace(/\s+/g,'');
+const genPlate=()=>{const L='ABCDEFGHIJKLMNOPRSTVXZ';return `${L[rand(0,L.length-1)]}${L[rand(0,L.length-1)]}${L[rand(0,L.length-1)]}-${rand(1000,9999)}`};
+
+function countUp(el,target,dur=700){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* DATA GEN */
+function genData(){
+  // clients
+  const clients=[];for(let i=0;i<25;i++){const fn=pick(FIRST),ln=pick(LAST);clients.push({id:uid(),name:`${fn} ${ln}`,phone:`+30 69 ${rand(10,99)} ${rand(1000,9999)}`,email:`${fn.toLowerCase()}.${ln.toLowerCase()}@mail.com`,color:`hsl(${rand(0,360)},55%,55%)`,notes:'',preferredTech:pick(TECHS).name})}
+  // vehicles
+  const vehicles=[];for(let i=0;i<35;i++){const[make,mkColor]=pick(MAKES);const model=pick(MODELS[make]);const color=pick(COLORS);const year=rand(2010,2024);const plate=genPlate();const owner=pick(clients);const mileage=rand(20000,250000);const visits=rand(1,8);const totalSpent=visits*rand(80,600);const history=[];for(let j=0;j<visits;j++){const d=new Date(Date.now()-rand(30,1000)*86400000);history.push({id:uid(),date:d,mileage:mileage-rand(1000,5000)*(visits-j),services:Array.from({length:rand(1,3)},()=>pick(SERVICES).n),tech:pick(TECHS).name,duration:rand(45,240),cost:rand(80,800),notes:''})}history.sort((a,b)=>b.date-a.date);vehicles.push({id:uid(),plate,make,mkColor,model,year,color,colorHex:COLOR_HEX[color],mileage,vin:`WVW${rand(100000000,999999999)}`,clientId:owner.id,clientName:owner.name,clientPhone:owner.phone,visits,totalSpent,history,motDate:new Date(Date.now()+rand(-30,365)*86400000),insuranceDate:new Date(Date.now()+rand(-30,365)*86400000)})}
+  // parts
+  const parts=[];PARTS_CATS.forEach(([cat,icon])=>{for(let i=0;i<7;i++){const min=rand(5,20),max=min*5;const r=Math.random();const qty=r<.1?0:r<.25?rand(1,min-1):rand(min,max);parts.push({id:uid(),pn:`${cat.slice(0,2).toUpperCase()}-${rand(1000,9999)}`,name:`${cat} ${['Pro','Standard','Premium','Econo','Plus'][i%5]} ${i+1}`,cat,icon,brand:pick(['Bosch','Valeo','Mahle','NGK','Denso','Brembo']),compatible:pick(['BMW/VW','All','Mercedes','Toyota/Honda','Peugeot/Renault']),qty,min,unitCost:rand(5,500),supplier:pick(['AutoParts GR','Hellas Auto','Athens Parts']),status:qty===0?'out':qty<min?'low':'ok'})}});
+  // jobs (12 today, mix of statuses)
+  const statuses=['WAITING','PROGRESS','PROGRESS','PROGRESS','READY','COMPLETED','COMPLETED','WAITING','PROGRESS','OVERDUE','OVERDUE','COMPLETED'];
+  const jobs=[];const usedBays=new Set();const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<12;i++){
+    const v=pick(vehicles);const status=statuses[i];
+    const svcCount=rand(1,3);const services=[];for(let j=0;j<svcCount;j++){const s=pick(SERVICES);services.push({name:s.n,time:s.t,done:status==='COMPLETED'||status==='READY'||(status==='PROGRESS'&&Math.random()<.5)})}
+    const estTime=services.reduce((s,x)=>s+x.time,0);
+    const priority=i<2?'urgent':Math.random()<.15?'urgent':Math.random()<.7?'normal':'low';
+    let bayId=null,tech=null;
+    if(status==='PROGRESS'||status==='READY'||status==='OVERDUE'){const avail=BAYS.filter(b=>!usedBays.has(b.id));if(avail.length){const b=pick(avail);bayId=b.id;usedBays.add(b.id)}tech=pick(TECHS)}
+    const startTime=new Date();startTime.setHours(rand(8,15),rand(0,59),0,0);
+    if(status==='COMPLETED')startTime.setDate(startTime.getDate()-rand(0,3));
+    const elapsed=status==='PROGRESS'?rand(10,Math.round(estTime*.7)):status==='OVERDUE'?estTime+rand(15,90):status==='READY'?estTime:0;
+    jobs.push({id:uid(),ref:`#${1000+i}`,vehicleId:v.id,vehicle:v,clientId:v.clientId,clientName:v.clientName,services,estTime,elapsed,priority,status,bayId,techId:tech?.id,techName:tech?.name,techColor:tech?.color,created:new Date(startTime.getTime()-rand(30,360)*60000),started:status!=='WAITING'?startTime:null,notes:'',parts:[]});
+  }
+  state.clients=clients;state.vehicles=vehicles;state.parts=parts;state.jobs=jobs;
+}
+
+/* INIT */
+function applyAll(){genData();renderAll();startTicks()}
+function renderAll(){renderSidebar();renderMain()}
+function setPage(p){state.page=p;$$('.segmented button[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));state.selectedJobId=null;state.selectedBayId=null;state.selectedVehicleId=null;state.selectedClientId=null;renderAll()}
+
+/* CLOCK */
+function tickClock(){const n=new Date();$('#clockT').textContent=n.toLocaleTimeString('en-GB');$('#clockD').textContent=n.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})}
+setInterval(tickClock,1000);tickClock();
+
+/* LIVE TIMERS */
+function startTicks(){setInterval(()=>{state.jobs.forEach(j=>{if(j.status==='PROGRESS')j.elapsed++});if(state.page==='floor')updateFloorTimers()},60000)}
+function updateFloorTimers(){
+  $$('.bay-card').forEach(card=>{
+    const bayId=card.dataset.bay;const job=state.jobs.find(j=>j.bayId===bayId&&(j.status==='PROGRESS'||j.status==='OVERDUE'||j.status==='READY'));
+    if(job){
+      const elEl=card.querySelector('.elapsed');if(elEl)elEl.textContent=fmtDur(job.elapsed);
+      const remEl=card.querySelector('.remaining');const rem=Math.max(0,job.estTime-job.elapsed);
+      if(remEl)remEl.textContent=fmtDur(rem);
+      const bar=card.querySelector('.time-bar');if(bar){const pct=Math.min(100,(job.elapsed/job.estTime)*100);bar.querySelector('div').style.width=pct+'%';bar.className='time-bar'+(pct>80?' warn':'')+(pct>=100?' over':'')}
+      if(job.elapsed>job.estTime&&job.status==='PROGRESS'){job.status='OVERDUE';card.classList.add('OVERDUE');card.classList.remove('PROGRESS')}
+    }
+  });
+}
+
+/* SIDEBAR */
+function renderSidebar(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const todayJobs=state.jobs.filter(j=>j.created>=today||j.status==='PROGRESS'||j.status==='OVERDUE'||j.status==='WAITING'||j.status==='READY');
+  const inProg=state.jobs.filter(j=>j.status==='PROGRESS').length;
+  const overdue=state.jobs.filter(j=>j.status==='OVERDUE').length;
+  const waiting=state.jobs.filter(j=>j.status==='WAITING').length;
+  const ready=state.jobs.filter(j=>j.status==='READY').length;
+  const done=state.jobs.filter(j=>j.status==='COMPLETED').length;
+  const baysUsed=BAYS.filter(b=>state.jobs.some(j=>j.bayId===b.id&&j.status!=='COMPLETED')).length;
+  const techOn=TECHS.filter(t=>t.status!=='break').length;
+  $('#techOnDuty').textContent=techOn;
+
+  const lowParts=state.parts.filter(p=>p.status==='low').slice(0,2);
+  const outParts=state.parts.filter(p=>p.status==='out').slice(0,2);
+  const overdueJobs=state.jobs.filter(j=>j.status==='OVERDUE').slice(0,2);
+  const readyJobs=state.jobs.filter(j=>j.status==='READY').slice(0,1);
+
+  $('#sidebar').innerHTML=`
+    <div class="side-box"><h4>Today at a Glance</h4>
+      <div style="font-size:12px;font-weight:600;color:var(--label-primary)">${new Date().toLocaleDateString('en-US',{weekday:'long',day:'numeric',month:'short'})}</div>
+      <div class="sb-row"><span class="l">Total jobs</span><span class="v">${todayJobs.length}</span></div>
+      <div class="sb-row"><span class="l"><span class="d orange"></span>In progress</span><span class="v">${inProg+overdue}</span></div>
+      <div class="sb-row"><span class="l"><span class="d blue"></span>Waiting</span><span class="v">${waiting}</span></div>
+      <div class="sb-row"><span class="l"><span class="d green"></span>Ready</span><span class="v">${ready}</span></div>
+      <div class="sb-row"><span class="l"><span class="d red"></span>Overdue</span><span class="v" style="color:var(--system-red)">${overdue}</span></div>
+      <div class="sb-row"><span class="l">Bays</span><span class="v">${baysUsed}/${BAYS.length}</span></div>
+    </div>
+    ${overdueJobs.length||lowParts.length||readyJobs.length||outParts.length?`<div class="side-box"><h4>⚡ Live Alerts</h4>
+      ${overdueJobs.map(j=>{const bay=BAYS.find(b=>b.id===j.bayId);const over=j.elapsed-j.estTime;return `<div class="alert-item red">🔴 <div>${bay?.name||'Bay'}: Job ${j.ref} overdue ${over}min</div></div>`}).join('')}
+      ${outParts.map(p=>`<div class="alert-item red">🔴 <div>Out: ${p.name}</div></div>`).join('')}
+      ${lowParts.map(p=>`<div class="alert-item yellow">🟡 <div>Low: ${p.name} (${p.qty}/${p.min})</div></div>`).join('')}
+      ${readyJobs.map(j=>`<div class="alert-item green">🟢 <div>Job ${j.ref} ready for pickup</div></div>`).join('')}
+    </div>`:''}
+    <div class="side-box"><h4>Technician Status</h4>
+      ${TECHS.slice(0,8).map(t=>{const curJob=state.jobs.find(j=>j.techId===t.id&&(j.status==='PROGRESS'||j.status==='OVERDUE'));return `<div class="tech-row"><div class="tech-av" style="background:${t.color}">${initials(t.name)}</div><div class="tech-info"><div class="n">${t.name.split(' ')[0]}</div><div class="j">${curJob?'Job '+curJob.ref:t.status}</div></div><div class="tech-dot ${t.status}"></div></div>`}).join('')}
+    </div>
+    <div class="side-box"><h4>Quick Actions</h4>
+      <button class="qa-btn primary" onclick="openNewJob()">+ New Job</button>
+      <button class="qa-btn" onclick="openNewJob(true)">🚶 Walk-in</button>
+      <button class="qa-btn" onclick="setPage('vehicles')">🚗 Check in vehicle</button>
+      <button class="qa-btn" onclick="markFirstReady()">✅ Mark ready</button>
+    </div>`;
+}
+
+/* MAIN */
+function renderMain(){
+  const body=$('#mainBody');body.className='main-body fade';
+  const hd=$('#mainHd');
+  if(state.page==='floor')renderFloor(hd,body);
+  else if(state.page==='jobs')renderJobs(hd,body);
+  else if(state.page==='vehicles')renderVehicles(hd,body);
+  else if(state.page==='clients')renderClients(hd,body);
+  else if(state.page==='parts')renderParts(hd,body);
+  else renderReports(hd,body);
+  setTimeout(()=>body.classList.remove('fade'),260);
+}
+
+/* FLOOR */
+function renderFloor(hd,body){
+  const baysUsed=BAYS.filter(b=>state.jobs.some(j=>j.bayId===b.id&&j.status!=='COMPLETED')).length;
+  const todayJobs=state.jobs.filter(j=>j.status!=='COMPLETED'||sameDay(j.created,new Date())).length;
+  const todayRev=state.jobs.filter(j=>j.status==='COMPLETED').reduce((s,j)=>s+rand(80,600),0);
+  const avgTime=Math.round(state.jobs.filter(j=>j.status==='COMPLETED').reduce((s,j)=>s+j.elapsed,0)/Math.max(1,state.jobs.filter(j=>j.status==='COMPLETED').length));
+  hd.innerHTML=`<div><h1>Workshop Floor</h1><div class="sub">Live status · ${new Date().toLocaleDateString('en-US',{weekday:'long'})}</div></div>`;
+
+  let html=`<div class="stat-pills">
+    <div class="stat-pill"><div class="l">Bays</div><div class="v">${baysUsed}/${BAYS.length}</div></div>
+    <div class="stat-pill"><div class="l">Jobs Today</div><div class="v">${todayJobs}</div></div>
+    <div class="stat-pill"><div class="l">Revenue Today</div><div class="v">${money(todayRev)}</div></div>
+    <div class="stat-pill"><div class="l">Avg Job Time</div><div class="v">${avgTime||0}m</div></div>
+  </div>`;
+
+  const showPanel=state.selectedBayId||state.selectedJobId;
+  html+=`<div class="job-wrap${showPanel?'':' no-panel'}"><div>`;
+  html+=`<div class="floor-grid">${BAYS.map(renderBayCard).join('')}</div>`;
+  const queue=state.jobs.filter(j=>j.status==='WAITING'&&!j.bayId);
+  if(queue.length){html+=`<div class="queue"><h3>Waiting Queue <span class="cnt">${queue.length}</span></h3><div class="queue-list">${queue.map(j=>`<div class="queue-item ${j.priority==='urgent'?'urgent':''}" onclick="state.selectedJobId='${j.id}';renderMain()"><div class="q-top"><strong style="font-size:13px">${j.vehicle.make} ${j.vehicle.model}</strong><span class="prio ${j.priority}">${j.priority}</span></div><span class="plate">${j.vehicle.plate}</span><div style="font-size:11px;color:var(--label-secondary)">${j.services.map(s=>s.name).join(' · ')}</div><div class="wait">Waiting ${Math.round((Date.now()-j.created)/60000)}min</div><button class="btn xs primary" onclick="event.stopPropagation();assignJob('${j.id}')">Assign bay →</button></div>`).join('')}</div></div>`}
+  html+='</div>';
+  if(showPanel)html+=renderDetailPanel();
+  html+='</div>';
+  body.innerHTML=html;
+}
+function sameDay(a,b){return a.toDateString()===b.toDateString()}
+
+function renderBayCard(bay){
+  const job=state.jobs.find(j=>j.bayId===bay.id&&(j.status==='PROGRESS'||j.status==='OVERDUE'||j.status==='READY'));
+  if(!job)return `<div class="bay-card EMPTY" data-bay="${bay.id}" onclick="state.selectedBayId='${bay.id}';openAssignFromBay('${bay.id}')"><div class="bay-status"></div><div class="bay-hd"><div><div class="bay-num">${bay.name}<small>${bay.type}</small></div></div></div><div class="bay-empty"><div class="plus">+</div>Available</div><div class="bay-actions"><button class="btn primary sm" style="flex:1;justify-content:center" onclick="event.stopPropagation();openAssignFromBay('${bay.id}')">Assign Job</button></div></div>`;
+  const tech=TECHS.find(t=>t.id===job.techId);
+  const v=job.vehicle;
+  const pct=Math.min(100,(job.elapsed/job.estTime)*100);
+  const over=job.elapsed>job.estTime;
+  const barCls=pct>80?'warn':'';
+  const overCls=over?'over':barCls;
+  const rem=Math.max(0,job.estTime-job.elapsed);
+  const partsWaiting=job.parts.filter(p=>p.status==='ordered').length;
+  return `<div class="bay-card ${job.status}" data-bay="${bay.id}" onclick="state.selectedBayId='${bay.id}';state.selectedJobId='${job.id}';renderMain()">
+    <div class="bay-status"></div>
+    ${over?'<div class="bay-overdue-badge">Overdue</div>':''}
+    <div class="bay-hd">
+      <div><div class="bay-num">${bay.name}<small>${bay.type}</small></div></div>
+      <div class="bay-tech"><div class="av" style="background:${tech?.color}">${tech?initials(tech.name):'—'}</div>${tech?.name.split(' ')[0]||'—'}</div>
+    </div>
+    <div class="bay-body">
+      <div class="bay-vehicle"><div class="car-icon" style="background:${v.colorHex};border:2px solid rgba(0,0,0,.1)">🚗</div><div class="info"><div class="mk">${v.make} ${v.model}</div><span class="plate">${v.plate}</span></div></div>
+      <div class="bay-job"><div style="display:flex;gap:4px;flex-wrap:wrap">${job.services.slice(0,2).map(s=>`<span class="svc-chip">${s.name}</span>`).join('')}${job.services.length>2?`<span class="svc-chip">+${job.services.length-2}</span>`:''}</div><span class="prio ${job.priority}">${job.priority}</span></div>
+      <div class="bay-timer">
+        <div class="bay-timer-row"><span class="l">Elapsed</span><span class="v elapsed">${fmtDur(job.elapsed)}</span></div>
+        <div class="bay-timer-row"><span class="l">Remaining</span><span class="v remaining" style="color:${over?'var(--system-red)':'var(--label-primary)'}">${over?'+'+fmtDur(job.elapsed-job.estTime):fmtDur(rem)}</span></div>
+        <div class="time-bar ${overCls}"><div style="width:${pct}%"></div></div>
+      </div>
+      <div class="bay-client"><span>👤 ${job.clientName}</span>${partsWaiting?`<span style="color:var(--system-orange)">⏳ ${partsWaiting} parts</span>`:''}</div>
+    </div>
+    <div class="bay-actions" onclick="event.stopPropagation()">
+      ${job.status==='READY'?`<button class="btn primary sm" style="flex:1;justify-content:center" onclick="completeJob('${job.id}')">Complete</button>`:`<button class="btn sm" style="flex:1;justify-content:center" onclick="toggleJob('${job.id}')">${job.status==='PROGRESS'?'Pause':job.status==='OVERDUE'?'Finish':'Start'}</button><button class="btn primary sm" style="flex:1;justify-content:center" onclick="markReady('${job.id}')">✓ Ready</button>`}
+    </div>
+  </div>`;
+}
+
+function renderDetailPanel(){
+  const job=state.selectedJobId?state.jobs.find(j=>j.id===state.selectedJobId):state.selectedBayId?state.jobs.find(j=>j.bayId===state.selectedBayId&&j.status!=='COMPLETED'):null;
+  if(!job){return `<div class="detail-panel"><div class="dp-hd"><h3>Panel</h3><button onclick="state.selectedBayId=null;state.selectedJobId=null;renderMain()">✕</button></div><div style="padding:30px;text-align:center;color:var(--label-tertiary)">No active job in this bay</div></div>`}
+  const tech=TECHS.find(t=>t.id===job.techId);
+  const bay=BAYS.find(b=>b.id===job.bayId);
+  const done=job.services.filter(s=>s.done).length;
+  return `<div class="detail-panel">
+    <div class="dp-hd"><h3>Job ${job.ref}</h3><button onclick="state.selectedBayId=null;state.selectedJobId=null;renderMain()" style="font-size:16px">✕</button></div>
+    <div style="padding:10px 12px;background:var(--fill-tertiary);border-radius:10px;margin-bottom:12px"><div class="bay-vehicle" style="margin-bottom:6px"><div class="car-icon" style="background:${job.vehicle.colorHex};border:2px solid rgba(0,0,0,.1);width:36px;height:36px;font-size:16px">🚗</div><div><div style="font-size:13px;font-weight:700">${job.vehicle.make} ${job.vehicle.model} ${job.vehicle.year}</div><span class="plate">${job.vehicle.plate}</span></div></div></div>
+    <div class="dp-row"><span class="l">Client</span><span style="font-weight:600">${job.clientName}</span></div>
+    <div class="dp-row"><span class="l">Phone</span><span><a href="tel:${job.vehicle.clientPhone}" style="color:var(--tool-accent);text-decoration:none">${job.vehicle.clientPhone}</a></span></div>
+    <div class="dp-row"><span class="l">Bay</span><span>${bay?.name||'—'}</span></div>
+    <div class="dp-row"><span class="l">Technician</span><span>${tech?.name||'—'}</span></div>
+    <div class="dp-row"><span class="l">Priority</span><span class="prio ${job.priority}">${job.priority}</span></div>
+    <div class="dp-row"><span class="l">Status</span><span class="badge ${job.status==='WAITING'?'b-blue':job.status==='PROGRESS'?'b-orange':job.status==='READY'?'b-green':job.status==='OVERDUE'?'b-red':'b-gray'}">${job.status}</span></div>
+    <h4 style="font-size:11px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;font-weight:700">Services (${done}/${job.services.length})</h4>
+    ${job.services.map((s,i)=>`<div class="svc-check"><input type="checkbox" ${s.done?'checked':''} onchange="toggleService('${job.id}',${i})"><div>${s.name}</div><span style="font-size:10px;color:var(--label-tertiary)">${s.time}m</span></div>`).join('')}
+    <h4 style="font-size:11px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;font-weight:700">Time</h4>
+    <div class="dp-row"><span class="l">Started</span><span>${job.started?fmtTime(job.started):'—'}</span></div>
+    <div class="dp-row"><span class="l">Elapsed</span><span class="mono" style="font-weight:700">${fmtDur(job.elapsed)}</span></div>
+    <div class="dp-row"><span class="l">Estimated</span><span class="mono">${fmtDur(job.estTime)}</span></div>
+    <h4 style="font-size:11px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;font-weight:700">Notes</h4>
+    <textarea class="fld" rows="3" placeholder="Mechanic notes..." onblur="job.notes=this.value">${job.notes}</textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px">
+      <button class="btn sm" onclick="toggleJob('${job.id}')">${job.status==='PROGRESS'?'⏸ Pause':'▶ Start'}</button>
+      <button class="btn sm" onclick="markReady('${job.id}')">✓ Ready</button>
+      <button class="btn primary sm" onclick="completeJob('${job.id}')" style="grid-column:span 2;justify-content:center">Complete & Invoice →</button>
+      <button class="btn sm" onclick="alert('Print job card for ${job.ref}')">🖨 Print</button>
+      <button class="btn sm" onclick="alert('Request parts')">📦 Parts</button>
+    </div>
+  </div>`;
+}
+
+window.toggleJob=id=>{const j=state.jobs.find(x=>x.id===id);if(j.status==='WAITING'){j.status='PROGRESS';j.started=new Date()}else if(j.status==='PROGRESS')j.status='READY';else if(j.status==='READY')j.status='PROGRESS';else if(j.status==='OVERDUE')j.status='READY';renderMain()};
+window.markReady=id=>{const j=state.jobs.find(x=>x.id===id);j.status='READY';j.services.forEach(s=>s.done=true);renderMain()};
+window.markFirstReady=()=>{const j=state.jobs.find(x=>x.status==='PROGRESS'||x.status==='OVERDUE');if(j){markReady(j.id);alert(`Marked ${j.ref} as ready`)}else alert('No jobs to mark')};
+window.toggleService=(id,idx)=>{const j=state.jobs.find(x=>x.id===id);j.services[idx].done=!j.services[idx].done;renderMain()};
+window.completeJob=id=>{const j=state.jobs.find(x=>x.id===id);state.selectedJobId=id;const done=j.services.filter(s=>s.done).length;$('#cjSummary').innerHTML=`<div style="padding:10px;background:var(--fill-tertiary);border-radius:10px;margin-bottom:8px"><div style="font-weight:700">${j.vehicle.make} ${j.vehicle.model}</div><span class="plate">${j.vehicle.plate}</span><div style="font-size:11px;color:var(--label-secondary);margin-top:4px">${j.services.length} services · ${done} completed · ${fmtDur(j.elapsed)} elapsed</div></div>`;$('#cjTime').value=j.elapsed;$('#cjMileage').value=j.vehicle.mileage;openM('mComplete')};
+window.confirmComplete=()=>{const j=state.jobs.find(x=>x.id===state.selectedJobId);j.status='COMPLETED';j.elapsed=+$('#cjTime').value||j.elapsed;j.vehicle.mileage=+$('#cjMileage').value||j.vehicle.mileage;j.notes=$('#cjNotes').value;j.vehicle.visits=(j.vehicle.visits||0)+1;j.vehicle.totalSpent+=rand(80,600);j.vehicle.history.unshift({id:uid(),date:new Date(),mileage:j.vehicle.mileage,services:j.services.map(s=>s.name),tech:j.techName,duration:j.elapsed,cost:rand(80,800),notes:j.notes});closeM('mComplete');alert(`Job ${j.ref} completed. Invoice generated.`);renderAll()};
+window.assignJob=id=>{const j=state.jobs.find(x=>x.id===id);const emptyBays=BAYS.filter(b=>!state.jobs.some(oj=>oj.bayId===b.id&&oj.status!=='COMPLETED'));if(!emptyBays.length)return alert('No empty bays');j.bayId=emptyBays[0].id;j.status='PROGRESS';j.started=new Date();j.techId=pick(TECHS.filter(t=>t.status==='available'))?.id||TECHS[0].id;const t=TECHS.find(x=>x.id===j.techId);j.techName=t.name;j.techColor=t.color;renderAll()};
+window.openAssignFromBay=bayId=>{const waiting=state.jobs.filter(j=>j.status==='WAITING'&&!j.bayId);if(!waiting.length){openNewJob();return}const choice=prompt(`Assign which job to ${BAYS.find(b=>b.id===bayId).name}?\n${waiting.map((j,i)=>`${i+1}. ${j.ref} ${j.vehicle.make} ${j.vehicle.model} (${j.vehicle.plate})`).join('\n')}`);const idx=parseInt(choice)-1;if(idx>=0&&idx<waiting.length){const j=waiting[idx];j.bayId=bayId;j.status='PROGRESS';j.started=new Date();j.techId=pick(TECHS).id;const t=TECHS.find(x=>x.id===j.techId);j.techName=t.name;j.techColor=t.color;renderAll()}};
+
+/* JOBS KANBAN */
+function renderJobs(hd,body){
+  hd.innerHTML=`<div><h1>Jobs</h1><div class="sub">${state.jobs.length} total · ${state.jobs.filter(j=>j.status==='OVERDUE').length} overdue</div></div><div><button class="btn primary sm" onclick="openNewJob()">+ New Job</button></div>`;
+  const cols=[['WAITING','Waiting'],['PROGRESS','In Progress'],['READY','Ready'],['COMPLETED','Completed']];
+  body.innerHTML=`<div class="kan">${cols.map(([k,l])=>{const its=state.jobs.filter(j=>j.status===k||(k==='PROGRESS'&&j.status==='OVERDUE'));return `<div class="kcol" data-col="${k}" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="dropJob(event,'${k}')"><div class="kcol-hd ${k}"><span>${l}</span><span class="cnt">${its.length}</span></div>${its.map(j=>{const tech=TECHS.find(t=>t.id===j.techId);const bay=BAYS.find(b=>b.id===j.bayId);return `<div class="ktask ${j.priority==='urgent'?'urgent':''}" draggable="true" ondragstart="event.dataTransfer.setData('id','${j.id}');this.classList.add('dragging')" ondragend="this.classList.remove('dragging')" onclick="setPage('floor');state.selectedJobId='${j.id}';renderMain()"><div class="kt-car">${j.vehicle.make} ${j.vehicle.model}</div><span class="plate">${j.vehicle.plate}</span><div style="display:flex;flex-wrap:wrap;gap:4px">${j.services.slice(0,2).map(s=>`<span class="svc-chip">${s.name}</span>`).join('')}<span class="prio ${j.priority}">${j.priority}</span></div><div class="kt-row"><span>${j.clientName}</span><span>${j.estTime}m</span></div>${tech||bay?`<div class="kt-row"><span>${tech?'<div class="tech-av" style="background:'+tech.color+';display:inline-flex;width:20px;height:20px;margin-right:4px;vertical-align:middle">'+initials(tech.name)+'</div>'+tech.name.split(' ')[0]:''}</span><span>${bay?.name||''}</span></div>`:''}</div>`}).join('')||'<div style="text-align:center;color:var(--label-tertiary);padding:20px;font-size:12px">No jobs</div>'}</div>`}).join('')}</div>`;
+}
+window.dropJob=(e,col)=>{e.preventDefault();$$('.kcol').forEach(x=>x.classList.remove('drag-over'));const id=e.dataTransfer.getData('id');const j=state.jobs.find(x=>x.id===id);if(j){if(col==='COMPLETED')j.services.forEach(s=>s.done=true);j.status=col;renderAll()}};
+
+/* VEHICLES */
+function renderVehicles(hd,body){
+  if(state.selectedVehicleId)return renderVehicleDetail(hd,body);
+  hd.innerHTML=`<div><h1>Vehicles</h1><div class="sub">${state.vehicles.length} in database</div></div>`;
+  body.innerHTML=`<div class="vsearch"><input type="text" id="vSearch" placeholder="🔍 Search by plate, make, model, client name..."></div><div id="vList" class="veh-grid"></div>`;
+  drawVehList('');
+  $('#vSearch').addEventListener('input',e=>drawVehList(e.target.value));
+}
+function drawVehList(q){
+  const ql=q.toLowerCase();
+  const list=state.vehicles.filter(v=>!q||v.plate.toLowerCase().includes(ql)||v.make.toLowerCase().includes(ql)||v.model.toLowerCase().includes(ql)||v.clientName.toLowerCase().includes(ql));
+  $('#vList').innerHTML=list.slice(0,24).map(v=>`<div class="veh-card" onclick="state.selectedVehicleId='${v.id}';renderMain()"><div class="veh-top"><div class="car-icon" style="background:${v.colorHex};border:2px solid rgba(0,0,0,.1)">🚗</div><div class="info"><div class="mk">${v.make} ${v.model}</div><span class="plate">${v.plate}</span></div></div><div class="veh-row"><span class="l">Year · Color</span><span>${v.year} · ${v.color}</span></div><div class="veh-row"><span class="l">Owner</span><span>${v.clientName}</span></div><div class="veh-row"><span class="l">Last service</span><span>${v.history[0]?fmtDate(v.history[0].date):'—'}</span></div><div class="veh-stats"><div class="veh-stat"><div class="v">${v.visits}</div><div class="l">Visits</div></div><div class="veh-stat"><div class="v">${money(v.totalSpent)}</div><div class="l">Spent</div></div></div></div>`).join('')||'<div style="text-align:center;color:var(--label-tertiary);padding:40px;grid-column:1/-1">No vehicles match</div>';
+}
+function renderVehicleDetail(hd,body){
+  const v=state.vehicles.find(x=>x.id===state.selectedVehicleId);
+  hd.innerHTML=`<div><h1>Vehicle Detail</h1></div><div><button class="btn sm" onclick="state.selectedVehicleId=null;renderMain()">← Back</button> <button class="btn primary sm" onclick="openNewJobFor('${v.id}')">+ New Job</button></div>`;
+  const avgBetween=v.history.length>1?Math.round((v.history[0].date-v.history[v.history.length-1].date)/86400000/(v.history.length-1)):0;
+  const svcCount={};v.history.forEach(h=>h.services.forEach(s=>svcCount[s]=(svcCount[s]||0)+1));
+  const topSvc=Object.entries(svcCount).sort((a,b)=>b[1]-a[1])[0];
+  const motDays=Math.ceil((v.motDate-new Date())/86400000);
+  const insDays=Math.ceil((v.insuranceDate-new Date())/86400000);
+  body.innerHTML=`<div class="veh-hero"><div class="car-icon" style="background:${v.colorHex};border:2px solid rgba(0,0,0,.1);width:80px;height:80px;font-size:36px">🚗</div><div style="flex:1"><span class="plate" style="font-size:22px;padding:6px 16px">${v.plate}</span><h2>${v.make} ${v.model} ${v.year}</h2><div class="meta">${v.color} · ${v.mileage.toLocaleString()} km · VIN ${v.vin}</div><div class="meta" style="margin-top:6px">👤 ${v.clientName} · 📞 ${v.clientPhone}</div></div></div>
+  <div class="grid4" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Total visits</div><div class="v">${v.visits}</div></div>
+    <div class="kcard"><div class="l">Total spent</div><div class="v">${money(v.totalSpent)}</div></div>
+    <div class="kcard"><div class="l">Avg between visits</div><div class="v">${avgBetween}<span style="font-size:14px;font-weight:500">d</span></div></div>
+    <div class="kcard"><div class="l">Top service</div><div class="v" style="font-size:14px">${topSvc?topSvc[0]:'—'}</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Service History</h3><div class="timeline">${v.history.map(h=>`<div class="tl-item"><div class="tl-top"><div class="tl-date">${fmtDate(h.date)} · ${h.mileage.toLocaleString()}km</div><strong>${money(h.cost)}</strong></div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">${h.services.map(s=>`<span class="svc-chip">${s}</span>`).join('')}</div><div style="font-size:11px;color:var(--label-secondary)">🔧 ${h.tech} · ${fmtDur(h.duration)}</div></div>`).join('')||'<div style="color:var(--label-tertiary);text-align:center;padding:20px">No service history</div>'}</div></div>
+    <div><div class="card" style="margin-bottom:14px"><h3>Documents</h3><div class="dp-row"><span class="l">MOT expires</span><span>${fmtDate(v.motDate)} <span class="badge ${motDays<30?'b-red':motDays<90?'b-orange':'b-green'}">${motDays>0?motDays+'d':'Expired'}</span></span></div><div class="dp-row"><span class="l">Insurance</span><span>${fmtDate(v.insuranceDate)} <span class="badge ${insDays<30?'b-red':insDays<90?'b-orange':'b-green'}">${insDays>0?insDays+'d':'Expired'}</span></span></div><div class="dp-row"><span class="l">Registration</span><span class="badge b-green">Valid</span></div></div>
+    <div class="card"><h3>Upcoming</h3><div style="font-size:13px">Next recommended: ${topSvc?topSvc[0]:'Full service'}</div><div style="font-size:11px;color:var(--label-tertiary);margin-top:4px">Due in ${Math.max(0,avgBetween-Math.round((Date.now()-v.history[0].date)/86400000))}d based on pattern</div><button class="btn primary sm" style="margin-top:12px;width:100%" onclick="openNewJobFor('${v.id}')">Book next service →</button></div>
+    </div>
+  </div>`;
+}
+window.openNewJobFor=vid=>{const v=state.vehicles.find(x=>x.id===vid);state.njData={vehicle:v,client:state.clients.find(c=>c.id===v.clientId),services:[],priority:'normal',parts:[]};openNewJob()};
+
+/* CLIENTS */
+function renderClients(hd,body){
+  if(state.selectedClientId)return renderClientDetail(hd,body);
+  hd.innerHTML=`<div><h1>Clients</h1><div class="sub">${state.clients.length} contacts</div></div>`;
+  body.innerHTML=`<div class="card"><input class="fld" id="clSearch" placeholder="Search..." style="margin-bottom:10px"><table class="t"><thead><tr><th>Name</th><th>Vehicles</th><th>Last visit</th><th style="text-align:right">Total spent</th><th>Contact</th></tr></thead><tbody id="clBody"></tbody></table></div>`;
+  const draw=q=>{const ql=q.toLowerCase();$('#clBody').innerHTML=state.clients.filter(c=>!q||c.name.toLowerCase().includes(ql)).slice(0,40).map(c=>{const cars=state.vehicles.filter(v=>v.clientId===c.id);const last=cars.map(v=>v.history[0]?.date).filter(Boolean).sort((a,b)=>b-a)[0];const total=cars.reduce((s,v)=>s+v.totalSpent,0);return `<tr onclick="state.selectedClientId='${c.id}';renderMain()"><td><div style="display:flex;align-items:center;gap:10px"><div class="tech-av" style="background:${c.color};width:32px;height:32px;font-size:12px">${initials(c.name)}</div>${c.name}</div></td><td>${cars.length} car${cars.length>1?'s':''}</td><td>${last?fmtDate(last):'—'}</td><td class="mono" style="text-align:right;font-weight:700">${money(total)}</td><td>${c.phone}</td></tr>`}).join('')};
+  draw('');$('#clSearch').addEventListener('input',e=>draw(e.target.value));
+}
+function renderClientDetail(hd,body){
+  const c=state.clients.find(x=>x.id===state.selectedClientId);
+  const cars=state.vehicles.filter(v=>v.clientId===c.id);
+  const total=cars.reduce((s,v)=>s+v.totalSpent,0);
+  const visits=cars.reduce((s,v)=>s+v.visits,0);
+  hd.innerHTML=`<div><h1>${c.name}</h1></div><div><button class="btn sm" onclick="state.selectedClientId=null;renderMain()">← Back</button></div>`;
+  body.innerHTML=`<div class="veh-hero"><div class="tech-av" style="background:${c.color};width:72px;height:72px;font-size:24px">${initials(c.name)}</div><div><h2>${c.name}</h2><div class="meta">📞 ${c.phone} · 📧 ${c.email}</div><div class="meta" style="margin-top:4px">Preferred tech: ${c.preferredTech}</div></div></div>
+    <div class="grid4" style="margin-bottom:14px"><div class="kcard"><div class="l">Vehicles</div><div class="v">${cars.length}</div></div><div class="kcard"><div class="l">Total visits</div><div class="v">${visits}</div></div><div class="kcard"><div class="l">Total spent</div><div class="v">${money(total)}</div></div><div class="kcard"><div class="l">Avg per visit</div><div class="v">${visits?money(total/visits):'—'}</div></div></div>
+    <div class="card"><h3>Vehicles Owned</h3><div class="veh-grid">${cars.map(v=>`<div class="veh-card" onclick="state.selectedVehicleId='${v.id}';state.selectedClientId=null;setPage('vehicles')"><div class="veh-top"><div class="car-icon" style="background:${v.colorHex};border:2px solid rgba(0,0,0,.1)">🚗</div><div class="info"><div class="mk">${v.make} ${v.model}</div><span class="plate">${v.plate}</span></div></div><div class="veh-row"><span class="l">Visits</span><span>${v.visits}</span></div></div>`).join('')}</div></div>`;
+}
+
+/* PARTS */
+function renderParts(hd,body){
+  const out=state.parts.filter(p=>p.status==='out').length;
+  const low=state.parts.filter(p=>p.status==='low').length;
+  hd.innerHTML=`<div><h1>Parts Inventory</h1><div class="sub">${state.parts.length} SKUs · ${out} out · ${low} low</div></div>`;
+  body.innerHTML=`<div class="grid4" style="margin-bottom:14px">
+    <div class="kcard"><div class="l">Total SKUs</div><div class="v">${state.parts.length}</div></div>
+    <div class="kcard"><div class="l">Stock value</div><div class="v">${money(state.parts.reduce((s,p)=>s+p.qty*p.unitCost,0))}</div></div>
+    <div class="kcard"><div class="l">Out of stock</div><div class="v" style="color:var(--system-red)">${out}</div></div>
+    <div class="kcard"><div class="l">Low stock</div><div class="v" style="color:var(--system-orange)">${low}</div></div>
+  </div>
+  <div class="card"><h3>Parts List <button class="btn primary sm" onclick="alert('Add part')">+ Add part</button></h3><input class="fld" id="pSearch" placeholder="Search part #, name, brand..." style="margin-bottom:10px"><table class="t"><thead><tr><th>Part #</th><th>Name</th><th>Category</th><th>Brand</th><th>Compatible</th><th style="text-align:right">Stock</th><th style="text-align:right">Min</th><th style="text-align:right">Cost</th><th>Status</th><th></th></tr></thead><tbody id="pBody"></tbody></table></div>`;
+  const draw=q=>{const ql=q.toLowerCase();$('#pBody').innerHTML=state.parts.filter(p=>!q||p.pn.toLowerCase().includes(ql)||p.name.toLowerCase().includes(ql)||p.brand.toLowerCase().includes(ql)).slice(0,50).map(p=>`<tr><td class="mono" style="font-size:11px">${p.pn}</td><td><strong>${p.name}</strong></td><td><span class="svc-chip">${p.icon} ${p.cat}</span></td><td>${p.brand}</td><td style="font-size:11px;color:var(--label-tertiary)">${p.compatible}</td><td class="mono" style="text-align:right;font-weight:700">${p.qty}</td><td class="mono" style="text-align:right;color:var(--label-tertiary)">${p.min}</td><td class="mono" style="text-align:right">${money(p.unitCost)}</td><td><span class="badge ${p.status==='ok'?'b-green':p.status==='low'?'b-orange':'b-red'}">${p.status}</span></td><td><button class="btn xs" onclick="adjPart('${p.id}',-1)">−</button> <button class="btn xs" onclick="adjPart('${p.id}',1)">+</button></td></tr>`).join('')};
+  draw('');$('#pSearch').addEventListener('input',e=>draw(e.target.value));
+}
+window.adjPart=(id,d)=>{const p=state.parts.find(x=>x.id===id);p.qty=Math.max(0,p.qty+d);p.status=p.qty===0?'out':p.qty<p.min?'low':'ok';renderMain()};
+
+/* REPORTS */
+function renderReports(hd,body){
+  hd.innerHTML=`<div><h1>Reports</h1></div><div><input type="date" class="fld" style="display:inline-block"><input type="date" class="fld" style="display:inline-block;margin-left:6px"></div>`;
+  const total=state.jobs.length;
+  const revenue=state.jobs.reduce((s,j)=>s+(j.status==='COMPLETED'?rand(80,600):0),0);
+  const avgVal=Math.round(revenue/Math.max(1,state.jobs.filter(j=>j.status==='COMPLETED').length));
+  const laborHrs=Math.round(state.jobs.reduce((s,j)=>s+j.elapsed,0)/60);
+  const partsRev=Math.round(revenue*.35);
+  body.innerHTML=`<div class="grid4" style="grid-template-columns:repeat(5,1fr);margin-bottom:14px">
+    <div class="kcard"><div class="l">Total Jobs</div><div class="v mono" id="r1">0</div></div>
+    <div class="kcard"><div class="l">Revenue</div><div class="v mono">${money(revenue)}</div></div>
+    <div class="kcard"><div class="l">Avg Job Value</div><div class="v mono">${money(avgVal)}</div></div>
+    <div class="kcard"><div class="l">Labor Hrs</div><div class="v mono">${laborHrs}h</div></div>
+    <div class="kcard"><div class="l">Parts Revenue</div><div class="v mono">${money(partsRev)}</div></div>
+  </div>
+  <div class="grid2" style="margin-bottom:14px"><div class="card"><h3>Revenue by Week</h3><div class="chart-host"><canvas id="chRev"></canvas></div></div><div class="card"><h3>Jobs by Service</h3><div class="chart-host"><canvas id="chSvc"></canvas></div></div></div>
+  <div class="grid2"><div class="card"><h3>Technician Performance</h3>${TECHS.slice(0,6).map(t=>{const jobs=state.jobs.filter(j=>j.techId===t.id).length;const mx=Math.max(...TECHS.map(tt=>state.jobs.filter(j=>j.techId===tt.id).length))||1;return `<div style="padding:7px 0;border-bottom:1px solid var(--separator)"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span><div class="tech-av" style="background:${t.color};display:inline-flex;width:20px;height:20px;margin-right:6px;vertical-align:middle">${initials(t.name)}</div>${t.name}</span><span style="font-weight:700">${jobs} jobs · ${Math.round(jobs*rand(100,400))}€</span></div><div style="height:4px;background:var(--fill-tertiary);border-radius:2px"><div style="height:100%;background:${t.color};border-radius:2px;width:${jobs/mx*100}%"></div></div></div>`}).join('')}</div>
+  <div class="card"><h3>Bay Utilization</h3>${BAYS.map(b=>{const n=state.jobs.filter(j=>j.bayId===b.id).length;const pct=Math.min(100,n/state.jobs.length*100*BAYS.length);return `<div style="padding:7px 0;border-bottom:1px solid var(--separator)"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><strong>${b.name}</strong><span>${n} jobs · ${Math.round(pct)}%</span></div><div style="height:4px;background:var(--fill-tertiary);border-radius:2px"><div style="height:100%;background:var(--tool-accent);border-radius:2px;width:${pct}%"></div></div></div>`}).join('')}</div></div>`;
+  countUp($('#r1'),total);
+  setTimeout(()=>{
+    const weeks=['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];const data=weeks.map(()=>rand(3000,12000));
+    if(state.charts.rev)state.charts.rev.destroy();
+    state.charts.rev=new Chart($('#chRev'),{type:'bar',data:{labels:weeks,datasets:[{data,backgroundColor:'var(--tool-accent)',borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10}}},y:{ticks:{font:{size:10}}}}}});
+    const svcs={};state.jobs.forEach(j=>j.services.forEach(s=>svcs[s.name]=(svcs[s.name]||0)+1));
+    const top=Object.entries(svcs).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    if(state.charts.svc)state.charts.svc.destroy();
+    state.charts.svc=new Chart($('#chSvc'),{type:'doughnut',data:{labels:top.map(x=>x[0]),datasets:[{data:top.map(x=>x[1]),backgroundColor:['#FF453A','#007AFF','#34C759','#FF9500','#AF52DE','#FFCC00']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}}}});
+  },60);
+}
+
+/* NEW JOB */
+window.openNewJob=(walkin)=>{
+  state.njStep=1;
+  if(!state.njData.vehicle)state.njData={services:[],priority:'normal',parts:[]};
+  renderNJ();updSteps();openM('mNew');
+};
+function renderNJ(){
+  if(state.njStep===1){
+    $('#njSearchRes').innerHTML='';
+    if(state.njData.vehicle){const v=state.njData.vehicle;$('#njPlate').value=v.plate;$('#njMake').value=v.make;$('#njModel').value=v.model;$('#njYear').value=v.year;$('#njColor').value=v.color;$('#njMileage').value=v.mileage;$('#njClient').value=v.clientName}
+    $('#njSearch').oninput=e=>{const q=e.target.value.toLowerCase();if(!q){$('#njSearchRes').innerHTML='';return}$('#njSearchRes').innerHTML=state.vehicles.filter(v=>v.plate.toLowerCase().includes(q)||v.clientName.toLowerCase().includes(q)).slice(0,4).map(v=>`<div style="padding:8px;cursor:pointer;border-radius:8px;font-size:12px;display:flex;gap:8px;align-items:center" onmouseover="this.style.background='var(--fill-tertiary)'" onmouseout="this.style.background=''" onclick="selectExistingVehicle('${v.id}')"><div class="car-icon" style="background:${v.colorHex};width:30px;height:30px;font-size:16px;border:1px solid rgba(0,0,0,.1)">🚗</div><div><strong>${v.make} ${v.model}</strong> <span class="plate" style="font-size:10px;padding:1px 6px">${v.plate}</span><div style="font-size:10px;color:var(--label-tertiary)">${v.clientName}</div></div></div>`).join('')};
+  }else if(state.njStep===2){
+    $('#svcMulti').innerHTML=SERVICES.map(s=>`<button class="svc-btn ${state.njData.services.includes(s.n)?'selected':''}" onclick="toggleSvc('${s.n}')"><span class="i">${s.i}</span>${s.n}</button>`).join('');
+    $$('.prio-row button').forEach(b=>{b.classList.toggle('selected',b.dataset.prio===state.njData.priority);if(b.dataset.prio!==state.njData.priority)b.style.boxShadow='none';else b.style.boxShadow='';b.onclick=()=>{state.njData.priority=b.dataset.prio;renderNJ()}});
+    const est=state.njData.services.reduce((s,n)=>s+(SERVICES.find(x=>x.n===n)?.t||0),0);if(est)$('#njEst').value=est;
+  }else if(state.njStep===3){
+    $('#bayMini').innerHTML=BAYS.map(b=>{const occ=state.jobs.some(j=>j.bayId===b.id&&j.status!=='COMPLETED');return `<div class="bay-mini ${occ?'occupied':''} ${state.njData.bayId===b.id?'selected':''}" onclick="${occ?'':`state.njData.bayId='${b.id}';renderNJ()`}"><div class="n">${b.name}</div><div class="s">${b.type}${occ?' · busy':''}</div></div>`}).join('');
+    $('#njTech').innerHTML='<option value="">— Auto-assign —</option>'+TECHS.map(t=>`<option value="${t.id}">${t.name} (${t.status})</option>`).join('');
+    if(state.njData.techId)$('#njTech').value=state.njData.techId;
+    $('#njTech').onchange=e=>state.njData.techId=e.target.value;
+    const est=+$('#njEst').value||60;const eta=new Date();eta.setMinutes(eta.getMinutes()+est);$('#njETA').value=eta.toISOString().slice(0,16);
+  }else{
+    $('#njPartSearch').oninput=e=>{const q=e.target.value.toLowerCase();if(!q){$('#njPartsList').innerHTML='';return}$('#njPartsList').innerHTML=state.parts.filter(p=>p.name.toLowerCase().includes(q)).slice(0,5).map(p=>`<div style="padding:6px 8px;border-radius:6px;font-size:11px;cursor:pointer;display:flex;justify-content:space-between;align-items:center" onmouseover="this.style.background='var(--fill-tertiary)'" onmouseout="this.style.background=''"><span><strong>${p.name}</strong> <span class="badge ${p.status==='ok'?'b-green':'b-orange'}">${p.status==='ok'?'In stock':p.qty+'/'+p.min}</span></span><button class="btn xs primary" onclick="addPartToJob('${p.id}')">+ Add</button></div>`).join('')};
+    $('#njPartsSelected').innerHTML=state.njData.parts.length?state.njData.parts.map(p=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:var(--fill-tertiary);border-radius:8px;margin-bottom:3px;font-size:12px"><span>${p.name}</span><button class="btn xs" onclick="state.njData.parts=state.njData.parts.filter(x=>x.id!=='${p.id}');renderNJ()">×</button></div>`).join(''):'<div style="font-size:11px;color:var(--label-tertiary);padding:8px;text-align:center">No parts added</div>';
+  }
+}
+window.selectExistingVehicle=id=>{const v=state.vehicles.find(x=>x.id===id);state.njData.vehicle=v;renderNJ()};
+window.toggleSvc=n=>{const i=state.njData.services.indexOf(n);if(i>=0)state.njData.services.splice(i,1);else state.njData.services.push(n);renderNJ()};
+window.addPartToJob=id=>{const p=state.parts.find(x=>x.id===id);if(!state.njData.parts.find(x=>x.id===id)){state.njData.parts.push({id:p.id,name:p.name,status:p.status==='ok'?'reserved':'ordered'});renderNJ()}};
+function updSteps(){$$('#mNew .step').forEach((s,i)=>s.classList.toggle('active',i<state.njStep));['njStep1','njStep2','njStep3','njStep4'].forEach((id,i)=>$('#'+id).style.display=state.njStep===i+1?'block':'none');$('#njBack').style.display=state.njStep>1?'inline-flex':'none';$('#njNext').style.display=state.njStep<4?'inline-flex':'none';$('#njSave').style.display=state.njStep===4?'inline-flex':'none'}
+window.njStep=d=>{
+  if(d>0){
+    if(state.njStep===1&&!state.njData.vehicle){const plate=$('#njPlate').value.trim();if(!plate)return alert('Select or create a vehicle');const c={id:uid(),name:$('#njClient').value||'New Client',phone:$('#njPhone').value,email:$('#njEmail').value,color:`hsl(${rand(0,360)},55%,55%)`,notes:'',preferredTech:TECHS[0].name};const color=$('#njColor').value||'Black';const v={id:uid(),plate:fmtPlate(plate),make:$('#njMake').value||'—',mkColor:'#8E8E93',model:$('#njModel').value||'—',year:+$('#njYear').value||2020,color,colorHex:COLOR_HEX[color]||'#8E8E93',mileage:+$('#njMileage').value||0,vin:'—',clientId:c.id,clientName:c.name,clientPhone:c.phone,visits:0,totalSpent:0,history:[],motDate:new Date(Date.now()+365*86400000),insuranceDate:new Date(Date.now()+365*86400000)};state.clients.push(c);state.vehicles.push(v);state.njData.vehicle=v;state.njData.client=c}
+    if(state.njStep===2&&!state.njData.services.length)return alert('Select at least one service');
+  }
+  state.njStep=Math.max(1,Math.min(4,state.njStep+d));renderNJ();updSteps();
+};
+window.saveJob=()=>{
+  const v=state.njData.vehicle;
+  const services=state.njData.services.map(n=>{const s=SERVICES.find(x=>x.n===n);return {name:n,time:s.t,done:false}});
+  const estTime=+$('#njEst').value||services.reduce((s,x)=>s+x.time,0);
+  const tech=state.njData.techId?TECHS.find(t=>t.id===state.njData.techId):null;
+  const job={id:uid(),ref:`#${1000+state.jobs.length}`,vehicleId:v.id,vehicle:v,clientId:v.clientId,clientName:v.clientName,services,estTime,elapsed:0,priority:state.njData.priority,status:state.njData.bayId?'PROGRESS':'WAITING',bayId:state.njData.bayId,techId:tech?.id,techName:tech?.name,techColor:tech?.color,created:new Date(),started:state.njData.bayId?new Date():null,notes:$('#njNotes').value||'',parts:state.njData.parts};
+  state.jobs.unshift(job);
+  closeM('mNew');state.njData={services:[],priority:'normal',parts:[]};
+  renderAll();
+};
+
+/* MODAL */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('ws-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('ws-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+$$('.segmented button[data-p]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.p)));
+
+applyAll();
+</script>
+</body>
+</html>
