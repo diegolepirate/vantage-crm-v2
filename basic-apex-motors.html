@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Apex Motors — Independent service · Porsche, BMW, Alpine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Narrow:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg:#0A0B0D; --panel:#121418; --panel2:#181B20; --ink:#E8EAEC; --dim:#7A8089; --line:rgba(232,234,236,0.1);
+  --orange:#FF5E1A; --amber:#FFB020; --red:#E63946; --green:#2DD27F;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { background:var(--bg); color:var(--ink); font-family:'Archivo',sans-serif; overflow-x:clip; -webkit-font-smoothing:antialiased; scroll-behavior:smooth; }
+::selection { background:var(--orange); color:#000; }
+.mono { font-family:'JetBrains Mono',monospace; letter-spacing:0.04em; }
+.narrow { font-family:'Archivo Narrow',sans-serif; }
+.display { font-family:'Archivo',sans-serif; font-weight:900; letter-spacing:-0.035em; line-height:0.9; text-transform:uppercase; }
+
+/* grid paper background */
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.4;
+  background-image: linear-gradient(rgba(232,234,236,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(232,234,236,0.03) 1px,transparent 1px);
+  background-size: 48px 48px;
+}
+main { position:relative; z-index:1; }
+
+/* TOP STRIP */
+.strip { background:var(--orange); color:#000; padding:8px 0; overflow:hidden; white-space:nowrap; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; border-bottom:2px solid #000; }
+.strip .t { display:inline-block; animation:marq 38s linear infinite; }
+.strip span { margin:0 24px; }
+.strip .sep { opacity:0.5; }
+@keyframes marq { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* NAV */
+.nav { position:sticky; top:0; z-index:80; background:rgba(10,11,13,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); padding:18px 32px; display:grid; grid-template-columns:auto 1fr auto; gap:40px; align-items:center; }
+.logo { display:flex; align-items:center; gap:12px; }
+.logo .mark { width:34px; height:34px; background:var(--orange); display:flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; color:#000; position:relative; }
+.logo .mark::after { content:""; position:absolute; inset:0; border:1px solid #000; transform:translate(3px,3px); mix-blend-mode:normal; }
+.logo .n { font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; letter-spacing:-0.02em; text-transform:uppercase; }
+.logo .n small { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:400; letter-spacing:0.16em; color:var(--dim); margin-left:8px; vertical-align:middle; }
+.nav ul { display:flex; gap:30px; list-style:none; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
+.nav ul a { color:var(--dim); text-decoration:none; transition:color .2s; cursor:pointer; }
+.nav ul a:hover, .nav ul a.on { color:var(--orange); }
+.nav .right { display:flex; gap:12px; align-items:center; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; }
+.nav .dot { width:8px; height:8px; background:var(--green); border-radius:50%; box-shadow:0 0 8px var(--green); animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+.book { background:var(--orange); color:#000; padding:12px 22px; font-family:'Archivo',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; cursor:pointer; border:none; transition:all .15s; display:inline-flex; gap:10px; align-items:center; }
+.book:hover { background:var(--amber); transform:translate(-2px,-2px); box-shadow:4px 4px 0 #000; }
+
+/* HERO */
+.hero { padding:60px 32px 40px; position:relative; }
+.hero .track { display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); margin-bottom:40px; padding-bottom:20px; border-bottom:1px solid var(--line); }
+.hero .track .on { color:var(--orange); }
+.hero h1 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(64px,13vw,220px); line-height:0.85; letter-spacing:-0.04em; text-transform:uppercase; }
+.hero h1 .lo { opacity:0.15; }
+.hero h1 .hl { color:var(--orange); position:relative; display:inline-block; }
+.hero h1 .slash { color:var(--dim); font-weight:400; }
+.hero .sub-row { display:grid; grid-template-columns:1fr auto auto; gap:40px; align-items:end; margin-top:40px; padding-top:30px; border-top:1px solid var(--line); }
+.hero .sub { font-family:'Archivo',sans-serif; font-size:16px; line-height:1.5; max-width:520px; color:var(--ink); font-weight:400; }
+.hero .sub b { color:var(--orange); font-weight:500; }
+.hero .stats { display:flex; gap:50px; }
+.hero .stat .v { font-family:'Archivo',sans-serif; font-weight:900; font-size:52px; letter-spacing:-0.03em; line-height:1; }
+.hero .stat .v em { color:var(--orange); font-style:normal; }
+.hero .stat .l { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); margin-top:4px; }
+
+/* SHOP FLOOR */
+.floor { padding:70px 32px; border-top:1px solid var(--line); }
+.floor .head { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:30px; margin-bottom:30px; border-bottom:2px solid var(--orange); }
+.floor h2 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,5vw,64px); letter-spacing:-0.03em; text-transform:uppercase; line-height:0.95; }
+.floor h2 em { font-style:normal; color:var(--orange); }
+.floor h2 .num { font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:500; color:var(--dim); letter-spacing:0.1em; vertical-align:super; }
+.floor .meta { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); display:flex; gap:20px; align-items:center; }
+.floor .meta .dot { width:8px; height:8px; background:var(--green); border-radius:50%; }
+
+.bays { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.bay { background:var(--panel); border:1px solid var(--line); padding:20px; position:relative; transition:all .2s; }
+.bay:hover { border-color:var(--orange); transform:translateY(-3px); }
+.bay .hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:1px dashed var(--line); }
+.bay .num { font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; color:var(--dim); text-transform:uppercase; }
+.bay .status { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; padding:3px 8px; border:1px solid; }
+.bay .status.s-in { border-color:var(--green); color:var(--green); }
+.bay .status.s-work { border-color:var(--amber); color:var(--amber); background:rgba(255,176,32,0.08); }
+.bay .status.s-done { border-color:var(--orange); color:var(--orange); }
+.bay .status.s-wait { border-color:var(--dim); color:var(--dim); }
+.bay .car-vis { aspect-ratio:5/3; background:linear-gradient(180deg,var(--panel2),#0C0E12); position:relative; margin-bottom:16px; overflow:hidden; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); }
+.bay .car-vis::before { content:""; position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(180deg,transparent,rgba(255,94,26,0.06)); }
+.bay .car-vis .grid-bg { position:absolute; inset:0; background-image:linear-gradient(rgba(255,94,26,0.08) 1px,transparent 1px); background-size:100% 20px; }
+.bay .car { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.bay .car .silhouette { width:72%; max-width:180px; height:auto; }
+.bay .car .plate { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; background:#000; color:var(--amber); padding:3px 8px; border:1px solid var(--amber); }
+.bay .model { font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; letter-spacing:-0.01em; text-transform:uppercase; line-height:1.1; margin-bottom:4px; }
+.bay .model em { font-style:normal; color:var(--orange); }
+.bay .year-line { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--dim); text-transform:uppercase; margin-bottom:14px; }
+.bay .job { font-family:'Archivo',sans-serif; font-size:13px; line-height:1.45; color:var(--ink); margin-bottom:14px; font-weight:400; }
+.bay .job b { color:var(--amber); font-weight:500; }
+.bay .foot { display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px dashed var(--line); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--dim); text-transform:uppercase; }
+.bay .foot b { color:var(--ink); font-weight:500; }
+.bay .progress { height:3px; background:rgba(232,234,236,0.08); margin-bottom:12px; position:relative; overflow:hidden; }
+.bay .progress .fill { height:100%; background:var(--orange); transition:width 1s cubic-bezier(.4,.2,.2,1); }
+.bay .progress .fill.full { background:var(--green); }
+
+/* SERVICE MENU — brutalist pricing sheet */
+.menu { padding:80px 32px; border-top:1px solid var(--line); background:var(--panel); }
+.menu .head { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; padding-bottom:40px; margin-bottom:40px; border-bottom:1px solid var(--line); }
+.menu h2 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(40px,6vw,92px); letter-spacing:-0.035em; text-transform:uppercase; line-height:0.9; }
+.menu h2 em { color:var(--orange); font-style:normal; }
+.menu .blurb { font-size:14px; line-height:1.65; color:var(--dim); max-width:440px; justify-self:end; }
+.menu .blurb b { color:var(--ink); font-weight:500; }
+.svc-rows { border-top:1px solid var(--line); }
+.svc-row { display:grid; grid-template-columns:60px 1.3fr 1fr 1.1fr 120px 140px; gap:24px; padding:24px 16px; border-bottom:1px solid var(--line); align-items:center; transition:background .15s; cursor:pointer; position:relative; }
+.svc-row:hover { background:#0E1014; }
+.svc-row:hover .arrow { transform:translateX(6px); color:var(--orange); }
+.svc-row .n { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--dim); }
+.svc-row .name { font-family:'Archivo',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.01em; text-transform:uppercase; }
+.svc-row .sub { font-family:'Archivo',sans-serif; font-size:13px; color:var(--dim); line-height:1.45; }
+.svc-row .t { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--amber); letter-spacing:0.06em; text-transform:uppercase; }
+.svc-row .p { font-family:'Archivo',sans-serif; font-weight:900; font-size:28px; letter-spacing:-0.02em; color:var(--orange); text-align:right; }
+.svc-row .p small { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--dim); font-weight:400; letter-spacing:0.08em; text-transform:uppercase; display:block; text-align:right; margin-top:2px; }
+.svc-row .arrow { font-family:'Archivo',sans-serif; font-weight:900; color:var(--dim); font-size:18px; transition:all .2s; text-align:right; }
+
+/* SPECIALTIES — chip card grid */
+.spec { padding:80px 32px; border-top:1px solid var(--line); }
+.spec h2 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,5vw,72px); letter-spacing:-0.035em; text-transform:uppercase; line-height:0.95; margin-bottom:8px; }
+.spec h2 em { color:var(--orange); font-style:normal; }
+.spec .sub-head { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); margin-bottom:40px; }
+.makes { display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:1px solid var(--line); }
+.make { padding:28px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; flex-direction:column; gap:8px; transition:all .2s; cursor:pointer; position:relative; }
+.make:nth-child(5n) { border-right:none; }
+.make:hover { background:#0E1014; }
+.make .sigil { font-family:'Archivo',sans-serif; font-weight:900; font-size:38px; letter-spacing:-0.02em; line-height:1; text-transform:uppercase; transition:color .2s; }
+.make:hover .sigil { color:var(--orange); }
+.make .name { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); }
+.make .meta { font-family:'Archivo',sans-serif; font-size:12px; color:var(--ink); margin-top:auto; padding-top:20px; opacity:0.85; }
+.make .meta b { color:var(--amber); font-weight:500; }
+
+/* TEAM — id card strip */
+.team { padding:80px 32px; border-top:1px solid var(--line); background:var(--panel); }
+.team .head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; padding-bottom:24px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:20px; }
+.team h2 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(36px,5vw,72px); letter-spacing:-0.035em; text-transform:uppercase; line-height:0.95; }
+.team h2 em { color:var(--orange); font-style:normal; }
+.team .h-r { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); }
+.cards { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.id { background:var(--bg); border:1px solid var(--line); padding:20px; position:relative; overflow:hidden; transition:transform .25s; }
+.id:hover { transform:translateY(-4px); border-color:var(--orange); }
+.id::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--orange); }
+.id .chip { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:14px; border-bottom:1px dashed var(--line); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); }
+.id .chip b { color:var(--orange); font-weight:500; }
+.id .portrait { aspect-ratio:1; background:linear-gradient(180deg,var(--panel2),#0A0B0D); position:relative; margin-bottom:16px; overflow:hidden; border:1px solid var(--line); display:flex; align-items:flex-end; justify-content:center; padding:16px; }
+.id .portrait::after { content:""; position:absolute; top:20%; left:50%; transform:translateX(-50%); width:55%; aspect-ratio:1; background:radial-gradient(circle,rgba(255,94,26,0.3),transparent 70%); border-radius:50%; filter:blur(20px); }
+.id .portrait .silh { position:relative; z-index:2; width:75%; color:var(--dim); opacity:0.9; }
+.id .name { font-family:'Archivo',sans-serif; font-weight:900; font-size:20px; letter-spacing:-0.01em; text-transform:uppercase; line-height:1.05; margin-bottom:4px; }
+.id .role { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--amber); margin-bottom:12px; }
+.id .bio { font-family:'Archivo',sans-serif; font-size:12px; line-height:1.5; color:var(--dim); }
+.id .bio b { color:var(--ink); font-weight:500; }
+.id .stats { margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--dim); }
+.id .stats b { color:var(--ink); font-weight:500; display:block; font-size:14px; margin-top:2px; font-family:'Archivo',sans-serif; font-weight:900; }
+
+/* BOOK FORM */
+.book-sec { padding:90px 32px; border-top:1px solid var(--line); position:relative; overflow:hidden; }
+.book-sec::before { content:"APEX"; position:absolute; right:-5%; top:-10%; font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(240px,38vw,600px); color:rgba(255,94,26,0.04); pointer-events:none; letter-spacing:-0.04em; }
+.book-sec .wrap { display:grid; grid-template-columns:1fr 1.2fr; gap:80px; position:relative; }
+.book-sec h2 { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(48px,7vw,120px); letter-spacing:-0.04em; text-transform:uppercase; line-height:0.86; margin-bottom:20px; }
+.book-sec h2 em { color:var(--orange); font-style:normal; }
+.book-sec .lede { font-size:15px; line-height:1.65; color:var(--dim); max-width:400px; }
+.book-sec .lede b { color:var(--ink); font-weight:500; }
+.book-sec .form { background:var(--panel); border:1px solid var(--line); padding:32px; }
+.book-sec .form h3 { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+.book-sec .form h3 b { color:var(--dim); font-weight:400; }
+.fld { display:grid; grid-template-columns:130px 1fr; gap:16px; padding:16px 0; border-bottom:1px dashed var(--line); align-items:center; }
+.fld .k { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); }
+.fld .v { font-family:'Archivo',sans-serif; font-size:15px; font-weight:500; }
+.fld .v em { color:var(--orange); font-style:normal; }
+.fld .chips { display:flex; gap:6px; flex-wrap:wrap; }
+.chp { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:5px 9px; border:1px solid var(--line); color:var(--dim); cursor:pointer; transition:all .15s; }
+.chp.on { border-color:var(--orange); color:var(--orange); background:rgba(255,94,26,0.08); }
+.chp:hover { border-color:var(--amber); color:var(--ink); }
+.submit { width:100%; margin-top:24px; padding:20px; background:var(--orange); color:#000; font-family:'Archivo',sans-serif; font-weight:900; font-size:16px; letter-spacing:0.05em; text-transform:uppercase; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:all .15s; }
+.submit:hover { background:var(--amber); transform:translate(-2px,-2px); box-shadow:4px 4px 0 #000; }
+.submit .arr { font-weight:900; font-size:22px; }
+
+/* FOOTER */
+footer { padding:80px 32px 32px; border-top:1px solid var(--line); background:#000; }
+.f-huge { font-family:'Archivo',sans-serif; font-weight:900; font-size:clamp(80px,18vw,300px); line-height:0.85; letter-spacing:-0.045em; text-transform:uppercase; margin-bottom:60px; text-align:center; }
+.f-huge em { font-style:normal; color:var(--orange); }
+.f-huge .slash { color:rgba(232,234,236,0.08); }
+.f-grid { display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; padding-bottom:32px; border-bottom:1px solid var(--line); }
+.f-grid h6 { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--orange); margin-bottom:16px; }
+.f-grid p, .f-grid a { font-family:'Archivo',sans-serif; font-size:13px; line-height:1.7; color:var(--dim); text-decoration:none; display:block; }
+.f-grid a:hover { color:var(--orange); }
+.f-grid b { color:var(--ink); font-weight:500; }
+.f-bot { padding-top:24px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); flex-wrap:wrap; gap:10px; }
+
+/* TWEAKS */
+.tweaks { position:fixed; bottom:20px; right:20px; background:var(--panel); border:1px solid var(--orange); padding:18px; z-index:300; min-width:240px; display:none; }
+.tweaks.open { display:block; }
+.tweaks h4 { font-family:'Archivo',sans-serif; font-weight:900; font-size:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange); margin-bottom:14px; }
+.tweaks .row { display:flex; gap:8px; padding:8px 4px; cursor:pointer; align-items:center; border-bottom:1px solid var(--line); }
+.tweaks .sw { width:22px; height:22px; }
+.tweaks .label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
+
+@media (max-width:1100px) {
+  .bays { grid-template-columns:repeat(2,1fr); }
+  .makes { grid-template-columns:repeat(3,1fr); }
+  .cards { grid-template-columns:repeat(2,1fr); }
+  .book-sec .wrap { grid-template-columns:1fr; }
+  .svc-row { grid-template-columns:50px 1fr 1fr 100px 40px; gap:12px; }
+  .svc-row .t { display:none; }
+}
+@media (max-width:700px) {
+  .nav ul { display:none; }
+  .nav { grid-template-columns:auto 1fr; }
+  .bays, .makes, .cards, .f-grid { grid-template-columns:1fr; }
+  .hero .sub-row, .menu .head { grid-template-columns:1fr; }
+  .hero .stats { flex-wrap:wrap; gap:20px; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+const APEX_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "orange": "#FF5E1A",
+  "amber": "#FFB020"
+}/*EDITMODE-END*/;
+
+/* silhouette svgs */
+const CarSilhouette = ({variant}) => {
+  const paths = {
+    coupe: "M10,60 Q15,45 35,42 L50,28 Q65,22 85,22 Q115,22 130,28 L150,42 Q175,46 185,55 Q190,58 190,62 L190,68 L175,72 Q173,84 163,84 Q153,84 150,72 L50,72 Q47,84 37,84 Q27,84 25,72 L10,68 Z",
+    sedan:"M8,62 Q10,50 22,48 L38,34 Q50,26 78,24 Q110,24 128,30 L148,48 Q178,52 190,60 L190,70 L175,74 Q172,86 162,86 Q152,86 150,74 L50,74 Q48,86 38,86 Q28,86 26,74 L8,70 Z",
+    suv:"M6,60 Q8,42 22,38 L36,22 Q50,14 78,12 Q110,12 130,18 L150,38 Q180,44 192,54 L192,72 L178,76 Q175,88 165,88 Q155,88 152,76 L48,76 Q45,88 35,88 Q25,88 22,76 L6,72 Z",
+    wagon:"M8,62 Q10,48 22,46 L38,30 Q48,22 76,20 Q140,20 158,28 L182,44 Q192,50 192,60 L192,70 L178,74 Q175,86 165,86 Q155,86 152,74 L50,74 Q48,86 38,86 Q28,86 26,74 L8,70 Z"
+  };
+  return (<svg className="silhouette" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+    <path d={paths[variant] || paths.coupe} fill="#1E222A" stroke="#FF5E1A" strokeWidth="1.2"/>
+    <circle cx="37" cy="80" r="8" fill="#0A0B0D" stroke="#FF5E1A" strokeWidth="1.2"/>
+    <circle cx="37" cy="80" r="3" fill="#FF5E1A"/>
+    <circle cx="163" cy="80" r="8" fill="#0A0B0D" stroke="#FF5E1A" strokeWidth="1.2"/>
+    <circle cx="163" cy="80" r="3" fill="#FF5E1A"/>
+  </svg>);
+};
+
+const PersonSilhouette = () => (
+  <svg className="silh" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="38" r="16" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M18,100 Q18,65 50,62 Q82,65 82,100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+  </svg>
+);
+
+function Strip() {
+  const items = ["Now booking · June","Porsche GT3 (992) — Brake refresh in bay 02","BMW E46 M3 — Subframe in bay 03","Cup car track prep · Spa — Fri","Alpine A110 S — Corner balance","Open 07:00 — 19:00 · Mon–Sat"];
+  return (<div className="strip"><div className="t">
+    {[...Array(3)].map((_,i)=>(<React.Fragment key={i}>
+      {items.map((t,j)=>(<React.Fragment key={j}><span>◆ {t}</span><span className="sep">/</span></React.Fragment>))}
+    </React.Fragment>))}
+  </div></div>);
+}
+
+function Nav() {
+  return (<nav className="nav">
+    <div className="logo">
+      <div className="mark">A</div>
+      <div className="n">Apex Motors <small>· EST. 2007 · ZÜRICH</small></div>
+    </div>
+    <ul>
+      <li><a className="on">Workshop</a></li>
+      <li><a>Services</a></li>
+      <li><a>Specialties</a></li>
+      <li><a>Crew</a></li>
+      <li><a>Journal</a></li>
+    </ul>
+    <div className="right">
+      <div style={{display:'flex',gap:10,alignItems:'center',color:'var(--dim)'}}><div className="dot"/>Bays open</div>
+      <button className="book">Book bay <span>→</span></button>
+    </div>
+  </nav>);
+}
+
+function Hero() {
+  const [roll,setRoll]=useState(0);
+  useEffect(()=>{ let r=0; const i=setInterval(()=>{ r++; setRoll(r); },80); return ()=>clearInterval(i); },[]);
+  const rpm = 2800 + Math.round(Math.sin(roll/6)*1200);
+  return (<section className="hero" data-screen-label="01 Hero">
+    <div className="track">
+      <span className="on">◼ Now servicing · Porsche 992 GT3</span>
+      <span>Bay 02 · Stage 04 · Brake refresh</span>
+      <span>Est. completion · 16:40 today</span>
+      <span className="on">RPM {rpm.toLocaleString()}</span>
+    </div>
+    <h1 className="display">
+      <span className="lo">Independent</span><br/>
+      German &amp; French<br/>
+      <span className="hl">Performance</span><br/>
+      <span className="slash">//</span> Service.
+    </h1>
+    <div className="sub-row">
+      <p className="sub">A fourteen-bay independent specialist in Zürich. We service, prepare and track-support <b>Porsche, BMW M, Alpine, Lotus</b> — the sort of cars that need more than a dealer stamp and less than a restoration shop. Every car gets its own logbook. Every job gets a photo trail.</p>
+      <div className="stats">
+        <div className="stat"><div className="v"><em>14</em></div><div className="l">Bays</div></div>
+        <div className="stat"><div className="v"><em>19</em>y</div><div className="l">In business</div></div>
+        <div className="stat"><div className="v"><em>6</em></div><div className="l">Factory-trained techs</div></div>
+      </div>
+    </div>
+  </section>);
+}
+
+/* shop floor */
+const BAYS = [
+  { num:"BAY 01", status:"WORK", variant:"coupe", plate:"ZH · 442 810", model:"Porsche 992 GT3", year:"2024 · 4.0L · MT", job:<>Full brake refresh — <b>PCCB rotors + Pagid RSL29</b>, lines flushed, corner weights reset.</>, prog:62, eta:"ETA 16:40", tech:"T. Bauer" },
+  { num:"BAY 02", status:"WORK", variant:"sedan", plate:"ZH · 891 003", model:"BMW E46 M3", year:"2003 · S54 · 6MT", job:<>Subframe reinforcement, <b>rod-bearings refresh</b>, VANOS rebuild. Week 2 of 3.</>, prog:48, eta:"ETA Thu 15:00", tech:"R. Kohl" },
+  { num:"BAY 03", status:"IN",  variant:"coupe", plate:"GE · 340 112", model:"Alpine A110 S", year:"2022 · 1.8T", job:<>Corner-balance + alignment. Track day at <b>Dijon</b> this weekend.</>, prog:12, eta:"ETA Today 18:00", tech:"M. Chen" },
+  { num:"BAY 04", status:"DONE", variant:"coupe", plate:"ZG · 227 884", model:"Porsche 997.2 GT3", year:"2010 · 3.8L", job:<>A-service complete. New plugs, oil, filters, <b>waiting on collection</b>.</>, prog:100, eta:"Ready", tech:"F. Lanz" },
+  { num:"BAY 05", status:"WAIT", variant:"suv", plate:"LU · 115 902", model:"Audi RS6 Avant", year:"2021 · 4.0TT", job:<>Carbon-ceramic brake inspection. <b>Parts ETA Thu</b> from Ingolstadt.</>, prog:30, eta:"Hold · parts", tech:"K. Weber" },
+  { num:"BAY 06", status:"WORK", variant:"wagon", plate:"ZH · 008 441", model:"BMW M5 Touring", year:"2007 · E61 · V10", job:<>Clutch + flywheel. <b>SMG pump</b> behaving itself, finally.</>, prog:72, eta:"ETA Wed 11:00", tech:"T. Bauer" },
+  { num:"BAY 07", status:"IN",  variant:"coupe", plate:"TI · 556 027", model:"Lotus Exige Cup", year:"2019 · V6 SC", job:<>Pre-Monza check. <b>Full fluid swap</b>, data-logger install, safety harness.</>, prog:22, eta:"ETA Tomorrow", tech:"M. Chen" },
+  { num:"BAY 08", status:"DONE", variant:"sedan", plate:"ZH · 719 004", model:"Porsche Taycan GTS", year:"2023 · EV", job:<>Battery diag + <b>wheel alignment</b>. Ready for collection tomorrow morning.</>, prog:100, eta:"Ready", tech:"F. Lanz" },
+];
+
+function Floor() {
+  const [live,setLive]=useState(BAYS);
+  useEffect(()=>{ const i=setInterval(()=>{
+    setLive(l=>l.map(b=>{ if(b.status==='WORK' && b.prog<99) return {...b, prog: Math.min(99, b.prog + (Math.random()<0.3?1:0))}; return b; }));
+  }, 1400); return ()=>clearInterval(i); },[]);
+  return (<section className="floor" data-screen-label="02 Shop floor">
+    <div className="head">
+      <h2>Shop floor<span className="num">[01]</span><br/><em>live.</em></h2>
+      <div className="meta"><div className="dot"/>8 of 14 bays in work · updated 12s ago · camera feed off</div>
+    </div>
+    <div className="bays">{live.map(b=>(<div className="bay" key={b.num}>
+      <div className="hdr">
+        <span className="num">{b.num}</span>
+        <span className={"status s-"+b.status.toLowerCase()}>{b.status==='WORK'?'● in work':b.status==='IN'?'◆ intake':b.status==='DONE'?'✓ ready':'⏸ hold'}</span>
+      </div>
+      <div className="car-vis">
+        <div className="grid-bg"/>
+        <div className="car">
+          <CarSilhouette variant={b.variant}/>
+          <div className="plate">{b.plate}</div>
+        </div>
+      </div>
+      <div className="model">{b.model}</div>
+      <div className="year-line">{b.year}</div>
+      <div className="progress"><div className={"fill "+(b.prog>=100?"full":"")} style={{width:b.prog+'%'}}/></div>
+      <div className="job">{b.job}</div>
+      <div className="foot"><span>Tech · <b>{b.tech}</b></span><span>{b.eta}</span></div>
+    </div>))}</div>
+  </section>);
+}
+
+const SVCS = [
+  { n:"A01", name:"Scheduled service", sub:"Oil, filters, inspection — 1-day turnaround.", t:"02–04 hrs", p:"380", unit:"CHF from" },
+  { n:"A02", name:"Major service", sub:"Full fluids, plugs, gearbox, diff, brake lines.", t:"01–02 days", p:"1,480", unit:"CHF from" },
+  { n:"B01", name:"Brake refresh", sub:"Pads, rotors, lines, bleed — your spec or ours.", t:"06–08 hrs", p:"1,200", unit:"CHF from" },
+  { n:"B02", name:"Corner balance + alignment", sub:"Scales, camber, toe — road or track setup.", t:"04–06 hrs", p:"640", unit:"CHF" },
+  { n:"T01", name:"Track prep · weekend", sub:"Pre-flight, safety check, data logger, transport.", t:"01 day", p:"2,400", unit:"CHF from" },
+  { n:"T02", name:"Track support · race day", sub:"On-site crew, spares van, tyres, strategy.", t:"per day", p:"3,800", unit:"CHF" },
+  { n:"E01", name:"Engine rebuild", sub:"S54, M96, M97, Mezger — shortblock or top-end.", t:"03–06 wks", p:"On request", unit:"" },
+  { n:"R01", name:"Recommission", sub:"Barn-find wake-up, safe drive, no judgement.", t:"01–03 wks", p:"1,800", unit:"CHF from" },
+];
+
+function Menu() {
+  return (<section className="menu" data-screen-label="03 Services">
+    <div className="head">
+      <h2>Service<br/><em>menu.</em></h2>
+      <p className="blurb">Eight core services, flat-rate where we can, <b>hourly where honesty demands</b>. Shop rate CHF 180/hr. Every job quoted in writing, every extra discussed before we touch a bolt.</p>
+    </div>
+    <div className="svc-rows">
+      {SVCS.map(s=>(<div className="svc-row" key={s.n}>
+        <span className="n">{s.n}</span>
+        <div className="name">{s.name}</div>
+        <div className="sub">{s.sub}</div>
+        <div className="t">{s.t}</div>
+        <div className="p">{s.p}<small>{s.unit}</small></div>
+        <div className="arrow">→</div>
+      </div>))}
+    </div>
+  </section>);
+}
+
+const MAKES = [
+  { s:"P", name:"Porsche", meta:<>996 GT3 → <b>992 GT3 RS</b>. 911 our daily bread.</> },
+  { s:"M", name:"BMW M", meta:<>E30 M3 → <b>G8x M3/M4</b>. S54, S65, S58 trained.</> },
+  { s:"A", name:"Alpine", meta:<>A110 (2017+). <b>Factory partnership</b> since '19.</> },
+  { s:"L", name:"Lotus", meta:<>Elise, Exige, Emira. <b>Track cars welcome.</b></> },
+  { s:"AU", name:"Audi RS", meta:<>RS4 B7, RS6 C7/C8, <b>R8 V8/V10</b>.</> },
+  { s:"MB", name:"AMG", meta:<>M156, M177, <b>M178</b>. Not the new EQs.</> },
+  { s:"LO", name:"Lancia", meta:<>Delta Integrale only, <b>by pre-arrangement</b>.</> },
+  { s:"AR", name:"Alfa", meta:<>Busso V6 era + <b>4C</b>. We have a spare head.</> },
+  { s:"FE", name:"Ferrari", meta:<>355, 360, 430, 458. <b>Cambelts on time.</b></> },
+  { s:"+", name:"Other", meta:<>Ask. We've probably seen one. <b>No modern SUVs.</b></> },
+];
+
+function Spec() {
+  return (<section className="spec" data-screen-label="04 Specialties">
+    <h2>Marques we <em>actually</em><br/>know the service manuals of.</h2>
+    <div className="sub-head">10 makes · factory-trained on 6 · tooling on all</div>
+    <div className="makes">{MAKES.map(m=>(<div className="make" key={m.name}>
+      <div className="sigil">{m.s}</div>
+      <div className="name">{m.name}</div>
+      <div className="meta">{m.meta}</div>
+    </div>))}</div>
+  </section>);
+}
+
+const CREW = [
+  { id:"APX-01", role:"Master Tech · Porsche", name:"Tobias Bauer", bio:<>17 years at <b>Porsche Zentrum Zürich</b>. Knows every Mezger bolt. Races a 964 on weekends.</>, stats:[["Since","2009"],["Spec.","Porsche"]] },
+  { id:"APX-04", role:"Master Tech · BMW M", name:"Rafael Kohl", bio:<>Ex <b>BMW M GmbH apprentice</b>. S54 rebuilds are his signature. Ex E46 CSL owner.</>, stats:[["Since","2012"],["Spec.","BMW M"]] },
+  { id:"APX-07", role:"Chassis · Track support", name:"Maya Chen", bio:<>Race engineer, <b>European Le Mans</b> pit crew 2018–22. Corner-balances in her sleep.</>, stats:[["Since","2019"],["Spec.","Setup"]] },
+  { id:"APX-09", role:"Paint &amp; body · PDR", name:"Felix Lanz", bio:<>Panel beater trained in <b>Stuttgart</b>. Kept his hand quiet during the digital years.</>, stats:[["Since","2014"],["Spec.","Body"]] },
+];
+
+function Team() {
+  return (<section className="team" data-screen-label="05 Crew">
+    <div className="head">
+      <h2>The crew.<br/><em>Six</em> factory-trained, one stray.</h2>
+      <div className="h-r">CH passport · EU tooling · night shift when it's urgent</div>
+    </div>
+    <div className="cards">{CREW.map(c=>(<div className="id" key={c.id}>
+      <div className="chip"><span>ID · <b>{c.id}</b></span><span>Apex · ZH</span></div>
+      <div className="portrait"><PersonSilhouette/></div>
+      <div className="role">{c.role}</div>
+      <div className="name">{c.name}</div>
+      <div className="bio">{c.bio}</div>
+      <div className="stats">{c.stats.map(([k,v])=>(<div key={k}>{k}<b>{v}</b></div>))}</div>
+    </div>))}</div>
+  </section>);
+}
+
+function Book() {
+  const [svc,setSvc]=useState("A01 Scheduled");
+  const svcs=["A01 Scheduled","A02 Major","B01 Brakes","T01 Track prep","R01 Recommission"];
+  const [when,setWhen]=useState("This week");
+  const whens=["This week","Next 2 wks","Next month","Flexible"];
+  return (<section className="book-sec" data-screen-label="06 Book">
+    <div className="wrap">
+      <div>
+        <h2>Drop it<br/><em>off.</em></h2>
+        <p className="lede">Most jobs booked within <b>5 working days</b>. Track prep, recommissioning, or anything involving "we don't know why it does that" — talk to us directly on <b>+41 44 212 00 14</b>.</p>
+      </div>
+      <div className="form">
+        <h3><span>BOOK A BAY · REF · APX-2026-##</span><b>Est. 2 min</b></h3>
+        <div className="fld"><div className="k">Your name</div><div className="v">T. Felder <em>— member since 2019</em></div></div>
+        <div className="fld"><div className="k">Vehicle</div><div className="v">Porsche 997.2 GT3 · 2010 · <em>ZH · 119 442</em></div></div>
+        <div className="fld"><div className="k">Service</div><div className="chips">{svcs.map(s=>(<span key={s} className={"chp "+(svc===s?"on":"")} onClick={()=>setSvc(s)}>{s}</span>))}</div></div>
+        <div className="fld"><div className="k">When</div><div className="chips">{whens.map(w=>(<span key={w} className={"chp "+(when===w?"on":"")} onClick={()=>setWhen(w)}>{w}</span>))}</div></div>
+        <div className="fld"><div className="k">Notes</div><div className="v">Weeping right rear caliper, slight vibration at 120+</div></div>
+        <button className="submit">Confirm drop-off <span className="arr">→</span></button>
+      </div>
+    </div>
+  </section>);
+}
+
+function Footer() {
+  return (<footer>
+    <div className="f-huge"><em>Apex</em> <span className="slash">//</span> Motors.</div>
+    <div className="f-grid">
+      <div><h6>Workshop</h6><p><b>Industriestrasse 14</b><br/>8005 Zürich · CH<br/>+41 44 212 00 14<br/>shop@apexmotors.ch</p></div>
+      <div><h6>Hours</h6><p>Mon — Fri · 07:00–19:00<br/>Saturday · 08:00–14:00<br/>Sunday · closed<br/>Track support · 24/7</p></div>
+      <div><h6>Services</h6><a>Scheduled service</a><a>Brake refresh</a><a>Corner balance</a><a>Track prep</a><a>Engine rebuild</a></div>
+      <div><h6>Elsewhere</h6><a>Instagram · @apex_zh</a><a>Journal</a><a>Storage · bonded</a><a>Gift card</a></div>
+    </div>
+    <div className="f-bot"><span>© MMXXVI · Apex Motors AG · UID CHE-114.442</span><span>Independent · Not affiliated with Porsche AG, BMW AG etc.</span><span>CH · Zürich</span></div>
+  </footer>);
+}
+
+function Tweaks({state,setState,open}) {
+  const sets=[
+    { orange:"#FF5E1A", amber:"#FFB020", name:"Workshop (default)" },
+    { orange:"#F5C842", amber:"#FFE066", name:"Grand Prix Yellow" },
+    { orange:"#E63946", amber:"#FF8C7A", name:"Gulf Red" },
+    { orange:"#2DD27F", amber:"#8AE8AB", name:"Brooklands Green" },
+    { orange:"#4EA8FF", amber:"#8FCFFF", name:"Martini Blue" },
+  ];
+  return (<div className={"tweaks "+(open?"open":"")}>
+    <h4>Livery</h4>
+    {sets.map(s=>(<div key={s.name} className="row" onClick={()=>setState(s)}>
+      <div className="sw" style={{background:s.orange}}/>
+      <div className="sw" style={{background:s.amber}}/>
+      <span className="label">{s.name}</span>
+    </div>))}
+  </div>);
+}
+
+function App() {
+  const [state,setState]=useState(APEX_DEFAULTS);
+  const [open,setOpen]=useState(false);
+  useEffect(()=>{ document.documentElement.style.setProperty('--orange',state.orange); document.documentElement.style.setProperty('--amber',state.amber); if(window.parent!==window) window.parent.postMessage({type:'__edit_mode_set_keys',edits:state},'*'); },[state]);
+  useEffect(()=>{ const h=e=>{ if(e.data?.type==='__activate_edit_mode') setOpen(true); if(e.data?.type==='__deactivate_edit_mode') setOpen(false); }; window.addEventListener('message',h); window.parent.postMessage({type:'__edit_mode_available'},'*'); return()=>window.removeEventListener('message',h); },[]);
+  return (<main><Strip/><Nav/><Hero/><Floor/><Menu/><Spec/><Team/><Book/><Footer/><Tweaks state={state} setState={setState} open={open}/></main>);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

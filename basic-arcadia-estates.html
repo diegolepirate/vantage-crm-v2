@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arcadia Estates — Exceptional properties · Côte d'Azur, Alps, Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --bg: #0F1115;
+    --bg2: #161922;
+    --ink: #E8E4DB;
+    --dim: #7D7B73;
+    --gold: #C9A661;
+    --sage: #8FA89A;
+    --line: rgba(232,228,219,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Space Grotesk', sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  ::selection { background: var(--gold); color: var(--bg); }
+
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .sans { font-family: 'Space Grotesk', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .progress { position: fixed; top: 0; left: 0; height: 1px; background: var(--gold); z-index: 150; transition: width .1s; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 28px 40px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    background: linear-gradient(to bottom, rgba(15,17,21,0.9), rgba(15,17,21,0));
+    backdrop-filter: blur(8px);
+  }
+  .nav .brand { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; letter-spacing: 0.02em; font-style: italic; }
+  .nav .brand b { font-style: normal; font-weight: 400; letter-spacing: 0.1em; font-size: 18px; color: var(--gold); }
+  .nav ul { display: flex; gap: 30px; list-style: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .nav a { color: var(--ink); text-decoration: none; }
+  .nav a:hover { color: var(--gold); }
+  .nav .contact { justify-self: end; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); cursor: pointer; }
+
+  /* Hero — split image/headline */
+  .hero { min-height: 100vh; position: relative; display: grid; grid-template-columns: 1.1fr 1fr; padding-top: 80px; }
+  .hero .left { padding: 60px 40px 40px; display: flex; flex-direction: column; justify-content: space-between; }
+  .hero .top-meta { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-bottom: 60px; }
+  .hero .top-meta .dot::before { content: "●"; color: var(--sage); margin-right: 6px; animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(56px, 8vw, 132px); line-height: 0.98; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line span { display: block; transform: translateY(100%); animation: reveal 1.2s cubic-bezier(.2,.7,.2,1) forwards; }
+  .hero h1 .line:nth-child(1) span { animation-delay: 0.1s; }
+  .hero h1 .line:nth-child(2) span { animation-delay: 0.25s; }
+  .hero h1 .line:nth-child(3) span { animation-delay: 0.4s; }
+  .hero h1 .line:nth-child(4) span { animation-delay: 0.55s; }
+  @keyframes reveal { to { transform: translateY(0); } }
+
+  .hero-bot { padding-top: 50px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+  .hero-bot .col .l { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+  .hero-bot .col .v { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; font-weight: 400; }
+  .hero-bot .col .v b { font-style: normal; color: var(--gold); font-weight: 400; }
+
+  .hero .right {
+    background: linear-gradient(135deg, #2A2E38, #1A1E26);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero .right::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(201,166,97,0.05) 2px 3px);
+  }
+  .hero .right::after {
+    content: ""; position: absolute; inset: 5%;
+    border: 1px solid rgba(201,166,97,0.3);
+    background:
+      radial-gradient(ellipse at 50% 60%, rgba(201,166,97,0.15), transparent 60%),
+      linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.3) 100%);
+  }
+  .hero .villa-viz {
+    position: absolute; inset: 8% 10%;
+    z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .hero .villa-viz .silhouette {
+    width: 100%; aspect-ratio: 2/1;
+    background:
+      linear-gradient(to top, #0A0B0F 0%, #0A0B0F 50%, transparent 50%),
+      linear-gradient(to top, transparent 50%, #1A1E26 50%, #2A2E38 100%);
+    position: relative;
+  }
+  .hero .villa-viz .silhouette::before {
+    content: ""; position: absolute; bottom: 50%; left: 0; right: 0; height: 50%;
+    background:
+      linear-gradient(to bottom, transparent 0%, transparent 50%, #0A0B0F 50%),
+      repeating-linear-gradient(90deg, #0A0B0F 0 16%, transparent 16% 17%, transparent 17% 32%);
+    clip-path: polygon(0 30%, 15% 30%, 15% 15%, 30% 15%, 30% 5%, 70% 5%, 70% 15%, 85% 15%, 85% 30%, 100% 30%, 100% 100%, 0 100%);
+  }
+  .hero .villa-viz .silhouette .lights {
+    position: absolute; bottom: 15%; left: 5%; right: 5%; height: 8%;
+    display: flex; justify-content: space-around; align-items: center;
+  }
+  .hero .villa-viz .silhouette .lights div {
+    width: 4px; height: 4px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold);
+    animation: twinkle 3s infinite;
+  }
+  .hero .villa-viz .silhouette .lights div:nth-child(2) { animation-delay: 0.5s; }
+  .hero .villa-viz .silhouette .lights div:nth-child(3) { animation-delay: 1s; }
+  .hero .villa-viz .silhouette .lights div:nth-child(4) { animation-delay: 1.5s; }
+  .hero .villa-viz .silhouette .lights div:nth-child(5) { animation-delay: 2s; }
+  @keyframes twinkle { 50% { opacity: 0.4; } }
+  .hero .villa-viz .caption { margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); text-align: center; }
+
+  .hero .ref-tag {
+    position: absolute; top: 24px; right: 24px; z-index: 5;
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+
+  /* Marquee of places */
+  .places-marq {
+    padding: 30px 0; overflow: hidden; white-space: nowrap;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    background: var(--bg2);
+  }
+  .places-marq .t { display: inline-block; animation: mq 50s linear infinite; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(48px, 7vw, 110px); letter-spacing: -0.02em; }
+  .places-marq span { margin: 0 30px; }
+  .places-marq .stroke { -webkit-text-stroke: 1px var(--ink); color: transparent; }
+  .places-marq .gold { color: var(--gold); }
+  @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Featured properties — horizontal scroll */
+  .feat { padding: 140px 0 40px; }
+  .feat-head { padding: 0 40px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; border-bottom: 1px solid var(--line); margin-bottom: 60px; }
+  .feat-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(44px, 7vw, 120px); line-height: 0.92; letter-spacing: -0.02em; }
+  .feat-head h2 em { font-style: italic; color: var(--gold); }
+  .feat-head .intro { font-family: 'Space Grotesk', sans-serif; font-size: 14px; line-height: 1.7; color: var(--dim); max-width: 420px; justify-self: end; }
+  .feat-head .intro em { color: var(--gold); font-style: italic; }
+
+  .h-scroll { display: flex; gap: 28px; padding: 0 40px 40px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--dim) var(--bg); }
+  .h-scroll::-webkit-scrollbar { height: 4px; }
+  .h-scroll::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  .prop-card { flex: 0 0 480px; scroll-snap-align: start; cursor: pointer; transition: transform .4s; }
+  .prop-card:hover { transform: translateY(-8px); }
+  .prop-card .img {
+    aspect-ratio: 4/3; position: relative; overflow: hidden; margin-bottom: 20px;
+    border: 1px solid var(--line);
+  }
+  .prop-card .img .bg { position: absolute; inset: 0; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+  .prop-card:hover .img .bg { transform: scale(1.08); }
+  .prop-card .img .ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--dim); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; text-align: center; padding: 24px; }
+  .prop-card .img .ph small { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-style: normal; }
+  .prop-card .img .ref { position: absolute; top: 20px; left: 20px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; }
+  .prop-card .img .status { position: absolute; top: 20px; right: 20px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--line); padding: 6px 10px; background: rgba(15,17,21,0.6); backdrop-filter: blur(4px); }
+  .prop-card .img .status.new { color: var(--sage); border-color: var(--sage); }
+  .prop-card .img .status.ex { color: var(--gold); border-color: var(--gold); }
+  .prop-card .loc { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+  .prop-card h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 36px; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .prop-card .specs { display: flex; gap: 24px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--dim); text-transform: uppercase; }
+  .prop-card .specs b { color: var(--ink); font-weight: 500; }
+  .prop-card .price-row { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; }
+  .prop-card .price { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 24px; color: var(--gold); letter-spacing: 0; }
+  .prop-card .price small { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-left: 6px; }
+  .prop-card .visit { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); display: inline-flex; gap: 8px; align-items: center; }
+  .prop-card:hover .visit { color: var(--gold); }
+
+  /* Property image generated via CSS */
+  .img.v1 .bg { background:
+    radial-gradient(ellipse at 50% 70%, rgba(201,166,97,0.2), transparent 60%),
+    linear-gradient(to bottom, #3A6E82 0%, #2A4E62 40%, #142028 40%, #0A141C 100%); }
+  .img.v1 .bg::before { content:""; position:absolute; bottom:0; left:0; right:0; height:40%; background: linear-gradient(to top, #0A141C 0%, #142028 80%, transparent 100%); clip-path: polygon(0 100%, 0 50%, 15% 50%, 15% 25%, 30% 25%, 30% 15%, 55% 15%, 55% 30%, 75% 30%, 75% 10%, 90% 10%, 90% 40%, 100% 40%, 100% 100%); }
+  .img.v2 .bg { background:
+    linear-gradient(to bottom, #D4B87C 0%, #A89060 40%, #6B5634 40%, #3A2C18 100%); }
+  .img.v2 .bg::before { content:""; position:absolute; bottom:20%; left:10%; right:10%; top:20%; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)); clip-path: polygon(0 40%, 15% 40%, 15% 0, 55% 0, 55% 30%, 75% 30%, 75% 15%, 100% 15%, 100% 100%, 0 100%); }
+  .img.v3 .bg { background:
+    linear-gradient(to bottom, #8FA89A 0%, #5A7266 50%, #2A3A36 50%, #1A2826 100%); }
+  .img.v3 .bg::before { content:""; position:absolute; bottom:0; left:15%; right:15%; height:60%; background: #0F1115; clip-path: polygon(0 100%, 0 30%, 40% 30%, 40% 0, 60% 0, 60% 30%, 100% 30%, 100% 100%); }
+  .img.v4 .bg { background:
+    linear-gradient(to bottom, #B8AFA0 0%, #8A8072 40%, #3E382E 40%, #1F1C16 100%); }
+  .img.v5 .bg { background:
+    linear-gradient(to bottom, #4E5E70 0%, #2E3E52 45%, #141E28 45%, #080C12 100%); }
+  .img.v5 .bg::before { content:""; position:absolute; bottom:0; left:5%; right:5%; height:55%; background: rgba(0,0,0,0.8); clip-path: polygon(0 100%, 0 40%, 20% 40%, 20% 10%, 80% 10%, 80% 30%, 100% 30%, 100% 100%); }
+
+  /* Numbers scroll */
+  .numbers { padding: 180px 40px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg2); }
+  .numbers .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 40px; }
+  .numbers .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; }
+  .numbers .item { text-align: left; border-top: 1px solid var(--line); padding-top: 24px; }
+  .numbers .big { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(80px, 10vw, 160px); line-height: 0.9; letter-spacing: -0.04em; color: var(--ink); }
+  .numbers .big em { font-style: italic; color: var(--gold); }
+  .numbers .desc { margin-top: 20px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; line-height: 1.6; color: var(--dim); max-width: 240px; }
+
+  /* Process sticky */
+  .process { position: relative; }
+  .process .wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 400vh; }
+  .process .left { position: sticky; top: 0; height: 100vh; padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 40px; border-right: 1px solid var(--line); }
+  .process .left .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .process .left h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(48px, 6vw, 96px); line-height: 0.95; letter-spacing: -0.02em; }
+  .process .left h2 em { font-style: italic; color: var(--gold); }
+  .process .left .bar { display: flex; gap: 8px; margin-top: 40px; }
+  .process .left .bar .b { flex: 1; height: 2px; background: var(--line); transition: background .4s; }
+  .process .left .bar .b.on { background: var(--gold); }
+  .process .left .big-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(140px, 16vw, 240px); line-height: 0.9; letter-spacing: -0.04em; color: var(--gold); font-style: italic; margin-top: 20px; transition: opacity .5s; }
+  .process .right { padding: 40px; display: flex; flex-direction: column; padding-top: 25vh; padding-bottom: 25vh; }
+  .process .step { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.25; transition: opacity .5s; max-width: 520px; }
+  .process .step.active { opacity: 1; }
+  .process .step .n { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+  .process .step.active .n { color: var(--gold); }
+  .process .step h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(36px, 4vw, 56px); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .process .step p { font-family: 'Space Grotesk', sans-serif; font-size: 16px; line-height: 1.7; color: var(--ink); font-weight: 300; }
+  .process .step p b { color: var(--gold); font-weight: 500; }
+
+  /* Team */
+  .team { padding: 140px 40px; border-top: 1px solid var(--line); }
+  .team .head { margin-bottom: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .team .head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(44px, 6vw, 96px); line-height: 0.95; letter-spacing: -0.02em; }
+  .team .head h2 em { font-style: italic; color: var(--gold); }
+  .team .head .intro { font-family: 'Space Grotesk', sans-serif; font-size: 14px; line-height: 1.7; color: var(--dim); max-width: 420px; }
+  .team .list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .member { cursor: pointer; transition: transform .3s; }
+  .member:hover { transform: translateY(-4px); }
+  .member .shot { aspect-ratio: 3/4; background: var(--bg2); border: 1px solid var(--line); position: relative; overflow: hidden; margin-bottom: 20px; }
+  .member .shot::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(201,166,97,0.1), transparent 60%); transition: opacity .4s; opacity: 0; }
+  .member:hover .shot::before { opacity: 1; }
+  .member .shot .ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--dim); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 26px; text-align: center; padding: 24px; }
+  .member .shot .ph small { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-style: normal; }
+  .member h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 32px; line-height: 1.05; }
+  .member .role { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
+  .member .bio { font-size: 13px; line-height: 1.6; color: var(--dim); margin-top: 14px; }
+
+  /* Contact CTA */
+  .contact {
+    padding: 180px 40px; position: relative;
+    background: radial-gradient(ellipse at 50% 50%, #1A1E26 0%, var(--bg) 70%);
+    text-align: center;
+  }
+  .contact h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(60px, 12vw, 200px); line-height: 0.92; letter-spacing: -0.03em; }
+  .contact h2 em { font-style: italic; color: var(--gold); }
+  .contact h2 .word { display: inline-block; overflow: hidden; padding-bottom: 0.12em; padding-right: 0.1em; }
+  .contact h2 .word span { display: inline-block; transform: translateY(120%); transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+  .contact h2 .word.vis span { transform: translateY(0); }
+  .contact .sub { margin-top: 40px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; line-height: 1.7; color: var(--dim); max-width: 560px; margin-left: auto; margin-right: auto; }
+  .contact .sub em { color: var(--gold); font-style: italic; }
+  .contact .row { margin-top: 50px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .contact .row button, .contact .row a {
+    padding: 18px 32px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    background: transparent; color: var(--ink); border: 1px solid var(--line); cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 12px; transition: all .25s;
+  }
+  .contact .row button.primary { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+  .contact .row button:hover, .contact .row a:hover { border-color: var(--gold); color: var(--gold); }
+  .contact .row button.primary:hover { background: transparent; color: var(--gold); }
+
+  /* Footer */
+  footer { padding: 100px 40px 40px; border-top: 1px solid var(--line); background: var(--bg2); }
+  .f-huge { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(100px, 18vw, 300px); line-height: 0.85; letter-spacing: -0.04em; margin-bottom: 80px; text-align: center; }
+  .f-huge em { font-style: italic; color: var(--gold); }
+  .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+  .f-grid h6 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .f-grid p, .f-grid a { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--ink); text-decoration: none; display: block; }
+  .f-grid a:hover { color: var(--gold); font-style: italic; }
+  .f-grid em { color: var(--gold); font-style: italic; }
+  .f-bot { padding-top: 28px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); flex-wrap: wrap; gap: 12px; }
+
+  /* Tweaks */
+  .tweaks { position: fixed; bottom: 20px; right: 20px; background: var(--bg2); border: 1px solid var(--gold); padding: 18px; z-index: 300; min-width: 240px; display: none; }
+  .tweaks.open { display: block; }
+  .tweaks h4 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; margin-bottom: 12px; color: var(--gold); }
+  .tweaks label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin: 10px 0 6px; color: var(--dim); }
+  .tweaks .row { display: flex; gap: 8px; padding: 6px 4px; cursor: pointer; align-items: center; border-bottom: 1px solid var(--line); }
+  .tweaks .sw { width: 20px; height: 20px; }
+
+  @media (max-width: 900px) {
+    .hero, .hero-bot, .feat-head, .numbers .grid, .process .wrap, .team .list, .team .head, .f-grid { grid-template-columns: 1fr; }
+    .process .left { position: relative; height: 60vh; }
+    .nav ul { display: none; }
+    .nav { grid-template-columns: 1fr auto; }
+    .prop-card { flex: 0 0 320px; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+
+const ARCADIA_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "gold": "#C9A661",
+  "sage": "#8FA89A",
+  "bg": "#0F1115"
+}/*EDITMODE-END*/;
+
+function useScroll() {
+  const [y, setY] = useState(0);
+  useEffect(() => {
+    const h = () => setY(window.scrollY);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  return y;
+}
+
+function Progress() {
+  useEffect(() => {
+    const h = () => { const el=document.getElementById('progress'); const max=document.documentElement.scrollHeight-window.innerHeight; if (el) el.style.width = max>0 ? ((window.scrollY/max)*100)+'%' : '0%'; };
+    window.addEventListener('scroll', h, { passive: true }); h();
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  return null;
+}
+
+function Nav() {
+  return (
+    <nav className="nav">
+      <div className="brand">Arcadia <b>ESTATES</b></div>
+      <ul>
+        <li><a href="#feat">Properties</a></li>
+        <li><a href="#process">Approach</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a>Journal</a></li>
+      </ul>
+      <div className="contact">+33 4 93 00 00 14 →</div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero" data-screen-label="01 Hero">
+      <div className="left">
+        <div className="top-meta">
+          <span><span className="dot"></span>Twelve new listings this week</span>
+          <span>Côte d'Azur · Alps · Paris</span>
+        </div>
+        <h1 className="serif">
+          <span className="line"><span>A portfolio</span></span>
+          <span className="line"><span>of <em>rare</em> things,</span></span>
+          <span className="line"><span>shown only to</span></span>
+          <span className="line"><span><em>rare</em> buyers.</span></span>
+        </h1>
+        <div className="hero-bot">
+          <div className="col">
+            <div className="l">Sourcing</div>
+            <div className="v">Fully <b>off-market</b></div>
+          </div>
+          <div className="col">
+            <div className="l">Since</div>
+            <div className="v">MMVIII · <b>2008</b></div>
+          </div>
+          <div className="col">
+            <div className="l">Transacted</div>
+            <div className="v">€ 2.4<b>bn</b></div>
+          </div>
+        </div>
+      </div>
+      <div className="right">
+        <div className="ref-tag">Featured · Ref. AE/047</div>
+        <div className="villa-viz">
+          <div className="silhouette">
+            <div className="lights">
+              <div/><div/><div/><div/><div/>
+            </div>
+          </div>
+          <div className="caption">[ Villa du Cap — Cap Ferrat · 1,240 m² · 12 rooms ]</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PlacesMarq() {
+  return (
+    <div className="places-marq">
+      <div className="t">
+        {[...Array(2)].map((_, i) => (
+          <React.Fragment key={i}>
+            <span className="gold">Cap Ferrat</span>
+            <span>◆</span>
+            <span className="stroke">Méribel</span>
+            <span>◆</span>
+            <span>Paris VII</span>
+            <span>◆</span>
+            <span className="gold">Saint-Tropez</span>
+            <span>◆</span>
+            <span className="stroke">Courchevel 1850</span>
+            <span>◆</span>
+            <span>Mougins</span>
+            <span>◆</span>
+            <span className="gold">Megève</span>
+            <span>◆</span>
+            <span className="stroke">Val-d'Isère</span>
+            <span>◆</span>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const PROPS = [
+  { cls: "v1", ref: "AE/047", status: "new", statusLabel: "New", loc: "Cap Ferrat · Côte d'Azur", name: "Villa du Cap", beds: "12 rms", sqm: "1 240 m²", land: "1.8 ha", price: "€ 42.5M", ph: "OCEAN-FRONT VILLA · SUNSET" },
+  { cls: "v2", ref: "AE/051", status: "ex", statusLabel: "Off-market", loc: "Méribel · Savoie", name: "Chalet Altitude", beds: "9 rms", sqm: "860 m²", land: "0.4 ha", price: "€ 18.9M", ph: "SKI-IN CHALET · DUSK" },
+  { cls: "v3", ref: "AE/042", status: "new", statusLabel: "New", loc: "Paris · VII", name: "Hôtel particulier", beds: "7 rms", sqm: "620 m²", land: "— courtyard", price: "€ 28.0M", ph: "HAUSSMANN · COURTYARD" },
+  { cls: "v4", ref: "AE/039", status: "ex", statusLabel: "Off-market", loc: "Saint-Tropez · Les Salins", name: "Maison Salins", beds: "8 rms", sqm: "720 m²", land: "0.8 ha", price: "€ 22.4M", ph: "PINES · POOL · AT DAY" },
+  { cls: "v5", ref: "AE/033", status: "new", statusLabel: "New", loc: "Megève · Haute-Savoie", name: "Le Grand Chalet", beds: "11 rms", sqm: "1 080 m²", land: "1.2 ha", price: "€ 32.0M", ph: "ALPINE CHALET · NIGHT" },
+];
+
+function Featured() {
+  return (
+    <section className="feat" id="feat" data-screen-label="02 Properties">
+      <div className="feat-head">
+        <h2 className="serif">Featured <em>properties,</em><br/>Spring 2026.</h2>
+        <p className="intro">Of the 12 new listings this week, these five are shown on the public site. <em>Seventy-eight further properties</em> are available only by direct introduction.</p>
+      </div>
+      <div className="h-scroll">
+        {PROPS.map(p => (
+          <div className="prop-card" key={p.ref}>
+            <div className={"img " + p.cls}>
+              <div className="bg"></div>
+              <div className="ph">
+                <span>{p.name}</span>
+                <small>[ {p.ph} ]</small>
+              </div>
+              <div className="ref">Ref. {p.ref}</div>
+              <div className={"status " + p.status}>{p.statusLabel}</div>
+            </div>
+            <div className="loc">{p.loc}</div>
+            <h3 className="serif">{p.name}</h3>
+            <div className="specs"><span><b>{p.beds}</b></span><span><b>{p.sqm}</b></span><span><b>{p.land}</b></span></div>
+            <div className="price-row">
+              <div className="price">{p.price}<small>guide price</small></div>
+              <div className="visit">Schedule a visit →</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Numbers() {
+  return (
+    <section className="numbers" data-screen-label="03 Numbers">
+      <div className="label">— By the numbers —</div>
+      <div className="grid">
+        <div className="item">
+          <div className="big serif"><em>€ 2.4</em>bn</div>
+          <p className="desc">Total transacted volume since 2008.</p>
+        </div>
+        <div className="item">
+          <div className="big serif"><em>340</em></div>
+          <p className="desc">Private buyers actively mandated to us.</p>
+        </div>
+        <div className="item">
+          <div className="big serif">18<em>d</em></div>
+          <p className="desc">Median days from mandate to signed offer.</p>
+        </div>
+        <div className="item">
+          <div className="big serif">94<em>%</em></div>
+          <p className="desc">Of our listings never appear on public portals.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Process() {
+  const y = useScroll();
+  const wrap = useRef(null);
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    const el = wrap.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const top = window.scrollY + r.top;
+    const end = top + r.height - window.innerHeight;
+    setP(Math.max(0, Math.min(1, (window.scrollY - top) / (end - top))));
+  }, [y]);
+  const step = Math.min(Math.floor(p * 4), 3);
+  const steps = [
+    { n: "Step 01 — Qualification", title: <>A private <em>conversation,</em> off the record.</>, body: <>We start with a one-hour conversation at your home or office. We want to understand what you're really buying — <b>a lifestyle, a legacy, a refuge, a discretion</b> — before we show you a single brochure.</> },
+    { n: "Step 02 — Curation", title: <>A short list, <em>never</em> a long one.</>, body: <>Within two weeks, we send you <b>five to seven properties</b>, not thirty. Each comes with a full dossier — title, taxes, neighbours, history — and our candid assessment of what the listing agent won't tell you.</> },
+    { n: "Step 03 — Visits", title: <>Private, <em>slow</em>, at your pace.</>, body: <>We accompany every visit ourselves. No lockbox, no rushed slots, <b>no other buyers</b>. Afternoons usually, sometimes with an architect or interior designer if the property warrants it.</> },
+    { n: "Step 04 — Execution", title: <>Discretion, <em>through closing</em> and after.</>, body: <>We handle notary, structural surveys, fiscal advice, and staff retention. Post-closing, we stay engaged for as long as you own the property — <b>keys, concierge, renovation, resale</b>.</> },
+  ];
+  return (
+    <section className="process" id="process" ref={wrap} data-screen-label="04 Process">
+      <div className="wrap">
+        <div className="left">
+          <div className="title">— Our approach</div>
+          <h2 className="serif">Four <em>steps,</em><br/>never <em>hurried.</em></h2>
+          <div className="big-num serif">{String(step + 1).padStart(2, '0')}<em>.</em></div>
+          <div className="bar">
+            {steps.map((_, i) => <div key={i} className={"b " + (i <= step ? "on" : "")}/>)}
+          </div>
+        </div>
+        <div className="right">
+          {steps.map((s, i) => (
+            <div key={i} className={"step " + (step === i ? "active" : "")}>
+              <div className="n">{s.n}</div>
+              <h3 className="serif">{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const TEAM = [
+  { n: "Claire Dumont", role: "Founder · Partner", bio: "Former head of private client at Christie's International. Based in Paris and Cap Ferrat.", ph: "PORTRAIT · EDITORIAL" },
+  { n: "Jean-Luc Arnault", role: "Alpine Partner", bio: "Twenty years in Courchevel and Méribel. Registered architect. Speaks English, French, Russian.", ph: "PORTRAIT · ALPINE LIGHT" },
+  { n: "Sophie Laurent", role: "Paris Partner", bio: "Hôtels particuliers specialist. Listed-building restorations. Former Sotheby's Paris.", ph: "PORTRAIT · STUDIO" },
+];
+
+function Team() {
+  return (
+    <section className="team" id="team" data-screen-label="05 Team">
+      <div className="head">
+        <h2 className="serif">A team of <em>three,</em> by design.</h2>
+        <p className="intro">We stay small on purpose. Three partners, four associates, one client per partner at a time. <em>Never more.</em></p>
+      </div>
+      <div className="list">
+        {TEAM.map(m => (
+          <div className="member" key={m.n}>
+            <div className="shot">
+              <div className="ph"><span>{m.n}</span><small>[ {m.ph} ]</small></div>
+            </div>
+            <h3 className="serif">{m.n}</h3>
+            <div className="role">{m.role}</div>
+            <p className="bio">{m.bio}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const ref = useRef(null);
+  const y = useScroll();
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.75 && r.bottom > 0) setVis(true);
+  }, [y]);
+  const words = ["Begin", "a", <em key="e">private</em>, "conversation."];
+  return (
+    <section className="contact" ref={ref} data-screen-label="06 Contact">
+      <h2 className="serif">
+        {words.map((w, i) => (
+          <span key={i} className={"word " + (vis ? "vis" : "")} style={{ transitionDelay: (i * 150) + 'ms' }}>
+            <span>{w}</span>{' '}
+          </span>
+        ))}
+      </h2>
+      <p className="sub">The form below is read only by the three founding partners. <em>We respond personally</em>, usually within two working hours.</p>
+      <div className="row">
+        <button className="primary">Schedule a call →</button>
+        <a>Request the catalogue</a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <div className="f-huge serif">Arc<em>ad</em>ia.</div>
+      <div className="f-grid">
+        <div>
+          <h6>Offices</h6>
+          <p><em>Paris</em> · 14 Place Vendôme, 75001</p>
+          <p><em>Nice</em> · 38 Promenade des Anglais, 06000</p>
+          <p><em>Courchevel</em> · Rue de Bellecôte, 73120</p>
+        </div>
+        <div>
+          <h6>Contact</h6>
+          <a>+33 4 93 00 00 14</a>
+          <a>hello@arcadia.estate</a>
+          <a>Press inquiries</a>
+        </div>
+        <div>
+          <h6>Services</h6>
+          <a>Acquisition</a>
+          <a>Discreet disposal</a>
+          <a>Rental portfolio</a>
+          <a>Renovation advisory</a>
+        </div>
+        <div>
+          <h6>Elsewhere</h6>
+          <a>Journal</a>
+          <a>Instagram</a>
+          <a>Careers</a>
+          <a>Privacy</a>
+        </div>
+      </div>
+      <div className="f-bot">
+        <span>© MMXXVI · Arcadia Estates SA</span>
+        <span>FNAIM · Member · 2008</span>
+        <span>Carte professionnelle · T-004721</span>
+      </div>
+    </footer>
+  );
+}
+
+function Tweaks({ state, setState, open }) {
+  const sets = [
+    { gold: "#C9A661", sage: "#8FA89A", bg: "#0F1115", name: "Midnight" },
+    { gold: "#E8C87A", sage: "#A8B0A0", bg: "#141622", name: "Navy" },
+    { gold: "#C9A661", sage: "#8FA89A", bg: "#F3EFE7", name: "Ivory" },
+    { gold: "#B8926A", sage: "#4E5E5A", bg: "#1A1A1A", name: "Graphite" },
+  ];
+  return (
+    <div className={"tweaks " + (open ? "open" : "")}>
+      <h4>Tweaks</h4>
+      <label>Palette</label>
+      {sets.map(s => (
+        <div className="row" key={s.name} onClick={() => { setState(s); document.documentElement.style.setProperty('--bg', s.bg); document.documentElement.style.setProperty('--gold', s.gold); document.documentElement.style.setProperty('--sage', s.sage); }}>
+          <div className="sw" style={{ background: s.gold }}/>
+          <div className="sw" style={{ background: s.sage }}/>
+          <div className="sw" style={{ background: s.bg, border: '1px solid rgba(255,255,255,0.1)' }}/>
+          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState(ARCADIA_DEFAULTS);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    document.documentElement.style.setProperty('--gold', state.gold);
+    document.documentElement.style.setProperty('--sage', state.sage);
+    document.documentElement.style.setProperty('--bg', state.bg);
+    if (window.parent !== window) window.parent.postMessage({ type: '__edit_mode_set_keys', edits: state }, '*');
+  }, [state]);
+  useEffect(() => {
+    const h = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+  return (
+    <>
+      <Progress />
+      <Nav />
+      <Hero />
+      <PlacesMarq />
+      <Featured />
+      <Numbers />
+      <Process />
+      <Team />
+      <Contact />
+      <Footer />
+      <Tweaks state={state} setState={setState} open={open} />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
