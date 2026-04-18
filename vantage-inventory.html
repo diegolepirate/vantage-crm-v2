@@ -242,6 +242,15 @@ table.t tr:last-child td{border:0}
 @keyframes fdup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 @media (max-width:1200px){.app{grid-template-columns:180px 1fr}.order-wrap{grid-template-columns:1fr}}
+/* ── TOOL-SPECIFIC ACCENT (overrides sector accent for UI chrome) ── */
+:root{--tool-accent:#32ADE6;--tool-accent-soft:rgba(50,173,230,.14);--tool-accent-strong:rgba(50,173,230,.28)}
+html[data-theme="dark"]{--tool-accent:#5AC8FA;--tool-accent-soft:rgba(90,200,250,.2);--tool-accent-strong:rgba(90,200,250,.35)}
+body{--accent:var(--tool-accent)!important;--accent-soft:var(--tool-accent-soft)!important}
+/* Blobs: ensure they pick up tool accent */
+.blob,body::before,body::after{background:var(--tool-accent)!important}
+/* Keep sector hint visible on sector dropdown */
+.sector-select,.sector{border-left:3px solid var(--tool-accent)!important;border-radius:8px}
+
 </style>
 </head>
 <body>

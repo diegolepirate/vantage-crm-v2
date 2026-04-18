@@ -301,6 +301,15 @@ html[data-theme="dark"] .modal{box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 0 1px v
 table.t tbody tr,.client-card,.cli{transition:background .15s ease}
 .calc-hero .pct,.hero-name,.welcome h2,.main-hd h1{text-rendering:optimizeLegibility}
 
+/* ── TOOL-SPECIFIC ACCENT (overrides sector accent for UI chrome) ── */
+:root{--tool-accent:#FF9500;--tool-accent-soft:rgba(255,149,0,.14);--tool-accent-strong:rgba(255,149,0,.28)}
+html[data-theme="dark"]{--tool-accent:#FF9F0A;--tool-accent-soft:rgba(255,159,10,.2);--tool-accent-strong:rgba(255,159,10,.35)}
+body{--accent:var(--tool-accent)!important;--accent-soft:var(--tool-accent-soft)!important}
+/* Blobs: ensure they pick up tool accent */
+.blob,body::before,body::after{background:var(--tool-accent)!important}
+/* Keep sector hint visible on sector dropdown */
+.sector-select,.sector{border-left:3px solid var(--tool-accent)!important;border-radius:8px}
+
 </style>
 </head>
 <body>

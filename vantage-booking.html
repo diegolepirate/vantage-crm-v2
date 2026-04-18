@@ -317,6 +317,15 @@ html[data-theme="dark"] .hero{border:1px solid var(--separator)}
 @media print{.topbar,.sidebar,.main-hd,.fab,.mbg,.detail-panel{display:none!important}.app{grid-template-columns:1fr!important}main,.main-body{overflow:visible!important;padding:0!important}}
 
 @media (max-width:1200px){.app{grid-template-columns:200px 1fr}.cal-wrap.with-detail{grid-template-columns:1fr}.detail-panel{display:none}.client-wrap{grid-template-columns:240px 1fr}.hero-kpis{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(2,1fr)}}
+/* ── TOOL-SPECIFIC ACCENT (overrides sector accent for UI chrome) ── */
+:root{--tool-accent:#FF2D55;--tool-accent-soft:rgba(255,45,85,.14);--tool-accent-strong:rgba(255,45,85,.28)}
+html[data-theme="dark"]{--tool-accent:#FF375F;--tool-accent-soft:rgba(255,55,95,.2);--tool-accent-strong:rgba(255,55,95,.35)}
+body{--accent:var(--tool-accent)!important;--accent-soft:var(--tool-accent-soft)!important}
+/* Blobs: ensure they pick up tool accent */
+.blob,body::before,body::after{background:var(--tool-accent)!important}
+/* Keep sector hint visible on sector dropdown */
+.sector-select,.sector{border-left:3px solid var(--tool-accent)!important;border-radius:8px}
+
 </style>
 </head>
 <body>
