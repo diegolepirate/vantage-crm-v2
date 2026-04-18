@@ -2947,7 +2947,13 @@ var UNI_TEMPLATES=[
   {id:'37',name:'VitalCare Clinic',category:'Health & Wellness',subcategory:'Healthcare',url:'https://www.awwwards.com/websites/css3/',tier:'classic',description:'Medical clinic with trust-focused design, doctor profiles and patient portal.',technologies:['React','Tailwind','Supabase'],tags:['medical','trust','portal','professional'],features:['Patient portal','Doctor finder','Telehealth','Lab results'],views:1560,favs:178,difficulty:'intermediate'},
   {id:'38',name:'Aura Wellness',category:'Health & Wellness',subcategory:'Fitness',url:'https://www.awwwards.com/websites/css3/',tier:'free',description:'Holistic wellness platform with chakra-inspired colors and breathing exercises.',technologies:['HTML5','CSS3','JavaScript'],tags:['holistic','chakra','breathing','colorful'],features:['Breathing exercises','Wellness blog','Practitioner directory','Event calendar'],views:1230,favs:145,difficulty:'beginner'},
   {id:'39',name:'Derma Science',category:'Health & Wellness',subcategory:'Healthcare',url:'https://www.awwwards.com/websites/css3/',tier:'premium',description:'Dermatology clinic with before/after cases and AI consultation booking.',technologies:['Next.js','TensorFlow.js','Stripe'],tags:['dermatology','before-after','ai','clinical'],features:['AI consultation','Before/after gallery','Treatment plans','Virtual skin check'],views:2340,favs:267,difficulty:'advanced'},
-  {id:'40',name:'BioFit Lab',category:'Health & Wellness',subcategory:'Fitness',url:'https://www.awwwards.com/websites/css3/',tier:'classic',description:'Biohacking and performance lab with data dashboards and wearable integration.',technologies:['React','D3.js','WebBluetooth'],tags:['biohacking','data','performance','wearable'],features:['Wearable sync','Performance dashboard','Supplement tracker','Sleep analysis'],views:1890,favs:212,difficulty:'advanced'}
+  {id:'40',name:'BioFit Lab',category:'Health & Wellness',subcategory:'Fitness',url:'https://www.awwwards.com/websites/css3/',tier:'classic',description:'Biohacking and performance lab with data dashboards and wearable integration.',technologies:['React','D3.js','WebBluetooth'],tags:['biohacking','data','performance','wearable'],features:['Wearable sync','Performance dashboard','Supplement tracker','Sleep analysis'],views:1890,favs:212,difficulty:'advanced'},
+  // === THE BASIC (5) ===
+  {id:'41',name:'Prime Cut',category:'The Basic',subcategory:'Brand',url:'https://vantagebookweb.netlify.app/basic-prime-cut.html',tier:'classic',description:'Editorial Belgian fries brand direction — bold Anton display, editorial layout, dark cinematic feel.',technologies:['HTML5','CSS3','JavaScript'],tags:['editorial','dark','bold','brand'],features:['Editorial hero','Bold typography','Dark theme','Brand identity'],views:1780,favs:198,difficulty:'beginner'},
+  {id:'42',name:'Hot Tip Frites',category:'The Basic',subcategory:'Brand',url:'https://vantagebookweb.netlify.app/basic-hot-tip.html',tier:'classic',description:'Playful fries brand with warm tones, hand-drawn accents and a friendly editorial voice.',technologies:['HTML5','CSS3','JavaScript'],tags:['playful','warm','hand-drawn','friendly'],features:['Warm palette','Hand-drawn accents','Friendly copy','Editorial layout'],views:1520,favs:172,difficulty:'beginner'},
+  {id:'43',name:'Noir et Or',category:'The Basic',subcategory:'Brand',url:'https://vantagebookweb.netlify.app/basic-noir-et-or.html',tier:'premium',description:'Black & gold luxury direction — premium feel, serif typography, gold foil accents.',technologies:['HTML5','CSS3','JavaScript'],tags:['luxury','black','gold','premium'],features:['Luxury palette','Serif display','Gold accents','Elevated copy'],views:2030,favs:241,difficulty:'intermediate'},
+  {id:'44',name:'The Upper Hand',category:'The Basic',subcategory:'Brand',url:'https://vantagebookweb.netlify.app/basic-upper-hand.html',tier:'classic',description:'Streetwear-leaning brand direction — bold monospace, tactical grid, confident voice.',technologies:['HTML5','CSS3','JavaScript'],tags:['streetwear','tactical','mono','bold'],features:['Tactical grid','Monospace type','Confident voice','Editorial hero'],views:1690,favs:187,difficulty:'beginner'},
+  {id:'45',name:'Golden Edge',category:'The Basic',subcategory:'Brand',url:'https://vantagebookweb.netlify.app/basic-golden-edge.html',tier:'premium',description:'Refined minimal direction with golden edge accents, generous whitespace and quiet confidence.',technologies:['HTML5','CSS3','JavaScript'],tags:['minimal','refined','gold','whitespace'],features:['Minimal layout','Golden accents','Whitespace','Refined type'],views:1870,favs:215,difficulty:'beginner'}
 ];
 
 // Enhanced relationships (40 templates)
@@ -3002,8 +3008,8 @@ var UNI_ACTIVITY=[
   {action:'created',entity:'BioFit Lab',target:'',color:'#4ADE80',time:'3h ago'}
 ];
 
-var UNI_CATEGORIES=['Prémium','E-Commerce','Services','Food & Beverage','Health & Wellness'];
-var UNI_CAT_COLORS={'Prémium':'#D4AF37','E-Commerce':'#00D9FF','Services':'#7C3AED','Food & Beverage':'#FF6B6B','Health & Wellness':'#4ADE80'};
+var UNI_CATEGORIES=['Prémium','E-Commerce','Services','Food & Beverage','Health & Wellness','The Basic'];
+var UNI_CAT_COLORS={'Prémium':'#D4AF37','E-Commerce':'#00D9FF','Services':'#7C3AED','Food & Beverage':'#FF6B6B','Health & Wellness':'#4ADE80','The Basic':'#F5C842'};
 var UNI_TIER_COLORS={free:'#4ADE80',classic:'#60A5FA',premium:'#D4AF37'};
 var UNI_REL_COLORS={similar:'#D4AF37',related:'#00D9FF',complements:'#4ADE80',inspired_by:'#FF6B6B'};
 var uniSelected=null,uniPreview=null,uniExpanded={},uniSearch='',uniCy=null;
@@ -3207,7 +3213,8 @@ var TPL_PALETTES={
   'E-Commerce':  {bg:'#0f0f14',fg:'#fff',accent:'#00D9FF',accent2:'#0099cc',grad:'linear-gradient(135deg,#0f0f14,#0a1628)',hero:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200',card:'rgba(0,217,255,.04)'},
   'Services':    {bg:'#0c0a14',fg:'#fff',accent:'#7C3AED',accent2:'#6D28D9',grad:'linear-gradient(135deg,#0c0a14,#1a0f2e)',hero:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200',card:'rgba(124,58,237,.04)'},
   'Food & Beverage':{bg:'#0f0a08',fg:'#fff',accent:'#FF6B6B',accent2:'#cc4444',grad:'linear-gradient(135deg,#0f0a08,#2a1510)',hero:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200',card:'rgba(255,107,107,.04)'},
-  'Health & Wellness':{bg:'#080f0a',fg:'#fff',accent:'#4ADE80',accent2:'#22c55e',grad:'linear-gradient(135deg,#080f0a,#0a2014)',hero:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200',card:'rgba(74,222,128,.04)'}
+  'Health & Wellness':{bg:'#080f0a',fg:'#fff',accent:'#4ADE80',accent2:'#22c55e',grad:'linear-gradient(135deg,#080f0a,#0a2014)',hero:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200',card:'rgba(74,222,128,.04)'},
+  'The Basic':{bg:'#0E0E0E',fg:'#F5F1E6',accent:'#F5C842',accent2:'#D4A82C',grad:'linear-gradient(135deg,#0E0E0E,#1a1a10)',hero:'https://images.unsplash.com/photo-1585109649139-366815a0d713?w=1200',card:'rgba(245,200,66,.04)'}
 };
 var TPL_HEROES={
   'Computer and Co':'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200',

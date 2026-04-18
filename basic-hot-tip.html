@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HOT TIP — Belgian fries with an attitude.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root { --bg: #FFE94A; --ink: #0B0B0B; --ink-dim: #5A5A52; --red: #E63946; --cream: #FFF6DA; --line: rgba(11,11,11,0.15); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--red); color: var(--bg); }
+  .slab { font-family: 'Alfa Slab One', serif; letter-spacing: -0.01em; line-height: 0.92; text-transform: uppercase; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 16px 28px; display: flex; justify-content: space-between; align-items: center; background: var(--bg); border-bottom: 3px solid var(--ink); }
+  .nav .brand { font-family: 'Alfa Slab One', serif; font-size: 22px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+  .nav .brand .bullet { width: 14px; height: 14px; background: var(--red); border-radius: 999px; display: inline-block; }
+  .nav ul { display: flex; gap: 6px; list-style: none; }
+  .nav a { display: block; padding: 8px 14px; border: 2px solid var(--ink); background: var(--bg); color: var(--ink); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; transition: all .15s; }
+  .nav a:hover { background: var(--ink); color: var(--bg); }
+  .nav .bag { background: var(--red); color: var(--bg); padding: 8px 14px; border: 2px solid var(--ink); font-family: 'DM Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; box-shadow: 3px 3px 0 var(--ink); }
+
+  main { padding-top: 65px; }
+
+  /* Hero */
+  .hero { padding: 40px 28px 40px; position: relative; }
+  .hero-top { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+  .hero-top span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-top .dot { width: 8px; height: 8px; background: var(--red); border-radius: 999px; animation: blink 1.5s infinite; }
+  @keyframes blink { 50% { opacity: 0.3; } }
+
+  .hero h1 { font-size: clamp(80px, 16vw, 280px); color: var(--ink); }
+  .hero h1 .r1 { display: block; }
+  .hero h1 .r2 { display: block; color: var(--red); transform: translateX(3vw); }
+  .hero h1 .r3 { display: block; -webkit-text-stroke: 3px var(--ink); color: transparent; }
+  .hero h1 .tilt { display: inline-block; transform: rotate(-4deg); }
+
+  .hero-bot { display: grid; grid-template-columns: 1.2fr 1fr 1.3fr; gap: 24px; margin-top: 40px; align-items: stretch; }
+
+  .photo-box {
+    background: var(--cream); border: 3px solid var(--ink);
+    padding: 12px; position: relative;
+    box-shadow: 8px 8px 0 var(--ink);
+    aspect-ratio: 4/5;
+  }
+  .photo-box::before { content: ""; position: absolute; inset: 12px; background-image: repeating-linear-gradient(45deg, transparent 0 10px, rgba(11,11,11,0.06) 10px 20px); pointer-events: none; }
+  .photo-box .ph { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; color: rgba(11,11,11,0.4); text-align: center; padding: 20px; }
+  .photo-box .ph .big { font-family: 'Alfa Slab One', serif; font-size: 28px; letter-spacing: -0.01em; }
+  .photo-box .ph small { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; margin-top: 8px; text-transform: uppercase; }
+  .photo-box .tape { position: absolute; top: -12px; left: 24px; background: var(--red); color: var(--bg); padding: 4px 14px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transform: rotate(-3deg); border: 2px solid var(--ink); z-index: 2; }
+
+  .hero-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+  .hero-copy .badge { display: inline-block; background: var(--ink); color: var(--bg); padding: 8px 14px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; transform: rotate(-2deg); align-self: flex-start; }
+  .hero-copy p { font-size: 17px; line-height: 1.5; font-weight: 500; }
+  .hero-copy p em { background: var(--red); color: var(--bg); padding: 0 4px; font-style: normal; }
+
+  .cta-stack { display: flex; flex-direction: column; gap: 12px; }
+  .cta-main {
+    background: var(--ink); color: var(--bg);
+    border: 3px solid var(--ink); padding: 22px;
+    font-family: 'Alfa Slab One', serif; font-size: 32px; letter-spacing: -0.01em; text-transform: uppercase;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 8px 8px 0 var(--red);
+    transition: all .15s;
+  }
+  .cta-main:hover { background: var(--red); box-shadow: 4px 4px 0 var(--ink); transform: translate(4px,4px); }
+  .cta-sub {
+    background: var(--cream); border: 3px solid var(--ink); padding: 14px;
+    font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    transition: background .15s;
+  }
+  .cta-sub:hover { background: var(--ink); color: var(--bg); }
+
+  /* Marquee */
+  .marq {
+    background: var(--ink); color: var(--bg);
+    padding: 18px 0; overflow: hidden; white-space: nowrap;
+    border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+    font-family: 'Alfa Slab One', serif; font-size: 36px; letter-spacing: -0.01em; text-transform: uppercase;
+  }
+  .marq-track { display: inline-block; animation: marq 25s linear infinite; }
+  .marq span { margin: 0 24px; }
+  .marq .star { color: var(--red); }
+  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Tagline */
+  .tagline { padding: 140px 28px; background: var(--cream); border-bottom: 3px solid var(--ink); position: relative; text-align: center; }
+  .tagline .sub { display: inline-block; background: var(--red); color: var(--bg); padding: 6px 16px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; border: 2px solid var(--ink); margin-bottom: 40px; transform: rotate(-2deg); }
+  .tagline h2 { font-size: clamp(60px, 10vw, 180px); line-height: 0.92; }
+  .tagline h2 .l1 { display: block; }
+  .tagline h2 .l2 { display: block; color: var(--red); transform: translateX(4vw); }
+  .tagline h2 .l3 { display: block; text-align: right; }
+  .tagline h2 .hl { background: var(--bg); padding: 0 8px; display: inline-block; transform: rotate(-2deg); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+
+  /* Menu */
+  .menu { padding: 100px 28px; }
+  .menu-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 60px; padding-bottom: 32px; border-bottom: 3px solid var(--ink); }
+  .menu-head h3 { font-size: clamp(50px, 7vw, 120px); }
+  .menu-head h3 em { color: var(--red); font-style: normal; }
+  .menu-head .kicker { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card { background: var(--cream); border: 3px solid var(--ink); padding: 16px; position: relative; transition: transform .2s, box-shadow .2s; cursor: pointer; }
+  .card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--ink); }
+  .card:nth-child(2) { background: var(--red); color: var(--bg); }
+  .card:nth-child(2) .num { color: var(--bg); }
+  .card:nth-child(3) { background: var(--ink); color: var(--bg); }
+  .card .badge { position: absolute; top: -14px; right: 16px; background: var(--bg); border: 2px solid var(--ink); padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); transform: rotate(3deg); }
+  .card .num { font-family: 'Alfa Slab One', serif; font-size: 14px; color: var(--ink-dim); margin-bottom: 12px; }
+  .card .shot { aspect-ratio: 4/5; background: var(--bg); border: 3px solid var(--ink); position: relative; overflow: hidden; margin-bottom: 16px; }
+  .card:nth-child(3) .shot { background: var(--cream); }
+  .card .shot::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent 0 10px, rgba(11,11,11,0.06) 10px 20px); }
+  .card .shot .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 16px; text-align: center; color: rgba(11,11,11,0.4); }
+  .card .shot .ph .big { font-family: 'Alfa Slab One', serif; font-size: 22px; }
+  .card .shot .ph small { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; margin-top: 8px; text-transform: uppercase; }
+  .card h4 { font-family: 'Alfa Slab One', serif; font-size: 32px; letter-spacing: -0.01em; line-height: 0.95; margin-bottom: 12px; }
+  .card .meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 2px dashed currentColor; opacity: 1; }
+  .card .price { font-family: 'Alfa Slab One', serif; font-size: 28px; }
+  .card .desc { font-family: 'DM Mono', monospace; font-size: 11px; line-height: 1.6; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+  .card .add { width: 100%; background: var(--ink); color: var(--bg); border: 2px solid var(--ink); padding: 14px; font-family: 'Alfa Slab One', serif; font-size: 18px; letter-spacing: 0.02em; cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; transition: all .15s; }
+  .card:nth-child(2) .add { background: var(--bg); color: var(--ink); }
+  .card:nth-child(3) .add { background: var(--red); color: var(--bg); border-color: var(--red); }
+  .card .add:hover { transform: translateY(-2px); }
+
+  /* Locations */
+  .locations { padding: 100px 28px; background: var(--cream); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+  .loc-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 50px; }
+  .loc-head h3 { font-size: clamp(40px, 6vw, 96px); }
+  .loc-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .loc-card { background: var(--bg); border: 3px solid var(--ink); padding: 24px; position: relative; transition: transform .2s, box-shadow .2s; cursor: pointer; }
+  .loc-card:hover { transform: translate(-4px,-4px); box-shadow: 10px 10px 0 var(--ink); }
+  .loc-card.soon { background: var(--ink); color: var(--bg); }
+  .loc-card .pin { position: absolute; top: 16px; right: 16px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; background: var(--red); color: var(--bg); padding: 3px 10px; border: 2px solid var(--ink); }
+  .loc-card.soon .pin { background: var(--bg); color: var(--ink); }
+  .loc-card .city { font-family: 'Alfa Slab One', serif; font-size: clamp(40px, 5vw, 72px); letter-spacing: -0.02em; line-height: 0.9; margin: 24px 0 18px; overflow-wrap: break-word; }
+  .loc-card .addr { font-family: 'DM Mono', monospace; font-size: 12px; line-height: 1.7; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
+  .loc-card .status { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; padding-top: 18px; border-top: 2px dashed currentColor; }
+  .loc-card .status::before { content: ""; width: 8px; height: 8px; background: var(--red); border-radius: 999px; }
+
+  /* Footer */
+  footer { background: var(--ink); color: var(--bg); padding: 60px 28px 32px; }
+  .footer-big { font-family: 'Alfa Slab One', serif; font-size: clamp(80px, 16vw, 280px); letter-spacing: -0.02em; line-height: 0.88; margin-bottom: 40px; }
+  .footer-big .a { color: var(--bg); }
+  .footer-big .b { color: var(--red); }
+  .footer-big .c { -webkit-text-stroke: 3px var(--bg); color: transparent; }
+  .footer-bot { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2); flex-wrap: wrap; gap: 16px; }
+  .footer-bot a { color: var(--bg); text-decoration: none; margin-right: 16px; transition: color .15s; }
+  .footer-bot a:hover { color: var(--red); }
+
+  /* Tweaks */
+  .tweaks { position: fixed; bottom: 20px; right: 20px; background: var(--bg); border: 3px solid var(--ink); padding: 18px; z-index: 100; min-width: 240px; display: none; box-shadow: 6px 6px 0 var(--ink); }
+  .tweaks.open { display: block; }
+  .tweaks h4 { font-family: 'Alfa Slab One', serif; font-size: 18px; margin-bottom: 12px; }
+  .tweaks label { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin: 10px 0 6px; }
+  .tweaks .swatch-row { display: flex; gap: 6px; }
+  .tweaks .swatch { flex: 1; height: 28px; border: 2px solid var(--ink); cursor: pointer; }
+  .tweaks .swatch.active { outline: 2px solid var(--red); outline-offset: -2px; }
+
+  @media (max-width: 900px) {
+    .hero-bot, .cards, .loc-list { grid-template-columns: 1fr; }
+    .nav ul { display: none; }
+    .footer-bot { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "bg": "#FFE94A",
+  "red": "#E63946"
+}/*EDITMODE-END*/;
+
+function Nav() {
+  return (
+    <nav className="nav">
+      <div className="brand"><span className="bullet"></span>HOT TIP.</div>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#locations">Shops</a></li>
+        <li><a href="#">Merch</a></li>
+      </ul>
+      <div className="bag">BAG · 0</div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero" data-screen-label="01 Hero">
+      <div className="hero-top">
+        <span><span className="dot"></span>KITCHEN OPEN · FRESH EVERY 4 MIN</span>
+        <span>EST. 2023 · SHEFFIELD</span>
+      </div>
+      <h1 className="slab">
+        <span className="r1">Hot tip:</span>
+        <span className="r2"><span className="tilt">frites</span> should</span>
+        <span className="r3">taste like this.</span>
+      </h1>
+      <div className="hero-bot">
+        <div className="photo-box">
+          <div className="tape">SIGNATURE · Nº 01</div>
+          <div className="ph">
+            <div className="big">PRODUCT SHOT</div>
+            <small>[ FRITES IN COMPLIMENTS-<br/>-OF-THE-CHEF PAPER BOX ]</small>
+          </div>
+        </div>
+        <div className="hero-copy">
+          <div>
+            <div className="badge">★ Hot tip from the chef</div>
+            <p style={{marginTop:16}}>Belgian Bintje spuds. Fried <em>twice</em> in beef dripping. Salted at the window. Served in paper. In your face in four minutes or less.</p>
+          </div>
+          <div style={{fontFamily:'DM Mono, monospace', fontSize:11, letterSpacing:'0.1em', textTransform:'uppercase', paddingTop:16, borderTop:'2px solid var(--ink)'}}>
+            No freezer. No seed oil. No gimmicks.
+          </div>
+        </div>
+        <div className="cta-stack">
+          <button className="cta-main" onClick={() => document.getElementById('menu').scrollIntoView({behavior:'smooth'})}>
+            <span>ORDER NOW</span>
+            <span>→</span>
+          </button>
+          <button className="cta-sub">
+            <span>Find a shop</span><span>↗</span>
+          </button>
+          <button className="cta-sub">
+            <span>Book a birthday</span><span>↗</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Marquee() {
+  return (
+    <div className="marq">
+      <div className="marq-track">
+        {[...Array(2)].map((_, i) => (
+          <React.Fragment key={i}>
+            <span>CRUNCH.</span><span className="star">★</span>
+            <span>FLUFF.</span><span className="star">★</span>
+            <span>OBSESSION.</span><span className="star">★</span>
+            <span>REPEAT.</span><span className="star">★</span>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Tagline() {
+  return (
+    <section className="tagline" data-screen-label="02 Tagline">
+      <div className="sub">★ THE HOUSE RULES ★</div>
+      <h2 className="slab">
+        <span className="l1">The Crunch.</span>
+        <span className="l2">The Fluff.</span>
+        <span className="l3">The <span className="hl">Obsession</span>.</span>
+      </h2>
+    </section>
+  );
+}
+
+const MENU = [
+  { id: 1, num: "№ 01 / SIGNATURE", badge: "ORIGINAL", name: "The Classic", price: "£6.50", desc: "BINTJE · DRIPPING · MALDON · MAYO", shotBig: "THE CLASSIC", shotDesc: "[ PAPER CONE · TOP-DOWN ]" },
+  { id: 2, num: "№ 02 / HOUSE PICK", badge: "★ CHEF'S PICK", name: "Truffle Dream", price: "£9.00", desc: "TRUFFLE · PARMESAN · TRUFFLE MAYO", shotBig: "TRUFFLE DREAM", shotDesc: "[ BOARD · SHAVED CHEESE · BOX ]" },
+  { id: 3, num: "№ 03 / LIMITED", badge: "NEW DROP", name: "Bitterballen Box", price: "£11.50", desc: "4 BITTERBALLEN · FRITES · MUSTARD", shotBig: "BITTERBALLEN", shotDesc: "[ DUAL BOX · OVERHEAD ]" },
+];
+
+function Menu() {
+  const [added, setAdded] = useState({});
+  const toggle = (id) => { setAdded(a=>({...a,[id]:true})); setTimeout(()=>setAdded(a=>({...a,[id]:false})),1400); };
+  return (
+    <section className="menu" id="menu" data-screen-label="03 Menu">
+      <div className="menu-head">
+        <div>
+          <div className="kicker">[ 03 · ORDER UP ]</div>
+          <h3 className="slab">Three ways to<br/><em>ruin</em> other fries.</h3>
+        </div>
+        <div className="kicker" style={{textAlign:'right'}}>That's the<br/>whole menu.</div>
+      </div>
+      <div className="cards">
+        {MENU.map(m => (
+          <div className="card" key={m.id}>
+            <div className="badge">{m.badge}</div>
+            <div className="num">{m.num}</div>
+            <div className="shot">
+              <div className="ph">
+                <div className="big">{m.shotBig}</div>
+                <small>{m.shotDesc}</small>
+              </div>
+            </div>
+            <h4>{m.name}</h4>
+            <div className="meta">
+              <span style={{fontFamily:'DM Mono, monospace', fontSize:10, letterSpacing:'0.1em', textTransform:'uppercase'}}>SERVES 1 · 400g</span>
+              <span className="price">{m.price}</span>
+            </div>
+            <div className="desc">{m.desc}</div>
+            <button className="add" onClick={() => toggle(m.id)}>
+              <span>{added[m.id] ? "ADDED ✓" : "ADD TO BAG"}</span>
+              <span>+</span>
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Locations() {
+  const locs = [
+    { num: "01", city: "Sheffield", addr: "14 Division St\nS1 4GF\nMon–Sun · 11–23", status: "OPEN NOW" },
+    { num: "02", city: "Bradford", addr: "28 North Parade\nBD1 3HZ\nMon–Sun · 11–22", status: "OPEN NOW" },
+    { num: "03", city: "Leeds", addr: "Opening Autumn 2026\nGet on the list →", status: "COMING SOON", soon: true },
+  ];
+  return (
+    <section className="locations" id="locations" data-screen-label="04 Locations">
+      <div className="loc-head">
+        <h3 className="slab">Come <em style={{color:'var(--red)', fontStyle:'normal'}}>see us.</em></h3>
+        <div style={{fontFamily:'DM Mono, monospace', fontSize:12, letterSpacing:'0.14em', textTransform:'uppercase'}}>[ 04 · SHOPS ]</div>
+      </div>
+      <div className="loc-list">
+        {locs.map(l => (
+          <div className={"loc-card " + (l.soon ? "soon" : "")} key={l.num}>
+            <div className="pin">№ {l.num}</div>
+            <div className="city slab">{l.city}</div>
+            <div className="addr">{l.addr.split('\n').map((x,i) => <div key={i}>{x}</div>)}</div>
+            <div className="status">{l.status}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <div className="footer-big slab">
+        <div><span className="a">HOT</span></div>
+        <div><span className="b">TIP</span></div>
+        <div><span className="c">FRITES.</span></div>
+      </div>
+      <div className="footer-bot">
+        <div>
+          <a>IG</a><a>TIKTOK</a><a>CAREERS</a><a>PRESS</a>
+        </div>
+        <div>HEY@HOTTIP.FRIES</div>
+        <div>© 2026 · YORKSHIRE FOREVER</div>
+      </div>
+    </footer>
+  );
+}
+
+function Tweaks({ state, setState, open }) {
+  const combos = [
+    { bg: "#FFE94A", red: "#E63946", name: "Classic" },
+    { bg: "#FF9F1C", red: "#2EC4B6", name: "Sunset" },
+    { bg: "#F7F7F2", red: "#FF4B1F", name: "Paper" },
+    { bg: "#C8E6C9", red: "#D62828", name: "Mint" },
+  ];
+  return (
+    <div className={"tweaks " + (open ? "open" : "")}>
+      <h4>TWEAKS</h4>
+      <label>Palette combo</label>
+      {combos.map(c => (
+        <div key={c.name} onClick={() => setState({bg: c.bg, red: c.red})} style={{display:'flex',alignItems:'center',gap:8,padding:'6px 4px',cursor:'pointer',borderBottom:'1px solid var(--line)'}}>
+          <div style={{width:20,height:20,background:c.bg,border:'2px solid var(--ink)'}}/>
+          <div style={{width:20,height:20,background:c.red,border:'2px solid var(--ink)'}}/>
+          <span style={{fontFamily:'DM Mono, monospace',fontSize:11,textTransform:'uppercase',letterSpacing:'0.08em'}}>{c.name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState(TWEAKS_DEFAULTS);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    document.documentElement.style.setProperty('--bg', state.bg);
+    document.documentElement.style.setProperty('--red', state.red);
+    if (window.parent !== window) window.parent.postMessage({type:'__edit_mode_set_keys', edits: state}, '*');
+  }, [state]);
+  useEffect(() => {
+    const h = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', h);
+    window.parent.postMessage({type:'__edit_mode_available'}, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+  return (
+    <main>
+      <Nav />
+      <Hero />
+      <Marquee />
+      <Tagline />
+      <Menu />
+      <Locations />
+      <Footer />
+      <Tweaks state={state} setState={setState} open={open} />
+    </main>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
