@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory Manager</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* Apple design tokens */
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-pink:#FF2D55;--system-gray:#8E8E93;
+  --accent:#FF9500;--accent-soft:rgba(255,149,0,.12);--blob-opacity:.05;
+}
+html[data-theme="dark"]{
+  --bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;
+  --label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);
+  --separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);
+  --blob-opacity:.08;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
+.mono{font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+button{cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+
+/* BLOBS */
+.blob{position:fixed;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;background:var(--accent);opacity:var(--blob-opacity);filter:blur(80px);pointer-events:none;z-index:0;will-change:transform,border-radius}
+.blob-1{width:clamp(400px,50vw,800px);height:clamp(400px,50vw,800px);top:-10%;left:-10%;animation:blob1 25s ease-in-out infinite}
+.blob-2{width:clamp(350px,42vw,680px);height:clamp(350px,42vw,680px);top:40%;right:-8%;animation:blob2 28s ease-in-out infinite -8s}
+.blob-3{width:clamp(300px,38vw,600px);height:clamp(300px,38vw,600px);bottom:-12%;left:30%;animation:blob3 32s ease-in-out infinite -15s}
+@keyframes blob1{
+  0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;transform:translate(0,0) scale(1)}
+  33%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(30px,-20px) scale(1.05)}
+  66%{border-radius:40% 60% 30% 70%/40% 40% 60% 50%;transform:translate(-20px,15px) scale(.97)}
+}
+@keyframes blob2{
+  0%,100%{border-radius:40% 60% 70% 30%/40% 50% 50% 60%;transform:translate(0,0) scale(1)}
+  33%{border-radius:70% 30% 50% 50%/30% 40% 60% 70%;transform:translate(-40px,25px) scale(1.08)}
+  66%{border-radius:50% 50% 40% 60%/60% 30% 70% 40%;transform:translate(15px,-30px) scale(.95)}
+}
+@keyframes blob3{
+  0%,100%{border-radius:50% 50% 60% 40%/60% 40% 60% 40%;transform:translate(0,0) scale(1)}
+  50%{border-radius:60% 40% 50% 50%/30% 70% 30% 70%;transform:translate(35px,20px) scale(1.1)}
+}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+@media (max-width:900px){.blob{display:none}}
+
+/* Topbar */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.14em}
+.logo .ldot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.sector-select{background:var(--fill-tertiary);border:0;color:var(--label-primary);padding:6px 10px;border-radius:8px;font-size:13px;outline:none;cursor:pointer}
+.segmented{display:inline-flex;background:var(--fill-tertiary);border-radius:9px;padding:2px;gap:2px}
+.segmented button{padding:6px 14px;border-radius:7px;font-size:13px;font-weight:600;color:var(--label-secondary);transition:all .2s}
+.segmented button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)}
+html[data-theme="dark"] .segmented button.active{background:var(--fill-primary)}
+.tb-right{display:flex;align-items:center;gap:6px}
+.icon-btn{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--label-secondary)}
+.icon-btn:hover{background:var(--fill-tertiary);color:var(--label-primary)}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s ease}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s ease;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--system-purple));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11px}
+
+/* App */
+.app{display:grid;grid-template-columns:220px 1fr;height:calc(100vh - 52px);position:relative;z-index:1}
+aside.sidebar{background:color-mix(in srgb,var(--bg-primary) 85%,transparent);backdrop-filter:blur(10px);border-right:1px solid var(--separator);padding:14px 10px;display:flex;flex-direction:column;overflow-y:auto;position:relative;z-index:2}
+.side-title{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding:8px 12px 6px}
+.side-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--label-primary);margin-bottom:1px;transition:background .15s}
+.side-item:hover{background:var(--fill-tertiary)}
+.side-item.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.side-item .cnt{margin-left:auto;font-size:10px;background:var(--fill-tertiary);color:var(--label-secondary);padding:1px 7px;border-radius:10px;font-weight:500}
+.side-item.active .cnt{background:var(--accent);color:#fff}
+.side-item .ic{width:18px;display:inline-flex;justify-content:center;font-size:14px}
+.side-stats{margin-top:auto;padding:12px;background:var(--bg-secondary);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.side-stats .row{display:flex;justify-content:space-between;padding:3px 0;font-size:11px}
+.side-stats .l{color:var(--label-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.side-stats .v{font-weight:700;font-size:12px}
+
+main{overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:1}
+.main-hd{padding:16px 22px 8px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.main-hd h1{font-size:28px;font-weight:700;letter-spacing:-.02em}
+.main-hd .sub{color:var(--label-tertiary);font-size:12px;margin-top:2px}
+.main-body{flex:1;overflow-y:auto;padding:0 22px 30px}
+.main-body::-webkit-scrollbar{width:6px}
+.main-body::-webkit-scrollbar-thumb{background:var(--separator);border-radius:3px}
+
+/* Buttons */
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:7px 12px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s,transform .1s;border:0}
+.btn:hover{opacity:.8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.secondary{background:var(--accent-soft);color:var(--accent)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.xs{padding:3px 8px;font-size:11px}
+
+/* Cards */
+.card{background:var(--bg-secondary);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card h3{font-size:14px;font-weight:600;margin-bottom:10px}
+html[data-theme="dark"] .card{box-shadow:none;border:1px solid var(--separator)}
+
+.kgrid{display:grid;gap:12px}
+.kcard{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .kcard{box-shadow:none;border:1px solid var(--separator)}
+.kcard .l{font-size:10px;color:var(--label-secondary);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.kcard .v{font-size:24px;font-weight:700;margin-top:4px;letter-spacing:-.02em}
+.kcard .d{font-size:11px;margin-top:3px;color:var(--label-tertiary)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Alert banner */
+.alert-bar{background:rgba(255,149,0,.1);border:1px solid rgba(255,149,0,.25);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;color:var(--system-orange);font-size:13px;font-weight:500}
+.alert-bar.danger{background:rgba(255,59,48,.1);border-color:rgba(255,59,48,.25);color:var(--system-red)}
+
+/* Filters bar */
+.filt-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.filt-bar .left{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill-grp{display:flex;gap:4px;background:var(--fill-tertiary);padding:2px;border-radius:9px}
+.pill-grp button{padding:5px 12px;border-radius:7px;font-size:12px;font-weight:500;color:var(--label-secondary)}
+.pill-grp button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.08);font-weight:600}
+.fld{background:var(--fill-tertiary);border:0;border-radius:10px;padding:7px 12px;color:var(--label-primary);outline:none;font-size:13px;transition:background .15s}
+.fld:focus{background:var(--fill-secondary)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:500;margin:10px 0 5px;text-transform:uppercase;letter-spacing:.06em}
+
+/* Grid view */
+.grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.item-card{background:var(--bg-secondary);border-radius:12px;padding:14px 14px 12px;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;cursor:pointer}
+.item-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+html[data-theme="dark"] .item-card{box-shadow:none;border:1px solid var(--separator)}
+.item-bar{position:absolute;top:0;left:0;right:0;height:3px;background:var(--system-green);transition:width .8s}
+.item-bar.low{background:var(--system-orange)}
+.item-bar.out{background:var(--system-red)}
+.item-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-top:6px}
+.item-name{font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.item-sku{font-size:10px;color:var(--label-tertiary);margin-top:2px;font-family:"SF Mono",Menlo,monospace}
+.item-cat{width:28px;height:28px;border-radius:8px;background:var(--fill-tertiary);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.item-stock{text-align:center;margin:12px 0 8px}
+.item-qty{font-size:32px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.item-unit{font-size:11px;color:var(--label-tertiary);margin-top:3px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.item-min{font-size:10px;color:var(--label-tertiary);margin-top:3px}
+.item-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--label-tertiary);padding-top:8px;border-top:1px solid var(--separator)}
+.item-value{background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:10px;font-weight:600;font-size:11px}
+.item-actions{display:flex;gap:4px;margin-top:10px;align-items:center}
+.qty-btn{width:26px;height:26px;border-radius:7px;background:var(--fill-tertiary);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--label-primary)}
+.qty-btn:hover{background:var(--accent-soft);color:var(--accent)}
+.qty-display{flex:1;text-align:center;font-weight:600;font-size:13px}
+.item-badge{position:absolute;top:10px;right:10px;padding:2px 7px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.item-badge.out{background:var(--system-red);color:#fff}
+.item-badge.low{background:var(--system-orange);color:#fff}
+.item-badge.exp{background:var(--system-purple);color:#fff}
+.item-star{position:absolute;top:10px;right:10px;font-size:14px;color:var(--system-yellow)}
+.item-card.low .item-bar{width:40% !important}
+.item-card.out .item-bar{width:100% !important;background:var(--system-red)}
+.item-card.low{animation:pulseLow 2.5s ease-in-out infinite}
+@keyframes pulseLow{0%,100%{box-shadow:0 2px 8px rgba(0,0,0,.04)}50%{box-shadow:0 2px 12px rgba(255,149,0,.25)}}
+
+/* List view */
+.list-view table{width:100%;border-collapse:collapse;font-size:13px;background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.list-view th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--separator);cursor:pointer}
+.list-view td{padding:10px;border-bottom:1px solid var(--separator)}
+.list-view tbody tr{cursor:pointer;transition:background .1s}
+.list-view tbody tr:hover{background:var(--fill-tertiary)}
+.mini-bar{width:80px;height:6px;background:var(--fill-tertiary);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+.mini-bar div{height:100%;background:var(--system-green);border-radius:3px;transition:width .6s}
+.mini-bar.low div{background:var(--system-orange)}
+.mini-bar.out div{background:var(--system-red)}
+
+/* Table view (spreadsheet) */
+.table-view table{width:100%;border-collapse:collapse;font-size:12px;background:var(--bg-secondary);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.table-view th{text-align:left;padding:8px 10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600;background:var(--fill-tertiary);border-bottom:2px solid var(--separator);position:sticky;top:0}
+.table-view td{padding:0;border-bottom:1px solid var(--separator);border-right:1px solid var(--separator)}
+.table-view td:last-child{border-right:0}
+.table-view td input,.table-view td select{width:100%;background:transparent;border:0;padding:8px 10px;font-size:12px;color:var(--label-primary);outline:none}
+.table-view td input:focus,.table-view td select:focus{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+
+/* Badges */
+.badge{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:600;letter-spacing:.1px;text-transform:uppercase}
+.b-green{background:rgba(52,199,89,.12);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.12);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.12);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.12);color:var(--system-blue)}
+.b-purple{background:rgba(175,82,222,.12);color:var(--system-purple)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+
+/* Dashboard */
+.chart-host{position:relative;height:260px}
+.chart-host.sm{height:180px}
+.perf-row{padding:7px 0;border-bottom:1px solid var(--separator)}
+.perf-row:last-child{border:0}
+.perf-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.perf-bar{height:4px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden}
+.perf-bar div{height:100%;background:var(--accent);border-radius:2px;transition:width .8s}
+
+.move-row{display:grid;grid-template-columns:28px 1fr auto auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:12px;align-items:center}
+.move-row:last-child{border:0}
+.move-ic{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.move-ic.IN{background:rgba(52,199,89,.15);color:var(--system-green)}
+.move-ic.OUT{background:rgba(255,59,48,.15);color:var(--system-red)}
+.move-ic.ADJUST{background:rgba(0,122,255,.15);color:var(--system-blue)}
+.move-ic.WASTE{background:rgba(255,149,0,.15);color:var(--system-orange)}
+.move-ic.TRANSFER{background:rgba(175,82,222,.15);color:var(--system-purple)}
+
+.alert-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:12px;align-items:center}
+.alert-item:last-child{border:0}
+
+/* Movements page */
+table.t{width:100%;border-collapse:collapse;font-size:13px;background:var(--bg-secondary);border-radius:12px;overflow:hidden}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--separator)}
+table.t td{padding:10px;border-bottom:1px solid var(--separator)}
+table.t tr:last-child td{border:0}
+
+/* Orders */
+.order-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.suggest-item{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;padding:10px 12px;background:var(--fill-tertiary);border-radius:10px;margin-bottom:6px;align-items:center;font-size:12px}
+.order-cart{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);position:sticky;top:0}
+.cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator);font-size:12px;align-items:center}
+.cart-total{display:flex;justify-content:space-between;padding:12px 0 0;border-top:2px solid var(--separator);margin-top:10px;font-weight:700;font-size:15px}
+
+/* Modal */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);z-index:100;display:none;align-items:center;justify-content:center}
+.mbg.open{display:flex;animation:fd .2s}
+@keyframes fd{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:16px;padding:22px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:ms .25s}
+@keyframes ms{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+.modal .row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+.type-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+.type-btn{aspect-ratio:1;border-radius:10px;background:var(--fill-tertiary);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;color:var(--label-secondary);font-weight:500}
+.type-btn .ic{font-size:18px}
+.type-btn.active{background:var(--accent-soft);color:var(--accent)}
+
+.fade{animation:fdup .25s}
+@keyframes fdup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:1200px){.app{grid-template-columns:180px 1fr}.order-wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo"><span class="ldot"></span>INVENTORY</div>
+    <select class="sector-select" id="sector">
+      <option value="restaurant">🍽️ Restaurant</option>
+      <option value="realestate">🏠 Real Estate</option>
+      <option value="garage">🔧 Garage</option>
+      <option value="retail">👗 Retail</option>
+      <option value="agency">💼 Agency</option>
+    </select>
+  </div>
+  <div class="segmented" style="margin:0 auto">
+    <button class="active" data-p="stock">📦 Stock</button>
+    <button data-p="dashboard">📊 Dashboard</button>
+    <button data-p="movements">🔄 Movements</button>
+    <button data-p="orders">🛒 Orders</button>
+    <button data-p="settings">⚙️ Settings</button>
+  </div>
+  <div class="tb-right">
+    <input type="text" class="fld" id="gSearch" placeholder="Search..." style="width:180px">
+    <button class="btn primary sm" onclick="openItemModal()">+ Add Item</button>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+    <div class="avatar">AM</div>
+  </div>
+</div>
+
+<div class="app">
+<aside class="sidebar" id="sidebar"></aside>
+<main>
+  <div class="main-hd" id="mainHd"></div>
+  <div class="main-body" id="mainBody"></div>
+</main>
+</div>
+
+<!-- ADD/EDIT ITEM MODAL -->
+<div class="mbg" id="mItem"><div class="modal">
+  <h3 id="mItemTitle">Add Item</h3>
+  <label>Name *</label><input type="text" class="fld" style="width:100%" id="iName">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>SKU</label><input type="text" class="fld" style="width:100%" id="iSku"></div><div><label>Category</label><select class="fld" style="width:100%" id="iCat"></select></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Quantity</label><input type="number" class="fld" style="width:100%" id="iQty" value="0"></div><div><label>Unit</label><select class="fld" style="width:100%" id="iUnit"><option>pieces</option><option>kg</option><option>g</option><option>L</option><option>mL</option><option>boxes</option><option>packs</option></select></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Min level</label><input type="number" class="fld" style="width:100%" id="iMin" value="10"></div><div><label>Max level</label><input type="number" class="fld" style="width:100%" id="iMax" value="100"></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Unit cost (€)</label><input type="number" step="0.01" class="fld" style="width:100%" id="iCost" value="0"></div><div><label>Price (€)</label><input type="number" step="0.01" class="fld" style="width:100%" id="iPrice"></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Supplier</label><input type="text" class="fld" style="width:100%" id="iSup"></div><div><label>Location</label><input type="text" class="fld" style="width:100%" id="iLoc" value="Main"></div></div>
+  <label>Expiry date (optional)</label><input type="date" class="fld" style="width:100%" id="iExp">
+  <label>Notes</label><textarea class="fld" style="width:100%" rows="2" id="iNotes"></textarea>
+  <label><input type="checkbox" id="iStar"> ⭐ Star this item</label>
+  <div class="row-btns"><button class="btn danger" id="iDelete" style="display:none">Delete</button><button class="btn" onclick="closeM('mItem')">Cancel</button><button class="btn primary" onclick="saveItem()">Save</button></div>
+</div></div>
+
+<!-- LOG MOVEMENT MODAL -->
+<div class="mbg" id="mMove"><div class="modal">
+  <h3>Log Movement</h3>
+  <label>Type</label>
+  <div class="type-grid" id="moveTypes">
+    <button class="type-btn active" data-t="IN"><span class="ic">➕</span>IN</button>
+    <button class="type-btn" data-t="OUT"><span class="ic">➖</span>OUT</button>
+    <button class="type-btn" data-t="ADJUST"><span class="ic">🔄</span>ADJUST</button>
+    <button class="type-btn" data-t="WASTE"><span class="ic">❌</span>WASTE</button>
+    <button class="type-btn" data-t="TRANSFER"><span class="ic">🔀</span>TRANSFER</button>
+  </div>
+  <label>Item</label><select class="fld" style="width:100%" id="mvItem"></select>
+  <label>Quantity</label><input type="number" class="fld" style="width:100%" id="mvQty" value="1">
+  <label>Reason</label><select class="fld" style="width:100%" id="mvReason"></select>
+  <label>Notes</label><input type="text" class="fld" style="width:100%" id="mvNotes">
+  <label>Date</label><input type="datetime-local" class="fld" style="width:100%" id="mvDate">
+  <div class="row-btns"><button class="btn" onclick="closeM('mMove')">Cancel</button><button class="btn primary" onclick="logMove()">Log Movement</button></div>
+</div></div>
+
+<!-- RECEIVE ORDER MODAL -->
+<div class="mbg" id="mReceive"><div class="modal">
+  <h3>Receive Order</h3>
+  <div id="receiveList"></div>
+  <div class="row-btns"><button class="btn" onclick="closeM('mReceive')">Cancel</button><button class="btn primary" onclick="confirmReceive()">Confirm Receipt</button></div>
+</div></div>
+
+<script>
+/* CONFIG */
+const SECTORS={
+  restaurant:{accent:'#FF9500',cats:[['Ingredients','🥗'],['Beverages','🍷'],['Packaging','📦'],['Cleaning','🧴']],units:['kg','g','L','mL','pieces'],costRange:[.5,50],items:['Tomatoes','Olive Oil','Feta Cheese','Chicken Breast','Ground Beef','Potatoes','Onions','Garlic','Basil','Oregano','Red Wine','White Wine','Beer Lager','Sparkling Water','Orange Juice','Coffee Beans','Tea Leaves','Flour','Sugar','Salt','Black Pepper','Butter','Milk','Eggs','Greek Yogurt','Honey','Lemons','Cucumbers','Bell Peppers','Mushrooms','Shrimp','Salmon','Lamb Chops','Rice','Pasta','Bread Loaves','Takeaway Boxes','Napkins','Paper Towels','Aluminum Foil','Cling Film','Straws','Coffee Cups','Gloves','Dish Soap','Bleach','Floor Cleaner','Hand Soap','Sponges','Trash Bags','Sparkling Water','Tuna','Anchovies','Capers','Balsamic Vinegar','Parmesan','Mozzarella','Prosciutto','Salami','Tomato Sauce','Pesto','Tzatziki','Pita Bread','Halloumi','Spanakopita','Dolmades','Baklava','Ouzo','Retsina','Metaxa','Carrots','Celery','Artichokes','Zucchini','Eggplant','Spinach','Arugula','Mint','Rosemary','Thyme']},
+  realestate:{accent:'#34C759',cats:[['Office','📎'],['Marketing','📢'],['Keys','🔑'],['Documents','📄'],['Equipment','💼']],units:['pieces','packs','boxes','sets'],costRange:[2,300],items:['A4 Paper','Printer Ink','Ballpoint Pens','Notepads','Staplers','File Folders','Hanging Folders','Paperclips','Stamps','Envelopes','Brochures 20p','Flyers 4pg','Business Cards 500','Yard Signs','Open House Banners','Lockboxes','Key Tags','Master Keys','Key Chains','Key Cabinets','Purchase Agreements','NDA Templates','Lease Contracts','Listing Sheets','Inspection Forms','iPads','Laptops','Scanners','Printers','Projectors','Measuring Tape','Digital Camera','Drone (DJI)','Tripod','Microphones','Whiteboards','Coffee Machine','Water Cooler','First Aid Kit','Name Badges','Polaroid Camera','Property Books','Neighborhood Maps','Welcome Packs','Market Reports','Branded Mugs','Branded Pens','Tote Bags','Gift Cards','Thank You Cards','Door Hangers','Post-it Notes','Highlighters','Rulers','Calculators','Extension Cords','Power Banks','USB Drives','HDMI Cables','Ethernet Cables','Smart Locks','Combination Locks','Fire Extinguishers','Emergency Kits','Branded T-Shirts','Umbrellas','Car Magnets','Lawn Signs','Directional Signs','Photo Frames','Floor Plans Printed','Promotional Videos','Drone Batteries','SD Cards','Laser Pointers','Staff Uniforms','Event Tents','Foldable Chairs','Welcome Mats','Hand Sanitizer']},
+  garage:{accent:'#007AFF',cats:[['Parts','⚙️'],['Tools','🔧'],['Fluids','🛢️'],['Tires','🛞'],['Consumables','📦']],units:['pieces','sets','L','boxes'],costRange:[5,500],items:['Oil Filter','Air Filter','Cabin Filter','Fuel Filter','Brake Pads Front','Brake Pads Rear','Brake Discs','Brake Fluid 1L','Spark Plugs','Ignition Coils','Battery 60Ah','Battery 80Ah','Alternator','Starter Motor','Wiper Blades','Headlight Bulbs','Fog Lights','Rearview Mirrors','Radiator Hoses','Thermostat','Water Pump','Timing Belt','Serpentine Belt','Clutch Kit','Shock Absorbers','Strut Mounts','Control Arms','Ball Joints','Tie Rod Ends','Wheel Bearings','CV Joints','Exhaust Pipes','Mufflers','Oxygen Sensors','MAF Sensor','Throttle Body','Fuel Pump','Catalytic Converter','Torque Wrench','Socket Set 108pc','Impact Wrench','Multimeter','OBD Scanner','Car Jack 3T','Jack Stands','Tire Pressure Gauge','Funnel Set','Grease Gun','Pliers Set','Screwdriver Set','Oil 5W-30 5L','Oil 10W-40 5L','Coolant 5L','Power Steering Fluid','Transmission Fluid','Brake Cleaner Spray','WD-40','Engine Degreaser','Windshield Washer','Diesel Additive','Tire 205/55R16','Tire 225/45R17','Tire 195/65R15','Tire 265/70R16 4x4','Winter Tires 205/55','Summer Tires 225/45','Spare Tires','Rim Sets 17"','Wheel Weights','Valve Stems','Microfiber Cloths','Paper Floor Mats','Steering Wheel Covers','Protective Seat Covers','Disposable Gloves','Nitrile Gloves','Cable Ties','Electrical Tape']},
+  retail:{accent:'#FF2D55',cats:[['Clothing','👕'],['Accessories','👜'],['Shoes','👟'],['Packaging','📦'],['Displays','🎨']],units:['pieces','sets','boxes'],costRange:[10,200],items:['Cotton T-Shirt White','Cotton T-Shirt Black','Linen Shirt','Denim Jeans Slim','Denim Jeans Regular','Wool Sweater','Cashmere Cardigan','Trench Coat','Leather Jacket','Bomber Jacket','Evening Dress','Cocktail Dress','Midi Dress','Pencil Skirt','Pleated Skirt','Chino Pants','Tailored Suit','Blazer','Oxford Shirt','Polo Shirt','Hoodie','Sweatpants','Running Shorts','Swimwear One-Piece','Swim Trunks','Silk Scarf','Leather Belt Black','Leather Belt Brown','Sunglasses Aviator','Sunglasses Round','Watch Leather','Watch Metal','Fedora Hat','Baseball Cap','Beanie','Wool Gloves','Cashmere Gloves','Leather Wallet','Crossbody Bag','Tote Bag','Backpack','Duffel Bag','Clutch Evening','Umbrella','Sneakers White','Sneakers Black','Running Shoes','Leather Oxfords','Chelsea Boots','Combat Boots','Ankle Boots','Heels Stiletto','Heels Block','Loafers','Espadrilles','Sandals','Flip Flops','Slippers','Shopping Bags S','Shopping Bags M','Shopping Bags L','Gift Wrap','Ribbon Rolls','Tissue Paper','Price Tags','Hangers Wood','Hangers Metal','Garment Bags','Shoe Boxes','Mannequins Female','Mannequins Male','Mannequins Kids','Display Stands','Jewelry Trays','Acrylic Risers','Window Decals','Seasonal Signage','Lightbox Displays','LED Price Strips','Measuring Tape']},
+  agency:{accent:'#AF52DE',cats:[['Equipment','💻'],['Software','📀'],['Office','📎'],['Subscriptions','🔄']],units:['pieces','licenses','subscriptions'],costRange:[20,2000],items:['MacBook Pro 14','MacBook Pro 16','Mac Studio','iMac 24','iPad Pro 12.9','iPhone 15 Pro','Magic Mouse','Magic Keyboard','Studio Display','XDR Display','Standing Desk','Herman Miller Aeron','Wacom Tablet','DSLR Camera','RØDE Microphone','Yeti Microphone','LED Ring Light','Green Screen','Logitech Webcam 4K','Sony Headphones','AirPods Pro','Adobe Creative Cloud','Figma Pro','Notion Team','Linear Workspace','Slack Business','Jira Standard','GitHub Team','Vercel Pro','Netlify Pro','AWS Credits','Cloudflare Pro','MongoDB Atlas','PostgreSQL Cloud','Sentry Team','Datadog Pro','Posthog Team','Mixpanel Team','Stripe Standard','Figma Enterprise','Framer Pro','Webflow Business','Zapier Team','Make Pro','A4 Paper','Printer Ink HP','Pens Pilot','Moleskine Notebooks','Sticky Notes','Whiteboards','Markers','Laser Printer','Color Printer','Paper Shredder','Coffee Machine','Espresso Grinder','Water Cooler','Fridge Mini','Microwave','Dish Set','Coffee Mugs','Branded Swag','T-Shirts Team','Hoodies Team','Tote Bags','Stickers','Business Cards 500','Office Plants','Floor Lamps','Desk Lamps','Cable Management','Surge Protectors','UPS Battery Backup','External SSDs','USB-C Hubs','Thunderbolt Cables','Lightning Cables','AirTag 4-pack','Whiteboard Erasers','Post-it Walls']}
+};
+
+const REASONS={
+  IN:['Delivery received','Return from client','Found stock','Transfer in'],
+  OUT:['Used in service','Sold to client','Given as sample','Transfer out'],
+  ADJUST:['Count correction','Inventory audit','Error fix','Initial setup'],
+  WASTE:['Expired','Damaged','Spilled/broken','Contaminated'],
+  TRANSFER:['To storage','To fridge','To secondary','To main']
+};
+
+let state={
+  sector:'restaurant',page:'stock',view:'grid',
+  items:[],movements:[],orders:[],cart:[],
+  filter:'all',catFilter:'all',search:'',sort:'name',moveType:'IN',editingId:null,
+  charts:{}
+};
+
+/* HELPERS */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const rand=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const randF=(a,b)=>+(a+Math.random()*(b-a)).toFixed(2);
+const pick=a=>a[rand(0,a.length-1)];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const money=v=>'€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+const moneyF=v=>'€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtDate=d=>(d instanceof Date?d:new Date(d)).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+const fmtDT=d=>(d instanceof Date?d:new Date(d)).toLocaleString('en-US',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const fmtRel=d=>{const s=Math.floor((Date.now()-d)/1000);if(s<60)return 'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';if(s<2592000)return Math.floor(s/86400)+'d ago';return Math.floor(s/2592000)+'mo ago'};
+function countUp(el,target,dur=800){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+function genItems(sector){
+  const S=SECTORS[sector];const list=[];
+  const pool=S.items.slice(0,80);
+  const cats=S.cats;
+  pool.forEach((name,i)=>{
+    const catIdx=i%cats.length;
+    const cat=cats[catIdx];
+    const unit=pick(S.units);
+    const unitCost=+(S.costRange[0]+Math.random()*(S.costRange[1]-S.costRange[0])).toFixed(2);
+    const min=rand(5,30);
+    const max=min*rand(4,10);
+    const r=Math.random();
+    let qty;
+    if(r<.05)qty=0;
+    else if(r<.25)qty=rand(1,min-1);
+    else qty=rand(min,max);
+    const hasExp=cat[0]==='Ingredients'||cat[0]==='Beverages'||cat[0]==='Fluids';
+    const expDate=hasExp&&Math.random()<.3?new Date(Date.now()+rand(-10,90)*86400000):null;
+    list.push({id:uid(),name,sku:`${sector.slice(0,3).toUpperCase()}-${(1000+i).toString()}`,category:cat[0],catIcon:cat[1],unit,qty,min,max,unitCost,price:+(unitCost*(1+randF(.3,1.5))).toFixed(2),supplier:pick(['Hellas Supply','Mediterranean Distrib','Athens Trading','Aegean Wholesale','Olympia Co.']),location:pick(['Main','Storage','Back','Fridge']),expiry:expDate,notes:'',starred:Math.random()<.1,lastUpdated:new Date(Date.now()-rand(0,30)*86400000)});
+  });
+  return list;
+}
+
+function genMovements(items){
+  const list=[];const types=['IN','OUT','OUT','OUT','ADJUST','WASTE'];
+  for(let i=0;i<150;i++){
+    const it=pick(items);
+    const type=pick(types);
+    const qty=rand(1,type==='IN'?50:15);
+    const d=new Date(Date.now()-rand(0,90)*86400000-rand(0,86400000));
+    list.push({id:uid(),date:d,type,itemId:it.id,itemName:it.name,qty,prev:it.qty+rand(-5,10),new:it.qty,reason:pick(REASONS[type]),notes:'',user:pick(['Alex M.','Nikos P.','Sofia K.','Maria G.']),ref:`MV-${10000+i}`});
+  }
+  return list.sort((a,b)=>b.date-a.date);
+}
+
+function genOrders(items){
+  const list=[];for(let i=0;i<5;i++){const suppliers={};const date=new Date(Date.now()-rand(5,60)*86400000);const orderItems=[];const n=rand(3,8);for(let j=0;j<n;j++){const it=pick(items);orderItems.push({itemId:it.id,itemName:it.name,qty:rand(5,30),unitCost:it.unitCost,unit:it.unit})}list.push({id:uid(),ref:`PO-${2000+i}`,date,supplier:pick(['Hellas Supply','Mediterranean Distrib','Athens Trading','Aegean Wholesale']),items:orderItems,status:pick(['received','received','sent','draft','partial']),total:orderItems.reduce((s,x)=>s+x.qty*x.unitCost,0)})}return list.sort((a,b)=>b.date-a.date)}
+
+/* SECTOR */
+function applySector(){
+  const S=SECTORS[state.sector];
+  document.documentElement.style.setProperty('--accent',S.accent);
+  document.documentElement.style.setProperty('--accent-soft',S.accent+'1F');
+  state.items=genItems(state.sector);
+  state.movements=genMovements(state.items);
+  state.orders=genOrders(state.items);
+  state.cart=[];
+  state.catFilter='all';state.filter='all';state.search='';
+  renderAll();
+}
+
+function setPage(p){state.page=p;$$('.segmented button').forEach(b=>b.classList.toggle('active',b.dataset.p===p));renderAll()}
+function renderAll(){renderSidebar();renderMain()}
+
+function renderSidebar(){
+  const S=SECTORS[state.sector];
+  const host=$('#sidebar');
+  const byCat={};state.items.forEach(i=>byCat[i.category]=(byCat[i.category]||0)+1);
+  const total=state.items.length;
+  const out=state.items.filter(i=>i.qty===0).length;
+  const low=state.items.filter(i=>i.qty>0&&i.qty<i.min).length;
+  const ok=state.items.filter(i=>i.qty>=i.min).length;
+  const starred=state.items.filter(i=>i.starred).length;
+  const soon=state.items.filter(i=>i.expiry&&(i.expiry-new Date())/86400000<14&&(i.expiry-new Date())>0).length;
+  const totalValue=state.items.reduce((s,i)=>s+i.qty*i.unitCost,0);
+  const belowMin=state.items.filter(i=>i.qty<i.min).length;
+
+  let html=`<div class="side-title">Categories</div>`;
+  html+=`<button class="side-item${state.catFilter==='all'?' active':''}" onclick="state.catFilter='all';renderAll()"><span class="ic">📦</span>All items<span class="cnt">${total}</span></button>`;
+  S.cats.forEach(([c,ic])=>{html+=`<button class="side-item${state.catFilter===c?' active':''}" onclick="state.catFilter='${c}';renderAll()"><span class="ic">${ic}</span>${c}<span class="cnt">${byCat[c]||0}</span></button>`});
+  html+=`<div class="side-title">Filters</div>`;
+  html+=`<button class="side-item${state.filter==='out'?' active':''}" onclick="state.filter='${state.filter==='out'?'all':'out'}';renderAll()"><span class="ic">🔴</span>Out of stock<span class="cnt">${out}</span></button>`;
+  html+=`<button class="side-item${state.filter==='low'?' active':''}" onclick="state.filter='${state.filter==='low'?'all':'low'}';renderAll()"><span class="ic">🟡</span>Low stock<span class="cnt">${low}</span></button>`;
+  html+=`<button class="side-item${state.filter==='ok'?' active':''}" onclick="state.filter='${state.filter==='ok'?'all':'ok'}';renderAll()"><span class="ic">🟢</span>Well stocked<span class="cnt">${ok}</span></button>`;
+  html+=`<button class="side-item${state.filter==='starred'?' active':''}" onclick="state.filter='${state.filter==='starred'?'all':'starred'}';renderAll()"><span class="ic">⭐</span>Starred<span class="cnt">${starred}</span></button>`;
+  html+=`<button class="side-item${state.filter==='expiring'?' active':''}" onclick="state.filter='${state.filter==='expiring'?'all':'expiring'}';renderAll()"><span class="ic">📅</span>Expiring soon<span class="cnt">${soon}</span></button>`;
+  html+=`<div class="side-stats"><div class="row"><span class="l">Total SKUs</span><span class="v">${total}</span></div><div class="row"><span class="l">Total value</span><span class="v">${money(totalValue)}</span></div><div class="row"><span class="l">Below min</span><span class="v" style="color:${belowMin>0?'var(--system-red)':'var(--label-primary)'}">${belowMin}</span></div></div>`;
+  host.innerHTML=html;
+}
+
+function renderMain(){
+  const body=$('#mainBody');body.className='main-body fade';
+  const hd=$('#mainHd');
+  if(state.page==='stock')renderStock(hd,body);
+  else if(state.page==='dashboard')renderDashboard(hd,body);
+  else if(state.page==='movements')renderMovements(hd,body);
+  else if(state.page==='orders')renderOrders(hd,body);
+  else renderSettings(hd,body);
+  setTimeout(()=>body.classList.remove('fade'),260);
+}
+
+function filteredItems(){
+  let list=state.items.slice();
+  if(state.catFilter!=='all')list=list.filter(i=>i.category===state.catFilter);
+  if(state.filter==='out')list=list.filter(i=>i.qty===0);
+  else if(state.filter==='low')list=list.filter(i=>i.qty>0&&i.qty<i.min);
+  else if(state.filter==='ok')list=list.filter(i=>i.qty>=i.min);
+  else if(state.filter==='starred')list=list.filter(i=>i.starred);
+  else if(state.filter==='expiring')list=list.filter(i=>i.expiry&&(i.expiry-new Date())/86400000<14&&(i.expiry-new Date())>0);
+  const q=state.search.toLowerCase();
+  if(q)list=list.filter(i=>i.name.toLowerCase().includes(q)||i.sku.toLowerCase().includes(q)||i.supplier.toLowerCase().includes(q));
+  list.sort((a,b)=>{
+    if(state.sort==='name')return a.name.localeCompare(b.name);
+    if(state.sort==='stock')return a.qty-b.qty;
+    if(state.sort==='value')return b.qty*b.unitCost-a.qty*a.unitCost;
+    if(state.sort==='cat')return a.category.localeCompare(b.category);
+    return b.lastUpdated-a.lastUpdated;
+  });
+  return list;
+}
+
+/* STOCK PAGE */
+function renderStock(hd,body){
+  const list=filteredItems();
+  const out=state.items.filter(i=>i.qty===0).length;
+  const low=state.items.filter(i=>i.qty>0&&i.qty<i.min).length;
+  hd.innerHTML=`<div><h1>Stock</h1><div class="sub">${list.length} items${state.catFilter!=='all'?' · '+state.catFilter:''}</div></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="segmented" style="padding:2px">
+        <button class="${state.view==='grid'?'active':''}" onclick="state.view='grid';renderMain()">Grid</button>
+        <button class="${state.view==='list'?'active':''}" onclick="state.view='list';renderMain()">List</button>
+        <button class="${state.view==='table'?'active':''}" onclick="state.view='table';renderMain()">Table</button>
+      </div>
+      <select class="fld" id="sortSel"><option value="name">Sort: Name</option><option value="stock">Sort: Stock</option><option value="value">Sort: Value</option><option value="cat">Sort: Category</option><option value="updated">Sort: Updated</option></select>
+      <button class="btn sm" onclick="exportCSV()">Export CSV</button>
+    </div>`;
+  $('#sortSel').value=state.sort;$('#sortSel').addEventListener('change',e=>{state.sort=e.target.value;renderMain()});
+
+  let html='';
+  if(out>0||low>0){
+    html+=`<div class="alert-bar ${out>0?'danger':''}">⚠️ ${out} out of stock · ${low} low stock — ${out+low} items need attention<button class="btn xs" onclick="state.filter='${out>0?'out':'low'}';state.page='stock';renderAll()">View all →</button></div>`;
+  }
+  html+=`<div class="filt-bar"><div class="left"><div class="pill-grp">${[['all','All'],['ok','OK'],['low','Low'],['out','Out']].map(([k,l])=>`<button class="${state.filter===k?'active':''}" onclick="state.filter='${k}';renderMain()">${l}</button>`).join('')}</div></div></div>`;
+  if(state.view==='grid')html+=renderGrid(list);
+  else if(state.view==='list')html+=renderList(list);
+  else html+=renderTable(list);
+  body.innerHTML=html;
+  // Animate bars
+  setTimeout(()=>{
+    $$('.item-bar').forEach(b=>{const pct=+b.dataset.pct||0;b.style.width=pct+'%'});
+    $$('.mini-bar div').forEach(b=>{const pct=+b.dataset.pct||0;b.style.width=pct+'%'});
+  },30);
+}
+
+function renderGrid(list){
+  return `<div class="grid-view">${list.map(i=>{
+    const pct=Math.min(100,i.qty/i.max*100);
+    const state2=i.qty===0?'out':i.qty<i.min?'low':'ok';
+    const expSoon=i.expiry&&(i.expiry-new Date())/86400000<14&&(i.expiry-new Date())>0;
+    return `<div class="item-card ${state2}" onclick="editItem('${i.id}')">
+      <div class="item-bar ${state2}" data-pct="${pct}" style="width:0%"></div>
+      ${state2==='out'?'<span class="item-badge out">Out</span>':state2==='low'?'<span class="item-badge low">Low</span>':expSoon?'<span class="item-badge exp">Exp</span>':i.starred?'<span class="item-star">★</span>':''}
+      <div class="item-hd"><div><div class="item-name">${i.name}</div><div class="item-sku">${i.sku}</div></div><div class="item-cat">${i.catIcon}</div></div>
+      <div class="item-stock"><div class="item-qty mono">${i.qty}</div><div class="item-unit">${i.unit}</div><div class="item-min">min: ${i.min} · max: ${i.max}</div></div>
+      <div class="item-meta"><span>${i.supplier}</span><span class="item-value">${money(i.qty*i.unitCost)}</span></div>
+      <div class="item-actions" onclick="event.stopPropagation()"><button class="qty-btn" onclick="adjQty('${i.id}',-1)">−</button><div class="qty-display mono">${i.qty}</div><button class="qty-btn" onclick="adjQty('${i.id}',1)">+</button><button class="qty-btn" title="Edit" onclick="editItem('${i.id}')">✎</button></div>
+    </div>`;
+  }).join('')||'<div style="padding:60px;text-align:center;color:var(--label-tertiary)">No items match filters</div>'}</div>`;
+}
+
+function renderList(list){
+  return `<div class="list-view"><table><thead><tr><th>Item</th><th>Category</th><th>Stock</th><th>Qty</th><th>Min</th><th>Cost</th><th>Value</th><th>Supplier</th><th></th></tr></thead><tbody>${list.map(i=>{const pct=Math.min(100,i.qty/i.max*100);const state2=i.qty===0?'out':i.qty<i.min?'low':'ok';return `<tr onclick="editItem('${i.id}')"><td><div style="display:flex;gap:8px;align-items:center"><div class="item-cat" style="width:24px;height:24px;font-size:12px">${i.catIcon}</div><div><div style="font-weight:600">${i.name}</div><div class="item-sku">${i.sku}</div></div></div></td><td>${i.category}</td><td><span class="mini-bar ${state2}"><div data-pct="${pct}" style="width:0"></div></span></td><td class="mono" style="font-weight:700">${i.qty} ${i.unit}</td><td class="mono" style="color:var(--label-tertiary)">${i.min}</td><td class="mono">${moneyF(i.unitCost)}</td><td class="mono" style="font-weight:600">${money(i.qty*i.unitCost)}</td><td>${i.supplier}</td><td onclick="event.stopPropagation()"><button class="qty-btn" onclick="adjQty('${i.id}',-1)">−</button> <button class="qty-btn" onclick="adjQty('${i.id}',1)">+</button></td></tr>`}).join('')}</tbody></table></div>`;
+}
+
+function renderTable(list){
+  return `<div class="table-view"><table><thead><tr><th>Name</th><th>SKU</th><th>Category</th><th>Qty</th><th>Unit</th><th>Min</th><th>Cost</th><th>Supplier</th></tr></thead><tbody>${list.map(i=>`<tr><td><input value="${i.name}" onchange="upd('${i.id}','name',this.value)"></td><td><input value="${i.sku}" onchange="upd('${i.id}','sku',this.value)"></td><td><input value="${i.category}" onchange="upd('${i.id}','category',this.value)"></td><td><input type="number" value="${i.qty}" onchange="upd('${i.id}','qty',+this.value)"></td><td><input value="${i.unit}" onchange="upd('${i.id}','unit',this.value)"></td><td><input type="number" value="${i.min}" onchange="upd('${i.id}','min',+this.value)"></td><td><input type="number" step="0.01" value="${i.unitCost}" onchange="upd('${i.id}','unitCost',+this.value)"></td><td><input value="${i.supplier}" onchange="upd('${i.id}','supplier',this.value)"></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+window.upd=(id,f,v)=>{const i=state.items.find(x=>x.id===id);if(i){i[f]=v;i.lastUpdated=new Date()}};
+window.adjQty=(id,delta)=>{const i=state.items.find(x=>x.id===id);if(!i)return;const newQ=Math.max(0,i.qty+delta);if(newQ!==i.qty){state.movements.unshift({id:uid(),date:new Date(),type:delta>0?'IN':'OUT',itemId:id,itemName:i.name,qty:Math.abs(delta),prev:i.qty,new:newQ,reason:'Manual adjust',notes:'',user:'Alex M.',ref:`MV-${rand(10000,99999)}`});i.qty=newQ;i.lastUpdated=new Date();renderAll()}};
+window.editItem=id=>openItemModal(id);
+
+/* DASHBOARD */
+function renderDashboard(hd,body){
+  hd.innerHTML=`<div><h1>Dashboard</h1></div>`;
+  const totalSKU=state.items.length;
+  const totalValue=state.items.reduce((s,i)=>s+i.qty*i.unitCost,0);
+  const out=state.items.filter(i=>i.qty===0).length;
+  const low=state.items.filter(i=>i.qty>0&&i.qty<i.min).length;
+  const m=new Date();m.setDate(m.getDate()-30);
+  const added=state.items.filter(i=>i.lastUpdated>=m).length;
+  const expiring=state.items.filter(i=>i.expiry&&(i.expiry-new Date())/86400000<14&&(i.expiry-new Date())>0);
+  const byCat={};state.items.forEach(i=>{if(!byCat[i.category])byCat[i.category]={value:0,count:0};byCat[i.category].value+=i.qty*i.unitCost;byCat[i.category].count++});
+  const topByValue=state.items.slice().sort((a,b)=>b.qty*b.unitCost-a.qty*a.unitCost).slice(0,10);
+  const maxVal=topByValue[0]?.qty*topByValue[0]?.unitCost||1;
+
+  body.innerHTML=`
+    <div class="kgrid" style="grid-template-columns:repeat(5,1fr);margin-bottom:14px">
+      <div class="kcard"><div class="l">Total SKUs</div><div class="v mono" id="k1">0</div></div>
+      <div class="kcard"><div class="l">Total value</div><div class="v mono">€<span id="k2">0</span></div></div>
+      <div class="kcard"><div class="l">Out of stock</div><div class="v mono" style="color:var(--system-red)" id="k3">0</div></div>
+      <div class="kcard"><div class="l">Low stock</div><div class="v mono" style="color:var(--system-orange)" id="k4">0</div></div>
+      <div class="kcard"><div class="l">Added (30d)</div><div class="v mono" id="k5">0</div></div>
+    </div>
+    <div class="grid2" style="grid-template-columns:3fr 2fr;margin-bottom:14px">
+      <div class="card"><h3>Stock Value by Category</h3><div class="chart-host"><canvas id="chCat"></canvas></div></div>
+      <div class="card"><h3>Stock Health</h3><div class="chart-host"><canvas id="chHealth"></canvas></div></div>
+    </div>
+    <div class="grid2" style="margin-bottom:14px">
+      <div class="card"><h3>Top 10 by Value</h3>${topByValue.map(i=>`<div class="perf-row"><div class="perf-top"><span>${i.name}</span><span style="font-weight:700">${money(i.qty*i.unitCost)}</span></div><div class="perf-bar"><div style="width:${(i.qty*i.unitCost)/maxVal*100}%"></div></div></div>`).join('')}</div>
+      <div class="card"><h3>Recent Movements</h3>${state.movements.slice(0,10).map(m=>`<div class="move-row"><div class="move-ic ${m.type}">${m.type==='IN'?'➕':m.type==='OUT'?'➖':m.type==='ADJUST'?'🔄':m.type==='WASTE'?'❌':'🔀'}</div><div><div style="font-weight:500">${m.itemName}</div><div style="font-size:10px;color:var(--label-tertiary)">${m.user} · ${m.reason}</div></div><div style="font-weight:700;color:${m.type==='IN'?'var(--system-green)':m.type==='OUT'||m.type==='WASTE'?'var(--system-red)':'var(--system-blue)'}">${m.type==='IN'?'+':'-'}${m.qty}</div><div style="font-size:10px;color:var(--label-tertiary)">${fmtRel(m.date)}</div></div>`).join('')}</div>
+    </div>
+    <div class="card"><h3>Alerts (${out+low+expiring.length})</h3>
+      ${state.items.filter(i=>i.qty===0).slice(0,5).map(i=>`<div class="alert-item"><div><strong>${i.name}</strong> <span class="badge b-red">Out</span></div><div style="font-size:11px;color:var(--label-tertiary)">min: ${i.min} ${i.unit}</div><button class="btn xs primary" onclick="addToCart('${i.id}')">Order</button></div>`).join('')}
+      ${state.items.filter(i=>i.qty>0&&i.qty<i.min).slice(0,5).map(i=>`<div class="alert-item"><div><strong>${i.name}</strong> <span class="badge b-orange">Low · ${i.qty}/${i.min}</span></div><div style="font-size:11px;color:var(--label-tertiary)">${i.supplier}</div><button class="btn xs primary" onclick="addToCart('${i.id}')">Order</button></div>`).join('')}
+      ${expiring.slice(0,3).map(i=>{const days=Math.ceil((i.expiry-new Date())/86400000);return `<div class="alert-item"><div><strong>${i.name}</strong> <span class="badge b-purple">Expires ${days}d</span></div><div style="font-size:11px;color:var(--label-tertiary)">${i.qty} ${i.unit}</div><button class="btn xs" onclick="editItem('${i.id}')">View</button></div>`}).join('')||''}
+    </div>`;
+  countUp($('#k1'),totalSKU);countUp($('#k2'),Math.round(totalValue));countUp($('#k3'),out);countUp($('#k4'),low);countUp($('#k5'),added);
+  setTimeout(()=>{
+    const accent=SECTORS[state.sector].accent;
+    if(state.charts.cat)state.charts.cat.destroy();
+    state.charts.cat=new Chart($('#chCat'),{type:'bar',data:{labels:Object.keys(byCat),datasets:[{data:Object.values(byCat).map(x=>x.value),backgroundColor:accent+'cc',borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>'€'+Math.round(v/1000)+'k',font:{size:10}}},y:{ticks:{font:{size:10}}}}}});
+    if(state.charts.health)state.charts.health.destroy();
+    state.charts.health=new Chart($('#chHealth'),{type:'doughnut',data:{labels:['OK','Low','Out','Expiring'],datasets:[{data:[state.items.filter(i=>i.qty>=i.min).length,low,out,expiring.length],backgroundColor:['#34C759','#FF9500','#FF3B30','#AF52DE'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}});
+  },60);
+}
+
+/* MOVEMENTS */
+function renderMovements(hd,body){
+  hd.innerHTML=`<div><h1>Movements</h1></div><div><button class="btn primary sm" onclick="openMove()">+ Log Movement</button> <button class="btn sm" onclick="exportMoves()">Export CSV</button></div>`;
+  const m=new Date();m.setMonth(m.getMonth()-1);
+  const thisMonth=state.movements.filter(x=>x.date>=m);
+  const totalIn=thisMonth.filter(x=>x.type==='IN').reduce((s,x)=>s+x.qty,0);
+  const totalOut=thisMonth.filter(x=>x.type==='OUT').reduce((s,x)=>s+x.qty,0);
+  const waste=thisMonth.filter(x=>x.type==='WASTE').reduce((s,x)=>{const it=state.items.find(i=>i.id===x.itemId);return s+x.qty*(it?.unitCost||0)},0);
+  body.innerHTML=`
+    <div class="kgrid" style="grid-template-columns:repeat(4,1fr);margin-bottom:14px">
+      <div class="kcard"><div class="l">Month IN</div><div class="v mono" style="color:var(--system-green)">+${totalIn}</div></div>
+      <div class="kcard"><div class="l">Month OUT</div><div class="v mono" style="color:var(--system-red)">-${totalOut}</div></div>
+      <div class="kcard"><div class="l">Net Change</div><div class="v mono">${totalIn-totalOut>=0?'+':''}${totalIn-totalOut}</div></div>
+      <div class="kcard"><div class="l">Waste Value</div><div class="v mono" style="color:var(--system-orange)">${money(waste)}</div></div>
+    </div>
+    <div class="card">
+      <div class="filt-bar"><input class="fld" id="moveSearch" placeholder="Search..." style="flex:1"><select class="fld" id="moveTypeF"><option value="">All types</option><option>IN</option><option>OUT</option><option>ADJUST</option><option>WASTE</option><option>TRANSFER</option></select></div>
+      <table class="t"><thead><tr><th>Date</th><th>Type</th><th>Item</th><th>Qty</th><th>Stock</th><th>Reason</th><th>User</th><th>Ref</th></tr></thead><tbody id="mvBody">${state.movements.slice(0,80).map(renderMoveRow).join('')}</tbody></table>
+    </div>`;
+  $('#moveSearch').addEventListener('input',filterMoves);
+  $('#moveTypeF').addEventListener('change',filterMoves);
+}
+function renderMoveRow(m){return `<tr><td>${fmtDT(m.date)}</td><td><span class="badge ${m.type==='IN'?'b-green':m.type==='OUT'?'b-red':m.type==='ADJUST'?'b-blue':m.type==='WASTE'?'b-orange':'b-purple'}">${m.type}</span></td><td><strong>${m.itemName}</strong></td><td class="mono" style="color:${m.type==='IN'?'var(--system-green)':m.type==='OUT'||m.type==='WASTE'?'var(--system-red)':'var(--label-primary)'}">${m.type==='IN'?'+':'-'}${m.qty}</td><td class="mono" style="color:var(--label-tertiary)">${m.prev}→${m.new}</td><td>${m.reason}</td><td>${m.user}</td><td class="mono" style="font-size:11px">${m.ref}</td></tr>`}
+function filterMoves(){const q=$('#moveSearch').value.toLowerCase();const t=$('#moveTypeF').value;$('#mvBody').innerHTML=state.movements.filter(m=>(!q||m.itemName.toLowerCase().includes(q)||m.reason.toLowerCase().includes(q))&&(!t||m.type===t)).slice(0,80).map(renderMoveRow).join('')}
+window.exportMoves=()=>{const rows=[['Date','Type','Item','Qty','Prev','New','Reason','User','Ref']].concat(state.movements.map(m=>[m.date.toISOString(),m.type,m.itemName,m.qty,m.prev,m.new,m.reason,m.user,m.ref]));const csv=rows.map(r=>r.map(x=>`"${x}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`movements-${Date.now()}.csv`;a.click()};
+
+/* ORDERS */
+function renderOrders(hd,body){
+  hd.innerHTML=`<div><h1>Orders</h1></div>`;
+  const needs=state.items.filter(i=>i.qty<i.min).slice(0,12);
+  body.innerHTML=`<div class="order-wrap">
+    <div>
+      <div class="card" style="margin-bottom:14px"><h3>Suggested Orders (${needs.length}) <button class="btn xs secondary" onclick="addAllSuggested()">Add All</button></h3>
+        ${needs.map(i=>{const suggest=i.max-i.qty;return `<div class="suggest-item"><div><strong>${i.name}</strong><div style="font-size:10px;color:var(--label-tertiary)">Current: ${i.qty} · Min: ${i.min} · ${i.supplier}</div></div><div class="mono" style="font-size:12px;color:var(--label-tertiary)">Suggest: ${suggest}</div><div class="mono" style="font-weight:700">${money(suggest*i.unitCost)}</div><button class="btn xs primary" onclick="addToCart('${i.id}',${suggest})">+ Add</button></div>`}).join('')||'<div style="color:var(--label-tertiary);padding:20px;text-align:center">No items need ordering 🎉</div>'}
+      </div>
+      <div class="card"><h3>Order History</h3><table class="t"><thead><tr><th>Ref</th><th>Date</th><th>Supplier</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead><tbody>${state.orders.map(o=>`<tr><td class="mono">${o.ref}</td><td>${fmtDate(o.date)}</td><td>${o.supplier}</td><td>${o.items.length}</td><td class="mono" style="font-weight:700">${money(o.total)}</td><td><span class="badge ${o.status==='received'?'b-green':o.status==='sent'?'b-blue':o.status==='draft'?'b-gray':'b-orange'}">${o.status}</span></td><td>${o.status==='sent'?`<button class="btn xs primary" onclick="openReceive('${o.id}')">Receive</button>`:`<button class="btn xs" onclick="alert('Order details: '+JSON.stringify(${JSON.stringify(o.items.map(i=>i.itemName)).replace(/"/g,'&quot;')}))">View</button>`}</td></tr>`).join('')}</tbody></table></div>
+    </div>
+    <div class="order-cart"><h3>Current Order <span style="font-size:10px;color:var(--label-tertiary);font-weight:400">(${state.cart.length} items)</span></h3>
+      ${state.cart.length?state.cart.map(c=>{const it=state.items.find(i=>i.id===c.itemId);return `<div class="cart-item"><div><strong>${it.name}</strong><div style="font-size:10px;color:var(--label-tertiary)">${it.supplier} · ${moneyF(it.unitCost)}/${it.unit}</div></div><input type="number" class="fld" style="width:60px" value="${c.qty}" onchange="state.cart.find(x=>x.itemId==='${c.itemId}').qty=+this.value;renderMain()"><button class="qty-btn" onclick="removeFromCart('${c.itemId}')">×</button></div>`}).join(''):'<div style="color:var(--label-tertiary);padding:20px;text-align:center">Cart is empty</div>'}
+      ${state.cart.length?`<div class="cart-total"><span>Total</span><span class="mono">${money(state.cart.reduce((s,c)=>{const i=state.items.find(x=>x.id===c.itemId);return s+c.qty*i.unitCost},0))}</span></div><div style="display:flex;gap:6px;margin-top:12px"><button class="btn" style="flex:1" onclick="saveDraft()">Save Draft</button><button class="btn primary" style="flex:1" onclick="sendOrder()">Send Order</button></div>`:''}
+    </div>
+  </div>`;
+}
+window.addToCart=(id,q)=>{const i=state.items.find(x=>x.id===id);if(!i)return;const sugg=q||Math.max(i.min,i.max-i.qty);const ex=state.cart.find(c=>c.itemId===id);if(ex)ex.qty+=sugg;else state.cart.push({itemId:id,qty:sugg});renderMain()};
+window.removeFromCart=id=>{state.cart=state.cart.filter(c=>c.itemId!==id);renderMain()};
+window.addAllSuggested=()=>{state.items.filter(i=>i.qty<i.min).forEach(i=>{if(!state.cart.find(c=>c.itemId===i.id))state.cart.push({itemId:i.id,qty:i.max-i.qty})});renderMain()};
+window.saveDraft=()=>{const tot=state.cart.reduce((s,c)=>{const i=state.items.find(x=>x.id===c.itemId);return s+c.qty*i.unitCost},0);state.orders.unshift({id:uid(),ref:`PO-${rand(3000,9999)}`,date:new Date(),supplier:'Hellas Supply',items:state.cart.map(c=>{const i=state.items.find(x=>x.id===c.itemId);return {itemId:i.id,itemName:i.name,qty:c.qty,unitCost:i.unitCost,unit:i.unit}}),status:'draft',total:tot});state.cart=[];alert('Saved as draft');renderMain()};
+window.sendOrder=()=>{const tot=state.cart.reduce((s,c)=>{const i=state.items.find(x=>x.id===c.itemId);return s+c.qty*i.unitCost},0);state.orders.unshift({id:uid(),ref:`PO-${rand(3000,9999)}`,date:new Date(),supplier:'Hellas Supply',items:state.cart.map(c=>{const i=state.items.find(x=>x.id===c.itemId);return {itemId:i.id,itemName:i.name,qty:c.qty,unitCost:i.unitCost,unit:i.unit}}),status:'sent',total:tot});state.cart=[];alert('Order sent to supplier');renderMain()};
+window.openReceive=id=>{const o=state.orders.find(x=>x.id===id);state.receivingOrder=id;$('#receiveList').innerHTML=`<div style="margin-bottom:10px;font-size:12px;color:var(--label-tertiary)">Order ${o.ref} · ${o.supplier}</div>`+o.items.map((it,idx)=>`<div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:8px;background:var(--fill-tertiary);border-radius:8px;margin-bottom:4px;align-items:center"><div><strong>${it.itemName}</strong><div style="font-size:10px;color:var(--label-tertiary)">Ordered: ${it.qty} ${it.unit}</div></div><input type="number" class="fld" style="width:70px" value="${it.qty}" data-idx="${idx}" id="rec-${idx}"><span class="mono" style="font-size:11px;color:var(--label-tertiary)">${moneyF(it.unitCost)}</span></div>`).join('');openM('mReceive')};
+window.confirmReceive=()=>{const o=state.orders.find(x=>x.id===state.receivingOrder);o.items.forEach((it,idx)=>{const received=+$('#rec-'+idx).value;const item=state.items.find(x=>x.id===it.itemId);if(item){item.qty+=received;item.lastUpdated=new Date();state.movements.unshift({id:uid(),date:new Date(),type:'IN',itemId:item.id,itemName:item.name,qty:received,prev:item.qty-received,new:item.qty,reason:'Delivery received',notes:`Order ${o.ref}`,user:'Alex M.',ref:o.ref})}});o.status='received';closeM('mReceive');renderAll()};
+
+/* SETTINGS */
+function renderSettings(hd,body){
+  hd.innerHTML=`<div><h1>Settings</h1></div>`;
+  const S=SECTORS[state.sector];
+  body.innerHTML=`<div class="grid2">
+    <div class="card"><h3>Categories</h3>${S.cats.map(([c,ic])=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--separator)"><div class="item-cat">${ic}</div><input class="fld" value="${c}" style="flex:1"><button class="btn xs danger">Remove</button></div>`).join('')}<button class="btn sm" style="margin-top:10px">+ Add category</button></div>
+    <div class="card"><h3>Locations</h3>${['Main','Storage','Fridge','Back room'].map(l=>`<div style="display:flex;gap:8px;padding:6px 0;align-items:center"><input class="fld" value="${l}" style="flex:1"><label class="ios-toggle" style="width:36px;height:22px"><input type="checkbox" checked><span class="ios-toggle-track"></span><span class="ios-toggle-thumb" style="width:18px;height:18px"></span></label></div>`).join('')}</div>
+    <div class="card"><h3>Units</h3><div style="display:flex;flex-wrap:wrap;gap:6px">${['pieces','kg','g','L','mL','boxes','packs','sets'].map(u=>`<span class="badge b-gray" style="font-size:11px;padding:4px 10px">${u}</span>`).join('')}</div><button class="btn sm" style="margin-top:10px">+ Add unit</button></div>
+    <div class="card"><h3>Suppliers</h3>${['Hellas Supply','Mediterranean Distrib','Athens Trading','Aegean Wholesale'].map(s=>`<div style="padding:8px 0;border-bottom:1px solid var(--separator);font-size:13px"><strong>${s}</strong><div style="font-size:11px;color:var(--label-tertiary)">Lead time: ${rand(2,14)}d · Min order: ${money(rand(100,500))}</div></div>`).join('')}</div>
+    <div class="card"><h3>Alerts</h3><label>Low stock threshold (%)</label><input type="number" class="fld" style="width:100%" value="20"><label>Expiry warning (days)</label><input type="number" class="fld" style="width:100%" value="14"><label><input type="checkbox" checked> Email notifications</label></div>
+    <div class="card"><h3>Import / Export</h3><button class="btn" style="width:100%;margin-bottom:6px" onclick="exportCSV()">Export full inventory (CSV)</button><button class="btn" style="width:100%;margin-bottom:6px" onclick="alert('CSV template downloaded')">Download CSV template</button><button class="btn" style="width:100%" onclick="alert('Select CSV file to import')">Import from CSV</button></div>
+  </div>`;
+}
+window.exportCSV=()=>{const rows=[['Name','SKU','Category','Qty','Unit','Min','Max','UnitCost','Supplier','Location','Expiry']].concat(state.items.map(i=>[i.name,i.sku,i.category,i.qty,i.unit,i.min,i.max,i.unitCost,i.supplier,i.location,i.expiry?i.expiry.toISOString().slice(0,10):'']));const csv=rows.map(r=>r.map(x=>`"${(x+'').replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`inventory-${state.sector}-${Date.now()}.csv`;a.click()};
+
+/* ITEM MODAL */
+window.openItemModal=id=>{
+  const S=SECTORS[state.sector];
+  $('#iCat').innerHTML=S.cats.map(([c])=>`<option>${c}</option>`).join('');
+  state.editingId=id||null;
+  if(id){const i=state.items.find(x=>x.id===id);$('#mItemTitle').textContent='Edit Item';$('#iName').value=i.name;$('#iSku').value=i.sku;$('#iCat').value=i.category;$('#iQty').value=i.qty;$('#iUnit').value=i.unit;$('#iMin').value=i.min;$('#iMax').value=i.max;$('#iCost').value=i.unitCost;$('#iPrice').value=i.price||'';$('#iSup').value=i.supplier;$('#iLoc').value=i.location;$('#iExp').value=i.expiry?i.expiry.toISOString().slice(0,10):'';$('#iNotes').value=i.notes;$('#iStar').checked=i.starred;$('#iDelete').style.display='inline-flex'}
+  else{$('#mItemTitle').textContent='Add Item';['iName','iSku','iSup','iNotes','iExp','iPrice'].forEach(x=>$('#'+x).value='');$('#iQty').value=0;$('#iMin').value=10;$('#iMax').value=100;$('#iCost').value=0;$('#iLoc').value='Main';$('#iStar').checked=false;$('#iDelete').style.display='none';$('#iSku').value=`${state.sector.slice(0,3).toUpperCase()}-${rand(1000,9999)}`}
+  openM('mItem');
+};
+window.saveItem=()=>{
+  const name=$('#iName').value.trim();if(!name)return alert('Name required');
+  const data={name,sku:$('#iSku').value,category:$('#iCat').value,qty:+$('#iQty').value||0,unit:$('#iUnit').value,min:+$('#iMin').value||0,max:+$('#iMax').value||0,unitCost:+$('#iCost').value||0,price:+$('#iPrice').value||null,supplier:$('#iSup').value,location:$('#iLoc').value,expiry:$('#iExp').value?new Date($('#iExp').value):null,notes:$('#iNotes').value,starred:$('#iStar').checked,lastUpdated:new Date()};
+  const catIcon=SECTORS[state.sector].cats.find(([c])=>c===data.category)?.[1]||'📦';
+  data.catIcon=catIcon;
+  if(state.editingId){Object.assign(state.items.find(x=>x.id===state.editingId),data)}
+  else{state.items.push({id:uid(),...data})}
+  closeM('mItem');renderAll();
+};
+$('#iDelete').addEventListener('click',()=>{if(!confirm('Delete item?'))return;state.items=state.items.filter(x=>x.id!==state.editingId);closeM('mItem');renderAll()});
+
+/* MOVE MODAL */
+window.openMove=()=>{
+  $('#mvItem').innerHTML=state.items.map(i=>`<option value="${i.id}">${i.name}</option>`).join('');
+  $('#mvDate').value=new Date().toISOString().slice(0,16);
+  state.moveType='IN';updReasonOpts();
+  $$('#moveTypes button').forEach(b=>b.classList.toggle('active',b.dataset.t==='IN'));
+  openM('mMove');
+};
+function updReasonOpts(){$('#mvReason').innerHTML=REASONS[state.moveType].map(r=>`<option>${r}</option>`).join('')}
+$$('#moveTypes button').forEach(b=>b.addEventListener('click',()=>{$$('#moveTypes button').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.moveType=b.dataset.t;updReasonOpts()}));
+window.logMove=()=>{
+  const it=state.items.find(x=>x.id===$('#mvItem').value);if(!it)return;
+  const qty=+$('#mvQty').value||0;if(!qty)return alert('Quantity required');
+  const prev=it.qty;
+  if(state.moveType==='IN')it.qty+=qty;
+  else if(state.moveType==='OUT'||state.moveType==='WASTE')it.qty=Math.max(0,it.qty-qty);
+  else if(state.moveType==='ADJUST')it.qty=qty;
+  it.lastUpdated=new Date();
+  state.movements.unshift({id:uid(),date:new Date($('#mvDate').value||Date.now()),type:state.moveType,itemId:it.id,itemName:it.name,qty,prev,new:it.qty,reason:$('#mvReason').value,notes:$('#mvNotes').value,user:'Alex M.',ref:`MV-${rand(10000,99999)}`});
+  closeM('mMove');['mvQty','mvNotes'].forEach(id=>$('#'+id).value='');renderAll();
+};
+
+/* MODAL HELPERS */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('inv-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('inv-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+/* EVENTS */
+$('#sector').addEventListener('change',e=>{state.sector=e.target.value;applySector()});
+$('#gSearch').addEventListener('input',e=>{state.search=e.target.value;renderMain()});
+$$('.segmented button[data-p]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.p)));
+
+applySector();
+</script>
+</body>
+</html>
