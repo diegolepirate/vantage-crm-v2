@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Margin Calculator</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);
+  --bg:#F5F5F7;--surface:#FFFFFF;--surface-2:#F2F2F7;--border:rgba(0,0,0,.08);
+  --text:#1D1D1F;--text-2:rgba(29,29,31,.62);--text-3:rgba(29,29,31,.4);
+  --ok:#30D158;--warn:#FF9F0A;--err:#FF453A;--info:#0A84FF;--purple:#BF5AF2;--pink:#FF375F;
+  --shadow:0 12px 40px rgba(0,0,0,.06);
+}
+html[data-theme="dark"]{
+  --bg:#1C1C1E;--surface:#2C2C2E;--surface-2:#3A3A3C;--border:rgba(255,255,255,.08);
+  --text:#F5F5F7;--text-2:rgba(245,245,247,.62);--text-3:rgba(245,245,247,.4);
+  --shadow:0 12px 40px rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s}
+.num,.mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px}
+
+.app{display:grid;grid-template-columns:280px 420px 1fr;height:100vh}
+
+/* LEFT PANEL */
+aside.nav{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:16px 12px}
+.logo{display:flex;align-items:center;gap:10px;padding:6px 10px;margin-bottom:14px}
+.logo .ldot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.logo .lbrand{font-weight:700;font-size:16px;letter-spacing:.08em}
+.sector{width:100%;background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:10px;font-size:13px;outline:none;margin-bottom:14px}
+.sector option{background:var(--surface)}
+.nav-items{display:flex;flex-direction:column;gap:2px;margin-bottom:auto}
+.nav-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:14px;color:var(--text-2);text-align:left;transition:all .15s}
+.nav-btn:hover{background:var(--surface-2);color:var(--text)}
+.nav-btn.active{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.nav-btn .ic{width:18px;display:inline-flex;justify-content:center}
+.quick-stats{margin-top:16px;padding:14px;background:var(--surface-2);border-radius:12px}
+.qs-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12px}
+.qs-row .l{color:var(--text-3);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.qs-row .v{font-weight:600;font-size:13px}
+.nav-footer{border-top:1px solid var(--border);padding-top:12px;margin-top:12px;display:flex;align-items:center;justify-content:space-between}
+.theme-btn{width:34px;height:34px;border-radius:9px;background:var(--surface-2);display:flex;align-items:center;justify-content:center}
+.theme-btn:hover{background:var(--accent-soft);color:var(--accent)}
+.version{font-size:10px;color:var(--text-3);letter-spacing:.06em}
+
+/* CENTER PANEL */
+aside.mid{background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.mid-hd{padding:18px 20px 12px;display:flex;justify-content:space-between;align-items:center}
+.mid-hd h2{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.mid-body{flex:1;overflow-y:auto;padding:0 20px 24px}
+.mid-body::-webkit-scrollbar{width:4px}
+.mid-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
+.section h3{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:12px}
+
+.btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:10px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:var(--border)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.primary.big{width:100%;padding:12px;font-size:14px;font-weight:600;justify-content:center}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 10px;font-size:12px}
+.btn.xs{padding:4px 8px;font-size:11px}
+.btn.danger{background:rgba(255,69,58,.12);border-color:rgba(255,69,58,.3);color:var(--err)}
+
+.fld{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);outline:none;font-size:13px;transition:border .2s}
+.fld:focus{border-color:var(--accent)}
+.fld.big{padding:14px;font-size:20px;font-weight:600;text-align:center;letter-spacing:-.02em}
+label{display:block;font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:500}
+
+/* COST ROWS */
+.cost-row{display:grid;grid-template-columns:1.3fr 1.5fr 60px 80px 90px 90px 28px;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);animation:rin .3s}
+@keyframes rin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.cost-row.out{animation:rout .25s forwards}
+@keyframes rout{to{opacity:0;transform:translateX(-20px);max-height:0}}
+.cost-row .fld{padding:6px 8px;font-size:12px}
+.cost-row .tot{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:600;text-align:right;font-size:13px}
+.cost-row .del{width:22px;height:22px;border-radius:50%;background:var(--surface-2);color:var(--text-3);font-size:14px;display:flex;align-items:center;justify-content:center}
+.cost-row .del:hover{background:rgba(255,69,58,.15);color:var(--err)}
+.cost-hd{display:grid;grid-template-columns:1.3fr 1.5fr 60px 80px 90px 90px 28px;gap:6px;padding:0 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);font-weight:600}
+
+.subtotal{display:flex;justify-content:space-between;align-items:center;padding:10px 0 4px;border-top:2px solid var(--border);margin-top:8px;font-size:13px}
+.subtotal .v{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:700;font-size:16px}
+
+/* MODE SWITCH */
+.mode-switch{display:flex;gap:4px;background:var(--surface-2);border-radius:10px;padding:3px;margin-bottom:12px}
+.mode-switch button{flex:1;padding:8px 12px;border-radius:8px;font-size:12px;color:var(--text-2);font-weight:500}
+.mode-switch button.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+html[data-theme="dark"] .mode-switch button.active{background:var(--border)}
+
+/* PRODUCTS LIST */
+.prod-search{margin-bottom:10px}
+.prod-list{display:flex;flex-direction:column;gap:4px}
+.prod{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s}
+.prod:hover{border-color:var(--accent);background:var(--accent-soft)}
+.prod .n{font-size:13px;font-weight:600}
+.prod .c{font-size:11px;color:var(--text-3)}
+.prod .m{text-align:right}
+.prod .mp{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:700;font-size:13px}
+
+/* RIGHT PANEL */
+main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.main-hd{padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.main-hd h1{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.main-body{flex:1;overflow-y:auto;padding:22px 24px 40px}
+.main-body::-webkit-scrollbar{width:6px}
+.main-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* RESULT HERO */
+.hero{background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--surface) 92%,var(--accent) 8%));border:1px solid var(--border);border-radius:20px;padding:32px;text-align:center;position:relative;overflow:hidden;margin-bottom:18px}
+.hero::before{content:"";position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,var(--accent-soft),transparent 70%);pointer-events:none}
+.hero .label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);font-weight:600;position:relative}
+.hero .pct{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:96px;font-weight:800;letter-spacing:-.04em;margin:10px 0;line-height:1;transition:color .4s;position:relative}
+.hero .pct.danger{color:var(--err)}
+.hero .pct.warn{color:var(--warn)}
+.hero .pct.ok{color:var(--ok)}
+.hero .pct.exc{color:var(--accent)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;position:relative}
+.hero-stat{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px}
+.hero-stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600}
+.hero-stat .v{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:18px;font-weight:700;margin-top:4px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+.card h3{font-size:13px;font-weight:600;margin-bottom:14px}
+.card h3 .sub{font-size:11px;color:var(--text-3);font-weight:400;margin-left:8px}
+
+/* STACKED BAR */
+.stack-bar{display:flex;height:28px;border-radius:8px;overflow:hidden;background:var(--surface-2);margin-bottom:14px}
+.stack-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;transition:width .6s cubic-bezier(.22,1,.36,1);min-width:0;overflow:hidden}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:8px;font-size:12px}
+.leg .dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:8px 10px;font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--border)}
+table.t td{padding:8px 10px;border-bottom:1px solid var(--border)}
+table.t tr:last-child td{border:0}
+table.t td .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+table.t .total td{font-weight:700;border-top:2px solid var(--border)}
+
+/* SCENARIOS */
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.scen-card{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.scen-card.bad{border-top:3px solid var(--err)}
+.scen-card.mid{border-top:3px solid var(--warn)}
+.scen-card.good{border-top:3px solid var(--ok)}
+.scen-card .h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600;margin-bottom:10px}
+.scen-card .row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.scen-card .row .l{color:var(--text-2)}
+.scen-card .row .v{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:600}
+
+/* BREAK-EVEN */
+.chart-host{position:relative;height:200px}
+.be-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.be-stat{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.be-stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);font-weight:600}
+.be-stat .v{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:16px;font-weight:700;margin-top:2px}
+
+/* RECOMMENDATIONS */
+.rec{display:flex;gap:12px;padding:14px;background:var(--surface-2);border-radius:12px;margin-bottom:10px;border-left:4px solid var(--accent)}
+.rec.danger{border-left-color:var(--err)}
+.rec.warn{border-left-color:var(--warn)}
+.rec.ok{border-left-color:var(--ok)}
+.rec .ic{font-size:20px;flex-shrink:0}
+.rec .b{font-size:13px;line-height:1.5}
+.rec .b strong{font-weight:600}
+
+/* DASHBOARD */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
+.kcard .l{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.kcard .v{font-size:26px;font-weight:700;margin-top:6px;letter-spacing:-.02em;font-family:"SF Mono",Menlo,Consolas,monospace}
+.kcard .d{font-size:11px;margin-top:4px;color:var(--text-2)}
+
+.pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.pill.ok{background:rgba(48,209,88,.15);color:var(--ok)}
+.pill.warn{background:rgba(255,159,10,.15);color:var(--warn)}
+.pill.bad{background:rgba(255,69,58,.15);color:var(--err)}
+.pill.exc{background:var(--accent-soft);color:var(--accent)}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(14px);z-index:100;display:none;align-items:center;justify-content:center}
+.mbg.open{display:flex;animation:mf .2s}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);animation:ms .25s}
+@keyframes ms{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.modal label{margin:12px 0 6px}
+.modal .row-btns{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+
+.sub-tabs{padding:0 24px;display:flex;gap:4px;border-bottom:1px solid var(--border);background:var(--bg)}
+.sub-tab{padding:10px 14px;font-size:13px;color:var(--text-2);border-bottom:2px solid transparent;font-weight:500}
+.sub-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.sub-tab:hover{color:var(--text)}
+
+@media (max-width:1200px){.app{grid-template-columns:240px 360px 1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}.kgrid,.scen{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.be-stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="app">
+<aside class="nav">
+  <div class="logo"><span class="ldot"></span><span class="lbrand">MARGIN</span></div>
+  <select class="sector" id="sector" aria-label="Sector">
+    <option value="restaurant">🍽️ Restaurant</option>
+    <option value="realestate">🏠 Real Estate</option>
+    <option value="garage">🔧 Garage</option>
+    <option value="retail">👗 Retail</option>
+    <option value="agency">💼 Agency</option>
+  </select>
+  <nav class="nav-items" id="navItems"></nav>
+  <div class="quick-stats">
+    <div class="qs-row"><span class="l">Avg margin (month)</span><span class="v" id="qsAvg">—</span></div>
+    <div class="qs-row"><span class="l">Top product</span><span class="v" id="qsTop">—</span></div>
+    <div class="qs-row"><span class="l">Calculations today</span><span class="v" id="qsToday">—</span></div>
+  </div>
+  <div class="nav-footer">
+    <span class="version">v1.0</span>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+  </div>
+</aside>
+
+<aside class="mid" id="midPanel">
+  <div class="mid-hd"><h2 id="midTitle">Calculator</h2><button class="btn sm" id="saveBtn" aria-label="Save calculation">💾 Save</button></div>
+  <div class="mid-body" id="midBody"></div>
+</aside>
+
+<main>
+  <div class="main-hd" id="mainHd"><h1>Results</h1></div>
+  <div class="main-body" id="mainBody"></div>
+</main>
+</div>
+
+<!-- SAVE MODAL -->
+<div class="mbg" id="mSave">
+  <div class="modal">
+    <h3>Save Calculation</h3>
+    <label>Product Name *</label><input type="text" class="fld" id="sName">
+    <label>Category</label><select class="fld" id="sCat"></select>
+    <label>Notes</label><textarea class="fld" id="sNotes" rows="2"></textarea>
+    <label><input type="checkbox" id="sRec"> Set as recurring</label>
+    <div class="row-btns"><button class="btn ghost" onclick="closeModal('mSave')">Cancel</button><button class="btn primary" id="sSubmit">Save to library</button></div>
+  </div>
+</div>
+
+<!-- NEW PRODUCT MODAL -->
+<div class="mbg" id="mProd">
+  <div class="modal">
+    <h3>New Product</h3>
+    <label>Name *</label><input type="text" class="fld" id="pName">
+    <label>Category</label><select class="fld" id="pCat"></select>
+    <label>Description</label><textarea class="fld" id="pDesc" rows="2"></textarea>
+    <label><input type="checkbox" id="pTpl" checked> Pre-fill costs from sector template</label>
+    <div class="row-btns"><button class="btn ghost" onclick="closeModal('mProd')">Cancel</button><button class="btn primary" id="pSubmit">Create</button></div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="mbg" id="mShare">
+  <div class="modal">
+    <h3>Share Summary</h3>
+    <div id="shareCard" style="background:var(--surface-2);border-radius:12px;padding:18px;margin-bottom:14px"></div>
+    <div class="row-btns"><button class="btn" onclick="copyShare()">Copy text</button><button class="btn primary" onclick="downloadShare()">Download</button></div>
+  </div>
+</div>
+
+<script>
+/* ========= SECTOR CONFIG ========= */
+const SECTORS={
+  restaurant:{accent:'#FF9500',productsLabel:'Dishes',categories:['Ingredients','Labor','Overhead','Packaging','Delivery'],colors:['#FF9500','#FF6B35','#FFC542','#A67C52','#8B5CF6']},
+  realestate:{accent:'#30D158',productsLabel:'Services',categories:['Commission','Legal','Marketing','Admin','Other'],colors:['#30D158','#34C759','#5AC8FA','#AF52DE','#8E8E93']},
+  garage:{accent:'#0A84FF',productsLabel:'Services & Repairs',categories:['Parts','Labor','Tools','Overhead','Warranty'],colors:['#0A84FF','#5AC8FA','#FFCC02','#FF9500','#30D158']},
+  retail:{accent:'#FF375F',productsLabel:'Items',categories:['Purchase','Shipping','Storage','Packaging','Returns'],colors:['#FF375F','#FF2D55','#FF9500','#BF5AF2','#AF52DE']},
+  agency:{accent:'#BF5AF2',productsLabel:'Projects',categories:['Time','Software','Subcontractors','Overhead','Other'],colors:['#BF5AF2','#AF52DE','#5AC8FA','#FF9500','#8E8E93']}
+};
+
+const PRODUCTS_TEMPLATES={
+  restaurant:['Signature Burger','Pasta Carbonara','Greek Salad','Seafood Risotto','Grilled Lamb','Truffle Pizza','Mezze Platter','Tiramisu','Wine Pairing','Sunday Brunch','Business Lunch','Seasonal Soup','Kids Menu','Cocktail Special','Wedding Menu'],
+  realestate:['Buyer Representation','Seller Listing','Property Management','Rental Brokerage','Investment Advisory','Valuation Service','Staging Consultation','Market Analysis','Legal Facilitation','Property Tour','Open House','Portfolio Review','Commercial Lease','Land Acquisition','Development Advisory'],
+  garage:['Oil Change','Brake Service','Tire Replacement','Engine Diagnostic','Transmission Repair','AC Service','Battery Replacement','Full Service','Bodywork','MOT Inspection','Wheel Alignment','Exhaust Repair','Suspension Work','Windshield Replacement','Annual Maintenance'],
+  retail:['Premium Jacket','Designer Jeans','Leather Bag','Running Shoes','Silk Scarf','Cashmere Sweater','Wool Coat','Dress Shirt','Evening Dress','Swimwear Set','Sneakers','Belt','Sunglasses','Watch','Perfume'],
+  agency:['Landing Page','Full Website','Brand Identity','SEO Package','Monthly Retainer','Social Media Mgmt','E-commerce Build','App Design','Content Strategy','Video Production','Email Campaign','PPC Management','Logo Design','Marketing Audit','Website Redesign']
+};
+
+const SECTOR_COSTS={
+  restaurant:[
+    {cat:'Ingredients',desc:'Main protein',qty:0.2,unit:'kg',unitCost:18},
+    {cat:'Ingredients',desc:'Vegetables',qty:0.3,unit:'kg',unitCost:5},
+    {cat:'Labor',desc:'Chef time',qty:0.25,unit:'hr',unitCost:22},
+    {cat:'Overhead',desc:'Kitchen share',qty:1,unit:'unit',unitCost:3.5},
+    {cat:'Packaging',desc:'Plate + napkin',qty:1,unit:'unit',unitCost:0.8}
+  ],
+  realestate:[
+    {cat:'Commission',desc:'Agent commission',qty:1,unit:'%',unitCost:2500},
+    {cat:'Legal',desc:'Notary fees',qty:1,unit:'service',unitCost:800},
+    {cat:'Marketing',desc:'Listing + photos',qty:1,unit:'service',unitCost:450},
+    {cat:'Admin',desc:'Document processing',qty:1,unit:'service',unitCost:180}
+  ],
+  garage:[
+    {cat:'Parts',desc:'Replacement part',qty:1,unit:'unit',unitCost:120},
+    {cat:'Labor',desc:'Technician hours',qty:2,unit:'hr',unitCost:45},
+    {cat:'Tools',desc:'Consumables',qty:1,unit:'unit',unitCost:18},
+    {cat:'Overhead',desc:'Workshop share',qty:1,unit:'unit',unitCost:25}
+  ],
+  retail:[
+    {cat:'Purchase',desc:'Wholesale cost',qty:1,unit:'unit',unitCost:45},
+    {cat:'Shipping',desc:'Logistics per item',qty:1,unit:'unit',unitCost:4.5},
+    {cat:'Storage',desc:'Warehouse share',qty:1,unit:'unit',unitCost:2.2},
+    {cat:'Packaging',desc:'Bag + tag',qty:1,unit:'unit',unitCost:1.2}
+  ],
+  agency:[
+    {cat:'Time',desc:'Designer hours',qty:12,unit:'hr',unitCost:65},
+    {cat:'Time',desc:'Developer hours',qty:18,unit:'hr',unitCost:85},
+    {cat:'Software',desc:'Tools/licenses',qty:1,unit:'mo',unitCost:80},
+    {cat:'Overhead',desc:'Project mgmt',qty:1,unit:'project',unitCost:250}
+  ]
+};
+
+const NAV=[
+  {id:'calc',label:'Calculator',ic:'🧮'},
+  {id:'products',label:'Products',ic:'📦'},
+  {id:'dashboard',label:'Dashboard',ic:'📊'},
+  {id:'history',label:'History',ic:'📋'},
+  {id:'settings',label:'Settings',ic:'⚙️'}
+];
+
+/* ========= STATE ========= */
+let state={
+  sector:'restaurant',tab:'calc',
+  costs:[],
+  sellingPrice:0,targetMargin:40,priceMode:'price',vatRate:24,
+  volumes:{bad:50,mid:100,good:200},
+  products:[],history:[],
+  defaultVat:24,targetMarginGoal:40,defaultLaborCost:25,
+  charts:{}
+};
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const rand=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const randF=(a,b)=>+(a+Math.random()*(b-a)).toFixed(2);
+const pick=a=>a[rand(0,a.length-1)];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const money=v=>'€'+Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const moneyShort=v=>'€'+Math.round(Number(v||0)).toLocaleString('en-US');
+const fmtDate=d=>(d instanceof Date?d:new Date(d)).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+
+/* ========= DATA GEN ========= */
+function genProducts(sector){
+  const S=SECTORS[sector];const names=PRODUCTS_TEMPLATES[sector];const list=[];
+  names.forEach(n=>{
+    const costs=SECTOR_COSTS[sector].map(c=>({...c,id:uid(),qty:c.qty*randF(.7,1.5),unitCost:c.unitCost*randF(.85,1.2)}));
+    const totalCost=costs.reduce((s,c)=>s+c.qty*c.unitCost,0);
+    const margin=rand(15,65);
+    const price=+(totalCost/(1-margin/100)).toFixed(2);
+    list.push({id:uid(),name:n,category:pick(S.categories),costs,price,margin,notes:'',created:new Date(Date.now()-rand(1,60)*86400000)});
+  });
+  return list;
+}
+
+function genHistory(sector,products){
+  const list=[];const now=Date.now();
+  for(let i=0;i<30;i++){
+    const p=pick(products);
+    const d=new Date(now-rand(0,30)*86400000-rand(0,86400000));
+    const marginVar=p.margin+rand(-10,10);
+    const totalCost=p.costs.reduce((s,c)=>s+c.qty*c.unitCost,0);
+    const price=+(totalCost/(1-marginVar/100)).toFixed(2);
+    list.push({id:uid(),date:d,productId:p.id,productName:p.name,price,totalCost,margin:marginVar,saved:Math.random()<.6});
+  }
+  return list.sort((a,b)=>b.date-a.date);
+}
+
+/* ========= CALCULATIONS ========= */
+function totalCost(){return state.costs.reduce((s,c)=>s+(Number(c.qty)||0)*(Number(c.unitCost)||0),0)}
+function computeMargin(){
+  const tc=totalCost();
+  let price=Number(state.sellingPrice)||0;
+  if(state.priceMode==='margin'&&state.targetMargin){
+    const m=Number(state.targetMargin)||0;
+    price=tc/(1-m/100);
+    state.sellingPrice=+price.toFixed(2);
+  }
+  const marginEur=price-tc;
+  const marginPct=price>0?(marginEur/price*100):0;
+  const priceVat=price*(1+(Number(state.vatRate)||0)/100);
+  return {tc,price,marginEur,marginPct,priceVat};
+}
+function marginClass(p){if(p<20)return 'danger';if(p<35)return 'warn';if(p<50)return 'ok';return 'exc'}
+
+function categoryTotals(){
+  const S=SECTORS[state.sector];const out={};
+  S.categories.forEach(c=>out[c]=0);
+  state.costs.forEach(c=>{if(out[c.cat]!=null)out[c.cat]+=c.qty*c.unitCost;else out[c.cat]=(out[c.cat]||0)+c.qty*c.unitCost});
+  return out;
+}
+
+/* ========= RENDER ========= */
+function applySector(){
+  const S=SECTORS[state.sector];
+  document.documentElement.style.setProperty('--accent',S.accent);
+  document.documentElement.style.setProperty('--accent-soft',S.accent+'26');
+  state.costs=SECTOR_COSTS[state.sector].map(c=>({...c,id:uid()}));
+  state.products=genProducts(state.sector);
+  state.history=genHistory(state.sector,state.products);
+  const tc=totalCost();
+  state.sellingPrice=+(tc/(1-0.4)).toFixed(2);
+  state.priceMode='price';
+  renderAll();
+}
+
+function renderNav(){
+  const host=$('#navItems');host.innerHTML='';
+  NAV.forEach(n=>{
+    const b=document.createElement('button');b.className='nav-btn'+(state.tab===n.id?' active':'');
+    b.innerHTML=`<span class="ic">${n.ic}</span><span>${n.label}</span>`;
+    b.setAttribute('aria-label',n.label);
+    b.addEventListener('click',()=>{state.tab=n.id;renderAll()});
+    host.appendChild(b);
+  });
+  // quick stats
+  const avg=state.history.length?state.history.reduce((s,h)=>s+h.margin,0)/state.history.length:0;
+  const byProd={};state.history.forEach(h=>byProd[h.productName]=(byProd[h.productName]||0)+h.margin);
+  const top=Object.entries(byProd).sort((a,b)=>b[1]-a[1])[0];
+  const today=new Date();today.setHours(0,0,0,0);
+  const todayN=state.history.filter(h=>h.date>=today).length;
+  $('#qsAvg').textContent=avg.toFixed(1)+'%';
+  $('#qsTop').textContent=top?top[0].slice(0,18):'—';
+  $('#qsToday').textContent=todayN;
+}
+
+function renderAll(){
+  renderNav();
+  renderMid();
+  renderMain();
+}
+
+function renderMid(){
+  const host=$('#midBody');host.innerHTML='';
+  if(state.tab==='calc'||state.tab==='dashboard'||state.tab==='history'||state.tab==='settings'){
+    $('#midTitle').textContent='Calculator';
+    $('#saveBtn').style.display=state.tab==='calc'?'inline-flex':'none';
+    renderCalculator(host);
+  }else if(state.tab==='products'){
+    $('#midTitle').textContent='Products';
+    $('#saveBtn').style.display='none';
+    renderProductsList(host);
+  }
+}
+
+function renderCalculator(host){
+  const S=SECTORS[state.sector];
+  host.innerHTML=`
+    <div class="section">
+      <h3>Load Product</h3>
+      <input type="text" class="fld" id="prodSearch" placeholder="Search saved products...">
+      <div class="prod-list" id="prodQuick" style="margin-top:10px;max-height:120px;overflow-y:auto"></div>
+      <button class="btn sm" style="margin-top:10px;width:100%" onclick="newCalc()">+ New calculation</button>
+    </div>
+    <div class="section">
+      <h3>Build Your Costs</h3>
+      <div class="cost-hd"><span>Category</span><span>Description</span><span>Qty</span><span>Unit</span><span>Unit €</span><span>Total</span><span></span></div>
+      <div id="costRows"></div>
+      <button class="btn sm" style="margin-top:10px;width:100%" onclick="addCostRow()">+ Add cost row</button>
+      <div class="subtotal"><span>Subtotal costs</span><span class="v" id="subtotal">—</span></div>
+    </div>
+    <div class="section">
+      <h3>Pricing</h3>
+      <div class="mode-switch">
+        <button class="${state.priceMode==='price'?'active':''}" onclick="setMode('price')">Set Price</button>
+        <button class="${state.priceMode==='margin'?'active':''}" onclick="setMode('margin')">Target Margin</button>
+      </div>
+      ${state.priceMode==='price'?`<label>Selling price (excl. tax)</label><input type="number" step="0.01" class="fld big" id="fSellPrice" value="${state.sellingPrice.toFixed(2)}">`:`<label>Target margin %</label><input type="number" step="0.1" class="fld big" id="fTargetMargin" value="${state.targetMargin}">`}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div><label>Tax rate (%)</label><input type="number" step="0.1" class="fld" id="fVat" value="${state.vatRate}"></div>
+        <div><label>Price incl. tax</label><input type="text" class="fld" id="fPriceVat" readonly></div>
+      </div>
+    </div>
+    <button class="btn primary big" onclick="updateLive(true)">Calculate</button>
+  `;
+  renderCostRows();
+  renderProdQuick('');
+  $('#prodSearch').addEventListener('input',e=>renderProdQuick(e.target.value));
+  $('#fVat')?.addEventListener('input',e=>{state.vatRate=+e.target.value||0;updateLive()});
+  $('#fSellPrice')?.addEventListener('input',e=>{state.sellingPrice=+e.target.value||0;updateLive()});
+  $('#fTargetMargin')?.addEventListener('input',e=>{state.targetMargin=+e.target.value||0;updateLive()});
+  updateLive();
+}
+
+function renderCostRows(){
+  const host=$('#costRows');if(!host)return;
+  host.innerHTML='';
+  const S=SECTORS[state.sector];
+  state.costs.forEach((c,i)=>{
+    const el=document.createElement('div');el.className='cost-row';el.dataset.id=c.id;el.draggable=true;
+    el.innerHTML=`
+      <select class="fld" data-f="cat">${S.categories.map(cat=>`<option ${cat===c.cat?'selected':''}>${cat}</option>`).join('')}</select>
+      <input type="text" class="fld" data-f="desc" value="${c.desc}">
+      <input type="number" step="0.01" class="fld" data-f="qty" value="${c.qty}">
+      <input type="text" class="fld" data-f="unit" value="${c.unit}">
+      <input type="number" step="0.01" class="fld" data-f="unitCost" value="${c.unitCost}">
+      <span class="tot mono">${money(c.qty*c.unitCost)}</span>
+      <button class="del" onclick="removeCost('${c.id}')" aria-label="Remove row">×</button>`;
+    el.querySelectorAll('[data-f]').forEach(inp=>inp.addEventListener('input',e=>{
+      const f=e.target.dataset.f;c[f]=f==='qty'||f==='unitCost'?+e.target.value||0:e.target.value;
+      el.querySelector('.tot').textContent=money(c.qty*c.unitCost);
+      updateLive();
+    }));
+    // drag/drop
+    el.addEventListener('dragstart',()=>el.classList.add('dragging'));
+    el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+    el.addEventListener('dragover',e=>{e.preventDefault();const dragging=document.querySelector('.cost-row.dragging');if(!dragging||dragging===el)return;const rect=el.getBoundingClientRect();const after=e.clientY-rect.top>rect.height/2;host.insertBefore(dragging,after?el.nextSibling:el)});
+    el.addEventListener('drop',()=>{
+      const newOrder=[...host.querySelectorAll('.cost-row')].map(r=>r.dataset.id);
+      state.costs.sort((a,b)=>newOrder.indexOf(a.id)-newOrder.indexOf(b.id));
+      updateLive();
+    });
+    host.appendChild(el);
+  });
+  $('#subtotal').textContent=money(totalCost());
+}
+window.addCostRow=()=>{const S=SECTORS[state.sector];state.costs.push({id:uid(),cat:S.categories[0],desc:'New cost',qty:1,unit:'unit',unitCost:0});renderCostRows();updateLive()};
+window.removeCost=id=>{const row=document.querySelector(`.cost-row[data-id="${id}"]`);if(row)row.classList.add('out');setTimeout(()=>{state.costs=state.costs.filter(c=>c.id!==id);renderCostRows();updateLive()},240)};
+window.setMode=m=>{state.priceMode=m;renderMid()};
+window.newCalc=()=>{state.costs=SECTOR_COSTS[state.sector].map(c=>({...c,id:uid()}));state.sellingPrice=+(totalCost()/(1-0.4)).toFixed(2);renderMid()};
+
+function renderProdQuick(q){
+  const host=$('#prodQuick');if(!host)return;
+  const list=state.products.filter(p=>!q||p.name.toLowerCase().includes(q.toLowerCase())).slice(0,6);
+  host.innerHTML=list.map(p=>`<div class="prod" onclick="loadProduct('${p.id}')"><div><div class="n">${p.name}</div><div class="c">${p.category}</div></div><div class="m"><span class="pill ${p.margin<20?'bad':p.margin<35?'warn':p.margin<50?'ok':'exc'}">${Math.round(p.margin)}%</span></div></div>`).join('')||'<div style="color:var(--text-3);font-size:11px;padding:6px">No products match.</div>';
+}
+window.loadProduct=id=>{const p=state.products.find(x=>x.id===id);if(!p)return;state.costs=p.costs.map(c=>({...c,id:uid()}));state.sellingPrice=p.price;state.priceMode='price';renderMid()};
+
+function renderProductsList(host){
+  host.innerHTML=`
+    <input type="text" class="fld prod-search" id="pListSearch" placeholder="Search products...">
+    <button class="btn primary" style="width:100%;margin-bottom:12px" onclick="openModal('mProd')">+ New product</button>
+    <div class="prod-list" id="pListHost"></div>`;
+  renderProdFullList('');
+  $('#pListSearch').addEventListener('input',e=>renderProdFullList(e.target.value));
+}
+function renderProdFullList(q){
+  const host=$('#pListHost');
+  const list=state.products.filter(p=>!q||p.name.toLowerCase().includes(q.toLowerCase()));
+  host.innerHTML=list.map(p=>`<div class="prod" onclick="loadProductAndGo('${p.id}')"><div><div class="n">${p.name}</div><div class="c">${p.category} · ${fmtDate(p.created)}</div></div><div class="m"><div class="mp">${moneyShort(p.price)}</div><span class="pill ${p.margin<20?'bad':p.margin<35?'warn':p.margin<50?'ok':'exc'}">${Math.round(p.margin)}%</span></div></div>`).join('')||'<div style="color:var(--text-3);font-size:12px;padding:12px;text-align:center">No products.</div>';
+}
+window.loadProductAndGo=id=>{loadProduct(id);state.tab='calc';renderAll()};
+
+/* ========= MAIN (RIGHT PANEL) ========= */
+function renderMain(){
+  const host=$('#mainBody');const hd=$('#mainHd');
+  if(state.tab==='calc'){hd.innerHTML=`<h1>Results</h1><div><button class="btn sm" onclick="openShare()">↗ Share</button></div>`;renderResults(host)}
+  else if(state.tab==='products'){hd.innerHTML=`<h1>Products Library</h1>`;renderProductsDetail(host)}
+  else if(state.tab==='dashboard'){hd.innerHTML=`<h1>Dashboard</h1>`;renderDashboard(host)}
+  else if(state.tab==='history'){hd.innerHTML=`<h1>History</h1><div><button class="btn sm" onclick="exportHistory()">Export CSV</button></div>`;renderHistory(host)}
+  else if(state.tab==='settings'){hd.innerHTML=`<h1>Settings</h1>`;renderSettings(host)}
+}
+
+function renderResults(host){
+  host.innerHTML=`
+    <div class="hero">
+      <div class="label">Profit margin</div>
+      <div class="pct mono" id="heroPct">0%</div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="l">Margin (€)</div><div class="v" id="sMEur">—</div></div>
+        <div class="hero-stat"><div class="l">Price excl. tax</div><div class="v" id="sPrice">—</div></div>
+        <div class="hero-stat"><div class="l">Price incl. tax</div><div class="v" id="sPriceVat">—</div></div>
+        <div class="hero-stat"><div class="l">Total cost</div><div class="v" id="sTc">—</div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Cost Breakdown</h3>
+      <div class="stack-bar" id="stackBar"></div>
+      <div class="legend" id="legend"></div>
+      <table class="t"><thead><tr><th>Category</th><th style="text-align:right">Amount</th><th style="text-align:right">% of total</th></tr></thead><tbody id="breakTbody"></tbody></table>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Scenario Comparison</h3>
+      <div class="scen">
+        <div class="scen-card bad"><div class="h">Pessimistic</div><label>Units/month</label><input type="number" class="fld" id="volBad" value="${state.volumes.bad}"><div id="scenBad" style="margin-top:10px"></div></div>
+        <div class="scen-card mid"><div class="h">Realistic</div><label>Units/month</label><input type="number" class="fld" id="volMid" value="${state.volumes.mid}"><div id="scenMid" style="margin-top:10px"></div></div>
+        <div class="scen-card good"><div class="h">Optimistic</div><label>Units/month</label><input type="number" class="fld" id="volGood" value="${state.volumes.good}"><div id="scenGood" style="margin-top:10px"></div></div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Break-even Analysis</h3>
+      <div class="chart-host"><canvas id="beChart"></canvas></div>
+      <div class="be-stats" id="beStats"></div>
+    </div>
+    <div class="card">
+      <h3>Recommendations</h3>
+      <div id="recs"></div>
+    </div>
+  `;
+  ['volBad','volMid','volGood'].forEach((id,i)=>{
+    const key=['bad','mid','good'][i];
+    document.getElementById(id).addEventListener('input',e=>{state.volumes[key]=+e.target.value||0;renderScenarios();renderBreakEven()});
+  });
+  updateLive();
+}
+
+let _lastPct=0;
+function updateLive(flash){
+  const {tc,price,marginEur,marginPct,priceVat}=computeMargin();
+  // Update mid panel
+  const sp=$('#fSellPrice');if(sp&&state.priceMode==='margin')sp.value=price.toFixed(2);
+  const tm=$('#fTargetMargin');if(tm&&state.priceMode==='price')tm.value=marginPct.toFixed(1);
+  const pv=$('#fPriceVat');if(pv)pv.value=money(priceVat);
+  const st=$('#subtotal');if(st)st.textContent=money(tc);
+  // Hero
+  const heroPct=$('#heroPct');
+  if(heroPct){
+    heroPct.textContent=marginPct.toFixed(1)+'%';
+    heroPct.className='pct mono '+marginClass(marginPct);
+  }
+  $('#sMEur')&&($('#sMEur').textContent=money(marginEur));
+  $('#sPrice')&&($('#sPrice').textContent=money(price));
+  $('#sPriceVat')&&($('#sPriceVat').textContent=money(priceVat));
+  $('#sTc')&&($('#sTc').textContent=money(tc));
+  renderBreakdown();
+  renderScenarios();
+  renderBreakEven();
+  renderRecs();
+}
+
+function renderBreakdown(){
+  const stack=$('#stackBar');if(!stack)return;
+  const S=SECTORS[state.sector];const totals=categoryTotals();
+  const tc=Object.values(totals).reduce((a,b)=>a+b,0);
+  stack.innerHTML='';const legend=$('#legend');legend.innerHTML='';const tbody=$('#breakTbody');tbody.innerHTML='';
+  Object.entries(totals).forEach(([cat,v],i)=>{
+    if(v<=0)return;
+    const pct=tc?v/tc*100:0;const col=S.colors[i%S.colors.length];
+    const seg=document.createElement('div');seg.className='stack-seg';seg.style.background=col;seg.style.width='0%';seg.textContent=pct>10?pct.toFixed(0)+'%':'';
+    stack.appendChild(seg);
+    setTimeout(()=>seg.style.width=pct+'%',30);
+    const l=document.createElement('div');l.className='leg';l.innerHTML=`<span class="dot" style="background:${col}"></span><span>${cat}</span><span style="margin-left:auto;font-weight:600">${money(v)}</span>`;
+    legend.appendChild(l);
+    const tr=document.createElement('tr');tr.innerHTML=`<td><span class="dot" style="background:${col}"></span>${cat}</td><td style="text-align:right" class="mono">${money(v)}</td><td style="text-align:right" class="mono">${pct.toFixed(1)}%</td>`;
+    tbody.appendChild(tr);
+  });
+  const totTr=document.createElement('tr');totTr.className='total';totTr.innerHTML=`<td>Total</td><td style="text-align:right" class="mono">${money(tc)}</td><td style="text-align:right">100%</td>`;tbody.appendChild(totTr);
+}
+
+function renderScenarios(){
+  const {tc,price,marginEur}=computeMargin();
+  ['bad','mid','good'].forEach(k=>{
+    const host=document.getElementById('scen'+k[0].toUpperCase()+k.slice(1));if(!host)return;
+    const v=state.volumes[k];
+    const rev=price*v,tot=tc*v,prof=marginEur*v;
+    const be=marginEur>0?Math.ceil(tc/(marginEur)):'∞';
+    host.innerHTML=`<div class="row"><span class="l">Revenue</span><span class="v">${money(rev)}</span></div><div class="row"><span class="l">Total costs</span><span class="v">${money(tot)}</span></div><div class="row"><span class="l">Net profit</span><span class="v" style="color:${prof>=0?'var(--ok)':'var(--err)'}">${money(prof)}</span></div><div class="row"><span class="l">Break-even</span><span class="v">${be} units</span></div>`;
+  });
+}
+
+function renderBreakEven(){
+  const ctx=document.getElementById('beChart');if(!ctx)return;
+  const {tc,price,marginEur}=computeMargin();
+  const maxU=Math.max(state.volumes.good,marginEur>0?Math.ceil(tc/marginEur)*2:100);
+  const labels=[];const rev=[];const costs=[];
+  const fixedCost=tc;
+  for(let u=0;u<=maxU;u+=Math.max(1,Math.floor(maxU/20))){labels.push(u);rev.push(+(price*u).toFixed(0));costs.push(+(fixedCost+((tc-fixedCost)/1)*u).toFixed(0))}
+  const accent=SECTORS[state.sector].accent;
+  if(state.charts.be)state.charts.be.destroy();
+  state.charts.be=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Revenue',data:rev,borderColor:accent,backgroundColor:accent+'22',tension:.1,pointRadius:0,fill:false},
+    {label:'Cost',data:labels.map(u=>tc*u),borderColor:'#FF453A',tension:.1,pointRadius:0,borderDash:[4,4]}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},scales:{x:{title:{display:true,text:'Units',font:{size:10}},ticks:{color:'rgba(128,128,128,.7)'}},y:{ticks:{callback:v=>'€'+Math.round(v/1000)+'k',color:'rgba(128,128,128,.7)'}}}}});
+  const beU=marginEur>0?Math.ceil(tc/marginEur):0;
+  const beRev=beU*price;
+  const dailyAvg=state.volumes.mid/30;
+  const days=dailyAvg>0?Math.ceil(beU/dailyAvg):'∞';
+  $('#beStats').innerHTML=`<div class="be-stat"><div class="l">Units to break even</div><div class="v">${beU}</div></div><div class="be-stat"><div class="l">Revenue needed</div><div class="v">${moneyShort(beRev)}</div></div><div class="be-stat"><div class="l">Days (est.)</div><div class="v">${days}</div></div>`;
+}
+
+function renderRecs(){
+  const host=$('#recs');if(!host)return;
+  const {marginPct}=computeMargin();
+  const S=SECTORS[state.sector];
+  const totals=categoryTotals();
+  const topCat=Object.entries(totals).sort((a,b)=>b[1]-a[1])[0];
+  let recs=[];
+  if(marginPct<20){
+    recs.push({cls:'danger',ic:'⚠️',b:`<strong>Margin too low (${marginPct.toFixed(1)}%).</strong> Your highest cost is <strong>${topCat[0]}</strong> at ${money(topCat[1])}. Consider renegotiating suppliers or streamlining this category.`});
+    recs.push({cls:'danger',ic:'🎯',b:`<strong>Reprice:</strong> at current costs, a selling price of <strong>${moneyShort(totalCost()/0.65)}</strong> would bring you to a 35% margin.`});
+    recs.push({cls:'warn',ic:'📉',b:`<strong>Check volume:</strong> with thin margins, you need higher volumes to be sustainable. Target at least <strong>${Math.ceil(totalCost()/(computeMargin().marginEur||1)*1.5)} units/month</strong>.`});
+  }else if(marginPct<35){
+    recs.push({cls:'warn',ic:'⚡',b:`<strong>Acceptable margin (${marginPct.toFixed(1)}%).</strong> There is room to optimize — look at <strong>${topCat[0]}</strong> which represents ${(topCat[1]/totalCost()*100).toFixed(0)}% of your costs.`});
+    recs.push({cls:'warn',ic:'💡',b:`<strong>Upsell opportunity:</strong> consider a premium variant at 15-20% higher price with minimal cost uplift to push overall margin above 40%.`});
+    recs.push({cls:'ok',ic:'📊',b:`<strong>Volume strategy:</strong> your current price is competitive — focus on driving units rather than raising prices.`});
+  }else if(marginPct<50){
+    recs.push({cls:'ok',ic:'✅',b:`<strong>Good margin (${marginPct.toFixed(1)}%).</strong> You are in a healthy zone — focus on retention and consistency.`});
+    recs.push({cls:'ok',ic:'🚀',b:`<strong>Scale safely:</strong> you can afford small marketing investment (5-8% of revenue) without hurting profitability.`});
+    recs.push({cls:'ok',ic:'🎁',b:`<strong>Loyalty:</strong> margin allows for occasional complimentary ${S.productsLabel.toLowerCase()} for top clients without impact.`});
+  }else{
+    recs.push({cls:'ok',ic:'🏆',b:`<strong>Excellent margin (${marginPct.toFixed(1)}%).</strong> Strong pricing position — consider volume pricing or bundle strategies to capture more market share.`});
+    recs.push({cls:'ok',ic:'💰',b:`<strong>Reinvest:</strong> high margin is a lever — consider premium positioning, exclusive offerings, or expanded service scope.`});
+    recs.push({cls:'ok',ic:'⚠️',b:`<strong>Competition risk:</strong> margins above 50% attract competitors. Build moats: brand, experience, service quality.`});
+  }
+  host.innerHTML=recs.map(r=>`<div class="rec ${r.cls}"><div class="ic">${r.ic}</div><div class="b">${r.b}</div></div>`).join('');
+}
+
+/* ========= PRODUCTS DETAIL ========= */
+function renderProductsDetail(host){
+  host.innerHTML=`<div class="card"><h3>All Products <span class="sub">${state.products.length} items</span></h3>
+    <table class="t"><thead><tr><th>Product</th><th>Category</th><th style="text-align:right">Price</th><th style="text-align:right">Cost</th><th style="text-align:right">Margin</th><th>Created</th></tr></thead><tbody>
+    ${state.products.map(p=>{const tc=p.costs.reduce((s,c)=>s+c.qty*c.unitCost,0);return `<tr style="cursor:pointer" onclick="loadProductAndGo('${p.id}')"><td><strong>${p.name}</strong></td><td>${p.category}</td><td class="mono" style="text-align:right">${money(p.price)}</td><td class="mono" style="text-align:right">${money(tc)}</td><td style="text-align:right"><span class="pill ${p.margin<20?'bad':p.margin<35?'warn':p.margin<50?'ok':'exc'}">${Math.round(p.margin)}%</span></td><td>${fmtDate(p.created)}</td></tr>`}).join('')}
+    </tbody></table></div>`;
+}
+
+/* ========= DASHBOARD ========= */
+function renderDashboard(host){
+  const all=state.products;
+  const avg=all.reduce((s,p)=>s+p.margin,0)/all.length;
+  const sorted=all.slice().sort((a,b)=>b.margin-a.margin);
+  const best=sorted[0],worst=sorted[sorted.length-1];
+  const now=new Date();const m=new Date(now.getFullYear(),now.getMonth(),1);
+  const calcThisMonth=state.history.filter(h=>h.date>=m).length;
+  host.innerHTML=`
+    <div class="kgrid">
+      <div class="kcard"><div class="l">Avg Margin</div><div class="v">${avg.toFixed(1)}%</div><div class="d">Across all products</div></div>
+      <div class="kcard"><div class="l">Best Margin</div><div class="v" style="color:var(--ok)">${Math.round(best.margin)}%</div><div class="d">${best.name}</div></div>
+      <div class="kcard"><div class="l">Worst Margin</div><div class="v" style="color:var(--err)">${Math.round(worst.margin)}%</div><div class="d">${worst.name}</div></div>
+      <div class="kcard"><div class="l">Calculations</div><div class="v">${calcThisMonth}</div><div class="d">This month</div></div>
+    </div>
+    <div class="grid2" style="margin-bottom:18px">
+      <div class="card"><h3>Margin Distribution</h3><div class="chart-host"><canvas id="dashHist"></canvas></div></div>
+      <div class="card"><h3>Top 10 by Margin</h3><div class="chart-host"><canvas id="dashTop"></canvas></div></div>
+    </div>
+    <div class="card">
+      <h3>Products Below Target <span class="sub">Target: <input type="number" class="fld" id="targetInput" value="${state.targetMarginGoal}" style="width:80px;display:inline-block"> %</span></h3>
+      <table class="t"><thead><tr><th>Product</th><th style="text-align:right">Margin</th><th style="text-align:right">Gap</th></tr></thead><tbody id="belowTbody"></tbody></table>
+    </div>`;
+  setTimeout(()=>{
+    const accent=SECTORS[state.sector].accent;
+    const bins=[0,10,20,30,40,50,60,70,80];const binLabels=bins.slice(0,-1).map((b,i)=>`${b}-${bins[i+1]}%`);
+    const counts=binLabels.map(()=>0);
+    all.forEach(p=>{for(let i=0;i<bins.length-1;i++)if(p.margin>=bins[i]&&p.margin<bins[i+1]){counts[i]++;break}});
+    if(state.charts.dHist)state.charts.dHist.destroy();
+    state.charts.dHist=new Chart($('#dashHist'),{type:'bar',data:{labels:binLabels,datasets:[{data:counts,backgroundColor:accent+'cc',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9}}},y:{beginAtZero:true,ticks:{precision:0}}}}});
+    const top=sorted.slice(0,10);
+    if(state.charts.dTop)state.charts.dTop.destroy();
+    state.charts.dTop=new Chart($('#dashTop'),{type:'bar',data:{labels:top.map(p=>p.name),datasets:[{data:top.map(p=>p.margin),backgroundColor:accent,borderRadius:6}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{callback:v=>v+'%'}}}}});
+  },50);
+  renderBelow();
+  $('#targetInput').addEventListener('input',e=>{state.targetMarginGoal=+e.target.value||0;renderBelow()});
+}
+function renderBelow(){
+  const host=$('#belowTbody');if(!host)return;
+  const below=state.products.filter(p=>p.margin<state.targetMarginGoal).sort((a,b)=>a.margin-b.margin);
+  host.innerHTML=below.map(p=>`<tr><td>${p.name}</td><td style="text-align:right"><span class="pill ${p.margin<20?'bad':'warn'}">${Math.round(p.margin)}%</span></td><td style="text-align:right" class="mono">${(state.targetMarginGoal-p.margin).toFixed(1)}%</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--text-3);padding:20px">All products above target 🎉</td></tr>';
+}
+
+/* ========= HISTORY ========= */
+function renderHistory(host){
+  host.innerHTML=`<div class="card">
+    <div style="display:flex;gap:10px;margin-bottom:14px">
+      <input type="date" class="fld" id="hFrom" style="flex:1">
+      <input type="date" class="fld" id="hTo" style="flex:1">
+      <button class="btn sm" onclick="renderHistory($('#mainBody'))">Filter</button>
+    </div>
+    <table class="t"><thead><tr><th>Date</th><th>Product</th><th style="text-align:right">Price</th><th style="text-align:right">Cost</th><th style="text-align:right">Margin</th><th>Saved</th></tr></thead><tbody>
+    ${state.history.map(h=>`<tr style="cursor:pointer" onclick="loadHistory('${h.id}')"><td>${fmtDate(h.date)}</td><td>${h.productName}</td><td class="mono" style="text-align:right">${money(h.price)}</td><td class="mono" style="text-align:right">${money(h.totalCost)}</td><td style="text-align:right"><span class="pill ${h.margin<20?'bad':h.margin<35?'warn':h.margin<50?'ok':'exc'}">${Math.round(h.margin)}%</span></td><td>${h.saved?'✓':'—'}</td></tr>`).join('')}
+    </tbody></table></div>`;
+}
+window.loadHistory=id=>{const h=state.history.find(x=>x.id===id);if(!h)return;const p=state.products.find(x=>x.id===h.productId);if(p)loadProduct(p.id);state.sellingPrice=h.price;state.tab='calc';renderAll()};
+window.exportHistory=()=>{const rows=[['Date','Product','Price','Cost','Margin %','Saved']].concat(state.history.map(h=>[h.date.toISOString(),h.productName,h.price.toFixed(2),h.totalCost.toFixed(2),h.margin.toFixed(2),h.saved?'Yes':'No']));const csv=rows.map(r=>r.map(x=>`"${(x+'').replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`history-${state.sector}-${Date.now()}.csv`;a.click()};
+
+/* ========= SETTINGS ========= */
+function renderSettings(host){
+  host.innerHTML=`
+    <div class="card" style="margin-bottom:14px">
+      <h3>Default Values</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div><label>Default VAT rate (%)</label><input type="number" class="fld" id="sVat" value="${state.defaultVat}"></div>
+        <div><label>Target margin goal (%)</label><input type="number" class="fld" id="sTarget" value="${state.targetMarginGoal}"></div>
+        <div><label>Default labor cost (€/hr)</label><input type="number" class="fld" id="sLabor" value="${state.defaultLaborCost}"></div>
+        <div><label>Currency</label><select class="fld"><option>EUR (€)</option><option>USD ($)</option><option>GBP (£)</option></select></div>
+      </div>
+      <button class="btn primary" style="margin-top:12px" onclick="saveSettings()">Save Defaults</button>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <h3>Sector Templates</h3>
+      <p style="font-size:12px;color:var(--text-2);margin-bottom:10px">Pre-filled cost categories and products for <strong>${state.sector}</strong>.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${SECTORS[state.sector].categories.map(c=>`<span class="pill exc">${c}</span>`).join('')}</div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <h3>Export</h3>
+      <button class="btn" onclick="exportProducts()">Export all products (CSV)</button>
+      <button class="btn" style="margin-left:6px" onclick="exportHistory()">Export history (CSV)</button>
+      <button class="btn" style="margin-left:6px" onclick="window.print()">Print current calculation</button>
+    </div>
+    <div class="card">
+      <h3>Theme</h3>
+      <button class="btn" onclick="toggleTheme()">Toggle ${document.documentElement.dataset.theme==='dark'?'light':'dark'} mode</button>
+    </div>`;
+}
+window.saveSettings=()=>{state.defaultVat=+$('#sVat').value||0;state.targetMarginGoal=+$('#sTarget').value||0;state.defaultLaborCost=+$('#sLabor').value||0;state.vatRate=state.defaultVat;alert('Saved.')};
+window.exportProducts=()=>{const rows=[['Name','Category','Price','Cost','Margin %','Created']].concat(state.products.map(p=>{const tc=p.costs.reduce((s,c)=>s+c.qty*c.unitCost,0);return [p.name,p.category,p.price.toFixed(2),tc.toFixed(2),p.margin.toFixed(2),p.created.toISOString()]}));const csv=rows.map(r=>r.map(x=>`"${(x+'').replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`products-${state.sector}-${Date.now()}.csv`;a.click()};
+window.toggleTheme=()=>{const d=document.documentElement;d.dataset.theme=d.dataset.theme==='light'?'dark':'light';$('#themeBtn').textContent=d.dataset.theme==='light'?'🌙':'☀️';renderMain()};
+
+/* ========= MODALS ========= */
+window.openModal=id=>{
+  if(id==='mSave'){const S=SECTORS[state.sector];$('#sCat').innerHTML=S.categories.map(c=>`<option>${c}</option>`).join('')}
+  if(id==='mProd'){const S=SECTORS[state.sector];$('#pCat').innerHTML=S.categories.map(c=>`<option>${c}</option>`).join('')}
+  $('#'+id).classList.add('open');
+};
+window.closeModal=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+$('#saveBtn').addEventListener('click',()=>openModal('mSave'));
+$('#sSubmit').addEventListener('click',()=>{
+  const n=$('#sName').value.trim();if(!n)return alert('Name required');
+  const {tc,price,marginPct}=computeMargin();
+  state.products.unshift({id:uid(),name:n,category:$('#sCat').value,costs:state.costs.map(c=>({...c})),price,margin:marginPct,notes:$('#sNotes').value,created:new Date()});
+  state.history.unshift({id:uid(),date:new Date(),productId:state.products[0].id,productName:n,price,totalCost:tc,margin:marginPct,saved:true});
+  closeModal('mSave');$('#sName').value='';$('#sNotes').value='';alert('Saved to library.');renderAll();
+});
+$('#pSubmit').addEventListener('click',()=>{
+  const n=$('#pName').value.trim();if(!n)return alert('Name required');
+  const pre=$('#pTpl').checked;
+  const costs=pre?SECTOR_COSTS[state.sector].map(c=>({...c,id:uid()})):[];
+  state.costs=costs;state.sellingPrice=+(totalCost()/(1-0.4)).toFixed(2);state.priceMode='price';
+  state.products.unshift({id:uid(),name:n,category:$('#pCat').value,costs:costs.map(c=>({...c})),price:state.sellingPrice,margin:40,notes:$('#pDesc').value,created:new Date()});
+  closeModal('mProd');$('#pName').value='';$('#pDesc').value='';state.tab='calc';renderAll();
+});
+
+window.openShare=()=>{
+  const {tc,price,marginPct,priceVat}=computeMargin();
+  const S=SECTORS[state.sector];const totals=categoryTotals();
+  $('#shareCard').innerHTML=`<div style="font-size:14px;font-weight:700;margin-bottom:10px">Margin Calculation Summary</div>
+    <div style="font-size:11px;color:var(--text-3);margin-bottom:14px">${fmtDate(new Date())} · ${state.sector}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+      <div><div style="color:var(--text-3);font-size:10px;text-transform:uppercase">Price (excl. tax)</div><div class="mono" style="font-weight:600">${money(price)}</div></div>
+      <div><div style="color:var(--text-3);font-size:10px;text-transform:uppercase">Price (incl. tax)</div><div class="mono" style="font-weight:600">${money(priceVat)}</div></div>
+      <div><div style="color:var(--text-3);font-size:10px;text-transform:uppercase">Total cost</div><div class="mono" style="font-weight:600">${money(tc)}</div></div>
+      <div><div style="color:var(--text-3);font-size:10px;text-transform:uppercase">Margin</div><div class="mono" style="font-weight:700;color:var(--accent)">${marginPct.toFixed(1)}%</div></div>
+    </div>
+    <hr style="margin:14px 0;border:0;border-top:1px solid var(--border)">
+    <div style="font-size:11px;color:var(--text-3);text-transform:uppercase;margin-bottom:6px">Cost Breakdown</div>
+    ${Object.entries(totals).filter(([,v])=>v>0).map(([c,v])=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:2px 0"><span>${c}</span><span class="mono">${money(v)}</span></div>`).join('')}`;
+  openModal('mShare');
+};
+window.copyShare=()=>{const t=$('#shareCard').innerText;navigator.clipboard.writeText(t);alert('Copied to clipboard.')};
+window.downloadShare=()=>{const blob=new Blob([$('#shareCard').outerHTML],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`margin-summary-${Date.now()}.html`;a.click()};
+
+/* ========= EVENTS ========= */
+$('#sector').addEventListener('change',e=>{state.sector=e.target.value;applySector()});
+$('#themeBtn').addEventListener('click',toggleTheme);
+
+applySector();
+</script>
+</body>
+</html>
