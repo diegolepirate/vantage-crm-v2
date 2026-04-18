@@ -1031,6 +1031,81 @@
     color: #2a5fb4;
     margin-top: .4rem;
   }
+
+  /* ═══════════════════════════════════════
+     FOOTER — links + locations + giant wordmark
+  ═══════════════════════════════════════ */
+  .v-foot {
+    background: #FAF4E6;
+    color: #2a5fb4;
+    padding: 5rem 4vw 2.5rem;
+    border-top: 1px solid rgba(42,95,180,.25);
+  }
+  .v-foot-top {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .v-foot-links {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.05rem;
+  }
+  .v-foot-links a { color: #2a5fb4; }
+  .v-foot-links a:hover { text-decoration: underline; }
+
+  .v-foot-locations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .v-foot-card {
+    border: 1px solid rgba(42,95,180,.35);
+    padding: 1.4rem 1.4rem 1.6rem;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+  }
+  .v-foot-card-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #2a5fb4;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+  }
+  .v-foot-card-body {
+    font-family: 'Courier New', monospace;
+    font-size: .92rem;
+    line-height: 1.55;
+    color: #2a5fb4;
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+  }
+
+  .v-foot-word {
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 700;
+    font-size: clamp(7rem, 26vw, 26rem);
+    line-height: .85;
+    color: #2a5fb4;
+    letter-spacing: -.02em;
+    margin-top: 3rem;
+    text-align: center;
+    user-select: none;
+  }
+
+  @media (max-width: 1100px) {
+    .v-foot-top { grid-template-columns: 1fr; gap: 2.5rem; }
+    .v-foot-locations { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .v-foot-locations { grid-template-columns: 1fr; }
+  }
   </style>
 </head>
 <body>
@@ -1492,6 +1567,118 @@
       <span class="script">choose the best</span>
     </h2>
   </section>
+
+  <!-- FOOTER — socials + legal + 8 locations + giant VANTAGE wordmark -->
+  <footer class="v-foot">
+    <div class="v-foot-top">
+      <nav class="v-foot-links" aria-label="Socials">
+        <a href="#">Linkedin</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Youtube</a>
+      </nav>
+
+      <nav class="v-foot-links" aria-label="Legal">
+        <a href="#">À propos</a>
+        <a href="#">Groupe &amp; Privatisation</a>
+        <a href="#">Recrutement</a>
+        <a href="#">FAQ</a>
+        <a href="#">CGV</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </nav>
+
+      <div class="v-foot-locations">
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">Santorin Vantage</h3>
+          <div class="v-foot-card-body">
+            <span>14 Avenue Matignon</span>
+            <span>Paris 8</span>
+            <span>&nbsp;</span>
+            <span>Lundi - Dimanche | 12h-1h</span>
+            <span>&nbsp;</span>
+            <span>+33 1 42 66 55 01</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">Ithaque</h3>
+          <div class="v-foot-card-body">
+            <span>3 Rue de Rivoli</span>
+            <span>Paris 4</span>
+            <span>&nbsp;</span>
+            <span>Lundi - Dimanche | 12h-01h</span>
+            <span>&nbsp;</span>
+            <span>+33 1 45 87 22 14</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">Mykonos Vantage</h3>
+          <div class="v-foot-card-body">
+            <span>56 Rue du Faubourg Saint-Honoré</span>
+            <span>Paris 8</span>
+            <span>&nbsp;</span>
+            <span>Du lundi au samedi, de midi à minuit, cuisine fermée entre 14h et 19h</span>
+            <span>&nbsp;</span>
+            <span>+33 1 47 20 09 12</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">Corfou</h3>
+          <div class="v-foot-card-body">
+            <span>118 Boulevard Haussmann</span>
+            <span>Paris 9</span>
+            <span>&nbsp;</span>
+            <span>Mardi - Samedi | 12h-00h</span>
+            <span>&nbsp;</span>
+            <span>+33 1 48 74 55 30</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">VANTAGE R.</h3>
+          <div class="v-foot-card-body">
+            <span>22 Rue de Turenne</span>
+            <span>Paris 3</span>
+            <span>&nbsp;</span>
+            <span>Mercredi, jeudi, vendredi 17h – 23h | Samedi 12h-23h | Dimanche 12h-20h</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">VANTAGE W.</h3>
+          <div class="v-foot-card-body">
+            <span>22 Rue de Turenne</span>
+            <span>Paris 3</span>
+            <span>&nbsp;</span>
+            <span>Ouvert sur privatisation</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">VANTAGE SPACE</h3>
+          <div class="v-foot-card-body">
+            <span>45 Quai de Valmy</span>
+            <span>Paris 10</span>
+          </div>
+        </article>
+
+        <article class="v-foot-card">
+          <h3 class="v-foot-card-title">LE LAB'</h3>
+          <div class="v-foot-card-body">
+            <span>45 Quai de Valmy</span>
+            <span>Paris 10</span>
+            <span>&nbsp;</span>
+            <span>Ouvert pendant les cours et sur privatisation</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="v-foot-word" aria-hidden="true">VANTAGE</div>
+  </footer>
 
   <script>
     /* Talents carousel — photo + info synced */
