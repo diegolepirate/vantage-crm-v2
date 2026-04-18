@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking System</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-primary:#F2F2F7;--bg-secondary:#FFFFFF;--bg-tertiary:#F2F2F7;
+  --label-primary:#000000;--label-secondary:rgba(60,60,67,.6);--label-tertiary:rgba(60,60,67,.3);
+  --separator:rgba(60,60,67,.12);--fill-primary:rgba(120,120,128,.2);--fill-secondary:rgba(120,120,128,.16);--fill-tertiary:rgba(118,118,128,.12);
+  --system-blue:#007AFF;--system-green:#34C759;--system-red:#FF3B30;--system-orange:#FF9500;--system-yellow:#FFCC00;--system-purple:#AF52DE;--system-pink:#FF2D55;--system-gray:#8E8E93;
+  --accent:#FF9500;--accent-soft:rgba(255,149,0,.14);--blob-op:.05;
+}
+html[data-theme="dark"]{--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--label-primary:#FFFFFF;--label-secondary:rgba(235,235,245,.6);--label-tertiary:rgba(235,235,245,.3);--separator:rgba(84,84,88,.6);--fill-primary:rgba(120,120,128,.36);--fill-secondary:rgba(120,120,128,.32);--fill-tertiary:rgba(118,118,128,.24);--blob-op:.08}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{background:var(--bg-primary);color:var(--label-primary);font-size:14px;letter-spacing:-.01em;overflow:hidden;height:100vh;transition:background .3s,color .3s}
+button{cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font-size:14px;font-family:inherit}
+.mono{font-variant-numeric:tabular-nums;font-feature-settings:'tnum','ss01','cv01'}
+
+/* BLOBS */
+.blob{position:fixed;pointer-events:none;z-index:0;filter:blur(80px);opacity:var(--blob-op);will-change:transform,border-radius;background:var(--accent)}
+.blob-1{width:clamp(400px,45vw,600px);height:clamp(400px,45vw,600px);top:-10%;right:-8%;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;animation:blob1 25s ease-in-out infinite}
+.blob-2{width:clamp(320px,38vw,450px);height:clamp(320px,38vw,450px);bottom:-10%;left:-5%;border-radius:40% 60% 55% 45%/45% 45% 55% 55%;animation:blob2 30s ease-in-out infinite -8s}
+.blob-3{width:clamp(260px,28vw,350px);height:clamp(260px,28vw,350px);top:40%;right:20%;border-radius:50% 50% 40% 60%/30% 60% 40% 70%;animation:blob3 22s ease-in-out infinite -15s}
+@keyframes blob1{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;transform:translate(0,0) scale(1)}33%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(40px,-30px) scale(1.06)}66%{border-radius:40% 60% 30% 70%/40% 40% 60% 50%;transform:translate(-25px,20px) scale(.96)}}
+@keyframes blob2{0%,100%{border-radius:40% 60% 55% 45%/45% 45% 55% 55%;transform:translate(0,0) scale(1)}50%{border-radius:55% 45% 40% 60%/55% 40% 60% 45%;transform:translate(-35px,25px) scale(1.04)}}
+@keyframes blob3{0%,100%{border-radius:50% 50% 40% 60%/30% 60% 40% 70%;transform:translate(0,0) scale(1)}40%{border-radius:60% 40% 55% 45%/50% 35% 65% 45%;transform:translate(20px,35px) scale(.98)}}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+@media (max-width:900px){.blob{display:none}}
+
+/* TOPBAR */
+.topbar{height:52px;background:color-mix(in srgb,var(--bg-secondary) 85%,transparent);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--separator);display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:0 18px;gap:16px;position:relative;z-index:10}
+.tb-left{display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.14em}
+.logo .ldot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.biz-name{background:transparent;border:0;color:var(--label-primary);font-size:13px;font-weight:500;outline:none;padding:4px 8px;border-radius:6px;transition:background .15s;min-width:120px}
+.biz-name:hover,.biz-name:focus{background:var(--fill-tertiary)}
+.sector-select{background:var(--fill-tertiary);border:0;color:var(--label-primary);padding:6px 10px;border-radius:8px;font-size:13px;outline:none;cursor:pointer}
+.segmented{display:inline-flex;background:var(--fill-tertiary);border-radius:9px;padding:2px;gap:2px}
+.segmented button{padding:6px 14px;border-radius:7px;font-size:13px;font-weight:600;color:var(--label-secondary);transition:all .2s}
+.segmented button.active{background:var(--bg-secondary);color:var(--label-primary);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+html[data-theme="dark"] .segmented button.active{background:var(--fill-primary)}
+.tb-right{display:flex;align-items:center;gap:6px}
+.btn{background:var(--fill-tertiary);color:var(--label-primary);border-radius:10px;padding:7px 12px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:opacity .15s,transform .1s,box-shadow .2s;border:0}
+.btn:hover{opacity:.82}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px color-mix(in srgb,var(--accent) 50%,transparent)}
+.btn.primary:hover{filter:brightness(1.05);box-shadow:0 6px 22px -4px color-mix(in srgb,var(--accent) 55%,transparent)}
+.btn.secondary{background:var(--accent-soft);color:var(--accent)}
+.btn.danger{background:rgba(255,59,48,.12);color:var(--system-red)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.xs{padding:3px 8px;font-size:11px}
+.icon-btn{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--label-secondary);position:relative}
+.icon-btn:hover{background:var(--fill-tertiary);color:var(--label-primary)}
+.notif-dot{position:absolute;top:5px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--system-red)}
+.ios-toggle{position:relative;display:inline-block;width:42px;height:26px;cursor:pointer}
+.ios-toggle input{position:absolute;opacity:0;width:0;height:0}
+.ios-toggle-track{position:absolute;inset:0;background:rgba(120,120,128,.32);border-radius:100px;transition:background .2s}
+.ios-toggle input:checked+.ios-toggle-track{background:var(--accent)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s;pointer-events:none}
+.ios-toggle input:checked~.ios-toggle-thumb{transform:translateX(16px)}
+
+/* APP */
+.app{display:grid;grid-template-columns:240px 1fr;height:calc(100vh - 52px);position:relative;z-index:1}
+aside.sidebar{background:color-mix(in srgb,var(--bg-primary) 85%,transparent);backdrop-filter:blur(10px);border-right:1px solid var(--separator);padding:12px;display:flex;flex-direction:column;overflow-y:auto;gap:10px}
+aside.sidebar::-webkit-scrollbar{width:6px}
+aside.sidebar::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:3px}
+
+.mini-cal{background:var(--bg-secondary);border-radius:12px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .mini-cal{border:1px solid var(--separator);box-shadow:none}
+.mc-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.mc-hd .m{font-size:13px;font-weight:600}
+.mc-hd button{width:22px;height:22px;border-radius:6px;background:var(--fill-tertiary);font-size:11px}
+.mc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:11px}
+.mc-dow{text-align:center;color:var(--label-tertiary);font-weight:600;padding:3px 0;font-size:9px;text-transform:uppercase;letter-spacing:.04em}
+.mc-day{aspect-ratio:1;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;font-weight:500;transition:background .15s}
+.mc-day:hover{background:var(--fill-tertiary)}
+.mc-day.muted{color:var(--label-tertiary)}
+.mc-day.today{background:var(--accent);color:#fff;font-weight:700}
+.mc-day.selected{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.mc-dot{position:absolute;bottom:2px;width:3px;height:3px;border-radius:50%;background:var(--accent)}
+.mc-day.today .mc-dot{background:#fff}
+
+.side-box{background:var(--bg-secondary);border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .side-box{border:1px solid var(--separator);box-shadow:none}
+.side-box h4{font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px}
+.sb-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.sb-row .l{color:var(--label-secondary)}
+.sb-row .v{font-weight:600}
+
+.res-row{display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;cursor:pointer;transition:background .15s;font-size:12px}
+.res-row:hover{background:var(--fill-tertiary)}
+.res-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0}
+.res-row input{margin-left:auto;accent-color:var(--accent)}
+
+.fil-pills{display:flex;flex-direction:column;gap:3px}
+.fil-pill{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:7px;font-size:11px;color:var(--label-secondary);transition:all .15s;text-align:left}
+.fil-pill:hover{background:var(--fill-tertiary)}
+.fil-pill.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.fil-pill .dot{width:8px;height:8px;border-radius:50%}
+.fil-pill .dot.confirmed{background:var(--system-green)}
+.fil-pill .dot.pending{background:var(--system-orange)}
+.fil-pill .dot.cancelled{background:var(--system-gray)}
+.fil-pill .dot.noshow{background:var(--system-red)}
+.fil-pill .dot.completed{background:var(--system-blue)}
+
+main{overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:1}
+.main-hd{padding:16px 22px 8px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.main-hd h1{font-size:26px;font-weight:700;letter-spacing:-.025em;font-feature-settings:'ss01'}
+.main-hd .sub{color:var(--label-tertiary);font-size:12px;margin-top:2px}
+.main-body{flex:1;overflow:auto;padding:0 22px 30px}
+.main-body::-webkit-scrollbar{width:8px;height:8px}
+.main-body::-webkit-scrollbar-thumb{background:var(--fill-tertiary);border-radius:4px}
+
+/* CALENDAR */
+.cal-wrap{display:grid;grid-template-columns:1fr auto;gap:14px;height:calc(100vh - 140px)}
+.cal-wrap.with-detail{grid-template-columns:1fr 320px}
+.cal-container{background:var(--bg-secondary);border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:auto;display:flex;flex-direction:column}
+html[data-theme="dark"] .cal-container{border:1px solid var(--separator);box-shadow:none}
+
+/* Day view */
+.day-grid{display:grid;grid-template-columns:60px repeat(var(--cols,3),1fr);min-width:max-content}
+.day-hd{position:sticky;top:0;background:var(--bg-secondary);z-index:5;padding:10px 8px;text-align:center;border-bottom:1px solid var(--separator);border-left:1px solid var(--separator);font-size:11px;font-weight:600}
+.day-hd:first-child{border-left:0}
+.day-hd .rc{display:flex;align-items:center;justify-content:center;gap:6px}
+.day-hd .rc .dot{width:10px;height:10px;border-radius:50%}
+.day-hd .cnt{font-size:9px;color:var(--label-tertiary);margin-top:2px}
+.time-col{padding:8px 6px;font-size:10px;color:var(--label-tertiary);font-variant-numeric:tabular-nums;border-right:1px solid var(--separator);position:sticky;left:0;background:var(--bg-secondary);z-index:4}
+.slot{border-top:1px solid var(--separator);border-left:1px solid var(--separator);min-height:40px;padding:2px;position:relative;cursor:pointer;transition:background .15s}
+.slot:hover{background:var(--accent-soft)}
+.slot.now-line{position:relative}
+.slot.now-line::before{content:'';position:absolute;left:0;right:0;height:2px;background:var(--system-red);z-index:3;top:var(--now,0%);box-shadow:0 0 0 3px color-mix(in srgb,var(--system-red) 25%,transparent)}
+.booking{position:absolute;left:3px;right:3px;border-radius:10px;padding:6px 8px;font-size:11px;color:#fff;cursor:pointer;z-index:2;transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.1);animation:fadeup .3s}
+@keyframes fadeup{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.booking:hover{transform:scale(1.02);box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:3}
+.booking.pending{background:repeating-linear-gradient(45deg,var(--res-color,var(--accent)),var(--res-color,var(--accent)) 6px,color-mix(in srgb,var(--res-color,var(--accent)) 70%,#fff) 6px,color-mix(in srgb,var(--res-color,var(--accent)) 70%,#fff) 12px)}
+.booking.cancelled{opacity:.4;background:var(--system-gray);text-decoration:line-through}
+.booking.noshow{background:var(--system-gray);opacity:.7}
+.booking.noshow .bk-n{text-decoration:line-through}
+.booking.completed{background:var(--system-blue)}
+.booking .bk-n{font-weight:700}
+.booking .bk-s{font-size:10px;opacity:.9;margin-top:1px}
+.booking .bk-st{font-size:9px;position:absolute;top:4px;right:6px;background:rgba(255,255,255,.25);padding:1px 5px;border-radius:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.booking.selected{outline:3px solid #fff;outline-offset:-3px}
+
+/* Week view */
+.week-grid{display:grid;grid-template-columns:60px repeat(7,1fr);min-width:max-content}
+.week-hd{position:sticky;top:0;background:var(--bg-secondary);z-index:5;padding:8px 4px;text-align:center;border-bottom:1px solid var(--separator);border-left:1px solid var(--separator);font-size:11px;cursor:pointer}
+.week-hd.today{background:var(--accent-soft);color:var(--accent)}
+.week-hd .d{font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em}
+.week-hd .n{font-size:15px;font-weight:700;margin-top:2px}
+
+/* Month view */
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--separator);border-radius:12px;overflow:hidden;border:1px solid var(--separator);margin:8px}
+.month-hd-cell{background:var(--fill-tertiary);padding:8px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--label-tertiary);font-weight:600}
+.month-cell{background:var(--bg-secondary);min-height:90px;padding:6px;cursor:pointer;display:flex;flex-direction:column;transition:background .15s}
+.month-cell:hover{background:var(--fill-tertiary)}
+.month-cell.muted{opacity:.35}
+.month-cell.today{background:var(--accent-soft)}
+.month-cell.today .md{color:var(--accent);font-weight:700}
+.md{font-size:12px;font-weight:500}
+.m-dots{display:flex;flex-wrap:wrap;gap:2px;margin:4px 0}
+.m-dot{width:7px;height:7px;border-radius:50%}
+.m-more{font-size:9px;color:var(--label-tertiary)}
+.m-occ{margin-top:auto;height:3px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden}
+.m-occ div{height:100%;background:var(--accent);border-radius:2px;transition:width .6s}
+
+/* Agenda */
+.agenda{padding:14px;display:flex;flex-direction:column;gap:8px}
+.agenda-day{font-size:11px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:600;padding:8px 2px 2px}
+.agenda-item{display:grid;grid-template-columns:70px 36px 1fr auto;gap:12px;padding:10px;background:var(--bg-secondary);border-radius:10px;cursor:pointer;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .15s}
+.agenda-item:hover{transform:translateX(3px)}
+html[data-theme="dark"] .agenda-item{border:1px solid var(--separator);box-shadow:none}
+.agenda-time{font-size:12px;font-weight:700}
+.agenda-time .end{font-size:10px;color:var(--label-tertiary);font-weight:400}
+.avatar{width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.agenda-info .n{font-size:13px;font-weight:600}
+.agenda-info .s{font-size:11px;color:var(--label-secondary)}
+
+/* Detail panel */
+.detail-panel{background:var(--bg-secondary);border-radius:14px;padding:16px;overflow-y:auto;box-shadow:0 2px 12px rgba(0,0,0,.08);animation:slideL .25s}
+@keyframes slideL{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+html[data-theme="dark"] .detail-panel{border:1px solid var(--separator)}
+.dp-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.dp-hd h3{font-size:17px;font-weight:700}
+.dp-hd button{font-size:16px}
+.dp-client{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--separator)}
+.dp-client .avatar{width:44px;height:44px;font-size:15px}
+.dp-row{display:flex;justify-content:space-between;padding:8px 0;font-size:12px;border-bottom:1px solid var(--separator)}
+.dp-row:last-of-type{border:0}
+.dp-row .l{color:var(--label-tertiary);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.dp-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.dp-actions .btn{justify-content:center;padding:9px 10px;font-size:12px}
+
+/* Stats */
+.kgrid{display:grid;gap:12px;margin-bottom:14px}
+.kcard{background:var(--bg-secondary);border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 8px 20px rgba(0,0,0,.08)}
+html[data-theme="dark"] .kcard{border:1px solid var(--separator);box-shadow:none}
+.kcard .l{font-size:10px;color:var(--label-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.kcard .v{font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-.025em}
+.kcard .d{font-size:11px;margin-top:3px}
+
+.card{background:var(--bg-secondary);border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.card h3{font-size:14px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+html[data-theme="dark"] .card{border:1px solid var(--separator);box-shadow:none}
+
+/* Tables */
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;padding:10px;font-size:10px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-bottom:1px solid var(--separator);cursor:pointer}
+table.t td{padding:11px 10px;border-bottom:1px solid var(--separator)}
+table.t tbody tr{cursor:pointer;transition:background .1s}
+table.t tbody tr:hover{background:var(--fill-tertiary)}
+
+.badge{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600;letter-spacing:.2px;text-transform:uppercase}
+.b-green{background:rgba(52,199,89,.12);color:var(--system-green)}
+.b-red{background:rgba(255,59,48,.12);color:var(--system-red)}
+.b-orange{background:rgba(255,149,0,.12);color:var(--system-orange)}
+.b-blue{background:rgba(0,122,255,.12);color:var(--system-blue)}
+.b-purple{background:rgba(175,82,222,.12);color:var(--system-purple)}
+.b-gray{background:var(--fill-tertiary);color:var(--label-secondary)}
+
+/* Forms */
+.fld{width:100%;background:var(--fill-tertiary);border:0;border-radius:10px;padding:10px 12px;color:var(--label-primary);outline:none;font-size:14px;transition:background .15s,box-shadow .15s}
+.fld:focus{background:var(--fill-secondary);box-shadow:0 0 0 3px var(--accent-soft)}
+.fld::placeholder{color:var(--label-tertiary)}
+label{display:block;font-size:10px;color:var(--label-secondary);font-weight:500;margin:12px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+
+/* Modal */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.mbg.open{display:flex;animation:mf .2s}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-secondary);border-radius:18px;padding:24px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25),0 0 0 1px var(--separator);animation:ms .25s}
+@keyframes ms{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.modal h3{font-size:20px;font-weight:700;letter-spacing:-.025em;margin-bottom:12px}
+.steps{display:flex;gap:4px;margin-bottom:18px}
+.steps .step{flex:1;height:3px;background:var(--fill-tertiary);border-radius:2px;transition:background .3s}
+.steps .step.active{background:var(--accent)}
+.row-btns{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* Service cards in wizard */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.svc-card{background:var(--fill-tertiary);border:2px solid transparent;border-radius:12px;padding:14px;cursor:pointer;transition:all .15s;text-align:left}
+.svc-card:hover{background:var(--fill-secondary)}
+.svc-card.selected{background:var(--accent-soft);border-color:var(--accent)}
+.svc-card .n{font-size:14px;font-weight:700;letter-spacing:-.01em}
+.svc-card .d{font-size:11px;color:var(--label-secondary);margin-top:3px}
+.svc-card .meta{display:flex;justify-content:space-between;margin-top:10px;font-size:10px;color:var(--label-tertiary)}
+
+/* Time slot grid */
+.slot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.slot-btn{padding:10px 6px;border-radius:8px;background:var(--fill-tertiary);font-size:12px;font-weight:600;transition:all .15s}
+.slot-btn:hover:not(:disabled){background:var(--accent-soft);color:var(--accent)}
+.slot-btn.selected{background:var(--accent);color:#fff}
+.slot-btn:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+
+/* Client list layout */
+.client-wrap{display:grid;grid-template-columns:280px 1fr;gap:14px;height:calc(100vh - 140px)}
+.client-col{background:var(--bg-secondary);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+html[data-theme="dark"] .client-col{border:1px solid var(--separator)}
+.client-col-hd{padding:12px}
+.client-list{flex:1;overflow-y:auto;padding:0 8px 12px}
+.cli{display:grid;grid-template-columns:40px 1fr 8px;gap:10px;padding:9px;border-radius:10px;cursor:pointer;margin-bottom:2px;align-items:center;transition:background .15s;border-left:3px solid transparent}
+.cli:hover{background:var(--fill-tertiary)}
+.cli.sel{background:var(--accent-soft);border-left-color:var(--accent)}
+.cli .n{font-size:13px;font-weight:600}
+.cli .s{font-size:10px;color:var(--label-tertiary)}
+.status-dot{width:8px;height:8px;border-radius:50%}
+.status-dot.active{background:var(--system-green)}
+.status-dot.inactive{background:var(--label-tertiary)}
+
+.client-detail{overflow-y:auto;padding:4px}
+.hero{background:linear-gradient(135deg,var(--bg-secondary),color-mix(in srgb,var(--bg-secondary) 92%,var(--accent) 8%));border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-40%;right:-10%;width:260px;height:260px;background:radial-gradient(circle,var(--accent-soft),transparent 70%);pointer-events:none}
+html[data-theme="dark"] .hero{border:1px solid var(--separator)}
+.hero-top{display:flex;align-items:center;gap:16px;position:relative}
+.hero-av{width:72px;height:72px;font-size:22px;font-weight:700}
+.hero-name{font-size:22px;font-weight:700;letter-spacing:-.025em;display:flex;align-items:center;gap:8px}
+.hero-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px;position:relative}
+.kpi-chip{background:var(--fill-tertiary);border-radius:10px;padding:9px 10px}
+.kpi-chip .l{font-size:9px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.kpi-chip .v{font-size:16px;font-weight:700;margin-top:3px}
+
+.sub-tabs{display:flex;gap:4px;border-bottom:1px solid var(--separator);margin-bottom:14px}
+.sub-tab{padding:9px 14px;font-size:13px;color:var(--label-secondary);border-bottom:2px solid transparent;font-weight:500;transition:color .15s}
+.sub-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+.chart-host{position:relative;height:240px}
+.chart-host.sm{height:180px}
+
+/* Heatmap */
+.hmap{display:grid;grid-template-columns:40px repeat(16,1fr);gap:2px;font-size:10px}
+.hmap .hm-h{padding:4px;text-align:center;color:var(--label-tertiary);font-weight:600;font-size:9px}
+.hmap .hm-l{padding:6px 4px;color:var(--label-tertiary);text-transform:uppercase;letter-spacing:.04em;font-weight:600;font-size:9px}
+.hmap .hm-c{aspect-ratio:1.2;background:var(--fill-tertiary);border-radius:3px;cursor:pointer;transition:transform .1s}
+.hmap .hm-c:hover{transform:scale(1.3)}
+
+.perf-row{padding:7px 0;border-bottom:1px solid var(--separator)}
+.perf-row:last-child{border:0}
+.perf-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.perf-bar{height:4px;background:var(--fill-tertiary);border-radius:2px;overflow:hidden}
+.perf-bar div{height:100%;background:var(--accent);border-radius:2px;transition:width .8s}
+
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--accent-soft);color:var(--accent);padding:3px 10px;border-radius:14px;font-size:11px}
+.chip .x{cursor:pointer;opacity:.6}
+.chip.sug{background:var(--fill-tertiary);color:var(--label-secondary);cursor:pointer}
+
+/* Fade animation */
+.fade{animation:fadeup .25s}
+
+@media print{.topbar,.sidebar,.main-hd,.fab,.mbg,.detail-panel{display:none!important}.app{grid-template-columns:1fr!important}main,.main-body{overflow:visible!important;padding:0!important}}
+
+@media (max-width:1200px){.app{grid-template-columns:200px 1fr}.cal-wrap.with-detail{grid-template-columns:1fr}.detail-panel{display:none}.client-wrap{grid-template-columns:240px 1fr}.hero-kpis{grid-template-columns:repeat(3,1fr)}.grid4{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="topbar">
+  <div class="tb-left">
+    <div class="logo"><span class="ldot"></span>BOOKING</div>
+    <input type="text" class="biz-name" id="bizName" value="Vantage Business">
+    <select class="sector-select" id="sector">
+      <option value="restaurant">🍽️ Restaurant</option>
+      <option value="garage">🔧 Garage</option>
+      <option value="realestate">🏠 Real Estate</option>
+      <option value="wellness">💆 Wellness/Spa</option>
+      <option value="agency">💼 Agency</option>
+    </select>
+  </div>
+  <div class="segmented" style="margin:0 auto">
+    <button class="active" data-p="calendar">📅 Calendar</button>
+    <button data-p="bookings">📋 Bookings</button>
+    <button data-p="clients">👥 Clients</button>
+    <button data-p="analytics">📊 Analytics</button>
+    <button data-p="settings">⚙️ Settings</button>
+  </div>
+  <div class="tb-right">
+    <button class="btn primary sm" onclick="openNewBooking()">+ New Booking</button>
+    <button class="btn sm" onclick="goToday()">Today</button>
+    <label class="ios-toggle"><input type="checkbox" id="themeToggle"><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>
+    <button class="icon-btn" aria-label="Notifications">🔔<span class="notif-dot"></span></button>
+  </div>
+</div>
+
+<div class="app">
+<aside class="sidebar" id="sidebar"></aside>
+<main>
+  <div class="main-hd" id="mainHd"></div>
+  <div class="main-body" id="mainBody"></div>
+</main>
+</div>
+
+<!-- NEW BOOKING MODAL -->
+<div class="mbg" id="mNew"><div class="modal">
+  <h3 id="mNewTitle">New Booking</h3>
+  <div class="steps"><div class="step active"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>
+  <div id="nbStep1"><label>Choose a service</label><div class="svc-grid" id="svcGrid"></div></div>
+  <div id="nbStep2" style="display:none">
+    <label>Date</label><input type="date" class="fld" id="nbDate">
+    <label>Time slots</label><div class="slot-grid" id="slotGrid"></div>
+    <label>Resource</label><select class="fld" id="nbRes"></select>
+  </div>
+  <div id="nbStep3" style="display:none">
+    <label>Search existing client</label><input type="text" class="fld" id="nbSearch" placeholder="Type name or phone..."><div id="nbClients" style="margin-top:8px;max-height:160px;overflow-y:auto"></div>
+    <label style="margin-top:14px">Or new client</label>
+    <input type="text" class="fld" id="nbName" placeholder="Full name" style="margin-bottom:8px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input type="tel" class="fld" id="nbPhone" placeholder="Phone"><input type="email" class="fld" id="nbEmail" placeholder="Email"></div>
+  </div>
+  <div id="nbStep4" style="display:none">
+    <div class="card" style="background:var(--accent-soft);border:1px solid var(--accent);box-shadow:none"><h3 style="color:var(--accent)">📋 Booking Summary</h3>
+      <div class="dp-row"><span class="l">Service</span><span id="smSvc" style="font-weight:600"></span></div>
+      <div class="dp-row"><span class="l">Date & Time</span><span id="smDT" style="font-weight:600"></span></div>
+      <div class="dp-row"><span class="l">Resource</span><span id="smRes" style="font-weight:600"></span></div>
+      <div class="dp-row"><span class="l">Client</span><span id="smCli" style="font-weight:600"></span></div>
+      <div class="dp-row"><span class="l">Duration</span><span id="smDur" style="font-weight:600"></span></div>
+    </div>
+    <label>Notes (optional)</label><textarea class="fld" id="nbNotes" rows="2"></textarea>
+    <label><input type="checkbox" id="nbConfirm" checked> Send confirmation to client</label>
+  </div>
+  <div class="row-btns">
+    <button class="btn" onclick="closeM('mNew')">Cancel</button>
+    <button class="btn" id="nbBack" style="display:none" onclick="nbStep(-1)">Back</button>
+    <button class="btn primary" id="nbNext" onclick="nbStep(1)">Next →</button>
+    <button class="btn primary" id="nbSave" style="display:none" onclick="saveBooking()">Confirm Booking</button>
+  </div>
+</div></div>
+
+<script>
+/* CONFIG */
+const SECTORS={
+  restaurant:{accent:'#FF9500',bookLabel:'Reserve a Table',slotLabel:'Tables',resPrefix:'Table',resources:[{n:'Table 1',cap:'2 covers'},{n:'Table 2',cap:'2 covers'},{n:'Table 3',cap:'4 covers'},{n:'Table 4',cap:'4 covers'},{n:'Table 5',cap:'6 covers'},{n:'Table 6',cap:'8 covers'}],services:[{n:'Lunch',dur:90,d:'Midday service'},{n:'Dinner',dur:120,d:'Evening à la carte'},{n:'Brunch',dur:90,d:'Weekend brunch'},{n:'Private Event',dur:180,d:'Full private booking'},{n:'Wine Tasting',dur:60,d:'Sommelier pairing'},{n:'Chef Table',dur:150,d:'Tasting menu experience'}],tags:['Window seat','Vegetarian','Gluten-free','Celebration','Wine enthusiast'],openHrs:[11,23]},
+  garage:{accent:'#007AFF',bookLabel:'Book a Service',slotLabel:'Service Bays',resPrefix:'Bay',resources:[{n:'Bay 1',cap:'Standard'},{n:'Bay 2',cap:'Standard'},{n:'Bay 3',cap:'Heavy lift'},{n:'Express Bay',cap:'Quick service'}],services:[{n:'Oil Change',dur:60,d:'Oil + filter replacement'},{n:'Full Service',dur:180,d:'Complete inspection'},{n:'Brake Service',dur:120,d:'Pads + discs'},{n:'Tire Change',dur:60,d:'4 tire replacement'},{n:'Diagnostic',dur:60,d:'Engine code scan'},{n:'MOT Inspection',dur:90,d:'Legal inspection'}],tags:['Peugeot','BMW','Toyota','Diesel','Hybrid','Annual customer'],openHrs:[8,18]},
+  realestate:{accent:'#34C759',bookLabel:'Schedule a Viewing',slotLabel:'Agents',resPrefix:'Agent',resources:[{n:'Alex P.',cap:'Senior Agent'},{n:'Sofia K.',cap:'Senior Agent'},{n:'Niko M.',cap:'Junior Agent'}],services:[{n:'Property Viewing',dur:45,d:'Single unit tour'},{n:'Open House',dur:90,d:'Guided group tour'},{n:'Consultation',dur:60,d:'Buyer strategy meeting'},{n:'Valuation',dur:45,d:'Property assessment'},{n:'Contract Signing',dur:60,d:'Legal facilitation'}],tags:['Budget €400K','3 rooms','Central Athens','Investor','First-time buyer'],openHrs:[9,19]},
+  wellness:{accent:'#AF52DE',bookLabel:'Book a Treatment',slotLabel:'Treatment Rooms',resPrefix:'Room',resources:[{n:'Room Serenity',cap:'Massage / Body'},{n:'Room Harmony',cap:'Facial / Beauty'},{n:'Room Zen',cap:'Hammam / Couples'}],services:[{n:'Swedish Massage',dur:60,d:'Relaxation therapy'},{n:'Deep Tissue',dur:90,d:'Intensive bodywork'},{n:'Hot Stone',dur:90,d:'Heated therapy'},{n:'Facial Ritual',dur:75,d:'Signature facial'},{n:'Couples Massage',dur:90,d:'Side-by-side'},{n:'Body Scrub',dur:60,d:'Exfoliation + moisturizer'}],tags:['Medium pressure','Allergic almond oil','Prefers female therapist','Regular client','Birthday gift'],openHrs:[9,21]},
+  agency:{accent:'#FF2D55',bookLabel:'Book a Meeting',slotLabel:'Meeting Spaces',resPrefix:'Room',resources:[{n:'Boardroom',cap:'10 seats'},{n:'Huddle Space',cap:'4 seats'},{n:'Video Call Room',cap:'Zoom/Meet ready'}],services:[{n:'Kickoff Meeting',dur:60,d:'Project alignment'},{n:'Strategy Session',dur:90,d:'Planning workshop'},{n:'Quick Sync',dur:30,d:'Standup / checkpoint'},{n:'Client Pitch',dur:60,d:'Deck presentation'},{n:'Design Review',dur:60,d:'Feedback session'}],tags:['Enterprise client','Retainer','New prospect','VIP','Partner'],openHrs:[9,18]}
+};
+
+const FIRST=['Alexandra','Nikos','Eleni','Dimitris','Sofia','Kostas','Maria','Yannis','Anna','Giorgos','Katerina','Panagiotis','Ioanna','Stavros','Despina','Vassilis','Athina','Manos','Eirini','Christos','Elena','Petros','Fotini','Thanos','Lydia','Markos','Chrysa','Antonis','Evangelia','Leonidas','Zoe','Spyros','Olga','Thomas','Iris','Pavlos','Melina','Andreas','Dimitra','Alex'];
+const LAST=['Papadopoulos','Georgiou','Nikolaidis','Ioannou','Dimitriou','Papadakis','Karagiannis','Konstantinou','Stavrou','Marinakis','Petrou','Zervas','Mavros','Angelopoulos','Christodoulou'];
+
+let state={
+  sector:'restaurant',page:'calendar',view:'day',
+  focusDate:new Date(),selectedDate:new Date(),miniMonth:new Date(),
+  clients:[],bookings:[],resources:[],services:[],selectedBookingId:null,selectedClientId:null,
+  filterStatus:'all',hiddenResources:new Set(),
+  nbStep:1,nbData:{},clientSubTab:'overview',
+  charts:{}
+};
+
+/* HELPERS */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const rand=(a,b)=>Math.floor(a+Math.random()*(b-a+1));
+const randF=(a,b)=>+(a+Math.random()*(b-a)).toFixed(2);
+const pick=a=>a[rand(0,a.length-1)];
+const uid=()=>Math.random().toString(36).slice(2,10);
+const initials=n=>n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const money=v=>'€'+Math.round(v).toLocaleString('en-US');
+const fmtDate=d=>(d instanceof Date?d:new Date(d)).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'});
+const fmtTime=d=>(d instanceof Date?d:new Date(d)).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+const toISO=d=>d.toISOString().slice(0,10);
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const sameDay=(a,b)=>a.toDateString()===b.toDateString();
+const mondayOf=d=>{const x=new Date(d);x.setHours(0,0,0,0);const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x};
+function countUp(el,target,dur=800){if(!el)return;const t0=performance.now();function tick(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+/* DATA GEN */
+function genClients(){
+  const list=[];for(let i=0;i<40;i++){const fn=pick(FIRST),ln=pick(LAST);list.push({id:uid(),name:`${fn} ${ln}`,email:`${fn.toLowerCase()}.${ln.toLowerCase()}@mail.com`,phone:`+30 69 ${rand(10,99)} ${rand(1000,9999)}`,color:`hsl(${rand(0,360)},55%,55%)`,tags:[...new Set(Array.from({length:rand(1,3)},()=>pick(SECTORS[state.sector].tags)))],notes:'',birthday:new Date(rand(1960,2005),rand(0,11),rand(1,28)),preferredTime:pick(['Morning','Afternoon','Evening']),preferredResource:pick(SECTORS[state.sector].resources).n,status:Math.random()<.8?'active':'inactive',avgSpend:+(rand(30,400)).toFixed(0)})}return list;
+}
+
+function genBookings(clients,resources,services){
+  const list=[];const S=SECTORS[state.sector];
+  for(let i=0;i<60;i++){
+    const c=pick(clients);const svc=pick(services);const res=pick(resources);
+    const d=new Date();d.setDate(d.getDate()+rand(-25,14));d.setHours(S.openHrs[0]+rand(0,S.openHrs[1]-S.openHrs[0]-2),pick([0,15,30,45]),0,0);
+    const end=new Date(d.getTime()+svc.dur*60000);
+    const r=Math.random();let st;
+    if(d<new Date()){if(r<.75)st='completed';else if(r<.9)st='noshow';else st='cancelled'}
+    else if(r<.65)st='confirmed';else if(r<.85)st='pending';else st='cancelled';
+    list.push({id:uid(),clientId:c.id,clientName:c.name,clientColor:c.color,start:d,end,service:svc.n,duration:svc.dur,resourceId:res.id,resourceName:res.n,resourceColor:res.color,status:st,source:pick(['Walk-in','Phone','Online','App']),notes:Math.random()<.3?pick(['First time','Birthday','Regular','Gift voucher','Allergy note']):'',ref:`BK-${10000+i}`});
+  }
+  return list.sort((a,b)=>a.start-b.start);
+}
+
+function applySector(){
+  const S=SECTORS[state.sector];
+  document.documentElement.style.setProperty('--accent',S.accent);
+  document.documentElement.style.setProperty('--accent-soft',S.accent+'24');
+  state.resources=S.resources.map((r,i)=>({id:uid(),n:r.n,cap:r.cap,color:`hsl(${(i*70)%360},60%,55%)`,active:true}));
+  state.services=S.services.map(s=>({id:uid(),...s,color:`hsl(${rand(0,360)},55%,55%)`}));
+  state.clients=genClients();
+  state.bookings=genBookings(state.clients,state.resources,state.services);
+  state.selectedBookingId=null;
+  state.hiddenResources.clear();
+  state.focusDate=new Date();state.selectedDate=new Date();state.miniMonth=new Date();
+  renderAll();
+}
+
+function setPage(p){state.page=p;$$('.segmented button[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));renderAll()}
+function renderAll(){renderSidebar();renderMain()}
+
+/* SIDEBAR */
+function renderSidebar(){
+  const host=$('#sidebar');
+  const today=new Date();today.setHours(0,0,0,0);
+  const todayBook=state.bookings.filter(b=>sameDay(b.start,new Date())).length;
+  const weekStart=mondayOf(new Date());
+  const weekBook=state.bookings.filter(b=>b.start>=weekStart&&b.start<addDays(weekStart,7)).length;
+  const totalSlots=state.resources.filter(r=>r.active).length*((SECTORS[state.sector].openHrs[1]-SECTORS[state.sector].openHrs[0])*4);
+  const occupied=state.bookings.filter(b=>sameDay(b.start,new Date())&&b.status!=='cancelled').length;
+  const freeSlots=Math.max(0,totalSlots-occupied);
+
+  host.innerHTML=`
+    ${renderMiniCal()}
+    <div class="side-box"><h4>Today</h4>
+      <div class="sb-row"><span class="l">Bookings</span><span class="v">${todayBook}</span></div>
+      <div class="sb-row"><span class="l">Free slots</span><span class="v">${freeSlots}</span></div>
+      <div class="sb-row"><span class="l">This week</span><span class="v">${weekBook}</span></div>
+      <div class="sb-row"><span class="l">Occupancy</span><span class="v" style="color:var(--accent)">${Math.round(occupied/Math.max(1,totalSlots)*100)}%</span></div>
+    </div>
+    <div class="side-box"><h4>Resources</h4>
+      ${state.resources.map(r=>`<div class="res-row"><div class="res-dot" style="background:${r.color}"></div><div style="flex:1"><div>${r.n}</div><div style="font-size:10px;color:var(--label-tertiary)">${r.cap}</div></div><input type="checkbox" ${!state.hiddenResources.has(r.id)?'checked':''} onchange="toggleRes('${r.id}')"></div>`).join('')}
+    </div>
+    <div class="side-box"><h4>Status filters</h4><div class="fil-pills">
+      <button class="fil-pill ${state.filterStatus==='all'?'active':''}" onclick="state.filterStatus='all';renderAll()"><span class="dot" style="background:var(--label-tertiary)"></span>All</button>
+      <button class="fil-pill ${state.filterStatus==='confirmed'?'active':''}" onclick="state.filterStatus='confirmed';renderAll()"><span class="dot confirmed"></span>Confirmed</button>
+      <button class="fil-pill ${state.filterStatus==='pending'?'active':''}" onclick="state.filterStatus='pending';renderAll()"><span class="dot pending"></span>Pending</button>
+      <button class="fil-pill ${state.filterStatus==='completed'?'active':''}" onclick="state.filterStatus='completed';renderAll()"><span class="dot completed"></span>Completed</button>
+      <button class="fil-pill ${state.filterStatus==='cancelled'?'active':''}" onclick="state.filterStatus='cancelled';renderAll()"><span class="dot cancelled"></span>Cancelled</button>
+      <button class="fil-pill ${state.filterStatus==='noshow'?'active':''}" onclick="state.filterStatus='noshow';renderAll()"><span class="dot noshow"></span>No-show</button>
+    </div></div>`;
+}
+window.toggleRes=id=>{if(state.hiddenResources.has(id))state.hiddenResources.delete(id);else state.hiddenResources.add(id);renderAll()};
+
+function renderMiniCal(){
+  const d=state.miniMonth;const y=d.getFullYear(),m=d.getMonth();
+  const first=new Date(y,m,1),last=new Date(y,m+1,0);
+  const start=(first.getDay()+6)%7;
+  const cells=[];for(let i=0;i<start;i++)cells.push({d:addDays(first,-start+i),muted:true});for(let i=1;i<=last.getDate();i++)cells.push({d:new Date(y,m,i)});while(cells.length%7)cells.push({d:addDays(cells[cells.length-1].d,1),muted:true});
+  const today=new Date();today.setHours(0,0,0,0);
+  let html=`<div class="mini-cal"><div class="mc-hd"><button onclick="state.miniMonth=new Date(${y},${m-1},1);renderSidebar()">‹</button><div class="m">${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</div><button onclick="state.miniMonth=new Date(${y},${m+1},1);renderSidebar()">›</button></div><div class="mc-grid">`;
+  ['M','T','W','T','F','S','S'].forEach(x=>html+=`<div class="mc-dow">${x}</div>`);
+  cells.forEach(c=>{const isToday=sameDay(c.d,today);const isSel=sameDay(c.d,state.selectedDate);const hasB=state.bookings.some(b=>sameDay(b.start,c.d));html+=`<div class="mc-day ${c.muted?'muted':''} ${isToday?'today':''} ${isSel&&!isToday?'selected':''}" onclick="state.selectedDate=new Date(${c.d.getFullYear()},${c.d.getMonth()},${c.d.getDate()});state.focusDate=state.selectedDate;renderAll()">${c.d.getDate()}${hasB?'<span class="mc-dot"></span>':''}</div>`});
+  html+='</div></div>';return html;
+}
+
+/* MAIN */
+function renderMain(){
+  const body=$('#mainBody');body.className='main-body fade';
+  const hd=$('#mainHd');
+  if(state.page==='calendar')renderCalendar(hd,body);
+  else if(state.page==='bookings')renderBookings(hd,body);
+  else if(state.page==='clients')renderClients(hd,body);
+  else if(state.page==='analytics')renderAnalytics(hd,body);
+  else renderSettings(hd,body);
+  setTimeout(()=>body.classList.remove('fade'),260);
+}
+
+window.goToday=()=>{state.focusDate=new Date();state.selectedDate=new Date();renderAll()};
+window.setView=v=>{state.view=v;renderMain()};
+window.navDate=(dir)=>{if(state.view==='day')state.focusDate=addDays(state.focusDate,dir);else if(state.view==='week')state.focusDate=addDays(state.focusDate,dir*7);else state.focusDate=new Date(state.focusDate.getFullYear(),state.focusDate.getMonth()+dir,1);renderMain()};
+
+/* CALENDAR */
+function renderCalendar(hd,body){
+  const dateLabel=state.view==='day'?state.focusDate.toLocaleDateString('en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):state.view==='week'?`Week of ${fmtDate(mondayOf(state.focusDate))}`:state.focusDate.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  hd.innerHTML=`<div><h1>Calendar</h1><div class="sub">${dateLabel}</div></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="btn sm" onclick="navDate(-1)">←</button>
+      <button class="btn sm" onclick="navDate(1)">→</button>
+      <div class="segmented" style="padding:2px">
+        <button class="${state.view==='day'?'active':''}" onclick="setView('day')">Day</button>
+        <button class="${state.view==='week'?'active':''}" onclick="setView('week')">Week</button>
+        <button class="${state.view==='month'?'active':''}" onclick="setView('month')">Month</button>
+        <button class="${state.view==='agenda'?'active':''}" onclick="setView('agenda')">Agenda</button>
+      </div>
+    </div>`;
+
+  const wrap=state.selectedBookingId?'cal-wrap with-detail':'cal-wrap';
+  body.innerHTML=`<div class="${wrap}"><div class="cal-container" id="calBox">${state.view==='day'?renderDayView():state.view==='week'?renderWeekView():state.view==='month'?renderMonthView():renderAgendaView()}</div>${state.selectedBookingId?renderDetailPanel():''}</div>`;
+}
+
+function filteredBookings(){
+  let list=state.bookings.filter(b=>!state.hiddenResources.has(b.resourceId));
+  if(state.filterStatus!=='all')list=list.filter(b=>b.status===state.filterStatus);
+  return list;
+}
+
+function renderDayView(){
+  const S=SECTORS[state.sector];
+  const visRes=state.resources.filter(r=>!state.hiddenResources.has(r.id));
+  const date=state.focusDate;const dateISO=toISO(date);
+  const dayBookings=filteredBookings().filter(b=>sameDay(b.start,date));
+  const hours=[];for(let h=S.openHrs[0];h<S.openHrs[1];h++)hours.push(h);
+  const startHour=S.openHrs[0],totalHours=S.openHrs[1]-S.openHrs[0];
+  const now=new Date();const isToday=sameDay(now,date);
+  const nowPct=isToday?((now.getHours()-startHour)*60+now.getMinutes())/(totalHours*60)*100:-1;
+
+  let html=`<div class="day-grid" style="--cols:${visRes.length}"><div class="day-hd"></div>`;
+  visRes.forEach(r=>{const cnt=dayBookings.filter(b=>b.resourceId===r.id).length;html+=`<div class="day-hd"><div class="rc"><span class="dot" style="background:${r.color}"></span>${r.n}</div><div class="cnt">${cnt} · ${r.cap}</div></div>`});
+  hours.forEach(h=>{
+    html+=`<div class="time-col">${String(h).padStart(2,'0')}:00</div>`;
+    visRes.forEach(r=>{
+      html+=`<div class="slot" data-hour="${h}" data-res="${r.id}" onclick="quickBook('${dateISO}',${h},'${r.id}')"></div>`;
+    });
+  });
+  html+='</div>';
+
+  // Position bookings absolutely
+  setTimeout(()=>{
+    const box=$('#calBox');if(!box)return;
+    const grid=box.querySelector('.day-grid');
+    const slotH=40;// approx minHeight
+    visRes.forEach((r,ci)=>{
+      dayBookings.filter(b=>b.resourceId===r.id).forEach(b=>{
+        const startMin=(b.start.getHours()-startHour)*60+b.start.getMinutes();
+        const durMin=b.duration;
+        const top=44+(startMin/60)*slotH;// 44=header
+        const height=Math.max(28,(durMin/60)*slotH-3);
+        const el=document.createElement('div');
+        el.className=`booking ${b.status}${state.selectedBookingId===b.id?' selected':''}`;
+        el.style.cssText=`top:${top}px;height:${height}px;--res-color:${r.color};background:${b.status==='pending'||b.status==='cancelled'||b.status==='noshow'||b.status==='completed'?'':r.color};left:calc(60px + (100% - 60px) * ${ci} / ${visRes.length} + 3px);width:calc((100% - 60px) / ${visRes.length} - 6px)`;
+        el.onclick=(e)=>{e.stopPropagation();state.selectedBookingId=b.id;renderMain()};
+        el.innerHTML=`<div class="bk-n">${b.clientName}</div><div class="bk-s">${b.service} · ${b.duration}m</div><span class="bk-st">${b.status}</span>`;
+        grid.style.position='relative';
+        grid.appendChild(el);
+      });
+    });
+  },10);
+
+  return html;
+}
+
+function renderWeekView(){
+  const S=SECTORS[state.sector];
+  const ws=mondayOf(state.focusDate);
+  const today=new Date();today.setHours(0,0,0,0);
+  const hours=[];for(let h=S.openHrs[0];h<S.openHrs[1];h++)hours.push(h);
+  let html='<div class="week-grid"><div class="week-hd"></div>';
+  for(let i=0;i<7;i++){const d=addDays(ws,i);const cnt=filteredBookings().filter(b=>sameDay(b.start,d)).length;html+=`<div class="week-hd ${sameDay(d,today)?'today':''}" onclick="state.focusDate=new Date(${d.getFullYear()},${d.getMonth()},${d.getDate()});setView('day')"><div class="d">${d.toLocaleDateString('en-US',{weekday:'short'})}</div><div class="n">${d.getDate()}</div><div style="font-size:9px;color:var(--label-tertiary);margin-top:2px">${cnt} bookings</div></div>`}
+  hours.forEach(h=>{html+=`<div class="time-col">${String(h).padStart(2,'0')}:00</div>`;for(let i=0;i<7;i++){const d=addDays(ws,i);const iso=toISO(d);html+=`<div class="slot" data-hour="${h}" onclick="state.focusDate=new Date(${d.getFullYear()},${d.getMonth()},${d.getDate()});quickBook('${iso}',${h},'${state.resources[0].id}')"></div>`}});
+  html+='</div>';
+  // Render bookings
+  setTimeout(()=>{
+    const grid=$('#calBox').querySelector('.week-grid');
+    const startHour=S.openHrs[0],slotH=40;
+    for(let i=0;i<7;i++){
+      const d=addDays(ws,i);
+      filteredBookings().filter(b=>sameDay(b.start,d)).forEach(b=>{
+        const startMin=(b.start.getHours()-startHour)*60+b.start.getMinutes();
+        const top=44+(startMin/60)*slotH;
+        const height=Math.max(24,(b.duration/60)*slotH-3);
+        const el=document.createElement('div');
+        el.className=`booking ${b.status}`;
+        el.style.cssText=`top:${top}px;height:${height}px;background:${b.resourceColor||b.clientColor};left:calc(60px + (100% - 60px) * ${i} / 7 + 2px);width:calc((100% - 60px) / 7 - 4px)`;
+        el.onclick=(e)=>{e.stopPropagation();state.selectedBookingId=b.id;renderMain()};
+        el.innerHTML=`<div class="bk-n" style="font-size:10px">${b.clientName.split(' ')[0]}</div><div class="bk-s" style="font-size:9px">${fmtTime(b.start)}</div>`;
+        grid.style.position='relative';grid.appendChild(el);
+      });
+    }
+  },10);
+  return html;
+}
+
+function renderMonthView(){
+  const d=state.focusDate;const y=d.getFullYear(),m=d.getMonth();
+  const first=new Date(y,m,1),last=new Date(y,m+1,0);
+  const start=(first.getDay()+6)%7;
+  const cells=[];for(let i=0;i<start;i++)cells.push({d:addDays(first,-start+i),muted:true});for(let i=1;i<=last.getDate();i++)cells.push({d:new Date(y,m,i)});while(cells.length%7)cells.push({d:addDays(cells[cells.length-1].d,1),muted:true});
+  const today=new Date();today.setHours(0,0,0,0);
+  let html='<div class="month-grid">'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>`<div class="month-hd-cell">${x}</div>`).join('');
+  cells.forEach(c=>{
+    const day=filteredBookings().filter(b=>sameDay(b.start,c.d));
+    const totalSlots=state.resources.length*10;
+    const occ=Math.min(100,Math.round(day.length/Math.max(1,totalSlots)*100));
+    const dots=[...new Set(day.slice(0,3).map(b=>b.resourceColor||b.clientColor))];
+    html+=`<div class="month-cell ${c.muted?'muted':''} ${sameDay(c.d,today)?'today':''}" onclick="state.focusDate=new Date(${c.d.getFullYear()},${c.d.getMonth()},${c.d.getDate()});setView('day')"><div class="md">${c.d.getDate()}</div><div class="m-dots">${dots.map(col=>`<div class="m-dot" style="background:${col}"></div>`).join('')}${day.length>3?`<span class="m-more">+${day.length-3}</span>`:''}</div>${day.length?`<div class="m-occ"><div style="width:${occ}%"></div></div>`:''}</div>`;
+  });
+  html+='</div>';return html;
+}
+
+function renderAgendaView(){
+  const upcoming=filteredBookings().filter(b=>b.start>=new Date(Date.now()-2*86400000)).slice(0,40);
+  const byDay={};upcoming.forEach(b=>{const k=toISO(b.start);(byDay[k]=byDay[k]||[]).push(b)});
+  let html='<div class="agenda">';
+  Object.entries(byDay).forEach(([k,list])=>{const d=new Date(k);html+=`<div class="agenda-day">${d.toLocaleDateString('en-US',{weekday:'long',day:'numeric',month:'long'})}</div>`;list.forEach(b=>{html+=`<div class="agenda-item" onclick="state.selectedBookingId='${b.id}';renderMain()"><div class="agenda-time mono">${fmtTime(b.start)}<div class="end">→ ${fmtTime(b.end)}</div></div><div class="avatar" style="background:${b.resourceColor||b.clientColor}">${initials(b.clientName)}</div><div class="agenda-info"><div class="n">${b.clientName}</div><div class="s">${b.service} · ${b.resourceName}</div></div><span class="badge ${b.status==='confirmed'?'b-green':b.status==='pending'?'b-orange':b.status==='cancelled'?'b-gray':b.status==='noshow'?'b-red':'b-blue'}">${b.status}</span></div>`})});
+  html+='</div>';return html;
+}
+
+function renderDetailPanel(){
+  const b=state.bookings.find(x=>x.id===state.selectedBookingId);if(!b)return '';
+  const c=state.clients.find(x=>x.id===b.clientId);
+  return `<div class="detail-panel">
+    <div class="dp-hd"><h3>Booking ${b.ref}</h3><button class="icon-btn" onclick="state.selectedBookingId=null;renderMain()">✕</button></div>
+    <div class="dp-client"><div class="avatar" style="background:${c.color};width:44px;height:44px;font-size:15px">${initials(c.name)}</div><div><div style="font-weight:700">${c.name}</div><div style="font-size:11px;color:var(--label-tertiary)">${c.email}</div></div></div>
+    <div class="dp-row"><span class="l">Service</span><span>${b.service}</span></div>
+    <div class="dp-row"><span class="l">Date</span><span>${fmtDate(b.start)}</span></div>
+    <div class="dp-row"><span class="l">Time</span><span>${fmtTime(b.start)} → ${fmtTime(b.end)}</span></div>
+    <div class="dp-row"><span class="l">Duration</span><span>${b.duration}m</span></div>
+    <div class="dp-row"><span class="l">Resource</span><span>${b.resourceName}</span></div>
+    <div class="dp-row"><span class="l">Source</span><span>${b.source}</span></div>
+    <div class="dp-row"><span class="l">Status</span><select class="fld" style="width:auto;padding:4px 8px;font-size:11px" onchange="changeStatus('${b.id}',this.value)"><option value="confirmed" ${b.status==='confirmed'?'selected':''}>Confirmed</option><option value="pending" ${b.status==='pending'?'selected':''}>Pending</option><option value="completed" ${b.status==='completed'?'selected':''}>Completed</option><option value="cancelled" ${b.status==='cancelled'?'selected':''}>Cancelled</option><option value="noshow" ${b.status==='noshow'?'selected':''}>No-show</option></select></div>
+    <label>Notes</label><textarea class="fld" rows="2" onblur="state.bookings.find(x=>x.id==='${b.id}').notes=this.value">${b.notes}</textarea>
+    <div class="dp-actions">
+      <button class="btn" onclick="window.open('tel:${c.phone}')">📞 Call</button>
+      <button class="btn" onclick="window.open('mailto:${c.email}')">📧 Email</button>
+      <button class="btn secondary" onclick="rescheduleBooking('${b.id}')">Reschedule</button>
+      <button class="btn" onclick="sendReminder('${b.id}')">Reminder</button>
+      <button class="btn" onclick="changeStatus('${b.id}','completed')">✓ Complete</button>
+      <button class="btn danger" onclick="cancelBooking('${b.id}')">Cancel</button>
+    </div>
+  </div>`;
+}
+
+window.changeStatus=(id,st)=>{const b=state.bookings.find(x=>x.id===id);b.status=st;renderMain()};
+window.cancelBooking=id=>{if(!confirm('Cancel this booking?'))return;state.bookings.find(x=>x.id===id).status='cancelled';renderMain()};
+window.rescheduleBooking=id=>{alert('Reschedule flow: pick new date/time (simplified)');};
+window.sendReminder=id=>{const b=state.bookings.find(x=>x.id===id);const c=state.clients.find(x=>x.id===b.clientId);alert(`Reminder sent to ${c.name} for ${fmtDate(b.start)} ${fmtTime(b.start)}`)};
+
+window.quickBook=(isoDate,hour,resId)=>{state.nbData={date:isoDate,hour,resId};openNewBooking(true)};
+
+/* BOOKINGS PAGE */
+function renderBookings(hd,body){
+  const today=state.bookings.filter(b=>sameDay(b.start,new Date())).length;
+  const weekStart=mondayOf(new Date());
+  const weekB=state.bookings.filter(b=>b.start>=weekStart&&b.start<addDays(weekStart,7));
+  const cancRate=Math.round(state.bookings.filter(b=>b.status==='cancelled').length/state.bookings.length*100);
+  const nsRate=Math.round(state.bookings.filter(b=>b.status==='noshow').length/state.bookings.length*100);
+  hd.innerHTML=`<div><h1>Bookings</h1><div class="sub">${state.bookings.length} total</div></div>
+    <div style="display:flex;gap:8px"><input type="text" class="fld" id="bkSearch" placeholder="Search..." style="width:200px"><button class="btn sm" onclick="exportBookings()">Export CSV</button></div>`;
+
+  body.innerHTML=`<div class="kgrid grid4">
+    <div class="kcard"><div class="l">Today</div><div class="v mono">${today}</div></div>
+    <div class="kcard"><div class="l">This Week</div><div class="v mono">${weekB.length}</div></div>
+    <div class="kcard"><div class="l">Cancel Rate</div><div class="v mono" style="color:var(--system-orange)">${cancRate}%</div></div>
+    <div class="kcard"><div class="l">No-show Rate</div><div class="v mono" style="color:var(--system-red)">${nsRate}%</div></div>
+  </div>
+  <div class="card"><table class="t"><thead><tr><th>Ref</th><th>Date · Time</th><th>Client</th><th>Service</th><th>Resource</th><th>Duration</th><th>Status</th><th>Source</th><th></th></tr></thead><tbody id="bkBody">${renderBkRows(state.bookings.slice(0,60))}</tbody></table></div>`;
+  $('#bkSearch').addEventListener('input',e=>{const q=e.target.value.toLowerCase();$('#bkBody').innerHTML=renderBkRows(state.bookings.filter(b=>!q||b.clientName.toLowerCase().includes(q)||b.service.toLowerCase().includes(q)||b.ref.toLowerCase().includes(q)).slice(0,60))});
+}
+function renderBkRows(list){return list.map(b=>{const c=state.clients.find(x=>x.id===b.clientId);return `<tr onclick="state.selectedBookingId='${b.id}';setPage('calendar')"><td class="mono" style="font-size:11px">${b.ref}</td><td><strong>${fmtDate(b.start)}</strong><div style="font-size:10px;color:var(--label-tertiary)">${fmtTime(b.start)}</div></td><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="background:${c.color};width:26px;height:26px;font-size:10px">${initials(b.clientName)}</div>${b.clientName}</div></td><td>${b.service}</td><td>${b.resourceName}</td><td class="mono">${b.duration}m</td><td><span class="badge ${b.status==='confirmed'?'b-green':b.status==='pending'?'b-orange':b.status==='cancelled'?'b-gray':b.status==='noshow'?'b-red':'b-blue'}">${b.status}</span></td><td>${b.source}</td><td onclick="event.stopPropagation()"><button class="btn xs" onclick="state.selectedBookingId='${b.id}';setPage('calendar')">View</button></td></tr>`}).join('')}
+window.exportBookings=()=>{const rows=[['Ref','Date','Time','Client','Service','Resource','Duration','Status','Source']].concat(state.bookings.map(b=>[b.ref,fmtDate(b.start),fmtTime(b.start),b.clientName,b.service,b.resourceName,b.duration,b.status,b.source]));const csv=rows.map(r=>r.map(x=>`"${x}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=`bookings-${Date.now()}.csv`;a.click()};
+
+/* CLIENTS */
+function renderClients(hd,body){
+  if(!state.selectedClientId)state.selectedClientId=state.clients[0]?.id;
+  hd.innerHTML=`<div><h1>Clients</h1><div class="sub">${state.clients.length} contacts</div></div>`;
+  body.innerHTML=`<div class="client-wrap">
+    <div class="client-col"><div class="client-col-hd"><input type="text" class="fld" id="clSearch" placeholder="Search..."></div><div class="client-list" id="clList"></div><div style="padding:10px"><button class="btn primary" style="width:100%" onclick="alert('Add client flow — open form')">+ New Client</button></div></div>
+    <div class="client-detail" id="clDetail"></div>
+  </div>`;
+  renderClientList();renderClientDetail();
+  $('#clSearch').addEventListener('input',e=>{state.clientSearch=e.target.value;renderClientList()});
+}
+function renderClientList(){
+  const q=(state.clientSearch||'').toLowerCase();const list=state.clients.filter(c=>!q||c.name.toLowerCase().includes(q));
+  $('#clList').innerHTML=list.map(c=>{const cnt=state.bookings.filter(b=>b.clientId===c.id).length;const last=state.bookings.filter(b=>b.clientId===c.id).sort((a,b)=>b.start-a.start)[0];return `<div class="cli ${state.selectedClientId===c.id?'sel':''}" onclick="state.selectedClientId='${c.id}';renderClientList();renderClientDetail()"><div class="avatar" style="background:${c.color};width:40px;height:40px;font-size:13px">${initials(c.name)}</div><div><div class="n">${c.name}</div><div class="s">${cnt} bookings · ${last?'Last '+fmtDate(last.start):'No visits'}</div></div><div class="status-dot ${c.status}"></div></div>`}).join('');
+}
+function renderClientDetail(){
+  const c=state.clients.find(x=>x.id===state.selectedClientId);if(!c){$('#clDetail').innerHTML='<div style="padding:60px;text-align:center;color:var(--label-tertiary)">Select a client</div>';return}
+  const bks=state.bookings.filter(b=>b.clientId===c.id);
+  const completed=bks.filter(b=>b.status==='completed').length;
+  const noshow=bks.filter(b=>b.status==='noshow').length;
+  const cancelled=bks.filter(b=>b.status==='cancelled').length;
+  $('#clDetail').innerHTML=`<div class="hero"><div class="hero-top"><div class="avatar hero-av" style="background:${c.color}">${initials(c.name)}</div><div style="flex:1"><div class="hero-name">${c.name}<span class="badge ${c.status==='active'?'b-green':'b-gray'}">${c.status}</span></div><div style="font-size:13px;color:var(--label-secondary);margin-top:4px">${c.email} · ${c.phone}</div></div><button class="btn sm" onclick="alert('Edit client')">Edit</button></div><div class="hero-kpis"><div class="kpi-chip"><div class="l">Total</div><div class="v">${bks.length}</div></div><div class="kpi-chip"><div class="l">Completed</div><div class="v" style="color:var(--system-green)">${completed}</div></div><div class="kpi-chip"><div class="l">No-shows</div><div class="v" style="color:var(--system-red)">${noshow}</div></div><div class="kpi-chip"><div class="l">Cancelled</div><div class="v">${cancelled}</div></div><div class="kpi-chip"><div class="l">Avg Spend</div><div class="v">${money(c.avgSpend)}</div></div></div></div>
+    <div class="sub-tabs">${['overview','history','notes'].map(k=>`<button class="sub-tab ${state.clientSubTab===k?'active':''}" onclick="state.clientSubTab='${k}';renderClientDetail()">${k[0].toUpperCase()+k.slice(1)}</button>`).join('')}</div>
+    ${state.clientSubTab==='overview'?`<div class="grid2"><div class="card"><h3>Contact</h3><div class="dp-row"><span class="l">Email</span><span>${c.email}</span></div><div class="dp-row"><span class="l">Phone</span><span>${c.phone}</span></div><div class="dp-row"><span class="l">Birthday</span><span>${fmtDate(c.birthday)}</span></div><div class="dp-row"><span class="l">Preferred Time</span><span>${c.preferredTime}</span></div><div class="dp-row"><span class="l">Preferred ${SECTORS[state.sector].resPrefix}</span><span>${c.preferredResource}</span></div></div><div class="card"><h3>Preferences</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">${c.tags.map(t=>`<span class="chip">${t}</span>`).join('')||'<span style="color:var(--label-tertiary);font-size:12px">No tags</span>'}</div><h3 style="margin-top:14px">Notes</h3><textarea class="fld" rows="4" placeholder="Add notes..." onblur="c.notes=this.value">${c.notes}</textarea></div></div>`:state.clientSubTab==='history'?`<div class="card"><h3>Booking History</h3><table class="t"><thead><tr><th>Date</th><th>Service</th><th>Resource</th><th>Status</th></tr></thead><tbody>${bks.sort((a,b)=>b.start-a.start).map(b=>`<tr onclick="state.selectedBookingId='${b.id}';setPage('calendar')"><td>${fmtDate(b.start)} ${fmtTime(b.start)}</td><td>${b.service}</td><td>${b.resourceName}</td><td><span class="badge ${b.status==='confirmed'?'b-green':b.status==='pending'?'b-orange':b.status==='cancelled'?'b-gray':b.status==='noshow'?'b-red':'b-blue'}">${b.status}</span></td></tr>`).join('')}</tbody></table></div>`:`<div class="card"><h3>Notes</h3><textarea class="fld" rows="8" placeholder="Internal notes..." onblur="c.notes=this.value">${c.notes}</textarea></div>`}`;
+}
+
+/* ANALYTICS */
+function renderAnalytics(hd,body){
+  hd.innerHTML=`<div><h1>Analytics</h1></div>`;
+  const total=state.bookings.length;
+  const completed=state.bookings.filter(b=>b.status==='completed').length;
+  const cancelled=state.bookings.filter(b=>b.status==='cancelled').length;
+  const noshow=state.bookings.filter(b=>b.status==='noshow').length;
+  const avgDur=Math.round(state.bookings.reduce((s,b)=>s+b.duration,0)/total);
+  body.innerHTML=`<div class="kgrid" style="grid-template-columns:repeat(5,1fr);margin-bottom:14px">
+    <div class="kcard"><div class="l">Total</div><div class="v mono" id="ak1">0</div></div>
+    <div class="kcard"><div class="l">Completed</div><div class="v mono" style="color:var(--system-green)" id="ak2">0</div></div>
+    <div class="kcard"><div class="l">Cancel Rate</div><div class="v mono" style="color:var(--system-orange)">${Math.round(cancelled/total*100)}%</div></div>
+    <div class="kcard"><div class="l">No-show Rate</div><div class="v mono" style="color:var(--system-red)">${Math.round(noshow/total*100)}%</div></div>
+    <div class="kcard"><div class="l">Avg Duration</div><div class="v mono">${avgDur}m</div></div>
+  </div>
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="card"><h3>Bookings by Day of Week</h3><div class="chart-host"><canvas id="cDow"></canvas></div></div>
+    <div class="card"><h3>Bookings by Hour</h3><div class="chart-host"><canvas id="cHour"></canvas></div></div>
+  </div>
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="card"><h3>Occupancy Trend (14 days)</h3><div class="chart-host"><canvas id="cOcc"></canvas></div></div>
+    <div class="card"><h3>Bookings by Source</h3><div class="chart-host"><canvas id="cSrc"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Top 10 Clients</h3>${(() => {const counts={};state.bookings.forEach(b=>counts[b.clientId]=(counts[b.clientId]||0)+1);const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);const mx=top[0]?.[1]||1;return top.map(([id,n])=>{const c=state.clients.find(x=>x.id===id);if(!c)return '';return `<div class="perf-row"><div class="perf-top"><span>${c.name}</span><span style="font-weight:700">${n} bookings</span></div><div class="perf-bar"><div style="width:${n/mx*100}%"></div></div></div>`}).join('')})()}</div>
+    <div class="card"><h3>Resource Utilization</h3>${state.resources.map(r=>{const n=state.bookings.filter(b=>b.resourceId===r.id).length;const mx=Math.max(...state.resources.map(rr=>state.bookings.filter(b=>b.resourceId===rr.id).length))||1;return `<div class="perf-row"><div class="perf-top"><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${r.color};margin-right:6px"></span>${r.n}</span><span style="font-weight:700">${n}</span></div><div class="perf-bar"><div style="width:${n/mx*100}%;background:${r.color}"></div></div></div>`}).join('')}</div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>Service Performance</h3><table class="t"><thead><tr><th>Service</th><th style="text-align:right">Bookings</th><th style="text-align:right">Avg Duration</th><th style="text-align:right">Cancel %</th><th style="text-align:right">No-show %</th><th style="text-align:right">Revenue Est.</th></tr></thead><tbody>${state.services.map(s=>{const bks=state.bookings.filter(b=>b.service===s.n);const canc=bks.filter(b=>b.status==='cancelled').length;const ns=bks.filter(b=>b.status==='noshow').length;const rev=bks.filter(b=>b.status==='completed').length*rand(40,200);return `<tr><td><strong>${s.n}</strong></td><td class="mono" style="text-align:right">${bks.length}</td><td class="mono" style="text-align:right">${s.dur}m</td><td class="mono" style="text-align:right">${bks.length?Math.round(canc/bks.length*100):0}%</td><td class="mono" style="text-align:right">${bks.length?Math.round(ns/bks.length*100):0}%</td><td class="mono" style="text-align:right;font-weight:700">${money(rev)}</td></tr>`}).join('')}</tbody></table></div>`;
+  countUp($('#ak1'),total);countUp($('#ak2'),completed);
+  setTimeout(()=>{
+    const accent=SECTORS[state.sector].accent;
+    const dow=[0,0,0,0,0,0,0];state.bookings.forEach(b=>dow[b.start.getDay()]++);
+    if(state.charts.dow)state.charts.dow.destroy();
+    state.charts.dow=new Chart($('#cDow'),{type:'bar',data:{labels:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],datasets:[{data:dow,backgroundColor:accent+'cc',borderRadius:6}]},options:chartOpts()});
+    const byH=new Array(24).fill(0);state.bookings.forEach(b=>byH[b.start.getHours()]++);
+    if(state.charts.hour)state.charts.hour.destroy();
+    state.charts.hour=new Chart($('#cHour'),{type:'bar',data:{labels:Array.from({length:24},(_,i)=>`${i}h`),datasets:[{data:byH,backgroundColor:accent+'cc',borderRadius:4}]},options:chartOpts()});
+    const days=Array.from({length:14},(_,i)=>{const d=addDays(new Date(),-13+i);return d});
+    const occ=days.map(d=>state.bookings.filter(b=>sameDay(b.start,d)&&b.status!=='cancelled').length/Math.max(1,state.resources.length*10)*100);
+    if(state.charts.occ)state.charts.occ.destroy();
+    state.charts.occ=new Chart($('#cOcc'),{type:'line',data:{labels:days.map(d=>d.toLocaleDateString('en-US',{day:'numeric',month:'short'})),datasets:[{data:occ,borderColor:accent,backgroundColor:accent+'22',tension:.4,fill:true,pointRadius:0}]},options:chartOpts()});
+    const sources={};state.bookings.forEach(b=>sources[b.source]=(sources[b.source]||0)+1);
+    if(state.charts.src)state.charts.src.destroy();
+    state.charts.src=new Chart($('#cSrc'),{type:'doughnut',data:{labels:Object.keys(sources),datasets:[{data:Object.values(sources),backgroundColor:['#FF9500','#007AFF','#34C759','#AF52DE']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}});
+  },60);
+}
+function chartOpts(){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'rgba(128,128,128,.08)'},ticks:{font:{size:10}}}}}}
+
+/* SETTINGS */
+function renderSettings(hd,body){
+  hd.innerHTML=`<div><h1>Settings</h1></div>`;
+  const S=SECTORS[state.sector];
+  body.innerHTML=`<div class="grid2">
+    <div class="card"><h3>Business Info</h3><label>Name</label><input class="fld" value="Vantage Business"><label>Address</label><input class="fld" value="14 Ermou St, Athens 10563"><label>Phone</label><input class="fld" value="+30 210 000 0000"><label>Email</label><input class="fld" value="contact@vantage.com"><label>Website</label><input class="fld" value="vantage.com"><button class="btn primary" style="margin-top:14px" onclick="alert('Saved')">Save</button></div>
+    <div class="card"><h3>Opening Hours</h3>${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div style="display:grid;grid-template-columns:50px 1fr 1fr 40px;gap:6px;align-items:center;padding:4px 0"><span style="font-size:12px;font-weight:500">${d}</span><input type="time" class="fld" value="${String(S.openHrs[0]).padStart(2,'0')}:00"><input type="time" class="fld" value="${String(S.openHrs[1]).padStart(2,'0')}:00"><input type="checkbox" checked></div>`).join('')}</div>
+    <div class="card"><h3>${S.slotLabel}</h3>${state.resources.map(r=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--separator)"><div class="res-dot" style="background:${r.color}"></div><input class="fld" value="${r.n}" style="flex:1"><input class="fld" value="${r.cap}" style="width:120px;font-size:11px"><button class="btn xs danger">×</button></div>`).join('')}<button class="btn sm" style="margin-top:10px" onclick="alert('Add ${S.resPrefix}')">+ Add ${S.resPrefix}</button></div>
+    <div class="card"><h3>Services</h3>${state.services.map(s=>`<div style="display:grid;grid-template-columns:1fr 80px 60px 30px;gap:6px;padding:6px 0;border-bottom:1px solid var(--separator);align-items:center;font-size:12px"><strong>${s.n}</strong><span class="mono" style="color:var(--label-tertiary)">${s.dur}min</span><span class="mono">${money(rand(30,200))}</span><button class="btn xs">✎</button></div>`).join('')}<button class="btn sm" style="margin-top:10px">+ Add service</button></div>
+    <div class="card"><h3>Booking Rules</h3><label>Min notice (hours)</label><input type="number" class="fld" value="2"><label>Max advance (days)</label><input type="number" class="fld" value="60"><label>Buffer between bookings (min)</label><input type="number" class="fld" value="15"><label>Max bookings / day</label><input type="number" class="fld" value="50"><label style="display:flex;align-items:center;gap:8px;text-transform:none;margin-top:14px"><label class="ios-toggle"><input type="checkbox" checked><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>Allow same-day bookings</label></div>
+    <div class="card"><h3>Notifications</h3><label style="display:flex;align-items:center;gap:8px;text-transform:none"><label class="ios-toggle"><input type="checkbox" checked><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>Auto-send confirmation</label><label style="display:flex;align-items:center;gap:8px;text-transform:none;margin-top:10px"><label class="ios-toggle"><input type="checkbox" checked><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>Reminder before booking</label><label>Reminder hours before</label><input type="number" class="fld" value="24"><label>Cancellation policy</label><textarea class="fld" rows="2">24h notice required. Late cancellation: 50% charge.</textarea></div>
+    <div class="card" style="grid-column:span 2"><h3>Online Booking</h3><label style="display:flex;align-items:center;gap:8px;text-transform:none"><label class="ios-toggle"><input type="checkbox" checked><span class="ios-toggle-track"></span><span class="ios-toggle-thumb"></span></label>Accept online bookings</label><label>Public booking link</label><div style="display:flex;gap:6px"><input class="fld" value="https://book.vantage.com/vantage-${state.sector}" readonly><button class="btn" onclick="navigator.clipboard.writeText('https://book.vantage.com/vantage-${state.sector}');alert('Copied')">Copy</button></div><label>Embed code</label><textarea class="fld" rows="2" readonly><iframe src="https://book.vantage.com/embed/vantage-${state.sector}" width="100%" height="600"></iframe></textarea></div>
+  </div>`;
+}
+
+/* NEW BOOKING MODAL */
+window.openNewBooking=(quick)=>{
+  state.nbStep=1;state.nbData.service=null;state.nbData.client=null;state.nbData.time=null;
+  renderNBStep();updSteps();
+  if(quick&&state.nbData.date){
+    const d=new Date(state.nbData.date);d.setHours(state.nbData.hour,0,0,0);
+    state.nbData.time=d;
+  }
+  openM('mNew');
+};
+function renderNBStep(){
+  if(state.nbStep===1){
+    const S=SECTORS[state.sector];
+    $('#svcGrid').innerHTML=state.services.map(s=>`<button class="svc-card ${state.nbData.service?.id===s.id?'selected':''}" onclick="state.nbData.service=state.services.find(x=>x.id==='${s.id}');renderNBStep()"><div class="n">${s.n}</div><div class="d">${s.d}</div><div class="meta"><span>${s.dur}min</span><span style="color:var(--accent);font-weight:600">${money(rand(40,200))}</span></div></button>`).join('');
+  } else if(state.nbStep===2){
+    $('#nbDate').value=state.nbData.date||toISO(new Date());
+    $('#nbRes').innerHTML=state.resources.map(r=>`<option value="${r.id}">${r.n} · ${r.cap}</option>`).join('');
+    if(state.nbData.resId)$('#nbRes').value=state.nbData.resId;
+    renderSlots();
+    $('#nbDate').addEventListener('change',renderSlots);
+  } else if(state.nbStep===3){
+    $('#nbClients').innerHTML='';
+    $('#nbSearch').value='';
+    $('#nbSearch').oninput=e=>{const q=e.target.value.toLowerCase();if(!q){$('#nbClients').innerHTML='';return}$('#nbClients').innerHTML=state.clients.filter(c=>c.name.toLowerCase().includes(q)||c.phone.includes(q)).slice(0,5).map(c=>`<div style="padding:8px;border-radius:8px;cursor:pointer;font-size:12px;display:flex;gap:8px;align-items:center" onmouseover="this.style.background='var(--fill-tertiary)'" onmouseout="this.style.background=''" onclick="state.nbData.client=state.clients.find(x=>x.id==='${c.id}');nbStep(1)"><div class="avatar" style="background:${c.color};width:26px;height:26px;font-size:10px">${initials(c.name)}</div><div><strong>${c.name}</strong><div style="font-size:10px;color:var(--label-tertiary)">${c.phone}</div></div></div>`).join('')};
+  } else {
+    const svc=state.nbData.service,time=state.nbData.time,res=state.resources.find(r=>r.id===state.nbData.resId);
+    const client=state.nbData.client||{name:$('#nbName').value,phone:$('#nbPhone').value,email:$('#nbEmail').value};
+    $('#smSvc').textContent=svc?.n||'—';
+    $('#smDT').textContent=time?`${fmtDate(time)} ${fmtTime(time)}`:'—';
+    $('#smRes').textContent=res?.n||'—';
+    $('#smCli').textContent=client.name||'—';
+    $('#smDur').textContent=(svc?.dur||0)+'m';
+  }
+}
+function renderSlots(){
+  const S=SECTORS[state.sector];const dateStr=$('#nbDate').value;const d=new Date(dateStr);
+  const slots=[];for(let h=S.openHrs[0];h<S.openHrs[1];h++){slots.push([h,0]);slots.push([h,30])}
+  const takenTimes=new Set(state.bookings.filter(b=>sameDay(b.start,d)).map(b=>`${b.start.getHours()}:${b.start.getMinutes()}`));
+  $('#slotGrid').innerHTML=slots.map(([h,m])=>{const key=`${h}:${m}`;const taken=takenTimes.has(key);const time=new Date(d);time.setHours(h,m,0,0);const sel=state.nbData.time&&sameDay(state.nbData.time,time)&&state.nbData.time.getHours()===h&&state.nbData.time.getMinutes()===m;return `<button class="slot-btn ${sel?'selected':''}" ${taken?'disabled':''} onclick="state.nbData.time=new Date(${time.getFullYear()},${time.getMonth()},${time.getDate()},${h},${m});renderSlots()">${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}</button>`}).join('');
+  $('#nbRes').onchange=e=>{state.nbData.resId=e.target.value};
+  if(!state.nbData.resId)state.nbData.resId=state.resources[0].id;
+}
+function updSteps(){$$('#mNew .step').forEach((s,i)=>s.classList.toggle('active',i<state.nbStep));['nbStep1','nbStep2','nbStep3','nbStep4'].forEach((id,i)=>$('#'+id).style.display=state.nbStep===i+1?'block':'none');$('#nbBack').style.display=state.nbStep>1?'inline-flex':'none';$('#nbNext').style.display=state.nbStep<4?'inline-flex':'none';$('#nbSave').style.display=state.nbStep===4?'inline-flex':'none'}
+window.nbStep=d=>{
+  if(d>0){
+    if(state.nbStep===1&&!state.nbData.service)return alert('Select a service');
+    if(state.nbStep===2&&!state.nbData.time)return alert('Select a time slot');
+    if(state.nbStep===3){
+      if(!state.nbData.client&&!$('#nbName').value.trim())return alert('Select or enter client info');
+      if(!state.nbData.client){state.nbData.client={name:$('#nbName').value.trim(),phone:$('#nbPhone').value,email:$('#nbEmail').value,color:`hsl(${rand(0,360)},55%,55%)`,id:uid(),tags:[],notes:'',birthday:new Date(1990,0,1),preferredTime:'Morning',preferredResource:state.resources[0].n,status:'active',avgSpend:0};state.clients.push(state.nbData.client)}
+    }
+  }
+  state.nbStep=Math.max(1,Math.min(4,state.nbStep+d));
+  renderNBStep();updSteps();
+};
+window.saveBooking=()=>{
+  const svc=state.nbData.service,time=state.nbData.time,res=state.resources.find(r=>r.id===state.nbData.resId),client=state.nbData.client;
+  const end=new Date(time.getTime()+svc.dur*60000);
+  state.bookings.push({id:uid(),clientId:client.id,clientName:client.name,clientColor:client.color,start:time,end,service:svc.n,duration:svc.dur,resourceId:res.id,resourceName:res.n,resourceColor:res.color,status:'confirmed',source:'Manual',notes:$('#nbNotes').value,ref:`BK-${rand(10000,99999)}`});
+  state.bookings.sort((a,b)=>a.start-b.start);
+  closeM('mNew');renderAll();
+};
+
+/* MODAL HELPERS */
+window.openM=id=>$('#'+id).classList.add('open');
+window.closeM=id=>$('#'+id).classList.remove('open');
+$$('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+
+/* THEME */
+$('#themeToggle').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.checked?'dark':'light';localStorage.setItem('bk-theme',e.target.checked?'dark':'light');renderMain()});
+if(localStorage.getItem('bk-theme')==='dark'){document.documentElement.dataset.theme='dark';$('#themeToggle').checked=true}
+
+$('#sector').addEventListener('change',e=>{state.sector=e.target.value;applySector()});
+$$('.segmented button[data-p]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.p)));
+
+applySector();
+</script>
+</body>
+</html>
