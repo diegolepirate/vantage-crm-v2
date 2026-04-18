@@ -3015,8 +3015,11 @@ var UNI_ACTIVITY=[
   {action:'created',entity:'BioFit Lab',target:'',color:'#4ADE80',time:'3h ago'}
 ];
 
-var UNI_CATEGORIES=['Prémium','E-Commerce','Services','Food & Beverage','Health & Wellness','The Basic'];
-var UNI_CAT_COLORS={'Prémium':'#D4AF37','E-Commerce':'#00D9FF','Services':'#7C3AED','Food & Beverage':'#FF6B6B','Health & Wellness':'#4ADE80','The Basic':'#F5C842'};
+var UNI_CATEGORIES_LANDING=['Prémium','E-Commerce','Services','Food & Beverage','Health & Wellness','The Basic'];
+var UNI_CATEGORIES_TOOL=['Analytics','Admin Panels','CRM','Developer Tools','Productivity'];
+var UNI_CATEGORIES=UNI_CATEGORIES_LANDING;
+function getActiveCategories(){return uniTypeFilter==='tool'?UNI_CATEGORIES_TOOL:UNI_CATEGORIES_LANDING}
+var UNI_CAT_COLORS={'Prémium':'#D4AF37','E-Commerce':'#00D9FF','Services':'#7C3AED','Food & Beverage':'#FF6B6B','Health & Wellness':'#4ADE80','The Basic':'#F5C842','Analytics':'#00D9FF','Admin Panels':'#7C3AED','CRM':'#D4AF37','Developer Tools':'#4ADE80','Productivity':'#FF6B6B'};
 var UNI_TIER_COLORS={free:'#4ADE80',classic:'#60A5FA',premium:'#D4AF37'};
 var UNI_REL_COLORS={similar:'#D4AF37',related:'#00D9FF',complements:'#4ADE80',inspired_by:'#FF6B6B'};
 var uniSelected=null,uniPreview=null,uniExpanded={},uniSearch='',uniCy=null;
@@ -3115,7 +3118,7 @@ function buildUniverseHTML(){
   return filterBtns+'<div class="uni-body">'
     +'<div class="uni-sidebar" id="uniSidebar">'+buildUniSidebar()+'</div>'
     +'<div class="uni-graph"><div id="cyContainer"></div>'
-    +'<div class="uni-legend">'+UNI_CATEGORIES.map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')+'</div>'
+    +'<div class="uni-legend">'+getActiveCategories().map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')+'</div>'
     +'</div>'
     +'<div class="uni-rpanel" id="uniRPanel"><div class="uni-rpanel-empty"><span style="font-size:32px;opacity:.3">&#9733;</span><span>Select a template<br>to view details</span></div></div>'
     +'</div>';
@@ -3134,7 +3137,7 @@ function buildUniSidebar(){
   var filtered=UNI_TEMPLATES.filter(function(t){return getTplType(t)===uniTypeFilter&&(!q||t.name.toLowerCase().indexOf(q)>=0||t.category.toLowerCase().indexOf(q)>=0||t.subcategory.toLowerCase().indexOf(q)>=0||(t.tags&&t.tags.some(function(tg){return tg.indexOf(q)>=0}))||(t.technologies&&t.technologies.some(function(tc){return tc.toLowerCase().indexOf(q)>=0})))});
   var html='<div style="padding:10px 12px 6px"><input id="uniSearchInput" type="text" placeholder="Search..." value="'+uniSearch+'" style="width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 12px;font-size:12px;color:#fff;outline:none;font-family:Inter,sans-serif"></div><div class="uni-sidebar-title">Template Library</div>';
   // Activity feed at bottom
-  UNI_CATEGORIES.forEach(function(cat){
+  getActiveCategories().forEach(function(cat){
     var items=filtered.filter(function(t){return t.category===cat});
     var open=uniExpanded[cat];
     html+='<div style="padding:0 8px;margin-bottom:4px"><button class="uni-cat-btn" onclick="toggleUniCat(\''+cat+'\')">';
@@ -30390,7 +30393,7 @@ function initUniverseGraph(){
   var visibleTpls=UNI_TEMPLATES.filter(function(t){return getTplType(t)===uniTypeFilter});
   var visibleIds={};visibleTpls.forEach(function(t){visibleIds[t.id]=1});
   var visibleCats={};visibleTpls.forEach(function(t){visibleCats[t.category]=1});
-  UNI_CATEGORIES.forEach(function(cat){if(visibleCats[cat])elements.push({data:{id:'cat-'+cat,label:cat,type:'category'}})});
+  getActiveCategories().forEach(function(cat){if(visibleCats[cat])elements.push({data:{id:'cat-'+cat,label:cat,type:'category'}})});
   visibleTpls.forEach(function(t){
     elements.push({data:{id:'tpl-'+t.id,label:t.name,type:'template',tier:t.tier,category:t.category,views:t.views||0}});
     elements.push({data:{source:'cat-'+t.category,target:'tpl-'+t.id,etype:'category'}});
