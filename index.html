@@ -30584,8 +30584,10 @@ function renderTplMapStack(host){
     var tierBadge=t.tier==='premium'?'PREMIUM':t.tier==='classic'?'CLASSIC':(t.tier||'').toUpperCase();
     var subline=t.subcategory?escHtml(t.category)+' \u00b7 '+escHtml(t.subcategory):escHtml(t.category||'');
     var safeUrl=escHtml(t.url);
+    var heroImg=(typeof TPL_HEROES!=='undefined'&&TPL_HEROES[t.name])?TPL_HEROES[t.name]:'';
+    var bgStyle=heroImg?' style="background-image:url(\''+escHtml(heroImg)+'\');background-size:cover;background-position:center"':'';
     return '<div class="tpl-stack-item" data-url="'+safeUrl+'" onclick="window.open(\''+safeUrl+'\',\'_blank\')">'
-      +'<div class="tpl-stack-iframe-wrap"><div class="tpl-stack-placeholder">LOADING PREVIEW\u2026</div></div>'
+      +'<div class="tpl-stack-iframe-wrap"'+bgStyle+'><div class="tpl-stack-placeholder">LOADING PREVIEW\u2026</div></div>'
       +'<div class="tpl-stack-meta">'
         +(tierBadge?'<div class="tpl-stack-tier">'+tierBadge+'</div>':'')
         +'<div class="tpl-stack-cat">'+subline+'</div>'
@@ -30613,7 +30615,7 @@ function renderTplMapStack(host){
     +'.tpl-stack-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:20px;font-size:.72rem;letter-spacing:1.4px;cursor:pointer;transition:.2s;font-family:inherit;text-transform:uppercase}'
     +'.tpl-stack-pill:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#fff}'
     +'.tpl-stack-pill-active{background:#C9A84C;border-color:#C9A84C;color:#0a0a0f;font-weight:600}'
-    +'.tpl-stack-list{position:relative;max-width:1100px;margin:0 auto;padding:0 40px}'
+    +'.tpl-stack-list{position:relative;max-width:1600px;margin:0 auto;padding:0 24px}'
     +'.tpl-stack-item{position:sticky;top:90px;height:78vh;min-height:560px;border-radius:18px;overflow:hidden;margin-bottom:32vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#0a0a0f;cursor:pointer;will-change:transform;transition:transform .3s ease}'
     +'.tpl-stack-item:hover{transform:translateY(-4px)}'
     +'.tpl-stack-iframe-wrap{position:absolute;inset:0;overflow:hidden;background:#111}'
