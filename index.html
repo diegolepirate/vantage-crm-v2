@@ -30708,21 +30708,19 @@ function renderTplMapStack(host){
     ifr.setAttribute('referrerpolicy','no-referrer');
     ifr.setAttribute('loading','lazy');
     if('fetchPriority' in ifr)ifr.fetchPriority='low';
-    ifr.style.opacity='0';ifr.style.transition='opacity .25s ease';
-    var useUrl=tpl.url&&/^https?:\/\//.test(tpl.url)&&!/awwwards\.com/.test(tpl.url);
-    if(useUrl){ifr.src=tpl.url}else{ifr.srcdoc=generateTemplateHTML(tpl)}
+    // ALWAYS use srcdoc — instant render, zero network. Real template opens on click via previewUniTpl.
+    ifr.srcdoc=generateTemplateHTML(tpl);
     ifr.addEventListener('load',function(){
       var ph=mainWrap.querySelector('.tpl-stack-placeholder');if(ph)ph.style.display='none';
       fitOne(mainEl);
-      requestAnimationFrame(function(){ifr.style.opacity='1'});
     });
     mainWrap.appendChild(ifr);
     fitOne(mainEl);
   }
 
   var items=host.querySelectorAll('.tpl-stack-item');
-  // Eager preload: 8 above-the-fold (instant feel) — rest lazy on scroll
-  var eager=Math.min(8,items.length);
+  // Eager preload: all srcdoc renders are instant + zero network — load 20 ahead
+  var eager=Math.min(20,items.length);
   for(var i=0;i<eager;i++){loadTplPreview(items[i])}
 
   if('IntersectionObserver' in window){
