@@ -31467,92 +31467,98 @@ function openVillageMap(region,count,badge,color){
 function mapResetZoom(){}
 
 async function renderMap(container){
-  const{data:freshProjects}=await sb.from('projects').select('*').order('id');
-  if(freshProjects)PROJECTS=freshProjects;
-  const myProjects=isAdmin?PROJECTS:PROJECTS.filter(p=>p.vendor===currentUser||p.vendeur===currentUser||p.vendeur==='Tous');
-  const active=myProjects.filter(p=>p.status==='active');
+  // Template browser — scroll-stack effect inspired by vantage-estate-index.html
+  // Each stack item = live iframe preview of a template (lazy-loaded)
+  const tpls=UNI_TEMPLATES.filter(function(t){return t.url&&t.url.indexOf('http')===0});
+  const cats=['All'].concat(Array.from(new Set(tpls.map(function(t){return t.category}))).filter(Boolean).sort());
+  if(!window._mapTplFilter)window._mapTplFilter='All';
+  const filter=window._mapTplFilter;
+  const list=filter==='All'?tpls:tpls.filter(function(t){return t.category===filter});
 
-  // Fetch stats per active project
-  const projStats=await Promise.all(active.map(async p=>{
-    const region=p.region;
-    const[tR,cR]=await Promise.all([
-      sb.from('prospects').select('*',{count:'exact',head:true}).eq('region',region),
-      sb.from('prospects').select('*',{count:'exact',head:true}).eq('region',region).neq('status','nouveau')
-    ]);
-    return{total:tR.count||0,called:cR.count||0};
-  }));
+  const itemsHtml=list.map(function(t){
+    const tierBadge=t.tier==='premium'?'PREMIUM':t.tier==='classic'?'CLASSIC':(t.tier||'').toUpperCase();
+    const subline=t.subcategory?escHtml(t.category)+' · '+escHtml(t.subcategory):escHtml(t.category||'');
+    const safeUrl=escHtml(t.url);
+    return '<div class="tpl-stack-item" data-url="'+safeUrl+'" onclick="window.open(\''+safeUrl+'\',\'_blank\')">'
+      +'<div class="tpl-stack-iframe-wrap"><div class="tpl-stack-placeholder">LOADING PREVIEW…</div></div>'
+      +'<div class="tpl-stack-meta">'
+        +(tierBadge?'<div class="tpl-stack-tier">'+tierBadge+'</div>':'')
+        +'<div class="tpl-stack-cat">'+subline+'</div>'
+        +'<div class="tpl-stack-name">'+escHtml(t.name)+'</div>'
+        +'<div class="tpl-stack-open">Open template →</div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
 
-  // Build active project lookup
-  const projByRegion={};
-  active.forEach((p,i)=>{projByRegion[p.region]={project:p,stats:projStats[i]}});
+  const pillsHtml=cats.map(function(c){
+    const active=c===filter?' tpl-stack-pill-active':'';
+    const safeCat=escHtml(c).replace(/'/g,"\\'");
+    return '<button class="tpl-stack-pill'+active+'" onclick="window._mapTplFilter=\''+safeCat+'\';renderMap(document.getElementById(\'tabContent\'))">'+escHtml(c)+'</button>';
+  }).join('');
 
-  // Reset placement tracker
-  Object.keys(_mapPlaced).forEach(k=>delete _mapPlaced[k]);
+  container.innerHTML='<style>'
+    +'.tpl-stack-root{content-visibility:visible!important}'
+    +'.tpl-stack-wrap{max-width:1400px;margin:0 auto;padding:40px 24px 60px}'
+    +'.tpl-stack-header{text-align:center;margin-bottom:30px}'
+    +'.tpl-stack-header h2{font-family:\'Tanker\',sans-serif;font-size:2.4rem;letter-spacing:3px;color:#fff;margin:0 0 8px;text-shadow:0 0 20px rgba(201,168,76,.3)}'
+    +'.tpl-stack-header p{color:rgba(255,255,255,.5);font-size:.85rem;letter-spacing:1px}'
+    +'.tpl-stack-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px;padding:0 16px}'
+    +'.tpl-stack-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:20px;font-size:.75rem;letter-spacing:1.2px;cursor:pointer;transition:.2s;font-family:inherit;text-transform:uppercase}'
+    +'.tpl-stack-pill:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#fff}'
+    +'.tpl-stack-pill-active{background:#C9A84C;border-color:#C9A84C;color:#0a0a0f;font-weight:600}'
+    +'.tpl-stack-list{position:relative;max-width:1100px;margin:0 auto;padding:0 40px}'
+    +'.tpl-stack-item{position:sticky;top:80px;height:78vh;min-height:560px;border-radius:18px;overflow:hidden;margin-bottom:32vh;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);background:#0a0a0f;cursor:pointer;will-change:transform;transition:transform .3s ease}'
+    +'.tpl-stack-item:hover{transform:translateY(-4px)}'
+    +'.tpl-stack-iframe-wrap{position:absolute;inset:0;overflow:hidden;background:#111}'
+    +'.tpl-stack-iframe-wrap iframe{width:100%;height:100%;border:0;pointer-events:none;display:block;background:#fff}'
+    +'.tpl-stack-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:.75rem;letter-spacing:3px;font-family:\'Tanker\',sans-serif}'
+    +'.tpl-stack-meta{position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(10,10,15,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);padding:14px 20px;border-radius:14px;max-width:72%;pointer-events:none}'
+    +'.tpl-stack-tier{display:inline-block;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:10px;margin-bottom:8px;background:rgba(201,168,76,.18);color:#C9A84C;border:1px solid rgba(201,168,76,.35);font-weight:600}'
+    +'.tpl-stack-cat{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}'
+    +'.tpl-stack-name{font-family:\'Tanker\',sans-serif;font-size:1.5rem;color:#fff;letter-spacing:1px;margin-bottom:6px;line-height:1.15}'
+    +'.tpl-stack-open{font-size:.75rem;color:#C9A84C;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}'
+    +'.tpl-stack-end{height:30vh}'
+    +'.tpl-stack-empty{text-align:center;padding:80px 20px;color:rgba(255,255,255,.4)}'
+    +'@media(max-width:768px){.tpl-stack-list{padding:0 12px}.tpl-stack-item{height:60vh;min-height:420px;margin-bottom:22vh}.tpl-stack-meta{max-width:85%;left:12px;bottom:12px;padding:10px 14px}.tpl-stack-name{font-size:1.15rem}}'
+  +'</style>'
+  +'<div class="tpl-stack-root">'
+    +'<div class="tpl-stack-wrap">'
+      +'<div class="tpl-stack-header">'
+        +'<h2>MAP</h2>'
+        +'<p>'+list.length+' templates \u00b7 scroll to browse \u00b7 click to open</p>'
+      +'</div>'
+      +'<div class="tpl-stack-pills">'+pillsHtml+'</div>'
+      +(list.length?'<div class="tpl-stack-list">'+itemsHtml+'<div class="tpl-stack-end"></div></div>':'<div class="tpl-stack-empty">No templates in this category.</div>')
+    +'</div>'
+  +'</div>';
 
-  // Build ALL city points - every region with prospects gets a dot
-  let allPointsHtml='';
-  const sizeBadgeColors={PETIT:'#3b82f6',MOYEN:'#f59e0b',GRAND:'#ef4444',G\u00c9ANT:'#a855f7'};
-  const mapStats={PETIT:{total:0,proj:0},MOYEN:{total:0,proj:0},GRAND:{total:0,proj:0},G\u00c9ANT:{total:0,proj:0}};
-  ALL_REGIONS.forEach(r=>{
-    const coords=getMapCoords(r);
-    if(!coords)return;
-    const count=REGION_COUNTS[r]||0;
-    if(count===0)return;
-    const badge=getSizeBadge(count);
-    const badgeColor=sizeBadgeColors[badge.label]||'#fff';
-    const proj=projByRegion[r];
-    if(mapStats[badge.label]){mapStats[badge.label].total++;if(proj)mapStats[badge.label].proj++;}
-    const regionLabel=r.length>30?r.split('\u2014')[0].trim():r;
-    const cityClick=`onclick="event.stopPropagation();openRegionCard('${escHtml(r).replace(/'/g,"\\\\'")}',${count},'${badge.label}','${badgeColor}')"`;
-    // Pin icon by size: GÉANT=castle, GRAND=fortress, MOYEN=village, PETIT=house
-    const sizePin={PETIT:'\uD83C\uDFE0',MOYEN:'\uD83C\uDFD8\uFE0F',GRAND:'\uD83C\uDFF0',G\u00c9ANT:'\uD83C\uDFF0'}[badge.label]||'\uD83C\uDFE0';
-    const sizePinCSS={PETIT:'"\\1F3E0"',MOYEN:'"\\1F3D8"',GRAND:'"\\1F3F0"',G\u00c9ANT:'"\\1F3F0"'}[badge.label]||'"\\1F3E0"';
-    const pinScale={PETIT:'1',MOYEN:'1.3',GRAND:'1.6',G\u00c9ANT:'2'}[badge.label]||'1';
-    const pinClass={GRAND:'pin-castle',MOYEN:'pin-village',PETIT:'pin-market'}[badge.label]||'pin-fortress';
-    if(proj){
-      const s=proj.stats;
-      const callPct=s.total>0?Math.min(Math.round(s.called/s.total*100),100):0;
-      const color=callPct>=75?'#34d399':callPct>=40?'#fbbf24':'#f87171';
-      const projIcon=callPct>=75?'\u2694\uFE0F':callPct>=40?'\u2692\uFE0F':'\u26FA';
-      allPointsHtml+=`<div class="map-city mc-active ${pinClass}" style="--x:${coords.x};--y:${coords.y};--mc-color:${color};--pin-icon:${sizePinCSS};--city-pin-size-font:${pinScale}rem" ${cityClick}><div class="pin-hover-btn">${escHtml(regionLabel)}<br><span style="font-size:.6rem;letter-spacing:1px;opacity:.8">${count} prospects \u2022 ${callPct}%</span></div><div class="map-city__label"><div class="map-city__sign anim anim-grow" data-icon="${projIcon}">${escHtml(regionLabel)} ${callPct}%</div></div></div>`;
-    } else {
-      allPointsHtml+=`<div class="map-city ${pinClass}" style="--x:${coords.x};--y:${coords.y};--city-sign-color-back:${badgeColor};--pin-icon:${sizePinCSS};--city-pin-size-font:${pinScale}rem" ${cityClick}><div class="pin-hover-btn">${escHtml(regionLabel)}<br><span style="font-size:.6rem;letter-spacing:1px;opacity:.8">${count} prospects</span></div><div class="map-city__label"><div class="map-city__sign anim anim-grow" data-icon="${sizePin}"><span style="color:${badgeColor}">${badge.label}</span> ${escHtml(regionLabel)} ${count.toLocaleString()}</div></div></div>`;
-    }
-  });
-
-  mapZoom=1;mapPanX=0;mapPanY=0;
-
-  container.innerHTML=`<div style="padding:24px">
-    <h2 style="font-family:'Tanker',sans-serif;font-size:2rem;text-align:center;margin-bottom:24px;letter-spacing:2px;color:#fff;text-shadow:0 0 20px rgba(52,211,153,.3)">CARTE DE CONQU\u00caTE</h2>
-    <div class="map-fullscreen-overlay" id="mapOverlay" onclick="closeMapFullscreen()"></div>
-    <div class="map-card-wrap" id="mapCardWrap" onclick="activateMapFullscreen(event)">
-    <div class="map-container" id="mapZoomArea">
-      <button class="map-close-btn" id="mapCloseBtn" onclick="event.stopPropagation();closeMapFullscreen()">\u2715</button>
-      <div id="mapTransformLayer" style="position:relative">
-        <div id="mapSvgWrap" style="position:relative;width:100%;min-height:400px">
-          <div style="text-align:center;padding:80px;color:var(--gray)">Chargement de la carte...</div>
-        </div>
-        <div id="mapMarkers" style="position:absolute;inset:0;pointer-events:none">
-          <div style="position:relative;width:100%;height:100%;pointer-events:auto">${allPointsHtml}</div>
-        </div>
-      </div>
-      <div class="map-legend">
-        <div style="display:flex;align-items:center;gap:6px"><img src="assets/game-icons/pin-fortress.png" style="width:20px;height:20px"> Forteresse <span style="color:#a855f7">${mapStats['G\u00c9ANT'].proj}/${mapStats['G\u00c9ANT'].total}</span> <span style="color:rgba(255,255,255,.4)">(${mapStats['G\u00c9ANT'].total?Math.round(mapStats['G\u00c9ANT'].proj/mapStats['G\u00c9ANT'].total*100):0}%)</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><img src="assets/game-icons/pin-castle.png" style="width:20px;height:20px"> Ch\u00e2teau <span style="color:#ef4444">${mapStats.GRAND.proj}/${mapStats.GRAND.total}</span> <span style="color:rgba(255,255,255,.4)">(${mapStats.GRAND.total?Math.round(mapStats.GRAND.proj/mapStats.GRAND.total*100):0}%)</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><img src="assets/game-icons/pin-village.png" style="width:20px;height:20px"> Village <span style="color:#f59e0b">${mapStats.MOYEN.proj}/${mapStats.MOYEN.total}</span> <span style="color:rgba(255,255,255,.4)">(${mapStats.MOYEN.total?Math.round(mapStats.MOYEN.proj/mapStats.MOYEN.total*100):0}%)</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><img src="assets/game-icons/pin-market.png" style="width:20px;height:20px"> March\u00e9 <span style="color:#3b82f6">${mapStats.PETIT.proj}/${mapStats.PETIT.total}</span> <span style="color:rgba(255,255,255,.4)">(${mapStats.PETIT.total?Math.round(mapStats.PETIT.proj/mapStats.PETIT.total*100):0}%)</span></div>
-      </div>
-    </div>
-    </div>
-    <div class="region-card-overlay" id="regionCardOverlay" onclick="if(event.target===this)closeRegionCard()"></div>
-    ${!active.length?'<div style="text-align:center;padding:40px;color:var(--gray);font-size:.9rem;margin-top:16px">Cr\u00e9ez un projet pour commencer la conqu\u00eate</div>':''}
-  </div>`;
-
-  // Load SVG map
-  fetch('assets/game-icons/greece-map.svg').then(r=>r.text()).then(svg=>{
-    const wrap=document.getElementById('mapSvgWrap');
-    if(wrap){wrap.innerHTML=svg;initMapZoom()}
-  });
+  // Lazy-load iframes via IntersectionObserver
+  if('IntersectionObserver' in window){
+    const items=container.querySelectorAll('.tpl-stack-item');
+    const io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          const item=e.target;
+          const url=item.getAttribute('data-url');
+          const wrap=item.querySelector('.tpl-stack-iframe-wrap');
+          if(url&&wrap&&!wrap.querySelector('iframe')){
+            const iframe=document.createElement('iframe');
+            iframe.src=url;
+            iframe.loading='lazy';
+            iframe.setAttribute('scrolling','no');
+            iframe.setAttribute('referrerpolicy','no-referrer');
+            iframe.addEventListener('load',function(){
+              const ph=wrap.querySelector('.tpl-stack-placeholder');
+              if(ph)ph.style.display='none';
+            });
+            wrap.appendChild(iframe);
+          }
+          io.unobserve(item);
+        }
+      });
+    },{rootMargin:'800px 0px'});
+    items.forEach(function(it){io.observe(it)});
+  }
 }
 
 // 9. VENDORS TAB (Admin)
