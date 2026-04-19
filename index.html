@@ -30617,7 +30617,7 @@ function renderTplMapStack(host){
     +'.tpl-stack-item{position:sticky;top:90px;height:78vh;min-height:560px;border-radius:18px;overflow:hidden;margin-bottom:32vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#0a0a0f;cursor:pointer;will-change:transform;transition:transform .3s ease}'
     +'.tpl-stack-item:hover{transform:translateY(-4px)}'
     +'.tpl-stack-iframe-wrap{position:absolute;inset:0;overflow:hidden;background:#0a0a0f}'
-    +'.tpl-stack-iframe-wrap iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;display:block;background:#fff;transform-origin:0 0;transform:scale(1)}'
+    +'.tpl-stack-iframe-wrap iframe{position:absolute;top:50%;left:50%;width:1440px;height:900px;border:0;pointer-events:none;display:block;background:#fff;transform-origin:center center;transform:translate(-50%,-50%) scale(1)}'
     +'.tpl-stack-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:.75rem;letter-spacing:3px;font-family:\'Tanker\',sans-serif;z-index:1}'
     +'.tpl-stack-meta{position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(10,10,15,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);padding:14px 20px;border-radius:14px;max-width:72%;pointer-events:none}'
     +'.tpl-stack-tier{display:inline-block;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:10px;margin-bottom:8px;background:rgba(201,168,76,.18);color:#C9A84C;border:1px solid rgba(201,168,76,.35);font-weight:600}'
@@ -30644,7 +30644,7 @@ function renderTplMapStack(host){
     wraps.forEach(function(w){
       var ifr=w.querySelector('iframe');if(!ifr)return;
       var cw=w.clientWidth,ch=w.clientHeight;if(!cw||!ch)return;
-      var scale=(cw/1440);
+      var scale=Math.min(cw/1440,ch/900);
       ifr.style.transform='scale('+scale+')';
     });
   }
@@ -31649,7 +31649,7 @@ async function renderMap(container){
     wraps.forEach(function(w){
       const ifr=w.querySelector('iframe');if(!ifr)return;
       const cw=w.clientWidth,ch=w.clientHeight;if(!cw||!ch)return;
-      ifr.style.transform='scale('+(cw/1440)+')';
+      ifr.style.transform='translate(-50%,-50%) scale('+Math.min(cw/1440,ch/900)+')';
     });
   }
   window.addEventListener('resize',fitTplIframes2);
