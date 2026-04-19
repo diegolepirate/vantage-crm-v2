@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maison Aurelia — Curated Properties. Private Access.</title>
+<meta name="description" content="Maison Aurelia — luxury real estate agency. Curated villas and heritage residences across the Athenian Riviera, Mykonos, Santorini, Paros and Corfu." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0B2540;
+    --navy-2:#13294B;
+    --blue:#1E4976;
+    --blue-2:#2E6FAF;
+    --haze:#CFE0F0;
+    --beige:#EDE4D3;
+    --cream:#F5EFE3;
+    --ink:#1A1F2E;
+    --gold:#C9A34E;
+  }
+  html,body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  .serif{font-family:'Playfair Display',Georgia,serif;letter-spacing:-0.02em}
+  .italic-serif{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:var(--cream)}
+  ::-webkit-scrollbar-thumb{background:var(--navy);border-radius:10px}
+
+  /* ——— Scroll-linked progression: background color shift tied to scroll depth.
+     Uses position-based fixed gradient that re-paints as sections change their own bg. */
+  .page-bg{background:linear-gradient(180deg,var(--cream) 0%,var(--haze) 18%,var(--cream) 38%,var(--beige) 58%,var(--navy) 78%,var(--navy-2) 100%)}
+
+  /* ——— Reveal on scroll using modern animation-timeline (fallback: visible). */
+  @keyframes reveal-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  @keyframes reveal-fade{from{opacity:0}to{opacity:1}}
+  @keyframes reveal-clip{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes reveal-circle{from{clip-path:circle(0% at 50% 60%)}to{clip-path:circle(120% at 50% 60%)}}
+  @keyframes reveal-mask{from{clip-path:inset(50% 30% 50% 30%)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes scale-word{0%{transform:scale(0.35);letter-spacing:0.4em;opacity:0.2}50%{transform:scale(1);letter-spacing:-0.02em;opacity:1}100%{transform:scale(0.6);letter-spacing:0.2em;opacity:0.4}}
+  @keyframes parallax-y{from{transform:translateY(-10%)}to{transform:translateY(10%)}}
+  @keyframes parallax-y-slow{from{transform:translateY(-4%) scale(1.08)}to{transform:translateY(4%) scale(1.08)}}
+  @keyframes counter{from{--n:0}to{--n:var(--target)}}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes horiz-pan{from{transform:translateX(0)}to{transform:translateX(-66.6667%)}}
+  @keyframes pulse-pin{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+  @keyframes ring-pulse{0%{box-shadow:0 0 0 0 rgba(201,163,78,.6)}70%{box-shadow:0 0 0 28px rgba(201,163,78,0)}100%{box-shadow:0 0 0 0 rgba(201,163,78,0)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+  @supports (animation-timeline: view()){
+    .sc-reveal{animation:reveal-up linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+    .sc-fade{animation:reveal-fade linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+    .sc-clip{animation:reveal-clip linear both;animation-timeline:view();animation-range:entry 0% entry 80%}
+    .sc-circle{animation:reveal-circle linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+    .sc-mask{animation:reveal-mask linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+    .sc-parallax{animation:parallax-y linear both;animation-timeline:view();animation-range:cover}
+    .sc-parallax-slow{animation:parallax-y-slow linear both;animation-timeline:view();animation-range:cover}
+    .sc-scale-word{animation:scale-word linear both;animation-timeline:view();animation-range:cover}
+    .sc-horiz{animation:horiz-pan linear both;animation-timeline:view();animation-range:cover}
+  }
+  @supports not (animation-timeline: view()){
+    /* Fallback: just show content at rest so nothing disappears */
+    .sc-reveal,.sc-fade,.sc-clip,.sc-circle,.sc-mask{opacity:1;transform:none;clip-path:none}
+    .sc-parallax,.sc-parallax-slow{transform:none}
+    .sc-scale-word{transform:none;letter-spacing:-0.02em;opacity:1}
+    .sc-horiz{transform:none}
+  }
+
+  /* Staggered reveal for lines/words */
+  .stagger > *{animation:reveal-up .9s ease-out both;opacity:0}
+  @supports (animation-timeline: view()){
+    .stagger > *{animation-timeline:view();animation-range:entry 0% entry 50%}
+  }
+  .stagger > *:nth-child(1){animation-delay:.00s}
+  .stagger > *:nth-child(2){animation-delay:.08s}
+  .stagger > *:nth-child(3){animation-delay:.16s}
+  .stagger > *:nth-child(4){animation-delay:.24s}
+  .stagger > *:nth-child(5){animation-delay:.32s}
+  .stagger > *:nth-child(6){animation-delay:.40s}
+  .stagger > *:nth-child(7){animation-delay:.48s}
+  .stagger > *:nth-child(8){animation-delay:.56s}
+
+  /* Marquee */
+  .marquee{display:flex;width:max-content;animation:marquee 38s linear infinite}
+  .marquee--slow{animation-duration:72s}
+
+  /* 3D tilt on hover (CSS only — approximation using perspective+hover) */
+  .tilt{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+  .tilt:hover{transform:perspective(1200px) rotateX(4deg) rotateY(-6deg) translateY(-6px)}
+  .tilt-inv:hover{transform:perspective(1200px) rotateX(-3deg) rotateY(5deg) translateY(-6px)}
+
+  /* Parallax background helpers */
+  .parallax-fixed{background-attachment:fixed;background-size:cover;background-position:center}
+
+  /* Gold underline link */
+  .gold-link{position:relative}
+  .gold-link::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+  .gold-link:hover::after{transform:scaleX(1)}
+
+  /* Horizontal pinned scroll section using position:sticky + CSS animation-timeline */
+  .pin-wrap{height:300vh;position:relative}
+  .pin-sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+  .pin-track{display:flex;width:300vw;height:100%}
+  .pin-track > section{width:100vw;height:100%;flex-shrink:0}
+
+  /* Sky shimmer for gold accents */
+  .shimmer-gold{background:linear-gradient(90deg,#b6902f 0%,#C9A34E 40%,#f0d98b 50%,#C9A34E 60%,#b6902f 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite}
+
+  /* Map pins */
+  .map-pin{position:absolute;width:14px;height:14px;border-radius:999px;background:var(--gold);box-shadow:0 0 0 4px rgba(201,163,78,.2);animation:ring-pulse 2.4s ease-out infinite}
+
+  /* Counter */
+  .counter{counter-reset:n var(--n,0);font-variant-numeric:tabular-nums}
+  .counter::before{content:counter(n)}
+  @supports (animation-timeline: view()){
+    .counter{animation:counter linear both;animation-timeline:view();animation-range:entry 0% entry 80%}
+  }
+
+  /* Hero image zoom */
+  .hero-img{transform:scale(1.2);will-change:transform}
+  @supports (animation-timeline: view()){
+    .hero-img{animation:parallax-y-slow linear both;animation-timeline:view();animation-range:cover}
+  }
+
+  /* Section dividers */
+  .rule{height:1px;background:linear-gradient(90deg,transparent,rgba(26,31,46,.25),transparent)}
+  .rule-light{height:1px;background:linear-gradient(90deg,transparent,rgba(245,239,227,.25),transparent)}
+</style>
+</head>
+<body class="page-bg">
+
+<!-- =========================== HEADER / NAV =========================== -->
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#F5EFE3]/70 border-b border-[#1A1F2E]/10">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#" class="serif text-xl tracking-tight text-[color:var(--navy)]">Maison <span class="italic-serif font-light">Aurelia</span></a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px] uppercase tracking-[0.18em] text-[color:var(--ink)]/80">
+      <a href="#properties" class="gold-link">Properties</a>
+      <a href="#about" class="gold-link">About</a>
+      <a href="#services" class="gold-link">Services</a>
+      <a href="#journal" class="gold-link">Journal</a>
+      <a href="#contact" class="gold-link">Contact</a>
+    </nav>
+    <a href="#contact" class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[color:var(--navy)] text-[color:var(--cream)] text-[12px] uppercase tracking-[0.18em] hover:bg-[color:var(--blue)] transition">Schedule a Viewing <span aria-hidden>→</span></a>
+  </div>
+</header>
+
+<!-- =========================== HERO — Cinematic parallax =========================== -->
+<section class="relative h-[100vh] overflow-hidden bg-[color:var(--navy)]">
+  <div class="absolute inset-0 hero-img sc-parallax-slow" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=80');background-size:cover;background-position:center"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-[color:var(--navy)]/30 via-transparent to-[color:var(--navy)]/80"></div>
+
+  <div class="relative z-10 h-full max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col justify-between pt-28 pb-16 text-[color:var(--cream)]">
+    <div class="stagger">
+      <div class="flex items-center gap-3 text-[12px] uppercase tracking-[0.3em] text-[color:var(--haze)]">
+        <span class="w-8 h-px bg-[color:var(--gold)]"></span>
+        <span>Est. 2009 — Athens · Mykonos</span>
+      </div>
+    </div>
+
+    <div class="stagger max-w-5xl">
+      <p class="italic-serif text-xl md:text-2xl text-[color:var(--haze)] mb-6">A quiet house on the sea. A door that opens only for a few.</p>
+      <h1 class="serif text-[14vw] md:text-[9.5vw] leading-[0.92] font-normal">
+        <span class="block">Properties that feel</span>
+        <span class="block italic-serif font-light">like destinations.</span>
+      </h1>
+      <div class="mt-10 flex flex-col md:flex-row md:items-end gap-6 md:gap-12">
+        <p class="max-w-md text-[15px] leading-relaxed text-[color:var(--haze)]/90">Curated villas, seaside estates and heritage residences across the Athenian Riviera and the Aegean. Private access, quiet introductions, lasting trust.</p>
+        <a href="#properties" class="inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.3em] border-b border-[color:var(--gold)] pb-1 self-start hover:text-[color:var(--gold)] transition">View the Portfolio <span>↘</span></a>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-[11px] uppercase tracking-[0.28em] text-[color:var(--haze)]/70">
+      <span>Scroll</span>
+      <span>Kolonaki · Mykonos · Santorini · Paros · Corfu</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== ABOUT INTRO — opening quote =========================== -->
+<section id="about" class="relative bg-[color:var(--cream)] py-32 md:py-48">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-10 sc-reveal">— Our philosophy</p>
+    <blockquote class="serif text-[7vw] md:text-[5vw] leading-[1.02] text-[color:var(--navy)] max-w-5xl sc-reveal">
+      We don't sell homes.
+      <span class="italic-serif font-light block">We introduce lives to places worth living.</span>
+    </blockquote>
+    <div class="mt-14 grid md:grid-cols-3 gap-10 stagger">
+      <div>
+        <div class="serif text-6xl text-[color:var(--navy)]"><span class="counter" style="--target:15"></span><span class="text-[color:var(--gold)]">+</span></div>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-2 uppercase tracking-[0.18em]">Years of quiet trust</p>
+      </div>
+      <div>
+        <div class="serif text-6xl text-[color:var(--navy)]"><span class="counter" style="--target:340"></span><span class="text-[color:var(--gold)]">+</span></div>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-2 uppercase tracking-[0.18em]">Properties curated</p>
+      </div>
+      <div>
+        <div class="serif text-6xl text-[color:var(--navy)]"><span class="counter" style="--target:12"></span></div>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-2 uppercase tracking-[0.18em]">Locations in Greece</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== DESCRIPTION — Philosophy =========================== -->
+<section class="relative bg-[color:var(--beige)] py-32 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-6 sc-reveal">— The agency</p>
+      <h2 class="serif text-5xl md:text-6xl leading-[1.04] text-[color:var(--navy)] sc-reveal">A small house, a long memory, a careful gaze.</h2>
+    </div>
+    <div class="md:col-span-6 md:col-start-7 space-y-6 text-[16px] leading-[1.8] text-[color:var(--ink)]/85 stagger">
+      <p>Maison Aurelia was founded on a simple idea: that a home is not a transaction but a chapter. We work with a narrow list of clients and a narrower list of properties — never more than we can know by heart.</p>
+      <p>Every estate in our portfolio has been walked, measured, and photographed by us. We know the light in October. We know the neighbour who plays oud on Friday nights. We know which stonemason restored the courtyard in 1987.</p>
+      <p class="italic-serif text-xl text-[color:var(--navy)]">This is how trust is built — slowly, in person, on location.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== THE PORTFOLIO — featured count =========================== -->
+<section id="properties" class="relative bg-[color:var(--navy)] text-[color:var(--cream)] overflow-hidden">
+  <div class="relative h-[80vh] md:h-[90vh]">
+    <div class="absolute inset-0 sc-parallax-slow" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=2000&q=80');background-size:cover;background-position:center;opacity:.6"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[color:var(--navy)] via-transparent to-[color:var(--navy)]/60"></div>
+    <div class="relative z-10 h-full max-w-[1400px] mx-auto px-6 lg:px-10 flex flex-col justify-center">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)] mb-6 sc-reveal">— The portfolio</p>
+      <h2 class="serif text-[16vw] md:text-[11vw] leading-[0.9] sc-scale-word">The<span class="italic-serif"> Portfolio</span></h2>
+      <div class="mt-10 flex flex-wrap gap-10 stagger">
+        <div><div class="serif text-4xl"><span class="counter" style="--target:48"></span></div><p class="text-xs uppercase tracking-[0.25em] text-[color:var(--haze)]/70 mt-1">Villas on offer</p></div>
+        <div><div class="serif text-4xl"><span class="counter" style="--target:21"></span></div><p class="text-xs uppercase tracking-[0.25em] text-[color:var(--haze)]/70 mt-1">Seaside estates</p></div>
+        <div><div class="serif text-4xl"><span class="counter" style="--target:9"></span></div><p class="text-xs uppercase tracking-[0.25em] text-[color:var(--haze)]/70 mt-1">Heritage residences</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== CURATED LISTINGS — parallax image + marquee =========================== -->
+<section class="relative bg-[color:var(--cream)] py-28 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 mb-14">
+    <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-6 sc-reveal">— Curated listings</p>
+    <h2 class="serif text-5xl md:text-7xl text-[color:var(--navy)] sc-reveal">A portfolio that knows its light.</h2>
+  </div>
+
+  <!-- Big parallax villa image -->
+  <div class="relative h-[70vh] overflow-hidden">
+    <div class="absolute inset-0 sc-parallax-slow" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=80');background-size:cover;background-position:center"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[color:var(--cream)] via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Horizontal marquee of property names -->
+  <div class="relative py-12 bg-[color:var(--cream)] overflow-hidden border-y border-[color:var(--ink)]/15">
+    <div class="marquee serif text-[7vw] md:text-[5vw] whitespace-nowrap text-[color:var(--navy)] leading-none">
+      <span class="px-10">Villa Helios</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Cape Sounion Estate</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10 italic-serif font-light">Mykonos Hideaway</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Kolonaki Townhouse</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Santorini Cliffhouse</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10 italic-serif font-light">Paros Olive Grove</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="px-10">Villa Helios</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Cape Sounion Estate</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10 italic-serif font-light">Mykonos Hideaway</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Kolonaki Townhouse</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10">Santorini Cliffhouse</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+      <span class="px-10 italic-serif font-light">Paros Olive Grove</span><span class="italic-serif text-[color:var(--gold)] px-6">·</span>
+    </div>
+  </div>
+
+  <!-- Property cards grid with 3D tilt -->
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 mt-20 grid md:grid-cols-3 gap-8 stagger">
+    <!-- card -->
+    <article class="tilt group bg-white rounded-xl overflow-hidden shadow-[0_10px_40px_-20px_rgba(11,37,64,.4)]">
+      <div class="relative h-72 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80" alt="Villa Helios" class="w-full h-full object-cover group-hover:scale-105 transition duration-[1.2s]" />
+        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-[color:var(--cream)]/90 text-[10px] uppercase tracking-[0.22em] text-[color:var(--navy)]">Athenian Riviera</span>
+      </div>
+      <div class="p-6">
+        <h3 class="serif text-2xl text-[color:var(--navy)]">Villa Helios</h3>
+        <p class="italic-serif text-[color:var(--ink)]/70 mt-1">Vouliagmeni · 6 suites · Private berth</p>
+        <div class="mt-5 flex items-end justify-between">
+          <span class="serif text-xl text-[color:var(--navy)]">€ 14.8M</span>
+          <a href="#" class="text-[11px] uppercase tracking-[0.22em] text-[color:var(--gold)] gold-link">Enquire</a>
+        </div>
+      </div>
+    </article>
+    <article class="tilt-inv group bg-white rounded-xl overflow-hidden shadow-[0_10px_40px_-20px_rgba(11,37,64,.4)]">
+      <div class="relative h-72 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=1200&q=80" alt="Cape Sounion Estate" class="w-full h-full object-cover group-hover:scale-105 transition duration-[1.2s]" />
+        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-[color:var(--cream)]/90 text-[10px] uppercase tracking-[0.22em] text-[color:var(--navy)]">Cape Sounion</span>
+      </div>
+      <div class="p-6">
+        <h3 class="serif text-2xl text-[color:var(--navy)]">Cape Sounion Estate</h3>
+        <p class="italic-serif text-[color:var(--ink)]/70 mt-1">8 bedrooms · Olive grove · Infinity pool</p>
+        <div class="mt-5 flex items-end justify-between">
+          <span class="serif text-xl text-[color:var(--navy)]">€ 22.5M</span>
+          <a href="#" class="text-[11px] uppercase tracking-[0.22em] text-[color:var(--gold)] gold-link">Enquire</a>
+        </div>
+      </div>
+    </article>
+    <article class="tilt group bg-white rounded-xl overflow-hidden shadow-[0_10px_40px_-20px_rgba(11,37,64,.4)]">
+      <div class="relative h-72 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&q=80" alt="Mykonos Hideaway" class="w-full h-full object-cover group-hover:scale-105 transition duration-[1.2s]" />
+        <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-[color:var(--cream)]/90 text-[10px] uppercase tracking-[0.22em] text-[color:var(--navy)]">Mykonos</span>
+      </div>
+      <div class="p-6">
+        <h3 class="serif text-2xl text-[color:var(--navy)]">Mykonos Hideaway</h3>
+        <p class="italic-serif text-[color:var(--ink)]/70 mt-1">Agios Lazaros · 5 suites · Dry stone walls</p>
+        <div class="mt-5 flex items-end justify-between">
+          <span class="serif text-xl text-[color:var(--navy)]">€ 9.4M</span>
+          <a href="#" class="text-[11px] uppercase tracking-[0.22em] text-[color:var(--gold)] gold-link">Enquire</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =========================== LOCATION — Map of Greece with pulse pins =========================== -->
+<section class="relative bg-[color:var(--haze)] py-28 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-12 gap-10 items-end mb-12">
+      <div class="md:col-span-6">
+        <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-4 sc-reveal">— Locations</p>
+        <h2 class="serif text-5xl md:text-6xl text-[color:var(--navy)] sc-reveal">A map drawn by the sea.</h2>
+      </div>
+      <div class="md:col-span-5 md:col-start-8 text-[15px] leading-[1.8] text-[color:var(--ink)]/80 sc-reveal">Five regions. One shared coastline. Our properties cluster where the Aegean is most generous with its light — from the mainland's marble capitals to the quiet coves of the Cyclades.</div>
+    </div>
+
+    <!-- Styled Greece map -->
+    <div class="relative aspect-[4/3] md:aspect-[16/9] rounded-2xl overflow-hidden bg-[color:var(--navy)] sc-circle">
+      <div class="absolute inset-0" style="background-image:radial-gradient(circle at 60% 40%,rgba(46,111,175,.35),transparent 60%),url('https://images.unsplash.com/photo-1533105079780-92b9be482077?w=2000&q=80');background-size:cover;background-position:center;opacity:.55"></div>
+      <div class="absolute inset-0 bg-[color:var(--navy)]/50"></div>
+
+      <!-- Pins -->
+      <div class="map-pin" style="top:42%;left:48%"></div>
+      <div class="map-pin" style="top:52%;left:58%;animation-delay:.6s"></div>
+      <div class="map-pin" style="top:60%;left:54%;animation-delay:1.2s"></div>
+      <div class="map-pin" style="top:58%;left:62%;animation-delay:1.8s"></div>
+      <div class="map-pin" style="top:46%;left:30%;animation-delay:.3s"></div>
+
+      <!-- Location labels -->
+      <div class="absolute text-[color:var(--cream)] text-xs uppercase tracking-[0.3em]" style="top:38%;left:50%"><span class="italic-serif text-base normal-case tracking-normal">Athens</span></div>
+      <div class="absolute text-[color:var(--cream)] text-xs uppercase tracking-[0.3em]" style="top:48%;left:60%"><span class="italic-serif text-base normal-case tracking-normal">Mykonos</span></div>
+      <div class="absolute text-[color:var(--cream)] text-xs uppercase tracking-[0.3em]" style="top:62%;left:56%"><span class="italic-serif text-base normal-case tracking-normal">Santorini</span></div>
+      <div class="absolute text-[color:var(--cream)] text-xs uppercase tracking-[0.3em]" style="top:54%;left:64%"><span class="italic-serif text-base normal-case tracking-normal">Paros</span></div>
+      <div class="absolute text-[color:var(--cream)] text-xs uppercase tracking-[0.3em]" style="top:42%;left:32%"><span class="italic-serif text-base normal-case tracking-normal">Corfu</span></div>
+
+      <div class="absolute bottom-6 right-6 text-[color:var(--cream)]/60 text-[10px] uppercase tracking-[0.3em]">Five islands · One portfolio</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== OFF-MARKET ACCESS =========================== -->
+<section class="relative bg-[color:var(--cream)] py-32 overflow-hidden">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
+    <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-8 sc-reveal">— Off-market access</p>
+    <h2 class="serif text-5xl md:text-7xl text-[color:var(--navy)] leading-[1.05] max-w-4xl mx-auto sc-reveal">
+      The most beautiful homes <span class="italic-serif">never have a sign</span> at the gate.
+    </h2>
+    <p class="italic-serif text-xl md:text-2xl text-[color:var(--ink)]/70 mt-8 max-w-2xl mx-auto sc-reveal">Roughly 40% of our transactions happen off-market — shown only to qualified clients on private introductions. If a listing matters to you, let it matter quietly.</p>
+    <a href="#contact" class="inline-flex items-center gap-3 mt-12 px-8 py-4 rounded-full bg-[color:var(--navy)] text-[color:var(--cream)] text-[11px] uppercase tracking-[0.28em] hover:bg-[color:var(--blue)] transition sc-reveal">Request Private Access <span>→</span></a>
+  </div>
+</section>
+
+<!-- =========================== COURTYARD — masked reveal =========================== -->
+<section class="relative bg-[color:var(--navy)] py-32 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-12 gap-12 items-center">
+    <div class="md:col-span-7 relative overflow-hidden rounded-lg sc-mask">
+      <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=80" alt="Luxury villa courtyard" class="w-full h-[70vh] object-cover" />
+    </div>
+    <div class="md:col-span-5 text-[color:var(--cream)]">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)] mb-5 sc-reveal">— The courtyard</p>
+      <h2 class="serif text-5xl md:text-6xl leading-[1.05] sc-reveal">Architectural grace, sea views, total privacy.</h2>
+      <p class="italic-serif text-xl text-[color:var(--haze)]/80 mt-6 sc-reveal">A limestone courtyard, a single olive tree, a view that doesn't ask to be photographed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== NATURE — Framed by the Aegean =========================== -->
+<section class="relative h-[90vh] overflow-hidden">
+  <div class="absolute inset-0 sc-parallax-slow" style="background-image:url('https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=2000&q=80');background-size:cover;background-position:center"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-[color:var(--navy)]/50 via-transparent to-[color:var(--navy)]/80"></div>
+  <div class="relative z-10 h-full max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center">
+    <div class="max-w-2xl text-[color:var(--cream)]">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)] mb-6 sc-reveal">— Framed by the Aegean</p>
+      <h2 class="serif text-6xl md:text-8xl leading-[0.95] sc-reveal">Framed by <span class="italic-serif">the Aegean.</span></h2>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== LIFE WITH TASTE — marquee + amenities =========================== -->
+<section class="relative bg-[color:var(--beige)] py-32 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-5 sc-reveal">— A life with taste</p>
+      <h2 class="serif text-5xl md:text-6xl text-[color:var(--navy)] sc-reveal">A home is a setting. <span class="italic-serif">We help you cast it.</span></h2>
+    </div>
+    <div class="md:col-span-6 md:col-start-7 text-[16px] leading-[1.8] text-[color:var(--ink)]/80 space-y-5 stagger">
+      <p>Select homes in our portfolio come with curated lives: a resident chef, a private art advisor, a concierge who knows the island from childhood.</p>
+      <p>We also restore — carefully. Our atelier partners have rebuilt walls, windows and gardens on heritage estates from Hydra to Corfu.</p>
+    </div>
+  </div>
+
+  <!-- marquee of amenities -->
+  <div class="mt-20 py-10 border-y border-[color:var(--ink)]/15 overflow-hidden">
+    <div class="marquee marquee--slow whitespace-nowrap serif text-4xl md:text-6xl text-[color:var(--navy)]/80 leading-none">
+      <span class="px-10">Infinity pools</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Wine cellars</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Home cinemas</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Private berths</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Art collections</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Resident chefs</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Helipads</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <!-- dup -->
+      <span class="px-10">Infinity pools</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Wine cellars</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Home cinemas</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Private berths</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Art collections</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10 italic-serif">Resident chefs</span><span class="text-[color:var(--gold)] px-6">◆</span>
+      <span class="px-10">Helipads</span><span class="text-[color:var(--gold)] px-6">◆</span>
+    </div>
+  </div>
+
+  <!-- amenities grid -->
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 mt-20 grid md:grid-cols-4 gap-6 stagger">
+    <div class="p-8 rounded-xl bg-[color:var(--cream)] border border-[color:var(--ink)]/10 tilt">
+      <div class="serif text-3xl text-[color:var(--navy)]">01</div>
+      <h4 class="serif text-xl text-[color:var(--navy)] mt-4">Infinity pools</h4>
+      <p class="text-sm text-[color:var(--ink)]/70 mt-2 leading-relaxed">Designed to disappear into the horizon, with automatic covers and sea-water options.</p>
+    </div>
+    <div class="p-8 rounded-xl bg-[color:var(--cream)] border border-[color:var(--ink)]/10 tilt-inv">
+      <div class="serif text-3xl text-[color:var(--navy)]">02</div>
+      <h4 class="serif text-xl text-[color:var(--navy)] mt-4">Wine cellars</h4>
+      <p class="text-sm text-[color:var(--ink)]/70 mt-2 leading-relaxed">Climate-controlled private cellars curated with Athenian sommeliers on request.</p>
+    </div>
+    <div class="p-8 rounded-xl bg-[color:var(--cream)] border border-[color:var(--ink)]/10 tilt">
+      <div class="serif text-3xl text-[color:var(--navy)]">03</div>
+      <h4 class="serif text-xl text-[color:var(--navy)] mt-4">Home cinemas</h4>
+      <p class="text-sm text-[color:var(--ink)]/70 mt-2 leading-relaxed">Acoustically treated rooms with Dolby Atmos and hidden screens behind velvet.</p>
+    </div>
+    <div class="p-8 rounded-xl bg-[color:var(--cream)] border border-[color:var(--ink)]/10 tilt-inv">
+      <div class="serif text-3xl text-[color:var(--navy)]">04</div>
+      <h4 class="serif text-xl text-[color:var(--navy)] mt-4">Private berths</h4>
+      <p class="text-sm text-[color:var(--ink)]/70 mt-2 leading-relaxed">Direct sea access with moorings suitable for yachts up to 40 meters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== ARCHITECTURE — PINNED HORIZONTAL SCROLL =========================== -->
+<section id="services" class="pin-wrap bg-[color:var(--navy)] text-[color:var(--cream)]">
+  <div class="pin-sticky">
+    <div class="absolute top-0 left-0 right-0 z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 flex items-center justify-between">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)]">— Architects we trust</p>
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)]/60">Scroll →</p>
+    </div>
+    <div class="pin-track sc-horiz">
+      <!-- Panel 1 -->
+      <section class="relative flex items-center">
+        <div class="absolute inset-0 opacity-40" style="background-image:url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=2000&q=80');background-size:cover;background-position:center"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[color:var(--navy)] via-[color:var(--navy)]/60 to-transparent"></div>
+        <div class="relative max-w-3xl px-6 md:px-24">
+          <div class="serif text-[9vw] leading-[0.9]">Tombazis</div>
+          <p class="italic-serif text-2xl mt-6 text-[color:var(--haze)]">Modernist in mainland Greece. Our longest-standing studio partner — restoring heritage residences in Plaka since 2011.</p>
+          <div class="mt-8 flex items-center gap-6 text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)]/80">
+            <span>14 projects</span><span>·</span><span>Athens</span>
+          </div>
+        </div>
+      </section>
+      <!-- Panel 2 -->
+      <section class="relative flex items-center bg-[color:var(--blue)]">
+        <div class="absolute inset-0 opacity-40" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2000&q=80');background-size:cover;background-position:center"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[color:var(--blue)] via-[color:var(--blue)]/60 to-transparent"></div>
+        <div class="relative max-w-3xl px-6 md:px-24">
+          <div class="serif text-[9vw] leading-[0.9] italic-serif font-light">Mitsika</div>
+          <p class="italic-serif text-2xl mt-6 text-[color:var(--haze)]">Island minimalism — dry stone walls, lime-wash, built-ins carved by hand. Our Mykonos signature.</p>
+          <div class="mt-8 flex items-center gap-6 text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)]/80">
+            <span>9 projects</span><span>·</span><span>Mykonos</span>
+          </div>
+        </div>
+      </section>
+      <!-- Panel 3 -->
+      <section class="relative flex items-center bg-[color:var(--navy-2)]">
+        <div class="absolute inset-0 opacity-40" style="background-image:url('https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=2000&q=80');background-size:cover;background-position:center"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[color:var(--navy-2)] via-[color:var(--navy-2)]/60 to-transparent"></div>
+        <div class="relative max-w-3xl px-6 md:px-24">
+          <div class="serif text-[9vw] leading-[0.9]">Frank</div>
+          <p class="italic-serif text-2xl mt-6 text-[color:var(--haze)]">Swiss rigour meets Aegean light. Twelve years of collaborative restorations on Santorini and Paros.</p>
+          <div class="mt-8 flex items-center gap-6 text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)]/80">
+            <span>6 projects</span><span>·</span><span>Cyclades</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== LOBBY + SPACE (interior walk) =========================== -->
+<section class="relative bg-[color:var(--cream)] py-32">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-6 sc-reveal">— Interiors</p>
+    <h2 class="serif text-5xl md:text-6xl text-[color:var(--navy)] max-w-3xl sc-reveal">Step through the door. Notice the stone, the hush, the angle of the morning.</h2>
+
+    <div class="mt-16 grid md:grid-cols-2 gap-8">
+      <div class="relative overflow-hidden rounded-xl sc-mask">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1600&q=80" alt="Lobby" class="w-full h-[70vh] object-cover" />
+        <div class="absolute bottom-6 left-6 text-[color:var(--cream)]">
+          <p class="italic-serif text-xl">The Lobby</p>
+          <p class="text-xs uppercase tracking-[0.25em] mt-1">Entry · Cloakroom · Library</p>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-xl sc-clip md:mt-24">
+        <img src="https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=1600&q=80" alt="Living space" class="w-full h-[70vh] object-cover" />
+        <div class="absolute bottom-6 left-6 text-[color:var(--cream)]">
+          <p class="italic-serif text-xl">The Living Space</p>
+          <p class="text-xs uppercase tracking-[0.25em] mt-1">Open-plan · Fireplace · Sea terrace</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== HOW WE WORK =========================== -->
+<section class="relative bg-[color:var(--beige)] py-32">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-16">
+      <div class="md:col-span-6">
+        <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-6 sc-reveal">— How we work</p>
+        <h2 class="serif text-5xl md:text-6xl text-[color:var(--navy)] sc-reveal">Four quiet steps. <span class="italic-serif">No pressure.</span></h2>
+      </div>
+      <div class="md:col-span-5 md:col-start-8 text-[15px] leading-[1.8] text-[color:var(--ink)]/80 sc-reveal">Every introduction begins with a conversation. The sales paperwork, when it arrives, arrives last.</div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-0 border-t border-[color:var(--ink)]/15 stagger">
+      <div class="p-8 border-r border-b border-[color:var(--ink)]/15">
+        <div class="serif text-5xl text-[color:var(--gold)]">01</div>
+        <h4 class="serif text-2xl text-[color:var(--navy)] mt-4">Listen</h4>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-3 leading-[1.7]">A private meeting, no property list. We learn your rhythm, your timeline, your quiet criteria.</p>
+      </div>
+      <div class="p-8 border-r border-b border-[color:var(--ink)]/15">
+        <div class="serif text-5xl text-[color:var(--gold)]">02</div>
+        <h4 class="serif text-2xl text-[color:var(--navy)] mt-4">Curate</h4>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-3 leading-[1.7]">A shortlist of four to six homes — half on-market, half private. Each one walked in person.</p>
+      </div>
+      <div class="p-8 border-r border-b border-[color:var(--ink)]/15">
+        <div class="serif text-5xl text-[color:var(--gold)]">03</div>
+        <h4 class="serif text-2xl text-[color:var(--navy)] mt-4">Preview</h4>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-3 leading-[1.7]">Quiet visits, with time to sit in the kitchen and watch the afternoon light.</p>
+      </div>
+      <div class="p-8 border-b border-[color:var(--ink)]/15">
+        <div class="serif text-5xl text-[color:var(--gold)]">04</div>
+        <h4 class="serif text-2xl text-[color:var(--navy)] mt-4">Acquire</h4>
+        <p class="text-sm text-[color:var(--ink)]/70 mt-3 leading-[1.7]">Legal, fiscal, notarial — handled by our Athens partners. You sign once and we stay on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== TEAM =========================== -->
+<section class="relative bg-[color:var(--cream)] py-32">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--blue)] mb-6 sc-reveal">— The curators</p>
+    <h2 class="serif text-5xl md:text-6xl text-[color:var(--navy)] max-w-3xl sc-reveal">Four people, <span class="italic-serif">one long conversation.</span></h2>
+    <div class="mt-14 grid md:grid-cols-4 gap-8 stagger">
+      <article class="tilt">
+        <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80" class="w-full h-full object-cover" alt="Eleni Vlachos" />
+        </div>
+        <h4 class="serif text-xl text-[color:var(--navy)] mt-5">Eleni Vlachos</h4>
+        <p class="italic-serif text-[color:var(--ink)]/70 text-sm">Founding Partner · Athens</p>
+      </article>
+      <article class="tilt-inv">
+        <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80" class="w-full h-full object-cover" alt="Dimitris Kalogeras" />
+        </div>
+        <h4 class="serif text-xl text-[color:var(--navy)] mt-5">Dimitris Kalogeras</h4>
+        <p class="italic-serif text-[color:var(--ink)]/70 text-sm">Curator · Mykonos & Cyclades</p>
+      </article>
+      <article class="tilt">
+        <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80" class="w-full h-full object-cover" alt="Myrto Alexiou" />
+        </div>
+        <h4 class="serif text-xl text-[color:var(--navy)] mt-5">Myrto Alexiou</h4>
+        <p class="italic-serif text-[color:var(--ink)]/70 text-sm">Curator · Heritage Residences</p>
+      </article>
+      <article class="tilt-inv">
+        <div class="relative overflow-hidden rounded-xl aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=800&q=80" class="w-full h-full object-cover" alt="Nikolas Petridis" />
+        </div>
+        <h4 class="serif text-xl text-[color:var(--navy)] mt-5">Nikolas Petridis</h4>
+        <p class="italic-serif text-[color:var(--ink)]/70 text-sm">Legal & Acquisition · Kolonaki</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== CALLBACK — Request introduction =========================== -->
+<section id="contact" class="relative bg-[color:var(--navy)] text-[color:var(--cream)] py-32 overflow-hidden">
+  <div class="absolute inset-0 opacity-20" style="background-image:url('https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=2000&q=80');background-size:cover;background-position:center"></div>
+  <div class="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-5">
+      <p class="text-[11px] uppercase tracking-[0.3em] text-[color:var(--haze)] mb-6 sc-reveal">— Request a private introduction</p>
+      <h2 class="serif text-5xl md:text-6xl leading-[1.05] sc-reveal">Tell us where you'd like to <span class="italic-serif">wake up.</span></h2>
+      <p class="italic-serif text-xl text-[color:var(--haze)]/80 mt-6 sc-reveal">We reply personally, within 48 hours, in the language of your choosing.</p>
+      <div class="mt-10 space-y-3 text-sm text-[color:var(--haze)]/80">
+        <p><span class="uppercase tracking-[0.22em] text-[10px] text-[color:var(--gold)] mr-3">Athens</span> 14 Patriarchou Ioakeim, Kolonaki 106 74</p>
+        <p><span class="uppercase tracking-[0.22em] text-[10px] text-[color:var(--gold)] mr-3">Mykonos</span> Plateia Laka, Chora 846 00</p>
+      </div>
+    </div>
+    <form class="md:col-span-6 md:col-start-7 stagger space-y-5">
+      <div class="grid md:grid-cols-2 gap-5">
+        <label class="block">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--haze)]/70">First name</span>
+          <input type="text" class="mt-2 w-full bg-transparent border-b border-[color:var(--haze)]/30 py-3 outline-none focus:border-[color:var(--gold)] transition text-[color:var(--cream)]" />
+        </label>
+        <label class="block">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--haze)]/70">Last name</span>
+          <input type="text" class="mt-2 w-full bg-transparent border-b border-[color:var(--haze)]/30 py-3 outline-none focus:border-[color:var(--gold)] transition text-[color:var(--cream)]" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--haze)]/70">Email</span>
+        <input type="email" class="mt-2 w-full bg-transparent border-b border-[color:var(--haze)]/30 py-3 outline-none focus:border-[color:var(--gold)] transition text-[color:var(--cream)]" />
+      </label>
+      <label class="block">
+        <span class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--haze)]/70">Phone</span>
+        <input type="tel" class="mt-2 w-full bg-transparent border-b border-[color:var(--haze)]/30 py-3 outline-none focus:border-[color:var(--gold)] transition text-[color:var(--cream)]" />
+      </label>
+      <label class="block">
+        <span class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--haze)]/70">What you're looking for</span>
+        <textarea rows="4" class="mt-2 w-full bg-transparent border-b border-[color:var(--haze)]/30 py-3 outline-none focus:border-[color:var(--gold)] transition text-[color:var(--cream)] resize-none"></textarea>
+      </label>
+      <button type="button" class="mt-4 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[color:var(--gold)] text-[color:var(--navy)] text-[11px] uppercase tracking-[0.28em] font-medium hover:bg-[color:var(--cream)] transition">Send quietly <span>→</span></button>
+    </form>
+  </div>
+</section>
+
+<!-- =========================== FOOTER =========================== -->
+<footer class="relative bg-[color:var(--navy-2)] text-[color:var(--cream)]/80 pt-20 pb-10">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <div class="grid md:grid-cols-12 gap-10 pb-14 border-b border-[color:var(--haze)]/15">
+      <div class="md:col-span-4">
+        <div class="serif text-3xl text-[color:var(--cream)]">Maison <span class="italic-serif font-light">Aurelia</span></div>
+        <p class="italic-serif text-[color:var(--haze)]/70 mt-4">Curated properties. Private access. Lasting trust.</p>
+      </div>
+      <div class="md:col-span-2">
+        <p class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--gold)] mb-4">Navigate</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#properties" class="gold-link">Properties</a></li>
+          <li><a href="#about" class="gold-link">About</a></li>
+          <li><a href="#services" class="gold-link">Services</a></li>
+          <li><a href="#contact" class="gold-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <p class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--gold)] mb-4">Offices</p>
+        <ul class="space-y-2 text-sm">
+          <li>Athens — Kolonaki</li>
+          <li>Mykonos — Chora</li>
+          <li>By appointment</li>
+        </ul>
+      </div>
+      <div class="md:col-span-4">
+        <p class="text-[10px] uppercase tracking-[0.25em] text-[color:var(--gold)] mb-4">Journal — quarterly letter</p>
+        <form class="flex gap-0 border-b border-[color:var(--haze)]/30 pb-1">
+          <input type="email" placeholder="you@example.com" class="flex-1 bg-transparent outline-none text-[color:var(--cream)] placeholder:text-[color:var(--haze)]/50 py-2" />
+          <button type="button" class="text-[11px] uppercase tracking-[0.25em] text-[color:var(--gold)] hover:text-[color:var(--cream)] transition">Subscribe →</button>
+        </form>
+        <div class="mt-6 flex gap-4 text-[11px] uppercase tracking-[0.2em] text-[color:var(--haze)]/70">
+          <a href="#" class="gold-link">Instagram</a>
+          <a href="#" class="gold-link">LinkedIn</a>
+          <a href="#" class="gold-link">Pinterest</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-8 text-[11px] uppercase tracking-[0.22em] text-[color:var(--haze)]/55 gap-4">
+      <span>© 2026 Maison Aurelia — All rights reserved</span>
+      <span>Athens · Mykonos · Santorini · Paros · Corfu</span>
+      <span>Privacy · Terms · Impressum</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
