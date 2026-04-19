@@ -30628,10 +30628,10 @@ function renderTplMapStack(host){
     // short display label for hero button
     var ctaLabel=(t.category||'').toLowerCase().indexOf('commerce')>=0?'Shop Now':(t.category||'').toLowerCase().indexOf('saas')>=0||(t.type==='tool')?'Get Started':'Discover';
     var itemStyle='--tpl-color:'+col.bg+';--tpl-color2:'+col.bg2;
-    // Real template preview rendered via Shadow DOM (lazy-loaded). Falls back to a dark mock while unloaded.
+    // Real template preview rendered via <iframe srcdoc> (lazy-loaded). Falls back to a dark mock while unloaded.
     return '<div class="tpl-stack-item" data-id="'+safeId+'" data-cat="'+catText+'" data-color="'+col.bg+'" data-color2="'+col.bg2+'" style="'+itemStyle+'" onclick="previewUniTpl(\''+safeId+'\')">'
       +'<div class="tpl-stack-main">'
-        +'<div class="tpl-shadow-host" data-tpl-id="'+safeId+'"></div>'
+        +'<div class="tpl-iframe-host" data-tpl-id="'+safeId+'"></div>'
         +'<div class="tpl-mock tpl-mock-fallback">'
           +'<div class="tpl-mock-bg"></div>'
           +'<div class="tpl-mock-shape tpl-mock-shape-1"></div>'
@@ -30679,10 +30679,10 @@ function renderTplMapStack(host){
     +'.tpl-stack-item{position:sticky;top:90px;aspect-ratio:1440/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#111;cursor:pointer;transition:transform .25s cubic-bezier(.4,0,.2,1);contain:layout paint style;content-visibility:auto;contain-intrinsic-size:auto 78vh;transform:translateZ(0)}'
     +'.tpl-stack-item.tpl-hidden{display:none}'
     +'.tpl-stack-item:hover{transform:translate3d(0,-4px,0)}'
-    +'.tpl-stack-main{position:absolute;inset:0;overflow:hidden;background:#111;contain:strict}'
-    // --- Shadow DOM host: real template at 1440x900 scaled to fit card ---
-    +'.tpl-shadow-host{position:absolute;inset:0;overflow:hidden;background:#0a0a0f;z-index:1;contain:strict}'
-    +'.tpl-shadow-host.tpl-loaded + .tpl-mock-fallback{opacity:0;pointer-events:none}'
+    +'.tpl-stack-main{position:absolute;inset:0;overflow:hidden;background:#111;contain:layout paint style}'
+    // --- Iframe host: real template at 1440x900 scaled to fit card ---
+    +'.tpl-iframe-host{position:absolute;inset:0;overflow:hidden;background:#0a0a0f;z-index:1;contain:layout paint style}'
+    +'.tpl-iframe-host.tpl-loaded + .tpl-mock-fallback{opacity:0;pointer-events:none}'
     // --- Mock DIV fallback (shown until shadow content loads) ---
     +'.tpl-mock-fallback{z-index:0;transition:opacity .35s ease}'
     +'.tpl-mock{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;font-family:\'Inter\',-apple-system,sans-serif;contain:strict}'
@@ -30725,90 +30725,70 @@ function renderTplMapStack(host){
       :'<div class="tpl-stack-empty">No templates in this category.</div>')
   +'</div>';
 
-  // Shadow-DOM previews — lazy-loaded as cards approach the viewport.
+  // Iframe previews — lazy-loaded as cards approach the viewport.
   var items=host.querySelectorAll('.tpl-stack-item');
   var railEl=host.querySelector('#tplStackRail');
 
   // Build a quick lookup of templates by id so we can regenerate HTML on demand
   var _tplById={};for(var _ti=0;_ti<tpls.length;_ti++){_tplById[tpls[_ti].id]=tpls[_ti]}
 
-  // Parse generated template HTML and inject into a shadow root (scoped, no iframe overhead)
-  function mountShadowPreview(hostEl){
+  // Mount a real <iframe srcdoc> preview. Isolated browsing context => scripts, fixed positioning,
+  // viewport units, full CSS cascade all work exactly as in a standalone page.
+  function mountIframePreview(hostEl){
     if(hostEl._tplMounted)return;
     var tplId=hostEl.getAttribute('data-tpl-id');
     var tpl=_tplById[tplId];if(!tpl)return;
     hostEl._tplMounted=true;
     var raw;
     try{raw=generateTemplateHTML(tpl)}catch(err){hostEl._tplMounted=false;return}
-    // Extract <style> blocks and <body> content via DOMParser (fast, no script execution)
-    var doc;
-    try{doc=new DOMParser().parseFromString(raw,'text/html')}catch(err){return}
-    var styles='';
-    var styleNodes=doc.querySelectorAll('style');
-    for(var s=0;s<styleNodes.length;s++){styles+=styleNodes[s].textContent+'\n'}
-    // Extract font link hrefs so we can bring webfonts into the shadow root
-    var linkHtml='';
-    var linkNodes=doc.querySelectorAll('link[rel="stylesheet"]');
-    for(var l=0;l<linkNodes.length;l++){linkHtml+='<link rel="stylesheet" href="'+linkNodes[l].getAttribute('href')+'">'}
-    var bodyHtml=doc.body?doc.body.innerHTML:'';
-    // Strip <script> tags defensively (project rule: no scripts in generated previews)
-    bodyHtml=bodyHtml.replace(/<script[\s\S]*?<\/script>/gi,'');
-    var shadow;
-    try{shadow=hostEl.attachShadow({mode:'open'})}catch(err){
-      // Already has shadow root or unsupported — bail
-      return;
-    }
-    // Wrapper at native 1440x900, scaled to fit the card. overflow:hidden clips anything beyond the hero.
-    shadow.innerHTML=
-      '<style>'
-        +':host{all:initial;display:block;position:absolute;inset:0;overflow:hidden;background:#0a0a0f}'
-        +'.tpl-frame{position:absolute;top:0;left:0;width:1440px;height:900px;transform-origin:top left;overflow:hidden;background:#0a0a0f}'
-        +'.tpl-frame *{box-sizing:border-box}'
-        +styles
-      +'</style>'
-      +linkHtml
-      +'<div class="tpl-frame">'+bodyHtml+'</div>';
-    // Scale the 1440x900 frame to fit the card
-    var frame=shadow.querySelector('.tpl-frame');
+    var ifr=document.createElement('iframe');
+    ifr.setAttribute('scrolling','no');
+    ifr.setAttribute('referrerpolicy','no-referrer');
+    ifr.setAttribute('loading','lazy');
+    ifr.setAttribute('aria-hidden','true');
+    ifr.setAttribute('tabindex','-1');
+    if('fetchPriority' in ifr) ifr.fetchPriority='low';
+    ifr.style.cssText='position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;transform-origin:0 0;background:#0a0a0f;opacity:0;transition:opacity .3s ease';
     function fit(){
-      if(!frame)return;
       var w=hostEl.clientWidth,h=hostEl.clientHeight;
       if(!w||!h)return;
-      var sx=w/1440,sy=h/900;
-      // cover (use max) so the card fills; overflow clips the rest
-      var sc=Math.max(sx,sy);
-      frame.style.transform='scale('+sc+')';
-      // Center horizontally if using cover math made it wider than card
+      // contain-style scaling so the FULL 1440x900 design is visible (may letterbox — card bg is dark).
+      var sc=Math.min(w/1440,h/900);
       var scaledW=1440*sc,scaledH=900*sc;
-      frame.style.left=((w-scaledW)/2)+'px';
-      frame.style.top=((h-scaledH)/2)+'px';
+      var ox=(w-scaledW)/2,oy=(h-scaledH)/2;
+      ifr.style.transform='translate('+ox+'px,'+oy+'px) scale('+sc+')';
     }
+    ifr.addEventListener('load',function(){
+      fit();
+      ifr.style.opacity='1';
+      hostEl.classList.add('tpl-loaded');
+    });
+    ifr.srcdoc=raw;
+    hostEl.appendChild(ifr);
     fit();
-    // Refit on resize (debounced via rAF)
     if(!hostEl._fitBound){
       hostEl._fitBound=true;
       var rp=false;
       window.addEventListener('resize',function(){if(rp)return;rp=true;requestAnimationFrame(function(){rp=false;fit()})},{passive:true});
     }
-    hostEl.classList.add('tpl-loaded');
   }
 
   // Eager-load first 3 above-fold cards, lazy-load the rest
-  var shadowHosts=host.querySelectorAll('.tpl-shadow-host');
-  for(var eh=0;eh<Math.min(3,shadowHosts.length);eh++){mountShadowPreview(shadowHosts[eh])}
-  if('IntersectionObserver' in window && shadowHosts.length>3){
+  var iframeHosts=host.querySelectorAll('.tpl-iframe-host');
+  for(var eh=0;eh<Math.min(3,iframeHosts.length);eh++){mountIframePreview(iframeHosts[eh])}
+  if('IntersectionObserver' in window && iframeHosts.length>3){
     var lazyIO=new IntersectionObserver(function(entries){
       for(var i=0;i<entries.length;i++){
         if(entries[i].isIntersecting){
-          mountShadowPreview(entries[i].target);
+          mountIframePreview(entries[i].target);
           lazyIO.unobserve(entries[i].target);
         }
       }
     },{root:host,rootMargin:'1500px 0px',threshold:0.01});
-    for(var eh2=3;eh2<shadowHosts.length;eh2++){lazyIO.observe(shadowHosts[eh2])}
+    for(var eh2=3;eh2<iframeHosts.length;eh2++){lazyIO.observe(iframeHosts[eh2])}
   } else {
     // Fallback: mount all
-    for(var eh3=3;eh3<shadowHosts.length;eh3++){mountShadowPreview(shadowHosts[eh3])}
+    for(var eh3=3;eh3<iframeHosts.length;eh3++){mountIframePreview(iframeHosts[eh3])}
   }
 
   // Apply current filter via CSS (instant)
