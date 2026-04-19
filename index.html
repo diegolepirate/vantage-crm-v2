@@ -30644,7 +30644,7 @@ function renderTplMapStack(host){
     wraps.forEach(function(w){
       var ifr=w.querySelector('iframe');if(!ifr)return;
       var cw=w.clientWidth,ch=w.clientHeight;if(!cw||!ch)return;
-      var scale=Math.max(cw/1440,ch/900);
+      var scale=(cw/1440);
       ifr.style.transform='scale('+scale+')';
     });
   }
@@ -31649,7 +31649,7 @@ async function renderMap(container){
     wraps.forEach(function(w){
       const ifr=w.querySelector('iframe');if(!ifr)return;
       const cw=w.clientWidth,ch=w.clientHeight;if(!cw||!ch)return;
-      ifr.style.transform='scale('+Math.max(cw/1440,ch/900)+')';
+      ifr.style.transform='scale('+(cw/1440)+')';
     });
   }
   window.addEventListener('resize',fitTplIframes2);
