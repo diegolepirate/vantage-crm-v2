@@ -30654,8 +30654,8 @@ function renderTplMapStack(host){
     +'.tpl-stack-pill:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#fff}'
     +'.tpl-stack-pill-active{background:#C9A84C;border-color:#C9A84C;color:#0a0a0f;font-weight:600}'
     +'.tpl-stack-list{position:relative;max-width:1600px;margin:0 auto;padding:0 24px}'
-    +'.tpl-stack-item{position:sticky;top:90px;display:grid;grid-template-columns:1fr 200px;aspect-ratio:1640/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#BFA68A;cursor:pointer;will-change:transform;transition:transform .3s ease;content-visibility:auto;contain-intrinsic-size:1640px 900px}'
-    +'.tpl-stack-item:hover{transform:translateY(-4px)}'
+    +'.tpl-stack-item{position:sticky;top:90px;display:grid;grid-template-columns:1fr 200px;aspect-ratio:1640/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#BFA68A;cursor:pointer;transition:transform .2s ease;contain:layout paint style;transform:translateZ(0)}'
+    +'.tpl-stack-item:hover{transform:translate3d(0,-4px,0)}'
     +'.tpl-stack-main{position:relative;overflow:hidden;background:#BFA68A;border-right:1px solid rgba(255,255,255,.06)}'
     +'.tpl-stack-strip{position:relative;overflow:hidden;background:transparent}'
     +'.tpl-stack-strip-bg{position:absolute;inset:0;z-index:0;-webkit-mask:radial-gradient(circle 44px at 50% calc(100% - 78px),transparent 41px,#000 43px);mask:radial-gradient(circle 44px at 50% calc(100% - 78px),transparent 41px,#000 43px)}'
@@ -30682,15 +30682,16 @@ function renderTplMapStack(host){
     +(list.length?'<div class="tpl-stack-list">'+itemsHtml+'<div class="tpl-stack-end"></div></div>':'<div class="tpl-stack-empty">No templates in this category.</div>')
   +'</div>';
 
-  // Fit hero iframe (1440x900) into main card panel
-  function fitTplIframes(){
-    host.querySelectorAll('.tpl-stack-main').forEach(function(w){
-      var ifr=w.querySelector('iframe');if(!ifr)return;
-      var cw=w.clientWidth,ch=w.clientHeight;if(!cw||!ch)return;
-      ifr.style.transform='scale('+Math.min(cw/1440,ch/900)+')';
-    });
+  // Fit hero iframe (1440x900) — targeted single-iframe version (cheap)
+  function fitOne(mainEl){
+    var ifr=mainEl.querySelector('iframe');if(!ifr)return;
+    var cw=mainEl.clientWidth,ch=mainEl.clientHeight;if(!cw||!ch)return;
+    ifr.style.transform='scale('+Math.min(cw/1440,ch/900)+')';
   }
-  window.addEventListener('resize',fitTplIframes);
+  function fitTplIframes(){host.querySelectorAll('.tpl-stack-main').forEach(fitOne)}
+  var _rzT=0;
+  function onResize(){clearTimeout(_rzT);_rzT=setTimeout(fitTplIframes,150)}
+  window.addEventListener('resize',onResize,{passive:true});
 
   function loadTplPreview(item){
     var id=item.getAttribute('data-id');
@@ -30698,24 +30699,27 @@ function renderTplMapStack(host){
     if(!tpl)return;
     var mainWrap=item.querySelector('.tpl-stack-main .tpl-stack-iframe-wrap');
     if(!mainWrap||mainWrap.querySelector('iframe'))return;
+    var mainEl=item.querySelector('.tpl-stack-main');
     var ifr=document.createElement('iframe');
     ifr.setAttribute('scrolling','no');
     ifr.setAttribute('referrerpolicy','no-referrer');
-    ifr.style.opacity='0';ifr.style.transition='opacity .35s ease';
+    ifr.setAttribute('loading','lazy');
+    if('fetchPriority' in ifr)ifr.fetchPriority='low';
+    ifr.style.opacity='0';ifr.style.transition='opacity .25s ease';
     var useUrl=tpl.url&&/^https?:\/\//.test(tpl.url)&&!/awwwards\.com/.test(tpl.url);
     if(useUrl){ifr.src=tpl.url}else{ifr.srcdoc=generateTemplateHTML(tpl)}
     ifr.addEventListener('load',function(){
       var ph=mainWrap.querySelector('.tpl-stack-placeholder');if(ph)ph.style.display='none';
-      fitTplIframes();
+      fitOne(mainEl);
       requestAnimationFrame(function(){ifr.style.opacity='1'});
     });
     mainWrap.appendChild(ifr);
-    fitTplIframes();
+    fitOne(mainEl);
   }
 
   var items=host.querySelectorAll('.tpl-stack-item');
-  // Kick off first 12 immediately (covers 2-3 viewports) — instant feel
-  var eager=Math.min(12,items.length);
+  // Eager preload: only 3 (above-the-fold) — rest lazy on scroll
+  var eager=Math.min(3,items.length);
   for(var i=0;i<eager;i++){loadTplPreview(items[i])}
 
   if('IntersectionObserver' in window){
@@ -30725,7 +30729,7 @@ function renderTplMapStack(host){
         loadTplPreview(e.target);
         io.unobserve(e.target);
       });
-    },{root:host,rootMargin:'4000px 0px'});
+    },{root:host,rootMargin:'1200px 0px'});
     for(var j=eager;j<items.length;j++){io.observe(items[j])}
   } else {
     items.forEach(function(it){loadTplPreview(it)});
