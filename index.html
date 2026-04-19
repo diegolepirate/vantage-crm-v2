@@ -30631,7 +30631,7 @@ function renderTplMapStack(host){
           +'<div class="tpl-stack-open">Open preview \u2192</div>'
         +'</div>'
       +'</div>'
-      +'<div class="tpl-stack-strip" style="'+stripBg+'">'+chromeSvg+'</div>'
+      +'<div class="tpl-stack-strip"><div class="tpl-stack-strip-bg" style="'+stripBg+'"></div>'+chromeSvg+'</div>'
     +'</div>';
   }).join('');
 
@@ -30657,9 +30657,9 @@ function renderTplMapStack(host){
     +'.tpl-stack-item{position:sticky;top:90px;display:grid;grid-template-columns:1fr 200px;aspect-ratio:1640/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#0a0a0f;cursor:pointer;will-change:transform;transition:transform .3s ease}'
     +'.tpl-stack-item:hover{transform:translateY(-4px)}'
     +'.tpl-stack-main{position:relative;overflow:hidden;background:#0a0a0f;border-right:1px solid rgba(255,255,255,.06)}'
-    +'.tpl-stack-strip{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}'
-    +'.tpl-stack-strip::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.18),transparent 70%);z-index:1}'
-    +'.tpl-stack-chrome{width:62%;max-width:170px;height:auto;position:relative;z-index:2;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45)) drop-shadow(0 0 24px rgba(255,255,255,.25))}'
+    +'.tpl-stack-strip{position:relative;overflow:hidden;background:transparent}'
+    +'.tpl-stack-strip-bg{position:absolute;inset:0;z-index:0;-webkit-mask:radial-gradient(circle 75px at 50% calc(100% - 95px),transparent 70px,#000 73px);mask:radial-gradient(circle 75px at 50% calc(100% - 95px),transparent 70px,#000 73px)}'
+    +'.tpl-stack-chrome{width:62%;max-width:170px;height:auto;position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55)) drop-shadow(0 0 24px rgba(255,255,255,.3))}'
     +'.tpl-stack-iframe-wrap{position:absolute;inset:0;overflow:hidden;background:#0a0a0f}'
     +'.tpl-stack-iframe-wrap iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;display:block;background:#fff;transform-origin:0 0;transform:scale(1)}'
     +'.tpl-stack-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:.75rem;letter-spacing:3px;font-family:\'Tanker\',sans-serif;z-index:1}'
