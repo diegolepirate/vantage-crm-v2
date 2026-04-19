@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Azur Côtier — Mediterranean Seaside Restaurant · Nice</title>
+<meta name="description" content="Azur Côtier — beachside Mediterranean seafood restaurant in Nice, France. Fresh catch, local terroir, sea-view terrace by Chef Luc Mercier." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#f5ede0;
+    --cream-soft:#efe5d4;
+    --ink:#1e5f8e;
+    --ink-deep:#124063;
+    --azur:#4fb3e5;
+    --azur-soft:#b8e0f5;
+  }
+  *{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-display{ font-family:'Playfair Display', Georgia, serif; letter-spacing:-0.02em; }
+  .font-mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  .text-azur{ color:var(--azur); }
+  .text-ink{ color:var(--ink); }
+  .text-cream{ color:var(--cream); }
+  .bg-azur{ background-color:var(--azur); }
+  .bg-ink{ background-color:var(--ink); }
+  .bg-cream{ background-color:var(--cream); }
+  .border-azur{ border-color:var(--azur); }
+  .dashed-divider{ border-top:1px dashed var(--azur); }
+  .dashed-border{ border:1px dashed var(--azur); }
+  .map-grid-bg{
+    background-image:
+      linear-gradient(to right, rgba(79,179,229,0.18) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(79,179,229,0.18) 1px, transparent 1px);
+    background-size:40px 40px;
+  }
+  /* Hero overlays */
+  .hero-overlay{ text-shadow:0 4px 20px rgba(0,0,0,0.5); }
+  /* Marquee */
+  @keyframes photo-marquee { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .photo-marquee{ animation: photo-marquee 60s linear infinite; }
+  /* Fade-in on scroll (pure CSS, uses initial animation) */
+  @keyframes fade-up {
+    from{ opacity:0; transform:translateY(24px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .fade-up{ animation: fade-up .9s ease both; }
+  @keyframes float {
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+  .float-slow{ animation: float 6s ease-in-out infinite; }
+  /* Gradient for mission panel */
+  .mission-gradient{
+    background:linear-gradient(180deg, rgba(30,95,142,0.8) 0%, rgba(79,179,229,0.7) 50%, rgba(11,45,71,0.9) 100%);
+    mix-blend-mode:multiply;
+  }
+  /* Scrollbar hidden per Vantage rules */
+  ::-webkit-scrollbar{ display:none; }
+  html,body{ scrollbar-width:none; }
+  /* Rotated label */
+  .rotate-label{
+    transform:rotate(90deg);
+    transform-origin:top right;
+  }
+  a{ transition:opacity .2s ease, transform .2s ease; }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:.75rem;
+    height:3rem; padding:0 2rem; border-radius:9999px;
+    background:var(--ink); color:var(--cream);
+    font-family:'Playfair Display', serif; font-size:15px;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .btn-primary:hover{ transform:scale(1.02); }
+  .btn-outline{
+    display:inline-flex; align-items:center; gap:.75rem;
+    height:3rem; padding:0 2rem; border-radius:9999px;
+    border:1px solid var(--azur); color:var(--azur);
+    font-family:'Playfair Display', serif; font-size:15px;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .btn-outline:hover{ transform:scale(1.02); opacity:.85; }
+  .polaroid{
+    width:300px; flex-shrink:0;
+    background:var(--cream);
+    padding:.75rem; border-radius:2px;
+    box-shadow:0 6px 20px rgba(30,95,142,0.15);
+  }
+  .polaroid-img{
+    aspect-ratio:1/1.05;
+    overflow:hidden;
+    background:#e5e5e5;
+  }
+  .polaroid-img img{ width:100%; height:100%; object-fit:cover; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 bg-[rgba(245,237,224,0.95)] backdrop-blur-sm">
+  <nav class="mx-auto flex h-[79px] max-w-[1400px] items-center justify-between gap-6 px-6 lg:px-8">
+    <a href="#home" class="font-display text-[22px] sm:text-[24px] uppercase tracking-[0.08em] text-azur">Azur Côtier</a>
+    <ul class="hidden items-center gap-1 md:flex">
+      <li><a href="#home" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">Home</a></li>
+      <li><a href="#menu" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">Menu</a></li>
+      <li><a href="#about" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">About</a></li>
+      <li><a href="#gallery" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">Gallery</a></li>
+      <li><a href="#reservations" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">Reservations</a></li>
+      <li><a href="#contact" class="rounded-full px-4 py-1 text-[15px] text-azur hover:opacity-70">Contact</a></li>
+    </ul>
+    <a href="#reservations" class="flex h-10 items-center gap-3 rounded-full bg-ink px-5 font-display text-[13px] uppercase tracking-[0.08em] text-cream hover:scale-[1.02]">
+      Book a Table
+      <span aria-hidden>→</span>
+    </a>
+  </nav>
+  <div class="mx-auto max-w-[1400px] px-6 lg:px-8"><div class="dashed-divider"></div></div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="relative mx-auto max-w-[1400px] px-6 lg:px-8">
+  <div class="grid grid-cols-12 items-start gap-6 pt-6">
+    <div class="col-span-12 md:col-span-3">
+      <p class="font-mono text-[13px] uppercase tracking-wide text-azur">Est. 2014 • Nice, France</p>
+    </div>
+    <div class="col-span-12 md:col-span-6">
+      <p class="font-mono uppercase leading-[1.1] tracking-[0.02em] text-azur" style="font-size:clamp(18px,2.2vw,34px)">
+        Mediterranean flavors by the sea<br/>
+        Fresh catch — Local terroir
+      </p>
+    </div>
+    <div class="col-span-12 flex items-start gap-3 md:col-span-3 md:justify-end">
+      <div class="text-right">
+        <div class="font-mono text-[13px] uppercase tracking-wide text-azur">Table for</div>
+        <div class="font-display uppercase leading-[0.95] text-azur" style="font-size:clamp(24px,2.4vw,36px); letter-spacing:-0.02em">
+          Two by<br/>the Sea
+        </div>
+      </div>
+      <span class="mt-1 text-azur text-xl">↓</span>
+    </div>
+  </div>
+
+  <div class="relative mt-8 overflow-hidden rounded-[24px] fade-up">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2000" alt="Beachside restaurant terrace" class="w-full object-cover" style="height:min(70vw,780px)" />
+    <div class="pointer-events-none absolute inset-0 flex flex-col items-end justify-end pb-[3%]">
+      <div class="w-full text-left font-display uppercase leading-[0.78] text-cream hero-overlay" style="padding-left:6%">
+        <span class="block" style="font-size:clamp(60px,10vw,160px); letter-spacing:-0.04em">Azur</span>
+      </div>
+      <div class="w-full font-display uppercase leading-[0.78] text-cream hero-overlay" style="padding-left:4%">
+        <span class="block" style="font-size:clamp(120px,24vw,400px); letter-spacing:-0.05em">Côtier</span>
+      </div>
+    </div>
+    <div class="pointer-events-none absolute top-[28%] right-[3%] font-display uppercase whitespace-nowrap text-cream hero-overlay rotate-label" style="font-size:clamp(24px,2.8vw,40px); letter-spacing:-0.02em">
+      NICE • FRANCE
+    </div>
+  </div>
+
+  <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+    <a href="#reservations" class="btn-primary">Book a Table</a>
+    <a href="#menu" class="btn-outline">View Menu</a>
+  </div>
+
+  <div class="mt-10 dashed-divider"></div>
+  <div class="relative overflow-hidden py-5">
+    <ul class="flex items-baseline justify-around gap-10 font-display text-azur">
+      <li class="flex flex-col items-center text-center">
+        <span class="font-mono text-[11px] uppercase tracking-wide">Mediterranean • By the Sea</span>
+        <span class="mt-1 uppercase leading-[0.9]" style="font-size:clamp(28px,4vw,60px)">Fresh Catch</span>
+        <span class="uppercase leading-[0.9]" style="font-size:clamp(20px,3vw,44px)">Daily</span>
+        <span class="mt-1 font-mono text-[11px] uppercase">Azur Côtier</span>
+      </li>
+      <li class="flex flex-col items-center text-center">
+        <span class="font-mono text-[11px] uppercase tracking-wide">Mediterranean • By the Sea</span>
+        <span class="mt-1 uppercase leading-[0.9]" style="font-size:clamp(28px,4vw,60px)">5 Sea View</span>
+        <span class="uppercase leading-[0.9]" style="font-size:clamp(20px,3vw,44px)">Terraces</span>
+        <span class="mt-1 font-mono text-[11px] uppercase">Azur Côtier</span>
+      </li>
+      <li class="flex flex-col items-center text-center">
+        <span class="font-mono text-[11px] uppercase tracking-wide">Mediterranean • By the Sea</span>
+        <span class="mt-1 uppercase leading-[0.9]" style="font-size:clamp(28px,4vw,60px)">120 Seats</span>
+        <span class="mt-1 font-mono text-[11px] uppercase">Azur Côtier</span>
+      </li>
+      <li class="flex flex-col items-center text-center">
+        <span class="font-mono text-[11px] uppercase tracking-wide">Mediterranean • By the Sea</span>
+        <span class="mt-1 uppercase leading-[0.9]" style="font-size:clamp(28px,4vw,60px)">Local Wines</span>
+        <span class="uppercase leading-[0.9]" style="font-size:clamp(20px,3vw,44px)">30+ Labels</span>
+        <span class="mt-1 font-mono text-[11px] uppercase">Azur Côtier</span>
+      </li>
+    </ul>
+  </div>
+  <div class="dashed-divider"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="mx-auto max-w-[1400px] px-6 lg:px-8">
+  <div class="overflow-hidden rounded-[28px]">
+    <img src="https://images.unsplash.com/photo-1577219492769-b63a779fac00?w=1600" alt="Chef Luc Mercier" class="w-full object-cover" style="height:min(52vw,560px)" />
+  </div>
+  <div class="mx-auto max-w-[900px] py-16 text-center">
+    <h2 class="font-display uppercase leading-[0.95] text-azur" style="font-size:clamp(44px,8vw,110px); letter-spacing:-0.02em">Azur Côtier</h2>
+    <p class="mx-auto mt-6 max-w-[760px] text-[17px] leading-[1.55] text-azur md:text-[19px]">
+      Perched on the pebbled shoreline of Nice, Azur Côtier celebrates the flavors of the Mediterranean. Chef Luc Mercier built this kitchen around a simple promise: the day's catch, the region's terroir, and the sea as a dining companion. A boat-to-table philosophy for those who believe the best meals are shared with a view of the horizon.
+    </p>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners" class="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8">
+  <div class="dashed-border relative rounded-[24px] p-8">
+    <span class="dashed-border absolute -top-4 left-8 rounded-full bg-cream px-4 py-1 font-display text-[14px] uppercase tracking-[0.08em] text-azur">Partners &amp; Suppliers</span>
+    <div class="grid min-h-[120px] grid-cols-2 items-center gap-8 md:grid-cols-4">
+      <div class="flex h-20 items-center justify-center text-center font-display text-[15px] uppercase leading-tight tracking-[0.04em] text-azur/70">Pêcheurs de la Baie</div>
+      <div class="flex h-20 items-center justify-center text-center font-display text-[15px] uppercase leading-tight tracking-[0.04em] text-azur/70">Domaine Léoube</div>
+      <div class="flex h-20 items-center justify-center text-center font-display text-[15px] uppercase leading-tight tracking-[0.04em] text-azur/70">Maison Brémond 1830</div>
+      <div class="flex h-20 items-center justify-center text-center font-display text-[15px] uppercase leading-tight tracking-[0.04em] text-azur/70">Fermes du Var</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO / FILM -->
+<section class="mx-auto max-w-[1400px] px-6 pb-16 lg:px-8">
+  <div class="relative overflow-hidden rounded-[28px] bg-ink">
+    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=2000" alt="Mediterranean seafood plating" class="w-full object-cover opacity-80" style="height:min(52vw,640px)" />
+    <button type="button" aria-label="Play restaurant film" class="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-ink hover:scale-105" style="background:rgba(245,237,224,0.9)">
+      <span class="ml-1 text-2xl">▶</span>
+    </button>
+    <div class="absolute bottom-6 left-6 font-mono text-[13px] uppercase tracking-[0.1em] text-cream">A day at Azur Côtier — from dock to plate</div>
+  </div>
+</section>
+
+<!-- INSPIRATION -->
+<section class="mx-auto max-w-[1400px] px-6 py-16 lg:px-8">
+  <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-azur">Our Inspiration</p>
+  <h2 class="mt-6 font-display uppercase leading-[0.95] text-azur" style="font-size:clamp(44px,9vw,110px); letter-spacing:-0.02em">
+    The ocean, the terroir, and the family recipes behind Azur Côtier.
+  </h2>
+  <p class="mx-auto mt-10 max-w-[900px] text-[17px] leading-[1.6] text-azur md:text-[19px]">
+    Chef Luc Mercier grew up in a small fishing village outside Nice, where Sunday lunches with his grandmother stretched long into the afternoon. The smell of garlic and rosemary, the sound of the waves, the quiet generosity of a table shared — these are the memories that shaped this restaurant. Every dish at Azur Côtier is a conversation between that childhood kitchen and the sea just beyond the window. We cook with the land, the tide, and the hands of the people who still remember how it used to taste.
+  </p>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="mx-auto max-w-[1400px] overflow-hidden py-12">
+  <div class="flex w-max gap-8 will-change-transform photo-marquee">
+    <!-- Set 1 -->
+    <figure class="polaroid" style="transform:rotate(-3deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800" alt="Plated seafood" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Catch of the Day</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Daily Special</span></div></div>
+        <span class="text-[11px] opacity-50">0114</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(2deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" alt="Mediterranean dish" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Bouillabaisse Niçoise</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Signature Plate</span></div></div>
+        <span class="text-[11px] opacity-50">0228</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-2deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800" alt="Interior" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">The Terrace</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Sea-view seating</span></div></div>
+        <span class="text-[11px] opacity-50">0312</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(1.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800" alt="Wine" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Cave Méditerranée</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">30+ local labels</span></div></div>
+        <span class="text-[11px] opacity-50">0457</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-2.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1577219492769-b63a779fac00?w=800" alt="Chef" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Chef Luc Mercier</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">In the kitchen</span></div></div>
+        <span class="text-[11px] opacity-50">0521</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(2.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800" alt="Beach view" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Baie des Anges</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Our front garden</span></div></div>
+        <span class="text-[11px] opacity-50">0618</span>
+      </figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-1deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="Ocean" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink">
+        <div><div class="text-[14px] leading-tight">Sunset Service</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Every evening</span></div></div>
+        <span class="text-[11px] opacity-50">0702</span>
+      </figcaption>
+    </figure>
+    <!-- Set 2 (duplicate for loop) -->
+    <figure class="polaroid" style="transform:rotate(-3deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=800" alt="Plated seafood" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Catch of the Day</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Daily Special</span></div></div><span class="text-[11px] opacity-50">0114</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(2deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Bouillabaisse Niçoise</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Signature Plate</span></div></div><span class="text-[11px] opacity-50">0228</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-2deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">The Terrace</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Sea-view seating</span></div></div><span class="text-[11px] opacity-50">0312</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(1.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Cave Méditerranée</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">30+ local labels</span></div></div><span class="text-[11px] opacity-50">0457</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-2.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1577219492769-b63a779fac00?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Chef Luc Mercier</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">In the kitchen</span></div></div><span class="text-[11px] opacity-50">0521</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(2.5deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Baie des Anges</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Our front garden</span></div></div><span class="text-[11px] opacity-50">0618</span></figcaption>
+    </figure>
+    <figure class="polaroid" style="transform:rotate(-1deg)">
+      <div class="polaroid-img"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" alt="" /></div>
+      <figcaption class="mt-3 flex items-end justify-between gap-3 font-mono uppercase text-ink"><div><div class="text-[14px] leading-tight">Sunset Service</div><div class="mt-0.5 text-[11px]"><span class="opacity-70">Note:</span> <span class="text-azur">Every evening</span></div></div><span class="text-[11px] opacity-50">0702</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- FIND US (map) -->
+<section id="contact" class="mx-auto max-w-[1400px] px-6 py-8 lg:px-8">
+  <div class="relative overflow-hidden rounded-[28px] dashed-border map-grid-bg">
+    <div class="grid gap-8 p-10 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <h2 class="font-display uppercase leading-[0.9] text-azur" style="font-size:clamp(44px,7vw,90px); letter-spacing:-0.02em">
+          Find Us<br/>On the<br/>Promenade<br/>Des Anglais
+        </h2>
+        <dl class="mt-10 space-y-3 font-mono text-[12px] uppercase tracking-wide text-ink">
+          <div class="flex items-center gap-3"><span class="block h-3 w-3 rounded-full bg-azur"></span>14 Promenade des Anglais, Nice</div>
+          <div class="flex items-center gap-3"><span class="block h-[2px] w-6 bg-azur"></span>Open Tue — Sun · 12:00 – 23:00</div>
+          <div class="flex items-center gap-3"><span class="block h-[2px] w-6 bg-ink"></span>+33 4 93 00 12 34</div>
+        </dl>
+        <p class="mt-6 font-mono text-[12px] uppercase tracking-wide text-azur">Parking available • 2 min from Place Masséna</p>
+      </div>
+      <div class="relative lg:col-span-7">
+        <a href="#reservations" class="absolute right-0 top-0 z-10 flex h-11 items-center gap-3 rounded-full bg-ink px-5 font-display text-[13px] uppercase tracking-[0.08em] text-cream hover:scale-[1.02]">Get Directions <span>→</span></a>
+        <div class="relative mt-16 aspect-[4/3] w-full overflow-hidden rounded-[20px]">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600" alt="Nice coastline" class="h-full w-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="mx-auto max-w-[1400px] px-6 py-20 lg:px-8">
+  <div class="grid gap-10 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <h2 class="font-display uppercase leading-[0.95] text-azur" style="font-size:clamp(40px,6vw,80px); letter-spacing:-0.02em">News &amp; Events</h2>
+      <p class="mt-6 max-w-[420px] text-[16px] leading-[1.55] text-azur">Wine tastings, chef's tables, summer terrace openings — follow the rhythm of the season at Azur Côtier.</p>
+      <a href="#reservations" class="mt-8 inline-flex h-11 items-center gap-3 rounded-full bg-ink px-5 font-display text-[13px] uppercase tracking-[0.08em] text-cream hover:scale-[1.02]">View All Events <span>→</span></a>
+    </div>
+    <article class="lg:col-span-7">
+      <div class="dashed-border relative rounded-[24px] p-8">
+        <div class="flex items-center gap-3 font-mono text-[13px] uppercase tracking-wide text-azur">
+          <span class="inline-flex h-2 w-2 rounded-full bg-azur"></span> Announcing
+          <span class="ml-auto text-ink/70">June 1st, 2026</span>
+        </div>
+        <div class="mt-6 space-y-4 font-mono text-[14px] leading-[1.55] text-ink">
+          <p>The summer terrace is back. Beginning June 1st, Azur Côtier opens its full seaside deck — twenty tables set just steps from the water, under a canopy of white linen and Mediterranean light.</p>
+          <p class="font-display text-[22px] uppercase text-azur">Chef's Table — Every Thursday</p>
+          <p>Six guests, seven courses, one evening with Chef Luc Mercier. A guided journey through the season's finest catch, paired with wines from the Ligurian coast. Reservations open two weeks in advance.</p>
+          <p>Join us also for our summer wine tastings, held every Wednesday on the terrace, featuring small-production estates from Provence and the Var.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="menu" class="mx-auto max-w-[1400px] px-6 pb-20 lg:px-8">
+  <div class="overflow-hidden rounded-[28px]">
+    <div class="bg-azur px-8 py-24 text-center md:py-32">
+      <h2 class="font-display uppercase leading-[0.82] text-cream" style="font-size:clamp(72px,16vw,220px); letter-spacing:-0.02em">
+        Fresh Catch<br/>Local Terroir<br/>By the Sea.
+      </h2>
+    </div>
+    <div class="relative">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000" alt="Mediterranean coastline" class="w-full object-cover" />
+      <div class="absolute inset-0 mission-gradient"></div>
+      <div class="absolute inset-0 flex items-center justify-center px-8 py-20">
+        <div class="max-w-[820px] space-y-8 font-mono uppercase leading-[1.45] text-cream" style="font-size:clamp(14px,1.6vw,24px)">
+          <p>Every morning, our kitchen opens with the tide. Chef Luc Mercier meets the fishermen of the Baie des Anges before dawn, choosing only what the sea offers that day. No freezers, no shortcuts — only the honesty of the catch.</p>
+          <p>Olive oil from the hills of Provence, vegetables from growers in the Var, wines from coastal Ligurian estates. Azur Côtier is a tribute to the Mediterranean craftsmanship that has shaped this coast for generations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATIONS -->
+<section id="reservations" class="mx-auto max-w-[1400px] px-6 pb-20 lg:px-8">
+  <div class="relative overflow-hidden rounded-[28px] dashed-border">
+    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=2000" alt="Warm restaurant interior" class="w-full object-cover" style="height:min(48vw,520px)" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(30,95,142,0.85) 0%, rgba(30,95,142,0.4) 50%, transparent 100%)"></div>
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center">
+      <p class="font-mono text-[12px] uppercase tracking-[0.1em] text-cream">Reservations</p>
+      <h2 class="font-display uppercase leading-[0.9] text-cream" style="font-size:clamp(40px,7vw,96px); letter-spacing:-0.02em">Book a Table at Azur Côtier</h2>
+      <p class="max-w-[520px] text-[15px] text-cream/90">+33 4 93 00 12 34 · reservations@azurcotier.fr</p>
+      <a href="mailto:reservations@azurcotier.fr" class="flex h-12 items-center gap-3 rounded-full bg-cream px-6 font-display text-[15px] uppercase tracking-[0.08em] text-ink hover:scale-[1.02]">Reserve Now <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="mx-auto max-w-[1400px] px-6 pb-20 lg:px-8">
+  <div class="dashed-divider"></div>
+  <div class="grid gap-10 py-12 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <p class="font-display uppercase leading-[0.95] text-azur" style="font-size:clamp(32px,5vw,64px); letter-spacing:-0.02em">Azur Côtier — Nice</p>
+      <p class="mt-2 font-mono text-[13px] uppercase tracking-wide text-azur/80">Mediterranean seafood • Established 2014</p>
+    </div>
+    <div class="lg:col-span-4 lg:pl-8">
+      <p class="font-mono text-[13px] uppercase tracking-wide text-azur">Visit</p>
+      <p class="mt-3 text-[15px] leading-[1.6] text-ink">14 Promenade des Anglais<br/>06000 Nice, France<br/>+33 4 93 00 12 34</p>
+      <div class="mt-6 flex gap-3 font-mono text-[12px] uppercase tracking-wide text-azur">
+        <a href="#" class="underline decoration-dashed underline-offset-4">Instagram</a>
+        <a href="#" class="underline decoration-dashed underline-offset-4">Facebook</a>
+      </div>
+    </div>
+    <div class="lg:col-span-4">
+      <p class="font-mono text-[13px] uppercase tracking-wide text-azur">Newsletter</p>
+      <p class="mt-3 text-[14px] leading-[1.55] text-ink">Seasonal menus, chef's tables and wine nights — once a month, never more.</p>
+      <form class="mt-4 flex items-center gap-2" onsubmit="return false;">
+        <input type="email" placeholder="your@email.com" class="h-10 flex-1 rounded-full bg-cream px-4 font-mono text-[13px] text-ink placeholder:text-azur/50 focus:outline-none focus:ring-2" style="border:1px solid rgba(79,179,229,0.4); --tw-ring-color:var(--azur)" />
+        <button type="button" class="h-10 rounded-full bg-ink px-4 font-display text-[12px] uppercase tracking-[0.08em] text-cream hover:scale-[1.02]">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
