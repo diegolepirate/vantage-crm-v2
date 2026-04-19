@@ -30621,9 +30621,13 @@ function renderTplMapStack(host){
     var safeId=escHtml(t.id);
     var col=stripColorForTpl(t);
     var stripBg='background:linear-gradient(180deg,'+col.bg+' 0%,'+col.bg2+' 100%)';
+    var heroImg=(typeof TPL_HEROES!=='undefined'&&TPL_HEROES[t.name])?TPL_HEROES[t.name]:'';
+    var instantBg=heroImg
+      ?'background-image:url(\''+escHtml(heroImg)+'\');background-size:cover;background-position:center'
+      :'background:linear-gradient(135deg,'+col.bg+' 0%,'+col.bg2+' 100%)';
     return '<div class="tpl-stack-item" data-id="'+safeId+'" onclick="previewUniTpl(\''+safeId+'\')">'
       +'<div class="tpl-stack-main">'
-        +'<div class="tpl-stack-iframe-wrap" data-role="hero"><div class="tpl-stack-placeholder">LOADING\u2026</div></div>'
+        +'<div class="tpl-stack-iframe-wrap" data-role="hero" style="'+instantBg+'"><div class="tpl-stack-placeholder">LOADING\u2026</div></div>'
         +'<div class="tpl-stack-meta">'
           +(tierBadge?'<div class="tpl-stack-tier">'+tierBadge+'</div>':'')
           +'<div class="tpl-stack-cat">'+subline+'</div>'
@@ -30692,32 +30696,44 @@ function renderTplMapStack(host){
   }
   window.addEventListener('resize',fitTplIframes);
 
+  function loadTplPreview(item){
+    var id=item.getAttribute('data-id');
+    var tpl=UNI_TEMPLATES.find(function(x){return x.id===id});
+    if(!tpl)return;
+    var mainWrap=item.querySelector('.tpl-stack-main .tpl-stack-iframe-wrap');
+    if(!mainWrap||mainWrap.querySelector('iframe'))return;
+    var ifr=document.createElement('iframe');
+    ifr.setAttribute('scrolling','no');
+    ifr.setAttribute('referrerpolicy','no-referrer');
+    ifr.style.opacity='0';ifr.style.transition='opacity .35s ease';
+    var useUrl=tpl.url&&/^https?:\/\//.test(tpl.url)&&!/awwwards\.com/.test(tpl.url);
+    if(useUrl){ifr.src=tpl.url}else{ifr.srcdoc=generateTemplateHTML(tpl)}
+    ifr.addEventListener('load',function(){
+      var ph=mainWrap.querySelector('.tpl-stack-placeholder');if(ph)ph.style.display='none';
+      fitTplIframes();
+      requestAnimationFrame(function(){ifr.style.opacity='1'});
+    });
+    mainWrap.appendChild(ifr);
+    fitTplIframes();
+  }
+
+  var items=host.querySelectorAll('.tpl-stack-item');
+  // Kick off first 6 immediately (above-the-fold + next viewport) — instant feel
+  for(var i=0;i<Math.min(6,items.length);i++){loadTplPreview(items[i])}
+
   if('IntersectionObserver' in window){
-    var items=host.querySelectorAll('.tpl-stack-item');
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(!e.isIntersecting)return;
-        var item=e.target;
-        var id=item.getAttribute('data-id');
-        var tpl=UNI_TEMPLATES.find(function(x){return x.id===id});
-        if(!tpl){io.unobserve(item);return}
-        var mainWrap=item.querySelector('.tpl-stack-main .tpl-stack-iframe-wrap');
-        if(mainWrap&&!mainWrap.querySelector('iframe')){
-          var ifr=document.createElement('iframe');
-          ifr.loading='lazy';ifr.setAttribute('scrolling','no');ifr.setAttribute('referrerpolicy','no-referrer');
-          var useUrl=tpl.url&&/^https?:\/\//.test(tpl.url)&&!/awwwards\.com/.test(tpl.url);
-          if(useUrl){ifr.src=tpl.url}else{ifr.srcdoc=generateTemplateHTML(tpl)}
-          ifr.addEventListener('load',function(){
-            var ph=mainWrap.querySelector('.tpl-stack-placeholder');if(ph)ph.style.display='none';
-            fitTplIframes();
-          });
-          mainWrap.appendChild(ifr);
-          fitTplIframes();
-        }
-        io.unobserve(item);
+        loadTplPreview(e.target);
+        io.unobserve(e.target);
       });
-    },{root:host,rootMargin:'1000px 0px'});
-    items.forEach(function(it){io.observe(it)});
+    },{root:host,rootMargin:'2500px 0px'});
+    // Observe only items not yet kicked off
+    for(var j=6;j<items.length;j++){io.observe(items[j])}
+  } else {
+    // No IO support: load everything (rare fallback)
+    items.forEach(function(it){loadTplPreview(it)});
   }
 }
 
