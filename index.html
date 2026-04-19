@@ -30580,7 +30580,8 @@ function renderTplMapStack(host){
   var cats=['All'].concat(Array.from(new Set(tpls.map(function(t){return t.category}))).filter(Boolean).sort());
   if(!window._mapTplFilter)window._mapTplFilter='All';
   var filter=window._mapTplFilter;
-  var list=filter==='All'?tpls:tpls.filter(function(t){return t.category===filter});
+  // Render ALL templates; filtering is CSS-only (instant) via data-cat attribute
+  var list=tpls;
 
   // Category/type → accent color for right strip
   function stripColorForTpl(t){
@@ -30619,18 +30620,37 @@ function renderTplMapStack(host){
 
   var itemsHtml=list.map(function(t){
     var tierBadge=t.tier==='premium'?'PREMIUM':t.tier==='classic'?'CLASSIC':(t.tier||'').toUpperCase();
-    var subline=t.subcategory?escHtml(t.category)+' \u00b7 '+escHtml(t.subcategory):escHtml(t.category||'');
+    var catText=escHtml(t.category||'');
+    var subText=t.subcategory?escHtml(t.subcategory):'';
     var safeId=escHtml(t.id);
     var col=stripColorForTpl(t);
-    var stripBg='background:linear-gradient(180deg,'+col.bg+' 0%,'+col.bg2+' 100%)';
+    var name=escHtml(t.name||'');
+    // short display label for hero button
+    var ctaLabel=(t.category||'').toLowerCase().indexOf('commerce')>=0?'Shop Now':(t.category||'').toLowerCase().indexOf('saas')>=0||(t.type==='tool')?'Get Started':'Discover';
     var itemStyle='--tpl-color:'+col.bg+';--tpl-color2:'+col.bg2;
-    return '<div class="tpl-stack-item" data-id="'+safeId+'" data-color="'+col.bg+'" data-color2="'+col.bg2+'" style="'+itemStyle+'" onclick="previewUniTpl(\''+safeId+'\')">'
+    // Pure DIV mock hero preview — renders in microseconds. No iframe, no HTML/CSS parsing.
+    return '<div class="tpl-stack-item" data-id="'+safeId+'" data-cat="'+catText+'" data-color="'+col.bg+'" data-color2="'+col.bg2+'" style="'+itemStyle+'" onclick="previewUniTpl(\''+safeId+'\')">'
       +'<div class="tpl-stack-main">'
-        +'<div class="tpl-stack-iframe-wrap" data-role="hero"><div class="tpl-stack-placeholder">LOADING\u2026</div></div>'
+        +'<div class="tpl-mock">'
+          +'<div class="tpl-mock-bg"></div>'
+          +'<div class="tpl-mock-shape tpl-mock-shape-1"></div>'
+          +'<div class="tpl-mock-shape tpl-mock-shape-2"></div>'
+          +'<div class="tpl-mock-nav">'
+            +'<div class="tpl-mock-logo">'+(name.split(' ')[0]||'VANTAGE')+'</div>'
+            +'<div class="tpl-mock-navpills"><span></span><span></span><span></span><span></span></div>'
+            +'<div class="tpl-mock-navcta"></div>'
+          +'</div>'
+          +'<div class="tpl-mock-hero">'
+            +'<div class="tpl-mock-eyebrow">'+(catText||'TEMPLATE')+(subText?' \u00b7 '+subText:'')+'</div>'
+            +'<h1 class="tpl-mock-title">'+name+'</h1>'
+            +'<div class="tpl-mock-sub">Crafted with Vantage Design \u00b7 Premium edition</div>'
+            +'<div class="tpl-mock-ctas"><div class="tpl-mock-btn tpl-mock-btn-primary">'+ctaLabel+'</div><div class="tpl-mock-btn tpl-mock-btn-ghost">Learn more</div></div>'
+          +'</div>'
+        +'</div>'
         +'<div class="tpl-stack-meta">'
           +(tierBadge?'<div class="tpl-stack-tier">'+tierBadge+'</div>':'')
-          +'<div class="tpl-stack-cat">'+subline+'</div>'
-          +'<div class="tpl-stack-name">'+escHtml(t.name)+'</div>'
+          +'<div class="tpl-stack-cat">'+catText+(subText?' \u00b7 '+subText:'')+'</div>'
+          +'<div class="tpl-stack-name">'+name+'</div>'
           +'<div class="tpl-stack-open">Open preview \u2192</div>'
         +'</div>'
       +'</div>'
@@ -30640,7 +30660,7 @@ function renderTplMapStack(host){
   var pillsHtml=cats.map(function(c){
     var active=c===filter?' tpl-stack-pill-active':'';
     var safeCat=escHtml(c).replace(/'/g,"\\'");
-    return '<button class="tpl-stack-pill'+active+'" onclick="window._mapTplFilter=\''+safeCat+'\';renderTplMapStack(document.getElementById(\'tplMapHost\'))">'+escHtml(c)+'</button>';
+    return '<button class="tpl-stack-pill'+active+'" data-cat="'+escHtml(c)+'" onclick="window._tplMapFilterPill(this,\''+safeCat+'\')">'+escHtml(c)+'</button>';
   }).join('');
 
   host.innerHTML='<style>'
@@ -30655,17 +30675,36 @@ function renderTplMapStack(host){
     +'.tpl-stack-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:20px;font-size:.72rem;letter-spacing:1.4px;cursor:pointer;transition:.2s;font-family:inherit;text-transform:uppercase}'
     +'.tpl-stack-pill:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#fff}'
     +'.tpl-stack-pill-active{background:#C9A84C;border-color:#C9A84C;color:#0a0a0f;font-weight:600}'
-    +'.tpl-stack-layout{display:grid;grid-template-columns:1fr 200px;gap:20px;max-width:1600px;margin:0 auto;padding:0 24px;position:relative;align-items:start}'
-    +'.tpl-stack-list{position:relative}'
-    +'.tpl-stack-rail-col{position:relative}'
-    +'.tpl-stack-rail{position:sticky;top:90px;height:82vh;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:linear-gradient(180deg,var(--rail-c1,#8B5CF6) 0%,var(--rail-c2,#6D28D9) 100%);transition:background .7s cubic-bezier(.4,0,.2,1);will-change:background;contain:layout paint style}'
+    +'.tpl-stack-layout{display:grid;grid-template-columns:1fr 200px;gap:20px;max-width:1600px;margin:0 auto;padding:0 24px;position:relative;align-items:start;contain:layout}'
+    +'.tpl-stack-list{position:relative;contain:layout}'
+    +'.tpl-stack-rail-col{position:relative;contain:layout paint}'
+    +'.tpl-stack-pills{contain:layout style}'
+    +'.tpl-stack-rail{position:sticky;top:90px;height:82vh;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:linear-gradient(180deg,var(--rail-c1,#8B5CF6) 0%,var(--rail-c2,#6D28D9) 100%);transition:background .7s cubic-bezier(.4,0,.2,1);contain:layout paint style;transform:translateZ(0)}'
     +'.tpl-stack-chrome{width:62%;max-width:130px;height:auto;position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55)) drop-shadow(0 0 24px rgba(255,255,255,.3))}'
-    +'.tpl-stack-item{position:sticky;top:90px;aspect-ratio:1440/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#111;cursor:pointer;transition:transform .2s ease;contain:layout paint style;transform:translateZ(0)}'
+    +'.tpl-stack-item{position:sticky;top:90px;aspect-ratio:1440/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#111;cursor:pointer;transition:transform .25s cubic-bezier(.4,0,.2,1);contain:layout paint style;content-visibility:auto;contain-intrinsic-size:auto 78vh;transform:translateZ(0)}'
+    +'.tpl-stack-item.tpl-hidden{display:none}'
     +'.tpl-stack-item:hover{transform:translate3d(0,-4px,0)}'
-    +'.tpl-stack-main{position:absolute;inset:0;overflow:hidden;background:#111}'
-    +'.tpl-stack-iframe-wrap{position:absolute;inset:0;overflow:hidden;background:#111}'
-    +'.tpl-stack-iframe-wrap iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;display:block;background:#fff;transform-origin:0 0;transform:scale(1)}'
-    +'.tpl-stack-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:.75rem;letter-spacing:3px;font-family:\'Tanker\',sans-serif;z-index:1}'
+    +'.tpl-stack-main{position:absolute;inset:0;overflow:hidden;background:#111;contain:strict}'
+    // --- Mock DIV preview styles (Apple-clean, GPU-cheap) ---
+    +'.tpl-mock{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;font-family:\'Inter\',-apple-system,sans-serif;contain:strict}'
+    +'.tpl-mock-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--tpl-color) 0%,var(--tpl-color2) 60%,#000 140%);z-index:0}'
+    +'.tpl-mock-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 50%),radial-gradient(circle at 15% 85%,rgba(0,0,0,.35),transparent 55%);pointer-events:none}'
+    +'.tpl-mock-shape{position:absolute;border-radius:50%;filter:blur(40px);opacity:.45;z-index:1;will-change:auto}'
+    +'.tpl-mock-shape-1{width:38%;aspect-ratio:1;right:-6%;top:-10%;background:rgba(255,255,255,.35)}'
+    +'.tpl-mock-shape-2{width:28%;aspect-ratio:1;left:-4%;bottom:-8%;background:rgba(0,0,0,.5)}'
+    +'.tpl-mock-nav{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:1.6% 3.2%;gap:2%}'
+    +'.tpl-mock-logo{font-family:\'Tanker\',sans-serif;color:#fff;font-size:1.1rem;letter-spacing:3px;text-transform:uppercase;opacity:.95}'
+    +'.tpl-mock-navpills{display:flex;gap:10px;align-items:center}'
+    +'.tpl-mock-navpills span{display:block;width:44px;height:6px;border-radius:6px;background:rgba(255,255,255,.35)}'
+    +'.tpl-mock-navcta{width:78px;height:22px;border-radius:22px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4)}'
+    +'.tpl-mock-hero{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 6% 6%;gap:1.4%}'
+    +'.tpl-mock-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:500}'
+    +'.tpl-mock-title{font-family:\'Tanker\',\'Playfair Display\',serif;font-size:clamp(2rem,5.6vw,5.5rem);line-height:1;letter-spacing:-1px;color:#fff;margin:0;text-shadow:0 6px 32px rgba(0,0,0,.35);max-width:75%;font-weight:500}'
+    +'.tpl-mock-sub{font-size:.85rem;color:rgba(255,255,255,.7);letter-spacing:.5px;max-width:60%}'
+    +'.tpl-mock-ctas{display:flex;gap:12px;margin-top:.8%}'
+    +'.tpl-mock-btn{padding:12px 26px;border-radius:30px;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}'
+    +'.tpl-mock-btn-primary{background:#fff;color:var(--tpl-color2,#000)}'
+    +'.tpl-mock-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}'
     +'.tpl-stack-meta{position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(10,10,15,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);padding:14px 20px;border-radius:14px;max-width:72%;pointer-events:none}'
     +'.tpl-stack-tier{display:inline-block;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:10px;margin-bottom:8px;background:rgba(201,168,76,.18);color:#C9A84C;border:1px solid rgba(201,168,76,.35);font-weight:600}'
     +'.tpl-stack-cat{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}'
@@ -30687,79 +30726,69 @@ function renderTplMapStack(host){
       :'<div class="tpl-stack-empty">No templates in this category.</div>')
   +'</div>';
 
-  // Fit hero iframe (1440x900) — targeted single-iframe version (cheap)
-  function fitOne(mainEl){
-    var ifr=mainEl.querySelector('iframe');if(!ifr)return;
-    var cw=mainEl.clientWidth,ch=mainEl.clientHeight;if(!cw||!ch)return;
-    ifr.style.transform='scale('+Math.min(cw/1440,ch/900)+')';
-  }
-  function fitTplIframes(){host.querySelectorAll('.tpl-stack-main').forEach(fitOne)}
-  var _rzT=0;
-  function onResize(){clearTimeout(_rzT);_rzT=setTimeout(fitTplIframes,150)}
-  window.addEventListener('resize',onResize,{passive:true});
-
-  function loadTplPreview(item){
-    var id=item.getAttribute('data-id');
-    var tpl=UNI_TEMPLATES.find(function(x){return x.id===id});
-    if(!tpl)return;
-    var mainWrap=item.querySelector('.tpl-stack-main .tpl-stack-iframe-wrap');
-    if(!mainWrap||mainWrap.querySelector('iframe'))return;
-    var mainEl=item.querySelector('.tpl-stack-main');
-    var ifr=document.createElement('iframe');
-    ifr.setAttribute('scrolling','no');
-    ifr.setAttribute('referrerpolicy','no-referrer');
-    ifr.setAttribute('loading','lazy');
-    if('fetchPriority' in ifr)ifr.fetchPriority='low';
-    // ALWAYS use srcdoc — instant render, zero network. Real template opens on click via previewUniTpl.
-    ifr.srcdoc=generateTemplateHTML(tpl);
-    ifr.addEventListener('load',function(){
-      var ph=mainWrap.querySelector('.tpl-stack-placeholder');if(ph)ph.style.display='none';
-      fitOne(mainEl);
-    });
-    mainWrap.appendChild(ifr);
-    fitOne(mainEl);
-  }
-
+  // DIV previews render instantly — no iframe, no fit math, no resize listener needed.
   var items=host.querySelectorAll('.tpl-stack-item');
-  // Eager preload: all srcdoc renders are instant + zero network — load 20 ahead
-  var eager=Math.min(20,items.length);
-  for(var i=0;i<eager;i++){loadTplPreview(items[i])}
-
-  // Update rail color based on currently sticky (top-most visible) card
   var railEl=host.querySelector('#tplStackRail');
-  function updateRailColor(){
-    if(!railEl)return;
-    var closest=null,closestTop=Infinity;
-    items.forEach(function(it){
-      var r=it.getBoundingClientRect();
-      if(r.bottom>140&&r.top<closestTop){closest=it;closestTop=r.top}
-    });
-    if(closest){
-      var c1=closest.getAttribute('data-color');
-      var c2=closest.getAttribute('data-color2');
-      if(c1&&railEl.style.getPropertyValue('--rail-c1')!==c1){
-        railEl.style.setProperty('--rail-c1',c1);
-        railEl.style.setProperty('--rail-c2',c2);
-      }
+
+  // Apply current filter via CSS (instant)
+  function applyFilter(f){
+    window._mapTplFilter=f;
+    for(var k=0;k<items.length;k++){
+      var cat=items[k].getAttribute('data-cat');
+      items[k].classList.toggle('tpl-hidden', f!=='All' && cat!==f);
+    }
+    // Update pill active state
+    var pills=host.querySelectorAll('.tpl-stack-pill');
+    for(var p=0;p<pills.length;p++){
+      pills[p].classList.toggle('tpl-stack-pill-active', pills[p].getAttribute('data-cat')===f);
     }
   }
-  var _rT=0;
-  function onScroll(){if(_rT)return;_rT=requestAnimationFrame(function(){_rT=0;updateRailColor()})}
-  host.addEventListener('scroll',onScroll,{passive:true});
-  updateRailColor();
+  window._tplMapFilterPill=function(btn,cat){applyFilter(cat)};
+  if(filter && filter!=='All') applyFilter(filter);
+
+  // Rail color: IntersectionObserver tracks which card is "active" (the top-most sticky one)
+  // O(1) update instead of O(n) getBoundingClientRect on every scroll.
+  var visible=new Set();
+  function updateRail(){
+    if(!railEl||visible.size===0)return;
+    // Pick the item with smallest offsetTop among visible ones whose bottom is still below the pin zone
+    var best=null,bestTop=Infinity;
+    visible.forEach(function(el){
+      if(el.classList.contains('tpl-hidden'))return;
+      var r=el.getBoundingClientRect();
+      if(r.bottom>160 && r.top<bestTop){best=el;bestTop=r.top}
+    });
+    if(!best)return;
+    var c1=best.getAttribute('data-color');
+    var c2=best.getAttribute('data-color2');
+    if(c1&&railEl.style.getPropertyValue('--rail-c1')!==c1){
+      railEl.style.setProperty('--rail-c1',c1);
+      railEl.style.setProperty('--rail-c2',c2);
+    }
+  }
+  var rafPending=false;
+  function schedRail(){if(rafPending)return;rafPending=true;requestAnimationFrame(function(){rafPending=false;updateRail()})}
 
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(!e.isIntersecting)return;
-        loadTplPreview(e.target);
-        io.unobserve(e.target);
-      });
-    },{root:host,rootMargin:'1200px 0px'});
-    for(var j=eager;j<items.length;j++){io.observe(items[j])}
-  } else {
-    items.forEach(function(it){loadTplPreview(it)});
+      for(var i=0;i<entries.length;i++){
+        var e=entries[i];
+        if(e.isIntersecting)visible.add(e.target);
+        else visible.delete(e.target);
+      }
+      schedRail();
+    },{root:host,rootMargin:'0px 0px 0px 0px',threshold:[0,0.1,0.5,1]});
+    for(var j=0;j<items.length;j++){io.observe(items[j])}
   }
+  // Lightweight scroll listener just for rail refresh while items stay pinned
+  var scrollRaf=false;
+  host.addEventListener('scroll',function(){
+    if(scrollRaf)return;scrollRaf=true;
+    requestAnimationFrame(function(){scrollRaf=false;updateRail()});
+  },{passive:true});
+
+  // Initial paint
+  requestAnimationFrame(updateRail);
 }
 
 function closeFantasyMap(){
