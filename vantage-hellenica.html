@@ -7,7 +7,7 @@
 <meta name="description" content="An international exhibition on Greek heritage and modern travel. Athens · Delphi · Olympia · Crete." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 <style>
@@ -31,12 +31,12 @@ html,body{margin:0;background:var(--white);color:var(--ink);font-family:'Inter',
 html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;height:0;display:none}
 
-.cinzel{font-family:'Cinzel',serif;letter-spacing:.04em}
-.cormorant{font-family:'Cormorant Garamond',serif}
-.cormorant-it{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300}
-.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.42em;text-transform:uppercase;font-weight:500}
+.cinzel{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.04em}
+.cormorant{font-family:'Instrument Serif',serif}
+.cormorant-it{font-family:'Instrument Serif',serif;font-style:italic;font-weight:300}
+.eyebrow{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif}
 .container-mx{max-width:1480px;margin:0 auto;padding:0 40px}
-.btn{display:inline-flex;align-items:center;gap:12px;padding:15px 32px;border-radius:0;font-size:13px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;font-family:'Cinzel',serif;transition:.3s;cursor:pointer;border:1px solid transparent}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:15px 32px;border-radius:0;font-size:13px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;font-family:'Bricolage Grotesque',sans-serif;transition:.3s;cursor:pointer;border:1px solid transparent}
 .btn-deep{background:var(--blue-deep);color:var(--white)}
 .btn-deep:hover{background:var(--blue-deeper);transform:translateY(-2px)}
 .btn-outline{background:transparent;color:var(--blue-deep);border-color:var(--blue-deep)}
@@ -45,17 +45,17 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 
 /* ---------- NAV ---------- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,246,241,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,37,64,0.08)}
-.nav-brand{display:flex;align-items:center;gap:14px;font-family:'Cinzel',serif;font-weight:600;font-size:17px;letter-spacing:.28em;color:var(--blue-deep)}
-.nav-brand-glyph{width:34px;height:34px;border:1px solid var(--blue-deep);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--blue-deep)}
+.nav-brand{display:flex;align-items:center;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;letter-spacing:.28em;color:var(--blue-deep)}
+.nav-brand-glyph{width:34px;height:34px;border:1px solid var(--blue-deep);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;color:var(--blue-deep)}
 .nav-links{display:flex;gap:40px}
-.nav-links a{color:var(--blue-deep);text-decoration:none;font-family:'Cinzel',serif;font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.72;transition:.2s}
+.nav-links a{color:var(--blue-deep);text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.72;transition:.2s}
 .nav-links a:hover{opacity:1;color:var(--blue-mid)}
 .nav-right{display:flex;align-items:center;gap:18px}
-.nav-right .loc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--blue-deep);opacity:.65}
+.nav-right .loc{font-family:'Instrument Serif',serif;font-style:italic;font-size:15px;color:var(--blue-deep);opacity:.65}
 
 /* ---------- BACKGROUND GREEK TEXT MARQUEE ---------- */
 .greek-bg-marquee{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.06}
-.greek-bg-row{display:flex;white-space:nowrap;font-family:'Cinzel',serif;font-size:clamp(80px,10vw,180px);letter-spacing:.15em;text-transform:uppercase;line-height:1;color:var(--blue-deep);animation:greekSlide 80s linear infinite}
+.greek-bg-row{display:flex;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(80px,10vw,180px);letter-spacing:.15em;text-transform:uppercase;line-height:1;color:var(--blue-deep);animation:greekSlide 80s linear infinite}
 .greek-bg-row-alt{animation-duration:95s;animation-direction:reverse;margin-top:30px}
 @keyframes greekSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -63,12 +63,12 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px;overflow:hidden;z-index:1}
 .hero-inner{position:relative;z-index:3;max-width:1480px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
 .hero-eye{color:var(--blue-mid);margin-bottom:36px}
-.hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(72px,9vw,160px);line-height:.92;letter-spacing:-.02em;color:var(--blue-deep);margin:0}
+.hero-title{font-family:'Instrument Serif',serif;font-weight:500;font-size:clamp(64px,8vw,140px);line-height:.95;letter-spacing:-.035em;color:var(--blue-deep);margin:0}
 .hero-title em{font-style:italic;font-weight:300;color:var(--blue-mid)}
-.hero-sub{max-width:520px;margin-top:40px;font-size:17px;line-height:1.65;color:var(--ink);opacity:.75}
+.hero-sub{max-width:520px;margin-top:40px;font-size:17px;line-height:1.65;color:var(--ink);opacity:.85}
 .hero-ctas{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap}
-.hero-meta{margin-top:60px;display:flex;gap:48px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-deep);opacity:.6;flex-wrap:wrap}
-.hero-meta strong{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:22px;letter-spacing:0;text-transform:none;margin-top:6px;opacity:.85}
+.hero-meta{margin-top:60px;display:flex;gap:48px;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-deep);opacity:.6;flex-wrap:wrap}
+.hero-meta strong{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-style:normal;font-size:20px;letter-spacing:-.01em;text-transform:none;margin-top:6px;opacity:.92;color:var(--blue-deep)}
 
 .hero-3d{position:relative;height:620px;display:flex;align-items:center;justify-content:center}
 .hero-3d model-viewer{width:100%;height:100%;background:transparent;--progress-bar-color:transparent;--poster-color:transparent}
@@ -78,7 +78,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 /* ---------- HEROES TICKER (Greek names scrolling) ---------- */
 .heroes-ticker{position:relative;z-index:2;background:var(--blue-deep);color:var(--white);padding:26px 0;overflow:hidden;border-top:1px solid rgba(248,246,241,.1);border-bottom:1px solid rgba(248,246,241,.1)}
 .heroes-track{display:inline-flex;white-space:nowrap;animation:heroesSlide 55s linear infinite;gap:60px}
-.heroes-track span{display:inline-flex;align-items:center;gap:60px;font-family:'Cinzel',serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;opacity:.72}
+.heroes-track span{display:inline-flex;align-items:center;gap:60px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;opacity:.72}
 .heroes-track span::before{content:"◈";color:var(--blue-light);font-size:11px;margin-right:-40px}
 .heroes-track span:first-child::before{display:none}
 @keyframes heroesSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -91,38 +91,38 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 .chapter-inner{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative}
 .chapter-eye{color:var(--blue-mid);margin-bottom:24px}
 .chapter-deep .chapter-eye{color:var(--blue-light)}
-.chapter-num{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.4em;color:var(--blue-mid);opacity:.6;margin-bottom:18px}
+.chapter-num{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;letter-spacing:.4em;color:var(--blue-mid);opacity:.6;margin-bottom:18px}
 .chapter-deep .chapter-num{color:var(--gray)}
-.chapter-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(48px,6vw,92px);line-height:.98;letter-spacing:-.015em;color:var(--blue-deep);margin:0}
+.chapter-title{font-family:'Instrument Serif',serif;font-weight:500;font-size:clamp(44px,5.5vw,88px);line-height:1;letter-spacing:-.03em;color:var(--blue-deep);margin:0}
 .chapter-deep .chapter-title{color:var(--white)}
 .chapter-title em{font-style:italic;color:var(--blue-mid)}
 .chapter-deep .chapter-title em{color:var(--blue-light)}
-.chapter-text{margin-top:32px;font-size:16px;line-height:1.75;max-width:480px;opacity:.78}
+.chapter-text{margin-top:32px;font-size:16px;line-height:1.75;max-width:480px;opacity:.88}
 .chapter-deep .chapter-text{opacity:.75}
-.chapter-quote{margin-top:40px;padding-left:22px;border-left:2px solid var(--blue-mid);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--blue-deep);max-width:460px}
+.chapter-quote{margin-top:40px;padding-left:22px;border-left:2px solid var(--blue-mid);font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--blue-deep);max-width:460px}
 .chapter-deep .chapter-quote{border-color:var(--blue-light);color:var(--white)}
 .chapter-stats{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap}
 .chapter-stat{display:flex;flex-direction:column;gap:4px}
-.chapter-stat .n{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:44px;color:var(--blue-deep);line-height:1}
+.chapter-stat .n{font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;color:var(--blue-deep);line-height:1}
 .chapter-deep .chapter-stat .n{color:var(--white)}
-.chapter-stat .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.6}
+.chapter-stat .l{font-family:'Bricolage Grotesque',sans-serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.6}
 
 .chapter-3d{position:relative;aspect-ratio:1/1;min-height:560px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:18px;isolation:isolate}
 .chapter-3d model-viewer{width:100%;height:100%;max-width:100%;max-height:100%;background:transparent;--progress-bar-color:transparent;--poster-color:transparent;display:block}
 .chapter-3d-ring{position:absolute;top:50%;left:50%;width:80%;height:80%;margin:-40% 0 0 -40%;border:1px solid rgba(10,37,64,0.12);border-radius:50%;pointer-events:none}
 .chapter-deep .chapter-3d-ring{border-color:rgba(248,246,241,0.15)}
-.chapter-3d-label{position:absolute;bottom:0;left:0;right:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:15px;color:var(--blue-deep);opacity:.6}
+.chapter-3d-label{position:absolute;bottom:0;left:0;right:0;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-weight:300;font-size:15px;color:var(--blue-deep);opacity:.6}
 .chapter-deep .chapter-3d-label{color:var(--white);opacity:.55}
 .chapter-3d-left .chapter-3d{order:-1}
 
 /* ---------- ORNAMENT LINE (Greek meander) ---------- */
-.ornament{display:flex;justify-content:center;align-items:center;gap:22px;padding:30px 0;color:var(--blue-deep);opacity:.45;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase}
+.ornament{display:flex;justify-content:center;align-items:center;gap:22px;padding:30px 0;color:var(--blue-deep);opacity:.45;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase}
 .ornament-line{flex:1;max-width:260px;height:1px;background:currentColor}
-.ornament-glyph{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;letter-spacing:0}
+.ornament-glyph{font-family:'Instrument Serif',serif;font-style:italic;font-size:19px;letter-spacing:0}
 
 /* ---------- GREEK TEXT BAND (Greek letters scrolling in foreground) ---------- */
 .greek-band{position:relative;z-index:2;background:var(--ice);padding:60px 0;overflow:hidden;border-top:1px solid rgba(10,37,64,.06);border-bottom:1px solid rgba(10,37,64,.06)}
-.greek-band-track{display:inline-flex;white-space:nowrap;animation:greekBand 60s linear infinite;gap:50px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(36px,5vw,72px);color:var(--blue-deep);letter-spacing:-.01em}
+.greek-band-track{display:inline-flex;white-space:nowrap;animation:greekBand 60s linear infinite;gap:50px;font-family:'Instrument Serif',serif;font-style:italic;font-weight:300;font-size:clamp(36px,5vw,72px);color:var(--blue-deep);letter-spacing:-.01em}
 .greek-band-track span{display:inline-flex;gap:50px;align-items:center}
 .greek-band-track span::before{content:"·";margin-right:-30px;color:var(--blue-mid);font-size:60px}
 .greek-band-track span:first-child::before{display:none}
@@ -137,36 +137,36 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 .tour-img{aspect-ratio:4/5;background-size:cover;background-position:center;transition:transform 1s ease}
 .tour-card:hover .tour-img{transform:scale(1.05)}
 .tour-body{padding:32px 28px}
-.tour-loc{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:12px}
-.tour-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:28px;color:var(--blue-deep);margin-bottom:14px;line-height:1.1}
+.tour-loc{font-family:'Bricolage Grotesque',sans-serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:12px}
+.tour-name{font-family:'Instrument Serif',serif;font-weight:400;font-size:28px;color:var(--blue-deep);margin-bottom:14px;line-height:1.1}
 .tour-desc{font-size:14px;line-height:1.65;color:var(--ink);opacity:.7}
 
 /* ---------- VISIT / CTA ---------- */
 .visit{position:relative;z-index:2;padding:200px 40px;background:var(--blue-deep);color:var(--white);text-align:center;overflow:hidden}
-.visit-bg{position:absolute;inset:0;opacity:.07;font-family:'Cinzel',serif;font-size:clamp(100px,18vw,320px);color:var(--white);line-height:.85;pointer-events:none;display:flex;align-items:center;justify-content:center;letter-spacing:.1em}
+.visit-bg{position:absolute;inset:0;opacity:.07;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(100px,18vw,320px);color:var(--white);line-height:.85;pointer-events:none;display:flex;align-items:center;justify-content:center;letter-spacing:.1em}
 .visit-inner{position:relative;max-width:920px;margin:0 auto}
-.visit-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,120px);line-height:.95;letter-spacing:-.01em;margin:0 0 32px}
+.visit-title{font-family:'Instrument Serif',serif;font-weight:300;font-size:clamp(56px,7vw,120px);line-height:.95;letter-spacing:-.01em;margin:0 0 32px}
 .visit-title em{font-style:italic;color:var(--blue-light)}
 .visit-sub{max-width:540px;margin:0 auto 42px;font-size:16px;line-height:1.65;opacity:.72}
 .visit-dates{display:flex;justify-content:center;gap:60px;margin-top:60px;flex-wrap:wrap}
 .visit-date{display:flex;flex-direction:column;gap:6px}
-.visit-date .d{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;color:var(--white)}
-.visit-date .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.55}
+.visit-date .d{font-family:'Instrument Serif',serif;font-weight:300;font-size:36px;color:var(--white)}
+.visit-date .l{font-family:'Bricolage Grotesque',sans-serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.55}
 
 /* ---------- FOOTER ---------- */
 .footer{position:relative;z-index:2;background:var(--blue-deeper);color:var(--white);padding:80px 40px 32px}
 .footer-grid{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px}
-.footer h4{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;opacity:.55;margin-bottom:20px;font-weight:500}
+.footer h4{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;opacity:.55;margin-bottom:20px;font-weight:500}
 .footer a{display:block;color:var(--white);opacity:.72;font-size:14px;text-decoration:none;margin-bottom:10px;transition:.2s}
 .footer a:hover{color:var(--blue-light);opacity:1}
-.footer-brand{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.28em;margin-bottom:14px;font-weight:600}
+.footer-brand{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;letter-spacing:.28em;margin-bottom:14px;font-weight:600}
 .footer p{max-width:340px;opacity:.55;font-size:13px;line-height:1.65}
-.footer-bottom{max-width:1480px;margin:60px auto 0;padding-top:28px;border-top:1px solid rgba(248,246,241,0.12);display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.45}
+.footer-bottom{max-width:1480px;margin:60px auto 0;padding-top:28px;border-top:1px solid rgba(248,246,241,0.12);display:flex;justify-content:space-between;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.45}
 
 /* ---------- HELLENICA FULL-WIDTH WORDMARK ---------- */
 .wordmark-scene{position:relative;z-index:2;padding:80px 0 40px;text-align:center;background:var(--white);overflow:hidden}
-.wordmark-full{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(80px,18vw,280px);letter-spacing:.03em;color:var(--blue-deep);line-height:.9;white-space:nowrap;padding:0 20px;text-align:center;width:100%;display:block}
-.wm-sub{margin-top:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(18px,2vw,28px);color:var(--blue-deep);opacity:.75;letter-spacing:.02em;padding:0 20px}
+.wordmark-full{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(80px,18vw,280px);letter-spacing:.03em;color:var(--blue-deep);line-height:.9;white-space:nowrap;padding:0 20px;text-align:center;width:100%;display:block}
+.wm-sub{margin-top:18px;font-family:'Instrument Serif',serif;font-style:italic;font-weight:300;font-size:clamp(18px,2vw,28px);color:var(--blue-deep);opacity:.75;letter-spacing:.02em;padding:0 20px}
 
 /* ---------- APPLE-STYLE TILES (for tourism section) ---------- */
 .apple-tiles{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px}
@@ -177,8 +177,8 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 .atile:hover .atile-bg{transform:scale(1.05)}
 .atile-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,36,.1) 30%,rgba(10,22,36,.75) 100%)}
 .atile-copy{position:absolute;top:48px;left:0;right:0;z-index:2;text-align:center;color:var(--white);padding:0 24px}
-.atile-eye{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.32em;text-transform:uppercase;opacity:.85;margin-bottom:14px;display:block}
-.atile-h{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(32px,3.4vw,52px);line-height:1;letter-spacing:-.015em;margin:0 0 10px}
+.atile-eye{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;letter-spacing:.32em;text-transform:uppercase;opacity:.85;margin-bottom:14px;display:block}
+.atile-h{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(32px,3.4vw,52px);line-height:1;letter-spacing:-.015em;margin:0 0 10px}
 .atile-h em{font-style:italic;color:var(--blue-light)}
 .atile-p{font-size:17px;line-height:1.4;opacity:.88;margin:0 0 18px;max-width:500px;margin-left:auto;margin-right:auto}
 .atile-ctas a{color:var(--white);font-size:15px;margin:0 10px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:2px}
@@ -194,11 +194,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 .glass-card::before{content:"";position:absolute;inset:0;border-radius:22px;background:linear-gradient(135deg,#6BA3D6 0%,#F8F6F1 25%,#2E7BC3 50%,#0A2540 75%,#6BA3D6 100%);padding:1.5px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.8;z-index:-1}
 .glass-card::after{content:"";position:absolute;inset:0;border-radius:22px;background:radial-gradient(ellipse at top left,rgba(107,163,214,0.18),transparent 60%),radial-gradient(ellipse at bottom right,rgba(46,123,195,0.15),transparent 60%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background-color:rgba(10,37,64,0.45);z-index:-2}
 .glass-card-inner{padding:48px 36px;display:flex;flex-direction:column;justify-content:space-between;height:100%;position:relative;z-index:1}
-.glass-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:64px;color:var(--blue-light);line-height:1;opacity:.9}
-.glass-city{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:var(--white);margin-top:18px;opacity:.7}
-.glass-date{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;line-height:1.1;color:var(--white);margin-top:14px;letter-spacing:-.01em}
+.glass-num{font-family:'Instrument Serif',serif;font-style:italic;font-weight:300;font-size:64px;color:var(--blue-light);line-height:1;opacity:.9}
+.glass-city{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:var(--white);margin-top:18px;opacity:.7}
+.glass-date{font-family:'Instrument Serif',serif;font-weight:300;font-size:36px;line-height:1.1;color:var(--white);margin-top:14px;letter-spacing:-.01em}
 .glass-desc{font-size:14px;line-height:1.6;color:var(--white);opacity:.72;margin-top:18px;max-width:280px}
-.glass-cta{margin-top:28px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--blue-light);display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.glass-cta{margin-top:28px;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--blue-light);display:inline-flex;align-items:center;gap:10px;text-decoration:none}
 .glass-cta:hover{color:var(--white)}
 
 /* ---------- RESPONSIVE ---------- */
@@ -448,7 +448,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 <section class="glass-scene" id="visit">
   <div class="glass-hdr">
     <div class="eyebrow">Three Editions &mdash; One Exhibition</div>
-    <h2 class="visit-title" style="color:var(--white);font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(48px,6vw,96px);line-height:.98;letter-spacing:-.015em;margin:0">The exhibition<br/>is <em style="font-style:italic;color:var(--blue-light)">waiting</em>.</h2>
+    <h2 class="visit-title" style="color:var(--white);font-family:'Instrument Serif',serif;font-weight:300;font-size:clamp(48px,6vw,96px);line-height:.98;letter-spacing:-.015em;margin:0">The exhibition<br/>is <em style="font-style:italic;color:var(--blue-light)">waiting</em>.</h2>
     <p style="max-width:520px;margin:32px auto 0;font-size:16px;line-height:1.65;opacity:.72">A timed-entry experience for small groups, travelling across three European capitals over eight months.</p>
   </div>
 
