@@ -112,7 +112,7 @@
 
   /* Feature pc */
   .feature-pc{position:relative;min-height:120vh;display:grid;place-items:center;overflow:hidden}
-  .feature-pc model-viewer{width:min(700px,80vw);height:min(700px,80vw);background:transparent;position:relative;z-index:2}
+  .feature-pc model-viewer{width:min(1800px,95vw);height:min(1200px,85vh);background:transparent;position:relative;z-index:2}
   .feature-pc .word{position:absolute;font-family:var(--anton);text-transform:uppercase;font-size:clamp(80px,20vw,300px);line-height:.85;z-index:1;pointer-events:none}
   .feature-pc .w1{top:6%;left:4%;color:rgba(255,45,206,.85);text-shadow:0 0 40px rgba(255,45,206,.4)}
   .feature-pc .w2{top:38%;right:3%;-webkit-text-stroke:2px rgba(0,255,228,.7);color:transparent}
@@ -143,7 +143,8 @@
   /* Character (vera) */
   .character{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
   .character model-viewer{width:100%;aspect-ratio:1/1.1;background:transparent}
-  .character-viewer{position:relative;border-radius:50% 50% 46% 54%/60% 40% 60% 40%;overflow:hidden;background:radial-gradient(circle at 50% 60%,rgba(255,45,206,.22),transparent 65%)}
+  .character-viewer{position:relative;border-radius:50% 50% 46% 54%/60% 40% 60% 40%;overflow:hidden;background:radial-gradient(circle at 50% 60%,rgba(255,45,206,.22),transparent 65%);min-height:780px}
+.character-viewer model-viewer{width:100%;height:780px}
   .character-viewer::before{content:'';position:absolute;inset:0;border:1px dashed rgba(0,255,228,.3);border-radius:inherit}
   @media(max-width:900px){.character{grid-template-columns:1fr}}
 
@@ -408,7 +409,7 @@
   <div class="word w1">HACKED</div>
   <div class="word w2">REVIVED</div>
   <div class="word w3">REBORN</div>
-  <model-viewer src="assets/models/arcade/hacking-pc.glb" loading="lazy" auto-rotate rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Hacking PC" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
+  <model-viewer src="assets/models/arcade/old-computer.glb" loading="lazy" auto-rotate rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Old computer" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
 </section>
 
 <!-- === NEW: The Rust Room === -->
