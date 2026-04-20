@@ -7,6 +7,13 @@
 <meta name="description" content="Orbit.X — autonomous orbital debris clearance. Space Sweeper RGM79 class." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://sketchfab.com" crossorigin />
+<link rel="preconnect" href="https://static.sketchfab.com" crossorigin />
+<link rel="preconnect" href="https://media.sketchfab.com" crossorigin />
+<link rel="dns-prefetch" href="https://sketchfab.com" />
+<link rel="dns-prefetch" href="https://static.sketchfab.com" />
+<link rel="dns-prefetch" href="https://media.sketchfab.com" />
+<link rel="preload" as="document" href="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.2&dnt=1" />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -42,8 +49,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;s
 .hero-3d{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:auto;overflow:hidden}
 .hero-3d iframe{position:absolute;top:-8%;left:-6%;width:112vw;height:120vh;border:0;background:transparent;filter:drop-shadow(0 30px 80px rgba(79,209,227,0.35))}
 /* Overlays to hide any remaining Sketchfab branding (bottom attribution strip + any edge UI) */
-.hero-3d::before{content:"";position:absolute;left:0;right:0;bottom:0;height:80px;z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(5,8,17,0.85) 45%,rgba(5,8,17,1) 100%);pointer-events:none}
-.hero-3d::after{content:"";position:absolute;left:0;right:0;top:0;height:60px;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0.85) 0%,transparent 100%);pointer-events:none}
+.hero-3d::before{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(5,8,17,0.55) 30%,rgba(5,8,17,0.95) 70%,rgba(5,8,17,1) 100%);pointer-events:none}
+.hero-3d::after{content:"";position:absolute;left:0;right:0;top:0;height:80px;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0.9) 0%,transparent 100%);pointer-events:none}
 .hero-ui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;padding:28px 32px}
 .hero-ui .pointer-events{pointer-events:auto}
 .corner{position:relative}
@@ -133,7 +140,7 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
 
   <!-- 3D Sketchfab model overlay -->
   <div class="hero-3d">
-    <iframe title="RGM-79" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.2&dnt=1"></iframe>
+    <iframe title="RGM-79" fetchpriority="high" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.2&dnt=1"></iframe>
   </div>
 
   <!-- UI overlay (HUD) -->
