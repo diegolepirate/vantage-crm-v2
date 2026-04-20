@@ -205,73 +205,74 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
   </div>
 </div>
 
-<!-- MISSION SECTION — Rocket Tools editorial layout -->
-<section class="section" id="mission" style="padding-top:160px;padding-bottom:120px">
+<!-- MISSION SECTION — reverted to Keeping orbit usable layout -->
+<section class="section" id="mission">
   <div class="container">
-    <!-- Oversized dual headline -->
-    <div class="rs-headline">
-      <h2 class="rs-word rs-word-1">ROCKET</h2>
-      <h2 class="rs-word rs-word-2">TOOLS</h2>
-    </div>
-
-    <!-- Editorial grid: 3D full-height LEFT, stacked content RIGHT -->
-    <div class="rs-grid">
-      <!-- LEFT: 3D Sketchfab spanning full height -->
-      <div class="rs-block-3d-tall">
-        <div class="rs-3d-wrap">
-          <iframe title="Mysterious Space Artifacts" fetchpriority="high" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/22964983a77044b8b12230e40769b0cd/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.3&dnt=1"></iframe>
-          <div class="rs-3d-mask-bot"></div>
-          <div class="rs-3d-mask-bl"></div>
-          <div class="rs-3d-mask-br"></div>
-        </div>
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 stagger">
+        <div class="eyebrow">The Mission</div>
+        <h2 class="display mt-4" style="font-size:clamp(40px,5vw,72px)">Keeping orbit<br/>usable.</h2>
+        <p class="text-white/60 text-[15px] leading-[1.7] mt-6 max-w-[460px]">Every month, 200+ tonnes of new material cross the Kármán line. Less than 6% ever comes back. The Space Sweeper program exists to reverse that curve.</p>
+        <p class="text-white/60 text-[15px] leading-[1.7] mt-4 max-w-[460px]">We operate autonomous B-class vessels designed for soft-capture, grapple, and controlled reentry of hazardous debris. Fully private. Fully bonded. Operational since 2041.</p>
       </div>
 
-      <!-- RIGHT: text + image + text stacked -->
-      <div class="rs-right">
-        <div class="rs-block rs-block-text">
-          <h3 class="font-display text-white text-[22px] mb-4">How do we get to space?</h3>
-          <p class="text-white/65 text-[14px] leading-[1.7]">ULA launches payloads to space aboard its Atlas V and Delta IV rockets, ranging from weather, telecommunications and national security satellites that protect and improve life on Earth to deep space and interplanetary exploration missions that further our knowledge of the universe.</p>
+      <div class="lg:col-span-7 grid md:grid-cols-2 gap-5 stagger">
+        <div class="spec-card">
+          <div class="spec-num">12k+</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Objects Cleared</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">Decommissioned satellites, stage boosters and fragmented debris recovered since program launch.</div>
         </div>
-        <div class="rs-block rs-block-img">
-          <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1600" alt="Rocket launch" />
+        <div class="spec-card">
+          <div class="spec-num">418km</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Operational Altitude</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">LEO range with sustained dwell time up to 72 hours per deployment cycle.</div>
         </div>
-        <div class="rs-block rs-block-text">
-          <h3 class="font-display text-white text-[22px] mb-4">Launch vehicles</h3>
-          <p class="text-white/65 text-[14px] leading-[1.7]">Rockets, also called launch vehicles, play an important role in our lives. Rockets deliver satellites to space where they can begin to do their important work. Without rockets, we wouldn't be able to use our cell phones, watch a lot of our favorite television shows, find out the weather forecast, navigate with Global Positioning System (GPS), or explore our solar system — just to name a few.</p>
+        <div class="spec-card">
+          <div class="spec-num">8</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Active Vessels</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">RGM-79 class B units, each overseen by a two-operator ground team out of our Kiruna control room.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">0</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Incidents</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">Zero collisions, zero secondary debris events, zero unresolved recoveries across 4 years of ops.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- 3D ARTIFACTS FULL-WIDTH BANNER -->
+<section class="artifacts-banner">
+  <div class="artifacts-wrap">
+    <iframe title="Mysterious Space Artifacts" fetchpriority="high" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/22964983a77044b8b12230e40769b0cd/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.35&dnt=1"></iframe>
+    <div class="artifacts-mask-top"></div>
+    <div class="artifacts-mask-bot"></div>
+    <div class="artifacts-mask-bl"></div>
+    <div class="artifacts-mask-br"></div>
+  </div>
+  <div class="artifacts-caption">
+    <div class="eyebrow">Field Observation</div>
+    <h3 class="display text-white mt-3" style="font-size:clamp(24px,3vw,40px)">Retrieved artifacts · LEO 418km</h3>
+    <p class="text-white/55 text-[13px] mt-2 max-w-[520px] leading-[1.6]">Fragments recovered from the Sirius-B decommission run. Currently held in orbital custody pending reentry clearance.</p>
+  </div>
+</section>
+
 <style>
-.rs-headline{position:relative;margin-bottom:80px;text-align:center}
-.rs-word{font-family:'Orbitron',sans-serif;font-weight:900;color:#fff;letter-spacing:.04em;line-height:.9;margin:0;font-size:clamp(56px,12vw,180px)}
-.rs-word-1{text-align:left;padding-left:4%}
-.rs-word-2{text-align:right;padding-right:4%;margin-top:-0.18em}
-.rs-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:stretch}
-.rs-block{border-radius:4px;overflow:hidden}
-.rs-block-text{padding:20px 8px}
-.rs-block-img{aspect-ratio:16/10;max-height:360px;background:transparent;overflow:hidden;border-radius:4px}
-.rs-block-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s ease}
-.rs-block-img:hover img{transform:scale(1.04)}
-/* Tall 3D column — fills full height of right column stack, transparent bg */
-.rs-block-3d-tall{position:relative;overflow:hidden;background:transparent;min-height:720px;border-radius:4px}
-.rs-3d-wrap{position:absolute;inset:0;overflow:hidden}
-.rs-3d-wrap iframe{position:absolute;top:-18%;left:-16%;width:134%;height:140%;border:0;background:transparent;
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 78%,transparent 96%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 78%,transparent 96%,transparent 100%);
+.artifacts-banner{position:relative;width:100%;height:70vh;min-height:560px;overflow:hidden;background:transparent}
+.artifacts-wrap{position:absolute;inset:0;overflow:hidden}
+.artifacts-wrap iframe{position:absolute;top:-12%;left:-8%;width:116%;height:125%;border:0;background:transparent;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 80%,transparent 98%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 80%,transparent 98%);
 }
-.rs-3d-mask-bot{position:absolute;left:0;right:0;bottom:0;height:18%;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0) 0%,rgba(5,8,17,.85) 60%,rgba(5,8,17,1) 100%);pointer-events:none}
-.rs-3d-mask-bl{position:absolute;left:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom left,rgba(5,8,17,1),transparent 75%);pointer-events:none}
-.rs-3d-mask-br{position:absolute;right:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom right,rgba(5,8,17,1),transparent 75%);pointer-events:none}
-.rs-right{display:flex;flex-direction:column;gap:24px;justify-content:space-between}
+.artifacts-mask-top{position:absolute;left:0;right:0;top:0;height:12%;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,1) 0%,rgba(5,8,17,0) 100%);pointer-events:none}
+.artifacts-mask-bot{position:absolute;left:0;right:0;bottom:0;height:22%;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0) 0%,rgba(5,8,17,.85) 55%,rgba(5,8,17,1) 100%);pointer-events:none}
+.artifacts-mask-bl{position:absolute;left:0;bottom:0;width:28%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom left,rgba(5,8,17,1),transparent 75%);pointer-events:none}
+.artifacts-mask-br{position:absolute;right:0;bottom:0;width:28%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom right,rgba(5,8,17,1),transparent 75%);pointer-events:none}
+.artifacts-caption{position:absolute;left:32px;bottom:40px;z-index:5;max-width:560px}
 @media(max-width:768px){
-  .rs-grid{grid-template-columns:1fr;gap:28px}
-  .rs-word-1,.rs-word-2{text-align:center;padding:0}
-  .rs-word-2{margin-top:-0.12em}
-  .rs-block-3d-tall{min-height:520px}
-  .rs-block-img{aspect-ratio:16/10;max-height:280px}
+  .artifacts-banner{height:55vh;min-height:420px}
+  .artifacts-caption{left:20px;bottom:24px}
 }
 </style>
 
@@ -414,15 +415,25 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
   </div>
 </section>
 
-<!-- STATS BAND -->
-<section class="section" style="padding:60px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="container grid md:grid-cols-4 gap-6 stagger">
-    <div><div class="stat">418</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Avg. operational altitude (km)</div></div>
-    <div><div class="stat">72h</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Dwell time per cycle</div></div>
-    <div><div class="stat">4.8t</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Max payload per capture</div></div>
-    <div><div class="stat">100%</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Recovery success rate</div></div>
+<!-- STATS BAND with galaxy video bg -->
+<section class="section stats-galaxy" style="padding:100px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;overflow:hidden">
+  <video class="stats-video" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=2000">
+    <source src="https://cdn.pixabay.com/video/2022/07/06/123517-728756635_large.mp4" type="video/mp4" />
+    <source src="https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4" type="video/mp4" />
+  </video>
+  <div class="stats-scrim"></div>
+  <div class="container grid md:grid-cols-4 gap-6 stagger" style="position:relative;z-index:2">
+    <div><div class="stat">418</div><div class="mono text-[10px] tracking-[.28em] text-white/60 uppercase mt-1">Avg. operational altitude (km)</div></div>
+    <div><div class="stat">72h</div><div class="mono text-[10px] tracking-[.28em] text-white/60 uppercase mt-1">Dwell time per cycle</div></div>
+    <div><div class="stat">4.8t</div><div class="mono text-[10px] tracking-[.28em] text-white/60 uppercase mt-1">Max payload per capture</div></div>
+    <div><div class="stat">100%</div><div class="mono text-[10px] tracking-[.28em] text-white/60 uppercase mt-1">Recovery success rate</div></div>
   </div>
 </section>
+
+<style>
+.stats-galaxy .stats-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(.55) saturate(1.25)}
+.stats-galaxy .stats-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,8,17,0.55) 0%,rgba(5,8,17,0.35) 50%,rgba(5,8,17,0.65) 100%),radial-gradient(ellipse at center,transparent 30%,rgba(5,8,17,0.5) 100%);pointer-events:none}
+</style>
 
 <!-- CONTACT -->
 <section class="section" id="contact">
