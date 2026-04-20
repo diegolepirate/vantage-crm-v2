@@ -320,9 +320,12 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
 .rs-block-3d-tall{position:relative;overflow:hidden;background:transparent;min-height:720px;border-radius:4px}
 .rs-3d-wrap{position:absolute;inset:0;overflow:hidden}
 .rs-3d-wrap iframe{position:absolute;top:10%;left:10%;width:80%;height:80%;border:0;background:transparent;
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 80%,transparent 98%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 80%,transparent 98%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 6%,#000 14%,#000 80%,transparent 94%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,transparent 6%,#000 14%,#000 80%,transparent 94%,transparent 100%);
 }
+/* Extra cover plates positioned exactly where Sketchfab UI appears on the scaled iframe */
+.rs-3d-wrap::before{content:"";position:absolute;top:8%;left:8%;width:84%;height:14%;z-index:2;background:linear-gradient(180deg,rgba(5,8,17,0.95) 0%,rgba(5,8,17,0.7) 55%,rgba(5,8,17,0) 100%);pointer-events:none}
+.rs-3d-wrap::after{content:"";position:absolute;bottom:8%;left:8%;width:84%;height:16%;z-index:2;background:linear-gradient(180deg,rgba(5,8,17,0) 0%,rgba(5,8,17,0.6) 40%,rgba(5,8,17,0.98) 100%);pointer-events:none}
 .rs-3d-mask-bot{position:absolute;left:0;right:0;bottom:0;height:18%;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0) 0%,rgba(5,8,17,.85) 60%,rgba(5,8,17,1) 100%);pointer-events:none}
 .rs-3d-mask-bl{position:absolute;left:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom left,rgba(5,8,17,1),transparent 75%);pointer-events:none}
 .rs-3d-mask-br{position:absolute;right:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom right,rgba(5,8,17,1),transparent 75%);pointer-events:none}
