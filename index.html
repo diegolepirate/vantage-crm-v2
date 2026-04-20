@@ -778,7 +778,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .uni-nav span:hover{color:#D4AF37}
 .uni-nav .uni-fav-count{background:rgba(212,175,55,.15);color:#D4AF37;font-weight:700;padding:3px 10px;border-radius:12px;font-size:11px}
 .uni-body{flex:1;display:flex;overflow:hidden}
-.uni-sidebar{width:260px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;display:flex;flex-direction:column}
+.uni-sidebar{width:260px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;display:none;flex-direction:column}
 .uni-sidebar::-webkit-scrollbar{display:none}
 .uni-sidebar-title{font-size:10px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;padding:14px 16px 8px}
 .uni-cat-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;transition:background .3s;font-size:13px}
@@ -3250,12 +3250,6 @@ function buildUniSidebar(){
     }
     html+='</div>';
   });
-  // Activity feed
-  html+='<div style="margin-top:auto;border-top:1px solid rgba(255,255,255,.05);padding:12px 16px"><div class="uni-sidebar-title" style="padding:0 0 8px">Recent Activity</div>';
-  UNI_ACTIVITY.forEach(function(a){
-    html+='<div class="uni-activity-item"><div class="uni-activity-dot" style="background:'+a.color+'"></div><div><span style="color:rgba(255,255,255,.7)">'+a.action+'</span> '+a.entity+(a.target?' &rarr; '+a.target:'')+'<div style="font-size:10px;color:rgba(255,255,255,.25);margin-top:2px">'+a.time+'</div></div></div>';
-  });
-  html+='</div>';
   return html;
 }
 
