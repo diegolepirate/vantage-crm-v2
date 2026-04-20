@@ -279,7 +279,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
     <div class="hero-3d">
       <div class="hero-3d-ring r2"></div>
       <div class="hero-3d-ring r1"></div>
-      <model-viewer src="assets/models/greek/venus.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="12deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 85deg 3m" shadow-intensity="0.15" exposure="1.0" tone-mapping="commerce"></model-viewer>
+      <model-viewer data-persist="true" src="assets/models/greek/venus.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="12deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 85deg 3m" shadow-intensity="0.15" exposure="1.0" tone-mapping="commerce"></model-viewer>
     </div>
   </div>
 </section>
@@ -604,7 +604,31 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 })();
 </script>
 <!-- Removed VFX-JS dead code -->
-
+<script>
+(function(){
+  var mvs = document.querySelectorAll('model-viewer:not([data-persist])');
+  mvs.forEach(function(mv){
+    var src = mv.getAttribute('src');
+    if(!src) return;
+    mv.setAttribute('data-src', src);
+    mv.removeAttribute('src');
+  });
+  if(!('IntersectionObserver' in window)){
+    mvs.forEach(function(mv){ if(mv.dataset.src) mv.setAttribute('src', mv.dataset.src); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var mv = e.target;
+        if(mv.dataset.src){ mv.setAttribute('src', mv.dataset.src); mv.removeAttribute('data-src'); }
+        io.unobserve(mv);
+      }
+    });
+  }, {rootMargin:'600px'});
+  mvs.forEach(function(mv){ io.observe(mv); });
+})();
+</script>
 
 </body>
 </html>

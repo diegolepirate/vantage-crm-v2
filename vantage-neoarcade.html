@@ -333,7 +333,7 @@
       <div class="hero-glow"></div>
       <h1 class="mega"><span class="neon-magenta">NEO.</span><br><span class="neon-cyan">ARCADE</span></h1>
       <div class="hero-kamisama">
-        <model-viewer src="assets/models/arcade/scouter.glb" loading="lazy" auto-rotate rotation-per-second="18deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="DBZ Scouter" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
+        <model-viewer data-persist="true" src="assets/models/arcade/scouter.glb" loading="lazy" auto-rotate rotation-per-second="18deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="DBZ Scouter" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
       </div>
     </div>
     <p class="hero-tag">Press START to continue. Retro & modern video game store and repair atelier for consoles, PCs and every relic that blinks at 60Hz.</p>
@@ -947,6 +947,32 @@ document.querySelectorAll('a,button,.hex,.blob,.arc-card,model-viewer').forEach(
   el.addEventListener('pointerenter',()=>cur.classList.add('hover'));
   el.addEventListener('pointerleave',()=>cur.classList.remove('hover'));
 });
+</script>
+<script>
+/* Lazy model-viewer loader — defers GLB fetch until ~600px from viewport */
+(function(){
+  var mvs = document.querySelectorAll('model-viewer:not([data-persist])');
+  mvs.forEach(function(mv){
+    var src = mv.getAttribute('src');
+    if(!src) return;
+    mv.setAttribute('data-src', src);
+    mv.removeAttribute('src');
+  });
+  if(!('IntersectionObserver' in window)){
+    mvs.forEach(function(mv){ if(mv.dataset.src) mv.setAttribute('src', mv.dataset.src); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var mv = e.target;
+        if(mv.dataset.src){ mv.setAttribute('src', mv.dataset.src); mv.removeAttribute('data-src'); }
+        io.unobserve(mv);
+      }
+    });
+  }, {rootMargin:'600px'});
+  mvs.forEach(function(mv){ io.observe(mv); });
+})();
 </script>
 
 </body>

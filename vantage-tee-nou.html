@@ -150,7 +150,7 @@ body::after{
   <div class="hero-media">
     <div class="hero-blob"></div>
     <span class="hero-script">hand-poured, slow-brewed</span>
-    <model-viewer src="assets/models/tea/fruit-milk.glb" loading="lazy" auto-rotate auto-rotate-delay="0" rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Fruit lemonade" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
+    <model-viewer data-persist="true" src="assets/models/tea/fruit-milk.glb" loading="lazy" auto-rotate auto-rotate-delay="0" rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Fruit lemonade" exposure="1.0" shadow-intensity="0.15" tone-mapping="commerce"></model-viewer>
   </div>
   <div class="hero-copy">
     <div class="eyebrow hero-eye">Tee Nou &mdash; Est. 2024</div>
@@ -222,5 +222,30 @@ body::after{
 </footer>
 
 </div>
+<script>
+(function(){
+  var mvs = document.querySelectorAll('model-viewer:not([data-persist])');
+  mvs.forEach(function(mv){
+    var src = mv.getAttribute('src');
+    if(!src) return;
+    mv.setAttribute('data-src', src);
+    mv.removeAttribute('src');
+  });
+  if(!('IntersectionObserver' in window)){
+    mvs.forEach(function(mv){ if(mv.dataset.src) mv.setAttribute('src', mv.dataset.src); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var mv = e.target;
+        if(mv.dataset.src){ mv.setAttribute('src', mv.dataset.src); mv.removeAttribute('data-src'); }
+        io.unobserve(mv);
+      }
+    });
+  }, {rootMargin:'600px'});
+  mvs.forEach(function(mv){ io.observe(mv); });
+})();
+</script>
 </body>
 </html>
