@@ -30855,9 +30855,12 @@ function initCompareGrid(host){
   // All other cards show a lightweight placeholder (gradient + name/label).
   // Mount when card enters viewport AND user has been idle ≥ IDLE_MS.
   // Unmount when card leaves viewport (src->'', remove iframe).
-  var MAX_LIVE=6, IDLE_MS=500;
+  var MAX_LIVE=6, IDLE_MS=500, MAX_LIVE_3D=2;
   var cards=[].slice.call(host.querySelectorAll('.cg-card'));
   var live=[]; // ordered list of currently-mounted card elements (LRU at index 0)
+  var THREE_D_IDS_SET={'78':1,'79':1,'80':1,'81':1,'82':1,'83':1};
+  function is3DCard(card){var id=card&&card.getAttribute('data-id');return !!(id&&THREE_D_IDS_SET[id])}
+  function count3DLive(){var n=0;for(var i=0;i<live.length;i++)if(is3DCard(live[i]))n++;return n}
 
   function tplById(id){return UNI_TEMPLATES.find(function(x){return x.id===id})}
 
@@ -30880,8 +30883,14 @@ function initCompareGrid(host){
     var tpl=tplById(id);
     var frameWrap=card.querySelector('.cg-frame');
     if(!tpl||!frameWrap||frameWrap.querySelector('iframe'))return;
-    // LRU eviction
+    // LRU eviction (global + 3D sub-budget)
     while(live.length>=MAX_LIVE){unmount(live[0])}
+    if(is3DCard(card)){
+      while(count3DLive()>=MAX_LIVE_3D){
+        // evict oldest 3D card only
+        for(var i=0;i<live.length;i++){if(is3DCard(live[i])){unmount(live[i]);break}}
+      }
+    }
     card._cgMounting=true;
     var ifr=document.createElement('iframe');
     ifr.setAttribute('scrolling','no');
@@ -30889,6 +30898,8 @@ function initCompareGrid(host){
     ifr.setAttribute('loading','lazy');
     ifr.setAttribute('aria-hidden','true');
     ifr.setAttribute('tabindex','-1');
+    // FIX #1: forward permissions so nested Sketchfab/model-viewer can run
+    ifr.setAttribute('allow','autoplay; fullscreen; xr-spatial-tracking; accelerometer; gyroscope; web-share; clipboard-read; clipboard-write');
     if('fetchPriority' in ifr)ifr.fetchPriority='low';
     ifr.style.cssText='position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;background:#0a0a0f;transform-origin:0 0;will-change:transform;opacity:0;transition:opacity .3s ease';
     // PREVIEW FIX: prefer the real published URL (vantagebookweb.netlify.app/...)
@@ -30941,12 +30952,12 @@ function initCompareGrid(host){
           pending.add(e.target);
         } else {
           pending.delete(e.target);
-          // Unload iframes that leave the viewport
-          if(e.target.querySelector('iframe'))unmount(e.target);
+          // FIX #2: don't unmount on IO-leave; LRU handles eviction.
+          // 3D cards need 3-8s to init WebGL; unmounting mid-scroll = "never loads".
         }
       });
       scheduleDrain();
-    },{rootMargin:'200px 0px',threshold:0.01});
+    },{rootMargin:'800px 0px',threshold:0.01});
     cards.forEach(function(c){io.observe(c)});
   } else {
     // Fallback: mount first 6 only
