@@ -213,6 +213,91 @@
 
   /* model-viewer hide progress */
   model-viewer::part(default-progress-bar){display:none}
+
+  /* === NEW SECTIONS === */
+
+  /* Cabinet Wall */
+  .cabinet-wall{position:relative;min-height:130vh;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
+  .cabinet-wall .bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(0,255,228,.22),transparent 55%),radial-gradient(ellipse at 30% 40%,rgba(255,45,206,.18),transparent 55%);filter:blur(30px);z-index:0}
+  .cabinet-wall h2.mega{text-align:center;position:relative;z-index:2}
+  .cabinet-wall .cabinet-viewer{width:min(780px,85vw);aspect-ratio:3/4;position:relative;z-index:2;margin:30px auto;filter:drop-shadow(0 0 60px rgba(0,255,228,.35)) drop-shadow(0 0 100px rgba(255,45,206,.25))}
+  .cabinet-wall .cabinet-viewer model-viewer{width:100%;height:100%;background:transparent}
+  .cabinet-wall .cabinet-story{font-family:var(--ui);font-size:17px;line-height:1.8;color:rgba(246,243,255,.82);max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:2}
+  .cabinet-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:60px;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);position:relative;z-index:2;width:100%;max-width:900px}
+  .cabinet-specs>div{padding:28px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+  .cabinet-specs>div:last-child{border-right:none}
+  .cabinet-specs .num{font-family:var(--display);font-size:clamp(42px,5vw,72px);color:var(--cyan);text-shadow:0 0 24px rgba(0,255,228,.5);line-height:1}
+  .cabinet-specs .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(246,243,255,.6);margin-top:10px}
+  @media(max-width:900px){.cabinet-specs{grid-template-columns:1fr}.cabinet-specs>div{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}}
+
+  /* Rust Room */
+  .rust-room{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
+  .rust-viewer{position:relative;aspect-ratio:4/5;background:radial-gradient(circle at 50% 60%,rgba(241,90,34,.25),transparent 60%);border-radius:60% 40% 55% 45%/50% 55% 45% 50%;overflow:hidden;filter:drop-shadow(0 0 40px rgba(241,90,34,.3))}
+  .rust-viewer::before{content:'';position:absolute;inset:0;border:1px dashed rgba(241,90,34,.3);border-radius:inherit}
+  .rust-viewer model-viewer{width:100%;height:100%;background:transparent}
+  .rust-story{font-family:var(--ui);font-size:16px;line-height:1.85;color:rgba(246,243,255,.8)}
+  .rust-story p{margin-top:18px}
+  .rust-timeline{margin-top:40px;border-left:1px solid rgba(0,255,228,.35);padding-left:26px}
+  .rust-timeline .item{margin-bottom:22px;position:relative}
+  .rust-timeline .item::before{content:'';position:absolute;left:-32px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+  .rust-timeline .year{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--cyan);text-transform:uppercase}
+  .rust-timeline .name{font-family:var(--anton);font-size:22px;text-transform:uppercase;color:#fff;margin-top:4px;line-height:1.1}
+  @media(max-width:900px){.rust-room{grid-template-columns:1fr}}
+
+  /* Originals */
+  .originals{position:relative;overflow:hidden}
+  .originals-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:60px;align-items:center;margin-top:60px}
+  .originals-viewer{position:relative;aspect-ratio:1/1.2;filter:drop-shadow(0 0 40px rgba(255,184,0,.35))}
+  .originals-viewer::before{content:'';position:absolute;inset:-20px;border:1px solid rgba(255,184,0,.25);border-radius:50%;animation:spin 50s linear infinite}
+  .originals-viewer model-viewer{width:100%;height:100%;background:transparent}
+  .originals-list{display:flex;flex-direction:column;gap:18px}
+  .original-item{position:relative;padding:22px 26px;background:linear-gradient(135deg,rgba(10,14,39,.7),rgba(10,14,39,.4));backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);transition:transform .25s,border-color .25s}
+  .original-item:hover{transform:translateX(6px);border-color:var(--yellow)}
+  .original-item .code{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--yellow);text-transform:uppercase}
+  .original-item .title{font-family:var(--anton);font-size:24px;text-transform:uppercase;color:#fff;line-height:1.1;margin-top:6px}
+  .original-item .desc{font-family:var(--ui);font-size:13px;line-height:1.6;color:rgba(246,243,255,.7);margin-top:8px}
+  .originals-intro{font-family:var(--ui);font-size:16px;line-height:1.85;color:rgba(246,243,255,.8);max-width:640px;margin-top:28px}
+  @media(max-width:900px){.originals-grid{grid-template-columns:1fr}}
+
+  /* Controller Lab */
+  .controller-lab{position:relative;overflow:hidden}
+  .controller-hero{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+  .controller-viewer{position:relative;aspect-ratio:1/1;filter:drop-shadow(0 0 40px rgba(255,45,206,.35)) drop-shadow(0 0 80px rgba(0,255,228,.15))}
+  .controller-viewer::before{content:'';position:absolute;inset:8%;border-radius:50% 45% 55% 50%/50% 55% 45% 50%;background:radial-gradient(circle at 50% 50%,rgba(255,45,206,.18),transparent 60%)}
+  .controller-viewer model-viewer{width:100%;height:100%;background:transparent;position:relative;z-index:2}
+  .controller-story{font-family:var(--ui);font-size:16px;line-height:1.85;color:rgba(246,243,255,.82);margin-top:24px}
+  .controller-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+  .tier{position:relative;padding:38px 30px;background:linear-gradient(170deg,rgba(10,14,39,.8),rgba(10,14,39,.45));backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:14px;transition:transform .3s,border-color .3s}
+  .tier:hover{transform:translateY(-8px)}
+  .tier.t1{border-radius:60% 40% 50% 50%/40% 50% 50% 60%}
+  .tier.t2{border-radius:45% 55% 40% 60%/55% 45% 55% 45%}
+  .tier.t3{border-radius:50% 50% 60% 40%/60% 45% 55% 40%}
+  .tier.t1:hover{border-color:var(--cyan)}
+  .tier.t2:hover{border-color:var(--magenta)}
+  .tier.t3:hover{border-color:var(--yellow)}
+  .tier .tier-num{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase}
+  .tier.t1 .tier-num{color:var(--cyan)}
+  .tier.t2 .tier-num{color:var(--magenta)}
+  .tier.t3 .tier-num{color:var(--yellow)}
+  .tier .tier-title{font-family:var(--anton);font-size:34px;text-transform:uppercase;color:#fff;line-height:.95}
+  .tier .tier-desc{font-family:var(--ui);font-size:13.5px;line-height:1.65;color:rgba(246,243,255,.72)}
+  .tier .tier-price{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+  @media(max-width:900px){.controller-hero{grid-template-columns:1fr}.controller-tiers{grid-template-columns:1fr}}
+
+  /* The Vault */
+  .vault{position:relative;overflow:hidden}
+  .vault-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;margin-top:50px}
+  .vault-viewer{position:relative;aspect-ratio:1/1;filter:drop-shadow(0 0 45px rgba(0,255,228,.3))}
+  .vault-viewer::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,255,228,.05) 0 2px,transparent 2px 40px);border-radius:22px;pointer-events:none}
+  .vault-viewer model-viewer{width:100%;height:100%;background:transparent;position:relative;z-index:2}
+  .vault-story{font-family:var(--ui);font-size:16px;line-height:1.85;color:rgba(246,243,255,.82)}
+  .vault-specs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .vault-specs .s{padding:14px 18px;border:1px solid rgba(0,255,228,.25);color:var(--cyan);background:rgba(0,255,228,.05)}
+  .vault-catalog{margin-top:40px;font-family:var(--mono);font-size:12px;line-height:2;color:rgba(246,243,255,.7);border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);padding:22px 0;columns:2;column-gap:40px}
+  .vault-catalog .entry{display:flex;justify-content:space-between;gap:20px;break-inside:avoid}
+  .vault-catalog .entry .id{color:var(--yellow);letter-spacing:.15em}
+  .vault-catalog .entry .ttl{color:rgba(246,243,255,.8)}
+  @media(max-width:900px){.vault-grid{grid-template-columns:1fr}.vault-catalog{columns:1}}
 </style>
 </head>
 <body>
@@ -308,12 +393,51 @@
   </div>
 </section>
 
+<!-- === NEW: The Cabinet Wall === -->
+<section class="cabinet-wall">
+  <div class="bg-glow"></div>
+  <div class="eyebrow reveal" style="justify-content:center;align-self:center"><span>Custom Builds · In-House</span></div>
+  <h2 class="mega reveal"><span class="neon-cyan">CUSTOM</span> /<br><span class="outline-text">BUILT</span> /<br><span class="neon-magenta">ARCADE.</span></h2>
+  <div class="cabinet-viewer reveal">
+    <model-viewer src="assets/models/arcade/cabinet.glb" loading="lazy" auto-rotate rotation-per-second="12deg" camera-controls="false" interaction-prompt="none" disable-zoom camera-orbit="0deg 82deg auto" alt="Custom arcade cabinet" exposure="1.1" shadow-intensity="0.6"></model-viewer>
+  </div>
+  <p class="cabinet-story reveal">Every cabinet we ship is welded, wired and painted in-house. From chassis to CRT, we build the machines the way arcades used to — one at a time, with every button tested by hand. Marquee art, side panels, bezel, coin door — all picked, printed, pressed and signed off on the Kreuzberg shop floor.</p>
+  <div class="cabinet-specs reveal">
+    <div><div class="num">132</div><div class="lbl">Cabinets Built</div></div>
+    <div><div class="num">14</div><div class="lbl">Licensed Exclusives</div></div>
+    <div><div class="num">4</div><div class="lbl">Master Builders</div></div>
+  </div>
+</section>
+
 <!-- Feature piece: hacking PC -->
 <section class="feature-pc" id="gallery">
   <div class="word w1">HACKED</div>
   <div class="word w2">REVIVED</div>
   <div class="word w3">REBORN</div>
   <model-viewer src="assets/models/arcade/hacking-pc.glb" loading="lazy" auto-rotate rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Hacking PC" exposure="1.15" shadow-intensity="0"></model-viewer>
+</section>
+
+<!-- === NEW: The Rust Room === -->
+<section class="rust-room-wrap">
+  <div class="rust-room">
+    <div class="rust-viewer reveal">
+      <model-viewer src="assets/models/arcade/rusty-jp.glb" loading="lazy" auto-rotate rotation-per-second="14deg" camera-controls="false" interaction-prompt="none" disable-zoom camera-orbit="0deg 80deg auto" alt="Rusty Japanese arcade" exposure="1.05" shadow-intensity="0.4"></model-viewer>
+    </div>
+    <div>
+      <div class="eyebrow reveal"><span>The Rust Room · Restorations</span></div>
+      <h3 class="mega reveal">Left<br>To <span class="neon-orange">Die.</span><br>Brought<br><span class="neon-cyan">Back.</span></h3>
+      <div class="rust-story reveal">
+        <p>We find them in the wet basements of Osaka, under tarps in Kyushu warehouses, behind the ramen counters in Shibuya. Machines left to die — Neo Geo cabs with peeled decals, shuttered Sega Super Nova stations, Taito cocktail tables warped by decades of heat.</p>
+        <p>We bring them home. We strip, reweld, repaint, rewire. We hunt replacement CRTs at flea markets from Frankfurt to Fukuoka. And we ship them back out, breathing — to collectors in Seoul, to bar owners in Brooklyn, to kids in Kreuzberg who have never touched a 1990 coin slot.</p>
+      </div>
+      <div class="rust-timeline reveal">
+        <div class="item"><div class="year">2019</div><div class="name">Neo Geo MVS · Kobe basement</div></div>
+        <div class="item"><div class="year">2021</div><div class="name">Taito Cocktail · Osaka izakaya</div></div>
+        <div class="item"><div class="year">2023</div><div class="name">Sega Super Nova · Kyushu warehouse</div></div>
+        <div class="item"><div class="year">2025</div><div class="name">Capcom Mini Cute · Shibuya basement</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Products -->
@@ -360,6 +484,40 @@
   </div>
 </section>
 
+<!-- === NEW: Originals === -->
+<section class="originals">
+  <div class="eyebrow reveal"><span>Originals · Small-Batch</span></div>
+  <h2 class="mega reveal"><span class="neon-yellow">NO-ONE</span> /<br><span class="outline-text">ELSE</span> /<br>HAS / <span class="neon-magenta">THEM.</span></h2>
+  <p class="originals-intro reveal">We commission small-batch originals. Six games a year, usually under thirty copies each. Chiptune soundtracks by friends of the shop, cabinet art by Berlin illustrators, ROM builds by our in-house dev collective. Play something nobody else has — or own it.</p>
+  <div class="originals-grid">
+    <div class="originals-viewer reveal">
+      <model-viewer src="assets/models/arcade/pacman.glb" loading="lazy" auto-rotate rotation-per-second="18deg" camera-controls="false" interaction-prompt="none" disable-zoom camera-orbit="0deg 80deg auto" alt="Pac-Man arcade" exposure="1.15" shadow-intensity="0.5"></model-viewer>
+    </div>
+    <div class="originals-list">
+      <div class="original-item reveal">
+        <div class="code">N3O · 001 · 2024</div>
+        <div class="title">Kreuzberg 88</div>
+        <div class="desc">4-player top-down brawler set in a fictional 1988 Berlin squat scene. Limited to 40 cabinets. Soundtrack by Nostromo Division.</div>
+      </div>
+      <div class="original-item reveal">
+        <div class="code">N3O · 002 · 2023</div>
+        <div class="title">Turntable Heist</div>
+        <div class="desc">Rhythm hacker game by Lukas Renn. Scratch, mix and bypass firewalls to the beat. 24 cabinets. Three pressings sold out.</div>
+      </div>
+      <div class="original-item reveal">
+        <div class="code">N3O · 003 · 2024</div>
+        <div class="title">Neon Courier</div>
+        <div class="desc">Vertical shmup with original soundtrack by DJ Koze. Deliver packages across a collapsing megacity. 18 cabinets, hand-painted marquees.</div>
+      </div>
+      <div class="original-item reveal">
+        <div class="code">N3O · 004 · 2025</div>
+        <div class="title">The Laundry Room</div>
+        <div class="desc">Co-op puzzler running on reclaimed CRTs from a closed Hamburg hospital. 12 cabinets. Each one has a different missing sock in the attract mode.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Character Vera -->
 <section>
   <div class="character">
@@ -383,6 +541,40 @@
   </div>
 </div>
 
+<!-- === NEW: The Controller Lab === -->
+<section class="controller-lab">
+  <div class="controller-hero">
+    <div class="controller-viewer reveal">
+      <model-viewer src="assets/models/arcade/controller-8bitdo.glb" loading="lazy" auto-rotate rotation-per-second="22deg" camera-controls="false" interaction-prompt="none" disable-zoom camera-orbit="0deg 78deg auto" alt="8BitDo controller" exposure="1.15" shadow-intensity="0.5"></model-viewer>
+    </div>
+    <div>
+      <div class="eyebrow reveal"><span>Controller Lab · Bespoke</span></div>
+      <h3 class="mega reveal"><span class="neon-magenta">BUILT</span> /<br>TO <span class="neon-cyan">YOUR</span> /<br><span class="outline-text">THUMB.</span></h3>
+      <p class="controller-story reveal">A pad is personal. We modify, repaint, rewire and refit — 8BitDo, Hori, Sanwa, vintage NES and Saturn. Pick your switches, your stick tension, your artwork. Pick-up in seven days, signed off on a testbench we built from a 1991 Trinitron CRT and a Commodore keyboard.</p>
+    </div>
+  </div>
+  <div class="controller-tiers">
+    <div class="tier t1 reveal">
+      <div class="tier-num">Tier 01 · Refit</div>
+      <div class="tier-title">Clean<br>& Swap</div>
+      <div class="tier-desc">Full disassembly, ultrasonic clean of the shell, fresh microswitches, new grease on the sticks. The pad you bought, back from the dead.</div>
+      <div class="tier-price">From €49 · 3-day turnaround</div>
+    </div>
+    <div class="tier t2 reveal">
+      <div class="tier-num">Tier 02 · Custom Paint</div>
+      <div class="tier-title">Repaint<br>& Grip</div>
+      <div class="tier-desc">Full repaint in your chosen finish — matte, pearl, gradient, riso-textured. Grip tape on the triggers, your initials on the back shell, hand-applied clear coat.</div>
+      <div class="tier-price">From €120 · 7-day turnaround</div>
+    </div>
+    <div class="tier t3 reveal">
+      <div class="tier-num">Tier 03 · Full Build</div>
+      <div class="tier-title">Bespoke<br>Shell</div>
+      <div class="tier-desc">Custom-milled shell, switch brand of your pick (Kailh, Cherry, Gateron), full rewire with braided cable, bezel artwork commissioned from a Berlin illustrator, signed testbench print.</div>
+      <div class="tier-price">From €280 · 14-day turnaround</div>
+    </div>
+  </div>
+</section>
+
 <!-- Collectibles -->
 <section class="collectibles">
   <div class="eyebrow reveal" style="justify-content:center"><span>Collectibles · Vault</span></div>
@@ -391,6 +583,39 @@
     <model-viewer src="assets/models/arcade/credits.glb" loading="lazy" auto-rotate rotation-per-second="22deg" camera-controls="false" interaction-prompt="none" disable-zoom alt="Imperial credits" exposure="1.2" shadow-intensity="0"></model-viewer>
   </div>
   <p class="reveal" style="font-family:var(--ui);font-size:15px;line-height:1.7;color:rgba(246,243,255,.7);max-width:560px;margin:50px auto 0">From Imperial credits to sealed cartridges, every piece in our vault comes with provenance papers and a story worth the price tag.</p>
+</section>
+
+<!-- === NEW: The Vault === -->
+<section class="vault">
+  <div class="eyebrow reveal"><span>The Vault · Cartridge Archive</span></div>
+  <h2 class="mega reveal"><span class="outline-text">OUR</span> /<br><span class="neon-cyan">CARTRIDGE</span> /<br><span class="neon-yellow">ARCHIVE.</span></h2>
+  <div class="vault-grid">
+    <div class="vault-viewer reveal">
+      <model-viewer src="assets/models/arcade/n64-storage.glb" loading="lazy" auto-rotate rotation-per-second="16deg" camera-controls="false" interaction-prompt="none" disable-zoom camera-orbit="0deg 80deg auto" alt="N64 cartridge storage" exposure="1.1" shadow-intensity="0.5"></model-viewer>
+    </div>
+    <div>
+      <div class="vault-story reveal">
+        <p>Six thousand game cartridges under one roof. N64, Super Nintendo, Mega Drive, PC Engine, Neo Geo AES — plus shelves of rare PAL-B MSX tapes and a locked drawer of Famicom Disk System blanks nobody in Berlin has seen in thirty years.</p>
+        <p>Every cart authenticated by the shop, boxed, catalogued and archived under a JSON-backed index we keep backed up on a PowerBook G3 because we like the sound the drive makes. Come pick through the shelves. Bring something you lost.</p>
+      </div>
+      <div class="vault-specs reveal">
+        <div class="s">6,212 carts</div>
+        <div class="s">1,800 boxed</div>
+        <div class="s">380 sealed</div>
+        <div class="s">4 PAL regions</div>
+      </div>
+    </div>
+  </div>
+  <div class="vault-catalog reveal">
+    <div class="entry"><span class="id">N64 · 0412</span><span class="ttl">Mario Kart 64 · PAL-B · boxed</span></div>
+    <div class="entry"><span class="id">SNES · 1138</span><span class="ttl">Chrono Trigger · NTSC-U · sealed</span></div>
+    <div class="entry"><span class="id">MD · 0883</span><span class="ttl">Gunstar Heroes · PAL · loose</span></div>
+    <div class="entry"><span class="id">NG · 0042</span><span class="ttl">Metal Slug 3 · AES JP · boxed</span></div>
+    <div class="entry"><span class="id">PCE · 0217</span><span class="ttl">Ys Book I & II · HuCard · boxed</span></div>
+    <div class="entry"><span class="id">FDS · 0008</span><span class="ttl">Doki Doki Panic · JP · blank disk</span></div>
+    <div class="entry"><span class="id">SAT · 0391</span><span class="ttl">Panzer Dragoon Saga · PAL · sealed</span></div>
+    <div class="entry"><span class="id">N64 · 0999</span><span class="ttl">Conker's Bad Fur Day · NTSC-U · boxed</span></div>
+  </div>
 </section>
 
 <!-- Journal -->
