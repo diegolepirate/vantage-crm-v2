@@ -3098,7 +3098,6 @@ function renderNotes(container){
   page.innerHTML=`
     <div class="book-buttons">
       <button class="book-btn" onclick="showUniverseTemplates()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">UNIVERSE</span></button>
-      <button class="book-btn" onclick="showFantasyMap()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">MAP</span></button>
       <button class="book-btn" onclick="showCompareView()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">COMPARE</span></button>
     </div>
     <div style="position:absolute;top:50px;right:24px;display:flex;align-items:center;gap:20px;z-index:10">
@@ -30547,13 +30546,38 @@ function showCompareView(){
 }
 
 function initCompareGrid(host){
-  if(!window._tplSrcdocCache)window._tplSrcdocCache=new Map();
-  var cards=host.querySelectorAll('.cg-card');
+  // Strict budget: at most MAX_LIVE real iframes mounted at any time.
+  // All other cards show a lightweight placeholder (gradient + name/label).
+  // Mount when card enters viewport AND user has been idle ≥ IDLE_MS.
+  // Unmount when card leaves viewport (src->'', remove iframe).
+  var MAX_LIVE=6, IDLE_MS=500;
+  var cards=[].slice.call(host.querySelectorAll('.cg-card'));
+  var live=[]; // ordered list of currently-mounted card elements (LRU at index 0)
+
+  function tplById(id){return UNI_TEMPLATES.find(function(x){return x.id===id})}
+
+  function fit(ifr,frameWrap){
+    var cw=frameWrap.clientWidth;if(cw){ifr.style.transform='scale('+(cw/1440)+')'}
+  }
+
+  function unmount(card){
+    var frameWrap=card.querySelector('.cg-frame');
+    if(!frameWrap)return;
+    var ifr=frameWrap.querySelector('iframe');
+    if(ifr){try{ifr.src='about:blank'}catch(e){}ifr.remove()}
+    card.classList.remove('cg-loaded');
+    var idx=live.indexOf(card);if(idx>=0)live.splice(idx,1);
+  }
+
   function mount(card){
+    if(card._cgMounting)return;
     var id=card.getAttribute('data-id');
-    var tpl=UNI_TEMPLATES.find(function(x){return x.id===id});
+    var tpl=tplById(id);
     var frameWrap=card.querySelector('.cg-frame');
     if(!tpl||!frameWrap||frameWrap.querySelector('iframe'))return;
+    // LRU eviction
+    while(live.length>=MAX_LIVE){unmount(live[0])}
+    card._cgMounting=true;
     var ifr=document.createElement('iframe');
     ifr.setAttribute('scrolling','no');
     ifr.setAttribute('referrerpolicy','no-referrer');
@@ -30562,30 +30586,78 @@ function initCompareGrid(host){
     ifr.setAttribute('tabindex','-1');
     if('fetchPriority' in ifr)ifr.fetchPriority='low';
     ifr.style.cssText='position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;background:#0a0a0f;transform-origin:0 0;will-change:transform;opacity:0;transition:opacity .3s ease';
-    var cached=window._tplSrcdocCache.get(tpl.id);
-    if(!cached){cached=generateTemplateHTML(tpl);window._tplSrcdocCache.set(tpl.id,cached)}
-    ifr.srcdoc=cached;
+    // PREVIEW FIX: prefer the real published URL (vantagebookweb.netlify.app/...)
+    // over the generic generateTemplateHTML fallback.
+    var useSrc=tpl.url && /^https?:\/\//.test(tpl.url) && !/awwwards\.com/.test(tpl.url);
+    if(useSrc){
+      ifr.src=tpl.url;
+    } else {
+      if(!window._tplSrcdocCache)window._tplSrcdocCache=new Map();
+      var cached=window._tplSrcdocCache.get(tpl.id);
+      if(!cached){try{cached=generateTemplateHTML(tpl);window._tplSrcdocCache.set(tpl.id,cached)}catch(e){cached=null}}
+      if(cached)ifr.srcdoc=cached; else {card._cgMounting=false;return}
+    }
     ifr.addEventListener('load',function(){
-      var cw=frameWrap.clientWidth;if(cw){ifr.style.transform='scale('+(cw/1440)+')'}
+      fit(ifr,frameWrap);
       ifr.style.opacity='1';
       card.classList.add('cg-loaded');
     });
     frameWrap.appendChild(ifr);
+    live.push(card);
+    card._cgMounting=false;
   }
-  // Eager first 6 (2 rows visible)
-  for(var i=0;i<Math.min(6,cards.length);i++)mount(cards[i]);
+
+  // Idle-gated scheduler: defer mount until user has been idle ≥ IDLE_MS.
+  var lastInteraction=Date.now();
+  ['scroll','pointermove','keydown','touchstart','touchmove','wheel'].forEach(function(ev){
+    host.addEventListener(ev,function(){lastInteraction=Date.now()},{passive:true,capture:true});
+  });
+  window.addEventListener('scroll',function(){lastInteraction=Date.now()},{passive:true});
+
+  var pending=new Set();
+  function drain(){
+    var now=Date.now();
+    var remaining=IDLE_MS-(now-lastInteraction);
+    if(remaining>0){setTimeout(drain,remaining+20);return}
+    // Mount closest-to-viewport first, up to MAX_LIVE total live
+    var arr=[].slice.call(pending);
+    arr.sort(function(a,b){
+      var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
+      return Math.abs(ra.top+ra.height/2-window.innerHeight/2)-Math.abs(rb.top+rb.height/2-window.innerHeight/2);
+    });
+    for(var i=0;i<arr.length;i++){
+      if(live.length>=MAX_LIVE)break;
+      if(!arr[i].querySelector('iframe')){mount(arr[i]);pending.delete(arr[i])}
+    }
+  }
+  var drainT=0;
+  function scheduleDrain(){clearTimeout(drainT);drainT=setTimeout(drain,IDLE_MS+50)}
+
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting){mount(e.target);io.unobserve(e.target)}});
-    },{rootMargin:'1000px 0px'});
-    for(var j=6;j<cards.length;j++)io.observe(cards[j]);
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          pending.add(e.target);
+        } else {
+          pending.delete(e.target);
+          // Unload iframes that leave the viewport
+          if(e.target.querySelector('iframe'))unmount(e.target);
+        }
+      });
+      scheduleDrain();
+    },{rootMargin:'200px 0px',threshold:0.01});
+    cards.forEach(function(c){io.observe(c)});
+  } else {
+    // Fallback: mount first 6 only
+    for(var k=0;k<Math.min(MAX_LIVE,cards.length);k++)mount(cards[k]);
   }
+
   // Resize refit
   var _cgT=0;
   window.addEventListener('resize',function(){
     clearTimeout(_cgT);
     _cgT=setTimeout(function(){
-      cards.forEach(function(c){
+      live.forEach(function(c){
         var f=c.querySelector('.cg-frame');var ifr=f&&f.querySelector('iframe');
         if(ifr&&f.clientWidth){ifr.style.transform='scale('+(f.clientWidth/1440)+')'}
       });
@@ -30606,13 +30678,32 @@ function buildCompareHTML(){
     return '<button class="cg-pill'+active+'" onclick="window._cmpFilter=\''+safe+'\';showCompareView()">'+escHtml(c)+'</button>';
   }).join('');
 
+  function tplLabel(tp){
+    var c=(tp.category||'');
+    if(c==='The Basic')return'Basic Kit';
+    if(c==='All-in-One'||c==='Full Suite')return'Full Kit';
+    if(c==='Dashboard'||c==='CRM')return'Dashboard';
+    if(['Invoicing','Pricing','Productivity','HR','Client Manager','Reservations','Stock','Analytics'].indexOf(c)>=0)return'Tool';
+    return'Landing Page';
+  }
+  function labelClass(lbl){return'cg-lbl-'+lbl.toLowerCase().replace(/\s+/g,'-')}
+
   var cards=list.map(function(t){
     var tier=(t.tier||'').toLowerCase();
     var btnTxt=tier==='premium'?'Premium':'Open';
     var btnCls=tier==='premium'?'cg-btn-premium':'cg-btn-copy';
     var btnIcon=tier==='premium'?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>':'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    var lbl=tplLabel(t);
     return '<div class="cg-card" data-id="'+escHtml(t.id)+'" onclick="previewUniTpl(\''+escHtml(t.id)+'\')">'
-      +'<div class="cg-frame-wrap"><div class="cg-frame"><div class="cg-placeholder"></div></div></div>'
+      +'<div class="cg-frame-wrap">'
+        +'<div class="cg-badge '+labelClass(lbl)+'">'+escHtml(lbl)+'</div>'
+        +'<div class="cg-frame">'
+          +'<div class="cg-placeholder">'
+            +'<div class="cg-ph-name">'+escHtml(t.name)+'</div>'
+            +'<div class="cg-ph-cat">'+escHtml(t.subcategory||t.category||'')+'</div>'
+          +'</div>'
+        +'</div>'
+      +'</div>'
       +'<div class="cg-meta">'
         +'<div class="cg-info"><div class="cg-name">'+escHtml(t.name)+'</div><div class="cg-cat">'+escHtml(t.subcategory||t.category)+'</div></div>'
         +'<button class="cg-btn '+btnCls+'" onclick="event.stopPropagation();previewUniTpl(\''+escHtml(t.id)+'\')">'+btnIcon+'<span>'+btnTxt+'</span></button>'
@@ -30637,7 +30728,16 @@ function buildCompareHTML(){
     +'.cg-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4)}'
     +'.cg-frame-wrap{aspect-ratio:16/11;background:#0a0a0f;overflow:hidden;position:relative}'
     +'.cg-frame{position:absolute;inset:0;overflow:hidden}'
-    +'.cg-placeholder{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a24 0%,#0f0f14 100%)}'
+    +'.cg-placeholder{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a24 0%,#0f0f14 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;gap:6px}'
+    +'.cg-ph-name{font-family:Cormorant Garamond,serif;font-size:17px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:.5px}'
+    +'.cg-ph-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35)}'
+    +'.cg-loaded .cg-placeholder{opacity:0;transition:opacity .3s ease}'
+    +'.cg-badge{position:absolute;top:10px;left:10px;z-index:3;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(10,10,15,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:5px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);pointer-events:none;white-space:nowrap}'
+    +'.cg-lbl-full-kit{background:rgba(201,168,76,.22);border-color:rgba(201,168,76,.45);color:#E8CB7A}'
+    +'.cg-lbl-basic-kit{background:rgba(88,166,255,.2);border-color:rgba(88,166,255,.4);color:#A7CBFF}'
+    +'.cg-lbl-tool{background:rgba(139,92,246,.22);border-color:rgba(139,92,246,.45);color:#C4B0FF}'
+    +'.cg-lbl-dashboard{background:rgba(6,182,212,.22);border-color:rgba(6,182,212,.45);color:#7FDAEA}'
+    +'.cg-lbl-landing-page{background:rgba(10,10,15,.78);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.85)}'
     +'.cg-meta{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}'
     +'.cg-info{min-width:0;flex:1}.cg-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cg-cat{font-size:12px;color:rgba(255,255,255,.5)}'
     +'.cg-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;border:0;font-family:inherit;transition:.2s;flex-shrink:0}'
@@ -30707,265 +30807,11 @@ var MAP_ZONES=[
 var fmapSelectedZone=null;
 
 function showFantasyMap(){
-  var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
-  if(uniCy){uniCy.destroy();uniCy=null}
-  var cmp=document.getElementById('compareApp');if(cmp)cmp.remove();
-  closeFantasyMap();
-  // New MAP: scroll-stack template browser (fullscreen overlay)
-  var ov=document.createElement('div');ov.id='fmapOverlay';ov.className='fmap-overlay';
-  ov.onclick=function(e){if(e.target===ov)closeFantasyMap()};
-  document.body.appendChild(ov);
-  var host=document.createElement('div');host.id='tplMapHost';
-  host.style.cssText='position:fixed;inset:0;z-index:10001;overflow-y:auto;overflow-x:hidden;background:linear-gradient(180deg,#0a0a0f 0%,#0f0f1a 100%);-webkit-overflow-scrolling:touch';
-  document.body.appendChild(host);
-  renderTplMapStack(host);
+  // MAP section removed for performance — redirect to Compare view
+  if(typeof showCompareView==='function')showCompareView();
 }
 
-function renderTplMapStack(host){
-  var tpls=UNI_TEMPLATES.filter(function(t){return t.url&&t.url.indexOf('http')===0});
-  var cats=['All'].concat(Array.from(new Set(tpls.map(function(t){return t.category}))).filter(Boolean).sort());
-  if(!window._mapTplFilter)window._mapTplFilter='All';
-  var filter=window._mapTplFilter;
-  // Render ALL templates; filtering is CSS-only (instant) via data-cat attribute
-  var list=tpls;
-
-  // Category/type → accent color for right strip
-  function stripColorForTpl(t){
-    if(t.type==='tool')return{bg:'#8B5CF6',bg2:'#6D28D9'}; // purple for tools/dashboards
-    var c=(t.category||'').toLowerCase();
-    if(c.indexOf('analytics')>=0)return{bg:'#3B82F6',bg2:'#1E40AF'};
-    if(c.indexOf('crm')>=0)return{bg:'#06B6D4',bg2:'#0E7490'};
-    if(c.indexOf('commerce')>=0)return{bg:'#10B981',bg2:'#047857'};
-    if(c.indexOf('food')>=0||c.indexOf('beverage')>=0)return{bg:'#EF4444',bg2:'#991B1B'};
-    if(c.indexOf('health')>=0||c.indexOf('wellness')>=0)return{bg:'#22C55E',bg2:'#15803D'};
-    if(c.indexOf('productivity')>=0)return{bg:'#8B5CF6',bg2:'#6D28D9'};
-    if(c.indexOf('pr\u00e9mium')>=0||c.indexOf('premium')>=0)return{bg:'#F59E0B',bg2:'#B45309'};
-    if(c.indexOf('services')>=0)return{bg:'#2563EB',bg2:'#1E3A8A'};
-    if(c.indexOf('basic')>=0)return{bg:'#EC4899',bg2:'#9D174D'};
-    return{bg:'#FF2D55',bg2:'#991830'};
-  }
-  // Chrome ring SVG (transparent center, no checkerboard — pure overlay)
-  var chromeSvg='<svg class="tpl-stack-chrome" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">'
-    +'<defs>'
-      +'<linearGradient id="cg1" x1="0%" y1="0%" x2="100%" y2="100%">'
-        +'<stop offset="0%" stop-color="#ffffff"/>'
-        +'<stop offset="20%" stop-color="#e6e6e6"/>'
-        +'<stop offset="45%" stop-color="#6a6a6a"/>'
-        +'<stop offset="55%" stop-color="#2a2a2a"/>'
-        +'<stop offset="75%" stop-color="#e6e6e6"/>'
-        +'<stop offset="100%" stop-color="#9a9a9a"/>'
-      +'</linearGradient>'
-      +'<linearGradient id="cg2" x1="0%" y1="0%" x2="0%" y2="100%">'
-        +'<stop offset="0%" stop-color="rgba(255,255,255,.9)"/>'
-        +'<stop offset="100%" stop-color="rgba(255,255,255,0)"/>'
-      +'</linearGradient>'
-    +'</defs>'
-    +'<circle cx="120" cy="120" r="95" fill="none" stroke="url(#cg1)" stroke-width="22"/>'
-    +'<circle cx="120" cy="120" r="95" fill="none" stroke="url(#cg2)" stroke-width="4" opacity=".7"/>'
-  +'</svg>';
-
-  var itemsHtml=list.map(function(t){
-    var tierBadge=t.tier==='premium'?'PREMIUM':t.tier==='classic'?'CLASSIC':(t.tier||'').toUpperCase();
-    var catText=escHtml(t.category||'');
-    var subText=t.subcategory?escHtml(t.subcategory):'';
-    var safeId=escHtml(t.id);
-    var col=stripColorForTpl(t);
-    var name=escHtml(t.name||'');
-    // short display label for hero button
-    var ctaLabel=(t.category||'').toLowerCase().indexOf('commerce')>=0?'Shop Now':(t.category||'').toLowerCase().indexOf('saas')>=0||(t.type==='tool')?'Get Started':'Discover';
-    var itemStyle='--tpl-color:'+col.bg+';--tpl-color2:'+col.bg2;
-    // Real template preview rendered via <iframe srcdoc> (lazy-loaded). Falls back to a dark mock while unloaded.
-    return '<div class="tpl-stack-item" data-id="'+safeId+'" data-cat="'+catText+'" data-color="'+col.bg+'" data-color2="'+col.bg2+'" style="'+itemStyle+'" onclick="previewUniTpl(\''+safeId+'\')">'
-      +'<div class="tpl-stack-main">'
-        +'<div class="tpl-iframe-host" data-tpl-id="'+safeId+'"></div>'
-        +'<div class="tpl-mock tpl-mock-fallback">'
-          +'<div class="tpl-mock-bg"></div>'
-          +'<div class="tpl-mock-shape tpl-mock-shape-1"></div>'
-          +'<div class="tpl-mock-shape tpl-mock-shape-2"></div>'
-          +'<div class="tpl-mock-hero">'
-            +'<div class="tpl-mock-eyebrow">'+(catText||'TEMPLATE')+(subText?' \u00b7 '+subText:'')+'</div>'
-            +'<h1 class="tpl-mock-title">'+name+'</h1>'
-            +'<div class="tpl-mock-sub">Loading preview\u2026</div>'
-          +'</div>'
-        +'</div>'
-        +'<div class="tpl-stack-meta">'
-          +(tierBadge?'<div class="tpl-stack-tier">'+tierBadge+'</div>':'')
-          +'<div class="tpl-stack-cat">'+catText+(subText?' \u00b7 '+subText:'')+'</div>'
-          +'<div class="tpl-stack-name">'+name+'</div>'
-          +'<div class="tpl-stack-open">Open preview \u2192</div>'
-        +'</div>'
-      +'</div>'
-      +'<div class="tpl-stack-strip" style="background:linear-gradient(180deg,'+col.bg+' 0%,'+col.bg2+' 100%)">'+chromeSvg+'</div>'
-    +'</div>';
-  }).join('');
-
-  var pillsHtml=cats.map(function(c){
-    var active=c===filter?' tpl-stack-pill-active':'';
-    var safeCat=escHtml(c).replace(/'/g,"\\'");
-    return '<button class="tpl-stack-pill'+active+'" data-cat="'+escHtml(c)+'" onclick="window._tplMapFilterPill(this,\''+safeCat+'\')">'+escHtml(c)+'</button>';
-  }).join('');
-
-  host.innerHTML='<style>'
-    +'#tplMapHost::-webkit-scrollbar{width:10px}#tplMapHost::-webkit-scrollbar-track{background:#0a0a0f}#tplMapHost::-webkit-scrollbar-thumb{background:#2a2a3e;border-radius:5px}'
-    +'.tpl-stack-wrap{max-width:1400px;margin:0 auto;padding:28px 24px 60px;position:relative}'
-    +'.tpl-stack-close{position:fixed;top:18px;right:22px;z-index:10010;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(10,10,15,.85);backdrop-filter:blur(12px);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}'
-    +'.tpl-stack-close:hover{background:rgba(255,80,80,.3);border-color:rgba(255,80,80,.5)}'
-    +'.tpl-stack-header{text-align:center;margin-bottom:24px;padding-top:20px}'
-    +'.tpl-stack-header h2{font-family:\'Tanker\',sans-serif;font-size:2.8rem;letter-spacing:4px;color:#fff;margin:0 0 10px;text-shadow:0 0 24px rgba(201,168,76,.35)}'
-    +'.tpl-stack-header p{color:rgba(255,255,255,.5);font-size:.85rem;letter-spacing:1.5px;margin:0}'
-    +'.tpl-stack-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px;padding:0 16px;position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(10,10,15,.95) 60%,rgba(10,10,15,0));padding-top:14px;padding-bottom:18px;backdrop-filter:blur(10px)}'
-    +'.tpl-stack-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:8px 16px;border-radius:20px;font-size:.72rem;letter-spacing:1.4px;cursor:pointer;transition:.2s;font-family:inherit;text-transform:uppercase}'
-    +'.tpl-stack-pill:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:#fff}'
-    +'.tpl-stack-pill-active{background:#C9A84C;border-color:#C9A84C;color:#0a0a0f;font-weight:600}'
-    +'.tpl-stack-layout{max-width:1600px;margin:0 auto;padding:0 24px;position:relative;contain:layout}'
-    +'.tpl-stack-list{position:relative;contain:layout}'
-    +'.tpl-stack-pills{contain:layout style}'
-    +'.tpl-stack-chrome{width:78%;max-width:150px;height:auto;position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55)) drop-shadow(0 0 24px rgba(255,255,255,.3))}'
-    +'.tpl-stack-item{position:sticky;top:90px;display:grid;grid-template-columns:1fr 180px;aspect-ratio:1620/900;width:100%;max-height:82vh;border-radius:18px;overflow:hidden;margin-bottom:24vh;box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08);background:#111;cursor:pointer;transition:transform .25s cubic-bezier(.4,0,.2,1);contain:layout paint style;content-visibility:auto;contain-intrinsic-size:auto 78vh;transform:translateZ(0);will-change:transform}'
-    +'.tpl-stack-item.tpl-hidden{display:none}'
-    +'.tpl-stack-item:hover{transform:translate3d(0,-4px,0)}'
-    +'.tpl-stack-main{position:relative;overflow:hidden;background:#111;contain:layout paint style}'
-    +'.tpl-stack-strip{position:relative;overflow:hidden;contain:layout paint style;box-shadow:inset 1px 0 0 rgba(255,255,255,.08)}'
-    // --- Iframe host: real template at 1440x900 scaled to fit card ---
-    +'.tpl-iframe-host{position:absolute;inset:0;overflow:hidden;background:#0a0a0f;z-index:1;contain:layout paint style}'
-    +'.tpl-iframe-host.tpl-loaded + .tpl-mock-fallback{opacity:0;pointer-events:none}'
-    // --- Mock DIV fallback (shown until shadow content loads) ---
-    +'.tpl-mock-fallback{z-index:0;transition:opacity .35s ease}'
-    +'.tpl-mock{position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;font-family:\'Inter\',-apple-system,sans-serif;contain:strict}'
-    +'.tpl-mock-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a24 0%,#0f0f14 55%,#050508 110%);z-index:0}'
-    +'.tpl-mock-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.18),transparent 50%),radial-gradient(circle at 15% 85%,rgba(0,0,0,.35),transparent 55%);pointer-events:none}'
-    +'.tpl-mock-shape{position:absolute;border-radius:50%;filter:blur(40px);opacity:.45;z-index:1;will-change:auto}'
-    +'.tpl-mock-shape-1{width:38%;aspect-ratio:1;right:-6%;top:-10%;background:rgba(255,255,255,.35)}'
-    +'.tpl-mock-shape-2{width:28%;aspect-ratio:1;left:-4%;bottom:-8%;background:rgba(0,0,0,.5)}'
-    +'.tpl-mock-nav{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:1.6% 3.2%;gap:2%}'
-    +'.tpl-mock-logo{font-family:\'Tanker\',sans-serif;color:#fff;font-size:1.1rem;letter-spacing:3px;text-transform:uppercase;opacity:.95}'
-    +'.tpl-mock-navpills{display:flex;gap:10px;align-items:center}'
-    +'.tpl-mock-navpills span{display:block;width:44px;height:6px;border-radius:6px;background:rgba(255,255,255,.35)}'
-    +'.tpl-mock-navcta{width:78px;height:22px;border-radius:22px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4)}'
-    +'.tpl-mock-hero{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 6% 6%;gap:1.4%}'
-    +'.tpl-mock-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:500}'
-    +'.tpl-mock-title{font-family:\'Tanker\',\'Playfair Display\',serif;font-size:clamp(2rem,5.6vw,5.5rem);line-height:1;letter-spacing:-1px;color:#fff;margin:0;text-shadow:0 6px 32px rgba(0,0,0,.35);max-width:75%;font-weight:500}'
-    +'.tpl-mock-sub{font-size:.85rem;color:rgba(255,255,255,.7);letter-spacing:.5px;max-width:60%}'
-    +'.tpl-mock-ctas{display:flex;gap:12px;margin-top:.8%}'
-    +'.tpl-mock-btn{padding:12px 26px;border-radius:30px;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}'
-    +'.tpl-mock-btn-primary{background:#fff;color:#0a0a0f}'
-    +'.tpl-mock-btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}'
-    +'.tpl-stack-meta{position:absolute;left:24px;bottom:24px;z-index:2;background:rgba(10,10,15,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);padding:14px 20px;border-radius:14px;max-width:72%;pointer-events:none}'
-    +'.tpl-stack-tier{display:inline-block;font-size:.6rem;letter-spacing:2px;padding:3px 8px;border-radius:10px;margin-bottom:8px;background:rgba(201,168,76,.18);color:#C9A84C;border:1px solid rgba(201,168,76,.35);font-weight:600}'
-    +'.tpl-stack-cat{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}'
-    +'.tpl-stack-name{font-family:\'Tanker\',sans-serif;font-size:1.5rem;color:#fff;letter-spacing:1px;margin-bottom:6px;line-height:1.15}'
-    +'.tpl-stack-open{font-size:.75rem;color:#C9A84C;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}'
-    +'.tpl-stack-end{height:30vh}'
-    +'.tpl-stack-empty{text-align:center;padding:80px 20px;color:rgba(255,255,255,.4)}'
-    +'@media(max-width:900px){.tpl-stack-layout{padding:0 12px}.tpl-stack-item{grid-template-columns:1fr;aspect-ratio:1440/900;margin-bottom:22vh}.tpl-stack-strip{display:none}.tpl-stack-meta{max-width:85%;left:12px;bottom:12px;padding:10px 14px}.tpl-stack-name{font-size:1.15rem}.tpl-stack-header h2{font-size:2rem}}'
-  +'</style>'
-  +'<button class="tpl-stack-close" onclick="closeFantasyMap()" title="Close">\u2715</button>'
-  +'<div class="tpl-stack-wrap">'
-    +'<div class="tpl-stack-header">'
-      +'<h2>MAP</h2>'
-      +'<p>'+list.length+' templates \u00b7 scroll to browse \u00b7 click to open</p>'
-    +'</div>'
-    +'<div class="tpl-stack-pills">'+pillsHtml+'</div>'
-    +(list.length
-      ?'<div class="tpl-stack-layout"><div class="tpl-stack-list">'+itemsHtml+'<div class="tpl-stack-end"></div></div></div>'
-      :'<div class="tpl-stack-empty">No templates in this category.</div>')
-  +'</div>';
-
-  // Iframe previews — lazy-loaded as cards approach the viewport.
-  var items=host.querySelectorAll('.tpl-stack-item');
-
-  // Build a quick lookup of templates by id so we can regenerate HTML on demand
-  var _tplById={};for(var _ti=0;_ti<tpls.length;_ti++){_tplById[tpls[_ti].id]=tpls[_ti]}
-
-  // In-memory srcdoc cache so cards remounted later reuse generated HTML
-  if(!window._tplSrcdocCache)window._tplSrcdocCache={};
-  var _srcCache=window._tplSrcdocCache;
-  function getSrcdoc(tpl){
-    if(_srcCache[tpl.id])return _srcCache[tpl.id];
-    try{var raw=generateTemplateHTML(tpl);_srcCache[tpl.id]=raw;return raw}catch(err){return null}
-  }
-
-  // Mount a real <iframe srcdoc> preview. Isolated browsing context => scripts, fixed positioning,
-  // viewport units, full CSS cascade all work exactly as in a standalone page.
-  // Iframe is 1440x720 (shrunk from 900 — user mostly sees hero anyway).
-  function mountIframePreview(hostEl){
-    if(hostEl._tplMounted)return;
-    var tplId=hostEl.getAttribute('data-tpl-id');
-    var tpl=_tplById[tplId];if(!tpl)return;
-    hostEl._tplMounted=true;
-    var raw=getSrcdoc(tpl);
-    if(!raw){hostEl._tplMounted=false;return}
-    var ifr=document.createElement('iframe');
-    ifr.setAttribute('scrolling','no');
-    ifr.setAttribute('referrerpolicy','no-referrer');
-    ifr.setAttribute('loading','lazy');
-    ifr.setAttribute('aria-hidden','true');
-    ifr.setAttribute('tabindex','-1');
-    if('fetchPriority' in ifr) ifr.fetchPriority='low';
-    ifr.style.cssText='position:absolute;top:0;left:0;width:1440px;height:720px;border:0;pointer-events:none;transform-origin:0 0;background:#0a0a0f;opacity:0;transition:opacity .3s ease;will-change:transform;transform:translateZ(0)';
-    function fit(){
-      var w=hostEl.clientWidth,h=hostEl.clientHeight;
-      if(!w||!h)return;
-      var sc=Math.min(w/1440,h/720);
-      var scaledW=1440*sc,scaledH=720*sc;
-      var ox=(w-scaledW)/2,oy=(h-scaledH)/2;
-      ifr.style.transform='translate('+ox+'px,'+oy+'px) scale('+sc+') translateZ(0)';
-    }
-    ifr.addEventListener('load',function(){
-      fit();
-      ifr.style.opacity='1';
-      hostEl.classList.add('tpl-loaded');
-    });
-    ifr.srcdoc=raw;
-    hostEl.appendChild(ifr);
-    fit();
-    if(!hostEl._fitBound){
-      hostEl._fitBound=true;
-      var rp=false;
-      window.addEventListener('resize',function(){if(rp)return;rp=true;requestAnimationFrame(function(){rp=false;fit()})},{passive:true});
-    }
-  }
-
-  // Eager-load first 2 above-fold cards; prefetch next 4 in idle time
-  var iframeHosts=host.querySelectorAll('.tpl-iframe-host');
-  for(var eh=0;eh<Math.min(2,iframeHosts.length);eh++){mountIframePreview(iframeHosts[eh])}
-  var ric=window.requestIdleCallback||function(fn){return setTimeout(function(){fn({timeRemaining:function(){return 15}})},200)};
-  var _prefetchStart=2,_prefetchEnd=Math.min(6,iframeHosts.length);
-  function prefetchNext(i){
-    if(i>=_prefetchEnd)return;
-    ric(function(){mountIframePreview(iframeHosts[i]);prefetchNext(i+1)},{timeout:1500});
-  }
-  prefetchNext(_prefetchStart);
-
-  if('IntersectionObserver' in window && iframeHosts.length>_prefetchEnd){
-    var lazyIO=new IntersectionObserver(function(entries){
-      for(var i=0;i<entries.length;i++){
-        if(entries[i].isIntersecting){
-          mountIframePreview(entries[i].target);
-          lazyIO.unobserve(entries[i].target);
-        }
-      }
-    },{root:host,rootMargin:'2000px 0px',threshold:0.01});
-    for(var eh2=_prefetchEnd;eh2<iframeHosts.length;eh2++){lazyIO.observe(iframeHosts[eh2])}
-  } else if(iframeHosts.length>_prefetchEnd){
-    for(var eh3=_prefetchEnd;eh3<iframeHosts.length;eh3++){mountIframePreview(iframeHosts[eh3])}
-  }
-
-  // Apply current filter via CSS (instant)
-  function applyFilter(f){
-    window._mapTplFilter=f;
-    for(var k=0;k<items.length;k++){
-      var cat=items[k].getAttribute('data-cat');
-      items[k].classList.toggle('tpl-hidden', f!=='All' && cat!==f);
-    }
-    var pills=host.querySelectorAll('.tpl-stack-pill');
-    for(var p=0;p<pills.length;p++){
-      pills[p].classList.toggle('tpl-stack-pill-active', pills[p].getAttribute('data-cat')===f);
-    }
-  }
-  window._tplMapFilterPill=function(btn,cat){applyFilter(cat)};
-  if(filter && filter!=='All') applyFilter(filter);
-}
+function renderTplMapStack(host){/* removed — MAP section deleted for perf */}
 
 function closeFantasyMap(){
   fmapSelectedZone=null;

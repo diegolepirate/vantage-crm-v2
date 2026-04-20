@@ -311,3 +311,26 @@ Apple iOS/macOS. Light #F2F2F7/#FFF, dark #000/#1C1C1E. Accent #AF52DE purple, s
 - Expected TBT win: ~300–800 ms from deferring Cytoscape + Chart.js + jsPDF off the critical path.
 
 ### Deployed: https://vantagebookweb.netlify.app/
+
+---
+
+## PERFORMANCE PASS #2 — Book (index.html)
+
+**Date:** 2026-04-20
+
+### Changes
+1. **Preview fidelity fix** — card grid now loads the real published URL via `iframe.src=t.url` (absolute vantagebookweb URLs) instead of the generic `generateTemplateHTML()` fallback. Users see the actual template now.
+2. **MAP section removed** — `MAP` button removed from topbar, `showFantasyMap()` stubbed to redirect to Compare view, `renderTplMapStack()` replaced with empty stub (−245 lines from served HTML).
+3. **Strict lazy loading** — `initCompareGrid()` rewritten:
+   - Max 6 iframes mounted at any time (LRU eviction).
+   - Mount only when card enters viewport AND user idle ≥ 500 ms.
+   - Leaving viewport → iframe unmounted (`src='about:blank'`, element removed).
+   - Closest-to-viewport-center prioritized on drain.
+4. **Category badges** — every card now has a top-left pill: `Landing Page` / `Full Kit` / `Basic Kit` / `Tool` / `Dashboard`, mapped from `category`.
+5. **Placeholder-with-label** — cards without live iframe show gradient + template name + subcategory (no blank squares).
+6. **Universe view** — unchanged (canvas nodes, no iframes).
+
+### Lighthouse
+Not runnable from this environment. User to run Lighthouse on `https://vantagebookweb.netlify.app/` after deploy and paste scores here.
+
+### Deployed: https://vantagebookweb.netlify.app/
