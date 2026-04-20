@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oikos Athens — Homes that remember the Aegean</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#2A1F17;
+    --choco:#3D2B1F;
+    --walnut:#8A5A3C;
+    --brown:#6B4A3A;
+    --sand:#D4C4A0;
+    --beige:#E8DCC4;
+    --cream:#F5ECD8;
+    --ink:#1A120B;
+    --gold:#C9A34E;
+  }
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    margin:0;
+    overflow-x:hidden;
+    line-height:1.55;
+    letter-spacing:-.005em;
+  }
+  .serif{font-family:'Playfair Display',serif;letter-spacing:-.02em}
+  .italic-serif{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300}
+  .tracker{font-family:'Inter',sans-serif;letter-spacing:.28em;text-transform:uppercase;font-size:11px;font-weight:500}
+
+  /* ==== SMOOTH PAGE BG SHIFT ==== */
+  @keyframes bgShift{
+    0%{background:#F5ECD8}
+    40%{background:#EADFC6}
+    70%{background:#E8DCC4}
+    100%{background:#DCCBA6}
+  }
+  @supports (animation-timeline: scroll()){
+    body{animation:bgShift linear both;animation-timeline:scroll()}
+  }
+
+  /* ==== STAGGERED REVEAL ==== */
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(28px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @supports (animation-timeline: view()){
+    .reveal{animation:fadeUp both linear;animation-timeline:view();animation-range:entry 5% cover 35%}
+    .reveal-stagger>*{animation:fadeUp both linear;animation-timeline:view();animation-range:entry 0% cover 40%}
+    .reveal-stagger>*:nth-child(1){animation-delay:0ms}
+    .reveal-stagger>*:nth-child(2){animation-delay:80ms}
+    .reveal-stagger>*:nth-child(3){animation-delay:160ms}
+    .reveal-stagger>*:nth-child(4){animation-delay:240ms}
+    .reveal-stagger>*:nth-child(5){animation-delay:320ms}
+    .reveal-stagger>*:nth-child(6){animation-delay:400ms}
+    .reveal-stagger>*:nth-child(7){animation-delay:480ms}
+    .reveal-stagger>*:nth-child(8){animation-delay:560ms}
+  }
+  @supports not (animation-timeline: view()){
+    .reveal,.reveal-stagger>*{animation:fadeUp .9s both ease-out}
+  }
+
+  /* ==== HERO DRONE AUTO-PAN + EDGE BLUR ==== */
+  @keyframes dronePan{
+    0%{transform:scale(1.12) translateX(-3%)}
+    100%{transform:scale(1.12) translateX(3%)}
+  }
+  .drone-frame{
+    position:relative;
+    overflow:hidden;
+    mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%);
+  }
+  .drone-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    animation:dronePan 14s ease-in-out infinite alternate;
+  }
+  .drone-frame::before,.drone-frame::after{
+    content:"";
+    position:absolute;top:0;bottom:0;width:90px;
+    pointer-events:none;z-index:3;
+    backdrop-filter:blur(2px);
+    -webkit-backdrop-filter:blur(2px);
+  }
+  .drone-frame::before{left:0;background:linear-gradient(90deg,rgba(42,31,23,.35),transparent)}
+  .drone-frame::after{right:0;background:linear-gradient(270deg,rgba(42,31,23,.35),transparent)}
+
+  /* ==== PARALLAX HERO ==== */
+  @keyframes parallaxUp{from{transform:translateY(0) scale(1.1)} to{transform:translateY(-8%) scale(1.1)}}
+  @supports (animation-timeline: view()){
+    .parallax-bg{animation:parallaxUp linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
+  }
+
+  /* ==== MARQUEE COUNTER-SCROLL ==== */
+  @keyframes marqueeLeft{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+  @keyframes marqueeRight{from{transform:translateX(-50%)} to{transform:translateX(0)}}
+  .marquee{overflow:hidden;width:100%;padding:10px 0;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .marquee-track{display:flex;gap:22px;width:max-content}
+  .mq-left .marquee-track{animation:marqueeLeft 60s linear infinite}
+  .mq-right .marquee-track{animation:marqueeRight 75s linear infinite}
+  .mq-left-fast .marquee-track{animation:marqueeLeft 45s linear infinite}
+
+  /* ==== DEZOOM ON SCROLL ==== */
+  @keyframes dezoom{
+    from{transform:scale(1.4);border-radius:0}
+    to{transform:scale(1);border-radius:20px}
+  }
+  @supports (animation-timeline: view()){
+    .dezoom{animation:dezoom linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+  }
+
+  /* ==== CIRCULAR ARROW ==== */
+  .circ-btn{
+    width:54px;height:54px;border-radius:999px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--beige);
+    color:var(--espresso);
+    border:1px solid rgba(42,31,23,.15);
+    transition:all .4s ease;
+    cursor:pointer;
+  }
+  .circ-btn:hover{background:var(--espresso);color:var(--gold);transform:translateY(-2px)}
+  .circ-btn svg{width:20px;height:20px}
+
+  /* ==== CARD HOVER ==== */
+  .prop-card{
+    background:#fff;
+    border-radius:14px;overflow:hidden;
+    border:1px solid rgba(42,31,23,.08);
+    transition:transform .6s cubic-bezier(.2,.8,.2,1),box-shadow .6s;
+  }
+  .prop-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(42,31,23,.35)}
+  .prop-card img{transition:transform 1.2s ease}
+  .prop-card:hover img{transform:scale(1.06)}
+
+  /* ==== NAV ==== */
+  .nav-link{position:relative;padding:6px 2px;color:var(--espresso);font-size:13px;font-weight:500}
+  .nav-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .5s ease}
+  .nav-link:hover::after{transform:scaleX(1);transform-origin:left}
+
+  .btn-primary{background:var(--espresso);color:var(--cream);padding:14px 26px;border-radius:999px;font-size:13px;font-weight:500;letter-spacing:.04em;display:inline-flex;align-items:center;gap:10px;transition:all .4s}
+  .btn-primary:hover{background:var(--choco);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--espresso);padding:14px 26px;border-radius:999px;font-size:13px;font-weight:500;letter-spacing:.04em;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(42,31,23,.25);transition:all .4s}
+  .btn-ghost:hover{background:var(--espresso);color:var(--cream)}
+
+  .tag{display:inline-block;padding:4px 12px;border-radius:999px;background:rgba(201,163,78,.14);color:var(--walnut);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(42,31,23,.25),transparent)}
+
+  /* Hide scrollbar */
+  ::-webkit-scrollbar{width:6px;height:6px}
+  ::-webkit-scrollbar-track{background:var(--cream)}
+  ::-webkit-scrollbar-thumb{background:rgba(42,31,23,.2);border-radius:3px}
+
+  /* Pulse dot for map */
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,163,78,.6)}70%{box-shadow:0 0 0 18px rgba(201,163,78,0)}100%{box-shadow:0 0 0 0 rgba(201,163,78,0)}}
+  .pulse-dot{width:12px;height:12px;border-radius:999px;background:var(--gold);animation:pulse 2.2s infinite}
+
+  /* Separator image parallax fix iOS */
+  .bg-fixed-hero{background-attachment:fixed;background-size:cover;background-position:center}
+  @media (max-width:768px){.bg-fixed-hero{background-attachment:scroll}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background:rgba(245,236,216,.82);border-bottom:1px solid rgba(42,31,23,.08)">
+  <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <span class="serif text-2xl" style="color:var(--espresso)">Oikos</span>
+      <span class="italic-serif text-2xl" style="color:var(--gold)">Athens</span>
+    </a>
+    <div class="hidden md:flex items-center gap-10">
+      <a class="nav-link" href="#home">Home</a>
+      <a class="nav-link" href="#properties">Properties</a>
+      <a class="nav-link" href="#services">Services</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#journal">Journal</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn-primary" style="padding:10px 20px;font-size:12px">Request a Viewing
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative w-full min-h-screen flex items-end overflow-hidden" style="padding-top:120px">
+  <div class="absolute inset-0">
+    <img class="parallax-bg drone-img" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=2400&q=85" alt="Aegean villa" style="width:100%;height:100%;object-fit:cover">
+    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(42,31,23,.35) 0%,rgba(42,31,23,.15) 40%,rgba(245,236,216,.75) 100%)"></div>
+  </div>
+  <div class="relative z-10 max-w-7xl mx-auto px-8 pb-20 w-full">
+    <div class="reveal-stagger">
+      <div class="tag mb-6" style="background:rgba(245,236,216,.75);color:var(--espresso)">Est. Athens · Kolonaki</div>
+      <h1 class="serif text-white" style="font-size:clamp(48px,8vw,128px);line-height:.95;color:var(--cream);text-shadow:0 4px 40px rgba(42,31,23,.3)">
+        Oikos Athens
+      </h1>
+      <p class="italic-serif mt-4" style="font-size:clamp(24px,3.2vw,44px);color:var(--beige);max-width:780px">Homes that remember the Aegean.</p>
+      <p class="mt-8 max-w-xl" style="color:var(--cream);font-size:15px;line-height:1.7">
+        A boutique estate house curating heritage villas, off-market residences and architect collaborations across Athens, Mykonos, Santorini, Paros and Crete.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-10">
+        <a href="#properties" class="btn-primary" style="background:var(--cream);color:var(--espresso)">Explore Portfolio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost" style="color:var(--cream);border-color:rgba(245,236,216,.4)">Request a Viewing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="py-32 px-8" style="background:var(--cream)">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 reveal-stagger">
+    <div class="md:col-span-4">
+      <div class="tracker" style="color:var(--walnut)">— Philosophy</div>
+      <h2 class="serif mt-4" style="font-size:clamp(36px,4vw,56px);line-height:1.05;color:var(--espresso)">Not agents.<br><em class="italic-serif" style="color:var(--gold)">Curators.</em></h2>
+    </div>
+    <div class="md:col-span-8 space-y-6" style="color:var(--choco);font-size:17px;line-height:1.75;max-width:640px">
+      <p>We believe a home is first a memory — of salt on stone, of whitewashed courtyards warming in October sun, of shutters closing against the meltemi. Our role is to guard that memory for those who seek to belong to it.</p>
+      <p>Oikos Athens represents fewer than forty residences at any time. Each property passes our five-step provenance, architecture, light, landscape and silence review before entering our portfolio.</p>
+      <p class="italic-serif" style="font-size:22px;color:var(--walnut);border-left:2px solid var(--gold);padding-left:18px">Quiet luxury is not a style — it is a standard of restraint.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ FEATURED PROPERTIES — COUNTER-SCROLLING ROWS ============ -->
+<section id="properties" class="py-28" style="background:var(--cream);overflow:hidden">
+  <div class="max-w-7xl mx-auto px-8 mb-14 flex items-end justify-between reveal">
+    <div>
+      <div class="tracker" style="color:var(--walnut)">— Featured Properties</div>
+      <h2 class="serif mt-4" style="font-size:clamp(36px,5vw,72px);line-height:1;color:var(--espresso)">A living portfolio,<br><em class="italic-serif" style="color:var(--gold)">ever moving.</em></h2>
+    </div>
+    <div class="hidden md:flex gap-3">
+      <button class="circ-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+      <button class="circ-btn" aria-label="Next" style="background:var(--espresso);color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ROW 1 — scroll left -->
+  <div class="marquee mq-left mb-5">
+    <div class="marquee-track">
+      <!-- card factory (x2 for seamless loop) -->
+      <!-- set 1 -->
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Mykonos</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Aegeon</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€6.4M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">6 bedrooms · clifftop · 420 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Santorini</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Casa Oia</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€4.9M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">5 bedrooms · caldera view · 360 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Paros</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Maison Parikia</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€3.2M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">4 bedrooms · waterfront · 280 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Athens</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Kolonaki Penthouse</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€2.8M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">3 bedrooms · Acropolis view · 210 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Crete</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Elounda</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€5.1M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">7 bedrooms · private cove · 510 m²</p></div></div>
+      <!-- duplicate -->
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Mykonos</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Aegeon</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€6.4M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">6 bedrooms · clifftop · 420 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Santorini</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Casa Oia</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€4.9M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">5 bedrooms · caldera view · 360 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Paros</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Maison Parikia</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€3.2M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">4 bedrooms · waterfront · 280 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Athens</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Kolonaki Penthouse</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€2.8M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">3 bedrooms · Acropolis view · 210 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Crete</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Elounda</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€5.1M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">7 bedrooms · private cove · 510 m²</p></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 2 — scroll right -->
+  <div class="marquee mq-right mb-5">
+    <div class="marquee-track">
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Hydra</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Stone House</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€1.95M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">3 bedrooms · harbour · 180 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Mykonos</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Maison Ornos</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€7.8M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">8 bedrooms · infinity pool · 620 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Paros</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Naoussa</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€3.7M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">5 bedrooms · olive grove · 310 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Santorini</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Cave Residence</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€2.45M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">2 bedrooms · cliff cave · 160 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Crete</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Chania Manor</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€4.2M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">6 bedrooms · heritage · 460 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Hydra</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Stone House</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€1.95M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">3 bedrooms · harbour · 180 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Mykonos</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Maison Ornos</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€7.8M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">8 bedrooms · infinity pool · 620 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Paros</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Villa Naoussa</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€3.7M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">5 bedrooms · olive grove · 310 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Santorini</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Cave Residence</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€2.45M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">2 bedrooms · cliff cave · 160 m²</p></div></div>
+      <div class="prop-card" style="width:380px"><div style="height:260px;overflow:hidden"><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-6"><div class="flex justify-between items-start"><div><div class="tracker" style="color:var(--walnut)">Crete</div><h3 class="serif mt-2" style="font-size:24px;color:var(--espresso)">Chania Manor</h3></div><span class="italic-serif" style="color:var(--gold);font-size:20px">€4.2M</span></div><p class="mt-3" style="color:var(--brown);font-size:13px">6 bedrooms · heritage · 460 m²</p></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 3 — scroll left fast -->
+  <div class="marquee mq-left-fast">
+    <div class="marquee-track">
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Aegina · Off-market</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Agora House</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Athens · Off-market</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Neoclassical Townhouse</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Folegandros</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Chora Retreat</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Rhodes</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Lindos Estate</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Kythnos</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Summer Cottage</h3></div></div>
+      <!-- duplicate -->
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Aegina · Off-market</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Agora House</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Athens · Off-market</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Neoclassical Townhouse</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Folegandros</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Chora Retreat</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Rhodes</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Lindos Estate</h3></div></div>
+      <div class="prop-card" style="width:320px"><div style="height:220px;overflow:hidden"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=80" style="width:100%;height:100%;object-fit:cover" alt=""></div><div class="p-5"><div class="tracker" style="color:var(--walnut)">Kythnos</div><h3 class="serif mt-2" style="font-size:20px;color:var(--espresso)">Summer Cottage</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY / PILLARS ============ -->
+<section class="py-32 px-8" style="background:var(--beige)">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal max-w-2xl mb-20">
+      <div class="tracker" style="color:var(--walnut)">— Why Oikos</div>
+      <h2 class="serif mt-4" style="font-size:clamp(36px,5vw,68px);line-height:1;color:var(--espresso)">Four principles,<br><em class="italic-serif" style="color:var(--gold)">uncompromised.</em></h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 reveal-stagger">
+      <div>
+        <div class="serif" style="font-size:54px;color:var(--gold);line-height:1">01</div>
+        <h3 class="serif mt-4" style="font-size:24px;color:var(--espresso)">Curated, never mass</h3>
+        <p class="mt-3" style="color:var(--choco);font-size:14px;line-height:1.7">Under forty residences at any time. Each chosen by the house, not by brief.</p>
+      </div>
+      <div>
+        <div class="serif" style="font-size:54px;color:var(--gold);line-height:1">02</div>
+        <h3 class="serif mt-4" style="font-size:24px;color:var(--espresso)">Quiet luxury</h3>
+        <p class="mt-3" style="color:var(--choco);font-size:14px;line-height:1.7">Restraint over spectacle. Whitewashed walls, stone floors, olive trees older than us.</p>
+      </div>
+      <div>
+        <div class="serif" style="font-size:54px;color:var(--gold);line-height:1">03</div>
+        <h3 class="serif mt-4" style="font-size:24px;color:var(--espresso)">Local heritage</h3>
+        <p class="mt-3" style="color:var(--choco);font-size:14px;line-height:1.7">Partnerships with Aegean craftsmen, restorers, masons — the hands that keep memory alive.</p>
+      </div>
+      <div>
+        <div class="serif" style="font-size:54px;color:var(--gold);line-height:1">04</div>
+        <h3 class="serif mt-4" style="font-size:24px;color:var(--espresso)">Total discretion</h3>
+        <p class="mt-3" style="color:var(--choco);font-size:14px;line-height:1.7">Off-market dossiers. No signage. The finest properties are never announced.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEPARATOR — DRONE POOL ============ -->
+<section class="relative" style="height:80vh;overflow:hidden">
+  <div class="drone-frame" style="position:absolute;inset:0">
+    <img class="drone-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=2400&q=85" alt="Aegean pool">
+  </div>
+  <div class="absolute inset-0 flex items-center justify-center px-8" style="background:linear-gradient(180deg,rgba(42,31,23,.25),rgba(42,31,23,.5))">
+    <div class="text-center max-w-3xl reveal">
+      <div class="tracker mb-6" style="color:var(--gold)">— The Aegean</div>
+      <h2 class="serif" style="font-size:clamp(40px,6vw,88px);line-height:1;color:var(--cream)">
+        Where the sea <em class="italic-serif" style="color:var(--gold)">writes</em><br> the house.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="py-32 px-8" style="background:var(--cream)">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-20 max-w-2xl">
+      <div class="tracker" style="color:var(--walnut)">— Services</div>
+      <h2 class="serif mt-4" style="font-size:clamp(36px,5vw,68px);line-height:1;color:var(--espresso)">Four ways we work<br><em class="italic-serif" style="color:var(--gold)">alongside you.</em></h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-px" style="background:rgba(42,31,23,.12);border:1px solid rgba(42,31,23,.12)">
+      <div class="p-10" style="background:var(--cream)">
+        <div class="tracker" style="color:var(--gold)">01 — Search</div>
+        <h3 class="serif mt-4" style="font-size:32px;color:var(--espresso)">Curated Property Search</h3>
+        <p class="mt-4" style="color:var(--choco);font-size:15px;line-height:1.7">A structured brief, a quiet file. We scout, visit and shortlist — off and on market — until your house finds you.</p>
+      </div>
+      <div class="p-10" style="background:var(--cream)">
+        <div class="tracker" style="color:var(--gold)">02 — Rentals</div>
+        <h3 class="serif mt-4" style="font-size:32px;color:var(--espresso)">Private Villa Rentals</h3>
+        <p class="mt-4" style="color:var(--choco);font-size:15px;line-height:1.7">Seasonal residencies across the Cyclades, delivered with a concierge, a chef and a captain if you wish.</p>
+      </div>
+      <div class="p-10" style="background:var(--cream)">
+        <div class="tracker" style="color:var(--gold)">03 — Advisory</div>
+        <h3 class="serif mt-4" style="font-size:32px;color:var(--espresso)">Acquisition Advisory</h3>
+        <p class="mt-4" style="color:var(--choco);font-size:15px;line-height:1.7">Legal, fiscal and architectural diligence under one roof. Hellenic law, EU residency, tax & trust structures.</p>
+      </div>
+      <div class="p-10" style="background:var(--cream)">
+        <div class="tracker" style="color:var(--gold)">04 — Restoration</div>
+        <h3 class="serif mt-4" style="font-size:32px;color:var(--espresso)">Heritage Restoration</h3>
+        <p class="mt-4" style="color:var(--choco);font-size:15px;line-height:1.7">With local masons and architects from Athens, Tinos and Naxos — restoring stone, timber and memory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOOD — DEZOOM TRANSITION + CINEMATIC 3-ROW ============ -->
+<section class="py-24 px-4" style="background:var(--sand);overflow:hidden">
+  <div class="max-w-6xl mx-auto mb-16 px-4 reveal">
+    <div class="tracker" style="color:var(--walnut)">— Mood</div>
+    <h2 class="serif mt-4" style="font-size:clamp(36px,5vw,64px);line-height:1;color:var(--espresso)">A quiet cinema,<br><em class="italic-serif" style="color:var(--gold)">not a catalogue.</em></h2>
+  </div>
+  <div class="max-w-7xl mx-auto grid grid-cols-3 gap-4">
+    <div class="dezoom overflow-hidden" style="height:420px"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+    <div class="dezoom overflow-hidden" style="height:480px;margin-top:40px"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+    <div class="dezoom overflow-hidden" style="height:420px"><img src="https://images.unsplash.com/photo-1504707748692-419802cf939d?w=800&q=80" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+  </div>
+
+  <!-- counter rolling band -->
+  <div class="mt-20 marquee mq-left">
+    <div class="marquee-track" style="gap:64px">
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Athens</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Mykonos</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Santorini</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Paros</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Crete</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Athens</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Mykonos</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Santorini</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Paros</span>
+      <span class="italic-serif" style="font-size:80px;color:var(--gold);white-space:nowrap">·</span>
+      <span class="serif" style="font-size:80px;color:var(--espresso);white-space:nowrap">Crete</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOUNDERS / CURATORS ============ -->
+<section id="about" class="py-32 px-8" style="background:var(--cream)">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-20 max-w-2xl">
+      <div class="tracker" style="color:var(--walnut)">— Our Curators</div>
+      <h2 class="serif mt-4" style="font-size:clamp(36px,5vw,68px);line-height:1;color:var(--espresso)">Four people<br><em class="italic-serif" style="color:var(--gold)">who read houses.</em></h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 reveal-stagger">
+      <div>
+        <div style="aspect-ratio:3/4;overflow:hidden;border-radius:12px"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Eleni Papadaki" style="width:100%;height:100%;object-fit:cover"></div>
+        <h3 class="serif mt-5" style="font-size:22px;color:var(--espresso)">Eleni Papadaki</h3>
+        <div class="tracker mt-1" style="color:var(--walnut)">Founding Partner</div>
+        <p class="mt-3" style="color:var(--choco);font-size:13px;line-height:1.7">Twenty years in prime Athenian real estate. Former director of a Kolonaki boutique house.</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:3/4;overflow:hidden;border-radius:12px"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Andreas Stavros" style="width:100%;height:100%;object-fit:cover"></div>
+        <h3 class="serif mt-5" style="font-size:22px;color:var(--espresso)">Andreas Stavros</h3>
+        <div class="tracker mt-1" style="color:var(--walnut)">Cyclades Curator</div>
+        <p class="mt-3" style="color:var(--choco);font-size:13px;line-height:1.7">Born in Mykonos. Architect by training. Our eyes and hands across the islands.</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:3/4;overflow:hidden;border-radius:12px"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Maria Konstantinou" style="width:100%;height:100%;object-fit:cover"></div>
+        <h3 class="serif mt-5" style="font-size:22px;color:var(--espresso)">Maria Konstantinou</h3>
+        <div class="tracker mt-1" style="color:var(--walnut)">Heritage Advisor</div>
+        <p class="mt-3" style="color:var(--choco);font-size:13px;line-height:1.7">Conservation-trained. Leads restoration dialogues with ministries and local guilds.</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:3/4;overflow:hidden;border-radius:12px"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="Nikos Dimitriou" style="width:100%;height:100%;object-fit:cover"></div>
+        <h3 class="serif mt-5" style="font-size:22px;color:var(--espresso)">Nikos Dimitriou</h3>
+        <div class="tracker mt-1" style="color:var(--walnut)">Legal & Acquisitions</div>
+        <p class="mt-3" style="color:var(--choco);font-size:13px;line-height:1.7">Hellenic real estate law, EU residency programmes and cross-border trust structures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / MAP ============ -->
+<section id="contact" class="py-32 px-8" style="background:var(--espresso);color:var(--cream)">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-16 reveal-stagger">
+    <div class="md:col-span-5">
+      <div class="tracker" style="color:var(--gold)">— Contact</div>
+      <h2 class="serif mt-4" style="font-size:clamp(40px,5vw,72px);line-height:1;color:var(--cream)">Begin a<br><em class="italic-serif" style="color:var(--gold)">conversation.</em></h2>
+      <p class="mt-8 italic-serif" style="font-size:20px;color:var(--sand);max-width:420px">We respond within one working day. Every dossier is treated as confidential.</p>
+      <div class="mt-10 space-y-2" style="font-size:14px">
+        <div><span class="tracker" style="color:var(--gold)">Atelier</span> · 14 Dimokritou, Kolonaki · Athens 10673</div>
+        <div><span class="tracker" style="color:var(--gold)">Email</span> · hello@oikosathens.gr</div>
+        <div><span class="tracker" style="color:var(--gold)">Phone</span> · +30 210 36 02 140</div>
+      </div>
+      <div class="mt-8 flex items-center gap-3">
+        <span class="pulse-dot"></span>
+        <span class="tracker" style="color:var(--sand)">Open for private introductions</span>
+      </div>
+    </div>
+    <div class="md:col-span-7">
+      <form class="space-y-5">
+        <div class="grid grid-cols-2 gap-5">
+          <input placeholder="First name" style="background:transparent;border:0;border-bottom:1px solid rgba(245,236,216,.25);color:var(--cream);padding:14px 0;outline:none;font-size:15px">
+          <input placeholder="Last name" style="background:transparent;border:0;border-bottom:1px solid rgba(245,236,216,.25);color:var(--cream);padding:14px 0;outline:none;font-size:15px">
+        </div>
+        <input placeholder="Email" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(245,236,216,.25);color:var(--cream);padding:14px 0;outline:none;font-size:15px">
+        <input placeholder="Location of interest · Mykonos, Athens..." style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(245,236,216,.25);color:var(--cream);padding:14px 0;outline:none;font-size:15px">
+        <textarea placeholder="Tell us what you are looking for" rows="5" style="width:100%;background:transparent;border:0;border-bottom:1px solid rgba(245,236,216,.25);color:var(--cream);padding:14px 0;outline:none;font-size:15px;resize:none"></textarea>
+        <button type="button" class="btn-primary" style="background:var(--gold);color:var(--espresso);margin-top:10px">Request a Viewing
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="px-8 py-16" style="background:var(--ink);color:var(--sand)">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-10 pb-12" style="border-bottom:1px solid rgba(245,236,216,.1)">
+      <div>
+        <div class="serif" style="font-size:28px;color:var(--cream)">Oikos <em class="italic-serif" style="color:var(--gold)">Athens</em></div>
+        <p class="mt-4 italic-serif" style="font-size:17px;color:var(--sand);max-width:260px">Homes that remember the Aegean.</p>
+      </div>
+      <div>
+        <div class="tracker mb-4" style="color:var(--gold)">Navigate</div>
+        <ul class="space-y-2" style="font-size:13px">
+          <li>Home</li><li>Properties</li><li>Services</li><li>About</li><li>Journal</li><li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tracker mb-4" style="color:var(--gold)">Regions</div>
+        <ul class="space-y-2" style="font-size:13px">
+          <li>Athens</li><li>Mykonos</li><li>Santorini</li><li>Paros</li><li>Crete</li><li>Hydra · Folegandros</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tracker mb-4" style="color:var(--gold)">Dispatch</div>
+        <p style="font-size:13px;color:var(--sand);line-height:1.7">Seasonal letters on properties, provenance and Greek design. No noise.</p>
+        <div class="mt-4 flex" style="border-bottom:1px solid rgba(245,236,216,.2)">
+          <input placeholder="your@email.com" style="flex:1;background:transparent;border:0;color:var(--cream);padding:10px 0;font-size:13px;outline:none">
+          <button style="color:var(--gold);font-size:13px;letter-spacing:.15em">SUBSCRIBE →</button>
+        </div>
+      </div>
+    </div>
+    <div class="pt-8 flex flex-col md:flex-row justify-between gap-4" style="font-size:11px;color:rgba(212,196,160,.7);letter-spacing:.1em;text-transform:uppercase">
+      <div>© 2026 Oikos Athens · Hellenic estate house · A.F.M. 800XXX</div>
+      <div class="flex gap-6"><span>Instagram</span><span>Journal</span><span>Privacy</span><span>Legal</span></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
