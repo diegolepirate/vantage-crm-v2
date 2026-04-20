@@ -275,6 +275,263 @@
     -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
             mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
   }
+
+  /* =========================
+     CA43 frosted-glass modals
+     ========================= */
+  .mx-modal{
+    position:fixed; inset:0; z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(20,8,26,0.55);
+    backdrop-filter: blur(10px);
+    opacity:0; pointer-events:none;
+    transition: opacity .4s ease;
+    padding: 24px;
+  }
+  .mx-modal:target{ opacity:1; pointer-events:auto; }
+  .mx-anim-container{
+    position:relative;
+    width:100%; max-width:1100px; height:min(680px, 90vh);
+    background: transparent;
+    box-shadow: 0 40px 120px rgba(93,46,106,0.55), 0 10px 40px rgba(0,0,0,0.35);
+    border-radius: 24px;
+    overflow:hidden;
+    transform: translateY(30px) scale(0.98);
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .mx-modal:target .mx-anim-container{ transform: translateY(0) scale(1); }
+  .mx-anim-container::before,
+  .mx-anim-container::after{
+    content:""; position:absolute; width:280px; height:280px; border-radius:50%;
+    filter: blur(10px); z-index:1;
+  }
+  .mx-anim-container::before{
+    background: rgba(233,165,192,0.55);
+    top:-80px; left:-80px;
+    animation: animFirst 5s linear infinite;
+  }
+  .mx-anim-container::after{
+    background: rgba(124,58,237,0.5);
+    bottom:-80px; right:-80px;
+    animation: animSecond 5s linear -3s infinite;
+  }
+  @keyframes animFirst{
+    0%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(80vw, 20vh) scale(1.2); }
+    100%{ transform: translate(0,0) scale(1); }
+  }
+  @keyframes animSecond{
+    0%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-60vw,-20vh) scale(1.15); }
+    100%{ transform: translate(0,0) scale(1); }
+  }
+  .mx-anim-card{
+    position:absolute; inset:0; z-index:2;
+    background: rgba(247,237,238,0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    display:grid; grid-template-columns: 1.1fr 1fr;
+    overflow:hidden;
+  }
+  @media (max-width: 820px){
+    .mx-anim-card{ grid-template-columns: 1fr; grid-template-rows: 45% 55%; }
+  }
+  .mx-anim-card .mx-photo{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .mx-anim-card .mx-body{
+    padding: 48px 44px; display:flex; flex-direction:column; justify-content:center;
+    position:relative;
+  }
+  .mx-close{
+    position:absolute; top:16px; right:20px; z-index:3;
+    width:40px; height:40px; border-radius:50%;
+    background: rgba(255,255,255,0.9); color: var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; line-height:1; text-decoration:none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    transition: transform .2s;
+  }
+  .mx-close:hover{ transform: scale(1.1); }
+
+  /* Project grid cards */
+  .mx-proj-card{
+    position:relative; display:block; border-radius:24px; overflow:hidden;
+    aspect-ratio: 4/5; transition: transform .5s cubic-bezier(.2,.8,.2,1);
+    box-shadow: 0 20px 50px rgba(93,46,106,0.15);
+  }
+  .mx-proj-card:hover{ transform: translateY(-6px) scale(1.02); }
+  .mx-proj-card img{ width:100%; height:100%; object-fit:cover; transition: transform .6s ease; }
+  .mx-proj-card:hover img{ transform: scale(1.08); }
+  .mx-proj-card .mx-proj-overlay{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 40%, rgba(20,8,26,0.75));
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding: 28px; color:#F7EDEE;
+  }
+
+  /* =========================
+     Video interior section
+     ========================= */
+  .mx-video-section{
+    position:relative; padding: 120px 6vw;
+    background: #E3F2FD;
+    background-image:
+      linear-gradient(rgba(30,64,175,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,64,175,0.10) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .mx-video-wrap{
+    max-width: 1200px; margin: 0 auto;
+    border-radius: 28px; overflow:hidden;
+    box-shadow: 0 30px 80px rgba(30,64,175,0.25);
+    background:#000;
+  }
+  .mx-video-wrap video{ width:100%; height:auto; display:block; aspect-ratio: 16/9; object-fit:cover; }
+  .btn-mauve{
+    background: linear-gradient(135deg, var(--mauve), var(--purple));
+    color:#F7EDEE; font-weight:600; letter-spacing:.02em;
+    padding: 14px 30px; border-radius: 999px;
+    box-shadow: 0 14px 36px rgba(124,58,237,0.35);
+    transition: transform .25s, box-shadow .25s;
+    display:inline-block;
+  }
+  .btn-mauve:hover{ transform: translateY(-2px); box-shadow: 0 20px 50px rgba(124,58,237,0.5); }
+
+  /* =========================
+     Principles horizontal scroll (scroll-driven)
+     ========================= */
+  .principles-scroll{ position:relative; height: 500vh; }
+  .principles-sticky{
+    position:sticky; top:0; height:100vh;
+    display:flex; align-items:center; overflow:hidden;
+    background: linear-gradient(135deg, #14081A 0%, #2A1035 50%, #1A0B1F 100%);
+  }
+  .principles-heading{
+    position:absolute; top:40px; left:0; right:0; z-index:5;
+    text-align:center; pointer-events:none;
+  }
+  .principles-track{
+    display:flex; gap:32px; padding: 0 8vw;
+    animation: principlesTrack linear both;
+    animation-timeline: scroll(root);
+    animation-range: contain 0% contain 100%;
+  }
+  @keyframes principlesTrack{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(calc(-100% + 100vw)); }
+  }
+  .p-card{
+    flex: 0 0 520px; height: 70vh;
+    border-radius: 28px; overflow:hidden; position:relative;
+    background:#1a0b1f; border:1px solid rgba(233,165,192,0.25);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+    text-decoration:none; color:#F7EDEE;
+    display:block;
+  }
+  .p-card .p-media{ position:absolute; inset:0; }
+  .p-card .p-media img, .p-card .p-media video{
+    width:100%; height:100%; object-fit:cover;
+  }
+  .p-card .p-grad{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(20,8,26,0.15) 0%, rgba(20,8,26,0.25) 45%, rgba(20,8,26,0.9));
+  }
+  .p-card .p-body{
+    position:absolute; inset:0; padding: 40px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .p-card .p-num{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    font-size: 140px; line-height:0.9; color: var(--rose);
+    text-shadow: 0 10px 40px rgba(233,165,192,0.35);
+  }
+  .p-card .p-title{ font-family:'Playfair Display',serif; font-size: 48px; margin-bottom:12px; }
+  .p-card .p-desc{ color: rgba(247,237,238,0.85); font-size: 16px; line-height:1.55; max-width: 420px; }
+
+  /* Expanded principle overlay */
+  .p-expanded{
+    position:fixed; inset:0; z-index:110;
+    opacity:0; pointer-events:none;
+    transition: opacity .4s ease;
+    background: rgba(20,8,26,0.85); backdrop-filter: blur(12px);
+    overflow-y: auto; scroll-behavior:smooth;
+  }
+  .p-expanded:target{ opacity:1; pointer-events:auto; }
+  .p-exp-inner{
+    min-height: 100vh;
+  }
+  .p-exp-panel{
+    min-height: 100vh; padding: 80px 8vw;
+    display:flex; align-items:center; position:relative;
+  }
+  .p-exp-panel.panel-main{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap: 56px;
+  }
+  @media (max-width: 900px){
+    .p-exp-panel.panel-main{ grid-template-columns: 1fr; }
+  }
+  .p-exp-media{
+    border-radius: 28px; overflow:hidden;
+    aspect-ratio: 4/5; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .p-exp-media img, .p-exp-media video{ width:100%; height:100%; object-fit:cover; }
+  .p-exp-text{ color:#F7EDEE; }
+  .p-exp-num{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+    font-size: 180px; line-height:0.9; color: var(--rose); margin-bottom: 8px;
+  }
+  .p-exp-title{
+    font-family:'Playfair Display',serif; font-size: clamp(48px, 7vw, 96px);
+    line-height:1.05; margin-bottom: 24px;
+  }
+  .p-exp-desc{ font-size: 18px; line-height:1.7; color: rgba(247,237,238,0.85); }
+  .p-down-arrow{
+    position:absolute; bottom:30px; left:50%; transform: translateX(-50%);
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 12px 24px; border-radius: 999px;
+    background: rgba(247,237,238,0.12); color:#F7EDEE;
+    border:1px solid rgba(247,237,238,0.25);
+    text-decoration:none; font-size:14px; letter-spacing:0.15em; text-transform:uppercase;
+    backdrop-filter: blur(8px);
+    animation: bobArrow 2.2s ease-in-out infinite;
+  }
+  .p-down-arrow:hover{ background: rgba(247,237,238,0.2); }
+  @keyframes bobArrow{
+    0%,100%{ transform: translate(-50%, 0); }
+    50%{ transform: translate(-50%, 8px); }
+  }
+  .p-exp-close{
+    position:fixed; top:24px; right:28px; z-index:3;
+    width:44px; height:44px; border-radius:50%;
+    background: rgba(247,237,238,0.12); color:#F7EDEE;
+    border:1px solid rgba(247,237,238,0.25);
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:24px; text-decoration:none; backdrop-filter: blur(8px);
+    transition: transform .2s;
+  }
+  .p-exp-close:hover{ transform: scale(1.1); }
+  .p-exp-details{
+    background: linear-gradient(180deg, #1A0B1F, #2A1035);
+  }
+  .p-exp-details-inner{
+    max-width: 900px; margin:0 auto; color:#F7EDEE;
+  }
+  .p-exp-details-inner h3{
+    font-family:'Playfair Display',serif; font-size: clamp(32px,4vw,56px); margin-bottom: 28px;
+    color: var(--rose);
+  }
+  .p-exp-details-inner p{ font-size:17px; line-height:1.75; color: rgba(247,237,238,0.85); margin-bottom: 18px; }
+
+  @media (max-width: 820px){
+    .principles-scroll{ height:auto; }
+    .principles-sticky{ position:relative; height:auto; padding: 80px 5vw; }
+    .principles-track{ flex-direction:column; animation:none; padding: 0; }
+    .p-card{ flex: 0 0 auto; width:100%; height: 520px; }
+    .principles-heading{ position:relative; top:auto; margin-bottom: 32px; }
+  }
 </style>
 </head>
 <body>
@@ -337,12 +594,66 @@
   </div>
 </section>
 
-<!-- FEATURED PROJECTS MARQUEE -->
-<section id="portfolio" class="py-10 mask-fade-side">
-  <div class="max-w-7xl mx-auto px-6 mb-10 flex items-end justify-between flex-wrap gap-4">
-    <h2 class="font-display text-5xl md:text-7xl reveal-line">Recent <span class="italic text-mauve">projects</span></h2>
-    <span class="text-ink/60 reveal-line">Residential · Hospitality · Retail</span>
+<!-- FEATURED PROJECTS — 3 CLICKABLE CARDS -->
+<section id="portfolio" class="section-pad pt-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-14 flex items-end justify-between flex-wrap gap-4">
+      <h2 class="font-display text-5xl md:text-7xl reveal-line">Recent <span class="italic text-mauve">projects</span></h2>
+      <span class="text-ink/60 reveal-line">Residential · Hospitality · Retail</span>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <a href="#project-1" class="mx-proj-card reveal-line">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600" alt="Residential project"/>
+        <div class="mx-proj-overlay">
+          <p class="text-rose text-xs tracking-[0.3em] uppercase mb-2">Residential · Paris</p>
+          <h3 class="font-display text-3xl leading-tight">The Marais apartment</h3>
+          <p class="text-cream/70 text-sm mt-2">Completed 2024 · Click to view</p>
+        </div>
+      </a>
+      <a href="#project-2" class="mx-proj-card reveal-line">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600" alt="Hospitality project"/>
+        <div class="mx-proj-overlay">
+          <p class="text-rose text-xs tracking-[0.3em] uppercase mb-2">Hospitality · Megève</p>
+          <h3 class="font-display text-3xl leading-tight">Chalet Lune</h3>
+          <p class="text-cream/70 text-sm mt-2">Completed 2024 · Click to view</p>
+        </div>
+      </a>
+      <a href="#project-3" class="mx-proj-card reveal-line">
+        <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600" alt="Retail project"/>
+        <div class="mx-proj-overlay">
+          <p class="text-rose text-xs tracking-[0.3em] uppercase mb-2">Retail · Saint-Germain</p>
+          <h3 class="font-display text-3xl leading-tight">Atelier Verdure</h3>
+          <p class="text-cream/70 text-sm mt-2">In progress · Click to view</p>
+        </div>
+      </a>
+    </div>
   </div>
+</section>
+
+<!-- VIDEO INTERIOR SECTION (light blue grid) -->
+<section class="mx-video-section">
+  <div class="max-w-7xl mx-auto text-center mb-12">
+    <p class="uppercase tracking-[0.3em] text-xs mb-4" style="color:#1E40AF;">Cinematic walkthroughs</p>
+    <h2 class="font-display text-5xl md:text-7xl reveal-line" style="color:#0B2B5C;">
+      See your home <span class="italic" style="color:#1E40AF;">come to life</span>
+    </h2>
+    <p class="mt-6 max-w-2xl mx-auto text-lg reveal-line" style="color:#1E3A5F;">
+      Cinematic walkthroughs, curated interiors.
+    </p>
+  </div>
+  <div class="mx-video-wrap reveal-line">
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600">
+      <source src="https://videos.pexels.com/video-files/4171639/4171639-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="text-center mt-12">
+    <a href="mailto:hello@maisonluxe.studio" class="btn-mauve">Book a Walkthrough</a>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS MARQUEE -->
+<section class="py-10 mask-fade-side">
   <div class="marquee">
     <div class="marquee-track">
       <img class="h-[420px] w-auto rounded-2xl object-cover" src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600" alt=""/>
@@ -392,49 +703,77 @@
   </div>
 </section>
 
-<!-- LATERAL PINNED CARDS -->
-<section class="hpin-outer mt-20">
-  <div class="hpin-sticky dark-band">
-    <div class="absolute top-12 left-0 right-0 z-10 text-center pointer-events-none">
-      <div class="badge mb-3" style="background:rgba(233,165,192,0.15); color:var(--rose);">Five principles</div>
-      <h2 class="font-display text-4xl md:text-6xl text-cream">The way we <span class="italic text-rose">design</span></h2>
+<!-- FIVE PRINCIPLES — HORIZONTAL SCROLL -->
+<section class="principles-scroll" id="principles">
+  <div class="principles-sticky">
+    <div class="principles-heading">
+      <div class="badge" style="background:rgba(233,165,192,0.15); color:var(--rose);">Five principles</div>
+      <h2 class="font-display text-4xl md:text-6xl text-cream mt-3">The way we <span class="italic text-rose">design</span></h2>
     </div>
-    <div class="hpin-track">
-      <div class="card-principle" style="background:linear-gradient(180deg, rgba(247,237,238,0.1), rgba(124,58,237,0.15)); border-color:rgba(233,165,192,0.3); color:#F7EDEE;">
-        <div class="font-fat text-9xl text-rose">01</div>
-        <div>
-          <h3 class="font-display text-4xl mb-4">Light</h3>
-          <p class="text-cream/80">Every room is first a choreography of sunrise, noon, dusk. We design the light before the lamps.</p>
+    <div class="principles-track">
+      <a href="#principle-1" class="p-card">
+        <div class="p-media"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600" alt="Light"/></div>
+        <div class="p-grad"></div>
+        <div class="p-body">
+          <div class="p-num">01</div>
+          <div>
+            <h3 class="p-title">Light</h3>
+            <p class="p-desc">Every room is first a choreography of sunrise, noon, dusk. We design the light before the lamps.</p>
+          </div>
         </div>
-      </div>
-      <div class="card-principle" style="background:linear-gradient(180deg, rgba(247,237,238,0.1), rgba(233,165,192,0.2)); border-color:rgba(233,165,192,0.3); color:#F7EDEE;">
-        <div class="font-fat text-9xl text-rose">02</div>
-        <div>
-          <h3 class="font-display text-4xl mb-4">Space</h3>
-          <p class="text-cream/80">Emptiness is expensive and underrated. We protect volume the way a musician protects silence.</p>
+      </a>
+      <a href="#principle-2" class="p-card">
+        <div class="p-media">
+          <video autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600">
+            <source src="https://videos.pexels.com/video-files/4171639/4171639-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+          </video>
         </div>
-      </div>
-      <div class="card-principle" style="background:linear-gradient(180deg, rgba(247,237,238,0.1), rgba(124,58,237,0.2)); border-color:rgba(233,165,192,0.3); color:#F7EDEE;">
-        <div class="font-fat text-9xl text-rose">03</div>
-        <div>
-          <h3 class="font-display text-4xl mb-4">Material</h3>
-          <p class="text-cream/80">Oak that darkens, linen that crumples, travertine that fingerprints. We love surfaces that keep a record.</p>
+        <div class="p-grad"></div>
+        <div class="p-body">
+          <div class="p-num">02</div>
+          <div>
+            <h3 class="p-title">Space</h3>
+            <p class="p-desc">Emptiness is expensive and underrated. We protect volume the way a musician protects silence.</p>
+          </div>
         </div>
-      </div>
-      <div class="card-principle" style="background:linear-gradient(180deg, rgba(247,237,238,0.1), rgba(233,165,192,0.2)); border-color:rgba(233,165,192,0.3); color:#F7EDEE;">
-        <div class="font-fat text-9xl text-rose">04</div>
-        <div>
-          <h3 class="font-display text-4xl mb-4">Memory</h3>
-          <p class="text-cream/80">Your grandmother's mirror, the chair from the old flat. We build rooms that honour what you already love.</p>
+      </a>
+      <a href="#principle-3" class="p-card">
+        <div class="p-media"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600" alt="Material"/></div>
+        <div class="p-grad"></div>
+        <div class="p-body">
+          <div class="p-num">03</div>
+          <div>
+            <h3 class="p-title">Material</h3>
+            <p class="p-desc">Oak that darkens, linen that crumples, travertine that fingerprints. We love surfaces that keep a record.</p>
+          </div>
         </div>
-      </div>
-      <div class="card-principle" style="background:linear-gradient(180deg, rgba(247,237,238,0.1), rgba(124,58,237,0.2)); border-color:rgba(233,165,192,0.3); color:#F7EDEE;">
-        <div class="font-fat text-9xl text-rose">05</div>
-        <div>
-          <h3 class="font-display text-4xl mb-4">Silence</h3>
-          <p class="text-cream/80">The best interior is the one you stop noticing — because it finally lets you notice yourself.</p>
+      </a>
+      <a href="#principle-4" class="p-card">
+        <div class="p-media"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600" alt="Memory"/></div>
+        <div class="p-grad"></div>
+        <div class="p-body">
+          <div class="p-num">04</div>
+          <div>
+            <h3 class="p-title">Memory</h3>
+            <p class="p-desc">Your grandmother's mirror, the chair from the old flat. We build rooms that honour what you already love.</p>
+          </div>
         </div>
-      </div>
+      </a>
+      <a href="#principle-5" class="p-card">
+        <div class="p-media">
+          <video autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1600">
+            <source src="https://videos.pexels.com/video-files/4171639/4171639-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+          </video>
+        </div>
+        <div class="p-grad"></div>
+        <div class="p-body">
+          <div class="p-num">05</div>
+          <div>
+            <h3 class="p-title">Silence</h3>
+            <p class="p-desc">The best interior is the one you stop noticing — because it finally lets you notice yourself.</p>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -762,6 +1101,182 @@
     <p>Legal · Privacy · Cookies</p>
   </div>
 </footer>
+
+<!-- ============ PROJECT MODALS (CA43 frosted glass) ============ -->
+<div id="project-1" class="mx-modal" aria-hidden="true">
+  <a href="#portfolio" class="absolute inset-0" aria-label="Close"></a>
+  <div class="mx-anim-container">
+    <div class="mx-anim-card">
+      <img class="mx-photo" src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600" alt=""/>
+      <div class="mx-body">
+        <a href="#portfolio" class="mx-close" aria-label="Close">&times;</a>
+        <p class="uppercase tracking-[0.25em] text-xs text-mauve mb-3">Residential · Paris</p>
+        <h3 class="font-display text-4xl md:text-5xl leading-tight mb-3">The Marais apartment</h3>
+        <p class="text-ink/60 mb-6">Completed 2024</p>
+        <p class="text-ink/80 leading-relaxed mb-8">A 140 m² family apartment on rue des Francs-Bourgeois, reimagined around an oak-clad central volume. We opened the north wall, dropped the ceilings by 40 cm to reveal the original beams, and let the afternoon light do the rest.</p>
+        <div><a href="mailto:hello@maisonluxe.studio" class="btn-gold text-sm">Contact Agent</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="project-2" class="mx-modal" aria-hidden="true">
+  <a href="#portfolio" class="absolute inset-0" aria-label="Close"></a>
+  <div class="mx-anim-container">
+    <div class="mx-anim-card">
+      <img class="mx-photo" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600" alt=""/>
+      <div class="mx-body">
+        <a href="#portfolio" class="mx-close" aria-label="Close">&times;</a>
+        <p class="uppercase tracking-[0.25em] text-xs text-mauve mb-3">Hospitality · Megève</p>
+        <h3 class="font-display text-4xl md:text-5xl leading-tight mb-3">Chalet Lune</h3>
+        <p class="text-ink/60 mb-6">Completed 2024</p>
+        <p class="text-ink/80 leading-relaxed mb-8">A twelve-room boutique chalet above Rochebrune. Charred pine, travertine floors warmed by radiant heat, and a fireplace room designed so that every seat has the same view of the Mont Blanc massif.</p>
+        <div><a href="mailto:hello@maisonluxe.studio" class="btn-gold text-sm">Contact Agent</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="project-3" class="mx-modal" aria-hidden="true">
+  <a href="#portfolio" class="absolute inset-0" aria-label="Close"></a>
+  <div class="mx-anim-container">
+    <div class="mx-anim-card">
+      <img class="mx-photo" src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600" alt=""/>
+      <div class="mx-body">
+        <a href="#portfolio" class="mx-close" aria-label="Close">&times;</a>
+        <p class="uppercase tracking-[0.25em] text-xs text-mauve mb-3">Retail · Saint-Germain</p>
+        <h3 class="font-display text-4xl md:text-5xl leading-tight mb-3">Atelier Verdure</h3>
+        <p class="text-ink/60 mb-6">In progress</p>
+        <p class="text-ink/80 leading-relaxed mb-8">A 90 m² flagship on rue de Seine for a perfumer who wanted customers to whisper. Walls in lime-washed plaster, bronze-lipped vitrines, and lighting that shifts slowly through the day to match the fragrance being worn.</p>
+        <div><a href="mailto:hello@maisonluxe.studio" class="btn-gold text-sm">Contact Agent</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRINCIPLE EXPANDED OVERLAYS ============ -->
+<div id="principle-1" class="p-expanded">
+  <a href="#principles" class="p-exp-close" aria-label="Close">&times;</a>
+  <div class="p-exp-inner">
+    <div class="p-exp-panel panel-main">
+      <div class="p-exp-media"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600" alt=""/></div>
+      <div class="p-exp-text">
+        <div class="p-exp-num">01</div>
+        <h2 class="p-exp-title">Light</h2>
+        <p class="p-exp-desc">Every room begins as a choreography of sunrise, noon, and dusk. Before we think about lamps, we study how natural light enters the space across an entire year. We visit at dawn, at golden hour, on overcast afternoons. Only then do we layer artificial light — always in service of what nature already offered, never in competition with it. A well-lit room is one where you forget the switch exists.</p>
+      </div>
+      <a href="#principle-1-details" class="p-down-arrow">↓ See more</a>
+    </div>
+    <div class="p-exp-panel p-exp-details" id="principle-1-details">
+      <div class="p-exp-details-inner">
+        <h3>Case study — The Belleville flat</h3>
+        <p>A north-facing 70 m² apartment that its owner described as "a basement with a view." We spent two weeks mapping shadow paths, then removed a 3-metre section of interior wall to let the weakest southern light travel deeper into the plan.</p>
+        <p>We installed full-spectrum LED cove lighting tuned to shift from 2700K at dawn to 4000K at midday and back to 2400K at dusk — a circadian rhythm inside the architecture itself.</p>
+        <p>The owner reports that for the first time in a decade, she wakes up without an alarm.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="principle-2" class="p-expanded">
+  <a href="#principles" class="p-exp-close" aria-label="Close">&times;</a>
+  <div class="p-exp-inner">
+    <div class="p-exp-panel panel-main">
+      <div class="p-exp-media">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600">
+          <source src="https://videos.pexels.com/video-files/4171639/4171639-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <div class="p-exp-text">
+        <div class="p-exp-num">02</div>
+        <h2 class="p-exp-title">Space</h2>
+        <p class="p-exp-desc">Emptiness is expensive and underrated. We protect volume the way a musician protects silence — as the structural element that gives everything else meaning. Most homes are over-furnished by 40%. Ours are designed to leave air between the objects, between the rooms, between the person and the wall. Space is not absence; it is the active ingredient.</p>
+      </div>
+      <a href="#principle-2-details" class="p-down-arrow">↓ See more</a>
+    </div>
+    <div class="p-exp-panel p-exp-details" id="principle-2-details">
+      <div class="p-exp-details-inner">
+        <h3>Case study — Île Saint-Louis duplex</h3>
+        <p>A 220 m² duplex where we removed more than we added. Two bedrooms became one generous suite. A study became a reading alcove with a single chair and a single lamp.</p>
+        <p>The client's brief mentioned "storage for 1,200 books." We negotiated it down to 600 — and then built a library so quiet that visitors lower their voices without being asked.</p>
+        <p>We believe in the rule of the unnecessary chair: every room should contain one piece of furniture that exists purely to be looked at, never sat in.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="principle-3" class="p-expanded">
+  <a href="#principles" class="p-exp-close" aria-label="Close">&times;</a>
+  <div class="p-exp-inner">
+    <div class="p-exp-panel panel-main">
+      <div class="p-exp-media"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1600" alt=""/></div>
+      <div class="p-exp-text">
+        <div class="p-exp-num">03</div>
+        <h2 class="p-exp-title">Material</h2>
+        <p class="p-exp-desc">Oak that darkens, linen that crumples, travertine that fingerprints, brass that patinates. We love surfaces that keep a record. A house finished in the wrong materials starts dying the day it is handed over; a house finished in the right ones only begins to live at that moment. We refuse engineered veneers, MDF millwork, and any finish that cannot be repaired by a human hand in twenty years.</p>
+      </div>
+      <a href="#principle-3-details" class="p-down-arrow">↓ See more</a>
+    </div>
+    <div class="p-exp-panel p-exp-details" id="principle-3-details">
+      <div class="p-exp-details-inner">
+        <h3>The Maison Luxe material wardrobe</h3>
+        <p>We maintain a working library of 340 material samples, all sourced from European artisans within a two-hour radius of Paris. Each sample is aged, wet, scratched, and photographed under six lighting conditions before it enters the wardrobe.</p>
+        <p>Our rule: no material enters a project that we have not personally seen at ten years old. We drive to old houses, old hotels, old shops. We touch walls that have been touched by thirty years of hands.</p>
+        <p>Beautiful at month one is easy. Beautiful at year thirty is the entire brief.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="principle-4" class="p-expanded">
+  <a href="#principles" class="p-exp-close" aria-label="Close">&times;</a>
+  <div class="p-exp-inner">
+    <div class="p-exp-panel panel-main">
+      <div class="p-exp-media"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600" alt=""/></div>
+      <div class="p-exp-text">
+        <div class="p-exp-num">04</div>
+        <h2 class="p-exp-title">Memory</h2>
+        <p class="p-exp-desc">Your grandmother's mirror, the chair from the old flat, the rug that no longer matches anything — we build rooms that honour what you already love. A Maison Luxe project begins with an inventory of objects you refuse to throw away. Those objects are not obstacles to the design; they are the design. Everything else we add is in negotiation with them.</p>
+      </div>
+      <a href="#principle-4-details" class="p-down-arrow">↓ See more</a>
+    </div>
+    <div class="p-exp-panel p-exp-details" id="principle-4-details">
+      <div class="p-exp-details-inner">
+        <h3>The rule of the inherited object</h3>
+        <p>On the first visit, we ask clients to show us three objects they would rescue from a fire. Those three objects become the anchors of the project — colour, scale, texture, and mood all emerge from them.</p>
+        <p>A Wassily chair from a divorced grandfather. A lamp from a first apartment. A rug that survived three moves. These are not decoration; they are the client's autobiography in physical form.</p>
+        <p>We do not redesign your life. We make a room your life can continue inside of.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="principle-5" class="p-expanded">
+  <a href="#principles" class="p-exp-close" aria-label="Close">&times;</a>
+  <div class="p-exp-inner">
+    <div class="p-exp-panel panel-main">
+      <div class="p-exp-media">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1600">
+          <source src="https://videos.pexels.com/video-files/4171639/4171639-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+        </video>
+      </div>
+      <div class="p-exp-text">
+        <div class="p-exp-num">05</div>
+        <h2 class="p-exp-title">Silence</h2>
+        <p class="p-exp-desc">The best interior is the one you stop noticing — because it finally lets you notice yourself. We design for acoustic quiet, visual quiet, and the deepest quiet of all: the absence of decisions the room forces you to make. A great room asks nothing of you. It simply holds you.</p>
+      </div>
+      <a href="#principle-5-details" class="p-down-arrow">↓ See more</a>
+    </div>
+    <div class="p-exp-panel p-exp-details" id="principle-5-details">
+      <div class="p-exp-details-inner">
+        <h3>The acoustic brief</h3>
+        <p>Every Maison Luxe project now includes a dedicated acoustic consultant. We specify wool carpets over felt underlay, bookshelves as diffusers, curtains as absorbers, and limit hard parallel surfaces that cause standing waves.</p>
+        <p>The target reverb time in a living room is 0.4 seconds — slightly longer than a recording studio, slightly shorter than a café. You cannot hear the number, but you feel it the moment you walk in.</p>
+        <p>A silent room is not a dead room. It is a room that lets its inhabitants speak.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Single tiny JS block — mouse-tracked 3D tilt on team cards (CSS :hover alone can't read cursor position) -->
 <script>
