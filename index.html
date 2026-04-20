@@ -30608,11 +30608,11 @@ function initCompareGrid(host){
   }
 
   // Idle-gated scheduler: defer mount until user has been idle ≥ IDLE_MS.
-  var lastInteraction=Date.now();
-  ['scroll','pointermove','keydown','touchstart','touchmove','wheel'].forEach(function(ev){
+  // Scroll is NOT counted as interaction (otherwise idle never happens while browsing).
+  var lastInteraction=Date.now()-IDLE_MS; // start already-idle so initial viewport mounts fast
+  ['pointermove','keydown','touchstart','wheel'].forEach(function(ev){
     host.addEventListener(ev,function(){lastInteraction=Date.now()},{passive:true,capture:true});
   });
-  window.addEventListener('scroll',function(){lastInteraction=Date.now()},{passive:true});
 
   var pending=new Set();
   function drain(){
@@ -30631,7 +30631,10 @@ function initCompareGrid(host){
     }
   }
   var drainT=0;
-  function scheduleDrain(){clearTimeout(drainT);drainT=setTimeout(drain,IDLE_MS+50)}
+  function scheduleDrain(){clearTimeout(drainT);drainT=setTimeout(drain,120)}
+  // Also re-drain on scroll-end so cards entering during a scroll actually mount.
+  var scrollEndT=0;
+  window.addEventListener('scroll',function(){clearTimeout(scrollEndT);scrollEndT=setTimeout(scheduleDrain,180)},{passive:true});
 
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
