@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Orbit.X — Space Sweeper Division</title>
+<meta name="description" content="Orbit.X — autonomous orbital debris clearance. Space Sweeper RGM79 class." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --bg:#050811;
+  --bg-2:#0a1020;
+  --cyan:#4FD1E3;
+  --cyan-2:#00FFE4;
+  --violet:#8B5CF6;
+  --ink:#EDEFF5;
+  --muted:rgba(237,239,245,0.55);
+  --line:rgba(79,209,227,0.18);
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;scroll-behavior:smooth;margin:0}
+.font-display{font-family:'Orbitron',sans-serif;letter-spacing:.08em}
+.font-mono{font-family:'JetBrains Mono',monospace}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.08em}
+/* --- Hero video --- */
+.hero{position:relative;min-height:100vh;width:100%;overflow:hidden;background:#000}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.6) saturate(1.1)}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(60% 80% at 50% 30%, rgba(0,0,0,0) 0%, rgba(5,8,17,0.6) 100%),
+  linear-gradient(180deg, rgba(5,8,17,0.55) 0%, rgba(5,8,17,0.2) 40%, rgba(5,8,17,0.92) 100%)
+}
+.hero-grid{position:absolute;inset:0;z-index:1;opacity:.35;background-image:
+  linear-gradient(rgba(79,209,227,0.06) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(79,209,227,0.06) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+}
+.hero-3d{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:auto}
+.hero-3d iframe{width:min(1100px,90vw);height:min(720px,78vh);border:0;background:transparent;filter:drop-shadow(0 30px 80px rgba(79,209,227,0.25))}
+.hero-ui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;padding:28px 32px}
+.hero-ui .pointer-events{pointer-events:auto}
+.corner{position:relative}
+.corner::before,.corner::after{content:"";position:absolute;width:22px;height:22px;border:1px solid var(--cyan);opacity:.7}
+.corner-tl::before{top:-8px;left:-8px;border-right:0;border-bottom:0}
+.corner-tr::after{top:-8px;right:-8px;border-left:0;border-bottom:0}
+.corner-bl::before{bottom:-8px;left:-8px;border-right:0;border-top:0}
+.corner-br::after{bottom:-8px;right:-8px;border-left:0;border-top:0}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cyan-2);box-shadow:0 0 8px var(--cyan-2);animation:pulseDot 1.8s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.scanline{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.55;animation:scan 4.5s linear infinite}
+@keyframes scan{0%{top:0%}100%{top:100%}}
+.glow-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,rgba(79,209,227,0.14),rgba(79,209,227,0.04));border:1px solid rgba(79,209,227,0.45);color:var(--ink);padding:12px 22px;font-family:'Orbitron',sans-serif;letter-spacing:.14em;font-size:12px;text-transform:uppercase;font-weight:500;transition:.2s;backdrop-filter:blur(8px)}
+.glow-btn:hover{background:linear-gradient(180deg,rgba(79,209,227,0.3),rgba(79,209,227,0.08));box-shadow:0 0 32px rgba(79,209,227,0.45);transform:translateY(-1px)}
+.ghost-btn{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid rgba(237,239,245,0.28);color:var(--ink);padding:12px 22px;font-family:'Orbitron',sans-serif;letter-spacing:.14em;font-size:12px;text-transform:uppercase;transition:.2s}
+.ghost-btn:hover{border-color:rgba(237,239,245,0.7)}
+.section{padding:120px 32px;position:relative}
+.container{max-width:1280px;margin:0 auto}
+.eyebrow{font-family:'JetBrains Mono',monospace;letter-spacing:.32em;text-transform:uppercase;font-size:11px;color:var(--cyan)}
+h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--ink);font-weight:700;line-height:1}
+/* HUD marquee */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(5,8,17,0.65);backdrop-filter:blur(8px)}
+.marquee-track{display:inline-flex;gap:60px;padding:14px 0;white-space:nowrap;animation:marquee 42s linear infinite;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(237,239,245,0.55)}
+.marquee-track span{display:inline-flex;align-items:center;gap:14px}
+.marquee-track span::before{content:"◇";color:var(--cyan)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Specs grid */
+.spec-card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(79,209,227,0.05),rgba(79,209,227,0.01));padding:32px;position:relative;transition:.3s}
+.spec-card:hover{border-color:rgba(79,209,227,0.55);transform:translateY(-4px);box-shadow:0 24px 60px -20px rgba(79,209,227,0.35)}
+.spec-num{font-family:'Orbitron',sans-serif;font-size:48px;background:linear-gradient(180deg,var(--cyan) 0%,var(--violet) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;letter-spacing:-.02em;line-height:1}
+/* Timeline */
+.timeline-row{display:grid;grid-template-columns:140px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
+.timeline-row:hover{background:linear-gradient(90deg,rgba(79,209,227,0.05),transparent)}
+.timeline-row .year{font-family:'Orbitron',sans-serif;font-size:22px;color:var(--cyan);letter-spacing:.04em}
+/* Cards grid */
+.fleet-card{position:relative;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);background:linear-gradient(180deg,rgba(79,209,227,0.06),rgba(5,8,17,1));transition:.3s}
+.fleet-card:hover{border-color:rgba(79,209,227,0.5);transform:translateY(-4px)}
+.fleet-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;transition:.5s}
+.fleet-card:hover img{opacity:.75;transform:scale(1.05)}
+.fleet-card-body{position:relative;z-index:1;padding:20px;display:flex;flex-direction:column;justify-content:space-between;height:100%;background:linear-gradient(180deg,rgba(5,8,17,0.1),rgba(5,8,17,0.85))}
+/* Stats */
+.stat{font-family:'Orbitron',sans-serif;font-size:64px;font-weight:900;background:linear-gradient(180deg,#fff 0%,var(--cyan) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.03em;line-height:1}
+/* Footer */
+.footer{border-top:1px solid var(--line);padding:80px 32px 40px;background:linear-gradient(180deg,var(--bg) 0%,#000 100%)}
+/* Nav */
+.nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:6px;padding:6px;background:rgba(5,8,17,0.7);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:999px}
+.nav a{padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,239,245,0.65);border-radius:999px;transition:.2s}
+.nav a:hover{color:var(--ink)}
+.nav a.active{background:rgba(79,209,227,0.18);color:var(--cyan-2)}
+/* Scroll reveal */
+@supports (animation-timeline: view()){
+  .reveal{animation:revealUp linear;animation-timeline:view();animation-range:entry 10% entry 60%}
+  @keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  .stagger > *{animation:revealUp linear;animation-timeline:view();animation-range:entry 0% entry 50%}
+  .stagger > *:nth-child(1){animation-delay:.0s}
+  .stagger > *:nth-child(2){animation-delay:.08s}
+  .stagger > *:nth-child(3){animation-delay:.16s}
+  .stagger > *:nth-child(4){animation-delay:.24s}
+  .stagger > *:nth-child(5){animation-delay:.32s}
+  .stagger > *:nth-child(6){animation-delay:.40s}
+}
+@media(max-width:768px){
+  .hero-3d iframe{width:95vw;height:65vh}
+  .section{padding:80px 20px}
+  .timeline-row{grid-template-columns:80px 1fr;gap:16px}
+  .timeline-row .year{font-size:16px}
+  .stat{font-size:44px}
+  .nav a{padding:6px 12px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#top" class="active">Home</a>
+  <a href="#fleet">Fleet</a>
+  <a href="#mission">Mission</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <video class="hero-video" src="assets/hero-bg.mp4" autoplay muted loop playsinline preload="auto"></video>
+  <div class="hero-scrim"></div>
+  <div class="hero-grid"></div>
+
+  <!-- 3D Sketchfab model overlay -->
+  <div class="hero-3d">
+    <iframe title="Space Sweeper RGM79" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_stop=0&ui_annotations=0&transparent=1&preload=1&camera=0&autospin=0.2"></iframe>
+  </div>
+
+  <!-- UI overlay (HUD) -->
+  <div class="hero-ui">
+    <div class="flex items-start justify-between pointer-events">
+      <div class="corner corner-tl">
+        <div class="mono text-[11px] tracking-[.28em] text-white/75">ORBIT.X // TERMINAL</div>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="pulse"></span>
+          <span class="mono text-[10px] text-white/50 tracking-[.2em]">LIVE TELEMETRY · 43.021N · 01.2873E</span>
+        </div>
+      </div>
+      <div class="corner corner-tr text-right">
+        <div class="mono text-[10px] tracking-[.3em] text-white/50">UNIT</div>
+        <div class="font-display text-[16px] text-white/90 mt-1">RGM-79 / B-Class</div>
+      </div>
+    </div>
+
+    <div class="flex items-end justify-between pointer-events">
+      <div class="max-w-[720px] corner corner-bl">
+        <div class="eyebrow mb-4">Orbital Debris Clearance · Since 2041</div>
+        <h1 class="display" style="font-size:clamp(48px,9vw,128px);font-weight:900">SPACE<br/>SWEEPER</h1>
+        <p class="mt-6 text-white/70 text-[15px] leading-[1.7] max-w-[520px]">Autonomous class-B clearance unit. Orbit.X operates the only private fleet certified for low-earth debris retrieval, satellite recovery, and kinetic dismantling above 400 km.</p>
+        <div class="flex items-center gap-3 mt-8">
+          <a href="#fleet" class="glow-btn">View the Fleet &nbsp;→</a>
+          <a href="#contact" class="ghost-btn">Mission Brief</a>
+        </div>
+      </div>
+      <div class="corner corner-br text-right hidden md:block">
+        <div class="mono text-[10px] tracking-[.3em] text-white/50">MASS</div>
+        <div class="font-display text-[24px] text-white/90">4,820 kg</div>
+        <div class="mono text-[10px] tracking-[.3em] text-white/50 mt-3">THRUST</div>
+        <div class="font-display text-[24px] text-white/90">12.4 kN</div>
+      </div>
+    </div>
+
+    <div class="scanline" style="top:20%"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>LEO Clearance</span><span>Satellite Recovery</span><span>Kinetic Dismantling</span><span>Kessler Prevention</span><span>Custodial Transit</span><span>Active Telemetry</span><span>Recovery Ops</span>
+    <span>LEO Clearance</span><span>Satellite Recovery</span><span>Kinetic Dismantling</span><span>Kessler Prevention</span><span>Custodial Transit</span><span>Active Telemetry</span><span>Recovery Ops</span>
+  </div>
+</div>
+
+<!-- MISSION SECTION -->
+<section class="section" id="mission">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 stagger">
+        <div class="eyebrow">The Mission</div>
+        <h2 class="display mt-4" style="font-size:clamp(40px,5vw,72px)">Keeping orbit<br/>usable.</h2>
+        <p class="text-white/60 text-[15px] leading-[1.7] mt-6 max-w-[460px]">Every month, 200+ tonnes of new material cross the Kármán line. Less than 6% ever comes back. The Space Sweeper program exists to reverse that curve.</p>
+        <p class="text-white/60 text-[15px] leading-[1.7] mt-4 max-w-[460px]">We operate autonomous B-class vessels designed for soft-capture, grapple, and controlled reentry of hazardous debris. Fully private. Fully bonded. Operational since 2041.</p>
+      </div>
+
+      <div class="lg:col-span-7 grid md:grid-cols-2 gap-5 stagger">
+        <div class="spec-card">
+          <div class="spec-num">12k+</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Objects Cleared</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">Decommissioned satellites, stage boosters and fragmented debris recovered since program launch.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">418km</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Operational Altitude</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">LEO range with sustained dwell time up to 72 hours per deployment cycle.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">8</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Active Vessels</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">RGM-79 class B units, each overseen by a two-operator ground team out of our Kiruna control room.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">0</div>
+          <div class="mt-3 mono text-[10px] tracking-[.24em] text-white/40 uppercase">Incidents</div>
+          <div class="text-white/70 text-[13px] mt-2 leading-[1.6]">Zero collisions, zero secondary debris events, zero unresolved recoveries across 4 years of ops.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="padding-top:20px">
+  <div class="container">
+    <div class="eyebrow">Program Timeline</div>
+    <h2 class="display mt-4 mb-10" style="font-size:clamp(36px,4.5vw,64px)">Four years<br/>above the Line.</h2>
+
+    <div class="stagger">
+      <div class="timeline-row"><div class="year">2041</div><div><div class="font-display text-white text-[18px]">Kiruna Ground Station commissioned</div><p class="text-white/55 text-[14px] leading-[1.6] mt-2 max-w-[680px]">Orbit.X opens its control facility 200 km inside the Arctic Circle. First telemetry uplink with the prototype RGM-79/A.</p></div></div>
+      <div class="timeline-row"><div class="year">2042</div><div><div class="font-display text-white text-[18px]">First recovery mission</div><p class="text-white/55 text-[14px] leading-[1.6] mt-2 max-w-[680px]">Capture and controlled deorbit of the Envisat booster stage at 418 km. 2,820 kg returned intact.</p></div></div>
+      <div class="timeline-row"><div class="year">2043</div><div><div class="font-display text-white text-[18px]">B-class fleet deployment</div><p class="text-white/55 text-[14px] leading-[1.6] mt-2 max-w-[680px]">Six RGM-79/B units enter active rotation. Soft-capture tether system proves viable up to 4,500 kg payloads.</p></div></div>
+      <div class="timeline-row"><div class="year">2044</div><div><div class="font-display text-white text-[18px]">First private satellite recovery</div><p class="text-white/55 text-[14px] leading-[1.6] mt-2 max-w-[680px]">Successful recovery of three commercial satellites requested by their operators for forensic analysis.</p></div></div>
+      <div class="timeline-row"><div class="year">2045</div><div><div class="font-display text-white text-[18px]">10,000th object logged</div><p class="text-white/55 text-[14px] leading-[1.6] mt-2 max-w-[680px]">Milestone reached in late summer. Zero incidents recorded since program start.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="section" id="fleet" style="background:linear-gradient(180deg,transparent 0%,rgba(79,209,227,0.04) 50%,transparent 100%)">
+  <div class="container">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="eyebrow">The Fleet</div>
+        <h2 class="display mt-4" style="font-size:clamp(36px,4.5vw,64px)">Eight units.<br/>One mandate.</h2>
+      </div>
+      <div class="hidden md:block text-right">
+        <div class="mono text-[10px] tracking-[.3em] text-white/40 uppercase">Class</div>
+        <div class="font-display text-[20px] text-white/85">RGM-79 / B</div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1400" alt="Orbital body" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 01</div>
+            <div class="font-display text-white text-[22px] mt-2">Vega-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 414km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Commissioning unit. Tether grapple + kinetic disassembly.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 02</div>
+            <div class="font-display text-white text-[22px] mt-2">Lyra-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 420km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Specialist in long-dwell satellite recovery assignments.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 03</div>
+            <div class="font-display text-white text-[22px] mt-2">Corvus-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Dry-dock · Kiruna</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Scheduled maintenance. Back in rotation Q2.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 04</div>
+            <div class="font-display text-white text-[22px] mt-2">Atlas-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 418km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Heavy-payload unit. Rated for 4,800kg captures.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 05</div>
+            <div class="font-display text-white text-[22px] mt-2">Orion-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 410km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Forensic missions and sensitive state contracts.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 06</div>
+            <div class="font-display text-white text-[22px] mt-2">Nox-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 425km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Night-side specialist. Coldstart-capable up to −180°C.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1446776709462-d6b525c57bd3?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 07</div>
+            <div class="font-display text-white text-[22px] mt-2">Sirius-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Transit · 402km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Returning from controlled deorbit manoeuvre.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <img src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=1400" alt="Space" />
+        <div class="fleet-card-body">
+          <div>
+            <div class="mono text-[10px] tracking-[.24em] text-cyan-200/80 uppercase">Unit 08</div>
+            <div class="font-display text-white text-[22px] mt-2">Helia-B</div>
+          </div>
+          <div>
+            <div class="mono text-[10px] tracking-[.2em] text-white/45 uppercase">Active · LEO 417km</div>
+            <div class="text-white/70 text-[13px] mt-2 leading-[1.55]">Newest commissioning. Extended-range tether module.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="section" style="padding:60px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container grid md:grid-cols-4 gap-6 stagger">
+    <div><div class="stat">418</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Avg. operational altitude (km)</div></div>
+    <div><div class="stat">72h</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Dwell time per cycle</div></div>
+    <div><div class="stat">4.8t</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Max payload per capture</div></div>
+    <div><div class="stat">100%</div><div class="mono text-[10px] tracking-[.28em] text-white/40 uppercase mt-1">Recovery success rate</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-6">
+        <div class="eyebrow">Mission Brief</div>
+        <h2 class="display mt-4" style="font-size:clamp(40px,5vw,72px)">Request an<br/>operational brief.</h2>
+        <p class="text-white/60 text-[15px] leading-[1.7] mt-6 max-w-[520px]">Private and state operators may request a confidential review of our active capture roster, pricing schedule, and availability window. All briefs are returned within 72 hours under executed NDA.</p>
+        <div class="mt-8 flex flex-col gap-3 max-w-[440px]">
+          <div class="flex items-center gap-3"><span class="mono text-[10px] tracking-[.2em] text-white/35 w-[70px]">Ops</span><span class="text-white/80">ops@orbit.x</span></div>
+          <div class="flex items-center gap-3"><span class="mono text-[10px] tracking-[.2em] text-white/35 w-[70px]">Ground</span><span class="text-white/80">Kiruna Control · Sweden</span></div>
+          <div class="flex items-center gap-3"><span class="mono text-[10px] tracking-[.2em] text-white/35 w-[70px]">Signal</span><span class="text-white/80">Secure line +46 980 400 400</span></div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <form class="spec-card" style="background:rgba(5,8,17,0.65)" onsubmit="event.preventDefault();alert('Brief submitted. Response within 72h.')">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2">
+              <div class="mono text-[10px] tracking-[.22em] text-white/40 uppercase mb-2">Organisation</div>
+              <input type="text" class="w-full bg-transparent border-b border-white/15 focus:border-cyan-300/70 text-white/90 py-2 outline-none" />
+            </div>
+            <div>
+              <div class="mono text-[10px] tracking-[.22em] text-white/40 uppercase mb-2">Contact</div>
+              <input type="text" class="w-full bg-transparent border-b border-white/15 focus:border-cyan-300/70 text-white/90 py-2 outline-none" />
+            </div>
+            <div>
+              <div class="mono text-[10px] tracking-[.22em] text-white/40 uppercase mb-2">Secure Email</div>
+              <input type="email" class="w-full bg-transparent border-b border-white/15 focus:border-cyan-300/70 text-white/90 py-2 outline-none" />
+            </div>
+            <div class="col-span-2">
+              <div class="mono text-[10px] tracking-[.22em] text-white/40 uppercase mb-2">Mission Scope</div>
+              <textarea rows="4" class="w-full bg-transparent border-b border-white/15 focus:border-cyan-300/70 text-white/90 py-2 outline-none resize-none"></textarea>
+            </div>
+            <div class="col-span-2 mt-4">
+              <button type="submit" class="glow-btn w-full justify-center">Submit Brief &nbsp;→</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="flex flex-col md:flex-row items-start justify-between gap-8">
+      <div>
+        <div class="font-display text-white text-[24px] tracking-[.14em]">ORBIT.X</div>
+        <div class="mono text-[11px] text-white/40 tracking-[.22em] uppercase mt-1">Space Sweeper Division · Est. 2041</div>
+        <p class="text-white/50 text-[13px] leading-[1.6] mt-6 max-w-[400px]">Autonomous orbital clearance. Private, bonded, operational. Registered in Kiruna, Sweden.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-10">
+        <div>
+          <div class="mono text-[10px] tracking-[.24em] text-white/40 uppercase mb-3">Ops</div>
+          <div class="flex flex-col gap-2 text-white/65 text-[13px]">
+            <a href="#fleet">Fleet Status</a><a href="#mission">Current Mission</a><a href="#">Capture Log</a>
+          </div>
+        </div>
+        <div>
+          <div class="mono text-[10px] tracking-[.24em] text-white/40 uppercase mb-3">Company</div>
+          <div class="flex flex-col gap-2 text-white/65 text-[13px]">
+            <a href="#contact">Contact</a><a href="#">Careers</a><a href="#">Press</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between mt-14 pt-6 border-t border-white/10">
+      <div class="mono text-[10px] text-white/30 tracking-[.2em] uppercase">© 2045 Orbit.X — Classified · Clearance tier Ω3</div>
+      <div class="flex items-center gap-2 mono text-[10px] text-white/30 tracking-[.2em] uppercase"><span class="pulse" style="background:#34d399;box-shadow:0 0 8px #34d399"></span>ALL SYSTEMS NOMINAL</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
