@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hellenica — The Living Archive of Greek Civilisation</title>
+<meta name="description" content="An international exhibition on Greek heritage and modern travel. Athens · Delphi · Olympia · Crete." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<style>
+:root{
+  --white:#F8F6F1;
+  --ice:#ECF1F6;
+  --gray:#D4DCE5;
+  --gray-2:#B8C2CE;
+  --blue-light:#6BA3D6;
+  --blue-mid:#2E7BC3;
+  --blue-deep:#0A2540;
+  --blue-deeper:#06182E;
+  --ink:#0A1624;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;scroll-behavior:smooth;overflow-x:hidden}
+html,body,*{scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;height:0;display:none}
+
+.cinzel{font-family:'Cinzel',serif;letter-spacing:.04em}
+.cormorant{font-family:'Cormorant Garamond',serif}
+.cormorant-it{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.42em;text-transform:uppercase;font-weight:500}
+.container-mx{max-width:1480px;margin:0 auto;padding:0 40px}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:15px 32px;border-radius:0;font-size:13px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;font-family:'Cinzel',serif;transition:.3s;cursor:pointer;border:1px solid transparent}
+.btn-deep{background:var(--blue-deep);color:var(--white)}
+.btn-deep:hover{background:var(--blue-deeper);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--blue-deep);border-color:var(--blue-deep)}
+.btn-outline:hover{background:var(--blue-deep);color:var(--white)}
+.btn-light{background:var(--white);color:var(--blue-deep)}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:22px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,246,241,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,37,64,0.08)}
+.nav-brand{display:flex;align-items:center;gap:14px;font-family:'Cinzel',serif;font-weight:600;font-size:17px;letter-spacing:.28em;color:var(--blue-deep)}
+.nav-brand-glyph{width:34px;height:34px;border:1px solid var(--blue-deep);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--blue-deep)}
+.nav-links{display:flex;gap:40px}
+.nav-links a{color:var(--blue-deep);text-decoration:none;font-family:'Cinzel',serif;font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;opacity:.72;transition:.2s}
+.nav-links a:hover{opacity:1;color:var(--blue-mid)}
+.nav-right{display:flex;align-items:center;gap:18px}
+.nav-right .loc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--blue-deep);opacity:.65}
+
+/* ---------- BACKGROUND GREEK TEXT MARQUEE ---------- */
+.greek-bg-marquee{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.06}
+.greek-bg-row{display:flex;white-space:nowrap;font-family:'Cinzel',serif;font-size:clamp(80px,10vw,180px);letter-spacing:.15em;text-transform:uppercase;line-height:1;color:var(--blue-deep);animation:greekSlide 80s linear infinite}
+.greek-bg-row-alt{animation-duration:95s;animation-direction:reverse;margin-top:30px}
+@keyframes greekSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 80px;overflow:hidden;z-index:1}
+.hero-inner{position:relative;z-index:3;max-width:1480px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+.hero-eye{color:var(--blue-mid);margin-bottom:36px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(72px,9vw,160px);line-height:.92;letter-spacing:-.02em;color:var(--blue-deep);margin:0}
+.hero-title em{font-style:italic;font-weight:300;color:var(--blue-mid)}
+.hero-sub{max-width:520px;margin-top:40px;font-size:17px;line-height:1.65;color:var(--ink);opacity:.75}
+.hero-ctas{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap}
+.hero-meta{margin-top:60px;display:flex;gap:48px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-deep);opacity:.6;flex-wrap:wrap}
+.hero-meta strong{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:22px;letter-spacing:0;text-transform:none;margin-top:6px;opacity:.85}
+
+.hero-3d{position:relative;height:620px;display:flex;align-items:center;justify-content:center}
+.hero-3d model-viewer{width:100%;height:100%;background:transparent;--progress-bar-color:transparent;--poster-color:transparent}
+.hero-3d-ring{position:absolute;top:50%;left:50%;width:480px;height:480px;margin:-240px 0 0 -240px;border:1px solid rgba(10,37,64,0.12);border-radius:50%;pointer-events:none}
+.hero-3d-ring.r2{width:560px;height:560px;margin:-280px 0 0 -280px;border-color:rgba(10,37,64,0.06)}
+
+/* ---------- HEROES TICKER (Greek names scrolling) ---------- */
+.heroes-ticker{position:relative;z-index:2;background:var(--blue-deep);color:var(--white);padding:26px 0;overflow:hidden;border-top:1px solid rgba(248,246,241,.1);border-bottom:1px solid rgba(248,246,241,.1)}
+.heroes-track{display:inline-flex;white-space:nowrap;animation:heroesSlide 55s linear infinite;gap:60px}
+.heroes-track span{display:inline-flex;align-items:center;gap:60px;font-family:'Cinzel',serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;opacity:.72}
+.heroes-track span::before{content:"◈";color:var(--blue-light);font-size:11px;margin-right:-40px}
+.heroes-track span:first-child::before{display:none}
+@keyframes heroesSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- CHAPTER SECTION (2-col, 3D left or right) ---------- */
+.chapter{position:relative;z-index:2;padding:180px 40px;overflow:hidden}
+.chapter-white{background:var(--white)}
+.chapter-ice{background:var(--ice)}
+.chapter-deep{background:var(--blue-deep);color:var(--white)}
+.chapter-inner{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative}
+.chapter-eye{color:var(--blue-mid);margin-bottom:24px}
+.chapter-deep .chapter-eye{color:var(--blue-light)}
+.chapter-num{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.4em;color:var(--blue-mid);opacity:.6;margin-bottom:18px}
+.chapter-deep .chapter-num{color:var(--gray)}
+.chapter-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(48px,6vw,92px);line-height:.98;letter-spacing:-.015em;color:var(--blue-deep);margin:0}
+.chapter-deep .chapter-title{color:var(--white)}
+.chapter-title em{font-style:italic;color:var(--blue-mid)}
+.chapter-deep .chapter-title em{color:var(--blue-light)}
+.chapter-text{margin-top:32px;font-size:16px;line-height:1.75;max-width:480px;opacity:.78}
+.chapter-deep .chapter-text{opacity:.75}
+.chapter-quote{margin-top:40px;padding-left:22px;border-left:2px solid var(--blue-mid);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--blue-deep);max-width:460px}
+.chapter-deep .chapter-quote{border-color:var(--blue-light);color:var(--white)}
+.chapter-stats{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap}
+.chapter-stat{display:flex;flex-direction:column;gap:4px}
+.chapter-stat .n{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:44px;color:var(--blue-deep);line-height:1}
+.chapter-deep .chapter-stat .n{color:var(--white)}
+.chapter-stat .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.6}
+
+.chapter-3d{position:relative;aspect-ratio:1/1;min-height:560px;display:flex;align-items:center;justify-content:center}
+.chapter-3d model-viewer{width:100%;height:100%;background:transparent;--progress-bar-color:transparent;--poster-color:transparent}
+.chapter-3d-ring{position:absolute;top:50%;left:50%;width:80%;height:80%;margin:-40% 0 0 -40%;border:1px solid rgba(10,37,64,0.12);border-radius:50%;pointer-events:none}
+.chapter-deep .chapter-3d-ring{border-color:rgba(248,246,241,0.15)}
+.chapter-3d-label{position:absolute;bottom:0;left:0;right:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:15px;color:var(--blue-deep);opacity:.6}
+.chapter-deep .chapter-3d-label{color:var(--white);opacity:.55}
+.chapter-3d-left .chapter-3d{order:-1}
+
+/* ---------- ORNAMENT LINE (Greek meander) ---------- */
+.ornament{display:flex;justify-content:center;align-items:center;gap:22px;padding:30px 0;color:var(--blue-deep);opacity:.45;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase}
+.ornament-line{flex:1;max-width:260px;height:1px;background:currentColor}
+.ornament-glyph{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;letter-spacing:0}
+
+/* ---------- GREEK TEXT BAND (Greek letters scrolling in foreground) ---------- */
+.greek-band{position:relative;z-index:2;background:var(--ice);padding:60px 0;overflow:hidden;border-top:1px solid rgba(10,37,64,.06);border-bottom:1px solid rgba(10,37,64,.06)}
+.greek-band-track{display:inline-flex;white-space:nowrap;animation:greekBand 60s linear infinite;gap:50px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(36px,5vw,72px);color:var(--blue-deep);letter-spacing:-.01em}
+.greek-band-track span{display:inline-flex;gap:50px;align-items:center}
+.greek-band-track span::before{content:"·";margin-right:-30px;color:var(--blue-mid);font-size:60px}
+.greek-band-track span:first-child::before{display:none}
+@keyframes greekBand{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- MODERN TOURISM (grid of 3) ---------- */
+.tourism{position:relative;z-index:2;padding:180px 40px;background:var(--white)}
+.tourism-hdr{text-align:center;max-width:960px;margin:0 auto 80px}
+.tourism-grid{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.tour-card{background:var(--ice);overflow:hidden;transition:transform .5s ease}
+.tour-card:hover{transform:translateY(-6px)}
+.tour-img{aspect-ratio:4/5;background-size:cover;background-position:center;transition:transform 1s ease}
+.tour-card:hover .tour-img{transform:scale(1.05)}
+.tour-body{padding:32px 28px}
+.tour-loc{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:12px}
+.tour-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:28px;color:var(--blue-deep);margin-bottom:14px;line-height:1.1}
+.tour-desc{font-size:14px;line-height:1.65;color:var(--ink);opacity:.7}
+
+/* ---------- VISIT / CTA ---------- */
+.visit{position:relative;z-index:2;padding:200px 40px;background:var(--blue-deep);color:var(--white);text-align:center;overflow:hidden}
+.visit-bg{position:absolute;inset:0;opacity:.07;font-family:'Cinzel',serif;font-size:clamp(100px,18vw,320px);color:var(--white);line-height:.85;pointer-events:none;display:flex;align-items:center;justify-content:center;letter-spacing:.1em}
+.visit-inner{position:relative;max-width:920px;margin:0 auto}
+.visit-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(56px,7vw,120px);line-height:.95;letter-spacing:-.01em;margin:0 0 32px}
+.visit-title em{font-style:italic;color:var(--blue-light)}
+.visit-sub{max-width:540px;margin:0 auto 42px;font-size:16px;line-height:1.65;opacity:.72}
+.visit-dates{display:flex;justify-content:center;gap:60px;margin-top:60px;flex-wrap:wrap}
+.visit-date{display:flex;flex-direction:column;gap:6px}
+.visit-date .d{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:36px;color:var(--white)}
+.visit-date .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:.55}
+
+/* ---------- FOOTER ---------- */
+.footer{position:relative;z-index:2;background:var(--blue-deeper);color:var(--white);padding:80px 40px 32px}
+.footer-grid{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px}
+.footer h4{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;opacity:.55;margin-bottom:20px;font-weight:500}
+.footer a{display:block;color:var(--white);opacity:.72;font-size:14px;text-decoration:none;margin-bottom:10px;transition:.2s}
+.footer a:hover{color:var(--blue-light);opacity:1}
+.footer-brand{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.28em;margin-bottom:14px;font-weight:600}
+.footer p{max-width:340px;opacity:.55;font-size:13px;line-height:1.65}
+.footer-bottom{max-width:1480px;margin:60px auto 0;padding-top:28px;border-top:1px solid rgba(248,246,241,0.12);display:flex;justify-content:space-between;align-items:center;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.45}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:960px){
+  .nav{padding:16px 20px}
+  .nav-links{display:none}
+  .hero{padding:120px 20px 60px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-3d{height:420px;order:2}
+  .hero-3d-ring.r1{width:320px;height:320px;margin:-160px 0 0 -160px}
+  .hero-3d-ring.r2{width:380px;height:380px;margin:-190px 0 0 -190px}
+  .chapter{padding:120px 20px}
+  .chapter-inner{grid-template-columns:1fr;gap:50px}
+  .chapter-3d{min-height:380px}
+  .chapter-3d-left .chapter-3d{order:0}
+  .tourism{padding:120px 20px}
+  .tourism-grid{grid-template-columns:1fr;gap:24px}
+  .visit{padding:140px 20px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  .hero-title{font-size:clamp(52px,12vw,80px)}
+}
+</style>
+</head>
+<body>
+
+<!-- SITE-WIDE GREEK BACKGROUND MARQUEE -->
+<div class="greek-bg-marquee" aria-hidden="true">
+  <div class="greek-bg-row">ΕΛΛΑΔΑ · ΑΘΗΝΑ · ΔΕΛΦΟΙ · ΟΛΥΜΠΙΑ · ΜΥΚΗΝΕΣ · ΚΡΗΤΗ · ΕΛΛΑΔΑ · ΑΘΗΝΑ · ΔΕΛΦΟΙ · ΟΛΥΜΠΙΑ · ΜΥΚΗΝΕΣ · ΚΡΗΤΗ · ΕΛΛΑΔΑ · ΑΘΗΝΑ · ΔΕΛΦΟΙ · ΟΛΥΜΠΙΑ · ΜΥΚΗΝΕΣ · ΚΡΗΤΗ ·&nbsp;</div>
+  <div class="greek-bg-row greek-bg-row-alt">ΣΠΑΡΤΗ · ΚΟΡΙΝΘΟΣ · ΘΗΒΑ · ΜΙΛΗΤΟΣ · ΤΡΟΙΑ · ΑΡΓΟΣ · ΣΠΑΡΤΗ · ΚΟΡΙΝΘΟΣ · ΘΗΒΑ · ΜΙΛΗΤΟΣ · ΤΡΟΙΑ · ΑΡΓΟΣ · ΣΠΑΡΤΗ · ΚΟΡΙΝΘΟΣ · ΘΗΒΑ · ΜΙΛΗΤΟΣ · ΤΡΟΙΑ · ΑΡΓΟΣ ·&nbsp;</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-brand-glyph">H</div>
+    <span>HELLENICA</span>
+  </div>
+  <div class="nav-links">
+    <a href="#exhibition">Exhibition</a>
+    <a href="#collection">Collection</a>
+    <a href="#travel">Travel</a>
+    <a href="#visit">Visit</a>
+    <a href="#journal">Journal</a>
+  </div>
+  <div class="nav-right">
+    <span class="loc">Athens &mdash; Paris &mdash; London</span>
+    <button class="btn btn-deep" style="padding:10px 20px;font-size:10px">Book Tickets</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow hero-eye">International Exhibition &mdash; 2026 / 2027</div>
+      <h1 class="hero-title">A living <em>archive</em>,<br/>of Greek civilisation.</h1>
+      <p class="hero-sub">Three thousand years of thought, craft, and myth &mdash; drawn from the quiet marble of museums and brought into the open. Hellenica is a travelling exhibition, an invitation, and a modern gateway to Greece as it is lived today.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-deep">Reserve your visit</button>
+        <button class="btn btn-outline">Explore the collection</button>
+      </div>
+      <div class="hero-meta">
+        <div><span>Open from</span><strong>March 14 &mdash; October 28</strong></div>
+        <div><span>Host cities</span><strong>Athens, Paris, London</strong></div>
+        <div><span>Pieces exhibited</span><strong>312 artefacts</strong></div>
+      </div>
+    </div>
+
+    <div class="hero-3d">
+      <div class="hero-3d-ring r2"></div>
+      <div class="hero-3d-ring r1"></div>
+      <model-viewer src="assets/models/greek/venus.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="12deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 85deg 3m" shadow-intensity="0.6" exposure="1.1"></model-viewer>
+    </div>
+  </div>
+</section>
+
+<!-- HEROES TICKER -->
+<div class="heroes-ticker">
+  <div class="heroes-track">
+    <span>LEONIDAS</span><span>HERACLES</span><span>ACHILLES</span><span>ODYSSEUS</span><span>PERICLES</span><span>AGAMEMNON</span><span>THEMISTOCLES</span><span>ALEXANDER</span><span>SOCRATES</span><span>HOMER</span><span>AJAX</span><span>HECTOR</span><span>PYTHAGORAS</span><span>PLATO</span><span>ARISTOTLE</span>
+    <span>LEONIDAS</span><span>HERACLES</span><span>ACHILLES</span><span>ODYSSEUS</span><span>PERICLES</span><span>AGAMEMNON</span><span>THEMISTOCLES</span><span>ALEXANDER</span><span>SOCRATES</span><span>HOMER</span><span>AJAX</span><span>HECTOR</span><span>PYTHAGORAS</span><span>PLATO</span><span>ARISTOTLE</span>
+  </div>
+</div>
+
+<!-- CHAPTER I · THE COIN (tetradrachme) -->
+<section class="chapter chapter-white" id="exhibition">
+  <div class="chapter-inner">
+    <div>
+      <div class="chapter-num">&mdash; Chapter I</div>
+      <div class="eyebrow chapter-eye">The Currency of Power</div>
+      <h2 class="chapter-title">Silver that <em>spoke</em><br/>louder than words.</h2>
+      <p class="chapter-text">Before the printed page, before the portrait in oil, there was the coin. A tetradrachme passed from Athens to the edge of the Black Sea was a quiet piece of propaganda &mdash; a king's face, a protective owl, a small proof that a civilisation had thought enough of itself to mint its memory.</p>
+      <div class="chapter-quote">&ldquo;The coin is the first portable archive. It holds the face of a ruler and the economy of a world.&rdquo;</div>
+      <div class="chapter-stats">
+        <div class="chapter-stat"><span class="n">430 BC</span><span class="l">Era</span></div>
+        <div class="chapter-stat"><span class="n">17.2 g</span><span class="l">Silver</span></div>
+        <div class="chapter-stat"><span class="n">Athens</span><span class="l">Origin</span></div>
+      </div>
+    </div>
+    <div class="chapter-3d">
+      <div class="chapter-3d-ring"></div>
+      <model-viewer src="assets/models/greek/tetradrachme.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="28deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 75deg 1.2m" shadow-intensity="0.5" exposure="1.2"></model-viewer>
+      <div class="chapter-3d-label">Tetradrachme of Antigone II Doson &mdash; Macedonia</div>
+    </div>
+  </div>
+</section>
+
+<!-- GREEK BAND -->
+<div class="greek-band" aria-hidden="true">
+  <div class="greek-band-track">
+    <span>τέχνη</span><span>σοφία</span><span>ὕβρις</span><span>κάλλος</span><span>ἀρετή</span><span>μοῖρα</span><span>λόγος</span><span>φιλία</span><span>ἔρως</span><span>θάλασσα</span>
+    <span>τέχνη</span><span>σοφία</span><span>ὕβρις</span><span>κάλλος</span><span>ἀρετή</span><span>μοῖρα</span><span>λόγος</span><span>φιλία</span><span>ἔρως</span><span>θάλασσα</span>
+  </div>
+</div>
+
+<!-- CHAPTER II · THE VASE -->
+<section class="chapter chapter-ice">
+  <div class="chapter-inner chapter-3d-left">
+    <div>
+      <div class="chapter-num">&mdash; Chapter II</div>
+      <div class="eyebrow chapter-eye">The Body of the Story</div>
+      <h2 class="chapter-title">A vase is a<br/><em>narrative</em> in clay.</h2>
+      <p class="chapter-text">Black figures on terracotta, glazed two millennia ago, still carry the breath of the hands that shaped them. The Greek vase is not only an object &mdash; it is a theatre, a catalogue of gestures, a quiet insistence that beauty has always been a civic duty.</p>
+      <div class="chapter-quote">&ldquo;The potters of Attica wrote their history with brushes, not pens.&rdquo;</div>
+    </div>
+    <div class="chapter-3d">
+      <div class="chapter-3d-ring"></div>
+      <model-viewer src="assets/models/greek/vase.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="18deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 80deg auto" shadow-intensity="0.6" exposure="1.1"></model-viewer>
+      <div class="chapter-3d-label">Attic black-figure amphora &mdash; 6th century BC</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament"><span class="ornament-line"></span><span class="ornament-glyph">&mdash; ὁ λόγος &mdash;</span><span class="ornament-line"></span></div>
+
+<!-- CHAPTER III · THE ALTAR -->
+<section class="chapter chapter-white">
+  <div class="chapter-inner">
+    <div>
+      <div class="chapter-num">&mdash; Chapter III</div>
+      <div class="eyebrow chapter-eye">A place for the gods</div>
+      <h2 class="chapter-title">Stone <em>remembers</em><br/>what people forget.</h2>
+      <p class="chapter-text">This altar once stood in the open air of a Roman provincial town, and before that in the imagination of a Greek-speaking family who had carried their gods across the sea. Carved with garlands and inscriptions, it is less a monument than a conversation &mdash; an attempt to keep the invisible close.</p>
+      <div class="chapter-stats">
+        <div class="chapter-stat"><span class="n">1st c. AD</span><span class="l">Carved</span></div>
+        <div class="chapter-stat"><span class="n">Marble</span><span class="l">Material</span></div>
+        <div class="chapter-stat"><span class="n">Saint-Raymond</span><span class="l">Museum</span></div>
+      </div>
+    </div>
+    <div class="chapter-3d">
+      <div class="chapter-3d-ring"></div>
+      <model-viewer src="assets/models/greek/autel.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="15deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 80deg auto" shadow-intensity="0.65" exposure="1.05"></model-viewer>
+      <div class="chapter-3d-label">Antique altar &mdash; Musée Saint-Raymond, Toulouse</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER IV · THE LYRE PLAYER (deep blue section) -->
+<section class="chapter chapter-deep" id="collection">
+  <div class="chapter-inner chapter-3d-left">
+    <div>
+      <div class="chapter-num">&mdash; Chapter IV</div>
+      <div class="eyebrow chapter-eye">The music before music</div>
+      <h2 class="chapter-title">A song <em>held</em><br/>in marble, forever.</h2>
+      <p class="chapter-text">The lyre player was found in a tomb on the Cycladic island of Keros &mdash; a small marble figure, no taller than a forearm, sitting patient as if the music had not yet ended. He is among the earliest depictions of music-making in European art, and the oldest silence in the collection.</p>
+      <div class="chapter-quote">&ldquo;He has been listening for five thousand years.&rdquo;</div>
+    </div>
+    <div class="chapter-3d">
+      <div class="chapter-3d-ring"></div>
+      <model-viewer src="assets/models/greek/joueur-lyre.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="lazy" camera-orbit="0deg 82deg auto" shadow-intensity="0.5" exposure="1.2"></model-viewer>
+      <div class="chapter-3d-label">Cycladic marble figurine &mdash; c. 2500 BC</div>
+    </div>
+  </div>
+</section>
+
+<!-- GREEK BAND -->
+<div class="greek-band" aria-hidden="true">
+  <div class="greek-band-track">
+    <span>Λεωνίδας</span><span>Ἡρακλῆς</span><span>Ἀχιλλεύς</span><span>Ὀδυσσεύς</span><span>Περικλῆς</span><span>Ἀλέξανδρος</span><span>Σωκράτης</span><span>Ὅμηρος</span><span>Πυθαγόρας</span><span>Πλάτων</span>
+    <span>Λεωνίδας</span><span>Ἡρακλῆς</span><span>Ἀχιλλεύς</span><span>Ὀδυσσεύς</span><span>Περικλῆς</span><span>Ἀλέξανδρος</span><span>Σωκράτης</span><span>Ὅμηρος</span><span>Πυθαγόρας</span><span>Πλάτων</span>
+  </div>
+</div>
+
+<!-- MODERN TOURISM -->
+<section class="tourism" id="travel">
+  <div class="tourism-hdr">
+    <div class="eyebrow" style="color:var(--blue-mid);margin-bottom:22px">Travel &mdash; Modern Hellas</div>
+    <h2 class="chapter-title">The same light,<br/><em>twenty-five centuries later.</em></h2>
+    <p class="chapter-text" style="margin:32px auto 0;max-width:640px;text-align:center">Hellenica is a bridge &mdash; not a retrospective. Three curated itineraries across modern Greece, following the thread of our exhibition from the marble it began in to the sea it still overlooks.</p>
+  </div>
+  <div class="tourism-grid">
+    <div class="tour-card">
+      <div class="tour-img" style="background-image:url('https://images.unsplash.com/photo-1555993539-1732b0258235?w=1200')"></div>
+      <div class="tour-body">
+        <div class="tour-loc">Athens &middot; Attica</div>
+        <h3 class="tour-name">The Acropolis after hours.</h3>
+        <p class="tour-desc">Private evening access to the Parthenon, the new Acropolis Museum, and the quiet neighbourhoods of Anafiotika. Six nights, curated by classicists.</p>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-img" style="background-image:url('https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=1200')"></div>
+      <div class="tour-body">
+        <div class="tour-loc">Delphi &middot; Mount Parnassus</div>
+        <h3 class="tour-name">The oracle, walked.</h3>
+        <p class="tour-desc">A three-day walk from Delphi through the olive groves of Itea, with overnight stays in restored stone villages and guided readings of Pindar on the terraces.</p>
+      </div>
+    </div>
+    <div class="tour-card">
+      <div class="tour-img" style="background-image:url('https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?w=1200')"></div>
+      <div class="tour-body">
+        <div class="tour-loc">Crete &middot; Heraklion</div>
+        <h3 class="tour-name">Knossos &amp; the blue.</h3>
+        <p class="tour-desc">Four days between the frescoes of Knossos and the coves of southern Crete. Private guides, open-air kitchens, and afternoons at sea.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament"><span class="ornament-line"></span><span class="ornament-glyph">&mdash; ἡ θάλασσα &mdash;</span><span class="ornament-line"></span></div>
+
+<!-- VISIT / CTA -->
+<section class="visit" id="visit">
+  <div class="visit-bg">HELLENICA</div>
+  <div class="visit-inner">
+    <div class="eyebrow" style="color:var(--blue-light);margin-bottom:26px">Open &mdash; March 14, 2026</div>
+    <h2 class="visit-title">The exhibition<br/>is <em>waiting</em>.</h2>
+    <p class="visit-sub">A timed-entry experience for small groups, at three venues across Europe. Members receive private previews, a guided audio journal, and access to the companion travel programme.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-light">Reserve your visit</button>
+      <button class="btn" style="background:transparent;color:var(--white);border:1px solid rgba(248,246,241,0.5)">Become a member</button>
+    </div>
+    <div class="visit-dates">
+      <div class="visit-date"><span class="d">Athens</span><span class="l">March 14 &mdash; May 30</span></div>
+      <div class="visit-date"><span class="d">Paris</span><span class="l">June 12 &mdash; August 24</span></div>
+      <div class="visit-date"><span class="d">London</span><span class="l">September 6 &mdash; October 28</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">HELLENICA</div>
+      <p>An international travelling exhibition on Greek civilisation, curated in partnership with the Musée Saint-Raymond, the British Museum, and the National Archaeological Museum of Athens.</p>
+    </div>
+    <div>
+      <h4>Exhibition</h4>
+      <a>The collection</a><a>Programme</a><a>Audio guide</a><a>Curators</a>
+    </div>
+    <div>
+      <h4>Travel</h4>
+      <a>Athens itinerary</a><a>Delphi walk</a><a>Crete retreat</a><a>Private advisory</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a>hello@hellenica.exhibition</a><a>+30 210 000 0000</a><a>Syntagma Square, Athens</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Hellenica &mdash; All rights reserved</span>
+    <span>Legal &middot; Privacy &middot; Press</span>
+  </div>
+</footer>
+
+</body>
+</html>
