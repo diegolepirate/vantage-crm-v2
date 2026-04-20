@@ -5,7 +5,7 @@
 <title>Vantage BG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Neuton:wght@400&family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Neuton:wght@400&family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden}
@@ -14,54 +14,79 @@ body{
   background:#1B8147;
   color:rgba(255,255,255,.25);
   text-align:center;
+  min-height:100vh;
+  display:flex;justify-content:center;align-items:center;
 }
-.wrap{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
+
+/* rotating image ring */
+.wrapper{position:relative;transform-style:preserve-3d;width:100%;display:flex;align-items:center;justify-content:center}
+.ring{
+  --width:160px;
+  --img-translate-x:140%;
+  --total:8;
+  position:absolute;inset:0;margin:auto;
+  width:var(--width);aspect-ratio:16/9;
+  transform-style:preserve-3d;perspective:1400px;
+  transform:rotateX(-18deg) rotateZ(24deg) rotateY(var(--spin));
+  animation:spin 45s linear both infinite;
+  --slide-deg:calc(360deg / var(--total));
+  pointer-events:none;
+}
+.ring img{
+  position:absolute;width:100%;height:100%;
+  object-fit:cover;border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  transform:rotateY(calc(var(--i) * var(--slide-deg))) translateX(var(--img-translate-x)) rotateY(90deg);
+}
+@property --spin{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes spin{to{--spin:360deg}}
+
+/* animated text-fill VANTAGE, full width */
+.bar{
+  position:relative;
   text-transform:uppercase;
   letter-spacing:.5em;
   display:inline-block;
-  border:4px double rgba(255,255,255,.25);
+  border:4px double rgba(255,255,255,.35);
   border-width:4px 0;
-  padding:1.5em 0;
-  width:40em;
-  max-width:92vw;
+  padding:1em 0;
+  width:96vw;
+  text-align:center;
+  z-index:2;
 }
-.wrap span{
-  font:700 4em/1 "Oswald",sans-serif;
-  letter-spacing:0;
-  padding:.25em 0 .325em;
+.bar span{
+  font:700 clamp(4rem,18vw,22rem)/1 "Oswald",sans-serif;
+  letter-spacing:.04em;
+  padding:.1em 0 .18em;
   display:block;
   margin:0 auto;
-  text-shadow:0 0 80px rgba(255,255,255,.5);
+  text-shadow:0 0 80px rgba(255,255,255,.45);
   background:url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
   -webkit-animation:aitf 80s linear infinite;
   animation:aitf 80s linear infinite;
-  -webkit-transform:translate3d(0,0,0);
-  transform:translate3d(0,0,0);
-  -webkit-backface-visibility:hidden;
-  backface-visibility:hidden;
+  -webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  white-space:nowrap;
 }
-@-webkit-keyframes aitf{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
-}
-@keyframes aitf{
-  0%{background-position:0% 50%}
-  100%{background-position:100% 50%}
-}
+@-webkit-keyframes aitf{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+@keyframes aitf{0%{background-position:0% 50%}100%{background-position:100% 50%}}
 </style>
 </head>
 <body>
-<p class="wrap">
-  Spice up your type with CSS
-  <span>VANTAGE</span>
-  &mdash; no JavaScript required &mdash;
-</p>
+<div class="wrapper">
+  <div class="ring" style="--total:8">
+    <img style="--i:0" src="https://images.unsplash.com/photo-1557683316-973673baf926?w=400&q=70" alt="">
+    <img style="--i:1" src="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=400&q=70" alt="">
+    <img style="--i:2" src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=400&q=70" alt="">
+    <img style="--i:3" src="https://images.unsplash.com/photo-1554034483-04fda0d3507b?w=400&q=70" alt="">
+    <img style="--i:4" src="https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=400&q=70" alt="">
+    <img style="--i:5" src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=400&q=70" alt="">
+    <img style="--i:6" src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&q=70" alt="">
+    <img style="--i:7" src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=400&q=70" alt="">
+  </div>
+  <p class="bar"><span>VANTAGE</span></p>
+</div>
 </body>
 </html>
