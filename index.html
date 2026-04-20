@@ -672,16 +672,16 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 @keyframes bookFadeIn{from{opacity:0}to{opacity:1}}
 .book-title{font-family:'Tanker',sans-serif;font-size:3rem;color:#fff;letter-spacing:6px;text-shadow:0 0 30px rgba(129,93,137,.5);margin-bottom:2rem}
 
-.book-buttons{display:flex;gap:12px;position:absolute;top:55px;left:50%;transform:translateX(-50%);z-index:10}
-.book-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:.6em 2em;overflow:hidden;letter-spacing:1.5px;color:#fff;background:#1f2937;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;transition:all .3s}
-.book-btn .btn-bg{position:absolute;width:0;height:0;transition:all .5s ease-out;background:#D4AF37;border-radius:50%}
-.book-btn:hover .btn-bg{width:220px;height:220px}
-.book-btn .btn-wave-l{position:absolute;bottom:0;left:0;height:100%;margin-left:-8px}
-.book-btn .btn-wave-l svg{width:auto;height:100%;opacity:1}
-.book-btn .btn-wave-r{position:absolute;top:0;right:0;width:48px;height:100%;margin-right:-12px}
-.book-btn .btn-wave-r svg{width:100%;height:100%;object-fit:cover}
-.book-btn .btn-grad{position:absolute;inset:0;border-radius:8px;opacity:.3;background:linear-gradient(to bottom,transparent,transparent,rgba(255,255,255,.15));margin-top:-1px}
+/* Polished-metal platform that hosts Universe/Compare + optional filter buttons */
+.book-buttons{display:inline-flex;align-items:center;gap:4px;position:absolute;top:40px;left:50%;transform:translateX(-50%);z-index:10;padding:6px;border-radius:999px;background:linear-gradient(180deg,#3a3f46 0%,#1f2328 46%,#2a2f35 54%,#4a4f56 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.55),0 22px 60px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.08)}
+.book-buttons::before{content:"";position:absolute;inset:1px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.12),transparent 40%,transparent 60%,rgba(255,255,255,.05));pointer-events:none;mix-blend-mode:overlay}
+.book-buttons::after{content:"";position:absolute;left:8%;right:8%;top:2px;height:36%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0));pointer-events:none;filter:blur(.3px)}
+.book-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:.55em 1.6em;overflow:hidden;letter-spacing:1.4px;color:rgba(255,255,255,.82);background:transparent;border-radius:999px;border:none;cursor:pointer;font-size:12px;font-weight:700;font-family:'Inter',sans-serif;transition:color .25s,background .25s,box-shadow .25s;text-transform:uppercase}
+.book-btn:hover{color:#fff;background:rgba(255,255,255,.06)}
+.book-btn.active,.book-btn[data-active="true"]{color:#0d0d12;background:linear-gradient(180deg,#f4f4f4 0%,#cfcfcf 55%,#e8e8e8 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.35)}
+.book-btn .btn-bg,.book-btn .btn-wave-l,.book-btn .btn-wave-r,.book-btn .btn-grad{display:none}
 .book-btn .btn-text{position:relative;z-index:1}
+.book-btn-divider{width:1px;height:22px;margin:0 4px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.18) 35%,rgba(0,0,0,.5) 65%,transparent);flex-shrink:0}
 
 .custom-ui-switch,.custom-ui-switch *,.custom-ui-switch *:before,.custom-ui-switch *:after{box-sizing:border-box;transition:all .5s ease}
 .custom-ui-switch{position:relative;width:27vmin;height:9vmin;display:inline-flex;align-items:center;justify-content:center;font-family:Arial,Helvetica,sans-serif;cursor:pointer;margin-top:5.4vmin;-webkit-user-select:none;-moz-user-select:none;user-select:none}
@@ -797,7 +797,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
 .uni-fav-btn.active{opacity:1}
 .uni-graph{flex:1;position:relative;background:#0a0a0f;background-image:radial-gradient(circle at 1px 1px,rgba(212,175,55,.06) 1px,transparent 0);background-size:30px 30px}
 #cyContainer{width:100%;height:100%}
-.uni-legend{position:absolute;bottom:12px;left:12px;display:flex;gap:12px;font-size:11px;color:rgba(255,255,255,.4)}
+.uni-legend{display:none}
 .uni-legend-dot{width:8px;height:8px;border-radius:50%;margin-right:4px;display:inline-block;vertical-align:middle}
 .uni-rpanel{width:280px;flex-shrink:0;border-left:1px solid rgba(255,255,255,.05);background:rgba(13,13,18,.8);backdrop-filter:blur(12px);overflow-y:auto;padding:0;display:flex;flex-direction:column}
 .uni-rpanel::-webkit-scrollbar{display:none}
@@ -879,7 +879,6 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
   });
 })();
 </script>
-<div id="demo-banner" style="background:linear-gradient(90deg,rgba(232,121,249,0.15),rgba(103,232,249,0.15));border-bottom:1px solid rgba(232,121,249,0.2);padding:8px 20px;text-align:center;font-size:11px;font-family:monospace;color:rgba(232,121,249,0.8);letter-spacing:1px;position:relative;z-index:9999">🎮 VERSION DÉMO — Données fictives — Vantage CRM Portfolio</div>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
@@ -3168,14 +3167,35 @@ function showUniverseTemplates(){
 }
 
 function buildUniverseHTML(){
-  var lpActive=uniTypeFilter==='landing';
-  var tdActive=uniTypeFilter==='tool';
-  var filterBtns=''
-    +'<div id="uniTypeFilter" style="position:fixed;top:110px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;gap:10px;pointer-events:auto">'
-    +  '<button class="uni-type-btn'+(lpActive?' active':'')+'" onclick="setUniTypeFilter(\'landing\')">Landing Pages</button>'
-    +  '<button class="uni-type-btn'+(tdActive?' active':'')+'" onclick="setUniTypeFilter(\'tool\')">Tools &amp; Dashboards</button>'
-    +'</div>';
-  return filterBtns+'<div class="uni-body">'
+  // Inject the Landing / Tools buttons INTO the main .book-buttons platform
+  // so all 4 toggles live on the same polished-metal bar.
+  try{
+    var bb=document.querySelector('.book-buttons');
+    if(bb){
+      // Mark Universe as active, Compare inactive
+      bb.querySelectorAll('.book-btn').forEach(function(b){
+        var txt=(b.textContent||'').trim().toUpperCase();
+        b.classList.toggle('active',txt==='UNIVERSE');
+      });
+      // Remove any previous filter buttons + divider
+      bb.querySelectorAll('.book-filter-btn,.book-btn-divider').forEach(function(n){n.remove()});
+      var lpActive=uniTypeFilter==='landing';
+      var tdActive=uniTypeFilter==='tool';
+      var div=document.createElement('span');div.className='book-btn-divider';
+      bb.appendChild(div);
+      var b1=document.createElement('button');
+      b1.className='book-btn book-filter-btn'+(lpActive?' active':'');
+      b1.innerHTML='<span class="btn-text">Landing</span>';
+      b1.onclick=function(){setUniTypeFilter('landing')};
+      bb.appendChild(b1);
+      var b2=document.createElement('button');
+      b2.className='book-btn book-filter-btn'+(tdActive?' active':'');
+      b2.innerHTML='<span class="btn-text">Tools</span>';
+      b2.onclick=function(){setUniTypeFilter('tool')};
+      bb.appendChild(b2);
+    }
+  }catch(e){}
+  return '<div class="uni-body">'
     +'<div class="uni-sidebar" id="uniSidebar">'+buildUniSidebar()+'</div>'
     +'<div class="uni-graph"><div id="cyContainer"></div>'
     +'<div class="uni-legend">'+getActiveCategories().map(function(c){return '<span><span class="uni-legend-dot" style="background:'+UNI_CAT_COLORS[c]+'"></span>'+c+'</span>'}).join('')+'</div>'
@@ -30537,6 +30557,17 @@ function showCompareView(){
   closeFantasyMap();
   if(uniCy){uniCy.destroy();uniCy=null}
   var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
+  // Remove Universe-only filter buttons from the platform; set Compare active
+  try{
+    var bb=document.querySelector('.book-buttons');
+    if(bb){
+      bb.querySelectorAll('.book-filter-btn,.book-btn-divider').forEach(function(n){n.remove()});
+      bb.querySelectorAll('.book-btn').forEach(function(b){
+        var txt=(b.textContent||'').trim().toUpperCase();
+        b.classList.toggle('active',txt==='COMPARE');
+      });
+    }
+  }catch(e){}
   var ex=document.getElementById('compareApp');if(ex)ex.remove();
   var bp=document.getElementById('bookPage');if(!bp)return;
   var div=document.createElement('div');div.id='compareApp';
