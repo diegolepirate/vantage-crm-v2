@@ -26,8 +26,8 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;s
 .font-mono{font-family:'JetBrains Mono',monospace}
 .mono{font-family:'JetBrains Mono',monospace;letter-spacing:.08em}
 /* --- Hero video --- */
-.hero{position:relative;min-height:100vh;width:100%;overflow:hidden;background:#000}
-.hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%) scale(1.35);object-fit:cover;z-index:0;filter:brightness(0.75) saturate(1.15)}
+.hero{position:relative;min-height:100vh;height:100vh;width:100%;overflow:hidden;background:#000;margin:0}
+.hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%) scale(1.75);object-fit:cover;z-index:0;filter:brightness(0.85) saturate(1.2)}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:
   radial-gradient(80% 100% at 50% 40%, rgba(0,0,0,0) 0%, rgba(5,8,17,0.4) 100%),
   linear-gradient(180deg, rgba(5,8,17,0.35) 0%, rgba(5,8,17,0.1) 40%, rgba(5,8,17,0.88) 100%)
@@ -130,7 +130,7 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
 
   <!-- 3D Sketchfab model overlay -->
   <div class="hero-3d">
-    <iframe title="Space Sweeper RGM79" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_stop=0&ui_annotations=0&transparent=1&preload=1&camera=0&autospin=0.2"></iframe>
+    <iframe title="RGM-79" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.2&dnt=1"></iframe>
   </div>
 
   <!-- UI overlay (HUD) -->
