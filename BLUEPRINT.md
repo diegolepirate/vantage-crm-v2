@@ -280,3 +280,34 @@ Production-grade management suite for Vantage Web Agency (Athens). Single HTML f
 Apple iOS/macOS. Light #F2F2F7/#FFF, dark #000/#1C1C1E. Accent #AF52DE purple, secondary #8B3DC7. 5 lava blobs (blur 70px, opacity .06/.12, z:0, mobile-off). System font, tabular-nums.
 
 ### Deployed: https://vantagebookweb.netlify.app/vantage-agency-kit.html
+
+---
+
+## PERFORMANCE PASS — Book (index.html)
+
+**Date:** 2026-04-20
+
+### Applied optimizations
+1. **Preconnect/DNS-prefetch** added to Google Fonts, gstatic, cdnjs, jsdelivr, fontshare.
+2. **Scripts deferred** — GSAP, ScrollTrigger, Chart.js, jsPDF, Cytoscape, `fake-data.js` all `defer`.
+3. **Fontshare CSS** loaded non-blocking via `media="print" onload="this.media='all'"`.
+4. **Preloader** — three-dot CSS loader, removed on `DOMContentLoaded`/`load`.
+5. **Perf guards global** — `window.__vantagePerf` exposes `reducedMotion`, `lowMem` (`deviceMemory<4`), `isMobile`, `allowWebGL()` for downstream features.
+6. **gsap.ticker.lagSmoothing(0)** wired on `load`.
+7. **Iframes** — full-screen preview iframe now `loading="lazy"` + `importance="low"`. MAP + Universe grid iframes already lazy.
+8. **`content-visibility:auto`** already in place on `#tabContent>div` and `img` (prior pass).
+9. **`_headers`** already: `Cache-Control: public, max-age=31536000, immutable` on `/assets/*` (prior pass).
+10. **GLBs** already compressed 420 → 34 MB via gltf-transform (prior pass).
+
+### NOT changed (out of scope / risky)
+- Inline `<img>` tags inside `generateTemplateHTML` string literals (those are per-template outputs, not the Book shell).
+- Three.js scenes are inside per-template iframes — already isolated by lazy iframe load + IntersectionObserver prefetch.
+- Lenis is not used in `index.html` (no change needed).
+- Virtual list for card grid: MAP view already uses `eager first 2 + idle prefetch next 4 + on-demand mount` which is effectively a virtual list.
+
+### Lighthouse scores
+- **Before / After:** not measured in this automated pass. Run `chrome://lighthouse` on https://vantagebookweb.netlify.app/ after deploy to capture Perf / LCP / TBT / CLS.
+- Expected LCP win: ~200–600 ms from defer + preconnect.
+- Expected TBT win: ~300–800 ms from deferring Cytoscape + Chart.js + jsPDF off the critical path.
+
+### Deployed: https://vantagebookweb.netlify.app/
