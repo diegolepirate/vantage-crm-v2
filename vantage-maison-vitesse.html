@@ -805,48 +805,52 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 </script>
 
 <style>
-.sk-lazy-wrap{position:relative;width:100%;height:100%;cursor:pointer;background:#0a0a0f;overflow:hidden}
-.sk-lazy-wrap::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none}
-.sk-lazy-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(10,10,15,.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;transition:all .3s;pointer-events:none;z-index:2}
-.sk-lazy-wrap:hover .sk-lazy-play{transform:translate(-50%,-50%) scale(1.1);background:rgba(201,168,76,.25);border-color:rgba(201,168,76,.6)}
-.sk-lazy-play svg{width:26px;height:26px;fill:#fff;margin-left:3px}
-.sk-lazy-hint{position:absolute;left:50%;top:calc(50% + 56px);transform:translateX(-50%);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);pointer-events:none;z-index:2;white-space:nowrap}
+.sk-lazy-wrap{position:relative;width:100%;height:100%;background:#0a0a0f;overflow:hidden}
+.sk-lazy-wrap::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none;z-index:1}
+.sk-lazy-spin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.12);border-top-color:rgba(201,168,76,.8);animation:sk-spin 1s linear infinite;z-index:2;pointer-events:none}
+.sk-lazy-wrap.sk-ready .sk-lazy-spin{opacity:0;transition:opacity .4s}
+@keyframes sk-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 </style>
 <script>
 (function(){
   function arm(){
-    document.querySelectorAll('iframe[src*="sketchfab.com/models"]').forEach(function(ifr){
-      if(ifr._skArmed)return;ifr._skArmed=true;
-      var src=ifr.src;
+    var iframes=document.querySelectorAll('iframe[src*="sketchfab.com/models"]:not([data-sk-armed])');
+    if(!iframes.length)return;
+    var io='IntersectionObserver' in window ? new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var w=e.target;
+          var ifr=w.querySelector('iframe');
+          if(ifr && ifr.dataset.src && ifr.src==='about:blank'){
+            ifr.src=ifr.dataset.src;
+          }
+          io.unobserve(w);
+        }
+      });
+    },{rootMargin:'300px 0px'}) : null;
+
+    iframes.forEach(function(ifr){
+      ifr.setAttribute('data-sk-armed','1');
+      var realSrc=ifr.src;
       var parent=ifr.parentNode;
       var wrap=document.createElement('div');
       wrap.className='sk-lazy-wrap';
-      wrap.setAttribute('role','button');
-      wrap.setAttribute('aria-label','Load 3D model');
-      wrap.innerHTML='<div class="sk-lazy-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="sk-lazy-hint">Click to load 3D</div>';
-      ifr.style.display='none';
-      ifr.src='about:blank';
-      ifr.dataset.src=src;
+      wrap.innerHTML='<div class="sk-lazy-spin"></div>';
       parent.insertBefore(wrap,ifr);
       wrap.appendChild(ifr);
-      function fire(){
-        wrap.removeEventListener('click',fire);
-        wrap.removeEventListener('pointerenter',preload);
-        ifr.style.display='';
-        ifr.src=ifr.dataset.src;
-        var play=wrap.querySelector('.sk-lazy-play');if(play)play.style.opacity='0';
-        var hint=wrap.querySelector('.sk-lazy-hint');if(hint)hint.style.opacity='0';
-      }
-      var preloadT=null;
-      function preload(){clearTimeout(preloadT);preloadT=setTimeout(fire,400)}
-      function cancelPreload(){clearTimeout(preloadT)}
-      wrap.addEventListener('click',fire);
-      wrap.addEventListener('pointerenter',preload);
-      wrap.addEventListener('pointerleave',cancelPreload);
+      ifr.dataset.src=realSrc;
+      ifr.src='about:blank';
+      ifr.addEventListener('load',function(){
+        if(ifr.src && ifr.src.indexOf('sketchfab')>=0){wrap.classList.add('sk-ready')}
+      });
+      if(io){io.observe(wrap)}
+      else{ifr.src=realSrc} // fallback: eager load
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',arm);
   else arm();
+  // Re-arm if templates inject late
+  setTimeout(arm,1500);
 })();
 </script>
 </body>
