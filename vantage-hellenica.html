@@ -284,28 +284,28 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
   </div>
 </section>
 
-<!-- 3D ROTATING CAROUSEL — Greek antiquity imagery -->
-<section class="scene-carousel">
+<!-- 3D ROTATING CAROUSEL — Greek antiquity imagery (Ana Tudor / CodePen pattern) -->
+<section class="carousel-section">
   <div class="sc-hdr">
     <div class="eyebrow" style="color:var(--blue-mid);margin-bottom:18px">The Gallery &mdash; In Motion</div>
     <h2 class="chapter-title" style="text-align:center">Three millennia,<br/><em>one turn of the wheel</em>.</h2>
     <p class="chapter-text" style="margin:28px auto 0;max-width:620px;text-align:center">From Cycladic marble to the sculptures of Phidias &mdash; a slow rotation through the pieces that shaped our exhibition.</p>
   </div>
 
-  <div class="scene-stage">
+  <div class="scene">
     <div class="a3d" style="--n:12">
-      <img class="card" src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&q=80" style="--i:0" alt="Acropolis temple"/>
-      <img class="card" src="https://images.unsplash.com/photo-1602096659048-ede6a1f3f00c?w=400&q=80" style="--i:1" alt="Greek marble bust"/>
-      <img class="card" src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=400&q=80" style="--i:2" alt="Delphi ruins"/>
-      <img class="card" src="https://images.unsplash.com/photo-1587974928451-98a4b7310fa8?w=400&q=80" style="--i:3" alt="Classical Greek statue"/>
-      <img class="card" src="https://images.unsplash.com/photo-1534777410147-c8e8c25cd7ed?w=400&q=80" style="--i:4" alt="Ionic column"/>
-      <img class="card" src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=400&q=80" style="--i:5" alt="Greek ruins"/>
-      <img class="card" src="https://images.unsplash.com/photo-1583309217394-aa1c85c98a2b?w=400&q=80" style="--i:6" alt="Marble sculpture"/>
-      <img class="card" src="https://images.unsplash.com/photo-1616244013240-cd7a3d7cf6a3?w=400&q=80" style="--i:7" alt="Greek antique"/>
-      <img class="card" src="https://images.unsplash.com/photo-1608828800027-8e2e0d0ba1f1?w=400&q=80" style="--i:8" alt="Greek statue"/>
-      <img class="card" src="https://images.unsplash.com/photo-1578926375605-eaf7559b1458?w=400&q=80" style="--i:9" alt="Column detail"/>
-      <img class="card" src="https://images.unsplash.com/photo-1603042893867-b8ce83a68cba?w=400&q=80" style="--i:10" alt="Santorini"/>
-      <img class="card" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400&q=80" style="--i:11" alt="Classical Greek"/>
+      <img class="card" src="https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=400&q=80" style="--i:0" alt="Acropolis"/>
+      <img class="card" src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=400&q=80" style="--i:1" alt="Delphi"/>
+      <img class="card" src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=400&q=80" style="--i:2" alt="Crete"/>
+      <img class="card" src="https://images.unsplash.com/photo-1570611179042-b0c5e7b8aadd?auto=format&fit=crop&w=400&q=80" style="--i:3" alt="Greek temple"/>
+      <img class="card" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=400&q=80" style="--i:4" alt="Ancient ruins"/>
+      <img class="card" src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=400&q=80" style="--i:5" alt="Santorini white"/>
+      <img class="card" src="https://images.unsplash.com/photo-1560703650-7dbb44ee17ec?auto=format&fit=crop&w=400&q=80" style="--i:6" alt="Greek marble"/>
+      <img class="card" src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=400&q=80" style="--i:7" alt="Cycladic"/>
+      <img class="card" src="https://images.unsplash.com/photo-1533614767277-6f26c4b5eb0d?auto=format&fit=crop&w=400&q=80" style="--i:8" alt="Column"/>
+      <img class="card" src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?auto=format&fit=crop&w=400&q=80" style="--i:9" alt="Classical"/>
+      <img class="card" src="https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?auto=format&fit=crop&w=400&q=80" style="--i:10" alt="Oia"/>
+      <img class="card" src="https://images.unsplash.com/photo-1562874311-7e9c2ebecec5?auto=format&fit=crop&w=400&q=80" style="--i:11" alt="Mediterranean"/>
     </div>
   </div>
 
@@ -315,20 +315,45 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;hei
 </section>
 
 <style>
-.scene-carousel{position:relative;z-index:2;padding:180px 20px 140px;background:var(--ice);overflow:hidden}
-.sc-hdr{text-align:center;max-width:1000px;margin:0 auto 70px}
-.scene-stage{position:relative;width:100%;height:560px;display:flex;align-items:center;justify-content:center;perspective:1600px;perspective-origin:50% 50%}
-.a3d{position:relative;width:240px;height:340px;transform-style:preserve-3d;animation:a3dSpin 48s linear infinite;will-change:transform}
-.a3d .card{position:absolute;top:0;left:0;width:240px;height:340px;object-fit:cover;border-radius:14px;box-shadow:0 24px 50px rgba(10,37,64,0.28),0 4px 12px rgba(10,37,64,0.15);transform:rotateY(calc(360deg / var(--n) * var(--i))) translateZ(440px);backface-visibility:hidden;filter:saturate(0.9) brightness(1.02);transition:filter .4s}
-.a3d .card:hover{filter:saturate(1.1) brightness(1.1)}
-@keyframes a3dSpin{to{transform:rotateY(360deg)}}
-.a3d:hover{animation-play-state:paused}
-.sc-caption{margin-top:60px;display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);opacity:.65}
+.carousel-section{position:relative;z-index:2;padding:180px 20px 140px;background:var(--ice);overflow:hidden}
+.sc-hdr{text-align:center;max-width:1000px;margin:0 auto 60px}
+/* Ana Tudor CodePen pattern — grid + preserve-3d + trig-computed translateZ */
+.carousel-section .scene,
+.carousel-section .a3d{display:grid}
+.carousel-section .scene{
+  overflow:hidden;
+  perspective:35em;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 20% 80%,transparent);
+  mask:linear-gradient(90deg,transparent,#000 20% 80%,transparent);
+  height:480px;
+  place-items:center
+}
+.carousel-section .a3d{
+  place-self:center;
+  transform-style:preserve-3d;
+  animation:hellenicaRY 32s linear infinite
+}
+@keyframes hellenicaRY{to{transform:rotateY(1turn)}}
+.carousel-section .a3d:hover{animation-play-state:paused}
+.carousel-section .card{
+  --w:17.5em;
+  --ba:calc(1turn / var(--n));
+  grid-area:1/1;
+  width:var(--w);
+  aspect-ratio:7/10;
+  object-fit:cover;
+  border-radius:1.5em;
+  backface-visibility:hidden;
+  box-shadow:0 24px 50px rgba(10,37,64,0.28),0 4px 12px rgba(10,37,64,0.15);
+  transform:rotateY(calc(var(--i) * var(--ba))) translateZ(calc(-1 * (.5 * var(--w) + .5em) / tan(.5 * var(--ba))))
+}
+@media(prefers-reduced-motion:reduce){.carousel-section .a3d{animation-duration:128s}}
+.sc-caption{margin-top:40px;display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-deep);opacity:.65}
 .sc-caption span:nth-child(even){color:var(--blue-mid);opacity:.5}
 @media(max-width:900px){
-  .scene-stage{height:420px;perspective:1200px}
-  .a3d{width:180px;height:260px}
-  .a3d .card{width:180px;height:260px;transform:rotateY(calc(360deg / var(--n) * var(--i))) translateZ(320px)}
+  .carousel-section{padding:120px 10px 100px}
+  .carousel-section .scene{height:360px;perspective:25em}
+  .carousel-section .card{--w:13em}
 }
 </style>
 
