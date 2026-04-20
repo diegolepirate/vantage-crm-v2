@@ -28,7 +28,10 @@
   --line:rgba(79,209,227,0.18);
 }
 *{box-sizing:border-box}
-html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;scroll-behavior:smooth;margin:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;scroll-behavior:smooth;margin:0;position:relative}
+/* Site-wide moon/night sky background video (fixed behind everything). Sections with their own videos (hero, stats-galaxy) sit on top and hide it. */
+.page-bg-video{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-2;filter:brightness(.38) saturate(1.2);pointer-events:none}
+.page-bg-scrim{position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,8,17,0.55) 0%,rgba(5,8,17,0.75) 50%,rgba(5,8,17,0.6) 100%);pointer-events:none}
 .font-display{font-family:'Orbitron',sans-serif;letter-spacing:.08em}
 .font-mono{font-family:'JetBrains Mono',monospace}
 .mono{font-family:'JetBrains Mono',monospace;letter-spacing:.08em}
@@ -136,6 +139,14 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
 </style>
 </head>
 <body>
+
+<!-- Site-wide moon/night sky background video -->
+<video class="page-bg-video" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=2000">
+  <source src="https://cdn.pixabay.com/video/2024/05/31/215078_large.mp4" type="video/mp4" />
+  <source src="https://videos.pexels.com/video-files/1739010/1739010-hd_1920_1080_24fps.mp4" type="video/mp4" />
+  <source src="https://videos.pexels.com/video-files/4990216/4990216-hd_1920_1080_24fps.mp4" type="video/mp4" />
+</video>
+<div class="page-bg-scrim"></div>
 
 <!-- NAV -->
 <nav class="nav">
