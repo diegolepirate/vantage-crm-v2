@@ -30607,18 +30607,11 @@ function initCompareGrid(host){
     card._cgMounting=false;
   }
 
-  // Idle-gated scheduler: defer mount until user has been idle ≥ IDLE_MS.
-  // Scroll is NOT counted as interaction (otherwise idle never happens while browsing).
-  var lastInteraction=Date.now()-IDLE_MS; // start already-idle so initial viewport mounts fast
-  ['pointermove','keydown','touchstart','wheel'].forEach(function(ev){
-    host.addEventListener(ev,function(){lastInteraction=Date.now()},{passive:true,capture:true});
-  });
+  // Scroll-end gated scheduler: we mount after the scroll settles for 180ms.
+  // Pointer moves and clicks are NOT counted (they were blocking mounts).
 
   var pending=new Set();
   function drain(){
-    var now=Date.now();
-    var remaining=IDLE_MS-(now-lastInteraction);
-    if(remaining>0){setTimeout(drain,remaining+20);return}
     // Mount closest-to-viewport first, up to MAX_LIVE total live
     var arr=[].slice.call(pending);
     arr.sort(function(a,b){
@@ -30670,10 +30663,16 @@ function initCompareGrid(host){
 
 function buildCompareHTML(){
   var allTpls=UNI_TEMPLATES.slice();
-  var cats=['All'].concat(Array.from(new Set(allTpls.map(function(t){return t.category}))).filter(Boolean).sort());
+  // 3D family — templates using Sketchfab embeds or local model-viewer GLBs
+  var THREE_D_IDS=['78','79','80','81','82','83'];
+  function is3D(t){return THREE_D_IDS.indexOf(String(t.id))>=0}
+  var cats=['All','3D'].concat(Array.from(new Set(allTpls.map(function(t){return t.category}))).filter(Boolean).sort());
   if(!window._cmpFilter)window._cmpFilter='All';
   var filter=window._cmpFilter;
-  var list=filter==='All'?allTpls:allTpls.filter(function(t){return t.category===filter});
+  var list;
+  if(filter==='All')list=allTpls;
+  else if(filter==='3D')list=allTpls.filter(is3D);
+  else list=allTpls.filter(function(t){return t.category===filter});
 
   var pills=cats.map(function(c){
     var active=c===filter?' cg-pill-active':'';
@@ -30682,6 +30681,7 @@ function buildCompareHTML(){
   }).join('');
 
   function tplLabel(tp){
+    if(is3D(tp))return'3D';
     var c=(tp.category||'');
     if(c==='The Basic')return'Basic Kit';
     if(c==='All-in-One'||c==='Full Suite')return'Full Kit';
@@ -30741,6 +30741,7 @@ function buildCompareHTML(){
     +'.cg-lbl-tool{background:rgba(139,92,246,.22);border-color:rgba(139,92,246,.45);color:#C4B0FF}'
     +'.cg-lbl-dashboard{background:rgba(6,182,212,.22);border-color:rgba(6,182,212,.45);color:#7FDAEA}'
     +'.cg-lbl-landing-page{background:rgba(10,10,15,.78);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.85)}'
+    +'.cg-lbl-3d{background:linear-gradient(135deg,rgba(236,72,153,.28),rgba(139,92,246,.28));border-color:rgba(236,72,153,.55);color:#FFC7EB}'
     +'.cg-meta{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}'
     +'.cg-info{min-width:0;flex:1}.cg-name{font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cg-cat{font-size:12px;color:rgba(255,255,255,.5)}'
     +'.cg-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;border:0;font-family:inherit;transition:.2s;flex-shrink:0}'
