@@ -205,39 +205,40 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
   </div>
 </div>
 
-<!-- MISSION SECTION — Rocket Science editorial layout -->
+<!-- MISSION SECTION — Rocket Tools editorial layout -->
 <section class="section" id="mission" style="padding-top:160px;padding-bottom:120px">
   <div class="container">
     <!-- Oversized dual headline -->
     <div class="rs-headline">
       <h2 class="rs-word rs-word-1">ROCKET</h2>
-      <h2 class="rs-word rs-word-2">SCIENCE</h2>
+      <h2 class="rs-word rs-word-2">TOOLS</h2>
     </div>
 
-    <!-- Editorial grid: 2 rows × 2 cols -->
+    <!-- Editorial grid: 3D full-height LEFT, stacked content RIGHT -->
     <div class="rs-grid">
-      <!-- Row 1: text left, Unsplash launch photo right -->
-      <div class="rs-block rs-block-text">
-        <h3 class="font-display text-white text-[22px] mb-4">How do we get to space?</h3>
-        <p class="text-white/65 text-[14px] leading-[1.7]">ULA launches payloads to space aboard its Atlas V and Delta IV rockets, ranging from weather, telecommunications and national security satellites that protect and improve life on Earth to deep space and interplanetary exploration missions that further our knowledge of the universe.</p>
-      </div>
-      <div class="rs-block rs-block-img">
-        <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1600" alt="Rocket launch" />
-      </div>
-
-      <!-- Row 2: 3D Sketchfab embed left, text right -->
-      <div class="rs-block rs-block-3d">
+      <!-- LEFT: 3D Sketchfab spanning full height -->
+      <div class="rs-block-3d-tall">
         <div class="rs-3d-wrap">
           <iframe title="Mysterious Space Artifacts" fetchpriority="high" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/22964983a77044b8b12230e40769b0cd/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.3&dnt=1"></iframe>
-          <div class="rs-3d-mask-top"></div>
           <div class="rs-3d-mask-bot"></div>
           <div class="rs-3d-mask-bl"></div>
           <div class="rs-3d-mask-br"></div>
         </div>
       </div>
-      <div class="rs-block rs-block-text">
-        <h3 class="font-display text-white text-[22px] mb-4">Launch vehicles</h3>
-        <p class="text-white/65 text-[14px] leading-[1.7]">Rockets, also called launch vehicles, play an important role in our lives. Rockets deliver satellites to space where they can begin to do their important work. Without rockets, we wouldn't be able to use our cell phones, watch a lot of our favorite television shows, find out the weather forecast, navigate with Global Positioning System (GPS), or explore our solar system — just to name a few.</p>
+
+      <!-- RIGHT: text + image + text stacked -->
+      <div class="rs-right">
+        <div class="rs-block rs-block-text">
+          <h3 class="font-display text-white text-[22px] mb-4">How do we get to space?</h3>
+          <p class="text-white/65 text-[14px] leading-[1.7]">ULA launches payloads to space aboard its Atlas V and Delta IV rockets, ranging from weather, telecommunications and national security satellites that protect and improve life on Earth to deep space and interplanetary exploration missions that further our knowledge of the universe.</p>
+        </div>
+        <div class="rs-block rs-block-img">
+          <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=1600" alt="Rocket launch" />
+        </div>
+        <div class="rs-block rs-block-text">
+          <h3 class="font-display text-white text-[22px] mb-4">Launch vehicles</h3>
+          <p class="text-white/65 text-[14px] leading-[1.7]">Rockets, also called launch vehicles, play an important role in our lives. Rockets deliver satellites to space where they can begin to do their important work. Without rockets, we wouldn't be able to use our cell phones, watch a lot of our favorite television shows, find out the weather forecast, navigate with Global Positioning System (GPS), or explore our solar system — just to name a few.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -248,27 +249,29 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
 .rs-word{font-family:'Orbitron',sans-serif;font-weight:900;color:#fff;letter-spacing:.04em;line-height:.9;margin:0;font-size:clamp(56px,12vw,180px)}
 .rs-word-1{text-align:left;padding-left:4%}
 .rs-word-2{text-align:right;padding-right:4%;margin-top:-0.18em}
-.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rs-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:stretch}
 .rs-block{border-radius:4px;overflow:hidden}
-.rs-block-text{padding:24px 8px;align-self:start}
-.rs-block-img{aspect-ratio:4/5;max-height:520px;background:#000;overflow:hidden}
+.rs-block-text{padding:20px 8px}
+.rs-block-img{aspect-ratio:16/10;max-height:360px;background:transparent;overflow:hidden;border-radius:4px}
 .rs-block-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s ease}
 .rs-block-img:hover img{transform:scale(1.04)}
-.rs-block-3d{aspect-ratio:4/5;max-height:520px;background:#05060a;position:relative;overflow:hidden;border:1px solid rgba(79,209,227,0.12)}
+/* Tall 3D column — fills full height of right column stack, transparent bg */
+.rs-block-3d-tall{position:relative;overflow:hidden;background:transparent;min-height:720px;border-radius:4px}
 .rs-3d-wrap{position:absolute;inset:0;overflow:hidden}
-.rs-3d-wrap iframe{position:absolute;top:-20%;left:-18%;width:136%;height:140%;border:0;background:transparent;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 10%,#000 22%,#000 75%,transparent 92%,transparent 100%);
-  mask-image:linear-gradient(180deg,transparent 0%,transparent 10%,#000 22%,#000 75%,transparent 92%,transparent 100%);
+.rs-3d-wrap iframe{position:absolute;top:-18%;left:-16%;width:134%;height:140%;border:0;background:transparent;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 78%,transparent 96%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 78%,transparent 96%,transparent 100%);
 }
-.rs-3d-mask-top{position:absolute;left:0;right:0;top:0;height:14%;z-index:3;background:linear-gradient(180deg,rgba(5,6,10,1) 0%,rgba(5,6,10,0) 100%);pointer-events:none}
-.rs-3d-mask-bot{position:absolute;left:0;right:0;bottom:0;height:22%;z-index:3;background:linear-gradient(180deg,rgba(5,6,10,0) 0%,rgba(5,6,10,.85) 45%,rgba(5,6,10,1) 100%);pointer-events:none}
-.rs-3d-mask-bl{position:absolute;left:0;bottom:0;width:40%;height:28%;z-index:4;background:radial-gradient(ellipse at bottom left,rgba(5,6,10,1),transparent 75%);pointer-events:none}
-.rs-3d-mask-br{position:absolute;right:0;bottom:0;width:40%;height:28%;z-index:4;background:radial-gradient(ellipse at bottom right,rgba(5,6,10,1),transparent 75%);pointer-events:none}
+.rs-3d-mask-bot{position:absolute;left:0;right:0;bottom:0;height:18%;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0) 0%,rgba(5,8,17,.85) 60%,rgba(5,8,17,1) 100%);pointer-events:none}
+.rs-3d-mask-bl{position:absolute;left:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom left,rgba(5,8,17,1),transparent 75%);pointer-events:none}
+.rs-3d-mask-br{position:absolute;right:0;bottom:0;width:38%;height:22%;z-index:4;background:radial-gradient(ellipse at bottom right,rgba(5,8,17,1),transparent 75%);pointer-events:none}
+.rs-right{display:flex;flex-direction:column;gap:24px;justify-content:space-between}
 @media(max-width:768px){
-  .rs-grid{grid-template-columns:1fr;gap:20px}
+  .rs-grid{grid-template-columns:1fr;gap:28px}
   .rs-word-1,.rs-word-2{text-align:center;padding:0}
   .rs-word-2{margin-top:-0.12em}
-  .rs-block-img,.rs-block-3d{aspect-ratio:3/4;max-height:420px}
+  .rs-block-3d-tall{min-height:520px}
+  .rs-block-img{aspect-ratio:16/10;max-height:280px}
 }
 </style>
 
