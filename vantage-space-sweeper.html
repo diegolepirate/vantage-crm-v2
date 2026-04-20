@@ -47,10 +47,23 @@ html,body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;s
   -webkit-mask-image:radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
 }
 .hero-3d{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:auto;overflow:hidden}
-.hero-3d iframe{position:absolute;top:-8%;left:-6%;width:112vw;height:120vh;border:0;background:transparent;filter:drop-shadow(0 30px 80px rgba(79,209,227,0.35))}
-/* Overlays to hide any remaining Sketchfab branding (bottom attribution strip + any edge UI) */
-.hero-3d::before{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(5,8,17,0.55) 30%,rgba(5,8,17,0.95) 70%,rgba(5,8,17,1) 100%);pointer-events:none}
-.hero-3d::after{content:"";position:absolute;left:0;right:0;top:0;height:80px;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0.9) 0%,transparent 100%);pointer-events:none}
+.hero-3d iframe{
+  position:absolute;
+  top:-22%;left:-18%;
+  width:136vw;height:150vh;
+  border:0;background:transparent;
+  filter:drop-shadow(0 30px 80px rgba(79,209,227,0.35));
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 12%,#000 22%,#000 72%,transparent 88%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,transparent 12%,#000 22%,#000 72%,transparent 88%,transparent 100%);
+}
+/* Extra dark plates guaranteed to fully cover any UI / video bar bleed-through */
+.hero-3d::before{content:"";position:absolute;left:0;right:0;bottom:0;height:22vh;z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(5,8,17,0.75) 45%,rgba(5,8,17,1) 100%);pointer-events:none}
+.hero-3d::after{content:"";position:absolute;left:0;right:0;top:0;height:14vh;z-index:3;background:linear-gradient(180deg,rgba(5,8,17,0.95) 0%,rgba(5,8,17,0.7) 60%,transparent 100%);pointer-events:none}
+/* Corner plates to hide any watermark link area in top-right or bottom-right */
+.hero-3d-corner-tr,.hero-3d-corner-br,.hero-3d-corner-bl{position:absolute;z-index:4;pointer-events:none}
+.hero-3d-corner-tr{top:0;right:0;width:200px;height:80px;background:radial-gradient(ellipse at top right,rgba(5,8,17,.95),transparent 75%)}
+.hero-3d-corner-br{bottom:0;right:0;width:240px;height:120px;background:radial-gradient(ellipse at bottom right,rgba(5,8,17,1),transparent 75%)}
+.hero-3d-corner-bl{bottom:0;left:0;width:300px;height:120px;background:radial-gradient(ellipse at bottom left,rgba(5,8,17,1),transparent 75%)}
 .hero-ui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;padding:28px 32px}
 .hero-ui .pointer-events{pointer-events:auto}
 .corner{position:relative}
@@ -141,6 +154,9 @@ h1.display,h2.display,h3.display{font-family:'Orbitron',sans-serif;color:var(--i
   <!-- 3D Sketchfab model overlay -->
   <div class="hero-3d">
     <iframe title="RGM-79" fetchpriority="high" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" src="https://sketchfab.com/models/b3ac4314dd6e4d1da6b2cbf3c7e7b40f/embed?autostart=1&ui_theme=dark&ui_hint=0&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_stop=0&ui_annotations=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_ar=0&ui_vr=0&ui_fullscreen=0&ui_start=0&ui_loading=0&ui_color=050811&transparent=1&preload=1&camera=0&autospin=0.2&dnt=1"></iframe>
+    <div class="hero-3d-corner-tr"></div>
+    <div class="hero-3d-corner-br"></div>
+    <div class="hero-3d-corner-bl"></div>
   </div>
 
   <!-- UI overlay (HUD) -->
