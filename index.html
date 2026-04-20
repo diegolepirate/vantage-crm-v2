@@ -30484,7 +30484,7 @@ function closeUniPreview(){
 }
 
 function initUniverseGraph(){
-  if(uniCy){uniCy.destroy();uniCy=null}
+  if(uniCy){try{if(window.__uniFxTeardown)window.__uniFxTeardown()}catch(e){}uniCy.destroy();uniCy=null}
   var el=document.getElementById('cyContainer');if(!el)return;
   var elements=[];
   var visibleTpls=UNI_TEMPLATES.filter(function(t){return getTplType(t)===uniTypeFilter});
@@ -30534,6 +30534,274 @@ function initUniverseGraph(){
     evt.target.style({'border-width':2,'border-color':evt.target.data('type')==='category'?'#ffffff20':'#ffffff10'});
     el.style.cursor='default';
   });
+
+  // ====================================================================
+  // UNIVERSE FX — overlay canvas with living animations
+  // Layered on top of Cytoscape (pointer-events:none). Cytoscape keeps
+  // owning nodes/edges/physics/clicks. We read positions & draw effects.
+  // Implemented: glow pulse (2), satellites (3), edge particles (5),
+  //              hover bursts (7), click ripples (8).
+  // Skipped (would fight Cytoscape's renderer/physics):
+  //              breathing scale (1), edge thickness pulse (6), drift (4).
+  // ====================================================================
+  if(window.__uniFxTeardown)window.__uniFxTeardown();
+  (function setupUniFx(){
+    var host=el.parentNode; // .uni-graph
+    if(!host)return;
+    // prefers-reduced-motion guard: no movement, keep static glow only
+    var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var perf=window.__vantagePerf||{};
+    var lowEnd=(navigator.hardwareConcurrency||4)<=2||(navigator.deviceMemory||4)<=2||perf.lowMem;
+
+    var fx=document.createElement('canvas');
+    fx.className='uni-fx';
+    fx.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;mix-blend-mode:screen';
+    host.style.position=host.style.position||'relative';
+    host.appendChild(fx);
+    var ctx=fx.getContext('2d');
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+
+    function resize(){
+      var r=host.getBoundingClientRect();
+      fx.width=r.width*dpr;
+      fx.height=r.height*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize();
+    var ro=new ResizeObserver(resize);ro.observe(host);
+
+    function hexToRgba(hex,a){
+      if(!hex||hex[0]!=='#')return 'rgba(212,175,55,'+a+')';
+      var h=hex.slice(1);
+      if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+      var r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);
+      return 'rgba('+r+','+g+','+b+','+a+')';
+    }
+
+    function nodeColor(n){
+      var d=n.data();
+      if(d.type==='category')return UNI_CAT_COLORS[d.label]||'#D4AF37';
+      return UNI_TIER_COLORS[d.tier]||'#60A5FA';
+    }
+
+    // Node state cache keyed by Cytoscape node id
+    var state={};
+    function ensureState(n){
+      var id=n.id();
+      var s=state[id];
+      if(s)return s;
+      var isHub=n.data('type')==='category';
+      s=state[id]={
+        isHub:isHub,
+        breathPhase:Math.random()*Math.PI*2,
+        breathSpeed:0.0008+Math.random()*0.0006,
+        flash:0,
+        satellites:null
+      };
+      if(isHub&&!lowEnd){
+        var count=2+Math.floor(Math.random()*2);
+        s.satellites=[];
+        for(var i=0;i<count;i++){
+          s.satellites.push({
+            angle:(Math.PI*2/count)*i,
+            orbitMul:2.2+Math.random(),
+            speed:(0.0004+Math.random()*0.0003)*(reduced?0:1),
+            size:2+Math.random()*2,
+            opacity:0.4+Math.random()*0.4
+          });
+        }
+      }
+      return s;
+    }
+
+    // Edge particles state keyed by edge id
+    var edgeState={};
+    function ensureEdgeState(e){
+      var id=e.id();
+      if(edgeState[id])return edgeState[id];
+      var count=lowEnd?0:(Math.random()>0.6?2:1);
+      var particles=[];
+      for(var i=0;i<count;i++){
+        particles.push({
+          progress:Math.random(),
+          speed:(0.0008+Math.random()*0.0006)*(reduced?0:1),
+          size:1.5+Math.random()*1.5,
+          opacity:0.5+Math.random()*0.4
+        });
+      }
+      return edgeState[id]={particles:particles};
+    }
+
+    var bursts=[];
+    var ripples=[];
+
+    function triggerBurst(n){
+      if(reduced)return;
+      var p=n.renderedPosition();
+      var color=nodeColor(n);
+      var count=lowEnd?6:12;
+      for(var i=0;i<count;i++){
+        var angle=(Math.PI*2/count)*i+Math.random()*0.5;
+        var speed=0.5+Math.random()*1.5;
+        bursts.push({x:p.x,y:p.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,size:2+Math.random()*2,color:color,life:1});
+      }
+    }
+
+    function triggerRipple(n){
+      if(reduced)return;
+      var p=n.renderedPosition();
+      var r=Math.max(n.renderedWidth(),n.renderedHeight())/2;
+      ripples.push({x:p.x,y:p.y,radius:r,maxRadius:300,color:nodeColor(n),speed:4});
+      // Cascade flash on connected nodes
+      var connected=n.connectedEdges().connectedNodes().difference(n);
+      connected.forEach(function(cn,i){
+        setTimeout(function(){
+          var s=ensureState(cn);
+          s.flash=1;
+          setTimeout(function(){s.flash=0},400);
+        },i*80);
+      });
+    }
+
+    var hovered=null;
+    uniCy.on('mouseover','node',function(evt){
+      if(hovered===evt.target)return;
+      hovered=evt.target;
+      triggerBurst(evt.target);
+    });
+    uniCy.on('mouseout','node',function(evt){
+      if(hovered===evt.target)hovered=null;
+    });
+    uniCy.on('tap','node',function(evt){triggerRipple(evt.target)});
+
+    var rafId=0;
+    var running=true;
+
+    function draw(time){
+      if(!running)return;
+      ctx.clearRect(0,0,fx.width/dpr,fx.height/dpr);
+
+      // Pre-warm state for all nodes & edges
+      var nodes=uniCy.nodes();
+      var edges=uniCy.edges();
+
+      // === 5) Edge particles
+      edges.forEach(function(e){
+        var es=ensureEdgeState(e);
+        if(!es.particles.length)return;
+        var sp=e.source().renderedPosition();
+        var tp=e.target().renderedPosition();
+        var color=nodeColor(e.source());
+        es.particles.forEach(function(p){
+          p.progress+=p.speed*(reduced?0:1);
+          if(p.progress>1)p.progress=0;
+          var x=sp.x+(tp.x-sp.x)*p.progress;
+          var y=sp.y+(tp.y-sp.y)*p.progress;
+          var g=ctx.createRadialGradient(x,y,0,x,y,p.size*3);
+          g.addColorStop(0,hexToRgba(color,p.opacity));
+          g.addColorStop(1,hexToRgba(color,0));
+          ctx.fillStyle=g;
+          ctx.beginPath();ctx.arc(x,y,p.size*3,0,Math.PI*2);ctx.fill();
+          ctx.fillStyle=hexToRgba(color,p.opacity);
+          ctx.beginPath();ctx.arc(x,y,p.size,0,Math.PI*2);ctx.fill();
+        });
+      });
+
+      // === 2) Node glow (breathes) + connected boost on hover
+      var hoveredConnected={};
+      if(hovered){
+        hovered.connectedEdges().connectedNodes().forEach(function(n){hoveredConnected[n.id()]=1});
+      }
+      nodes.forEach(function(n){
+        var s=ensureState(n);
+        var p=n.renderedPosition();
+        var r=Math.max(n.renderedWidth(),n.renderedHeight())/2;
+        var color=nodeColor(n);
+        var sinv=reduced?0:Math.sin(time*s.breathSpeed+s.breathPhase);
+        var intensity=0.5+sinv*0.3;
+        var glowMul=s.isHub?3.5:2.5;
+        if(hoveredConnected[n.id()])intensity*=2;
+        if(s.flash>0)intensity=Math.min(1.4,intensity+s.flash*0.6);
+        var gr=r*glowMul;
+        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,gr);
+        g.addColorStop(0,hexToRgba(color,intensity*0.42));
+        g.addColorStop(0.5,hexToRgba(color,intensity*0.16));
+        g.addColorStop(1,hexToRgba(color,0));
+        ctx.fillStyle=g;
+        ctx.beginPath();ctx.arc(p.x,p.y,gr,0,Math.PI*2);ctx.fill();
+      });
+
+      // === 3) Satellites on hub nodes
+      if(!lowEnd){
+        nodes.forEach(function(n){
+          var s=ensureState(n);
+          if(!s.isHub||!s.satellites)return;
+          var p=n.renderedPosition();
+          var r=Math.max(n.renderedWidth(),n.renderedHeight())/2;
+          var color=nodeColor(n);
+          s.satellites.forEach(function(sat){
+            sat.angle+=sat.speed;
+            var orbit=r*sat.orbitMul;
+            var x=p.x+Math.cos(sat.angle)*orbit;
+            var y=p.y+Math.sin(sat.angle)*orbit;
+            var g=ctx.createRadialGradient(x,y,0,x,y,sat.size*2);
+            g.addColorStop(0,hexToRgba(color,sat.opacity));
+            g.addColorStop(1,hexToRgba(color,0));
+            ctx.fillStyle=g;
+            ctx.beginPath();ctx.arc(x,y,sat.size*2,0,Math.PI*2);ctx.fill();
+            ctx.fillStyle=hexToRgba(color,sat.opacity);
+            ctx.beginPath();ctx.arc(x,y,sat.size,0,Math.PI*2);ctx.fill();
+          });
+        });
+      }
+
+      // === 8) Ripples
+      ripples=ripples.filter(function(rp){
+        rp.radius+=rp.speed;
+        var op=(1-rp.radius/rp.maxRadius)*0.8;
+        if(op<=0)return false;
+        ctx.strokeStyle=hexToRgba(rp.color,op);
+        ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(rp.x,rp.y,rp.radius,0,Math.PI*2);ctx.stroke();
+        if(rp.radius>30){
+          ctx.strokeStyle=hexToRgba(rp.color,op*0.4);
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.arc(rp.x,rp.y,rp.radius-20,0,Math.PI*2);ctx.stroke();
+        }
+        return true;
+      });
+
+      // === 7) Burst particles
+      bursts=bursts.filter(function(p){
+        p.x+=p.vx;p.y+=p.vy;
+        p.vx*=0.96;p.vy*=0.96;
+        p.life-=0.025;
+        if(p.life<=0)return false;
+        ctx.fillStyle=hexToRgba(p.color,p.life*0.8);
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fill();
+        return true;
+      });
+
+      rafId=requestAnimationFrame(draw);
+    }
+    rafId=requestAnimationFrame(draw);
+
+    function onVis(){
+      if(document.hidden){cancelAnimationFrame(rafId);running=false}
+      else if(!running){running=true;rafId=requestAnimationFrame(draw)}
+    }
+    document.addEventListener('visibilitychange',onVis);
+
+    window.__uniFxTeardown=function(){
+      running=false;
+      cancelAnimationFrame(rafId);
+      ro.disconnect();
+      document.removeEventListener('visibilitychange',onVis);
+      if(fx&&fx.parentNode)fx.parentNode.removeChild(fx);
+      state={};edgeState={};bursts=[];ripples=[];
+      window.__uniFxTeardown=null;
+    };
+  })();
 }
 
 function highlightUniNode(){
@@ -30556,7 +30824,7 @@ function toggleCompare(id){
 
 function showCompareView(){
   closeFantasyMap();
-  if(uniCy){uniCy.destroy();uniCy=null}
+  if(uniCy){try{if(window.__uniFxTeardown)window.__uniFxTeardown()}catch(e){}uniCy.destroy();uniCy=null}
   var uniEx=document.getElementById('universeApp');if(uniEx)uniEx.remove();
   // Remove Universe-only filter buttons from the platform; set Compare active
   try{
