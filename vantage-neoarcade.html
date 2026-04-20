@@ -919,34 +919,5 @@ document.querySelectorAll('a,button,.hex,.blob,.arc-card,model-viewer').forEach(
 });
 </script>
 
-<!-- Smart lazy loader for model-viewer: only load GLB when approaching viewport (~1500px) — saves bandwidth + startup time -->
-<script>
-(function(){
-  const models=[...document.querySelectorAll('model-viewer[src]')];
-  if(!models.length)return;
-  models.forEach(m=>{m.dataset.src=m.getAttribute('src');m.removeAttribute('src');
-    m.setAttribute('loading','lazy');
-    // lightweight placeholder poster (neon gradient) so user sees something instantly
-    if(!m.hasAttribute('poster'))m.setAttribute('poster','data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1 1%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%230a0e27%22/><stop offset=%221%22 stop-color=%22%23131a3a%22/></linearGradient></defs><rect width=%221%22 height=%221%22 fill=%22url(%23g)%22/></svg>');
-  });
-  if('IntersectionObserver' in window){
-    const io=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const m=e.target;
-          if(m.dataset.src&&!m.hasAttribute('src')){m.setAttribute('src',m.dataset.src)}
-          io.unobserve(m);
-        }
-      });
-    },{rootMargin:'1500px 0px'});
-    models.forEach(m=>io.observe(m));
-    // Kick off first 2 immediately (above the fold)
-    models.slice(0,2).forEach(m=>{if(m.dataset.src&&!m.hasAttribute('src'))m.setAttribute('src',m.dataset.src)});
-  } else {
-    models.forEach(m=>{if(m.dataset.src)m.setAttribute('src',m.dataset.src)});
-  }
-})();
-</script>
-
 </body>
 </html>
