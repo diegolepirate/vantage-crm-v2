@@ -3122,6 +3122,35 @@ function renderNotes(container){
   document.body.appendChild(page);
   document.getElementById('app').style.display='none';
   container.innerHTML='';
+  // ── 3D prefetch + Service Worker warmup (runs once per Book open) ──
+  if(!window.__vantage3DWarmed){
+    window.__vantage3DWarmed=true;
+    // A) Prefetch all .glb files via <link rel=prefetch> — browser downloads in idle
+    var GLB_LIST=[
+      'assets/models/porsche-gt3-rs.glb','assets/models/porsche-gt3r-rexy.glb','assets/models/bmw-m1.glb',
+      'assets/models/gauges.glb','assets/models/garage-tools.glb','assets/models/passenger-pack.glb',
+      'assets/models/greek/autel.glb','assets/models/greek/joueur-lyre.glb','assets/models/greek/tetradrachme.glb',
+      'assets/models/greek/vase.glb','assets/models/greek/venus.glb',
+      'assets/models/arcade/cabinet.glb','assets/models/arcade/controller-8bitdo.glb','assets/models/arcade/credits.glb',
+      'assets/models/arcade/kame-house.glb','assets/models/arcade/n64-storage.glb','assets/models/arcade/old-computer.glb',
+      'assets/models/arcade/pacman.glb','assets/models/arcade/rusty-jp.glb','assets/models/arcade/scouter.glb',
+      'assets/models/tea/fruit-milk.glb','assets/models/tea/money.glb','assets/models/tea/samurai.glb'
+    ];
+    // Defer until idle so we don't block initial paint
+    var prefetchGLBs=function(){
+      GLB_LIST.forEach(function(u){
+        var l=document.createElement('link');
+        l.rel='prefetch';l.href=u;l.as='fetch';l.crossOrigin='anonymous';
+        document.head.appendChild(l);
+      });
+    };
+    if('requestIdleCallback' in window){requestIdleCallback(prefetchGLBs,{timeout:2000})}
+    else{setTimeout(prefetchGLBs,1500)}
+    // D) Service Worker (cache-first for .glb + 3D template HTML)
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){});
+    }
+  }
 }
 function handleBookSwitch(el){
   if(!el.checked){
@@ -30963,6 +30992,17 @@ function initCompareGrid(host){
     // Fallback: mount first 6 only
     for(var k=0;k<Math.min(MAX_LIVE,cards.length);k++)mount(cards[k]);
   }
+
+  // FIX B: hover prefetch on 3D cards — warm browser cache before click
+  cards.forEach(function(card){
+    if(!is3DCard(card))return;
+    var warmed=false;
+    card.addEventListener('mouseenter',function(){
+      if(warmed)return;warmed=true;
+      var tpl=tplById(card.getAttribute('data-id'));
+      if(tpl&&tpl.url){try{fetch(tpl.url,{mode:'no-cors',priority:'low'}).catch(function(){})}catch(e){}}
+    },{passive:true,once:true});
+  });
 
   // Resize refit
   var _cgT=0;
