@@ -8,6 +8,40 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+// Meshopt decoder bootstrap. model-viewer 4.0.0 does NOT auto-load the decoder
+// for EXT_meshopt_compression, so we (a) intercept every <model-viewer> as it's
+// parsed and strip its src to prevent premature load, (b) set the decoder
+// location once the element is defined, then (c) re-apply the src so the load
+// proceeds with the decoder available.
+(function(){
+  const MESHOPT_URL = 'https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js';
+  const pending = new Map();
+  const stash = (mv) => {
+    const s = mv.getAttribute('src');
+    if (s) { pending.set(mv, s); mv.removeAttribute('src'); }
+  };
+  // Catch elements as the parser inserts them.
+  const mo = new MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => {
+    if (!n || n.nodeType !== 1) return;
+    if (n.tagName === 'MODEL-VIEWER') stash(n);
+    else if (n.querySelectorAll) n.querySelectorAll('model-viewer').forEach(stash);
+  })));
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+  // Also sweep anything already parsed when this script runs.
+  document.querySelectorAll && document.querySelectorAll('model-viewer').forEach(stash);
+  customElements.whenDefined('model-viewer').then(() => {
+    const MV = customElements.get('model-viewer');
+    try { MV.meshoptDecoderLocation = MESHOPT_URL; } catch(e) {}
+    // Give the decoder script time to download before re-applying srcs.
+    setTimeout(() => {
+      mo.disconnect();
+      pending.forEach((s, m) => m.setAttribute('src', s));
+      pending.clear();
+    }, 1200);
+  });
+})();
+</script>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 <style>
 :root{
