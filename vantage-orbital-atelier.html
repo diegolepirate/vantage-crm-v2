@@ -47,7 +47,8 @@
   --card-top-offset:1.6em;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--navy-3);color:var(--cream);font-family:'Space Grotesk',sans-serif;scroll-behavior:smooth;overflow-x:hidden}
+html,body{background:var(--navy-3);color:var(--cream);font-family:'Space Grotesk',sans-serif;scroll-behavior:smooth}
+body{overflow-x:clip} /* use overflow-x:clip instead of hidden so position:sticky keeps working on descendants */
 html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{width:0;height:0;display:none}
 .serif{font-family:'Fraunces',serif}
