@@ -8,10 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="assets/models/tea/fruit-milk.glb" as="fetch" crossorigin="anonymous" fetchpriority="high">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js" as="script" crossorigin="anonymous">
 <script>
-// Meshopt decoder bootstrap. model-viewer 4.0.0 does NOT auto-load the decoder
-// for EXT_meshopt_compression. We intercept each <model-viewer>, stash its src,
-// then re-apply once the decoder is truly ready (window.MeshoptDecoder.ready).
+// Meshopt decoder bootstrap. model-viewer 4.0.0 needs meshoptDecoderLocation
+// to be set before any <model-viewer> tries to parse a meshopt-compressed .glb.
+// We stash srcs during HTML parse, set the location when model-viewer defines,
+// then restore srcs — model-viewer awaits the decoder load internally per element.
 (function(){
   const MESHOPT_URL = 'https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js';
   const pending = new Map();
@@ -26,23 +30,16 @@
   })));
   mo.observe(document.documentElement, { childList: true, subtree: true });
   document.querySelectorAll && document.querySelectorAll('model-viewer').forEach(stash);
-  const waitForDecoder = async () => {
-    // Poll for window.MeshoptDecoder (UMD global set by the decoder script)
-    const start = Date.now();
-    while (!window.MeshoptDecoder && Date.now() - start < 15000) {
-      await new Promise(r => setTimeout(r, 50));
-    }
-    if (window.MeshoptDecoder && window.MeshoptDecoder.ready) {
-      try { await window.MeshoptDecoder.ready; } catch(e) {}
-    }
-  };
-  customElements.whenDefined('model-viewer').then(async () => {
+  customElements.whenDefined('model-viewer').then(() => {
     const MV = customElements.get('model-viewer');
     try { MV.meshoptDecoderLocation = MESHOPT_URL; } catch(e) {}
-    await waitForDecoder();
-    mo.disconnect();
-    pending.forEach((s, m) => m.setAttribute('src', s));
-    pending.clear();
+    // Restore on next microtask so the location propagates to model-viewer
+    // internals before any element starts parsing.
+    Promise.resolve().then(() => {
+      mo.disconnect();
+      pending.forEach((s, m) => m.setAttribute('src', s));
+      pending.clear();
+    });
   });
 })();
 </script>
