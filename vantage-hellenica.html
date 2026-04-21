@@ -11,35 +11,39 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 // Meshopt decoder bootstrap. model-viewer 4.0.0 does NOT auto-load the decoder
-// for EXT_meshopt_compression, so we (a) intercept every <model-viewer> as it's
-// parsed and strip its src to prevent premature load, (b) set the decoder
-// location once the element is defined, then (c) re-apply the src so the load
-// proceeds with the decoder available.
+// for EXT_meshopt_compression. We intercept each <model-viewer>, stash its src,
+// then re-apply once the decoder is truly ready (window.MeshoptDecoder.ready).
 (function(){
   const MESHOPT_URL = 'https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js';
   const pending = new Map();
   const stash = (mv) => {
     const s = mv.getAttribute('src');
-    if (s) { pending.set(mv, s); mv.removeAttribute('src'); }
+    if (s && !pending.has(mv)) { pending.set(mv, s); mv.removeAttribute('src'); }
   };
-  // Catch elements as the parser inserts them.
   const mo = new MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => {
     if (!n || n.nodeType !== 1) return;
     if (n.tagName === 'MODEL-VIEWER') stash(n);
     else if (n.querySelectorAll) n.querySelectorAll('model-viewer').forEach(stash);
   })));
   mo.observe(document.documentElement, { childList: true, subtree: true });
-  // Also sweep anything already parsed when this script runs.
   document.querySelectorAll && document.querySelectorAll('model-viewer').forEach(stash);
-  customElements.whenDefined('model-viewer').then(() => {
+  const waitForDecoder = async () => {
+    // Poll for window.MeshoptDecoder (UMD global set by the decoder script)
+    const start = Date.now();
+    while (!window.MeshoptDecoder && Date.now() - start < 15000) {
+      await new Promise(r => setTimeout(r, 50));
+    }
+    if (window.MeshoptDecoder && window.MeshoptDecoder.ready) {
+      try { await window.MeshoptDecoder.ready; } catch(e) {}
+    }
+  };
+  customElements.whenDefined('model-viewer').then(async () => {
     const MV = customElements.get('model-viewer');
     try { MV.meshoptDecoderLocation = MESHOPT_URL; } catch(e) {}
-    // Give the decoder script time to download before re-applying srcs.
-    setTimeout(() => {
-      mo.disconnect();
-      pending.forEach((s, m) => m.setAttribute('src', s));
-      pending.clear();
-    }, 1200);
+    await waitForDecoder();
+    mo.disconnect();
+    pending.forEach((s, m) => m.setAttribute('src', s));
+    pending.clear();
   });
 })();
 </script>
