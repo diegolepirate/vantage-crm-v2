@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Orbital Atelier — Private spacecraft &amp; collectible rockets, Canaveral</title>
+<meta name="description" content="Orbital Atelier — a private showroom for collectible orbital craft, heritage rockets, and one-off flying discs. Canaveral &amp; Tanegashima.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,500;0,700;1,300;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1736;
+  --navy-2:#1E2B5A;
+  --navy-3:#0A1022;
+  --cream:#EEE5D8;
+  --cream-2:#FAF2E4;
+  --rust:#C4501A;
+  --rust-light:#E87740;
+  --silver:#A8C4D8;
+  --silver-dark:#798895;
+  --brown:#6B2810;
+  --gold:#FFD700;
+  --ink:#08101F;
+  --card-height:84vh; /* doubled-ish — generous */
+  --card-margin:8vw;
+  --card-top-offset:1.6em;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--navy-3);color:var(--cream);font-family:'Space Grotesk',sans-serif;scroll-behavior:smooth;overflow-x:hidden}
+html,body,*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{width:0;height:0;display:none}
+.serif{font-family:'Fraunces',serif}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.34em;text-transform:uppercase;font-weight:500;color:var(--silver)}
+.container{max-width:1680px;margin:0 auto;padding:0 48px}
+
+/* ─────────────── NAV ─────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:linear-gradient(180deg,rgba(10,16,34,.72),rgba(10,16,34,.18) 70%,transparent);border-bottom:1px solid rgba(168,196,216,.08)}
+.nav-brand{display:flex;align-items:center;gap:14px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:22px;letter-spacing:.04em;color:var(--cream)}
+.nav-brand .ring{width:34px;height:34px;border:1.5px solid var(--gold);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;position:relative}
+.nav-brand .ring::after{content:"";position:absolute;inset:-4px;border:1px dashed rgba(255,215,0,.35);border-radius:50%;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nav-links{display:flex;gap:38px}
+.nav-links a{color:var(--cream);opacity:.78;text-decoration:none;font-size:13px;font-family:'Space Grotesk',sans-serif;letter-spacing:.08em;transition:.2s;text-transform:uppercase}
+.nav-links a:hover{opacity:1;color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-right .mono{color:var(--gold);opacity:.9;font-size:11px}
+.btn-pill{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:.25s;cursor:pointer;font-family:'JetBrains Mono',monospace;border:1.5px solid transparent}
+.btn-gold{background:var(--gold);color:var(--navy-3)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(255,215,0,.25)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:rgba(238,229,216,.5)}
+.btn-ghost:hover{border-color:var(--cream);color:var(--cream)}
+.btn-rust{background:var(--rust);color:var(--cream)}
+.btn-rust:hover{background:var(--rust-light)}
+
+/* ─────────────── HERO (THREE.js canvas) ─────────────── */
+.hero{position:relative;height:100vh;min-height:740px;overflow:hidden;background:#000}
+#three-canvas-host{position:absolute;inset:0;pointer-events:none} /* user can't manipulate */
+#three-canvas-host canvas{position:absolute;inset:0;width:100%!important;height:100%!important;pointer-events:none!important}
+#three-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;z-index:10;text-shadow:0 2px 4px rgba(0,0,0,.5);opacity:.5}
+.hero-content{position:relative;z-index:5;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 12vh;pointer-events:none}
+.hero-content>*{pointer-events:auto}
+.hero-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;flex-wrap:wrap;gap:20px;max-width:1680px;width:100%;margin-left:auto;margin-right:auto}
+.hero-meta .mono{color:rgba(238,229,216,.65);font-size:11px}
+.hero-title-wrap{max-width:1680px;width:100%;margin:0 auto}
+.hero-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(72px,11vw,220px);line-height:.86;letter-spacing:-.03em;color:var(--cream);font-style:italic}
+.hero-title em{font-style:normal;color:var(--gold);font-weight:500}
+.hero-sub{max-width:620px;margin-top:40px;font-size:17px;line-height:1.65;color:rgba(238,229,216,.78);font-weight:300}
+.hero-ctas{margin-top:38px;display:flex;gap:12px;flex-wrap:wrap}
+
+/* Corner HUD brackets */
+.hud-bracket{position:absolute;width:42px;height:42px;border:1.5px solid var(--gold);pointer-events:none;z-index:6}
+.hud-bracket.tl{top:110px;left:48px;border-right:none;border-bottom:none}
+.hud-bracket.tr{top:110px;right:48px;border-left:none;border-bottom:none}
+.hud-bracket.bl{bottom:48px;left:48px;border-right:none;border-top:none}
+.hud-bracket.br{bottom:48px;right:48px;border-left:none;border-top:none}
+.hud-scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.4),transparent);top:50%;animation:scan 8s linear infinite;pointer-events:none;z-index:4}
+@keyframes scan{0%{top:0}100%{top:100%}}
+
+/* ─────────────── MARQUEE ─────────────── */
+.marquee-strip{background:var(--navy-2);color:var(--gold);border-top:1px solid rgba(255,215,0,.18);border-bottom:1px solid rgba(255,215,0,.18);overflow:hidden;padding:26px 0}
+.marquee-track{display:inline-flex;gap:64px;white-space:nowrap;animation:marq 52s linear infinite;font-family:'Fraunces',serif;font-style:italic;font-size:26px;letter-spacing:.04em}
+.marquee-track span{display:inline-flex;align-items:center;gap:44px}
+.marquee-track span::before{content:"✦";color:var(--gold);font-size:13px}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─────────────── INTRO ─────────────── */
+.intro{padding:200px 48px;position:relative;background:var(--navy-3)}
+.intro-grid{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:140px;align-items:end}
+.intro-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(56px,8vw,136px);line-height:.92;letter-spacing:-.02em;color:var(--cream)}
+.intro-title em{font-style:italic;color:var(--rust-light)}
+.intro-body p{font-size:19px;line-height:1.75;color:rgba(238,229,216,.75);font-weight:300;margin-bottom:24px}
+.intro-body p:first-child::first-letter{font-family:'Fraunces',serif;font-style:italic;font-size:78px;line-height:.8;float:left;padding:10px 14px 0 0;color:var(--gold)}
+.intro-stats{display:flex;gap:80px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(168,196,216,.18)}
+.intro-stats .n{font-family:'Fraunces',serif;font-style:italic;font-size:62px;line-height:1;color:var(--gold);font-weight:300}
+.intro-stats .l{font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;margin-top:10px;font-family:'JetBrains Mono',monospace}
+
+/* ─────────────── STACKING CARDS — PRODUCT CATALOG ─────────────── */
+.catalog-intro{padding:140px 48px 80px;text-align:center;background:var(--navy-3)}
+.catalog-intro .eyebrow{margin-bottom:20px}
+.catalog-intro h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(52px,8vw,124px);line-height:.9;letter-spacing:-.02em;color:var(--cream)}
+.catalog-intro h2 em{font-style:italic;color:var(--gold)}
+.catalog-intro p{max-width:680px;margin:32px auto 0;font-size:17px;line-height:1.7;color:rgba(238,229,216,.7);font-weight:300}
+
+#cards{list-style:none;padding:0;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(6,var(--card-height));gap:var(--card-margin);padding-bottom:calc(6 * var(--card-margin));max-width:1680px;margin:0 auto 0;padding-left:48px;padding-right:48px}
+.card{position:sticky;top:8vh;height:var(--card-height);padding-top:calc(var(--index) * var(--card-top-offset));perspective:1400px}
+.card__content{box-sizing:border-box;padding:80px;width:100%;height:100%;border-radius:40px;color:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;transform-origin:50% 0%;will-change:transform,filter;transform-style:preserve-3d;animation:scale-card linear forwards;animation-timeline:view();animation-range:exit-crossing 0% exit-crossing 100%}
+.card__content::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:18px 18px;opacity:.35;pointer-events:none}
+.card__content::after{content:"";position:absolute;top:24px;right:24px;width:52px;height:52px;border:1.5px solid rgba(255,215,0,.55);border-radius:50%;pointer-events:none}
+.card-left{position:relative;z-index:2}
+.card-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.card__content .number{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.32em;text-transform:uppercase;opacity:.6;margin-bottom:18px;display:block}
+.card__content h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(42px,5.6vw,92px);line-height:.92;letter-spacing:-.02em;margin-bottom:28px}
+.card__content h3 em{font-style:italic;color:var(--gold)}
+.card__content .desc{font-size:16px;line-height:1.7;opacity:.82;margin-bottom:34px;max-width:520px;font-weight:300}
+.card__content .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:34px;padding:20px 0;border-top:1px solid rgba(238,229,216,.18);border-bottom:1px solid rgba(238,229,216,.18)}
+.card__content .spec-n{font-family:'Fraunces',serif;font-style:italic;font-size:26px;line-height:1;color:var(--gold)}
+.card__content .spec-l{font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin-top:6px;font-family:'JetBrains Mono',monospace}
+.card__content .price-row{display:flex;align-items:baseline;gap:18px;margin-bottom:22px;flex-wrap:wrap}
+.card__content .price{font-family:'Fraunces',serif;font-style:italic;font-size:56px;line-height:1;color:var(--gold)}
+.card__content .price-from{font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:.55;font-family:'JetBrains Mono',monospace}
+.card-cta{display:inline-flex;align-items:center;gap:14px;padding:14px 28px;border-radius:999px;background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.28);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;backdrop-filter:blur(6px);transition:.25s}
+.card-cta:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+.card-visual{position:relative;width:100%;max-width:520px;aspect-ratio:1/1;border-radius:30px;border:1px solid rgba(255,255,255,.1);overflow:hidden;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
+.card-visual::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px,14px 14px;background-position:0 0,14px 14px}
+.card-visual img{width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 40px 80px rgba(0,0,0,.5)) drop-shadow(0 0 60px rgba(255,215,0,.12));position:relative;z-index:2}
+.card-visual .orbit-ring{position:absolute;inset:10%;border:1px dashed rgba(255,215,0,.3);border-radius:50%;animation:spin 34s linear infinite}
+.card-visual .orbit-ring.a2{inset:22%;border-color:rgba(168,196,216,.25);animation-duration:22s;animation-direction:reverse}
+.card-visual .tag{position:absolute;top:18px;left:18px;padding:6px 12px;background:rgba(0,0,0,.6);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);border-radius:999px;z-index:3;backdrop-filter:blur(6px)}
+
+/* Card color variants — NASA-inspired */
+.card:nth-child(1){--index:1}
+.card:nth-child(1) .card__content{background:linear-gradient(135deg,#1E2B5A,#0C1736);--shadow-color:rgba(30,43,90,.7)}
+.card:nth-child(2){--index:2}
+.card:nth-child(2) .card__content{background:linear-gradient(135deg,#C4501A,#6B2810);--shadow-color:rgba(196,80,26,.65)}
+.card:nth-child(3){--index:3}
+.card:nth-child(3) .card__content{background:linear-gradient(135deg,#EEE5D8,#AE9C96);color:var(--navy-3);--shadow-color:rgba(174,156,150,.6)}
+.card:nth-child(3) .card__content::after{border-color:rgba(12,23,54,.55)}
+.card:nth-child(3) .card__content h3 em{color:var(--rust)}
+.card:nth-child(3) .card__content .spec-n,
+.card:nth-child(3) .card__content .price{color:var(--rust)}
+.card:nth-child(3) .card__content .specs{border-color:rgba(12,23,54,.22)}
+.card:nth-child(3) .card-cta{background:rgba(12,23,54,.08);border-color:rgba(12,23,54,.28)}
+.card:nth-child(4){--index:4}
+.card:nth-child(4) .card__content{background:linear-gradient(135deg,#798895,#0A1022);--shadow-color:rgba(168,196,216,.6)}
+.card:nth-child(5){--index:5}
+.card:nth-child(5) .card__content{background:linear-gradient(135deg,#0A1022,#1E2B5A);--shadow-color:rgba(10,16,34,.7)}
+.card:nth-child(5) .card__content h3 em{color:var(--silver)}
+.card:nth-child(5) .card__content .spec-n,
+.card:nth-child(5) .card__content .price{color:var(--silver)}
+.card:nth-child(6){--index:6}
+.card:nth-child(6) .card__content{background:linear-gradient(135deg,#6B2810,#0C1736);--shadow-color:rgba(107,40,16,.75)}
+
+@keyframes scale-card{to{transform:scale(.82) translateY(-12vh) rotateX(-18deg);filter:brightness(.55);border-radius:24px;box-shadow:0 60px 120px -10px var(--shadow-color)}}
+
+/* Progress ring */
+.progress-circle{position:fixed;bottom:32px;right:32px;width:86px;height:86px;z-index:80;pointer-events:none}
+.progress-circle circle{fill:none;stroke:var(--gold);stroke-width:5;transform:rotate(-90deg);transform-origin:50% 50%;stroke-dasharray:251;stroke-dashoffset:251;animation:progress-spin linear;animation-timeline:scroll()}
+@keyframes progress-spin{to{stroke-dashoffset:0}}
+
+/* ─────────────── GALLERY BAND ─────────────── */
+.gallery{padding:160px 0;background:var(--navy-3);position:relative;overflow:hidden}
+.gallery-title{max-width:1680px;margin:0 auto 80px;padding:0 48px}
+.gallery-title h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(44px,6vw,96px);line-height:.94;letter-spacing:-.02em;color:var(--cream)}
+.gallery-title h3 em{font-style:italic;color:var(--gold)}
+.gallery-track{display:flex;gap:28px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px}
+.gallery-card{flex:0 0 460px;height:600px;scroll-snap-align:start;border-radius:28px;border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;background:linear-gradient(135deg,var(--navy),var(--navy-3));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;transition:transform .4s}
+.gallery-card:hover{transform:translateY(-6px)}
+.gallery-card::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,215,0,.1) 1px,transparent 1px);background-size:22px 22px;opacity:.4}
+.gallery-card img{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:70%;height:auto;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));z-index:1}
+.gallery-card .num{position:absolute;top:24px;left:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);opacity:.8;z-index:3}
+.gallery-card h4{position:relative;z-index:3;font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:34px;line-height:1;color:var(--cream);margin-bottom:10px}
+.gallery-card p{position:relative;z-index:3;font-size:13px;line-height:1.6;color:rgba(238,229,216,.65);font-weight:300}
+
+/* ─────────────── TIMELINE ─────────────── */
+.timeline{padding:200px 48px;background:linear-gradient(180deg,var(--navy-3) 0%,var(--navy) 50%,var(--navy-3) 100%);position:relative}
+.timeline-inner{max-width:1680px;margin:0 auto}
+.timeline h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(52px,7vw,112px);line-height:.92;letter-spacing:-.02em;color:var(--cream);margin-bottom:80px}
+.timeline h3 em{font-style:italic;color:var(--rust-light)}
+.timeline-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;position:relative}
+.timeline-grid::before{content:"";position:absolute;top:30px;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.45),transparent)}
+.tl-item{position:relative;padding-top:72px}
+.tl-item::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:16px;height:16px;border:1.5px solid var(--gold);border-radius:50%;background:var(--navy-3)}
+.tl-year{font-family:'Fraunces',serif;font-style:italic;font-size:42px;line-height:1;color:var(--gold);text-align:center;margin-bottom:14px}
+.tl-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream);opacity:.7;text-align:center;margin-bottom:10px}
+.tl-body{font-size:13px;line-height:1.65;color:rgba(238,229,216,.6);text-align:center;font-weight:300}
+
+/* ─────────────── FOOTER ROCKET LAUNCH ─────────────── */
+.launch-section{position:relative;height:100vh;min-height:780px;background:linear-gradient(to bottom,var(--navy-3) 0%,var(--navy-2) 40%,#2A3875 100%);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.launch-header{position:absolute;top:0;left:0;right:0;text-align:center;padding:90px 32px 0;z-index:4;pointer-events:none}
+.launch-header .eyebrow{color:var(--gold);opacity:.85}
+.launch-header h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(56px,9vw,140px);line-height:.9;letter-spacing:-.02em;color:var(--cream);margin-top:18px}
+.launch-header p{max-width:620px;margin:28px auto 0;font-size:16px;line-height:1.65;color:rgba(238,229,216,.68);font-weight:300}
+.launch-header .countdown{margin-top:30px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase}
+
+/* Artemis rocket — CSS gradients only */
+.rocket-stage{position:relative;width:100%;height:100%}
+.rocket-ground{position:absolute;bottom:0;left:0;right:0;height:12vh;background:radial-gradient(ellipse at top,#2A2018,#0A0A08)}
+.rocket-smoke{position:absolute;left:50%;bottom:8vh;width:100vmin;height:80vmin;transform:translateX(-50%);transform-origin:center 80%;z-index:2;opacity:0;pointer-events:none;animation:smoke-bloom 9s ease-out 3.5s both;background:
+  radial-gradient(ellipse,rgba(208,200,190,.85) 30%,transparent 70%) 14vmin 58vmin/62vmin 22vmin no-repeat,
+  radial-gradient(circle,rgba(220,210,200,.9) 40%,transparent 70%) 8vmin 62vmin/34vmin 26vmin no-repeat,
+  radial-gradient(circle,rgba(220,210,200,.9) 30%,transparent 70%) 50vmin 62vmin/34vmin 26vmin no-repeat,
+  radial-gradient(ellipse,rgba(240,232,222,1) 30%,rgba(200,190,180,.7) 50%,transparent 80%) 20vmin 66vmin/52vmin 20vmin no-repeat}
+@keyframes smoke-bloom{
+  0%{transform:translateX(-50%) scale(.08);opacity:0}
+  10%{transform:translateX(-50%) scale(.35);opacity:.85}
+  40%{transform:translateX(-50%) scale(1);opacity:.7}
+  70%{transform:translateX(-50%) scale(1.7);opacity:.4}
+  100%{transform:translateX(-50%) scale(2.3);opacity:0}
+}
+
+/* Rocket body */
+.rocket{position:absolute;left:50%;bottom:10vh;width:24vmin;height:70vmin;transform:translateX(-50%);z-index:3;animation:rocket-launch 10s ease-in 4s forwards}
+@keyframes rocket-launch{
+  0%{transform:translateX(-50%) translateY(0)}
+  30%{transform:translateX(-50%) translateY(-6vmin)}
+  100%{transform:translateX(-50%) translateY(-140vh)}
+}
+/* Nose cone */
+.rocket .nose{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5vmin solid transparent;border-right:5vmin solid transparent;border-bottom:10vmin solid var(--cream)}
+.rocket .nose::after{content:"";position:absolute;top:2vmin;left:-3vmin;width:6vmin;height:1.5vmin;background:var(--rust);border-radius:50%}
+/* Main fuselage */
+.rocket .fuselage{position:absolute;top:10vmin;left:50%;transform:translateX(-50%);width:10vmin;height:40vmin;background:linear-gradient(90deg,var(--silver-dark),var(--cream) 40%,var(--cream) 60%,var(--silver-dark));border-radius:1vmin 1vmin 0 0}
+.rocket .fuselage::before{content:"USA";position:absolute;top:6vmin;left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:2vmin;color:var(--navy);letter-spacing:.4em}
+.rocket .fuselage::after{content:"";position:absolute;top:12vmin;left:50%;transform:translateX(-50%);width:3vmin;height:3vmin;background:var(--rust);border-radius:50%;box-shadow:0 0 0 .5vmin var(--cream),0 0 0 .8vmin var(--navy)}
+.rocket .band{position:absolute;left:50%;transform:translateX(-50%);width:10vmin;height:1vmin;background:var(--navy)}
+.rocket .band.b1{top:26vmin}
+.rocket .band.b2{top:42vmin;background:var(--rust)}
+/* Boosters (left & right) */
+.rocket .booster{position:absolute;bottom:8vmin;width:4vmin;height:34vmin;background:linear-gradient(90deg,var(--silver-dark),var(--cream) 40%,var(--cream) 60%,var(--silver-dark));border-radius:1vmin 1vmin 0 0}
+.rocket .booster.left{left:2vmin}
+.rocket .booster.right{right:2vmin}
+.rocket .booster::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:2vmin solid transparent;border-right:2vmin solid transparent;border-bottom:4vmin solid var(--cream)}
+/* Fins */
+.rocket .fin{position:absolute;bottom:8vmin;width:3vmin;height:6vmin;background:var(--rust)}
+.rocket .fin.left{left:0;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.rocket .fin.right{right:0;clip-path:polygon(0 0,100% 100%,0 100%)}
+/* Engine flames */
+.rocket .flames{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:24vmin;height:14vmin;display:flex;justify-content:space-between;align-items:flex-start;padding:0 1vmin}
+.rocket .flame{width:2.5vmin;height:14vmin;background:radial-gradient(ellipse at top,#FFF5A0 0%,#FFD700 18%,var(--rust-light) 38%,rgba(196,80,26,.55) 55%,rgba(196,80,26,.2) 75%,transparent 95%);border-radius:50% 50% 20% 20%;transform-origin:top;animation:flame-flicker .18s linear infinite}
+@keyframes flame-flicker{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.08)}}
+
+/* ─────────────── FOOTER TEXT ─────────────── */
+.footer-text{position:relative;background:var(--navy-3);padding:120px 48px 80px;color:var(--cream);z-index:10}
+.footer-grid{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:80px;margin-bottom:80px}
+.footer-brand h4{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;margin-bottom:22px}
+.footer-brand p{font-size:14px;line-height:1.7;color:rgba(238,229,216,.6);max-width:440px}
+.footer-col h5{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.footer-col a{display:block;font-size:14px;line-height:2;color:rgba(238,229,216,.7);text-decoration:none;transition:.2s}
+.footer-col a:hover{color:var(--cream)}
+.footer-bar{max-width:1680px;margin:0 auto;padding-top:30px;border-top:1px solid rgba(168,196,216,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:rgba(238,229,216,.45);text-transform:uppercase}
+
+@media(max-width:980px){
+  .nav{padding:16px 24px}
+  .nav-links{display:none}
+  .hero-content{padding:0 24px 8vh}
+  .intro{padding:120px 24px}
+  .intro-grid{grid-template-columns:1fr;gap:60px}
+  .intro-stats{gap:40px}
+  .card__content{padding:40px;grid-template-columns:1fr;gap:30px}
+  .card-visual{max-width:360px}
+  .timeline-grid{grid-template-columns:repeat(2,1fr)}
+  .timeline-grid::before{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  .gallery-card{flex:0 0 320px;height:460px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="ring">O</div>
+    <div>Orbital <em style="color:var(--gold)">Atelier</em></div>
+  </div>
+  <div class="nav-links">
+    <a href="#catalogue">Catalogue</a>
+    <a href="#gallery">Fleet</a>
+    <a href="#heritage">Heritage</a>
+    <a href="#launch">Missions</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span class="mono">EST. 1979 · CANAVERAL &middot; TANEGASHIMA</span>
+    <button class="btn-pill btn-gold">Book a Viewing →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div id="three-canvas-host"></div>
+  <div id="three-loading">Initialising orbital feed…</div>
+  <div class="hud-bracket tl"></div>
+  <div class="hud-bracket tr"></div>
+  <div class="hud-bracket bl"></div>
+  <div class="hud-bracket br"></div>
+  <div class="hud-scanline"></div>
+
+  <div class="hero-content">
+    <div class="hero-meta">
+      <span class="mono">N° 087 &middot; ORBITAL COMMONWEALTH</span>
+      <span class="mono">LAT 28.5729° N &middot; LON 80.6490° W</span>
+    </div>
+    <div class="hero-title-wrap">
+      <h1 class="hero-title">A private<br/><em>observatory</em><br/>for flying things.</h1>
+      <p class="hero-sub">We source, restore, and deliver orbital craft, heritage rockets, and one-off flying discs — for collectors who treat gravity as a suggestion.</p>
+      <div class="hero-ctas">
+        <button class="btn-pill btn-gold">Browse the catalogue →</button>
+        <button class="btn-pill btn-ghost">About the atelier</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Private acquisition</span><span>Heritage restoration</span><span>Re-entry certification</span><span>Off-market access</span><span>Launchpad allocation</span><span>Concours curation</span>
+    <span>Private acquisition</span><span>Heritage restoration</span><span>Re-entry certification</span><span>Off-market access</span><span>Launchpad allocation</span><span>Concours curation</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-grid">
+    <div>
+      <span class="eyebrow">The house</span>
+      <h2 class="intro-title">Forty-six years of quiet <em>altitude</em>.</h2>
+    </div>
+    <div class="intro-body">
+      <p>Orbital Atelier is a private dealership for orbital craft, sub-orbital sport rockets, and documented flying-disc prototypes — the kind of machines that refuse display plaques and insist on a pilot.</p>
+      <p>Every acquisition passes a twelve-step certification written in-house: chassis scan, propellant lineage, re-entry delta-V, cabin ergonomics. We do not buy what we will not fly. We do not sell what we would not own.</p>
+      <p>Four vaults across Canaveral, Tanegashima, Kourou and Baikonur. Six mission controllers on call. A client list closed since 2003.</p>
+      <div class="intro-stats">
+        <div><div class="n">284</div><div class="l">Craft delivered</div></div>
+        <div><div class="n">46</div><div class="l">Years</div></div>
+        <div><div class="n">12</div><div class="l">Launch windows / yr</div></div>
+        <div><div class="n">4</div><div class="l">Private pads</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG INTRO -->
+<section id="catalogue" class="catalog-intro">
+  <span class="eyebrow">Winter collection · 2026</span>
+  <h2>Six craft,<br><em>one launch window</em>.</h2>
+  <p>Each lot includes full chassis certification, propellant allocation for first flight, and a dedicated mission controller for the onboarding season. Delivery 90 days from deposit.</p>
+</section>
+
+<!-- STACKING CARDS -->
+<ul id="cards">
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 01 · Launch Vehicle</span>
+        <h3>Saturn V <em>Heritage</em></h3>
+        <p class="desc">A fully restored Saturn V mk-III in original 1969 livery — 110 metres of documented lineage, four clean ignitions on record, crew-rated cabin kept in flight condition since decommission. One owner, meticulous logbooks.</p>
+        <div class="specs">
+          <div><div class="spec-n">110m</div><div class="spec-l">Height</div></div>
+          <div><div class="spec-n">3,049t</div><div class="spec-l">Gross mass</div></div>
+          <div><div class="spec-n">35MN</div><div class="spec-l">Thrust, S-IC</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">Asking</span>
+          <span class="price">€ 12.8M</span>
+        </div>
+        <a href="#" class="card-cta">Request dossier →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ Reserved pad 39B</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=640&amp;q=80" alt="Heritage rocket" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 02 · Flying Disc</span>
+        <h3>Vortex <em>Hoverdisk</em> N7</h3>
+        <p class="desc">Aluminum-titanium lift plate, 6-fan magnetohydrodynamic ring, fully silent cruise profile at 180 knots. One of twelve built in the Nevada cleanroom. Pilot certification required; we provide the hours.</p>
+        <div class="specs">
+          <div><div class="spec-n">8.4m</div><div class="spec-l">Diameter</div></div>
+          <div><div class="spec-n">180kt</div><div class="spec-l">Cruise</div></div>
+          <div><div class="spec-n">4pax</div><div class="spec-l">Cabin</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">From</span>
+          <span class="price">€ 4.2M</span>
+        </div>
+        <a href="#" class="card-cta">Book a hover session →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ 3 / 12 remaining</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=640&amp;q=80" alt="Flying disc" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 03 · Sport Rocket</span>
+        <h3>Kourou <em>Comète</em> 02</h3>
+        <p class="desc">A two-person sub-orbital sport rocket tuned for the Ariane-class pad. Six-minute boost, three minutes apogee, full cabin windows. Private pilot lineage, Canaveral flight logs included. Delivery includes twelve launch-window reservations at Kourou.</p>
+        <div class="specs">
+          <div><div class="spec-n">106km</div><div class="spec-l">Apogee</div></div>
+          <div><div class="spec-n">2pax</div><div class="spec-l">Cabin</div></div>
+          <div><div class="spec-n">6min</div><div class="spec-l">Boost</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">Reserve</span>
+          <span class="price">€ 1.9M</span>
+        </div>
+        <a href="#" class="card-cta">Reserve a window →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ Winter flights 2026</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=640&amp;q=80" alt="Sport rocket" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 04 · Orbital Shuttle</span>
+        <h3>Meridian <em>Quantum</em> S1</h3>
+        <p class="desc">Full orbital shuttle certified for low-earth missions — twelve-day autonomy, eight-person cabin, docking mast compatible with all major private stations. Includes annual overhaul at our Tanegashima dock.</p>
+        <div class="specs">
+          <div><div class="spec-n">420km</div><div class="spec-l">Orbit nominal</div></div>
+          <div><div class="spec-n">8pax</div><div class="spec-l">Crew</div></div>
+          <div><div class="spec-n">12d</div><div class="spec-l">Autonomy</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">Asking</span>
+          <span class="price">€ 28M</span>
+        </div>
+        <a href="#" class="card-cta">Schedule inspection →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ One unit available</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=640&amp;q=80" alt="Orbital shuttle" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 05 · Vintage Capsule</span>
+        <h3>Mercury-Atlas <em>Echo</em></h3>
+        <p class="desc">Unflown Mercury-Atlas capsule, cabin conservation project — authentic 1961 parts inventory, fully documented provenance, restoration tuition included if you want to finish it yourself at our Houston bay.</p>
+        <div class="specs">
+          <div><div class="spec-n">1961</div><div class="spec-l">Vintage</div></div>
+          <div><div class="spec-n">1pax</div><div class="spec-l">Capsule</div></div>
+          <div><div class="spec-n">94%</div><div class="spec-l">Original parts</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">From</span>
+          <span class="price">€ 860k</span>
+        </div>
+        <a href="#" class="card-cta">Arrange viewing →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ Houston, TX</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?w=640&amp;q=80" alt="Vintage capsule" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 06 · Scout Probe</span>
+        <h3>Nebula <em>Scout</em> MkIV</h3>
+        <p class="desc">Long-range orbital scout — ion drive, twelve-month continuous thrust, payload bay configured for personal research. Comes with communication allocation on our Tanegashima array for the first operating year.</p>
+        <div class="specs">
+          <div><div class="spec-n">12m</div><div class="spec-l">Continuous thrust</div></div>
+          <div><div class="spec-n">240kg</div><div class="spec-l">Payload bay</div></div>
+          <div><div class="spec-n">GEO</div><div class="spec-l">Range</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">From</span>
+          <span class="price">€ 3.4M</span>
+        </div>
+        <a href="#" class="card-cta">Configure payload →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ Q2 2026 delivery</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=640&amp;q=80" alt="Scout probe" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- Progress ring -->
+<svg class="progress-circle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/></svg>
+
+<!-- GALLERY BAND -->
+<section id="gallery" class="gallery">
+  <div class="gallery-title">
+    <span class="eyebrow">The fleet</span>
+    <h3>Current <em>inventory</em>.</h3>
+  </div>
+  <div class="gallery-track">
+    <div class="gallery-card">
+      <span class="num">01 / 08</span>
+      <img src="https://images.unsplash.com/photo-1454789591675-556c287e39e2?w=560&amp;q=80" alt="">
+      <h4>Andromeda-1</h4><p>Orbital freighter. 2024 build, 60 tons payload, sold.</p>
+    </div>
+    <div class="gallery-card">
+      <span class="num">02 / 08</span>
+      <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=560&amp;q=80" alt="">
+      <h4>Helios RR</h4><p>Solar sail prototype, one-off, Kourou provenance.</p>
+    </div>
+    <div class="gallery-card">
+      <span class="num">03 / 08</span>
+      <img src="https://images.unsplash.com/photo-1446776709462-d6b525c57bd3?w=560&amp;q=80" alt="">
+      <h4>Argo Mk2</h4><p>Private cargo shuttle, twin-turbo H₂, full restoration.</p>
+    </div>
+    <div class="gallery-card">
+      <span class="num">04 / 08</span>
+      <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=560&amp;q=80" alt="">
+      <h4>Sirius Disc</h4><p>Four-seat hover disc, Nevada cleanroom, reserved.</p>
+    </div>
+    <div class="gallery-card">
+      <span class="num">05 / 08</span>
+      <img src="https://images.unsplash.com/photo-1517976547714-720226b864c1?w=560&amp;q=80" alt="">
+      <h4>Polaris X</h4><p>Cryo-fueled sport rocket, winter 2026 deliveries open.</p>
+    </div>
+    <div class="gallery-card">
+      <span class="num">06 / 08</span>
+      <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=560&amp;q=80" alt="">
+      <h4>Kepler-62f</h4><p>Heavy-lift launcher, three proven flights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="heritage" class="timeline">
+  <div class="timeline-inner">
+    <span class="eyebrow" style="color:var(--gold)">Heritage</span>
+    <h3 style="margin-top:18px">A forty-six year <em>lineage</em>.</h3>
+    <div class="timeline-grid">
+      <div class="tl-item"><div class="tl-year">1979</div><div class="tl-label">Founded</div><div class="tl-body">First workshop opens in Titusville. Two engineers, one hangar, a single Atlas capsule.</div></div>
+      <div class="tl-item"><div class="tl-year">1994</div><div class="tl-label">First sale</div><div class="tl-body">The inaugural private Mercury-Atlas capsule sale. The house goes on record.</div></div>
+      <div class="tl-item"><div class="tl-year">2007</div><div class="tl-label">Tanegashima</div><div class="tl-body">Second vault opens in Japan. A maintenance partnership with JAXA begins.</div></div>
+      <div class="tl-item"><div class="tl-year">2018</div><div class="tl-label">Orbital era</div><div class="tl-body">First fully restored Saturn V delivered. Kourou pad allocation secured.</div></div>
+      <div class="tl-item"><div class="tl-year">2026</div><div class="tl-label">Today</div><div class="tl-body">Six craft on the winter catalogue. Four private pads. Two new capsule restorations.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH SECTION -->
+<section id="launch" class="launch-section">
+  <div class="launch-header">
+    <span class="eyebrow">T-minus</span>
+    <h3>Ready for <em>liftoff</em>.</h3>
+    <p>Every acquisition culminates in a launch window at one of our four private pads. Twelve windows a year. First flight included.</p>
+    <div class="countdown">T-00 : 00 : 04 : 12</div>
+  </div>
+
+  <div class="rocket-stage">
+    <div class="rocket-ground"></div>
+    <div class="rocket-smoke"></div>
+    <div class="rocket">
+      <div class="nose"></div>
+      <div class="fuselage"></div>
+      <div class="band b1"></div>
+      <div class="band b2"></div>
+      <div class="booster left"></div>
+      <div class="booster right"></div>
+      <div class="fin left"></div>
+      <div class="fin right"></div>
+      <div class="flames">
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
+        <div class="flame"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact" class="footer-text">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h4>Orbital <em style="color:var(--gold);font-style:normal">Atelier</em></h4>
+      <p>Private showroom for orbital craft, heritage rockets and flying discs. Canaveral · Tanegashima · Kourou · Baikonur. Viewings by appointment only.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Catalogue</h5>
+      <a href="#">Launch vehicles</a>
+      <a href="#">Flying discs</a>
+      <a href="#">Orbital shuttles</a>
+      <a href="#">Vintage capsules</a>
+      <a href="#">Scout probes</a>
+    </div>
+    <div class="footer-col">
+      <h5>The house</h5>
+      <a href="#">Mission</a>
+      <a href="#">Heritage</a>
+      <a href="#">Workshop</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h5>Operations</h5>
+      <a href="#">Canaveral, FL</a>
+      <a href="#">Tanegashima, JP</a>
+      <a href="#">Kourou, GF</a>
+      <a href="#">Baikonur, KZ</a>
+      <a href="#">+1 321 / VISIT</a>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>© 1979–2026 Orbital Atelier S.A.R.L.</span>
+    <span>Reg. F-987-KA / Launch licence FAA-CAP-0012</span>
+    <span>Sub-orbital · Orbital · Geostationary</span>
+  </div>
+</footer>
+
+<!-- ───────────────── THREE.js Hero Scene ───────────────── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+<script>
+(function(){
+  // USER-LOCKED SCENE — no GUI, no camera input, fixed parameters
+  var host = document.getElementById('three-canvas-host');
+  var loadingDiv = document.getElementById('three-loading');
+  if (!host || !window.THREE) return;
+
+  var cfg = {
+    modelUrl:'https://ik.imagekit.io/sqiqig7tz/Jump2.fbx',
+    animationSpeed:0.6, modelScale:0.1, modelColor:0x383838,
+    terrainSpeed:12.0, sunIntensity:4.5, sunHeight:45,
+    starCount:18000, starBaseSize:9.0, twinkleSpeed:1.5,
+    heightDamping:8.5, earthScale:0.8, earthBrightness:2.2,
+    earthPosX:-890, earthPosY:30, earthPosZ:0
+  };
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x000000, 0.0025);
+
+  function sizeOf(){ return { w: host.clientWidth || window.innerWidth, h: host.clientHeight || window.innerHeight }; }
+
+  var s0 = sizeOf();
+  var camera = new THREE.PerspectiveCamera(30, s0.w/s0.h, 1, 2000);
+  camera.position.set(130, 35, 0);
+  camera.lookAt(0, 10, 0);
+
+  var renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setSize(s0.w, s0.h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  host.appendChild(renderer.domElement);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.1));
+  var sunLight = new THREE.DirectionalLight(0xfffaf0, cfg.sunIntensity);
+  sunLight.position.set(150, cfg.sunHeight, 70);
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.width = 2048; sunLight.shadow.mapSize.height = 2048;
+  sunLight.shadow.camera.near = 10; sunLight.shadow.camera.far = 600;
+  sunLight.shadow.camera.left = -200; sunLight.shadow.camera.right = 200;
+  sunLight.shadow.camera.top = 200; sunLight.shadow.camera.bottom = -200;
+  sunLight.shadow.bias = -0.0005;
+  scene.add(sunLight);
+
+  // Lunar sand texture
+  function createLunarSandTexture(){
+    var c = document.createElement('canvas'); c.width = 512; c.height = 512;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#888888'; ctx.fillRect(0,0,512,512);
+    var id = ctx.getImageData(0,0,512,512); var d = id.data;
+    for (var i=0;i<d.length;i+=4){ var n = (Math.random()-0.5)*85; d[i]+=n; d[i+1]+=n; d[i+2]+=n; }
+    ctx.putImageData(id,0,0);
+    var t = new THREE.CanvasTexture(c);
+    t.wrapS = THREE.RepeatWrapping; t.wrapT = THREE.RepeatWrapping; t.repeat.set(8,8);
+    return t;
+  }
+  var sandTexture = createLunarSandTexture();
+
+  // Earth
+  var earthGroup = new THREE.Group();
+  var earthGeometry = new THREE.SphereGeometry(35, 64, 64);
+  var earthTex = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
+  earthTex.encoding = THREE.sRGBEncoding;
+  var earthMaterial = new THREE.MeshBasicMaterial({ map:earthTex, color:0xffffff, fog:false });
+  earthMaterial.color.setScalar(cfg.earthBrightness);
+  var earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
+  earthMesh.rotation.set(0.1, Math.PI/2, 0);
+  earthGroup.position.set(cfg.earthPosX, cfg.earthPosY, cfg.earthPosZ);
+  earthGroup.scale.setScalar(cfg.earthScale);
+  earthGroup.add(earthMesh);
+  scene.add(earthGroup);
+
+  // Noise + terrain
+  function hash(x,z){ var h = x*12.9898 + z*78.233; return Math.abs(Math.sin(h)*43758.5453)%1; }
+  function smoothStep(t){ return t*t*(3-2*t); }
+  function getLunarHeight(x,z){
+    var y = 0;
+    y += Math.sin(x*0.015)*Math.cos(z*0.015)*5.0;
+    y += Math.sin(x*0.04 + z*0.03)*2.0;
+    y += Math.sin(x*0.15)*Math.sin(z*0.15)*0.8;
+    y += Math.sin(x*0.5)*Math.cos(z*0.5)*0.3;
+    var cellSize = 85;
+    var cellX = Math.floor(x/cellSize), cellZ = Math.floor(z/cellSize);
+    for (var i=-1;i<=1;i++) for (var j=-1;j<=1;j++){
+      var seed = (cellX+i)*131 + (cellZ+j);
+      var cx = (cellX+i)*cellSize + hash(seed,seed)*cellSize;
+      var cz = (cellZ+j)*cellSize + hash(seed+1,seed-1)*cellSize;
+      var dx = x-cx, dz = z-cz, dist = Math.sqrt(dx*dx+dz*dz);
+      var cr = 10 + hash(seed,cellZ)*20, cd = cr*0.5;
+      if (dist < cr*2.0){
+        var r = dist/cr;
+        if (r < 1.0){
+          y -= cd*Math.cos(r*Math.PI*0.5);
+          y += (1.0-r)*Math.sin(x*0.9)*0.4;
+        } else if (r < 1.8){
+          var rimPeak = 1.25, rimEnd = 1.8, rimMax = cd*0.25;
+          if (r < rimPeak){ y += rimMax*smoothStep((r-1.0)/(rimPeak-1.0)); }
+          else { y += rimMax*smoothStep((rimEnd-r)/(rimEnd-rimPeak)); }
+        }
+      }
+    }
+    return y;
+  }
+
+  var TERRAIN_SIZE = 400, SEGMENTS = 180;
+  var rockGeo = new THREE.DodecahedronGeometry(1, 1);
+  var rockMat = new THREE.MeshStandardMaterial({ color:0x777777, roughness:0.9, bumpMap:sandTexture, bumpScale:0.3 });
+
+  function createRockField(parent){
+    var rocks = new THREE.Group();
+    for (var i=0;i<40;i++){
+      var m = new THREE.Mesh(rockGeo, rockMat);
+      m.castShadow = true; m.receiveShadow = true;
+      rocks.add(m);
+    }
+    parent.add(rocks); return rocks;
+  }
+  function randomizeRocks(rockGroup, segZ, globalZ){
+    rockGroup.children.forEach(function(rock, i){
+      var lx = (hash(i, segZ)-0.5)*TERRAIN_SIZE*0.95;
+      var lz = (hash(i+55, segZ)-0.5)*TERRAIN_SIZE*0.95;
+      var wz = segZ + lz + globalZ;
+      rock.position.set(lx, getLunarHeight(lx, wz)-0.35, lz);
+      var s = 0.5 + hash(i+12, i)*1.5;
+      rock.scale.set(s, s*(0.6+Math.random()*0.4), s);
+      rock.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+    });
+  }
+  function updateTerrainGeometry(geo, zGlobal){
+    var pos = geo.attributes.position.array;
+    for (var i=0;i<pos.length;i+=3){
+      var x = pos[i], z = pos[i+2] + zGlobal;
+      pos[i+1] = getLunarHeight(x,z);
+    }
+    geo.attributes.position.needsUpdate = true;
+    geo.computeVertexNormals();
+  }
+  function createTerrainMesh(z){
+    var geo = new THREE.PlaneGeometry(TERRAIN_SIZE, TERRAIN_SIZE, SEGMENTS, SEGMENTS);
+    geo.rotateX(-Math.PI/2);
+    updateTerrainGeometry(geo, z);
+    var mat = new THREE.MeshStandardMaterial({
+      color:0x999999, roughness:0.85, metalness:0.0,
+      bumpMap:sandTexture, bumpScale:0.22, roughnessMap:sandTexture
+    });
+    var mesh = new THREE.Mesh(geo, mat);
+    mesh.receiveShadow = true; mesh.position.z = z;
+    var rocks = createRockField(mesh);
+    randomizeRocks(rocks, z, 0);
+    return { mesh:mesh, rocks:rocks };
+  }
+  var t1 = createTerrainMesh(0), t2 = createTerrainMesh(TERRAIN_SIZE);
+  scene.add(t1.mesh, t2.mesh);
+  var globalZ = 0;
+
+  // Stars
+  var starGeo = new THREE.BufferGeometry();
+  var sp = [], ss = [], sph = [];
+  for (var i=0;i<cfg.starCount;i++){
+    var r = 980, th = 2*Math.PI*Math.random(), ph = Math.acos(2*Math.random()-1);
+    sp.push(r*Math.sin(ph)*Math.cos(th), r*Math.sin(ph)*Math.sin(th), r*Math.cos(ph));
+    ss.push(Math.random()*cfg.starBaseSize + 2.0);
+    sph.push(Math.random()*Math.PI*2);
+  }
+  starGeo.setAttribute('position', new THREE.Float32BufferAttribute(sp,3));
+  starGeo.setAttribute('size', new THREE.Float32BufferAttribute(ss,1));
+  starGeo.setAttribute('phase', new THREE.Float32BufferAttribute(sph,1));
+  var starMat = new THREE.ShaderMaterial({
+    uniforms:{ time:{value:0}, twinkleSpeed:{value:cfg.twinkleSpeed} },
+    vertexShader:'attribute float size; attribute float phase; varying float vOpacity; uniform float time; uniform float twinkleSpeed; void main(){ vOpacity = 0.3 + 0.7 * sin(time * twinkleSpeed + phase); vec4 mvPosition = modelViewMatrix * vec4(position, 1.0); gl_PointSize = size * (550.0 / -mvPosition.z); gl_Position = projectionMatrix * mvPosition; }',
+    fragmentShader:'varying float vOpacity; void main(){ float dist = distance(gl_PointCoord, vec2(0.5)); if (dist > 0.5) discard; gl_FragColor = vec4(1.0, 1.0, 1.0, vOpacity * (1.0 - dist * 2.0)); }',
+    transparent:true, blending:THREE.AdditiveBlending, depthWrite:false
+  });
+  scene.add(new THREE.Points(starGeo, starMat));
+
+  // FBX astronaut
+  var mixer = null, fbxModel = null;
+  var clock = new THREE.Clock();
+  try {
+    new THREE.FBXLoader().load(cfg.modelUrl, function(obj){
+      if (loadingDiv) loadingDiv.style.display = 'none';
+      fbxModel = obj;
+      fbxModel.scale.setScalar(cfg.modelScale);
+      var col = new THREE.Color(cfg.modelColor);
+      fbxModel.traverse(function(child){
+        if (child.isMesh){
+          child.castShadow = true; child.receiveShadow = true;
+          var mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.forEach(function(m){ m.color.copy(col); m.map = null; m.vertexColors = false; m.needsUpdate = true; if (m.emissive) m.emissive.setHex(0x000000); });
+        }
+      });
+      if (obj.animations && obj.animations.length){
+        mixer = new THREE.AnimationMixer(obj);
+        mixer.clipAction(obj.animations[0]).play();
+      }
+      scene.add(fbxModel);
+    }, undefined, function(){ if (loadingDiv) loadingDiv.style.display = 'none'; });
+  } catch(e){ if (loadingDiv) loadingDiv.style.display = 'none'; }
+
+  // Render loop — camera LOCKED
+  function animate(){
+    requestAnimationFrame(animate);
+    var delta = Math.min(clock.getDelta(), 0.05);
+    var time = clock.getElapsedTime();
+    starMat.uniforms.time.value = time;
+    if (earthMesh) earthMesh.rotation.y += delta * 0.05;
+
+    var moveStep = cfg.terrainSpeed * delta;
+    globalZ += moveStep;
+    t1.mesh.position.z -= moveStep;
+    t2.mesh.position.z -= moveStep;
+    if (t1.mesh.position.z <= -TERRAIN_SIZE){
+      t1.mesh.position.z += TERRAIN_SIZE*2;
+      updateTerrainGeometry(t1.mesh.geometry, t1.mesh.position.z + globalZ);
+      randomizeRocks(t1.rocks, t1.mesh.position.z, globalZ);
+    }
+    if (t2.mesh.position.z <= -TERRAIN_SIZE){
+      t2.mesh.position.z += TERRAIN_SIZE*2;
+      updateTerrainGeometry(t2.mesh.geometry, t2.mesh.position.z + globalZ);
+      randomizeRocks(t2.rocks, t2.mesh.position.z, globalZ);
+    }
+    if (fbxModel){
+      if (mixer) mixer.update(delta * cfg.animationSpeed);
+      var targetY = getLunarHeight(0, globalZ);
+      fbxModel.position.y = THREE.MathUtils.damp(fbxModel.position.y, targetY, cfg.heightDamping, delta);
+    }
+    camera.lookAt(0, 10, 0); // keep locked
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize — host element size tracks .hero
+  function onResize(){
+    var s = sizeOf();
+    camera.aspect = s.w/s.h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(s.w, s.h);
+  }
+  window.addEventListener('resize', onResize);
+  // Also respond when the hero element resizes (stretchy layouts)
+  if ('ResizeObserver' in window) new ResizeObserver(onResize).observe(host);
+})();
+</script>
+</body>
+</html>
