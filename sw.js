@@ -1,50 +1,18 @@
-// Vantage Book — 3D asset cache (cache-first for .glb + 3D template HTML)
-// Version bump to invalidate old cache on each deploy.
-const CACHE_V = 'vantage-3d-v2';
-const CACHE_TARGETS = [
-  /\/assets\/models\/.*\.glb(\?|$)/,
-  /vantage-maison-vitesse\.html/,
-  /vantage-maison-luxe\.html/,
-  /vantage-space-sweeper\.html/,
-  /vantage-neoarcade\.html/,
-  /vantage-hellenica\.html/,
-  /vantage-tee-nou\.html/
-];
-
-self.addEventListener('install', e => {
-  self.skipWaiting();
-});
-
+// Vantage Book — SW self-destruct build.
+// Previous SW versions may have cached broken .glb responses from the short
+// meshopt re-compression window, which caused 3D models to render blank.
+// This version purges all caches and unregisters itself, so every client falls
+// back to normal network fetches (no SW interception, no stale cache).
+self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k !== CACHE_V).map(k => caches.delete(k)));
-    await self.clients.claim();
-  })());
-});
-
-self.addEventListener('fetch', e => {
-  const url = e.request.url;
-  // Only GET
-  if (e.request.method !== 'GET') return;
-  const match = CACHE_TARGETS.some(r => r.test(url));
-  if (!match) return;
-  e.respondWith((async () => {
-    const cache = await caches.open(CACHE_V);
-    const cached = await cache.match(e.request);
-    if (cached) {
-      // stale-while-revalidate for HTML; pure cache-first for .glb
-      if (/\.html/.test(url)) {
-        e.waitUntil(fetch(e.request).then(r => { if (r.ok) cache.put(e.request, r.clone()); }).catch(() => {}));
-      }
-      return cached;
-    }
     try {
-      const fresh = await fetch(e.request);
-      if (fresh.ok) cache.put(e.request, fresh.clone());
-      return fresh;
-    } catch (err) {
-      return new Response('', { status: 504 });
-    }
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+      await self.registration.unregister();
+      const clients = await self.clients.matchAll({ includeUncontrolled: true });
+      clients.forEach(c => c.navigate(c.url).catch(() => {}));
+    } catch (e) {}
   })());
 });
+self.addEventListener('fetch', () => {}); // pass-through, no interception
