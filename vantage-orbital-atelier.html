@@ -8,6 +8,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,500;0,700;1,300;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- model-viewer + meshopt decoder for the ship showcase -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js" as="script" crossorigin="anonymous">
+<script>
+// Meshopt decoder bootstrap — ship .glb files are meshopt-compressed.
+(function(){
+  const MESHOPT_URL='https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js';
+  const pending=new Map();
+  const stash=(mv)=>{const s=mv.getAttribute('src');if(s&&!pending.has(mv)){pending.set(mv,s);mv.removeAttribute('src');}};
+  const mo=new MutationObserver(muts=>muts.forEach(m=>m.addedNodes.forEach(n=>{if(!n||n.nodeType!==1)return;if(n.tagName==='MODEL-VIEWER')stash(n);else if(n.querySelectorAll)n.querySelectorAll('model-viewer').forEach(stash);})));
+  mo.observe(document.documentElement,{childList:true,subtree:true});
+  document.querySelectorAll&&document.querySelectorAll('model-viewer').forEach(stash);
+  customElements.whenDefined('model-viewer').then(()=>{
+    const MV=customElements.get('model-viewer');
+    try{MV.meshoptDecoderLocation=MESHOPT_URL;}catch(e){}
+    Promise.resolve().then(()=>{mo.disconnect();pending.forEach((s,m)=>m.setAttribute('src',s));pending.clear();});
+  });
+})();
+</script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 <style>
 :root{
   --navy:#0C1736;
@@ -147,9 +167,9 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 @keyframes fill-text{to{-webkit-text-stroke:0;color:var(--cream);-webkit-text-fill-color:var(--cream)}}
 .catalog-intro p{max-width:680px;margin:32px auto 0;font-size:17px;line-height:1.7;color:rgba(238,229,216,.7);font-weight:300}
 
-#cards{list-style:none;padding:0;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(6,var(--card-height));gap:var(--card-margin);padding-bottom:calc(6 * var(--card-margin));max-width:1680px;margin:0 auto 0;padding-left:48px;padding-right:48px}
-.card{position:sticky;top:8vh;height:var(--card-height);padding-top:calc(var(--index) * var(--card-top-offset));perspective:1400px}
-.card__content{box-sizing:border-box;padding:80px;width:100%;height:100%;border-radius:40px;color:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;transform-origin:50% 0%;will-change:transform,filter;transform-style:preserve-3d;animation:scale-card linear forwards;animation-timeline:view();animation-range:exit-crossing 0% exit-crossing 100%}
+#cards{list-style:none;padding:0;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(5,var(--card-height));gap:var(--card-margin);padding-bottom:calc(5 * var(--card-margin));max-width:1680px;margin:0 auto 0;padding-left:48px;padding-right:48px}
+.card{position:sticky;top:8vh;height:var(--card-height);padding-top:calc(var(--index) * var(--card-top-offset))}
+.card__content{box-sizing:border-box;padding:80px;width:100%;height:100%;border-radius:40px;color:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;box-shadow:0 40px 90px -20px rgba(0,0,0,.55)}
 .card__content::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:18px 18px;opacity:.35;pointer-events:none}
 .card__content::after{content:"";position:absolute;top:24px;right:24px;width:52px;height:52px;border:1.5px solid rgba(255,215,0,.55);border-radius:50%;pointer-events:none}
 .card-left{position:relative;z-index:2}
@@ -166,12 +186,12 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 .card__content .price-from{font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:.55;font-family:'JetBrains Mono',monospace}
 .card-cta{display:inline-flex;align-items:center;gap:14px;padding:14px 28px;border-radius:999px;background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.28);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;backdrop-filter:blur(6px);transition:.25s}
 .card-cta:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
-.card-visual{position:relative;width:100%;max-width:520px;aspect-ratio:1/1;border-radius:30px;border:1px solid rgba(255,255,255,.1);overflow:hidden;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
-.card-visual::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px,14px 14px;background-position:0 0,14px 14px}
-.card-visual img{width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 40px 80px rgba(0,0,0,.5)) drop-shadow(0 0 60px rgba(255,215,0,.12));position:relative;z-index:2}
-.card-visual .orbit-ring{position:absolute;inset:10%;border:1px dashed rgba(255,215,0,.3);border-radius:50%;animation:spin 34s linear infinite}
-.card-visual .orbit-ring.a2{inset:22%;border-color:rgba(168,196,216,.25);animation-duration:22s;animation-direction:reverse}
-.card-visual .tag{position:absolute;top:18px;left:18px;padding:6px 12px;background:rgba(0,0,0,.6);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);border-radius:999px;z-index:3;backdrop-filter:blur(6px)}
+.card-visual{position:relative;width:100%;max-width:560px;aspect-ratio:1/1;border-radius:30px;border:1px solid rgba(255,255,255,.12);overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 100%);display:flex;align-items:center;justify-content:center}
+.card-visual::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;opacity:.55}
+.card-visual .orbit-ring{position:absolute;inset:12%;border:1px dashed rgba(255,215,0,.3);border-radius:50%;animation:spin 34s linear infinite;pointer-events:none;z-index:1}
+.card-visual .orbit-ring.a2{inset:24%;border-color:rgba(168,196,216,.22);animation-duration:22s;animation-direction:reverse}
+.card-visual model-viewer{width:100%;height:100%;background:transparent;--progress-bar-color:transparent;position:relative;z-index:2}
+.card-visual .tag{position:absolute;top:18px;left:18px;padding:6px 12px;background:rgba(0,0,0,.6);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);border-radius:999px;z-index:4;backdrop-filter:blur(6px);pointer-events:none}
 
 /* Card color variants — NASA-inspired */
 .card:nth-child(1){--index:1}
@@ -193,10 +213,7 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 .card:nth-child(5) .card__content h3 em{color:var(--silver)}
 .card:nth-child(5) .card__content .spec-n,
 .card:nth-child(5) .card__content .price{color:var(--silver)}
-.card:nth-child(6){--index:6}
-.card:nth-child(6) .card__content{background:linear-gradient(135deg,#6B2810,#0C1736);--shadow-color:rgba(107,40,16,.75)}
-
-@keyframes scale-card{to{transform:scale(.8) translateY(-10vh) rotateX(-20deg);filter:brightness(.6);border-radius:20px;box-shadow:0 50px 90px -10px var(--shadow-color)}}
+/* Pure sticky stacking: each card slides up and over the previous — no scale/rotate dance. */
 
 /* Progress ring */
 .progress-circle{position:fixed;bottom:32px;right:32px;width:86px;height:86px;z-index:80;pointer-events:none}
@@ -390,36 +407,36 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 <!-- CATALOG INTRO -->
 <section id="catalogue" class="catalog-intro">
   <span class="eyebrow">Winter collection · 2026</span>
-  <h2>Six craft,<br><em>one launch window</em>.</h2>
+  <h2>Five craft,<br><em>one launch window</em>.</h2>
   <p>Each lot includes full chassis certification, propellant allocation for first flight, and a dedicated mission controller for the onboarding season. Delivery 90 days from deposit.</p>
 </section>
 
-<!-- STACKING CARDS -->
+<!-- STACKING CARDS — 5 lots, each with a rotating 3D ship -->
 <ul id="cards">
 
   <li class="card">
     <div class="card__content">
       <div class="card-left">
-        <span class="number">Lot 01 · Launch Vehicle</span>
-        <h3>Saturn V <em>Heritage</em></h3>
-        <p class="desc">A fully restored Saturn V mk-III in original 1969 livery — 110 metres of documented lineage, four clean ignitions on record, crew-rated cabin kept in flight condition since decommission. One owner, meticulous logbooks.</p>
+        <span class="number">Lot 01 · Heavy Freighter</span>
+        <h3>Firefly <em>Heavy</em> Class</h3>
+        <p class="desc">A long-haul heavy-class freighter with reinforced cargo spine and triple-engine deep-space cruise. Built for the asteroid-belt trade routes — eight-month autonomy, crew quarters refurbished in 2024, full life-support overhaul included at delivery.</p>
         <div class="specs">
-          <div><div class="spec-n">110m</div><div class="spec-l">Height</div></div>
-          <div><div class="spec-n">3,049t</div><div class="spec-l">Gross mass</div></div>
-          <div><div class="spec-n">35MN</div><div class="spec-l">Thrust, S-IC</div></div>
+          <div><div class="spec-n">84m</div><div class="spec-l">Hull length</div></div>
+          <div><div class="spec-n">620t</div><div class="spec-l">Cargo bay</div></div>
+          <div><div class="spec-n">8mo</div><div class="spec-l">Autonomy</div></div>
         </div>
         <div class="price-row">
           <span class="price-from">Asking</span>
-          <span class="price">€ 12.8M</span>
+          <span class="price">€ 18.4M</span>
         </div>
         <a href="#" class="card-cta">Request dossier →</a>
       </div>
       <div class="card-right">
         <div class="card-visual">
-          <span class="tag">✦ Reserved pad 39B</span>
+          <span class="tag">✦ Asteroid-belt ready</span>
           <div class="orbit-ring"></div>
           <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=640&amp;q=80" alt="Heritage rocket" loading="lazy">
+          <model-viewer src="assets/models/ships/firefly.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.1" shadow-intensity="0.25" tone-mapping="commerce" alt="Firefly Heavy Class"></model-viewer>
         </div>
       </div>
     </div>
@@ -428,26 +445,26 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
   <li class="card">
     <div class="card__content">
       <div class="card-left">
-        <span class="number">Lot 02 · Flying Disc</span>
-        <h3>Vortex <em>Hoverdisk</em> N7</h3>
-        <p class="desc">Aluminum-titanium lift plate, 6-fan magnetohydrodynamic ring, fully silent cruise profile at 180 knots. One of twelve built in the Nevada cleanroom. Pilot certification required; we provide the hours.</p>
+        <span class="number">Lot 02 · Scout Yacht</span>
+        <h3>Luminaris <em>Solara</em></h3>
+        <p class="desc">A sculpted scout yacht in the luminous tradition — mirror-polished hull, cold-ion drive, cabin for four with full atmospheric reconstruction. Built for the owner who treats a transit as an occasion. One off-the-books unit available.</p>
         <div class="specs">
-          <div><div class="spec-n">8.4m</div><div class="spec-l">Diameter</div></div>
-          <div><div class="spec-n">180kt</div><div class="spec-l">Cruise</div></div>
+          <div><div class="spec-n">26m</div><div class="spec-l">Hull</div></div>
           <div><div class="spec-n">4pax</div><div class="spec-l">Cabin</div></div>
+          <div><div class="spec-n">0.4c</div><div class="spec-l">Cruise</div></div>
         </div>
         <div class="price-row">
           <span class="price-from">From</span>
-          <span class="price">€ 4.2M</span>
+          <span class="price">€ 24.6M</span>
         </div>
-        <a href="#" class="card-cta">Book a hover session →</a>
+        <a href="#" class="card-cta">Book a viewing →</a>
       </div>
       <div class="card-right">
         <div class="card-visual">
-          <span class="tag">✦ 3 / 12 remaining</span>
+          <span class="tag">✦ 1 / 1 in stock</span>
           <div class="orbit-ring"></div>
           <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=640&amp;q=80" alt="Flying disc" loading="lazy">
+          <model-viewer src="assets/models/ships/luminaris.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.2" shadow-intensity="0.2" tone-mapping="commerce" alt="Luminaris scout yacht"></model-viewer>
         </div>
       </div>
     </div>
@@ -456,54 +473,26 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
   <li class="card">
     <div class="card__content">
       <div class="card-left">
-        <span class="number">Lot 03 · Sport Rocket</span>
-        <h3>Kourou <em>Comète</em> 02</h3>
-        <p class="desc">A two-person sub-orbital sport rocket tuned for the Ariane-class pad. Six-minute boost, three minutes apogee, full cabin windows. Private pilot lineage, Canaveral flight logs included. Delivery includes twelve launch-window reservations at Kourou.</p>
+        <span class="number">Lot 03 · Capital Cruiser</span>
+        <h3>Colaid <em>Armada</em> 01</h3>
+        <p class="desc">A capital-class cruiser, fully armoured, private-citadel configuration — docking mast compatible with all six major orbital platforms. Four-year overhaul just completed at our Tanegashima dock. Crew of twelve, private owner's suite amidships.</p>
         <div class="specs">
-          <div><div class="spec-n">106km</div><div class="spec-l">Apogee</div></div>
-          <div><div class="spec-n">2pax</div><div class="spec-l">Cabin</div></div>
-          <div><div class="spec-n">6min</div><div class="spec-l">Boost</div></div>
-        </div>
-        <div class="price-row">
-          <span class="price-from">Reserve</span>
-          <span class="price">€ 1.9M</span>
-        </div>
-        <a href="#" class="card-cta">Reserve a window →</a>
-      </div>
-      <div class="card-right">
-        <div class="card-visual">
-          <span class="tag">✦ Winter flights 2026</span>
-          <div class="orbit-ring"></div>
-          <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=640&amp;q=80" alt="Sport rocket" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </li>
-
-  <li class="card">
-    <div class="card__content">
-      <div class="card-left">
-        <span class="number">Lot 04 · Orbital Shuttle</span>
-        <h3>Meridian <em>Quantum</em> S1</h3>
-        <p class="desc">Full orbital shuttle certified for low-earth missions — twelve-day autonomy, eight-person cabin, docking mast compatible with all major private stations. Includes annual overhaul at our Tanegashima dock.</p>
-        <div class="specs">
-          <div><div class="spec-n">420km</div><div class="spec-l">Orbit nominal</div></div>
-          <div><div class="spec-n">8pax</div><div class="spec-l">Crew</div></div>
-          <div><div class="spec-n">12d</div><div class="spec-l">Autonomy</div></div>
+          <div><div class="spec-n">142m</div><div class="spec-l">Length</div></div>
+          <div><div class="spec-n">12pax</div><div class="spec-l">Crew</div></div>
+          <div><div class="spec-n">18mo</div><div class="spec-l">Autonomy</div></div>
         </div>
         <div class="price-row">
           <span class="price-from">Asking</span>
-          <span class="price">€ 28M</span>
+          <span class="price">€ 72M</span>
         </div>
         <a href="#" class="card-cta">Schedule inspection →</a>
       </div>
       <div class="card-right">
         <div class="card-visual">
-          <span class="tag">✦ One unit available</span>
+          <span class="tag">✦ Flagship tier</span>
           <div class="orbit-ring"></div>
           <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=640&amp;q=80" alt="Orbital shuttle" loading="lazy">
+          <model-viewer src="assets/models/ships/colaid.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.0" shadow-intensity="0.35" tone-mapping="commerce" alt="Colaid Armada cruiser"></model-viewer>
         </div>
       </div>
     </div>
@@ -512,54 +501,54 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
   <li class="card">
     <div class="card__content">
       <div class="card-left">
-        <span class="number">Lot 05 · Vintage Capsule</span>
-        <h3>Mercury-Atlas <em>Echo</em></h3>
-        <p class="desc">Unflown Mercury-Atlas capsule, cabin conservation project — authentic 1961 parts inventory, fully documented provenance, restoration tuition included if you want to finish it yourself at our Houston bay.</p>
+        <span class="number">Lot 04 · Scout Corvette</span>
+        <h3>Polaris <em>Scout</em> MkII</h3>
+        <p class="desc">A slim two-seater scout corvette — the sort of craft you take when the trip has a personal reason. Modular payload bay, reinforced nose cone, pilot-tuned throttle response. Delivered with fifty hours of in-cockpit tuition at our Canaveral hangar.</p>
         <div class="specs">
-          <div><div class="spec-n">1961</div><div class="spec-l">Vintage</div></div>
-          <div><div class="spec-n">1pax</div><div class="spec-l">Capsule</div></div>
-          <div><div class="spec-n">94%</div><div class="spec-l">Original parts</div></div>
+          <div><div class="spec-n">12m</div><div class="spec-l">Hull</div></div>
+          <div><div class="spec-n">2pax</div><div class="spec-l">Cabin</div></div>
+          <div><div class="spec-n">0.2c</div><div class="spec-l">Cruise</div></div>
         </div>
         <div class="price-row">
           <span class="price-from">From</span>
-          <span class="price">€ 860k</span>
+          <span class="price">€ 3.9M</span>
         </div>
-        <a href="#" class="card-cta">Arrange viewing →</a>
-      </div>
-      <div class="card-right">
-        <div class="card-visual">
-          <span class="tag">✦ Houston, TX</span>
-          <div class="orbit-ring"></div>
-          <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1451187863213-d1bcbaae3fa3?w=640&amp;q=80" alt="Vintage capsule" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </li>
-
-  <li class="card">
-    <div class="card__content">
-      <div class="card-left">
-        <span class="number">Lot 06 · Scout Probe</span>
-        <h3>Nebula <em>Scout</em> MkIV</h3>
-        <p class="desc">Long-range orbital scout — ion drive, twelve-month continuous thrust, payload bay configured for personal research. Comes with communication allocation on our Tanegashima array for the first operating year.</p>
-        <div class="specs">
-          <div><div class="spec-n">12m</div><div class="spec-l">Continuous thrust</div></div>
-          <div><div class="spec-n">240kg</div><div class="spec-l">Payload bay</div></div>
-          <div><div class="spec-n">GEO</div><div class="spec-l">Range</div></div>
-        </div>
-        <div class="price-row">
-          <span class="price-from">From</span>
-          <span class="price">€ 3.4M</span>
-        </div>
-        <a href="#" class="card-cta">Configure payload →</a>
+        <a href="#" class="card-cta">Reserve a unit →</a>
       </div>
       <div class="card-right">
         <div class="card-visual">
           <span class="tag">✦ Q2 2026 delivery</span>
           <div class="orbit-ring"></div>
           <div class="orbit-ring a2"></div>
-          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=640&amp;q=80" alt="Scout probe" loading="lazy">
+          <model-viewer src="assets/models/ships/scout.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="28deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.1" shadow-intensity="0.2" tone-mapping="commerce" alt="Polaris Scout corvette"></model-viewer>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="card">
+    <div class="card__content">
+      <div class="card-left">
+        <span class="number">Lot 05 · Escort Shuttle</span>
+        <h3>Vespera <em>Escort</em> Craft</h3>
+        <p class="desc">A light escort shuttle, quick to hangar and quicker to launch — twin ion-verniers, armoured cockpit, compatible with any major carrier dock. Perfect as a pilot's second ship or as an escort for the heavier lots in this catalogue. Four available.</p>
+        <div class="specs">
+          <div><div class="spec-n">18m</div><div class="spec-l">Hull</div></div>
+          <div><div class="spec-n">6pax</div><div class="spec-l">Cabin</div></div>
+          <div><div class="spec-n">72h</div><div class="spec-l">Sortie</div></div>
+        </div>
+        <div class="price-row">
+          <span class="price-from">From</span>
+          <span class="price">€ 2.4M</span>
+        </div>
+        <a href="#" class="card-cta">Configure escort →</a>
+      </div>
+      <div class="card-right">
+        <div class="card-visual">
+          <span class="tag">✦ 4 / 4 available</span>
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring a2"></div>
+          <model-viewer src="assets/models/ships/escort.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.15" shadow-intensity="0.22" tone-mapping="commerce" alt="Vespera escort shuttle"></model-viewer>
         </div>
       </div>
     </div>
