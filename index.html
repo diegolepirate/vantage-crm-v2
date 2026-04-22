@@ -37,8 +37,125 @@
 img{content-visibility:auto}
 /* === END PERF === */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d1117;--s1:#161b22;--s2:#21262d;--s3:#30363d;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#db6d28;--purple:#bc8cff;--white:#e6edf3;--gray:#8b949e;--dim:rgba(240,246,252,.04);--book-bg:#1B8147;--book-accent:#8e24aa}
-#bookPage{background:var(--book-bg)!important}
+:root{--bg:#0d1117;--s1:#161b22;--s2:#21262d;--s3:#30363d;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#db6d28;--purple:#bc8cff;--white:#e6edf3;--gray:#8b949e;--dim:rgba(240,246,252,.04);--book-bg:#0A0A0F;--book-gold:#D4AF37;--book-card:#13131A;--book-sidebar:#0D0D14;--book-text:#F8F8FF}
+#bookPage{background:var(--book-bg)!important;color:var(--book-text);overflow-y:auto}
+#bookPage .uni-graph{background:var(--book-bg)!important;background-image:none!important}
+#bookPage .uni-sidebar{background:var(--book-sidebar)!important;border-right:1px solid rgba(255,255,255,.06)!important}
+#bookPage .uni-fluid-bg{display:none!important}
+
+/* ═══════════════ AGENCY REDESIGN (Vantage Web Agency) ═══════════════ */
+#bookPage{font-family:'Inter',sans-serif}
+
+/* Fixed header */
+.agency-header{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(10,10,15,.85);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid rgba(255,255,255,.06)}
+.agency-brand{display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif}
+.agency-brand .v-logo{color:#D4AF37;font-weight:700;font-size:18px;letter-spacing:.08em}
+.agency-brand .v-dot{color:#D4AF37;opacity:.6}
+.agency-brand .v-sub{color:rgba(248,248,255,.5);font-size:13px;font-weight:400}
+.agency-nav{display:flex;gap:28px;align-items:center}
+.agency-nav a{color:rgba(248,248,255,.6);font-size:14px;text-decoration:none;transition:color .25s;cursor:pointer}
+.agency-nav a:hover{color:#fff}
+.agency-nav a.active{color:#D4AF37}
+.agency-right{display:flex;align-items:center;gap:16px}
+.agency-cta{background:#D4AF37;color:#0A0A0F;border:0;border-radius:100px;padding:10px 20px;font:600 13px 'Inter',sans-serif;cursor:pointer;transition:opacity .2s;text-decoration:none;white-space:nowrap}
+.agency-cta:hover{opacity:.85}
+.agency-retour-wrap{display:flex;align-items:center;gap:14px}
+@media(max-width:900px){.agency-nav{display:none}}
+
+/* Hero */
+.agency-hero{padding:140px 28px 64px;text-align:center;max-width:1240px;margin:0 auto}
+.agency-hero-pill{display:inline-block;padding:6px 14px;border:1px solid rgba(212,175,55,.3);border-radius:100px;color:#D4AF37;font:500 11px 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.12em;margin-bottom:28px}
+.agency-hero h1{font-size:clamp(40px,6vw,80px);font-weight:700;line-height:1.05;letter-spacing:-.02em;color:#F8F8FF;margin:0 0 8px;font-family:'Inter',sans-serif}
+.agency-hero h1 .gold{color:#D4AF37;display:block}
+.agency-hero-sub{font-size:16px;line-height:1.7;color:rgba(248,248,255,.55);max-width:480px;margin:24px auto 0}
+.agency-stats{display:flex;justify-content:center;gap:0;margin:48px auto 0;flex-wrap:wrap;max-width:720px}
+.agency-stat{padding:0 28px;border-right:1px solid rgba(255,255,255,.08);text-align:center}
+.agency-stat:last-child{border-right:0}
+.agency-stat .n{color:#D4AF37;font:700 24px 'Inter',sans-serif;display:block}
+.agency-stat .l{color:rgba(248,248,255,.45);font:500 12px 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-top:4px;display:block}
+.agency-hero-ctas{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+.agency-btn-gold{background:#D4AF37;color:#0A0A0F;border:0;border-radius:100px;padding:14px 26px;font:600 14px 'Inter',sans-serif;cursor:pointer;transition:opacity .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.agency-btn-gold:hover{opacity:.85}
+.agency-btn-ghost{background:transparent;color:#F8F8FF;border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:14px 26px;font:500 14px 'Inter',sans-serif;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.agency-btn-ghost:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.04)}
+
+/* Pricing */
+.agency-pricing{padding:100px 28px;background:#0D0D14;position:relative}
+.agency-section-head{text-align:center;max-width:680px;margin:0 auto 64px}
+.agency-section-head .lbl{color:#D4AF37;font:500 11px 'Inter',sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;display:inline-block}
+.agency-section-head h2{color:#F8F8FF;font:700 clamp(32px,4.5vw,56px) 'Inter',sans-serif;letter-spacing:-.02em;line-height:1.1;margin:0 0 16px}
+.agency-section-head p{color:rgba(248,248,255,.55);font-size:16px;line-height:1.6}
+.agency-price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1160px;margin:0 auto}
+@media(max-width:900px){.agency-price-grid{grid-template-columns:1fr}}
+.agency-price-card{background:#13131A;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:36px 32px;display:flex;flex-direction:column;gap:20px;position:relative;transition:.25s}
+.agency-price-card.featured{border:2px solid #D4AF37;transform:scale(1.03)}
+@media(max-width:900px){.agency-price-card.featured{transform:none}}
+.agency-price-card .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#D4AF37;color:#0A0A0F;padding:5px 14px;border-radius:100px;font:600 10px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.agency-price-card .tier{color:rgba(248,248,255,.6);font:500 12px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.agency-price-card .price{color:#F8F8FF;font:700 44px 'Inter',sans-serif;line-height:1}
+.agency-price-card .period{color:rgba(248,248,255,.45);font:400 13px 'Inter',sans-serif}
+.agency-price-card .desc{color:rgba(248,248,255,.6);font-size:14px;line-height:1.6}
+.agency-price-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.agency-price-card li{color:rgba(248,248,255,.7);font-size:13px;display:flex;align-items:start;gap:10px;line-height:1.5}
+.agency-price-card li::before{content:"✓";color:#D4AF37;font-weight:700;flex-shrink:0}
+.agency-addons{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:920px;margin:48px auto 32px}
+@media(max-width:700px){.agency-addons{grid-template-columns:1fr}}
+.agency-addon{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px 24px}
+.agency-addon .t{color:#F8F8FF;font:600 14px 'Inter',sans-serif;margin-bottom:4px}
+.agency-addon .d{color:rgba(248,248,255,.55);font-size:13px;line-height:1.5}
+.agency-price-footer{text-align:center;margin-top:24px}
+.agency-price-footer p{color:rgba(248,248,255,.55);font-size:14px;margin-bottom:10px}
+.agency-price-footer a{color:#D4AF37;text-decoration:none;font-weight:600}
+.agency-price-footer a:hover{text-decoration:underline}
+
+/* Contact */
+.agency-contact{padding:100px 28px;background:#0A0A0F}
+.agency-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1160px;margin:0 auto;align-items:start}
+@media(max-width:900px){.agency-contact-grid{grid-template-columns:1fr;gap:48px}}
+.agency-contact-left h2{color:#F8F8FF;font:700 clamp(32px,4.5vw,56px) 'Inter',sans-serif;letter-spacing:-.02em;line-height:1.1;margin:0 0 16px}
+.agency-contact-left .sub{color:rgba(248,248,255,.55);font-size:16px;line-height:1.7;margin-bottom:32px}
+.agency-contact-info{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.agency-contact-info div{color:rgba(248,248,255,.75);font-size:14px;display:flex;align-items:center;gap:10px}
+.agency-contact-note{color:rgba(248,248,255,.45);font-size:13px;line-height:1.6;padding-top:24px;border-top:1px solid rgba(255,255,255,.06)}
+.agency-form{display:flex;flex-direction:column;gap:16px}
+.agency-form label{color:rgba(248,248,255,.65);font:500 12px 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:6px}
+.agency-form input,.agency-form select,.agency-form textarea{width:100%;background:#13131A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;color:#F8F8FF;font:400 14px 'Inter',sans-serif;outline:none;transition:border-color .2s}
+.agency-form input:focus,.agency-form select:focus,.agency-form textarea:focus{border-color:#D4AF37}
+.agency-form textarea{min-height:120px;resize:vertical;font-family:inherit}
+.agency-form-submit{background:#D4AF37;color:#0A0A0F;border:0;border-radius:100px;padding:14px;font:600 14px 'Inter',sans-serif;cursor:pointer;transition:opacity .2s;margin-top:6px}
+.agency-form-submit:hover{opacity:.85}
+.agency-form-hint{color:rgba(248,248,255,.4);font-size:12px;text-align:center;margin-top:8px}
+
+/* Footer */
+.agency-footer{background:#050508;border-top:1px solid rgba(255,255,255,.06);padding:40px 28px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;align-items:center;max-width:100%}
+@media(max-width:760px){.agency-footer{grid-template-columns:1fr;text-align:center;gap:24px}}
+.agency-footer-left .l{color:#D4AF37;font:700 18px 'Inter',sans-serif;letter-spacing:.08em;display:block;margin-bottom:4px}
+.agency-footer-left .t{color:rgba(248,248,255,.45);font-size:12px}
+.agency-footer-center{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.agency-footer-center a{color:rgba(248,248,255,.6);font-size:13px;text-decoration:none;cursor:pointer}
+.agency-footer-center a:hover{color:#fff}
+.agency-footer-right{color:rgba(248,248,255,.4);font-size:12px;text-align:right;line-height:1.6}
+@media(max-width:760px){.agency-footer-right{text-align:center}}
+
+/* Push Universe/Compare content below fixed header */
+#bookPage #universeApp,#bookPage #compareApp{top:140px!important}
+#bookPage .book-buttons{top:82px!important}
+
+/* Compare card restyle (per spec) */
+#bookPage .cg-card{background:#13131A!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:16px!important;transition:transform .25s,border-color .25s,box-shadow .25s}
+#bookPage .cg-card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.3)!important;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+#bookPage .cg-card .cg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,10,15,.85));display:flex;align-items:center;justify-content:center;gap:10px;opacity:0;transition:opacity .25s;z-index:10;pointer-events:none}
+#bookPage .cg-card:hover .cg-overlay{opacity:1;pointer-events:auto}
+#bookPage .cg-overlay-btn{background:rgba(255,255,255,.1);color:#F8F8FF;border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:10px 18px;font:500 12px 'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:.2s}
+#bookPage .cg-overlay-btn:hover{background:rgba(255,255,255,.18)}
+#bookPage .cg-overlay-btn.gold{background:#D4AF37;color:#0A0A0F;border-color:#D4AF37}
+#bookPage .cg-overlay-btn.gold:hover{opacity:.85}
+
+/* Filter pill bar (spec — gold active, rounded pill container) */
+#bookPage .cg-pills{display:inline-flex;background:rgba(255,255,255,.04);border-radius:100px;padding:6px;gap:2px;flex-wrap:wrap}
+#bookPage .cg-pill{background:transparent!important;border:0!important;padding:8px 16px!important;border-radius:100px!important;color:rgba(248,248,255,.5)!important;font:500 13px 'Inter',sans-serif!important;letter-spacing:.04em!important;transition:.2s}
+#bookPage .cg-pill:hover{background:rgba(255,255,255,.04)!important;color:rgba(248,248,255,.85)!important;border-color:transparent!important}
+#bookPage .cg-pill-active{background:#D4AF37!important;color:#0A0A0F!important;font-weight:600!important;border-color:#D4AF37!important}
 ::selection{background:var(--accent);color:var(--bg)}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;--s:42px;--c1:#b2b2b2;--c2:#ffffff;--c3:#d9d9d9;--_g:var(--c3) 0 120deg,#0000 0;background:conic-gradient(from -60deg at 50% calc(100%/3),var(--_g)),conic-gradient(from 120deg at 50% calc(200%/3),var(--_g)),conic-gradient(from 60deg at calc(200%/3),var(--c3) 60deg,var(--c2) 0 120deg,#0000 0),conic-gradient(from 180deg at calc(100%/3),var(--c1) 60deg,var(--_g)),linear-gradient(90deg,var(--c1) calc(100%/6),var(--c2) 0 50%,var(--c1) 0 calc(500%/6),var(--c2) 0);background-size:calc(1.732*var(--s)) var(--s)}
@@ -3088,6 +3205,12 @@ var uniTypeFilter='landing'; // 'landing' | 'tool'
 function getTplType(t){return t.type||'landing'}
 var compareList=[];
 
+function agencySubmitForm(form){
+  if(typeof showToast==='function')showToast('Message sent — we reply within 24h ✓','success');
+  else alert('Message sent — we reply within 24h');
+  form.reset();
+}
+
 function renderNotes(container){
   let existing=document.getElementById('bookPage');
   if(existing)existing.remove();
@@ -3095,25 +3218,171 @@ function renderNotes(container){
   page.id='bookPage';
   page.className='book-page';
   page.innerHTML=`
-    <div class="book-buttons">
-      <button class="book-btn" onclick="showUniverseTemplates()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">UNIVERSE</span></button>
-      <button class="book-btn" onclick="showCompareView()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">COMPARE</span></button>
-    </div>
-    <div style="position:absolute;top:50px;right:24px;display:flex;align-items:center;gap:20px;z-index:10">
-      <span style="font-family:'Tanker',sans-serif;font-size:1.4rem;color:#f44;letter-spacing:4px;text-shadow:0 0 12px rgba(255,68,68,.6),0 0 30px rgba(255,68,68,.3)">RETOUR</span>
-      <label class="custom-ui-switch" style="margin-top:0">
-        <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
-        <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
-        <div class="switch-body">
-          <div class="track">
-            <span class="track-top"><span></span><span></span><span></span><span></span><span></span></span>
-            <span class="track-bot"><span></span><span></span><span></span><span></span><span></span></span>
-          </div>
-          <div class="thumb"></div>
+    <!-- AGENCY HEADER -->
+    <header class="agency-header">
+      <div class="agency-brand">
+        <span class="v-logo">VANTAGE</span>
+        <span class="v-dot">·</span>
+        <span class="v-sub">Web Agency</span>
+      </div>
+      <nav class="agency-nav">
+        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Work</a>
+        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Templates</a>
+        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Tools</a>
+        <a onclick="document.getElementById('agency-pricing').scrollIntoView({behavior:'smooth'})">Pricing</a>
+        <a onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+      </nav>
+      <div class="agency-right">
+        <button class="agency-cta" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Work with us →</button>
+        <div class="agency-retour-wrap">
+          <span style="font-family:'Tanker',sans-serif;font-size:1.25rem;color:#f44;letter-spacing:4px;text-shadow:0 0 12px rgba(255,68,68,.6),0 0 30px rgba(255,68,68,.3)">RETOUR</span>
+          <label class="custom-ui-switch" style="margin-top:0;transform:scale(.82);transform-origin:center">
+            <input type="checkbox" id="bookSwitch" checked onchange="handleBookSwitch(this)">
+            <div class="lights"><span class="light-off"></span><span class="light-on"></span></div>
+            <div class="switch-body">
+              <div class="track">
+                <span class="track-top"><span></span><span></span><span></span><span></span><span></span></span>
+                <span class="track-bot"><span></span><span></span><span></span><span></span><span></span></span>
+              </div>
+              <div class="thumb"></div>
+            </div>
+          </label>
+          <span style="font-family:'Tanker',sans-serif;font-size:1.25rem;color:#fff;letter-spacing:4px;text-shadow:0 0 12px rgba(255,255,255,.5),0 0 30px rgba(129,93,137,.6)">BOOK</span>
         </div>
-      </label>
-      <span style="font-family:'Tanker',sans-serif;font-size:1.4rem;color:#fff;letter-spacing:4px;text-shadow:0 0 12px rgba(255,255,255,.5),0 0 30px rgba(129,93,137,.6)">BOOK</span>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="agency-hero">
+      <span class="agency-hero-pill">Vantage Web Agency — Athens, Greece</span>
+      <h1>We build websites<span class="gold">that work for you.</span></h1>
+      <p class="agency-hero-sub">Browse our portfolio of templates and tools. Find the style that fits your business — then let us build it for you.</p>
+      <div class="agency-stats">
+        <div class="agency-stat"><span class="n">30+</span><span class="l">Templates</span></div>
+        <div class="agency-stat"><span class="n">15+</span><span class="l">Tools</span></div>
+        <div class="agency-stat"><span class="n">3 days</span><span class="l">Delivery</span></div>
+        <div class="agency-stat"><span class="n">Athens</span><span class="l">Based</span></div>
+      </div>
+      <div class="agency-hero-ctas">
+        <button class="agency-btn-gold" onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Explore templates ↓</button>
+        <button class="agency-btn-ghost" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact us →</button>
+      </div>
+    </section>
+
+    <!-- WORK — Universe / Compare switcher (kept intact) -->
+    <div id="agency-work" style="position:relative;min-height:78vh">
+      <div class="book-buttons">
+        <button class="book-btn" onclick="showUniverseTemplates()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">UNIVERSE</span></button>
+        <button class="book-btn" onclick="showCompareView()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">COMPARE</span></button>
+      </div>
     </div>
+
+    <!-- PRICING -->
+    <section id="agency-pricing" class="agency-pricing">
+      <div class="agency-section-head">
+        <span class="lbl">Pricing</span>
+        <h2>Simple, transparent pricing</h2>
+        <p>Every website is built custom for you. Pick the experience level.</p>
+      </div>
+      <div class="agency-price-grid">
+        <div class="agency-price-card">
+          <span class="tier">Starter</span>
+          <div><span class="price">€499</span> <span class="period">one-time</span></div>
+          <p class="desc">A clean, professional website for your business. Ready in 3 days.</p>
+          <ul>
+            <li>Up to 5 pages</li>
+            <li>Mobile responsive</li>
+            <li>Contact form</li>
+            <li>Google Maps integration</li>
+            <li>WhatsApp button</li>
+            <li>1 revision round</li>
+          </ul>
+          <button class="agency-btn-ghost" style="width:100%;justify-content:center" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Get started →</button>
+        </div>
+        <div class="agency-price-card featured">
+          <span class="badge">Most popular</span>
+          <span class="tier">Professional</span>
+          <div><span class="price">€700</span> <span class="period">one-time</span></div>
+          <p class="desc">A premium website with animations and smooth scroll experience.</p>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>GSAP animations</li>
+            <li>Smooth scroll (Lenis)</li>
+            <li>Advanced transitions</li>
+            <li>Custom typography</li>
+            <li>2 revision rounds</li>
+          </ul>
+          <button class="agency-btn-gold" style="width:100%;justify-content:center" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Get started →</button>
+        </div>
+        <div class="agency-price-card">
+          <span class="tier">Signature</span>
+          <div><span class="price">€1,000</span> <span class="period">one-time</span></div>
+          <p class="desc">A cinematic website experience with 3D elements and full custom design.</p>
+          <ul>
+            <li>Everything in Professional</li>
+            <li>3D elements &amp; WebGL</li>
+            <li>Video integration</li>
+            <li>Scrolltelling sections</li>
+            <li>Management dashboard</li>
+            <li>3 revision rounds</li>
+          </ul>
+          <button class="agency-btn-ghost" style="width:100%;justify-content:center" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Get started →</button>
+        </div>
+      </div>
+      <div class="agency-addons">
+        <div class="agency-addon"><div class="t">Annual Maintenance</div><div class="d">€200/year — Updates, security, 1 change/month</div></div>
+        <div class="agency-addon"><div class="t">Management Dashboard</div><div class="d">€299 — Add a Basic Kit tool to any package</div></div>
+      </div>
+      <div class="agency-price-footer">
+        <p>Not sure which plan is right for you? Let's talk.</p>
+        <a onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Book a free call →</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="agency-contact" class="agency-contact">
+      <div class="agency-contact-grid">
+        <div class="agency-contact-left">
+          <span class="agency-section-head" style="text-align:left;margin:0;display:block"><span class="lbl">Contact</span></span>
+          <h2>Let's build something great.</h2>
+          <p class="sub">Tell us about your business and we'll come back to you within 24h.</p>
+          <div class="agency-contact-info">
+            <div>📍 Athens, Greece</div>
+            <div>📧 hello@vantage-agency.com</div>
+            <div>💬 Available on WhatsApp</div>
+          </div>
+          <p class="agency-contact-note">We work with restaurants, hotels, garages, real estate agencies and all local businesses across Greece.</p>
+        </div>
+        <form class="agency-form" onsubmit="event.preventDefault();agencySubmitForm(this)">
+          <div><label>Your name *</label><input type="text" required name="name"></div>
+          <div><label>Your email *</label><input type="email" required name="email"></div>
+          <div><label>Your business type</label>
+            <select name="business">
+              <option>Restaurant</option><option>Hotel</option><option>Garage</option>
+              <option>Real Estate</option><option>Retail</option><option>Other</option>
+            </select>
+          </div>
+          <div><label>What do you need?</label><textarea name="need" placeholder="A clean landing page, an online menu, a booking system..."></textarea></div>
+          <button type="submit" class="agency-form-submit">Send message →</button>
+          <p class="agency-form-hint">We reply within 24 hours</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="agency-footer">
+      <div class="agency-footer-left">
+        <span class="l">VANTAGE</span>
+        <span class="t">Premium web design for Greek businesses</span>
+      </div>
+      <div class="agency-footer-center">
+        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Templates</a>
+        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Tools</a>
+        <a onclick="document.getElementById('agency-pricing').scrollIntoView({behavior:'smooth'})">Pricing</a>
+        <a onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+      </div>
+      <div class="agency-footer-right">© 2026 Vantage Web Agency<br>Athens, Greece</div>
+    </footer>
   `;
   document.body.appendChild(page);
   document.getElementById('app').style.display='none';
@@ -31143,6 +31412,10 @@ function buildCompareHTML(){
             +'<div class="cg-ph-name">'+escHtml(t.name)+'</div>'
             +'<div class="cg-ph-cat">'+escHtml(t.subcategory||t.category||'')+'</div>'
           +'</div>'
+        +'</div>'
+        +'<div class="cg-overlay">'
+          +'<button class="cg-overlay-btn" onclick="event.stopPropagation();previewUniTpl(\''+escHtml(t.id)+'\')">See demo →</button>'
+          +'<button class="cg-overlay-btn gold" onclick="event.stopPropagation();document.getElementById(\'agency-contact\').scrollIntoView({behavior:\'smooth\'})">Request this style →</button>'
         +'</div>'
       +'</div>'
       +'<div class="cg-meta">'
