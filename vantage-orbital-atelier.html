@@ -80,9 +80,8 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 
 /* ─────────────── HERO (THREE.js canvas) ─────────────── */
 .hero{position:relative;height:100vh;min-height:860px;overflow:hidden;background:#000}
-#three-canvas-host{position:absolute;inset:0;pointer-events:none} /* user can't manipulate */
-#three-canvas-host canvas{position:absolute;inset:0;width:100%!important;height:100%!important;pointer-events:none!important}
-#three-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;z-index:10;text-shadow:0 2px 4px rgba(0,0,0,.5);opacity:.5}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:1}
+.hero-video-tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,20,.35) 0%,rgba(5,8,20,.25) 55%,rgba(5,8,20,.7) 100%);pointer-events:none;z-index:2}
 .hero-content{position:relative;z-index:5;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 6vh;pointer-events:none}
 .hero-content>*{pointer-events:auto}
 .hero-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:20px;max-width:1680px;width:100%;margin-left:auto;margin-right:auto}
@@ -358,8 +357,13 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 
 <!-- HERO -->
 <section class="hero">
-  <div id="three-canvas-host"></div>
-  <div id="three-loading">Initialising orbital feed…</div>
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+         poster="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=1920&amp;q=80"
+         aria-hidden="true">
+    <source src="https://cdn.pixabay.com/video/2020/07/30/46158-447087782_large.mp4" type="video/mp4">
+    <source src="https://cdn.pixabay.com/video/2019/08/30/26261-358925498_large.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-tint"></div>
   <div class="hud-bracket tl"></div>
   <div class="hud-bracket tr"></div>
   <div class="hud-bracket bl"></div>
@@ -951,255 +955,6 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 </footer>
 
 
-<!-- ───────────────── THREE.js Hero Scene ───────────────── -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
-<script>
-(function(){
-  // USER-LOCKED SCENE — no GUI, no camera input, fixed parameters
-  var host = document.getElementById('three-canvas-host');
-  var loadingDiv = document.getElementById('three-loading');
-  if (!host || !window.THREE) return;
 
-  var cfg = {
-    modelUrl:'https://ik.imagekit.io/sqiqig7tz/Jump2.fbx',
-    animationSpeed:0.6, modelScale:0.1, modelColor:0x383838,
-    terrainSpeed:12.0, sunIntensity:4.5, sunHeight:45,
-    starCount:18000, starBaseSize:9.0, twinkleSpeed:1.5,
-    heightDamping:8.5, earthScale:0.8, earthBrightness:2.2,
-    earthPosX:-890, earthPosY:30, earthPosZ:0
-  };
-
-  var scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x000000, 0.0025);
-
-  function sizeOf(){ return { w: host.clientWidth || window.innerWidth, h: host.clientHeight || window.innerHeight }; }
-
-  var s0 = sizeOf();
-  var camera = new THREE.PerspectiveCamera(30, s0.w/s0.h, 1, 2000);
-  camera.position.set(130, 35, 0);
-  camera.lookAt(0, 10, 0);
-
-  var renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-  renderer.setSize(s0.w, s0.h);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  host.appendChild(renderer.domElement);
-
-  // Lights
-  scene.add(new THREE.AmbientLight(0xffffff, 0.1));
-  var sunLight = new THREE.DirectionalLight(0xfffaf0, cfg.sunIntensity);
-  sunLight.position.set(150, cfg.sunHeight, 70);
-  sunLight.castShadow = true;
-  sunLight.shadow.mapSize.width = 2048; sunLight.shadow.mapSize.height = 2048;
-  sunLight.shadow.camera.near = 10; sunLight.shadow.camera.far = 600;
-  sunLight.shadow.camera.left = -200; sunLight.shadow.camera.right = 200;
-  sunLight.shadow.camera.top = 200; sunLight.shadow.camera.bottom = -200;
-  sunLight.shadow.bias = -0.0005;
-  scene.add(sunLight);
-
-  // Lunar sand texture
-  function createLunarSandTexture(){
-    var c = document.createElement('canvas'); c.width = 512; c.height = 512;
-    var ctx = c.getContext('2d');
-    ctx.fillStyle = '#888888'; ctx.fillRect(0,0,512,512);
-    var id = ctx.getImageData(0,0,512,512); var d = id.data;
-    for (var i=0;i<d.length;i+=4){ var n = (Math.random()-0.5)*85; d[i]+=n; d[i+1]+=n; d[i+2]+=n; }
-    ctx.putImageData(id,0,0);
-    var t = new THREE.CanvasTexture(c);
-    t.wrapS = THREE.RepeatWrapping; t.wrapT = THREE.RepeatWrapping; t.repeat.set(8,8);
-    return t;
-  }
-  var sandTexture = createLunarSandTexture();
-
-  // Earth
-  var earthGroup = new THREE.Group();
-  var earthGeometry = new THREE.SphereGeometry(35, 64, 64);
-  var earthTex = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
-  earthTex.encoding = THREE.sRGBEncoding;
-  var earthMaterial = new THREE.MeshBasicMaterial({ map:earthTex, color:0xffffff, fog:false });
-  earthMaterial.color.setScalar(cfg.earthBrightness);
-  var earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
-  earthMesh.rotation.set(0.1, Math.PI/2, 0);
-  earthGroup.position.set(cfg.earthPosX, cfg.earthPosY, cfg.earthPosZ);
-  earthGroup.scale.setScalar(cfg.earthScale);
-  earthGroup.add(earthMesh);
-  scene.add(earthGroup);
-
-  // Noise + terrain
-  function hash(x,z){ var h = x*12.9898 + z*78.233; return Math.abs(Math.sin(h)*43758.5453)%1; }
-  function smoothStep(t){ return t*t*(3-2*t); }
-  function getLunarHeight(x,z){
-    var y = 0;
-    y += Math.sin(x*0.015)*Math.cos(z*0.015)*5.0;
-    y += Math.sin(x*0.04 + z*0.03)*2.0;
-    y += Math.sin(x*0.15)*Math.sin(z*0.15)*0.8;
-    y += Math.sin(x*0.5)*Math.cos(z*0.5)*0.3;
-    var cellSize = 85;
-    var cellX = Math.floor(x/cellSize), cellZ = Math.floor(z/cellSize);
-    for (var i=-1;i<=1;i++) for (var j=-1;j<=1;j++){
-      var seed = (cellX+i)*131 + (cellZ+j);
-      var cx = (cellX+i)*cellSize + hash(seed,seed)*cellSize;
-      var cz = (cellZ+j)*cellSize + hash(seed+1,seed-1)*cellSize;
-      var dx = x-cx, dz = z-cz, dist = Math.sqrt(dx*dx+dz*dz);
-      var cr = 10 + hash(seed,cellZ)*20, cd = cr*0.5;
-      if (dist < cr*2.0){
-        var r = dist/cr;
-        if (r < 1.0){
-          y -= cd*Math.cos(r*Math.PI*0.5);
-          y += (1.0-r)*Math.sin(x*0.9)*0.4;
-        } else if (r < 1.8){
-          var rimPeak = 1.25, rimEnd = 1.8, rimMax = cd*0.25;
-          if (r < rimPeak){ y += rimMax*smoothStep((r-1.0)/(rimPeak-1.0)); }
-          else { y += rimMax*smoothStep((rimEnd-r)/(rimEnd-rimPeak)); }
-        }
-      }
-    }
-    return y;
-  }
-
-  var TERRAIN_SIZE = 400, SEGMENTS = 180;
-  var rockGeo = new THREE.DodecahedronGeometry(1, 1);
-  var rockMat = new THREE.MeshStandardMaterial({ color:0x777777, roughness:0.9, bumpMap:sandTexture, bumpScale:0.3 });
-
-  function createRockField(parent){
-    var rocks = new THREE.Group();
-    for (var i=0;i<40;i++){
-      var m = new THREE.Mesh(rockGeo, rockMat);
-      m.castShadow = true; m.receiveShadow = true;
-      rocks.add(m);
-    }
-    parent.add(rocks); return rocks;
-  }
-  function randomizeRocks(rockGroup, segZ, globalZ){
-    rockGroup.children.forEach(function(rock, i){
-      var lx = (hash(i, segZ)-0.5)*TERRAIN_SIZE*0.95;
-      var lz = (hash(i+55, segZ)-0.5)*TERRAIN_SIZE*0.95;
-      var wz = segZ + lz + globalZ;
-      rock.position.set(lx, getLunarHeight(lx, wz)-0.35, lz);
-      var s = 0.5 + hash(i+12, i)*1.5;
-      rock.scale.set(s, s*(0.6+Math.random()*0.4), s);
-      rock.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
-    });
-  }
-  function updateTerrainGeometry(geo, zGlobal){
-    var pos = geo.attributes.position.array;
-    for (var i=0;i<pos.length;i+=3){
-      var x = pos[i], z = pos[i+2] + zGlobal;
-      pos[i+1] = getLunarHeight(x,z);
-    }
-    geo.attributes.position.needsUpdate = true;
-    geo.computeVertexNormals();
-  }
-  function createTerrainMesh(z){
-    var geo = new THREE.PlaneGeometry(TERRAIN_SIZE, TERRAIN_SIZE, SEGMENTS, SEGMENTS);
-    geo.rotateX(-Math.PI/2);
-    updateTerrainGeometry(geo, z);
-    var mat = new THREE.MeshStandardMaterial({
-      color:0x999999, roughness:0.85, metalness:0.0,
-      bumpMap:sandTexture, bumpScale:0.22, roughnessMap:sandTexture
-    });
-    var mesh = new THREE.Mesh(geo, mat);
-    mesh.receiveShadow = true; mesh.position.z = z;
-    var rocks = createRockField(mesh);
-    randomizeRocks(rocks, z, 0);
-    return { mesh:mesh, rocks:rocks };
-  }
-  var t1 = createTerrainMesh(0), t2 = createTerrainMesh(TERRAIN_SIZE);
-  scene.add(t1.mesh, t2.mesh);
-  var globalZ = 0;
-
-  // Stars
-  var starGeo = new THREE.BufferGeometry();
-  var sp = [], ss = [], sph = [];
-  for (var i=0;i<cfg.starCount;i++){
-    var r = 980, th = 2*Math.PI*Math.random(), ph = Math.acos(2*Math.random()-1);
-    sp.push(r*Math.sin(ph)*Math.cos(th), r*Math.sin(ph)*Math.sin(th), r*Math.cos(ph));
-    ss.push(Math.random()*cfg.starBaseSize + 2.0);
-    sph.push(Math.random()*Math.PI*2);
-  }
-  starGeo.setAttribute('position', new THREE.Float32BufferAttribute(sp,3));
-  starGeo.setAttribute('size', new THREE.Float32BufferAttribute(ss,1));
-  starGeo.setAttribute('phase', new THREE.Float32BufferAttribute(sph,1));
-  var starMat = new THREE.ShaderMaterial({
-    uniforms:{ time:{value:0}, twinkleSpeed:{value:cfg.twinkleSpeed} },
-    vertexShader:'attribute float size; attribute float phase; varying float vOpacity; uniform float time; uniform float twinkleSpeed; void main(){ vOpacity = 0.3 + 0.7 * sin(time * twinkleSpeed + phase); vec4 mvPosition = modelViewMatrix * vec4(position, 1.0); gl_PointSize = size * (550.0 / -mvPosition.z); gl_Position = projectionMatrix * mvPosition; }',
-    fragmentShader:'varying float vOpacity; void main(){ float dist = distance(gl_PointCoord, vec2(0.5)); if (dist > 0.5) discard; gl_FragColor = vec4(1.0, 1.0, 1.0, vOpacity * (1.0 - dist * 2.0)); }',
-    transparent:true, blending:THREE.AdditiveBlending, depthWrite:false
-  });
-  scene.add(new THREE.Points(starGeo, starMat));
-
-  // FBX astronaut
-  var mixer = null, fbxModel = null;
-  var clock = new THREE.Clock();
-  try {
-    new THREE.FBXLoader().load(cfg.modelUrl, function(obj){
-      if (loadingDiv) loadingDiv.style.display = 'none';
-      fbxModel = obj;
-      fbxModel.scale.setScalar(cfg.modelScale);
-      var col = new THREE.Color(cfg.modelColor);
-      fbxModel.traverse(function(child){
-        if (child.isMesh){
-          child.castShadow = true; child.receiveShadow = true;
-          var mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.forEach(function(m){ m.color.copy(col); m.map = null; m.vertexColors = false; m.needsUpdate = true; if (m.emissive) m.emissive.setHex(0x000000); });
-        }
-      });
-      if (obj.animations && obj.animations.length){
-        mixer = new THREE.AnimationMixer(obj);
-        mixer.clipAction(obj.animations[0]).play();
-      }
-      scene.add(fbxModel);
-    }, undefined, function(){ if (loadingDiv) loadingDiv.style.display = 'none'; });
-  } catch(e){ if (loadingDiv) loadingDiv.style.display = 'none'; }
-
-  // Render loop — camera LOCKED
-  function animate(){
-    requestAnimationFrame(animate);
-    var delta = Math.min(clock.getDelta(), 0.05);
-    var time = clock.getElapsedTime();
-    starMat.uniforms.time.value = time;
-    if (earthMesh) earthMesh.rotation.y += delta * 0.05;
-
-    var moveStep = cfg.terrainSpeed * delta;
-    globalZ += moveStep;
-    t1.mesh.position.z -= moveStep;
-    t2.mesh.position.z -= moveStep;
-    if (t1.mesh.position.z <= -TERRAIN_SIZE){
-      t1.mesh.position.z += TERRAIN_SIZE*2;
-      updateTerrainGeometry(t1.mesh.geometry, t1.mesh.position.z + globalZ);
-      randomizeRocks(t1.rocks, t1.mesh.position.z, globalZ);
-    }
-    if (t2.mesh.position.z <= -TERRAIN_SIZE){
-      t2.mesh.position.z += TERRAIN_SIZE*2;
-      updateTerrainGeometry(t2.mesh.geometry, t2.mesh.position.z + globalZ);
-      randomizeRocks(t2.rocks, t2.mesh.position.z, globalZ);
-    }
-    if (fbxModel){
-      if (mixer) mixer.update(delta * cfg.animationSpeed);
-      var targetY = getLunarHeight(0, globalZ);
-      fbxModel.position.y = THREE.MathUtils.damp(fbxModel.position.y, targetY, cfg.heightDamping, delta);
-    }
-    camera.lookAt(0, 10, 0); // keep locked
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // Resize — host element size tracks .hero
-  function onResize(){
-    var s = sizeOf();
-    camera.aspect = s.w/s.h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(s.w, s.h);
-  }
-  window.addEventListener('resize', onResize);
-  // Also respond when the hero element resizes (stretchy layouts)
-  if ('ResizeObserver' in window) new ResizeObserver(onResize).observe(host);
-})();
-</script>
 </body>
 </html>
