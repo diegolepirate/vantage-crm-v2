@@ -14,6 +14,10 @@
 <link rel="preload" href="assets/models/ships/colaid.glb"    as="fetch" crossorigin="anonymous" fetchpriority="high">
 <link rel="preload" href="assets/models/ships/escort.glb"    as="fetch" crossorigin="anonymous">
 <link rel="preload" href="assets/models/ships/scout.glb"     as="fetch" crossorigin="anonymous">
+<link rel="prefetch" href="assets/models/crew/pirate-trooper.glb"   as="fetch" crossorigin="anonymous">
+<link rel="prefetch" href="assets/models/crew/dark-commando.glb"    as="fetch" crossorigin="anonymous">
+<link rel="prefetch" href="assets/models/crew/pirate-commando.glb"  as="fetch" crossorigin="anonymous">
+<link rel="prefetch" href="assets/models/crew/pirate-grenadier.glb" as="fetch" crossorigin="anonymous">
 <!-- model-viewer + meshopt decoder for the ship showcase -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js" as="script" crossorigin="anonymous">
 <link rel="preload" href="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js" as="script" crossorigin="anonymous">
@@ -242,13 +246,19 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 .gallery-title h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(44px,6vw,96px);line-height:.94;letter-spacing:-.02em;color:var(--cream)}
 .gallery-title h3 em{font-style:italic;color:var(--gold)}
 .gallery-track{display:flex;gap:28px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px}
-.gallery-card{flex:0 0 460px;height:600px;scroll-snap-align:start;border-radius:28px;border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;background:linear-gradient(135deg,var(--navy),var(--navy-3));display:flex;flex-direction:column;justify-content:flex-end;padding:38px;transition:transform .4s}
-.gallery-card:hover{transform:translateY(-6px)}
-.gallery-card::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,215,0,.1) 1px,transparent 1px);background-size:22px 22px;opacity:.4}
-.gallery-card img{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:70%;height:auto;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5));z-index:1}
-.gallery-card .num{position:absolute;top:24px;left:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);opacity:.8;z-index:3}
-.gallery-card h4{position:relative;z-index:3;font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:34px;line-height:1;color:var(--cream);margin-bottom:10px}
-.gallery-card p{position:relative;z-index:3;font-size:13px;line-height:1.6;color:rgba(238,229,216,.65);font-weight:300}
+/* Rectangular crew cards — landscape, rounded, 3D model inside */
+.gallery-card{flex:0 0 640px;height:420px;scroll-snap-align:start;border-radius:28px;border:1px solid rgba(255,255,255,.1);overflow:hidden;position:relative;background:linear-gradient(135deg,#1E2B5A,#0C1736);display:flex;transition:transform .4s,box-shadow .4s;box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.gallery-card:hover{transform:translateY(-6px);box-shadow:0 40px 90px -15px rgba(255,215,0,.15)}
+.gallery-card::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,215,0,.08) 1px,transparent 1px);background-size:24px 24px;opacity:.4;pointer-events:none}
+.gallery-card .mv-holder{position:absolute;inset:0;z-index:1}
+.gallery-card model-viewer{width:100%;height:100%;background:transparent;--progress-bar-color:transparent}
+.gallery-card .ring{position:absolute;inset:15%;border:1px dashed rgba(255,215,0,.22);border-radius:50%;animation:spin 30s linear infinite;pointer-events:none;z-index:2}
+.gallery-card .num{position:absolute;top:22px;left:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);opacity:.85;z-index:5}
+.gallery-card .tag{position:absolute;top:22px;right:24px;padding:5px 11px;background:rgba(0,0,0,.55);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,215,0,.3);border-radius:999px;z-index:5;backdrop-filter:blur(6px)}
+.gallery-card .info{position:absolute;left:0;right:0;bottom:0;padding:28px 30px 26px;z-index:5;background:linear-gradient(to top,rgba(10,16,34,.92) 0%,rgba(10,16,34,.55) 60%,transparent 100%)}
+.gallery-card h4{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:30px;line-height:1;color:var(--cream);margin-bottom:8px}
+.gallery-card h4 em{font-style:normal;color:var(--gold)}
+.gallery-card p{font-size:12.5px;line-height:1.6;color:rgba(238,229,216,.7);font-weight:300;max-width:420px}
 
 /* ─────────────── TIMELINE ─────────────── */
 .timeline{padding:200px 48px;background:linear-gradient(180deg,var(--navy-3) 0%,var(--navy) 50%,var(--navy-3) 100%);position:relative}
@@ -398,7 +408,8 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
   .timeline-grid{grid-template-columns:repeat(2,1fr)}
   .timeline-grid::before{display:none}
   .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
-  .gallery-card{flex:0 0 320px;height:460px}
+  .gallery-card{flex:0 0 420px;height:340px}
+  .gallery-card h4{font-size:24px}
 }
 </style>
 </head>
@@ -633,42 +644,48 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 <!-- Progress ring -->
 <svg class="progress-circle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/></svg>
 
-<!-- GALLERY BAND -->
+<!-- CREW BAND — rectangular rounded cards, 3D operators -->
 <section id="gallery" class="gallery">
   <div class="gallery-title">
-    <span class="eyebrow">The fleet</span>
-    <h3>Current <em>inventory</em>.</h3>
+    <span class="eyebrow">The crew</span>
+    <h3>Operators on <em>call</em>.</h3>
   </div>
   <div class="gallery-track">
     <div class="gallery-card">
-      <span class="num">01 / 08</span>
-      <img src="https://images.unsplash.com/photo-1454789591675-556c287e39e2?w=560&amp;q=80" alt="">
-      <h4>Andromeda-1</h4><p>Orbital freighter. 2024 build, 60 tons payload, sold.</p>
+      <span class="num">01 / 04</span>
+      <span class="tag">✦ On rotation</span>
+      <div class="ring"></div>
+      <div class="mv-holder">
+        <model-viewer src="assets/models/crew/pirate-trooper.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.1" shadow-intensity="0.25" tone-mapping="commerce" alt="Pirate Trooper"></model-viewer>
+      </div>
+      <div class="info"><h4>Trooper <em>07</em></h4><p>Boarding specialist · pressurised cabin ops · short-range EVA.</p></div>
     </div>
     <div class="gallery-card">
-      <span class="num">02 / 08</span>
-      <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=560&amp;q=80" alt="">
-      <h4>Helios RR</h4><p>Solar sail prototype, one-off, Kourou provenance.</p>
+      <span class="num">02 / 04</span>
+      <span class="tag">✦ Elite tier</span>
+      <div class="ring"></div>
+      <div class="mv-holder">
+        <model-viewer src="assets/models/crew/dark-commando.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="20deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.05" shadow-intensity="0.3" tone-mapping="commerce" alt="Dark Commando"></model-viewer>
+      </div>
+      <div class="info"><h4>Dark <em>Commando</em></h4><p>Long-range escort pilot · null-light navigation · twelve-year rating.</p></div>
     </div>
     <div class="gallery-card">
-      <span class="num">03 / 08</span>
-      <img src="https://images.unsplash.com/photo-1446776709462-d6b525c57bd3?w=560&amp;q=80" alt="">
-      <h4>Argo Mk2</h4><p>Private cargo shuttle, twin-turbo H₂, full restoration.</p>
+      <span class="num">03 / 04</span>
+      <span class="tag">✦ Available now</span>
+      <div class="ring"></div>
+      <div class="mv-holder">
+        <model-viewer src="assets/models/crew/pirate-commando.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.1" shadow-intensity="0.25" tone-mapping="commerce" alt="Pirate Commando"></model-viewer>
+      </div>
+      <div class="info"><h4>Commando <em>12</em></h4><p>Deep-space sortie lead · reactor overhaul certified · carrier-qualified.</p></div>
     </div>
     <div class="gallery-card">
-      <span class="num">04 / 08</span>
-      <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=560&amp;q=80" alt="">
-      <h4>Sirius Disc</h4><p>Four-seat hover disc, Nevada cleanroom, reserved.</p>
-    </div>
-    <div class="gallery-card">
-      <span class="num">05 / 08</span>
-      <img src="https://images.unsplash.com/photo-1517976547714-720226b864c1?w=560&amp;q=80" alt="">
-      <h4>Polaris X</h4><p>Cryo-fueled sport rocket, winter 2026 deliveries open.</p>
-    </div>
-    <div class="gallery-card">
-      <span class="num">06 / 08</span>
-      <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=560&amp;q=80" alt="">
-      <h4>Kepler-62f</h4><p>Heavy-lift launcher, three proven flights.</p>
+      <span class="num">04 / 04</span>
+      <span class="tag">✦ Heavy ordnance</span>
+      <div class="ring"></div>
+      <div class="mv-holder">
+        <model-viewer src="assets/models/crew/pirate-grenadier.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="18deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" exposure="1.0" shadow-intensity="0.3" tone-mapping="commerce" alt="Pirate Grenadier"></model-viewer>
+      </div>
+      <div class="info"><h4>Grenadier <em>03</em></h4><p>Heavy payload tech · decoupling systems · hangar deployment chief.</p></div>
     </div>
   </div>
 </section>
