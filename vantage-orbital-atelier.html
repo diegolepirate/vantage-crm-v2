@@ -287,22 +287,23 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 }
 
 /* ─────────────── FOOTER TEXT ─────────────── */
-/* ─────────────── WASD tutorial panel ─────────────── */
-.wasd-stage{position:relative;width:100%;min-height:80vh;background:radial-gradient(ellipse at center,#1E2B5A 0%,#0A1022 60%,#050814 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:56px;padding:120px 24px;overflow:hidden;user-select:none}
-.wasd-stage::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,215,0,.06) 1px,transparent 1px);background-size:26px 26px;opacity:.55;pointer-events:none}
-.wasd-caption{position:relative;z-index:2;text-align:center;max-width:520px}
-.wasd-caption .eyebrow{color:var(--gold);opacity:.85;margin-bottom:16px;display:inline-block}
-.wasd-caption h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(40px,5.4vw,86px);line-height:.95;color:var(--cream);margin-bottom:14px}
+/* ─────────────── Walk-through canvas (Three.js hangar, WASD-driven) ─────────────── */
+.wasd-stage{position:relative;width:100%;height:100vh;min-height:720px;background:#050814;overflow:hidden;user-select:none}
+.wasd-stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;cursor:grab}
+.wasd-stage canvas:active{cursor:grabbing}
+.wasd-caption{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:3;text-align:center;max-width:520px;padding:0 24px;pointer-events:none}
+.wasd-caption .eyebrow{color:var(--gold);opacity:.85;margin-bottom:12px;display:inline-block}
+.wasd-caption h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(32px,4.2vw,64px);line-height:.95;color:var(--cream);margin-bottom:10px;text-shadow:0 4px 30px rgba(0,0,0,.8)}
 .wasd-caption h3 em{color:var(--gold);font-style:italic}
-.wasd-caption p{font-size:14px;line-height:1.6;color:rgba(238,229,216,.65);font-weight:300}
-.wasd-keys{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,56px);gap:6px;place-items:center}
+.wasd-caption p{font-size:13px;line-height:1.55;color:rgba(238,229,216,.68);font-weight:300;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.wasd-keys{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);z-index:3;display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,56px);gap:6px;place-items:center;pointer-events:none}
 .wasd-key{width:48px;height:45px;border-radius:6px;background:#faf7f0;color:#2a2520;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;padding-bottom:2px;border-top:1px solid #cfcbc0;box-shadow:0 3px 0 2px #bdb8aa,0 6px 18px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s}
 .wasd-key:hover,.wasd-key.on{transform:translateY(2px);box-shadow:0 1px 0 1px #bdb8aa,0 3px 10px rgba(0,0,0,.35);background:#ffd700;color:#0c1736}
 .wasd-key.k-w{grid-column:2;grid-row:1}
 .wasd-key.k-a{grid-column:1;grid-row:2}
 .wasd-key.k-s{grid-column:2;grid-row:2}
 .wasd-key.k-d{grid-column:3;grid-row:2}
-.wasd-hint{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(238,229,216,.4);display:flex;align-items:center;gap:16px}
+.wasd-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(238,229,216,.55);display:flex;align-items:center;gap:16px;pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.8)}
 .wasd-hint::before,.wasd-hint::after{content:"";width:40px;height:1px;background:rgba(255,215,0,.4)}
 .mobile-tutorial{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:rgba(255,255,255,.08);border-radius:16px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,215,0,.25);padding:22px 28px;max-width:88%;display:none;z-index:3}
 .mobile-tutorial span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream)}
@@ -663,12 +664,13 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 
 
 
-<!-- WASD TUTORIAL — interactive navigation panel -->
-<section class="wasd-stage">
+<!-- WALK-THROUGH CANVAS — first-person hangar scene -->
+<section class="wasd-stage" id="wasd-stage">
+  <canvas id="hangar-canvas"></canvas>
   <div class="wasd-caption">
     <span class="eyebrow">Step inside</span>
-    <h3>Walk the <em>atelier</em>.</h3>
-    <p>Every vault is open to visitors. Use the keys below to roam the main hangar in full scale — no appointment required for the tour.</p>
+    <h3>Walk the <em>hangar</em>.</h3>
+    <p>Roam the main bay in real scale. The flagship rests on the central pad — approach, circle, inspect. No appointment required.</p>
   </div>
   <div class="wasd-keys">
     <span class="wasd-key k-w">W</span>
@@ -676,15 +678,196 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
     <span class="wasd-key k-s">S</span>
     <span class="wasd-key k-d">D</span>
   </div>
-  <div class="wasd-hint">USE WASD OR ARROW KEYS</div>
-  <div class="mobile-tutorial"><span>Tap &amp; drag to navigate the hangar</span></div>
+  <div class="wasd-hint">WASD · ARROW KEYS · DRAG TO LOOK</div>
+  <div class="mobile-tutorial"><span>Tap &amp; drag to look · pinch to zoom</span></div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/meshopt_decoder.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
 (function(){
-  const keys=document.querySelectorAll('.wasd-key');
-  const map={w:'k-w',a:'k-a',s:'k-s',d:'k-d',ArrowUp:'k-w',ArrowLeft:'k-a',ArrowDown:'k-s',ArrowRight:'k-d'};
-  window.addEventListener('keydown',e=>{const c=map[e.key]||map[e.key.toLowerCase?.()];if(c){const el=document.querySelector('.wasd-key.'+c);if(el)el.classList.add('on')}});
-  window.addEventListener('keyup',e=>{const c=map[e.key]||map[e.key.toLowerCase?.()];if(c){const el=document.querySelector('.wasd-key.'+c);if(el)el.classList.remove('on')}});
+  if (!window.THREE) return;
+  const stage = document.getElementById('wasd-stage');
+  const canvas = document.getElementById('hangar-canvas');
+  if (!stage || !canvas) return;
+
+  // Keycap UI feedback
+  const keyMap = {w:'k-w',a:'k-a',s:'k-s',d:'k-d',ArrowUp:'k-w',ArrowLeft:'k-a',ArrowDown:'k-s',ArrowRight:'k-d'};
+  const onKey = (e, flag) => {
+    const k = keyMap[e.key] || keyMap[(e.key||'').toLowerCase?.()];
+    if (!k) return;
+    const el = document.querySelector('.wasd-key.' + k);
+    if (el) el.classList.toggle('on', flag);
+  };
+
+  // ── THREE scene ──
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x050814);
+  scene.fog = new THREE.FogExp2(0x050814, 0.018);
+
+  const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 400);
+  camera.position.set(0, 1.75, 12);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xaabbdd, 0.35));
+  const key = new THREE.DirectionalLight(0xfff0c8, 1.2);
+  key.position.set(8, 14, 6);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffd700, 0.6);
+  rim.position.set(-10, 6, -8);
+  scene.add(rim);
+  // Gold accent floor-pool light under the pad
+  const pad = new THREE.PointLight(0xffb347, 2.4, 26, 1.6);
+  pad.position.set(0, 0.2, 0);
+  scene.add(pad);
+
+  // Floor — dark reflective plate with grid overlay
+  const floorGeo = new THREE.PlaneGeometry(280, 280, 1, 1);
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0x0c1022, metalness: 0.85, roughness: 0.55 });
+  const floor = new THREE.Mesh(floorGeo, floorMat);
+  floor.rotation.x = -Math.PI / 2;
+  scene.add(floor);
+  const grid = new THREE.GridHelper(280, 56, 0xffd700, 0x1e2b5a);
+  grid.position.y = 0.02;
+  grid.material.opacity = 0.28;
+  grid.material.transparent = true;
+  scene.add(grid);
+
+  // Central landing pad — glowing ring
+  const padRingGeo = new THREE.RingGeometry(3.2, 3.5, 64);
+  const padRingMat = new THREE.MeshBasicMaterial({ color: 0xffd700, side: THREE.DoubleSide, transparent: true, opacity: 0.7 });
+  const padRing = new THREE.Mesh(padRingGeo, padRingMat);
+  padRing.rotation.x = -Math.PI / 2;
+  padRing.position.y = 0.05;
+  scene.add(padRing);
+  const padRing2 = new THREE.Mesh(new THREE.RingGeometry(3.55, 3.6, 64), new THREE.MeshBasicMaterial({ color: 0xc9a34e, side: THREE.DoubleSide, transparent: true, opacity: 0.35 }));
+  padRing2.rotation.x = -Math.PI / 2;
+  padRing2.position.y = 0.05;
+  scene.add(padRing2);
+
+  // Starfield dome
+  const starGeo = new THREE.BufferGeometry();
+  const starPos = [];
+  for (let i = 0; i < 1800; i++) {
+    const r = 160, th = Math.random() * Math.PI * 2, ph = Math.acos(2*Math.random()-1);
+    starPos.push(r*Math.sin(ph)*Math.cos(th), Math.abs(r*Math.cos(ph))*0.6 + 10, r*Math.sin(ph)*Math.sin(th));
+  }
+  starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+  scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.35, sizeAttenuation: true, transparent: true, opacity: 0.75 })));
+
+  // Hangar pillar columns ringing the pad — simple extruded navy boxes
+  const colMat = new THREE.MeshStandardMaterial({ color: 0x1e2b5a, metalness: 0.6, roughness: 0.45 });
+  for (let i = 0; i < 12; i++) {
+    const a = (i / 12) * Math.PI * 2;
+    const x = Math.cos(a) * 18, z = Math.sin(a) * 18;
+    const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.8, 16, 0.8), colMat);
+    pillar.position.set(x, 8, z);
+    scene.add(pillar);
+    // Gold cap light
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.2, 1.1), new THREE.MeshBasicMaterial({ color: 0xffd700 }));
+    cap.position.set(x, 15.9, z);
+    scene.add(cap);
+  }
+
+  // Flagship on the pad — load firefly.glb (already meshopt-compressed)
+  const loader = new THREE.GLTFLoader();
+  if (window.MeshoptDecoder) loader.setMeshoptDecoder(window.MeshoptDecoder);
+  let shipYaw = 0;
+  const shipGroup = new THREE.Group();
+  shipGroup.position.set(0, 2.6, 0);
+  scene.add(shipGroup);
+  loader.load('assets/models/ships/firefly.glb', (g) => {
+    const m = g.scene;
+    // Auto-scale to fit within a 6-unit bounding sphere
+    const bb = new THREE.Box3().setFromObject(m);
+    const sz = new THREE.Vector3(); bb.getSize(sz);
+    const s = 5.2 / Math.max(sz.x, sz.y, sz.z);
+    m.scale.setScalar(s);
+    const bb2 = new THREE.Box3().setFromObject(m);
+    const c = new THREE.Vector3(); bb2.getCenter(c);
+    m.position.sub(c); // centre on origin of group
+    shipGroup.add(m);
+  }, undefined, () => {});
+
+  // ── controls: WASD movement + drag-to-look ──
+  const keys = {};
+  window.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; onKey(e, true); });
+  window.addEventListener('keyup',   e => { keys[e.key.toLowerCase()] = false; onKey(e, false); });
+
+  let yaw = 0, pitch = -0.08, dragging = false, px = 0, py = 0;
+  const startDrag = (x,y) => { dragging = true; px = x; py = y; };
+  const endDrag = () => { dragging = false; };
+  const moveDrag = (x,y) => {
+    if (!dragging) return;
+    yaw   -= (x - px) * 0.0045;
+    pitch -= (y - py) * 0.0035;
+    pitch = Math.max(-0.9, Math.min(0.9, pitch));
+    px = x; py = y;
+  };
+  canvas.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
+  window.addEventListener('mouseup',   endDrag);
+  window.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
+  canvas.addEventListener('touchstart', e => { const t=e.touches[0]; startDrag(t.clientX, t.clientY); }, {passive:true});
+  window.addEventListener('touchend', endDrag, {passive:true});
+  window.addEventListener('touchmove', e => { const t=e.touches[0]; moveDrag(t.clientX, t.clientY); }, {passive:true});
+
+  // ── resize ──
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(stage);
+
+  // ── pause when section offscreen (perf) ──
+  let visible = false;
+  new IntersectionObserver(ents => ents.forEach(e => { visible = e.isIntersecting; }), { threshold: 0.05 }).observe(stage);
+
+  // ── render loop ──
+  const SPEED = 8.0; // units per second
+  let last = performance.now();
+  (function loop(t){
+    requestAnimationFrame(loop);
+    const dt = Math.min((t - last)/1000, 0.05);
+    last = t;
+    if (!visible) return;
+
+    // Yaw-based forward/right vectors
+    const fx = -Math.sin(yaw), fz = -Math.cos(yaw);
+    const rx =  Math.cos(yaw), rz = -Math.sin(yaw);
+    let mx = 0, mz = 0;
+    if (keys['w'] || keys['arrowup'])    { mx += fx; mz += fz; }
+    if (keys['s'] || keys['arrowdown'])  { mx -= fx; mz -= fz; }
+    if (keys['a'] || keys['arrowleft'])  { mx -= rx; mz -= rz; }
+    if (keys['d'] || keys['arrowright']) { mx += rx; mz += rz; }
+    const mag = Math.hypot(mx, mz);
+    if (mag > 0) { mx /= mag; mz /= mag; camera.position.x += mx * SPEED * dt; camera.position.z += mz * SPEED * dt; }
+    // keep inside the hangar
+    const R = 24;
+    const d = Math.hypot(camera.position.x, camera.position.z);
+    if (d > R) { camera.position.x *= R/d; camera.position.z *= R/d; }
+    camera.position.y = 1.75;
+
+    // Orient camera
+    camera.rotation.set(pitch, yaw, 0, 'YXZ');
+
+    // Slow ship yaw for life
+    shipYaw += dt * 0.25;
+    shipGroup.rotation.y = shipYaw;
+    padRing.rotation.z = -shipYaw * 2;
+    padRing2.rotation.z = shipYaw * 1.3;
+
+    renderer.render(scene, camera);
+  })(performance.now());
 })();
 </script>
 
