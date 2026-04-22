@@ -269,12 +269,11 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 .timeline-inner{max-width:1680px;margin:0 auto}
 .timeline h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(52px,7vw,112px);line-height:.92;letter-spacing:-.02em;color:var(--cream);margin-bottom:80px}
 .timeline h3 em{font-style:italic;color:var(--rust-light)}
-.timeline-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:20px;position:relative}
-.timeline-grid::before{content:"";position:absolute;top:30px;left:3%;right:3%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.45),rgba(168,196,216,.45),transparent)}
+.timeline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px;position:relative}
+.timeline-grid::before{content:"";position:absolute;top:30px;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(168,196,216,.5),rgba(255,215,0,.5),rgba(168,196,216,.5),transparent)}
 .tl-item{position:relative;padding-top:72px}
 .tl-item::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:16px;height:16px;border:1.5px solid var(--gold);border-radius:50%;background:var(--navy-3)}
-.tl-year{font-family:'Fraunces',serif;font-style:italic;font-size:34px;line-height:1;color:var(--gold);text-align:center;margin-bottom:12px}
-.tl-item.tl-future .tl-year{color:var(--silver)}
+.tl-year{font-family:'Fraunces',serif;font-style:italic;font-size:44px;line-height:1;color:var(--silver);text-align:center;margin-bottom:14px}
 .tl-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream);opacity:.7;text-align:center;margin-bottom:10px}
 .tl-body{font-size:13px;line-height:1.65;color:rgba(238,229,216,.6);text-align:center;font-weight:300}
 
@@ -718,18 +717,13 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 <!-- TIMELINE -->
 <section id="heritage" class="timeline">
   <div class="timeline-inner">
-    <span class="eyebrow" style="color:var(--gold)">Heritage</span>
-    <h3 style="margin-top:18px">A forty-six year <em>lineage</em>.</h3>
+    <span class="eyebrow" style="color:var(--gold)">Future archive · 3612 — 3923</span>
+    <h3 style="margin-top:18px">A speculative <em>lineage</em>.</h3>
     <div class="timeline-grid">
-      <div class="tl-item"><div class="tl-year">1979</div><div class="tl-label">Founded</div><div class="tl-body">First workshop opens in Titusville. Two engineers, one hangar, a single Atlas capsule.</div></div>
-      <div class="tl-item"><div class="tl-year">1994</div><div class="tl-label">First sale</div><div class="tl-body">The inaugural private Mercury-Atlas capsule sale. The house goes on record.</div></div>
-      <div class="tl-item"><div class="tl-year">2007</div><div class="tl-label">Tanegashima</div><div class="tl-body">Second vault opens in Japan. A maintenance partnership with JAXA begins.</div></div>
-      <div class="tl-item"><div class="tl-year">2018</div><div class="tl-label">Orbital era</div><div class="tl-body">First fully restored Saturn V delivered. Kourou pad allocation secured.</div></div>
-      <div class="tl-item"><div class="tl-year">2026</div><div class="tl-label">Today</div><div class="tl-body">Six craft on the winter catalogue. Four private pads. Two new capsule restorations.</div></div>
-      <div class="tl-item tl-future"><div class="tl-year">3612</div><div class="tl-label">Gozan Accord</div><div class="tl-body">Open-lane treaty signed across the Outer Rim. Cruiser escort lineage opens.</div></div>
-      <div class="tl-item tl-future"><div class="tl-year">3701</div><div class="tl-label">Vela IV</div><div class="tl-body">Orbital siege lifted. Allied expeditionary corps reclaim the corridor.</div></div>
-      <div class="tl-item tl-future"><div class="tl-year">3814</div><div class="tl-label">Binary Treaty</div><div class="tl-body">Twenty-year armistice. Personal arms exchanged between houses as oath.</div></div>
-      <div class="tl-item tl-future"><div class="tl-year">3923</div><div class="tl-label">Corvus Belt</div><div class="tl-body">Last independent belt-holdout surrenders. The long quiet begins.</div></div>
+      <div class="tl-item"><div class="tl-year">3612</div><div class="tl-label">Gozan Accord</div><div class="tl-body">Open-lane treaty signed across the Outer Rim. Cruiser escort lineage opens.</div></div>
+      <div class="tl-item"><div class="tl-year">3701</div><div class="tl-label">Vela IV</div><div class="tl-body">Orbital siege lifted. Allied expeditionary corps reclaim the corridor.</div></div>
+      <div class="tl-item"><div class="tl-year">3814</div><div class="tl-label">Binary Treaty</div><div class="tl-body">Twenty-year armistice. Personal arms exchanged between houses as oath.</div></div>
+      <div class="tl-item"><div class="tl-year">3923</div><div class="tl-label">Corvus Belt</div><div class="tl-body">Last independent belt-holdout surrenders. The long quiet begins.</div></div>
     </div>
 
     <!-- FUTURE ARCHIVE — artefact catalogue with weapon/ship specs -->
