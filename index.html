@@ -63,7 +63,9 @@ img{content-visibility:auto}
 @media(max-width:900px){.agency-nav{display:none}}
 
 /* Hero */
-.agency-hero{padding:140px 28px 64px;text-align:center;max-width:1240px;margin:0 auto}
+.agency-hero{padding:140px 28px 96px;text-align:center;max-width:1240px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.05)}
+/* Anchor-scroll offset so the fixed 64px header doesn't cover section titles */
+#bookPage #agency-work,#bookPage #agency-pricing,#bookPage #agency-contact{scroll-margin-top:80px}
 .agency-hero-pill{display:inline-block;padding:6px 14px;border:1px solid rgba(212,175,55,.3);border-radius:100px;color:#D4AF37;font:500 11px 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.12em;margin-bottom:28px}
 .agency-hero h1{font-size:clamp(40px,6vw,80px);font-weight:700;line-height:1.05;letter-spacing:-.02em;color:#F8F8FF;margin:0 0 8px;font-family:'Inter',sans-serif}
 .agency-hero h1 .gold{color:#D4AF37;display:block}
@@ -137,9 +139,26 @@ img{content-visibility:auto}
 .agency-footer-right{color:rgba(248,248,255,.4);font-size:12px;text-align:right;line-height:1.6}
 @media(max-width:760px){.agency-footer-right{text-align:center}}
 
-/* Push Universe/Compare content below fixed header */
-#bookPage #universeApp,#bookPage #compareApp{top:140px!important}
-#bookPage .book-buttons{top:82px!important}
+/* Flow layout overrides so sections stack naturally — no absolute-positioned
+   Universe/Compare covering Pricing / Contact / Footer. */
+#bookPage #universeApp,#bookPage #compareApp{
+  position:relative!important;inset:auto!important;top:auto!important;
+  width:100%;min-height:82vh;padding:16px 0 48px;display:block;
+}
+#bookPage .book-buttons{
+  position:relative!important;top:auto!important;left:auto!important;
+  transform:none!important;margin:0 auto 28px;display:inline-flex;
+}
+#bookPage .agency-work-wrap{
+  padding:56px 28px 40px;text-align:center;max-width:1440px;margin:0 auto;
+}
+#bookPage .agency-work-wrap #universeApp,
+#bookPage .agency-work-wrap #compareApp{text-align:left}
+/* Keep the Universe sidebar + graph working inside the flow */
+#bookPage #universeApp{display:flex!important}
+#bookPage #universeApp .uni-body{flex:1;min-height:80vh}
+/* Compare grid gets clear top gap so pills don't hug the switcher */
+#bookPage #compareApp{padding-top:8px}
 
 /* Compare card restyle (per spec) */
 #bookPage .cg-card{background:#13131A!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:16px!important;transition:transform .25s,border-color .25s,box-shadow .25s}
@@ -3282,12 +3301,12 @@ function renderNotes(container){
     </section>
 
     <!-- WORK — Universe / Compare switcher (kept intact) -->
-    <div id="agency-work" style="position:relative;min-height:78vh">
+    <section id="agency-work" class="agency-work-wrap">
       <div class="book-buttons">
         <button class="book-btn" onclick="showUniverseTemplates()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">UNIVERSE</span></button>
         <button class="book-btn" onclick="showCompareView()"><span class="btn-bg"></span><span class="btn-wave-l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"/></svg></span><span class="btn-wave-r"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487 487"><path fill-opacity=".1" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"/></svg></span><span class="btn-grad"></span><span class="btn-text">COMPARE</span></button>
       </div>
-    </div>
+    </section>
 
     <!-- PRICING -->
     <section id="agency-pricing" class="agency-pricing">
@@ -31424,10 +31443,6 @@ function buildCompareHTML(){
             +'<div class="cg-ph-name">'+escHtml(t.name)+'</div>'
             +'<div class="cg-ph-cat">'+escHtml(t.subcategory||t.category||'')+'</div>'
           +'</div>'
-        +'</div>'
-        +'<div class="cg-overlay">'
-          +'<button class="cg-overlay-btn" onclick="event.stopPropagation();previewUniTpl(\''+escHtml(t.id)+'\')">See demo →</button>'
-          +'<button class="cg-overlay-btn gold" onclick="event.stopPropagation();document.getElementById(\'agency-contact\').scrollIntoView({behavior:\'smooth\'})">Request this style →</button>'
         +'</div>'
       +'</div>'
       +'<div class="cg-meta">'
