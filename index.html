@@ -4385,7 +4385,13 @@ body { background:#0e0e0e; color:#f5f0eb; font-family:Inter,sans-serif; overflow
 .fade-up { opacity:0; transform:translateY(30px); transition:all 1s cubic-bezier(.22,1,.36,1); }\
 .fade-up.visible { opacity:1; transform:translateY(0); }\
 \
+/* Centered Greek bust in the hero */\
+.hero-bust { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:min(46vw, 620px); aspect-ratio:3/4; z-index:4; pointer-events:none; }\
+.hero-bust model-viewer { width:100%; height:100%; background:transparent; --progress-bar-color:transparent; filter: drop-shadow(0 40px 60px rgba(0,0,0,.55)); }\
+\
 </style>\
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>\
+<script>(function(){var U="https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js",p=new Map(),stash=function(mv){var s=mv.getAttribute("src");if(s&&!p.has(mv)){p.set(mv,s);mv.removeAttribute("src");}};var mo=new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(!n||n.nodeType!==1)return;if(n.tagName==="MODEL-VIEWER")stash(n);else if(n.querySelectorAll)n.querySelectorAll("model-viewer").forEach(stash);});});});mo.observe(document.documentElement,{childList:true,subtree:true});document.querySelectorAll&&document.querySelectorAll("model-viewer").forEach(stash);customElements.whenDefined("model-viewer").then(function(){var MV=customElements.get("model-viewer");try{MV.meshoptDecoderLocation=U;}catch(e){}Promise.resolve().then(function(){mo.disconnect();p.forEach(function(s,m){m.setAttribute("src",s);});p.clear();});});})();</script>\
 </head>\
 <body>\
 \
@@ -4405,6 +4411,10 @@ body { background:#0e0e0e; color:#f5f0eb; font-family:Inter,sans-serif; overflow
     <source src="https://videos.pexels.com/video-files/5765284/5765284-uhd_2560_1440_30fps.mp4" type="video/mp4">\
   </video>\
   <div class="hero-overlay"></div>\
+  \
+  <div class="hero-bust">\
+    <model-viewer src="assets/models/greek/bust.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="12deg" camera-controls="false" interaction-prompt="none" disable-zoom loading="eager" reveal="auto" exposure="1.05" shadow-intensity="0.2" tone-mapping="commerce" alt="Greek bust"></model-viewer>\
+  </div>\
   \
   <div class="hero-text-left">Prestige</div>\
   <div class="hero-text-right">Maison</div>\
