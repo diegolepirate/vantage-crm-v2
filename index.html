@@ -3211,6 +3211,19 @@ function agencySubmitForm(form){
   form.reset();
 }
 
+// Header nav: switch to Compare grid with a given category filter and scroll
+// it into view. 'All' = every template; 'Tools' = only the Tools family.
+function agencyShowCompare(filter){
+  try{
+    window._cmpFilter = filter || 'All';
+    if(typeof showCompareView === 'function') showCompareView();
+    setTimeout(function(){
+      var w = document.getElementById('agency-work');
+      if(w) w.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 80);
+  }catch(e){}
+}
+
 function renderNotes(container){
   let existing=document.getElementById('bookPage');
   if(existing)existing.remove();
@@ -3226,9 +3239,8 @@ function renderNotes(container){
         <span class="v-sub">Web Agency</span>
       </div>
       <nav class="agency-nav">
-        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Work</a>
-        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Templates</a>
-        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Tools</a>
+        <a onclick="agencyShowCompare('All')">Templates</a>
+        <a onclick="agencyShowCompare('Tools')">Tools</a>
         <a onclick="document.getElementById('agency-pricing').scrollIntoView({behavior:'smooth'})">Pricing</a>
         <a onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact</a>
       </nav>
@@ -3264,7 +3276,7 @@ function renderNotes(container){
         <div class="agency-stat"><span class="n">Athens</span><span class="l">Based</span></div>
       </div>
       <div class="agency-hero-ctas">
-        <button class="agency-btn-gold" onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Explore templates ↓</button>
+        <button class="agency-btn-gold" onclick="agencyShowCompare('All')">Explore templates ↓</button>
         <button class="agency-btn-ghost" onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact us →</button>
       </div>
     </section>
@@ -3376,8 +3388,8 @@ function renderNotes(container){
         <span class="t">Premium web design for Greek businesses</span>
       </div>
       <div class="agency-footer-center">
-        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Templates</a>
-        <a onclick="document.getElementById('agency-work').scrollIntoView({behavior:'smooth'})">Tools</a>
+        <a onclick="agencyShowCompare('All')">Templates</a>
+        <a onclick="agencyShowCompare('Tools')">Tools</a>
         <a onclick="document.getElementById('agency-pricing').scrollIntoView({behavior:'smooth'})">Pricing</a>
         <a onclick="document.getElementById('agency-contact').scrollIntoView({behavior:'smooth'})">Contact</a>
       </div>
