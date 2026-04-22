@@ -31024,56 +31024,22 @@ function initCompareGrid(host){
     card._cgMounting=false;
   }
 
-  // Scroll-end gated scheduler: we mount after the scroll settles for 180ms.
-  // Pointer moves and clicks are NOT counted (they were blocking mounts).
-
-  var pending=new Set();
-  function drain(){
-    // Mount closest-to-viewport first, up to MAX_LIVE total live
-    var arr=[].slice.call(pending);
-    arr.sort(function(a,b){
-      var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
-      return Math.abs(ra.top+ra.height/2-window.innerHeight/2)-Math.abs(rb.top+rb.height/2-window.innerHeight/2);
-    });
-    for(var i=0;i<arr.length;i++){
-      if(live.length>=MAX_LIVE)break;
-      if(!arr[i].querySelector('iframe')){mount(arr[i]);pending.delete(arr[i])}
-    }
-  }
-  var drainT=0;
-  function scheduleDrain(){clearTimeout(drainT);drainT=setTimeout(drain,120)}
-  // Also re-drain on scroll-end so cards entering during a scroll actually mount.
-  var scrollEndT=0;
-  window.addEventListener('scroll',function(){clearTimeout(scrollEndT);scrollEndT=setTimeout(scheduleDrain,180)},{passive:true});
-
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          pending.add(e.target);
-        } else {
-          pending.delete(e.target);
-          // FIX #2: don't unmount on IO-leave; LRU handles eviction.
-          // 3D cards need 3-8s to init WebGL; unmounting mid-scroll = "never loads".
-        }
-      });
-      scheduleDrain();
-    },{rootMargin:'800px 0px',threshold:0.01});
-    cards.forEach(function(c){io.observe(c)});
-  } else {
-    // Fallback: mount first 6 only
-    for(var k=0;k<Math.min(MAX_LIVE,cards.length);k++)mount(cards[k]);
-  }
-
-  // FIX B: hover prefetch on 3D cards — warm browser cache before click
+  // Hover-to-mount: each card stays in its placeholder state until the
+  // user hovers (or touches / focuses) it. Then the template's first
+  // section loads in the frame as a paused preview (iframe has
+  // pointer-events:none + scrolling:no so there's no interaction).
+  // LRU evicts the oldest live iframe once MAX_LIVE is reached.
   cards.forEach(function(card){
-    if(!is3DCard(card))return;
-    var warmed=false;
-    card.addEventListener('mouseenter',function(){
-      if(warmed)return;warmed=true;
-      var tpl=tplById(card.getAttribute('data-id'));
-      if(tpl&&tpl.url){try{fetch(tpl.url,{mode:'no-cors',priority:'low'}).catch(function(){})}catch(e){}}
-    },{passive:true,once:true});
+    var armed=false;
+    var wake=function(){
+      if(armed)return;armed=true;
+      // If an iframe already exists (e.g. re-mounted from LRU), skip.
+      if(card.querySelector('iframe'))return;
+      mount(card);
+    };
+    card.addEventListener('mouseenter',wake,{passive:true});
+    card.addEventListener('focusin',   wake,{passive:true});
+    card.addEventListener('touchstart',wake,{passive:true,once:true});
   });
 
   // Resize refit
