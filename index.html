@@ -3447,6 +3447,11 @@ function renderNotes(container){
       navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){});
     }
   }
+  // Default view: Compare grid (All) so the Work section is populated
+  // immediately. User can still click UNIVERSE in the switcher.
+  setTimeout(function(){
+    try{ window._cmpFilter='All'; if(typeof showCompareView==='function') showCompareView(); }catch(e){}
+  },0);
 }
 function handleBookSwitch(el){
   if(!el.checked){
@@ -3487,10 +3492,13 @@ function showUniverseTemplates(){
   closeFantasyMap();
   var cmp=document.getElementById('compareApp');if(cmp)cmp.remove();
   var ex=document.getElementById('universeApp');if(ex)ex.remove();
-  var bp=document.getElementById('bookPage');if(!bp)return;
+  // Mount inside the agency Work section so it sits between Hero and Pricing,
+  // not below the footer.
+  var host=document.getElementById('agency-work')||document.getElementById('bookPage');
+  if(!host)return;
   var div=document.createElement('div');div.id='universeApp';
   div.innerHTML=buildUniverseHTML();
-  bp.appendChild(div);
+  host.appendChild(div);
   initUniverseGraph();
   bindUniverseEvents();
 }
@@ -31175,10 +31183,13 @@ function showCompareView(){
     }
   }catch(e){}
   var ex=document.getElementById('compareApp');if(ex)ex.remove();
-  var bp=document.getElementById('bookPage');if(!bp)return;
+  // Mount inside the agency Work section so the grid sits right under the
+  // switcher between Hero and Pricing, not below the footer.
+  var host=document.getElementById('agency-work')||document.getElementById('bookPage');
+  if(!host)return;
   var div=document.createElement('div');div.id='compareApp';
   div.innerHTML=buildCompareHTML();
-  bp.appendChild(div);
+  host.appendChild(div);
   initCompareGrid(div);
   // Warm the 3D template HTTP cache in the background so clicks feel instant.
   try{warm3DCompareAssets()}catch(e){}
