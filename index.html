@@ -30873,6 +30873,48 @@ function showCompareView(){
   div.innerHTML=buildCompareHTML();
   bp.appendChild(div);
   initCompareGrid(div);
+  // Warm the 3D template HTTP cache in the background so clicks feel instant.
+  try{warm3DCompareAssets()}catch(e){}
+}
+
+// Sequential background warmer for the 3D-template group.
+// Fires once per session the first time the user opens the Compare view.
+function warm3DCompareAssets(){
+  if (window.__vantage3DWarmed) return;
+  window.__vantage3DWarmed = true;
+  var TPLs = [
+    { url:'vantage-tee-nou.html',        glb:['assets/models/tea/fruit-milk.glb','assets/models/tea/money.glb','assets/models/tea/samurai.glb'] },
+    { url:'vantage-hellenica.html',      glb:['assets/models/greek/venus.glb','assets/models/greek/tetradrachme.glb','assets/models/greek/vase.glb','assets/models/greek/autel.glb','assets/models/greek/joueur-lyre.glb'] },
+    { url:'vantage-maison-vitesse.html', glb:['assets/models/porsche-gt3-rs.glb','assets/models/gauges.glb','assets/models/porsche-gt3r-rexy.glb','assets/models/bmw-m1.glb','assets/models/garage-tools.glb','assets/models/passenger-pack.glb'] },
+    { url:'vantage-neoarcade.html',      glb:['assets/models/arcade/scouter.glb','assets/models/arcade/cabinet.glb','assets/models/arcade/old-computer.glb','assets/models/arcade/rusty-jp.glb','assets/models/arcade/pacman.glb','assets/models/arcade/controller-8bitdo.glb','assets/models/arcade/credits.glb','assets/models/arcade/n64-storage.glb','assets/models/arcade/kame-house.glb'] },
+    { url:'vantage-maison-luxe.html',    glb:[] },   // Sketchfab iframes, no local .glb
+    { url:'vantage-space-sweeper.html',  glb:[] }
+  ];
+  var common = [
+    'https://cdn.jsdelivr.net/npm/meshoptimizer@0.21.0/meshopt_decoder.js',
+    'https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js'
+  ];
+  // Build a flat queue: common first (decoder + model-viewer), then each
+  // template's HTML, then all of its .glb one by one before moving on.
+  var queue = common.slice();
+  TPLs.forEach(function(t){ queue.push(t.url); t.glb.forEach(function(g){ queue.push(g); }); });
+
+  var i = 0;
+  function fetchOne(){
+    if (i >= queue.length) return;
+    var u = queue[i++];
+    try{
+      var p = fetch(u, { mode:'no-cors', credentials:'omit', cache:'force-cache' });
+      p.catch(function(){}).finally(function(){
+        // 120 ms spacing keeps bandwidth available for user-visible mounts
+        setTimeout(fetchOne, 120);
+      });
+    }catch(e){ setTimeout(fetchOne, 120); }
+  }
+  // Defer until the browser is idle so the Compare grid itself renders first
+  var kick = function(){ fetchOne(); };
+  if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 2500 });
+  else setTimeout(kick, 1200);
 }
 
 function initCompareGrid(host){
