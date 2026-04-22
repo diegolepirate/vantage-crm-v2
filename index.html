@@ -150,8 +150,15 @@ img{content-visibility:auto}
   transform:none!important;margin:0 auto 28px;display:inline-flex;
 }
 #bookPage .agency-work-wrap{
-  padding:56px 28px 40px;text-align:center;max-width:1440px;margin:0 auto;
+  padding:56px 24px 40px;text-align:center;max-width:none;margin:0;width:100%;
 }
+/* Compare grid: full viewport width, 2 large cards per row (1 on small screens) */
+#bookPage #compareApp .cg-grid{grid-template-columns:repeat(2,1fr)!important;gap:28px!important;max-width:100%!important}
+@media(max-width:960px){#bookPage #compareApp .cg-grid{grid-template-columns:1fr!important}}
+/* Preview iframe/frame takes the card's full width with a taller aspect ratio so
+   the template's first section is actually legible */
+#bookPage #compareApp .cg-frame-wrap{aspect-ratio:16/9!important}
+#bookPage #compareApp .cg-grid .cg-card{width:100%}
 #bookPage .agency-work-wrap #universeApp,
 #bookPage .agency-work-wrap #compareApp{text-align:left}
 /* Keep the Universe sidebar + graph working inside the flow */
