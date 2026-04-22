@@ -287,6 +287,27 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 }
 
 /* ─────────────── FOOTER TEXT ─────────────── */
+/* ─────────────── WASD tutorial panel ─────────────── */
+.wasd-stage{position:relative;width:100%;min-height:80vh;background:radial-gradient(ellipse at center,#1E2B5A 0%,#0A1022 60%,#050814 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:56px;padding:120px 24px;overflow:hidden;user-select:none}
+.wasd-stage::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,215,0,.06) 1px,transparent 1px);background-size:26px 26px;opacity:.55;pointer-events:none}
+.wasd-caption{position:relative;z-index:2;text-align:center;max-width:520px}
+.wasd-caption .eyebrow{color:var(--gold);opacity:.85;margin-bottom:16px;display:inline-block}
+.wasd-caption h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(40px,5.4vw,86px);line-height:.95;color:var(--cream);margin-bottom:14px}
+.wasd-caption h3 em{color:var(--gold);font-style:italic}
+.wasd-caption p{font-size:14px;line-height:1.6;color:rgba(238,229,216,.65);font-weight:300}
+.wasd-keys{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,56px);gap:6px;place-items:center}
+.wasd-key{width:48px;height:45px;border-radius:6px;background:#faf7f0;color:#2a2520;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;padding-bottom:2px;border-top:1px solid #cfcbc0;box-shadow:0 3px 0 2px #bdb8aa,0 6px 18px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s}
+.wasd-key:hover,.wasd-key.on{transform:translateY(2px);box-shadow:0 1px 0 1px #bdb8aa,0 3px 10px rgba(0,0,0,.35);background:#ffd700;color:#0c1736}
+.wasd-key.k-w{grid-column:2;grid-row:1}
+.wasd-key.k-a{grid-column:1;grid-row:2}
+.wasd-key.k-s{grid-column:2;grid-row:2}
+.wasd-key.k-d{grid-column:3;grid-row:2}
+.wasd-hint{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(238,229,216,.4);display:flex;align-items:center;gap:16px}
+.wasd-hint::before,.wasd-hint::after{content:"";width:40px;height:1px;background:rgba(255,215,0,.4)}
+.mobile-tutorial{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;background:rgba(255,255,255,.08);border-radius:16px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,215,0,.25);padding:22px 28px;max-width:88%;display:none;z-index:3}
+.mobile-tutorial span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream)}
+@media(max-width:768px){.wasd-keys,.wasd-caption,.wasd-hint{display:none}.mobile-tutorial{display:block}}
+
 .footer-text{position:relative;background:var(--navy-3);padding:120px 48px 80px;color:var(--cream);z-index:10}
 .footer-grid{max-width:1680px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:80px;margin-bottom:80px}
 .footer-brand h4{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;margin-bottom:22px}
@@ -596,10 +617,10 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
     <span class="eyebrow" style="color:var(--gold)">Future archive · 3612 — 3923</span>
     <h3 style="margin-top:18px">A speculative <em>lineage</em>.</h3>
     <div class="timeline-grid">
-      <div class="tl-item"><div class="tl-year">3612</div><div class="tl-label">Gozan Accord</div><div class="tl-body">Open-lane treaty signed across the Outer Rim. Cruiser escort lineage opens.</div></div>
-      <div class="tl-item"><div class="tl-year">3701</div><div class="tl-label">Vela IV</div><div class="tl-body">Orbital siege lifted. Allied expeditionary corps reclaim the corridor.</div></div>
-      <div class="tl-item"><div class="tl-year">3814</div><div class="tl-label">Binary Treaty</div><div class="tl-body">Twenty-year armistice. Personal arms exchanged between houses as oath.</div></div>
-      <div class="tl-item"><div class="tl-year">3923</div><div class="tl-label">Corvus Belt</div><div class="tl-body">Last independent belt-holdout surrenders. The long quiet begins.</div></div>
+      <div class="tl-item"><div class="tl-year">3612</div><div class="tl-label">Iron Star found</div><div class="tl-body">First cold-core neutron body catalogued past Proxima. A new class of navigation beacon is born.</div></div>
+      <div class="tl-item"><div class="tl-year">3701</div><div class="tl-label">Pax Vela</div><div class="tl-body">The Vela Sector taken in a single campaign — six moons, one flag, a conquest written in a season.</div></div>
+      <div class="tl-item"><div class="tl-year">3814</div><div class="tl-label">Quantum gate</div><div class="tl-body">Lena Orsolini proves stable fold-space transit. Interstellar distance ceases to measure in years.</div></div>
+      <div class="tl-item"><div class="tl-year">3923</div><div class="tl-label">Corvus mapped</div><div class="tl-body">The Corvus Belt fully charted after ninety years of survey. Last uncharted frontier closes.</div></div>
     </div>
 
     <!-- FUTURE ARCHIVE — artefact catalogue with weapon/ship specs -->
@@ -641,6 +662,31 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}
 </section>
 
 
+
+<!-- WASD TUTORIAL — interactive navigation panel -->
+<section class="wasd-stage">
+  <div class="wasd-caption">
+    <span class="eyebrow">Step inside</span>
+    <h3>Walk the <em>atelier</em>.</h3>
+    <p>Every vault is open to visitors. Use the keys below to roam the main hangar in full scale — no appointment required for the tour.</p>
+  </div>
+  <div class="wasd-keys">
+    <span class="wasd-key k-w">W</span>
+    <span class="wasd-key k-a">A</span>
+    <span class="wasd-key k-s">S</span>
+    <span class="wasd-key k-d">D</span>
+  </div>
+  <div class="wasd-hint">USE WASD OR ARROW KEYS</div>
+  <div class="mobile-tutorial"><span>Tap &amp; drag to navigate the hangar</span></div>
+</section>
+<script>
+(function(){
+  const keys=document.querySelectorAll('.wasd-key');
+  const map={w:'k-w',a:'k-a',s:'k-s',d:'k-d',ArrowUp:'k-w',ArrowLeft:'k-a',ArrowDown:'k-s',ArrowRight:'k-d'};
+  window.addEventListener('keydown',e=>{const c=map[e.key]||map[e.key.toLowerCase?.()];if(c){const el=document.querySelector('.wasd-key.'+c);if(el)el.classList.add('on')}});
+  window.addEventListener('keyup',e=>{const c=map[e.key]||map[e.key.toLowerCase?.()];if(c){const el=document.querySelector('.wasd-key.'+c);if(el)el.classList.remove('on')}});
+})();
+</script>
 
 <!-- FOOTER -->
 <footer id="contact" class="footer-text">
