@@ -31422,13 +31422,18 @@ function buildCompareHTML(){
   // 3D family — templates using Sketchfab embeds or local model-viewer GLBs
   var THREE_D_IDS=['78','80','81','82','83'];
   function is3D(t){return THREE_D_IDS.indexOf(String(t.id))>=0}
+  // Tools are reserved for the Tools filter only — they never show up in
+  // 'All', '3D' or any other category. User-facing templates stay separate
+  // from the operational/management utilities clients will buy alongside.
+  var landingTpls=allTpls.filter(function(t){return t.category!=='Tools'});
   var cats=['All','3D'].concat(Array.from(new Set(allTpls.map(function(t){return t.category}))).filter(Boolean).sort());
   if(!window._cmpFilter)window._cmpFilter='All';
   var filter=window._cmpFilter;
   var list;
-  if(filter==='All')list=allTpls;
-  else if(filter==='3D')list=allTpls.filter(is3D);
-  else list=allTpls.filter(function(t){return t.category===filter});
+  if(filter==='All')list=landingTpls;
+  else if(filter==='3D')list=landingTpls.filter(is3D);
+  else if(filter==='Tools')list=allTpls.filter(function(t){return t.category==='Tools'});
+  else list=landingTpls.filter(function(t){return t.category===filter});
 
   var pills=cats.map(function(c){
     var active=c===filter?' cg-pill-active':'';
