@@ -153,8 +153,10 @@ img{content-visibility:auto}
   padding:56px 24px 40px;text-align:center;max-width:none;margin:0;width:100%;
 }
 /* Compare grid: full viewport width, 2 large cards per row (1 on small screens) */
-#bookPage #compareApp .cg-grid{grid-template-columns:repeat(2,1fr)!important;gap:28px!important;max-width:100%!important}
-@media(max-width:960px){#bookPage #compareApp .cg-grid{grid-template-columns:1fr!important}}
+#bookPage #compareApp .cg-grid{grid-template-columns:repeat(4,1fr)!important;gap:24px!important;max-width:100%!important}
+@media(max-width:1400px){#bookPage #compareApp .cg-grid{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:1000px){#bookPage #compareApp .cg-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:640px){#bookPage #compareApp .cg-grid{grid-template-columns:1fr!important}}
 /* Preview iframe/frame takes the card's full width with a taller aspect ratio so
    the template's first section is actually legible */
 /* Taller preview so the template hero fits without the top being clipped.
@@ -31306,8 +31308,11 @@ function initCompareGrid(host){
 
   function fit(ifr,frameWrap){
     var cw=frameWrap.clientWidth;
-    if(cw){ifr.style.transform='scale('+(cw/1440)+')';ifr.style.transformOrigin='0 0'}
-    else {requestAnimationFrame(function(){fit(ifr,frameWrap)})}
+    if(!cw){cw=frameWrap.getBoundingClientRect().width;}
+    if(!cw && frameWrap.parentElement){cw=frameWrap.parentElement.clientWidth;}
+    if(!cw)cw=600;
+    ifr.style.transform='scale('+(cw/1440)+')';
+    ifr.style.transformOrigin='0 0';
   }
 
   function unmount(card){
@@ -31515,7 +31520,7 @@ function buildCompareHTML(){
     +'.cg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
     +'@media(max-width:1100px){.cg-grid{grid-template-columns:repeat(2,1fr)}}'
     +'@media(max-width:700px){.cg-grid{grid-template-columns:1fr}}'
-    +'.cg-card{background:#18181f;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;contain:layout paint}'
+    +'.cg-card{background:#18181f;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;contain:paint}'
     +'.cg-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4)}'
     +'.cg-frame-wrap{aspect-ratio:16/11;background:#0a0a0f;overflow:hidden;position:relative}'
     +'.cg-frame{position:absolute;inset:0;overflow:hidden}'
