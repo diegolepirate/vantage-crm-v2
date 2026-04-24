@@ -31354,17 +31354,20 @@ function initCompareGrid(host){
       if(!cached){try{cached=generateTemplateHTML(tpl);window._tplSrcdocCache.set(tpl.id,cached)}catch(e){cached=null}}
       if(cached)ifr.srcdoc=cached; else {card._cgMounting=false;return}
     }
+    // Fit BEFORE load (content renders pre-scaled), again on load, then
+    // keep re-fitting for 3s to survive any late layout shift. Without
+    // this, the first row sometimes shows the raw 1440px page cropped.
+    fit(ifr,frameWrap);
+    var fitTries=0;
+    var fitTimer=setInterval(function(){
+      fit(ifr,frameWrap);
+      if(++fitTries>=12)clearInterval(fitTimer);
+    },250);
     ifr.addEventListener('load',function(){
       fit(ifr,frameWrap);
-      // Re-fit a few times in case frameWrap layout settles after load
-      // (sticky bars, font load, grid reflow). Without this, the first
-      // row of cards sometimes renders un-scaled, cropping the hero.
-      setTimeout(function(){fit(ifr,frameWrap)},50);
-      setTimeout(function(){fit(ifr,frameWrap)},300);
       ifr.style.opacity='1';
       card.classList.add('cg-loaded');
     });
-    // Resize-aware: always keep the scale aligned with the wrap width.
     if(window.ResizeObserver){
       var ro=new ResizeObserver(function(){fit(ifr,frameWrap)});
       ro.observe(frameWrap);
