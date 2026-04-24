@@ -157,7 +157,11 @@ img{content-visibility:auto}
 @media(max-width:960px){#bookPage #compareApp .cg-grid{grid-template-columns:1fr!important}}
 /* Preview iframe/frame takes the card's full width with a taller aspect ratio so
    the template's first section is actually legible */
-#bookPage #compareApp .cg-frame-wrap{aspect-ratio:16/9!important}
+/* Taller preview so the template hero fits without the top being clipped.
+   The iframe renders at 1440×900 then scales by cw/1440, so the scaled
+   iframe height is cw*0.625. We match that with a 16/10 wrap so nothing
+   overflows and the full first section is visible. */
+#bookPage #compareApp .cg-frame-wrap{aspect-ratio:16/10!important}
 #bookPage #compareApp .cg-grid .cg-card{width:100%}
 #bookPage .agency-work-wrap #universeApp,
 #bookPage .agency-work-wrap #compareApp{text-align:left}
