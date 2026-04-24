@@ -164,8 +164,11 @@ img{content-visibility:auto}
 /* Keep the Universe sidebar + graph working inside the flow */
 #bookPage #universeApp{display:flex!important}
 #bookPage #universeApp .uni-body{flex:1;min-height:80vh}
-/* Compare grid gets clear top gap so pills don't hug the switcher */
-#bookPage #compareApp{padding-top:8px}
+/* Compare grid gets clear top gap so pills don't hug the switcher.
+   Neutralize the legacy inline `overflow-y:auto` which turned #compareApp
+   into an inner scroll-box and clipped the first row of cards. */
+#bookPage #compareApp{padding-top:8px!important;overflow:visible!important;height:auto!important;max-height:none!important}
+#bookPage #compareApp .cg-grid{padding-top:8px}
 
 /* Compare card restyle (per spec) */
 #bookPage .cg-card{background:#13131A!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:16px!important;transition:transform .25s,border-color .25s,box-shadow .25s}
