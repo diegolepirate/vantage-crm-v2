@@ -31304,7 +31304,9 @@ function initCompareGrid(host){
   function tplById(id){return UNI_TEMPLATES.find(function(x){return x.id===id})}
 
   function fit(ifr,frameWrap){
-    var cw=frameWrap.clientWidth;if(cw){ifr.style.transform='scale('+(cw/1440)+')'}
+    var cw=frameWrap.clientWidth;
+    if(cw){ifr.style.transform='scale('+(cw/1440)+')';ifr.style.transformOrigin='0 0'}
+    else {requestAnimationFrame(function(){fit(ifr,frameWrap)})}
   }
 
   function unmount(card){
@@ -31354,9 +31356,20 @@ function initCompareGrid(host){
     }
     ifr.addEventListener('load',function(){
       fit(ifr,frameWrap);
+      // Re-fit a few times in case frameWrap layout settles after load
+      // (sticky bars, font load, grid reflow). Without this, the first
+      // row of cards sometimes renders un-scaled, cropping the hero.
+      setTimeout(function(){fit(ifr,frameWrap)},50);
+      setTimeout(function(){fit(ifr,frameWrap)},300);
       ifr.style.opacity='1';
       card.classList.add('cg-loaded');
     });
+    // Resize-aware: always keep the scale aligned with the wrap width.
+    if(window.ResizeObserver){
+      var ro=new ResizeObserver(function(){fit(ifr,frameWrap)});
+      ro.observe(frameWrap);
+      card._cgRO=ro;
+    }
     frameWrap.appendChild(ifr);
     live.push(card);
     card._cgMounting=false;
