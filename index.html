@@ -172,7 +172,8 @@ img{content-visibility:auto}
    Neutralize the legacy inline `overflow-y:auto` which turned #compareApp
    into an inner scroll-box and clipped the first row of cards. */
 #bookPage #compareApp{padding-top:8px!important;overflow:visible!important;height:auto!important;max-height:none!important}
-#bookPage #compareApp .cg-grid{padding-top:24px}
+#bookPage #compareApp .cg-grid{padding-top:64px}
+#bookPage #compareApp .cg-card{scroll-margin-top:180px}
 /* Sticky filter bar under the 64px fixed header — gives cards a clear
    visual "floor" so the first row never scrolls behind the nav. */
 #bookPage #compareApp .cg-topbar{position:sticky;top:64px;z-index:20;background:rgba(10,10,15,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);margin:0 -28px;padding:14px 28px!important}
