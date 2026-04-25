@@ -31348,7 +31348,11 @@ function initCompareGrid(host){
     // FIX #1: forward permissions so nested Sketchfab/model-viewer can run
     ifr.setAttribute('allow','autoplay; fullscreen; xr-spatial-tracking; accelerometer; gyroscope; web-share; clipboard-read; clipboard-write');
     if('fetchPriority' in ifr)ifr.fetchPriority='low';
-    ifr.style.cssText='position:absolute;top:0;left:0;width:1440px;height:900px;border:0;pointer-events:none;background:#0a0a0f;transform-origin:0 0;will-change:transform;opacity:0;transition:opacity .3s ease';
+    // NEW SIZING: width/height in percent = iframe internal viewport matches
+    // the card's frame exactly. No scale transform needed, no clipping risk.
+    // Responsive templates (Tailwind) render their tablet/mobile layout, which
+    // is legible at ~600-800px. Eliminates every first-row crop bug.
+    ifr.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0;pointer-events:none;background:#0a0a0f;opacity:0;transition:opacity .3s ease';
     // PREVIEW FIX: prefer the real published URL (vantagebookweb.netlify.app/...)
     // over the generic generateTemplateHTML fallback.
     var useSrc=tpl.url && /^https?:\/\//.test(tpl.url) && !/awwwards\.com/.test(tpl.url);
@@ -31360,25 +31364,10 @@ function initCompareGrid(host){
       if(!cached){try{cached=generateTemplateHTML(tpl);window._tplSrcdocCache.set(tpl.id,cached)}catch(e){cached=null}}
       if(cached)ifr.srcdoc=cached; else {card._cgMounting=false;return}
     }
-    // Fit BEFORE load (content renders pre-scaled), again on load, then
-    // keep re-fitting for 3s to survive any late layout shift. Without
-    // this, the first row sometimes shows the raw 1440px page cropped.
-    fit(ifr,frameWrap);
-    var fitTries=0;
-    var fitTimer=setInterval(function(){
-      fit(ifr,frameWrap);
-      if(++fitTries>=12)clearInterval(fitTimer);
-    },250);
     ifr.addEventListener('load',function(){
-      fit(ifr,frameWrap);
       ifr.style.opacity='1';
       card.classList.add('cg-loaded');
     });
-    if(window.ResizeObserver){
-      var ro=new ResizeObserver(function(){fit(ifr,frameWrap)});
-      ro.observe(frameWrap);
-      card._cgRO=ro;
-    }
     frameWrap.appendChild(ifr);
     live.push(card);
     card._cgMounting=false;
