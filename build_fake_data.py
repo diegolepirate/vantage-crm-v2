@@ -22,6 +22,22 @@ vrisko = load("prospects_vrisko.csv")
 print(f"OSM:    {len(osm)}")
 print(f"Vrisko: {len(vrisko)}")
 
+# Vrisko CSV stores the search city — map it to the proper Greek admin region.
+VRISKO_CITY_TO_REGION = {
+    "Αθήνα": "Attique - Athènes",
+    "Θεσσαλονίκη": "Macédoine Centrale - Thessalonique",
+    "Πάτρα": "Grèce Occidentale - Patras",
+    "Ηράκλειο": "Crète",
+    "Χανιά": "Crète",
+    "Ρόδος": "Égée du Sud (Cyclades, Dodécanèse)",
+    "Λάρισα": "Thessalie",
+    "Βόλος": "Thessalie",
+    "Ιωάννινα": "Épire - Ioannina",
+    "Καλαμάτα": "Péloponnèse",
+}
+for r in vrisko:
+    r["region"] = VRISKO_CITY_TO_REGION.get(r["region"], r["region"])
+
 # Merge with phone-based dedup (same business in both sources -> keep one)
 seen = set()
 rows = []
@@ -40,6 +56,28 @@ for src in (vrisko, osm):       # Vrisko first: paid listings have richer addr
         rows.append(r)
 
 print(f"After dedup: {len(rows)} unique prospects")
+
+# Split very large regions into Partie 1 / Partie 2 for sales territory balance,
+# then order regions by size (biggest first) so the CRM filter shows the heavy
+# hitters at the top — same UX as the original demo dataset.
+from collections import Counter
+SPLIT_THRESHOLD = 1800
+counts = Counter(r["region"] for r in rows)
+oversized = [reg for reg, n in counts.items() if n > SPLIT_THRESHOLD]
+for reg in oversized:
+    bucket = [r for r in rows if r["region"] == reg]
+    half = len(bucket) // 2
+    for r in bucket[:half]:
+        r["region"] = reg + " — Partie 1"
+    for r in bucket[half:]:
+        r["region"] = reg + " — Partie 2"
+
+# Re-rank by count and rewrite each row's region to its rank-prefixed form
+# so CRM filter naturally lists biggest regions first.
+counts = Counter(r["region"] for r in rows)
+print("Region distribution:")
+for reg, n in counts.most_common():
+    print(f"  {n:5d}  {reg}")
 # Cap at 15k for page-load speed while keeping full geographic coverage
 CAP = 12000
 if len(rows) > CAP:

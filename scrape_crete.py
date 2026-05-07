@@ -170,16 +170,87 @@ def family_for(t):
     return DEFAULT_FAMILY, t.get("amenity") or t.get("shop") or "other"
 
 
-def region_for(t):
-    """Best-effort region label from address tags + lat/lon clues."""
+# Greek administrative regions — bbox (south, west, north, east) ordered roughly
+# largest first so a hit short-circuits on Attica/Thessaloniki.
+GREEK_REGIONS = [
+    # name                                  s     w      n      e
+    ("Attique - Athènes",                  37.80, 23.40, 38.35, 24.10),
+    ("Macédoine Centrale - Thessalonique", 40.00, 22.00, 41.40, 24.30),
+    ("Crète",                              34.78, 23.40, 35.74, 26.32),
+    ("Péloponnèse",                        36.30, 21.10, 38.05, 23.40),
+    ("Grèce Occidentale - Patras",         37.60, 20.80, 39.10, 22.20),
+    ("Grèce Centrale",                     38.05, 22.20, 39.20, 24.20),
+    ("Thessalie",                          38.80, 21.40, 40.20, 23.30),
+    ("Épire - Ioannina",                   38.95, 20.10, 40.40, 21.50),
+    ("Macédoine Occidentale",              39.80, 20.80, 40.85, 22.10),
+    ("Macédoine Orientale et Thrace",      40.40, 24.20, 41.80, 26.60),
+    ("Îles Ioniennes",                     36.80, 19.30, 39.80, 21.10),
+    ("Égée du Nord",                       38.40, 25.20, 40.20, 27.20),
+    ("Égée du Sud (Cyclades, Dodécanèse)", 35.20, 23.20, 38.80, 28.50),
+]
+
+# Common Greek city → region fallback when no lat/lon.
+CITY_REGION = {
+    # Attique
+    "αθήνα":"Attique - Athènes","athens":"Attique - Athènes","athina":"Attique - Athènes",
+    "πειραιάς":"Attique - Athènes","piraeus":"Attique - Athènes",
+    "γλυφάδα":"Attique - Athènes","κηφισιά":"Attique - Athènes","μαρούσι":"Attique - Athènes",
+    "νέα σμύρνη":"Attique - Athènes","χαλάνδρι":"Attique - Athènes","περιστέρι":"Attique - Athènes",
+    # Thessalonique
+    "θεσσαλονίκη":"Macédoine Centrale - Thessalonique","thessaloniki":"Macédoine Centrale - Thessalonique",
+    "κατερίνη":"Macédoine Centrale - Thessalonique","καλαμαριά":"Macédoine Centrale - Thessalonique",
+    "σέρρες":"Macédoine Centrale - Thessalonique","βέροια":"Macédoine Centrale - Thessalonique",
+    # Crète
+    "ηράκλειο":"Crète","heraklion":"Crète","χανιά":"Crète","chania":"Crète",
+    "ρέθυμνο":"Crète","rethymno":"Crète","άγιος νικόλαος":"Crète","ιεράπετρα":"Crète","σητεία":"Crète",
+    # Péloponnèse
+    "καλαμάτα":"Péloponnèse","kalamata":"Péloponnèse","σπάρτη":"Péloponnèse",
+    "τρίπολη":"Péloponnèse","ναύπλιο":"Péloponnèse","κόρινθος":"Péloponnèse","άργος":"Péloponnèse",
+    # Grèce Occidentale
+    "πάτρα":"Grèce Occidentale - Patras","patras":"Grèce Occidentale - Patras",
+    "αγρίνιο":"Grèce Occidentale - Patras","πύργος":"Grèce Occidentale - Patras",
+    # Grèce Centrale
+    "λαμία":"Grèce Centrale","χαλκίδα":"Grèce Centrale","λιβαδειά":"Grèce Centrale","θήβα":"Grèce Centrale",
+    # Thessalie
+    "λάρισα":"Thessalie","larissa":"Thessalie","βόλος":"Thessalie","volos":"Thessalie",
+    "τρίκαλα":"Thessalie","καρδίτσα":"Thessalie",
+    # Épire
+    "ιωάννινα":"Épire - Ioannina","ioannina":"Épire - Ioannina","άρτα":"Épire - Ioannina",
+    "πρέβεζα":"Épire - Ioannina","ηγουμενίτσα":"Épire - Ioannina",
+    # Macédoine Occ.
+    "κοζάνη":"Macédoine Occidentale","καστοριά":"Macédoine Occidentale","φλώρινα":"Macédoine Occidentale",
+    # Macédoine Or. & Thrace
+    "καβάλα":"Macédoine Orientale et Thrace","δράμα":"Macédoine Orientale et Thrace",
+    "κομοτηνή":"Macédoine Orientale et Thrace","αλεξανδρούπολη":"Macédoine Orientale et Thrace","ξάνθη":"Macédoine Orientale et Thrace",
+    # Ioniennes
+    "κέρκυρα":"Îles Ioniennes","corfu":"Îles Ioniennes","ζάκυνθος":"Îles Ioniennes",
+    "κεφαλονιά":"Îles Ioniennes","λευκάδα":"Îles Ioniennes",
+    # Égée Nord
+    "μυτιλήνη":"Égée du Nord","χίος":"Égée du Nord","σάμος":"Égée du Nord","ικαρία":"Égée du Nord",
+    # Égée Sud
+    "ρόδος":"Égée du Sud (Cyclades, Dodécanèse)","rhodes":"Égée du Sud (Cyclades, Dodécanèse)",
+    "μύκονος":"Égée du Sud (Cyclades, Dodécanèse)","mykonos":"Égée du Sud (Cyclades, Dodécanèse)",
+    "σαντορίνη":"Égée du Sud (Cyclades, Dodécanèse)","santorini":"Égée du Sud (Cyclades, Dodécanèse)",
+    "νάξος":"Égée du Sud (Cyclades, Dodécanèse)","πάρος":"Égée du Sud (Cyclades, Dodécanèse)",
+    "σύρος":"Égée du Sud (Cyclades, Dodécanèse)","κως":"Égée du Sud (Cyclades, Dodécanèse)",
+}
+
+
+def region_for(t, lat=None, lon=None):
+    """Return the Greek admin region: lat/lon first, then city dict, else 'Autre'."""
+    try:
+        if lat and lon:
+            la, lo = float(lat), float(lon)
+            for name, s, w, n, e in GREEK_REGIONS:
+                if s <= la <= n and w <= lo <= e:
+                    return name
+    except Exception:
+        pass
     city = (t.get("addr:city") or t.get("addr:town") or t.get("addr:village")
-            or t.get("addr:suburb") or "").strip()
-    prov = (t.get("addr:province") or t.get("addr:state") or "").strip()
-    if prov:
-        return prov
-    if city:
-        return city
-    return "Grece"
+            or t.get("addr:suburb") or "").strip().lower()
+    if city in CITY_REGION:
+        return CITY_REGION[city]
+    return "Autre"
 
 
 def build_address(t):
@@ -227,13 +298,16 @@ def main():
         seen.add(key)
 
         fam, sub = family_for(t)
+        center = e.get("center") or {}
+        lat = center.get("lat", "") if e.get("type") != "node" else e.get("lat", "")
+        lon = center.get("lon", "") if e.get("type") != "node" else e.get("lon", "")
         rows.append({
             "nom": name.strip(),
             "numero": norm,
             "type_tel": phone_type(norm),
             "famille": fam,
             "categorie": "",            # tier (A/B/C) left blank — to be enriched manually
-            "region": region_for(t),
+            "region": region_for(t, lat, lon),
             "adresse": build_address(t),
             "rating": "",
             "avis": "",
