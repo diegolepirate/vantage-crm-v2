@@ -1,0 +1,785 @@
+nom,numero,type_tel,famille,categorie,region,adresse,rating,avis,vendeur,status,notes,blacklisted
+Βότσαλο,+302842051457,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Fish Tavern 1960,+302822022340,fixe,Restauration,,Crete,"Paraliaki, Teloneio beach Kissamos, 73400",,,,nouveau,OSM restaurant,False
+Je M'en Fous,+306983149101,mobile,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Melissos,+30284141888,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Η Θράκα,+302841083113,fixe,Restauration,,Crete,Κωνσταντίνου Καραμανλή 5,,,,nouveau,OSM fast_food,False
+Τροχός,+302841024325,fixe,Auto,,Crete,Κωνσταντίνου Καραμανλή 11,,,,nouveau,OSM tyres,False
+Χαλκιαδάκης,+302810342420,fixe,Commerce,,Crete,Κορωναίου 7,,,,nouveau,OSM supermarket,False
+BP,+302821032561,fixe,Auto,,Crete,"Κισσάμου - Χανίων, Χανιά, 73100",,,,nouveau,OSM fuel,False
+IRIDA Restaurant,+302821032722,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Yiasemi,+302821029577,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mama's Place,+302821039060,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Σκλαβενίτης,+302821094913,fixe,Commerce,,Crete,"Σκαλίδη, Χανιά, 73100",,,,nouveau,OSM supermarket,False
+Allsun Malia Beach,+306944337284,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Μάνταλος,+302834092294,fixe,Restauration,,Crete,"Epar.Od. Aggelianon-Elefthernas 10, Margarites",,,,nouveau,OSM restaurant,False
+Tavern Kalliotzina,+302843051207,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Σκλαβενίτης,+302810318426,fixe,Commerce,,Crete,"Μελίνας Μερκούρη 17, Ηράκλειο, 71305",,,,nouveau,OSM supermarket,False
+Νότιο Σέλας,+302810240027,fixe,Restauration,,Crete,Μεραμβέλου 13,,,,nouveau,OSM restaurant,False
+Kellari,+302831051882,fixe,Restauration,,Crete,"Ρέθυμνο, 74100",,,,nouveau,OSM restaurant,False
+Milena Cafe Bar,+302897042252,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Petros Place,+302825061601,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Port Cafe,+302825061747,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Poseidon Fish Tavern,+302825061026,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Taverna Fontas Babis,+302825061760,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Aegean,+302834022564,fixe,Auto,,Crete,"Ελευθερίου Βενιζέλου 48, Πέραμα, 74052",,,,nouveau,OSM fuel,False
+Hotel Alexis,+302821093733,fixe,Services,,Crete,"Kallergidon 99, Chania, 73100",,,,nouveau,OSM hotel,False
+Levantes,+302831071154,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Αχιλλέας,+302821071171,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+ΜΕ ΝΟΥ & ΚΡΑΣΙ,+302821090144,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Γλυμιδάκηs Αρτοποιεία,+302821080180,fixe,Boulangerie,,Crete,"Δασκαλογιάννη 48, 73132",,,,nouveau,OSM bakery,False
+Καφενείο Φιξ,+302821052142,fixe,Cafe & Bar,,Crete,"Πλατεία 1821 8, 73132",,,,nouveau,OSM cafe,False
+Σκλαβενίτης,+302821049510,fixe,Commerce,,Crete,"Χανιά, 73100",,,,nouveau,OSM supermarket,False
+Kadianakis,+306944285836,mobile,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+AVIN,+302821123010,fixe,Auto,,Crete,,,,,nouveau,OSM fuel,False
+Dourountakis,+302825091268,fixe,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+Μαδαρες,+302825091166,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Notos,+306932490907,mobile,Restauration,,Crete,Loutró,,,,nouveau,OSM restaurant,False
+Limani,+302825091382,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ilios,+302825091160,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mparmpa Andrea,+302834051649,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Φωτοτέχνιο,+302821020904,fixe,Commerce,,Crete,,,,,nouveau,OSM books,False
+Taverna Elia,+302832036002,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Νεφέλη,+3028310553212,fixe,Services,,Crete,"Μάχης Κρήτης 161, Ρέθυμνο, 74100",,,,nouveau,OSM hotel,False
+Venus,+302831024841,fixe,Auto,,Crete,"Μάχης Κρήτης 192, Ρέθυμνο, 74100",,,,nouveau,OSM car_rental,False
+Taste of Creta,+302831025198,fixe,Commerce,,Crete,"Μάχης Κρήτης 186, Ρέθυμνο, 74100",,,,nouveau,OSM yes,False
+Seven Brothers Taverna,+302831028956,fixe,Restauration,,Crete,"Nearhou 39, Rethymno, 74100",,,,nouveau,OSM restaurant,False
+Παυλακης Α.Ε.,+302831028490,fixe,Commerce,,Crete,"Μάχης Κρήτης 149, Ρέθυμνο, 74100",,,,nouveau,OSM supermarket,False
+ΚΑΥΚΑΛΑΣ,+302825061896,fixe,Commerce,,Crete,,,,,nouveau,OSM butcher,False
+Karamela,+306932259322,mobile,Cafe & Bar,,Crete,"Ακτή Κουντουριώτη 47, Χανιά",,,,nouveau,OSM bar,False
+Dragon's Cave,+302843051494,fixe,Restauration,,Crete,"Makry-Gialos, 720 59",,,,nouveau,OSM restaurant,False
+Zorbas,+302843022689,fixe,Restauration,,Crete,"Νίκου Καζαντζάκη 3, Σητεία, 723 00",,,,nouveau,OSM restaurant,False
+Taverna Pelagos,+302842061263,fixe,Restauration,,Crete,"Ierapetra, 72200",,,,nouveau,OSM restaurant,False
+Taverne Psaropoula,+302842061552,fixe,Restauration,,Crete,"Ierapetra, 72200",,,,nouveau,OSM restaurant,False
+SHELL,+302821066006,fixe,Auto,,Crete,"Χανιά, 73100",,,,nouveau,OSM fuel,False
+Kaloidas Georgios,+302834094021,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+The Olive,+306972707579,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Dentro Taverna-Cafe,+306956981376,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+ARCH. A. KOURIDAKIS,+30282106250,fixe,Santé,,Crete,,,,,nouveau,OSM pharmacy,False
+Ceramics by Costas Apostolakis,+302821062438,fixe,Commerce,,Crete,,,,,nouveau,OSM gift,False
+Panorama apartments,+302842051362,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Angelos,+306977754672,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Paradise,+302842051554,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Haris Apartments,+302810767688,fixe,Services,,Crete,"Kokkíni Khánion, Κοκκίνη Χάνι, 715 00",,,,nouveau,OSM hotel,False
+Malaphrakis mavos,+306943475287,mobile,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+Το Στάχυ,+302821042589,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+mokeria,+302821054046,fixe,Cafe & Bar,,Crete,Kallinikou Sarpaki,,,,nouveau,OSM cafe,False
+Velvet Studio,+302810285450,fixe,Services,,Crete,"Καλοκαιρινού 120, Heraklion",,,,nouveau,OSM company,False
+Veneto,+302810223686,fixe,Restauration,,Crete,"Επιμενίδου 9, Ηράκλειο, 71202",,,,nouveau,OSM restaurant,False
+Έντεχνο,+302810372500,fixe,Commerce,,Crete,"Λεωφόρος Κνωσού 199, ΗΡΑΚΛΕΙΟ, 71409",,,,nouveau,OSM furniture,False
+Rethymno House,+306955666625,mobile,Services,,Crete,"Αρκαδίου 3-5, Ρέθυμνο, 741 00",,,,nouveau,OSM guest_house,False
+Creta,+302897033082,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ritz,+302810223638,fixe,Auto,,Crete,"Οδός Χορτατσών 1, 71202",,,,nouveau,OSM car_rental,False
+Κρητικη Γωνια,+302825032241,fixe,Restauration,,Crete,Άπτερα,,,,nouveau,OSM restaurant,False
+Taverna Vassilis,+302822041529,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+ΙΑΚΟΒΟΣ,+302823051298,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Zorbas,+302823051353,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+ΕΥΤΥΧΙΑ,+302823041432,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Adamas,+302823041848,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Ταβέρνα Βρυσάλι,+302823041723,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Blue Paradiso,+302823041744,fixe,Services,,Crete,,,,,nouveau,OSM chalet,False
+ATHOUSAKI FAMILY PHARMACY,+302823041160,fixe,Santé,,Crete,"Paleochora, 73001",,,,nouveau,OSM pharmacy,False
+Coop,+302823041138,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+El Greco,+302823051186,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Irtakina,+302823051130,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Sfakia Tours,+302825091272,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Γοργονα,+302832031120,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Panos,+496936402222,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Athena,+302832091331,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+To Pretino,+302832091504,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Λουκουμαδες,+302892023104,fixe,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Μοιρες Chicken,+302892023779,fixe,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Σταθμος,+302892022449,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Pharmacy Charalampakis,+302897022201,fixe,Santé,,Crete,"Ελευθερίου Βενιζέλου 33, Chersonisos, 70014",,,,nouveau,OSM pharmacy,False
+Palio Kantouni,+302841042206,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μεζεδοπωλείο Λάζαρος,+302810824830,fixe,Restauration,,Crete,"Ανδρέα Παπανδρέου 118, Ammoudara, 71414",,,,nouveau,OSM restaurant,False
+Garifalo,+306977488513,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+O M'anaveis,+302823041030,fixe,Commerce,,Crete,"Paleochora, 73001",,,,nouveau,OSM greengrocer,False
+Taverna Karavostasi,+302834094267,fixe,Restauration,,Crete,"Καραβοστασι, Bali",,,,nouveau,OSM restaurant,False
+Kavouria,+302843094204,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+CRM Αριάδνη,+302841082150,fixe,Commerce,,Crete,Κνωσσού 3,,,,nouveau,OSM supermarket,False
+Elias apartments,+302823051476,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Gyropolis,+302825061448,fixe,Restauration,,Crete,"Plateia, Γεωργιούπολη, 73007",,,,nouveau,OSM restaurant,False
+Flamingo Apartments,+302843061030,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Vet Clinic,+302841089139,fixe,Santé,,Crete,,,,,nouveau,OSM veterinary,False
+Ξυλόφουρνος,+302821092110,fixe,Boulangerie,,Crete,"Σελίνου 92, Χανιά, 73131",,,,nouveau,OSM bakery,False
+Hellenic Street Food,+302834094000,fixe,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Καντιφές,+302892029229,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Elia Studios,+302843061001,fixe,Services,,Crete,"Palekastro, 72300",,,,nouveau,OSM guest_house,False
+Metaphone,+302831050438,fixe,Commerce,,Crete,"Βάρδα Καλλέργη, 74100",,,,nouveau,OSM mobile_phone,False
+Erofili,+302831029660,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+7days,+302831023780,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Othonas,+302831055500,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mini Market,+302831028496,fixe,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+Σκλαβενίτης,+302831053316,fixe,Commerce,,Crete,"Δρακοπούλου & Παπαδάκη, Ρέθυμνο, 74100",,,,nouveau,OSM supermarket,False
+Cool,+306985771103,mobile,Cafe & Bar,,Crete,"Εμμανουήλ Κεφαλογιάννη 13, Ρέθυμνο, 74100",,,,nouveau,OSM cafe,False
+Φανάρι,+302831050070,fixe,Restauration,,Crete,"Εμμανουήλ Κεφαλογιάννη 15, Ρέθυμνο, 74100",,,,nouveau,OSM restaurant,False
+Grill,+302832022100,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM pub,False
+Το Βρισκουμενο,+302831075051,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Mark tours,+302811750769,fixe,Commerce,,Crete,,,,,nouveau,OSM travel_agency,False
+ΛΥΓΑΡΙΑ,+302825061695,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Enetikon,+302821088270,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Kyknos Family Taverna,+302897041198,fixe,Restauration,,Crete,Gouves,,,,nouveau,OSM restaurant,False
+Nicolas Expressions,+302810243000,fixe,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+Gorgones kai Magkes,+302810341864,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ντερλικατέσεν,+302821091777,fixe,Restauration,,Crete,"Μονης Γωνιας 42, Χανιά, 73131",,,,nouveau,OSM fast_food,False
+Posidonio Hotel,+302821087404,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Skoniako,+306976672878,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Coffee Stop,+302821096528,fixe,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+Βολακας,+302821092267,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μύλος,+302821068578,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+SYNKA,+302821036900,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Anissaras Medical Center,+302897021987,fixe,Santé,,Crete,,,,,nouveau,OSM doctors,False
+Captain,+302897024800,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Molos Beach Bar,+302897022456,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM bar,False
+"Ό, τι θες",+302810226870,fixe,Restauration,,Crete,Νικολάου Πλαστήρα 85,,,,nouveau,OSM fast_food,False
+Mr.Mo,+302892042282,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Σιγά Σιγά,+302810283794,fixe,Restauration,,Crete,Μινώταυρου 2,,,,nouveau,OSM restaurant,False
+Taverne Athivoles,+302831075227,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+WIND Hellas,+302842089843,fixe,Commerce,,Crete,"Πλατεία Ελευθερίας 6, 72200",,,,nouveau,OSM mobile_phone,False
+iokasti,+302897022607,fixe,Restauration,,Crete,Villa Iokasti Varnali 10,,,,nouveau,OSM restaurant,False
+KOULA APARTMENTS,+302897033952,fixe,Services,,Crete,"Eleftheriou Venizelou 9, Stalis, 70007",,,,nouveau,OSM hotel,False
+Zygos,+30082342402,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+To Tzitziki,+302823051688,fixe,Restauration,,Crete,"Tsouri street, Sougia, 73009",,,,nouveau,OSM restaurant,False
+Κιρκικάκης,+302810752640,fixe,Commerce,,Crete,"Ηρώων Πολυτεχνείου 40, 70100",,,,nouveau,OSM supermarket,False
+Studios Anessis,+302892045688,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Kavros,+302821076761,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Περαθωράκης,+302821072361,fixe,Boulangerie,,Crete,"Σελίνου 104, Χανιά, 73131",,,,nouveau,OSM pastry,False
+Ο Κώστας,+302821050077,fixe,Restauration,,Crete,"Δασκαλογιαννη 49, Χανιά, 73132",,,,nouveau,OSM restaurant,False
+Gortyna Snack-Cafe,+302892027197,fixe,Cafe & Bar,,Crete,Gortina,,,,nouveau,OSM cafe,False
+Rousios,+302825091373,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μασχαλι,+306974631029,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Vistamare Lodge B&B,+302841028886,fixe,Services,,Crete,"Amoudara, Agios Nikolaos",,,,nouveau,OSM hotel,False
+I Avli tou Defkaliona,+302810244215,fixe,Restauration,,Crete,"Lisimachou Kalokerinou 8, Ηράκλειο, 71202",,,,nouveau,OSM restaurant,False
+Hotel Villa Maxine,+302832091530,fixe,Services,,Crete,Agios Vasileios 740,,,,nouveau,OSM hotel,False
+Ηνωμένα Βουστάσια,+302831054758,fixe,Cafe & Bar,,Crete,Ε. Κεφαλογιάννη 20,,,,nouveau,OSM cafe,False
+Οικονομάκη,+302825095203,fixe,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+ΧΑΙΡΕΚΑΚΗ ΑΙΚΑΤΕΡΙΝΗ,+302821094241,fixe,Boulangerie,,Crete,"Σελίνου 44, Χανιά",,,,nouveau,OSM bakery,False
+SunOrama,+302834094094,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Μικρό Καράβι,+302821401648,fixe,Commerce,,Crete,Δασκαλογιαννη 59,,,,nouveau,OSM books,False
+Ο Πίπης,+302810225825,fixe,Restauration,,Crete,"Ζωοδόχου Πηγής 58, 71307",,,,nouveau,OSM restaurant,False
+Neapolis Apartments,+302823041134,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Heraklion Youth Hostel,+302810286281,fixe,Services,,Crete,Vyronos 5,,,,nouveau,OSM hostel,False
+Γιώργος Αντώνη Νεραντζουλης,+302897031389,fixe,Boulangerie,,Crete,"Ηρακλείου - Αγίου Νικολάου 186, Μάλια, 70007",,,,nouveau,OSM bakery,False
+Mediterranea Apartmens,+302821033234,fixe,Services,,Crete,Eleftheriou Venizelou,,,,nouveau,OSM hotel,False
+Enetiko,+302810221281,fixe,Cafe & Bar,,Crete,"Πλατεία Ελευθερίου Βενιζέλου 15, Ηράκλειο, 71202",,,,nouveau,OSM cafe,False
+Sunrise Apartments,+302821064214,fixe,Services,,Crete,"kalathas, kalathas 73100",,,,nouveau,OSM hotel,False
+Reef sound cafe - cocktail bar,+302811117281,fixe,Cafe & Bar,,Crete,"Ανδρέα Παπανδρέου 201, 71414",,,,nouveau,OSM cafe,False
+ψητοπωλειο Κωνιος,+302810372372,fixe,Restauration,,Crete,Ανδρέα Παπανδρέου 175,,,,nouveau,OSM fast_food,False
+Eva,+302810811135,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+barbarossa,+302821032411,fixe,Cafe & Bar,,Crete,"Ακτη Τομπαζη 18, 73132",,,,nouveau,OSM bar,False
+Red&White,+302897025991,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Hoek van Holland,+302897025991,fixe,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+1600 Raki Ba Raki,+302831058250,fixe,Restauration,,Crete,"Αραμπατζόγλου-Θεσσαλονίκης 17, 74100",,,,nouveau,OSM restaurant,False
+Come,+302821012312,fixe,Cafe & Bar,,Crete,Πλατεια Γεωργιου Κατεχακη,,,,nouveau,OSM cafe,False
+WIND Hellas,+302821405005,fixe,Commerce,,Crete,Σφακιανάκη PL. 1866 41,,,,nouveau,OSM mobile_phone,False
+Freedom Mobile,+302821050027,fixe,Commerce,,Crete,Τζανακάκη,,,,nouveau,OSM mobile_phone,False
+WIND Hellas,+302831025645,fixe,Commerce,,Crete,"Κουντουριώτη Παύλου 73, 74100",,,,nouveau,OSM mobile_phone,False
+Sohora Boutique Hotel,+302831300913,fixe,Services,,Crete,"Ηρώων Πολυτεχνείου 11, 741 00",,,,nouveau,OSM hotel,False
+Spyridon,+3021810763105,fixe,Cafe & Bar,,Crete,Ηράκλειο - Άγιος Νικόλαος,,,,nouveau,OSM cafe,False
+OK Rental,+306973323490,mobile,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Kato Zakros Palace Apartments,+302843029550,fixe,Services,,Crete,"Κάτω Ζάκρος, 72300",,,,nouveau,OSM apartment,False
+"Καντίνα του Μανώλη
+Peristeres Beach",+306937554059,mobile,Restauration,,Crete,"Παραλία Περιστερές, Grecia",,,,nouveau,OSM restaurant,False
+Astrea,+302821038140,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Φραγικαδάκης,+302810240044,fixe,Commerce,,Crete,"25ης Αυγούστου 78, Ηράκλειο, 71202",,,,nouveau,OSM jewelry,False
+Miss Boo,+302810221826,fixe,Commerce,,Crete,,,,,nouveau,OSM clothes,False
+Cyclo mania,+302810319264,fixe,Auto,,Crete,"62 Μαρτύρων 95, 71304",,,,nouveau,OSM bicycle,False
+ΧΑΡ.ΜΑ,+302810261200,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Αντώνης,+302810254779,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Zaharias Taverne,+302822041765,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+High Hopes Taproom,+306977556000,mobile,Cafe & Bar,,Crete,"Ζαναδοσ 58, 71202",,,,nouveau,OSM pub,False
+GoldCar,+302821066466,fixe,Auto,,Crete,Chania Airport Av,,,,nouveau,OSM car_rental,False
+Vodafone,+302810332000,fixe,Services,,Crete,"Ικάρου 3, Ηράκλειο, 71306",,,,nouveau,OSM telecommunication,False
+Cow Scream,+302831024265,fixe,Restauration,,Crete,,,,,nouveau,OSM ice_cream,False
+Οινοχόος,+302822051070,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Παπαδάκης,+302831020141,fixe,Commerce,,Crete,"Μάρκου Αβάτζου, 74150",,,,nouveau,OSM supermarket,False
+Μεσοστράτι,+302841027115,fixe,Commerce,,Crete,"Ρούσου Κούνδουρου 2, Άγιος Νικόλαος, 72100",,,,nouveau,OSM convenience,False
+Vachus,+302841041380,fixe,Restauration,,Crete,Ακτή Ποσειδώνος 33,,,,nouveau,OSM restaurant,False
+Galasia Thea,+302822041421,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Στο Καζάνι,+302841031001,fixe,Restauration,,Crete,"Φουρνή, 72400",,,,nouveau,OSM restaurant,False
+Hotel Zakros,+306995518211,mobile,Services,,Crete,Eleytherias 1,,,,nouveau,OSM hotel,False
+Καφενειο Ο Ποντιος,+302843093438,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Του Γερώνυμου,+302825095211,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Απ. Περπυράκης,+302831022045,fixe,Commerce,,Crete,"Αρκαδίου 183, 74123",,,,nouveau,OSM jewelry,False
+Ξυλούρης Ιωάννης,+302834020331,fixe,Santé,,Crete,"13ης Αυγούστου 1944, Ανώγεια, 740 51",,,,nouveau,OSM pharmacy,False
+Μαύρος Κάτης,+302810288114,fixe,Cafe & Bar,,Crete,"Αγίου Μηνά 2, 71201",,,,nouveau,OSM cafe,False
+Separe House,+302831028667,fixe,Services,,Crete,"Πλατεία νικολάου πλαστήρα 12, Ρέθυμνο, 74100",,,,nouveau,OSM hotel,False
+ΨΗΤΟΠΩΛΕΙΟ ΣΕΛΗΝΑΡΙ,+306936973423,mobile,Restauration,,Crete,Ηράκλειο - Άγιος Νικόλαος,,,,nouveau,OSM fast_food,False
+Δρακουλάκης Νίκος,+302810318406,fixe,Santé,,Crete,"Μιχαήλ Αρχαγγέλου 28, 71304",,,,nouveau,OSM pharmacy,False
+Jodi's rent rooms,+306934282518,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+ALX Future Lab,+306982164654,mobile,Commerce,,Crete,"Κουντουριώτη Παύλου 33, 74100",,,,nouveau,OSM electronics,False
+ΜΠΙΝΙΧΑΚΗΣ ΣΤΑΥΡΟΣ,+302810222965,fixe,Santé,,Crete,"1922 1, 71601",,,,nouveau,OSM pharmacy,False
+Dr. Leonidas Palaskas,+302831057026,fixe,Santé,,Crete,,,,,nouveau,OSM doctors,False
+Μεσογειακή αγορά,+302821111308,fixe,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+Κρόνος,+302821043528,fixe,Cafe & Bar,,Crete,"Μουσούρων 23, 73132",,,,nouveau,OSM cafe,False
+ΓΕΩΡΓΙΟΣ ΑΝΤ.ΚΕΦΑΛΟΥΚΟΣ,+302810227657,fixe,Santé,,Crete,"Mouglon 19, Nea Alikarnassos, 71601",,,,nouveau,OSM dentist,False
+ΣΤΑΥΡΟΣ ΓΑΛΕΡΟΣ ΧΡΩΜΑΤΑ,+302831057985,fixe,Commerce,,Crete,"ΚΑΛΟΜΕΝΟΠΟΥΛΟΥ 3, 74100",,,,nouveau,OSM hardware,False
+Μικρολίμανο,+302821071337,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Stelisia Rooms,+306972604672,mobile,Services,,Crete,Ακτή Παπανικολή 2,,,,nouveau,OSM apartment,False
+Almyra Hotel & Village,+302821036860,fixe,Services,,Crete,72200,,,,nouveau,OSM hotel,False
+Πόρτες,+302841028489,fixe,Restauration,,Crete,Anapafseos 3,,,,nouveau,OSM restaurant,False
+Caffeine,+302841300902,fixe,Cafe & Bar,,Crete,Ρούσσου Καπετανάκη 6,,,,nouveau,OSM cafe,False
+Μυλωνάκης,+302841021711,fixe,Commerce,,Crete,Επιμενίδου 51,,,,nouveau,OSM supermarket,False
+Rhous Tamiolakis Winery,+302810742083,fixe,Artisans,,Crete,"Choudetsi, 70100",,,,nouveau,OSM winery,False
+Taverna Roussos,+302810742189,fixe,Restauration,,Crete,Χουδέτσι,,,,nouveau,OSM restaurant,False
+Πέρφεκτ,+302841082580,fixe,Boulangerie,,Crete,Ανδρέα Παπανδρέου 48,,,,nouveau,OSM pastry,False
+Ο Νώντας,+302841026666,fixe,Restauration,,Crete,"Κοντογιάννη 28, Άγιος Νικόλαος, 72100",,,,nouveau,OSM fast_food,False
+Du lac,+302841026837,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Basilico,+302841026086,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Αρόδο,+302841181051,fixe,Cafe & Bar,,Crete,"Καντανολέοντος 14;16, Άγιος Νικόλαος, 72100",,,,nouveau,OSM cafe,False
+Ψητοπολισ,+302821032555,fixe,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Diamond furs,+302897041111,fixe,Commerce,,Crete,"Ηράκλειο - Άγιος Νικόλαος, 70014",,,,nouveau,OSM clothes,False
+Μαμά Λουκία & Λοτζετα,+302841061806,fixe,Restauration,,Crete,"Άγιος Νικόλαος - Σητεία, 72100",,,,nouveau,OSM restaurant,False
+Ταβερνα ΚΥΜΑ,+302831061121,fixe,Restauration,,Crete,Παραλυα Επισκοπησ,,,,nouveau,OSM restaurant,False
+hotel Kedrissos,+302821071500,fixe,Services,,Crete,"Parigoria, Chania, 73100",,,,nouveau,OSM hotel,False
+Kedrissos restaurant,+306932950549,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Hotel Cretan Dream,+302821033120,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Akrotiri Station,+302821065750,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Klio Apart Hotel,+302897041189,fixe,Services,,Crete,"Προφήτη Ηλία, 70014",,,,nouveau,OSM hotel,False
+Shell,+302810360360,fixe,Auto,,Crete,Dimokratias 36,,,,nouveau,OSM fuel,False
+Rusty nail,+302810286076,fixe,Commerce,,Crete,Dimokratias 18,,,,nouveau,OSM clothes,False
+Espressaki speciality coffee,+302821047932,fixe,Cafe & Bar,,Crete,"Χανιά, 73100",,,,nouveau,OSM cafe,False
+Iris Eco-Laundry,+302831104444,fixe,Services,,Crete,,,,,nouveau,OSM laundry,False
+ο φούρνος της Αναληψης,+302897021697,fixe,Boulangerie,,Crete,"Ηράκλειο - Άγιος Νικόλαος, 71014",,,,nouveau,OSM bakery,False
+Del Mar,+302841042648,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+KHIIAPAKI,+302823042281,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Klio Apartments,+302897041189,fixe,Services,,Crete,Προφήτη Ηλία,,,,nouveau,OSM hotel,False
+Tholos,+302821046725,fixe,Restauration,,Crete,73132,,,,nouveau,OSM restaurant,False
+ΟΠΑΠ,+302821043951,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 42, 73132",,,,nouveau,OSM bookmaker,False
+Γρήγορος Grill,+302821047400,fixe,Restauration,,Crete,"Κυδωνίας 43, 73135",,,,nouveau,OSM fast_food,False
+Λάιμπραρι,+302821045554,fixe,Commerce,,Crete,"Παπανδρέου Α. 75, 73132",,,,nouveau,OSM books,False
+Στέφαν,+302821041900,fixe,Commerce,,Crete,Παπανδρέου Α. 77,,,,nouveau,OSM sports,False
+Ελληνικό,+302821027729,fixe,Cafe & Bar,,Crete,"Ακτή Μιαούλη 4, 73132",,,,nouveau,OSM cafe,False
+Paintland Χανίων,+306974035372,mobile,Services,,Crete,"25ης Μαρτίου 52, 73100",,,,nouveau,OSM fitness_centre,False
+Petros House,+306973667280,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Villa Castel,+306932104720,mobile,Services,,Crete,"Κατραδων, 70100",,,,nouveau,OSM guest_house,False
+Πικάντικο,+302842080119,fixe,Boulangerie,,Crete,"Εθνικής Αντιστάσεως 29, 72200",,,,nouveau,OSM bakery,False
+Πιταρούλης,+302842027118,fixe,Restauration,,Crete,Εθνικής Αντιστάσεως,,,,nouveau,OSM fast_food,False
+Δίοδος Πληροφορική,+302842089077,fixe,Commerce,,Crete,"Οδυσσέα Ελύτη 8, 72200",,,,nouveau,OSM computer,False
+Asfendou,+306973629547,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Zachos Taverna,+302897024022,fixe,Restauration,,Crete,Square,,,,nouveau,OSM restaurant,False
+Taverna Paradise,+302810761483,fixe,Restauration,,Crete,"Gournes, 715 00",,,,nouveau,OSM restaurant,False
+Vodafone,+302892025004,fixe,Services,,Crete,"28ης Οκτωβρίου 159, 70400",,,,nouveau,OSM telecommunication,False
+365 All Day,+302892029223,fixe,Restauration,,Crete,"Μάταλα, 70200",,,,nouveau,OSM restaurant,False
+Bistronomy,+302892045066,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Gabriella's Garden,+302810841078,fixe,Services,,Crete,71414 Παλαιόκαστρο Ελλάδα,,,,nouveau,OSM guest_house,False
+Taverna Flouris,+302834071202,fixe,Restauration,,Crete,"Drosia, 740 54",,,,nouveau,OSM restaurant,False
+Little Octopus Ka,+306977572351,mobile,Services,,Crete,"Kalamaki, 70200",,,,nouveau,OSM hotel,False
+Babel,+302841042336,fixe,Restauration,,Crete,Akti Vritomartidos,,,,nouveau,OSM restaurant,False
+Anemomylos,+302841042476,fixe,Restauration,,Crete,akte poseidonos,,,,nouveau,OSM restaurant,False
+Krini Beach Hotel,+302831072903,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+PanAsia,+302810761526,fixe,Restauration,,Crete,Ηράκλειο - Άγιος Νικόλαος,,,,nouveau,OSM restaurant,False
+Pukuvu,+302815201965,fixe,Cafe & Bar,,Crete,"Θησέως, Heraklion, 71201",,,,nouveau,OSM cafe,False
+Αερικό,+306907737109,mobile,Cafe & Bar,,Crete,Σουρμελή,,,,nouveau,OSM cafe,False
+Καλλιόπη Μπελιβάνη και Φωτεινή Μπελιβάνη,+302897031000,fixe,Santé,,Crete,,,,,nouveau,OSM pharmacy,False
+Βαντές,+302821087300,fixe,Restauration,,Crete,"Αναγνώστου Γογονή 64, 73100",,,,nouveau,OSM fast_food,False
+Θράκα,+302821070017,fixe,Restauration,,Crete,"Αναγνώστου Γογονή 77, 73300",,,,nouveau,OSM fast_food,False
+Λάδι και ρίγανη,+302821045555,fixe,Restauration,,Crete,"Πλαστήρα 21, 73134",,,,nouveau,OSM fast_food,False
+#μίτμι,+302821507001,fixe,Cafe & Bar,,Crete,"Περίδου 27, 73135",,,,nouveau,OSM cafe,False
+Ο τζάμπας,+302821099195,fixe,Restauration,,Crete,"Μανου 66, 73134",,,,nouveau,OSM restaurant,False
+Λα πρίμα κουμπές,+302821076868,fixe,Restauration,,Crete,"Λεωφόρος Κ.Καραμανλή (Σούδας) 28, 73135",,,,nouveau,OSM restaurant,False
+Πατριδογευσία,+302821040555,fixe,Restauration,,Crete,"Πυθαγορα 2, 73134",,,,nouveau,OSM fast_food,False
+Caroline's Travel Shop,+306932652391,mobile,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Ατμάν καφέ,+302821402083,fixe,Cafe & Bar,,Crete,"Επισκόπου Νικηφόρου 13, 73132",,,,nouveau,OSM cafe,False
+Μαχαλάς,+302821055492,fixe,Restauration,,Crete,"Σπάρτης 2, 73132",,,,nouveau,OSM fast_food,False
+Αλυγιζάκη φαρμακείο,+302821058345,fixe,Santé,,Crete,"8η Δεκεμβριου 4, 73132",,,,nouveau,OSM pharmacy,False
+Μπι γκεστ,+302821026134,fixe,Cafe & Bar,,Crete,"Ακτή Μιαούλη 4, 73132",,,,nouveau,OSM cafe,False
+Ο κόμβος Καρκανοραχάκης,+302821081250,fixe,Commerce,,Crete,"Εθνάρχου Βενιζέλου 77, 73200",,,,nouveau,OSM butcher,False
+Πισι ντόκτορ,+302821040500,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου, 73132",,,,nouveau,OSM computer,False
+Τα χάλκινα,+302821041570,fixe,Restauration,,Crete,"Ακτη Τομπαζη, 73132",,,,nouveau,OSM restaurant,False
+Βακάνζα ενοικίαση αυτοκινήτων,+302821008595,fixe,Auto,,Crete,"Χάληδων 105, 73131",,,,nouveau,OSM car_rental,False
+ΣΥΝΚΑ,+302821041880,fixe,Commerce,,Crete,"Κ Μητσοτάκη 19, 73132",,,,nouveau,OSM supermarket,False
+ΣΥΝΚΑ,+302821055599,fixe,Commerce,,Crete,"Ηρωων Πολυτεχνειου 29Α, 73132",,,,nouveau,OSM supermarket,False
+ΣΥΝΚΑ,+302821020166,fixe,Commerce,,Crete,"Παπαναστασίου 41, 73133",,,,nouveau,OSM supermarket,False
+ΣΥΝΚΑ,+302821042392,fixe,Commerce,,Crete,"Μιχελογιάννη 11, 73133",,,,nouveau,OSM supermarket,False
+Φρουταρία της μαμάς,+302821052033,fixe,Commerce,,Crete,"Παπανδρέου Α. 87, 73132",,,,nouveau,OSM greengrocer,False
+Φούρνος Καμαριανάκη,+302821054007,fixe,Boulangerie,,Crete,"Παπανδρέου Α. 100, 73134",,,,nouveau,OSM bakery,False
+Σκλαβενίτης,+302821051408,fixe,Commerce,,Crete,"Ιωάννη Σφακιανάκη 44, Χανιά, 73134",,,,nouveau,OSM supermarket,False
+Ιπποπόταμος,+302821044128,fixe,Cafe & Bar,,Crete,"Σαρπηδόνος 6, 73300",,,,nouveau,OSM cafe,False
+Τζομπανάκης κοσμηματοπωλείο,+302821088331,fixe,Commerce,,Crete,"Καραϊσκάκη 2, 73135",,,,nouveau,OSM jewelry,False
+Κύπρος,+302821085235,fixe,Restauration,,Crete,"Αποκορώνου 6, 73135",,,,nouveau,OSM fast_food,False
+Vodafone,+302821044004,fixe,Services,,Crete,"Αποκορώνου 43, 73135",,,,nouveau,OSM telecommunication,False
+Αποκόρωνας,+302821091354,fixe,Restauration,,Crete,"Αποκορώνου 48, 73135",,,,nouveau,OSM fast_food,False
+Αι τεχ,+302821074470,fixe,Commerce,,Crete,"Αποκορώνου 57, 73135",,,,nouveau,OSM computer,False
+Απών,+302821027741,fixe,Cafe & Bar,,Crete,"Τζανακάκη 64, 73134",,,,nouveau,OSM bar,False
+Taverna Sifis,+302832031001,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Taverna Stella & Stelios,+302832031866,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+SCIROCCO ROOMS,+30285091479,fixe,Services,,Crete,"Λουτρό, 73011",,,,nouveau,OSM hotel,False
+Τεχνικό Γραφείο,+306945863625,mobile,Services,,Crete,"Δημοσθένους 15, 71307",,,,nouveau,OSM company,False
+MOUNTOURAKIS EMMANOUIL,+302810222664,fixe,Services,,Crete,"Κανάρη 54, Ηράκλειο",,,,nouveau,OSM company,False
+Drop Coffee,+302841025555,fixe,Cafe & Bar,,Crete,Κριτσάς 1,,,,nouveau,OSM cafe,False
+Palermo,+302841022223,fixe,Restauration,,Crete,"Κωνσταντίνου Παλαιολόγου 26, Άγιος Νικόλαος, 72100",,,,nouveau,OSM fast_food,False
+Coffee and snack,+306943585839,mobile,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+Τό Χαγιάτι,+302811103378,fixe,Restauration,,Crete,Ερωτόκριτου 12,,,,nouveau,OSM restaurant,False
+Villa Jodi,+306934282518,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Kokonakhe,+306977214556,mobile,Auto,,Crete,,,,,nouveau,OSM tyres,False
+Pervolia Seaside Home,+306906130912,mobile,Services,,Crete,"Kileler 15, 74100",,,,nouveau,OSM apartment,False
+Spiros original Greek Cuisine,+306974420937,mobile,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Κλαψινός,+306985987604,mobile,Restauration,,Crete,Παράπλευρη Οδός ΒΟΑΚ,,,,nouveau,OSM restaurant,False
+Γύροπωλείο,+302821099222,fixe,Restauration,,Crete,"Κισσάμου 144, 73100",,,,nouveau,OSM fast_food,False
+Fofi,+302841041023,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+David Vegera,+302897021491,fixe,Cafe & Bar,,Crete,Piskopiano 700 14,,,,nouveau,OSM cafe,False
+Syn-trophi,+302831504870,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ιδομενέας,+302893041754,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Γρηγορης,+302821058000,fixe,Cafe & Bar,,Crete,Πλατεία Ελευθερίας 13,,,,nouveau,OSM cafe,False
+Πυρομάχι,+302821002022,fixe,Restauration,,Crete,Ελευθερίου Βενιζέλου 55,,,,nouveau,OSM fast_food,False
+Pork to Beef Wild,+302821053777,fixe,Restauration,,Crete,"Δασκαλογιάννη 68, 73100",,,,nouveau,OSM fast_food,False
+Immigration Office,+302831020801,fixe,Services,,Crete,"Διογένους Απολλωνιάτου 6, Rethymno, 74100",,,,nouveau,OSM government,False
+Μπουγατσα Ιορδάνης,+302821091345,fixe,Restauration,,Crete,Αποκορώνου 24,,,,nouveau,OSM fast_food,False
+Κομμωτήριο μικρών ζώων,+302821087760,fixe,Beauté,,Crete,Μάρκου Μπότσαρη 3,,,,nouveau,OSM hairdresser,False
+Πλαίσιο,+302821036161,fixe,Commerce,,Crete,"Μάρκου Μπότσαρη 1, 73135",,,,nouveau,OSM computer,False
+Ρόκος,+306946330693,mobile,Restauration,,Crete,"marathi, 73100",,,,nouveau,OSM restaurant,False
+Arhondiko,+306947077750,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Pia's Place,+306982034238,mobile,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Mini Market Συραγοπούλου,+302834023570,fixe,Commerce,,Crete,"Αρκαδίου 72, Πέραμα, 74052",,,,nouveau,OSM convenience,False
+1866 Breakfast & Coffee Spot,+302821074443,fixe,Cafe & Bar,,Crete,πλατεια 1866 26,,,,nouveau,OSM cafe,False
+Bazaar,+302897023902,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Wok Spot,+302810331666,fixe,Restauration,,Crete,"Αγίου Τίτου 4, Ηράκλειο, 71202",,,,nouveau,OSM fast_food,False
+COUNTRY HOUSE,+306997122650,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μαχαίροποιειον,+302821046086,fixe,Commerce,,Crete,,,,,nouveau,OSM weapons,False
+The Big Blue,+30287024098,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Vassilis V1,+302810811113,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Rent a car Kosmos,+302810346173,fixe,Auto,,Crete,"25ης Αυγούστου 15, Ηράκλειο, 71202",,,,nouveau,OSM car_rental,False
+Krio Vrisali,+302821099257,fixe,Restauration,,Crete,Emmanouil Mpalantinou 9-11,,,,nouveau,OSM restaurant,False
+Έργανος,+302810285629,fixe,Restauration,,Crete,"Γεωργιάδου Γεωρ. 5, 71305",,,,nouveau,OSM restaurant,False
+Αγχιστρι,+302821072413,fixe,Restauration,,Crete,"Ακτή Παπανικολή 17, Χανιά",,,,nouveau,OSM restaurant,False
+Κορμοράνος Μεζεδοπωλείο,+302821051388,fixe,Cafe & Bar,,Crete,Θεοτοκοπούλου 46,,,,nouveau,OSM cafe,False
+The Trap,+306973712374,mobile,Restauration,,Crete,Agiou Vasiliou,,,,nouveau,OSM restaurant,False
+Olive Green,+302897022515,fixe,Restauration,,Crete,Varnali Street,,,,nouveau,OSM restaurant,False
+Mythos,+306981445152,mobile,Restauration,,Crete,Plateau Saint Vasileiou,,,,nouveau,OSM restaurant,False
+Μπλέ,+302821506559,fixe,Commerce,,Crete,"Χάληδων 17, 73132",,,,nouveau,OSM clothes,False
+ΚΑΛΗ ΚΑΡΔΙΑ,+302821076420,fixe,Restauration,,Crete,Κονδυλάκη 29-31,,,,nouveau,OSM restaurant,False
+So Young Bed Station,+306978871355,mobile,Services,,Crete,Almyrou 22,,,,nouveau,OSM hostel,False
+Oniro,+302897023840,fixe,Restauration,,Crete,Xanthoudidou,,,,nouveau,OSM restaurant,False
+Rahati,+306972853513,mobile,Cafe & Bar,,Crete,Evropis 86,,,,nouveau,OSM cafe,False
+λαΐνι,+302897021675,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Pansion Elena,+302891031093,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Family Tavern Dionyssos,+302844031672,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Think Tank,+302811112954,fixe,Cafe & Bar,,Crete,Andreou Kritis 7,,,,nouveau,OSM cafe,False
+ΑΠΟΜΕΡΟ,+302891031430,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Meltemi,+306932394448,mobile,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+The 2 Brothers,+306978014584,mobile,Restauration,,Crete,"Μάταλα, 70200",,,,nouveau,OSM restaurant,False
+Gevsi Traditional Taverna,+302897023386,fixe,Restauration,,Crete,"Ευρωπης 30, Πισκοπιανό, 700 14",,,,nouveau,OSM restaurant,False
+Ellotia,+302821087146,fixe,Restauration,,Crete,"Par. 1i Portou 6, Chania, 731 00",,,,nouveau,OSM restaurant,False
+Βαρβάρα Μόφορη - Συμβολαιογράφος,+302821057934,fixe,Services,,Crete,"Σφακίων 10-12, Χανιά",,,,nouveau,OSM notary,False
+Olympias Studio,+306974798940,mobile,Services,,Crete,70200,,,,nouveau,OSM guest_house,False
+Digenakis,+302810233999,fixe,Artisans,,Crete,"Ηράκλειο - Αρκαλοχώρι, Καλλονή, 70100",,,,nouveau,OSM winery,False
+Φούρνος Σεληνιωτακη,+302821038030,fixe,Boulangerie,,Crete,"ΠΕΟ Κισσάμου Χανίων 24, Αγία Μαρίνα, 730 14",,,,nouveau,OSM bakery,False
+Greco Mare,+302821060995,fixe,Restauration,,Crete,"ΠΕΟ Κισσάμου Χανίων 24, Αγία Μαρίνα, 730 14",,,,nouveau,OSM restaurant,False
+Studios Vasilis,+302821060995,fixe,Services,,Crete,"Αγία Μαρίνα, 730 14",,,,nouveau,OSM hotel,False
+ΕΡΩΝΤΑΣ,+302821060054,fixe,Restauration,,Crete,"ΠΕΟ Κισσάμου Χανίων, Αγία Μαρίνα, 730 14",,,,nouveau,OSM restaurant,False
+autoway car rental,+30094535319,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Vodafone,+302831020580,fixe,Services,,Crete,"Κουντουριώτη Παύλου 74, Ρέθυμνο, 74100",,,,nouveau,OSM telecommunication,False
+Paloma Garden & Corina Hotel,+302897031168,fixe,Services,,Crete,"Chersonisos 700 07, Irinis Stalís",,,,nouveau,OSM hotel,False
+Central Snack Café,+302892052892,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Ραγισμένο Τσουκάλι - The Leaky Cauldron,+302831181281,fixe,Restauration,,Crete,"Πηγή, 74100",,,,nouveau,OSM restaurant,False
+Cretan View,+306947843079,mobile,Commerce,,Crete,"Akti Stylianou Koundourou, Άγιος Νικόλαος, 72100",,,,nouveau,OSM gift,False
+Ταβέρνα - Καφενείο Γεροπλατάνου,+306939596193,mobile,Restauration,,Crete,740 53,,,,nouveau,OSM restaurant,False
+Sensus Experience By Lavris,+302897041101,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Το στενό,+302821505858,fixe,Restauration,,Crete,"Episkopou Dorotheou 26, 73100",,,,nouveau,OSM restaurant,False
+Spiti,+302821060143,fixe,Restauration,,Crete,"Agia Marina 102, Chania, 73014",,,,nouveau,OSM restaurant,False
+Cavo,+302831036700,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Το Κουτούκι του Νικόλα,+306976682015,mobile,Restauration,,Crete,"Λατσίδα - Μίλατος, 72400",,,,nouveau,OSM restaurant,False
+AlmyVita,+302821008170,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM bar,False
+Αερόστατο,+302843026101,fixe,Commerce,,Crete,Μύσωνος 72,,,,nouveau,OSM craft,False
+Κρεατοτεχνείο,+302843022771,fixe,Commerce,,Crete,,,,,nouveau,OSM butcher,False
+Taverna Stratos,+302831036147,fixe,Restauration,,Crete,"Nikeas 31, Rethymno, 74100",,,,nouveau,OSM restaurant,False
+Βασιλάκης,+302810731746,fixe,Commerce,,Crete,"Σκαλάνι, 71500",,,,nouveau,OSM convenience,False
+Σητειακά γλυκά Αρετούσα,+302843824794,fixe,Boulangerie,,Crete,Ελευθερίου Βενιζέλου 23,,,,nouveau,OSM pastry,False
+Wok Spot,+302831025017,fixe,Restauration,,Crete,"Αρκαδίου 228, Ρέθυμνο, 74100",,,,nouveau,OSM fast_food,False
+kaktos,+0032831061296,fixe,Cafe & Bar,,Crete,Επαρ.Οδ. Λουτρών-Επισκοπής,,,,nouveau,OSM cafe,False
+Aromattika The Store,+302813017152,fixe,Commerce,,Crete,,,,,nouveau,OSM gift,False
+SPEEDEX - ΣΗΤΕΙΑ,+302843026381,fixe,Services,,Crete,"Γεωργίου Γεννηματά 6, Σητεία, 72300",,,,nouveau,OSM courier,False
+Amarena,+302822023533,fixe,Boulangerie,,Crete,,,,,nouveau,OSM pastry,False
+EasyAuto,+306944024738,mobile,Auto,,Crete,"Ελευθερίου Βενιζέλου 66, 70007",,,,nouveau,OSM car_rental,False
+Agrilia,+302831055529,fixe,Restauration,,Crete,Σοφοκλή Βενιζέλου 62,,,,nouveau,OSM restaurant,False
+Φυσικόθεραπεία Γεώργιος Χατζηδάκης,+302821504033,fixe,Santé,,Crete,"Μεταξακη 11-13, 73131",,,,nouveau,OSM clinic,False
+Stonewell,+302897033486,fixe,Restauration,,Crete,"Tsagaraki Street, Malia",,,,nouveau,OSM restaurant,False
+Ο παλιόμυλος,+302841033052,fixe,Restauration,,Crete,"Φουρνή, 72400",,,,nouveau,OSM restaurant,False
+Haris apartments,+306973736173,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Beauty & Massage,+302825061712,fixe,Beauté,,Crete,,,,,nouveau,OSM massage,False
+Hair Life,+302825061656,fixe,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+ΚΟΜΜΩΤΗΡΙΟ by Anna Kourinaki,+302825061423,fixe,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+Angel's,+302825061535,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM pub,False
+Nicolas Café Bar,+302825061375,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+The Home,+306983830727,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Restaurant Artemis,+302825061292,fixe,Restauration,,Crete,"Ανωνυμη Α, Georgioupoli",,,,nouveau,OSM restaurant,False
+Rania Konstantopoulou D.D.S.,+302897025738,fixe,Santé,,Crete,"Ελευθερίου Βενιζέλου 127, 70014",,,,nouveau,OSM dentist,False
+Mythos,+302810812002,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mediterranean Microbrewery Crete,+302822023798,fixe,Commerce,,Crete,73400,,,,nouveau,OSM beverages,False
+YoLO8,+306946067220,mobile,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Colombo Kitchen & Bar,+302821044310,fixe,Restauration,,Crete,"Eisodion 17, 731 32",,,,nouveau,OSM restaurant,False
+Pergola Taverna Restaurant,+302897033340,fixe,Restauration,,Crete,"Νικ. Γραμματικάκη, Μάλια, 70007",,,,nouveau,OSM restaurant,False
+Παγκάλου Ελένη,+302841026440,fixe,Beauté,,Crete,Κωνσταντίνου Παλαιολόγου 3,,,,nouveau,OSM hairdresser,False
+InΔigo Seaside Experience,+306977163127,mobile,Restauration,,Crete,"Ρεθύμνου - Ηράκλειου, Rethymno, 74100",,,,nouveau,OSM restaurant,False
+Aelia,+306980981530,mobile,Restauration,,Crete,Gerani Chanion,,,,nouveau,OSM restaurant,False
+Κόφι φλέιβορ,+302821112547,fixe,Cafe & Bar,,Crete,"Ηρωων Πολυτεχνειου 14, 73100",,,,nouveau,OSM cafe,False
+Φαρμακειο Βρουλιδάκη,+302821053565,fixe,Santé,,Crete,"Παπαναστασίου, 73100",,,,nouveau,OSM pharmacy,False
+Auto Diagnosis Τζαγκαράκης Λιοδάκη,+302831071010,fixe,Auto,,Crete,,,,,nouveau,OSM car_repair,False
+Pela Maria Mini Market,+30287022194,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 177, Λιμένας Χερσονήσου, 70014",,,,nouveau,OSM convenience,False
+Τσιγκουνάκης,+302821069122,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 57, 73100",,,,nouveau,OSM supermarket,False
+Μπαχαρούπολη,+306970836340,mobile,Commerce,,Crete,,,,,nouveau,OSM spices,False
+Ξενοδοχείο Κατσικουλακης,+302824022547,fixe,Services,,Crete,"Kamisiana - Kolimvari, Kamisiana, Platanias, 73006",,,,nouveau,OSM hotel,False
+Αγγελάκης Γιάννης βουλκανιζατέρ,+302821092834,fixe,Auto,,Crete,"Νεάρχου 55, 73100",,,,nouveau,OSM tyres,False
+Νικολαΐδης Εμμανουήλ,+302810220574,fixe,Santé,,Crete,"Μπαντουβά 50, 71307",,,,nouveau,OSM pharmacy,False
+Vardis Villa,+302841041591,fixe,Services,,Crete,,,,,nouveau,OSM chalet,False
+Πριναράκης Hyunday service,+306983759473,mobile,Auto,,Crete,"Αγίου Χριστοφόρου 1, 73100",,,,nouveau,OSM car_repair,False
+Πίτα του Ρήγα,+302841025968,fixe,Restauration,,Crete,"Κωνσταντίνου Παλαιολόγου 24, Άγιος Νικόλαος, 72100",,,,nouveau,OSM fast_food,False
+Pet Shop Pharmacy,+302821084775,fixe,Commerce,,Crete,"Κισσάμου - Χανίων, Γεράνη, 73100",,,,nouveau,OSM pet,False
+meat stories,+302821061605,fixe,Restauration,,Crete,"Κισσάμου - Χανίων, Γεράνη, 73100",,,,nouveau,OSM restaurant,False
+γραφειο τελετων,+306946300796,mobile,Commerce,,Crete,"Κισσάμου - Χανίων, Γεράνη, 73100",,,,nouveau,OSM funeral_directors,False
+CORE,+306977209090,mobile,Services,,Crete,"Κισσάμου - Χανίων, Γεράνη, 73100",,,,nouveau,OSM fitness_centre,False
+Alexia Restaurant,+3028210068110,fixe,Restauration,,Crete,"Κισσάμου - Χανίων, Αγία Μαρίνα, 73100",,,,nouveau,OSM restaurant,False
+Πόρτο Κανάκη,+302842093231,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Doma Apartments,+302822041726,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Corali Studios,+306974361868,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Romeo & Juliet,+306948106038,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Golden Sun,+306984306861,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Ο Μπάμπης,+302810220050,fixe,Commerce,,Crete,Νηρέως 6,,,,nouveau,OSM supermarket,False
+Φαρμακείο Ιωάννης Μαρακάκης,+302831031262,fixe,Santé,,Crete,,,,,nouveau,OSM pharmacy,False
+Εστιάδες,+302841033918,fixe,Restauration,,Crete,Boti Sfakianaki 7,,,,nouveau,OSM restaurant,False
+Mimis Tavern,+302831061147,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Artemis Seafront Apartements,+306977922328,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Arlen Beach Hotel,+306977536317,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Πολιουδάκη Μ. Αδαμαντία,+302834022701,fixe,Santé,,Crete,"Ελευθερίου Βενιζέλου 163, Πέραμα, 74052",,,,nouveau,OSM pharmacy,False
+Οδοντιατρείο,+306972222622,mobile,Santé,,Crete,"Papagiannaki 37, Kissamos, 73400",,,,nouveau,OSM dentist,False
+Franchise Σκλαβενίτης,+302891032255,fixe,Commerce,,Crete,"Τρυφίτσου 5, Καστέλλι, 70006",,,,nouveau,OSM supermarket,False
+MR coffee,+302891031288,fixe,Cafe & Bar,,Crete,"Καστέλλι, 70006",,,,nouveau,OSM cafe,False
+ΒΑΓΓΕΛΗΣ,+302891031650,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+ΚΑΖΙΝΙΕΡΗΣ,+302891031300,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Α.Ε.Ο.Π.Ε. Συνεταιρισμός Καστελλίου,+302891031440,fixe,Services,,Crete,"Άγιες Παρασκιές - Καστέλλι, 70006",,,,nouveau,OSM company,False
+Hotel Maliatim,+302816007242,fixe,Services,,Crete,"Fr. Tsagaraki 11, Μάλια, 70007",,,,nouveau,OSM hotel,False
+Oliva,+302897029634,fixe,Restauration,,Crete,"Taxiarchon Metaxa 13-15, Μάλια, 70007",,,,nouveau,OSM restaurant,False
+Σπιτικόν,+302895071578,fixe,Restauration,,Crete,"Άρβη, 700 04",,,,nouveau,OSM restaurant,False
+Χαλκίδιο,+306934219053,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Γαλατία,+306977713196,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Taverna Panostrati,+302832036002,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Χρώματα Κανελλακη,+302821049210,fixe,Commerce,,Crete,"Αριστοτέλους 8, 73100",,,,nouveau,OSM paint,False
+Σχετακης κατάστημα εργαλειων,+302821095500,fixe,Commerce,,Crete,"Νικολάου Σκουλά 10, 73100",,,,nouveau,OSM department_store,False
+Ψαρογιάλι,+302841021408,fixe,Commerce,,Crete,Κωνσταντίνου Καραμανλή 6,,,,nouveau,OSM seafood,False
+Αφοι Μαγραπιδάκη Ο.Ε.,+302841028534,fixe,Auto,,Crete,Επιμενίδου 39,,,,nouveau,OSM car_repair,False
+Κρητικός,+302841021050,fixe,Commerce,,Crete,Ακτή Ιωσήφ Κούνδουρου 2,,,,nouveau,OSM supermarket,False
+Margaritári,+302831402442,fixe,Cafe & Bar,,Crete,"Παραλιακή Οδός Επισκοπής, 74050",,,,nouveau,OSM cafe,False
+ΤΑΒΕΡΝΑ ΚΑΡΑΒΟΒΡΥΣΗ,+302892097028,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ταβέρνα Βιβλιοθήκη,+306974430500,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μικρή Βουλή,+306932329040,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Αέροινον,+306983581695,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+myholiday Market,+306986051430,mobile,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+B is for Beer,+302821500197,fixe,Commerce,,Crete,,,,,nouveau,OSM alcohol,False
+Mare Nostrum,+306932640502,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Merastri,+306972714373,mobile,Restauration,,Crete,"Chrisostomou 17, 71306",,,,nouveau,OSM restaurant,False
+Cochili Taverna,+302815200718,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ελληνικός Ορειβατικός Σύλλογος Χανίων,+302821044647,fixe,Services,,Crete,"Τζανακάκη 90, 73134",,,,nouveau,OSM association,False
+Luggage Storage,+306943760124,mobile,Commerce,,Crete,Μιχελιδάκη 21,,,,nouveau,OSM storage_rental,False
+Φυσαλίδα,+302841025006,fixe,Cafe & Bar,,Crete,"Κωνσταντίνου Παλαιολόγου 22, Άγιος Νικόλαος, 72100",,,,nouveau,OSM bar,False
+Έλενα,+302841023450,fixe,Boulangerie,,Crete,"Κωνσταντίνου Παλαιολόγου 32, Άγιος Νικόλαος, 72100",,,,nouveau,OSM pastry,False
+Iristyle,+302841021855,fixe,Beauté,,Crete,"Κωνσταντίνου Παλαιολόγου 26, Άγιος Νικόλαος, 72100",,,,nouveau,OSM hairdresser,False
+Μιχαήλ Πλακογιαννάκης - Γεώργιος Πλακογιαννάκης Ο.Ε.,+302841022334,fixe,Santé,,Crete,"Ρούσου Κούνδουρου 19, Άγιος Νικόλαος, 72100",,,,nouveau,OSM pharmacy,False
+FOTEINAKIS IKE,+302821099048,fixe,Commerce,,Crete,"Αναγνώστου Γογονή 138, La Canée, 731 35",,,,nouveau,OSM hardware,False
+Papanikolakis,+302821090442,fixe,Cafe & Bar,,Crete,Kissamou 139,,,,nouveau,OSM cafe,False
+Κοσμιρί,+302810334219,fixe,Restauration,,Crete,"Κυδωνίας 22, Ηράκλειο",,,,nouveau,OSM restaurant,False
+Apivita Spa,+302821044226,fixe,Santé,,Crete,Εισοδίων 4,,,,nouveau,OSM pharmacy,False
+Smart Coffee,+302810224783,fixe,Cafe & Bar,,Crete,"Πλαστήρα Νικ. 10, Ηράκλειο, 71201",,,,nouveau,OSM cafe,False
+Μπαχάρι,+302810220006,fixe,Commerce,,Crete,"Λ. Ικάρου 75, Νέα Αλικαρνασσός",,,,nouveau,OSM nuts,False
+SPEEDEX - ΜΟΙΡΕΣ,+302892022354,fixe,Services,,Crete,"28ης Οκτωβρίου 32, Μοίρες, 70400",,,,nouveau,OSM courier,False
+SPEEDEX - ΗΡΑΚΛΕΙΟ,+302810344690,fixe,Services,,Crete,"Εθνικής Αντιστάσεως Λ. 125, Ηράκλειο, 71202",,,,nouveau,OSM courier,False
+SPEEDEX - ΡΕΘΥΜΝΟ,+302831051880,fixe,Services,,Crete,"Κονδυλάκη 25, Ρέθυμνο, 74100",,,,nouveau,OSM courier,False
+SPEEDEX - ΑΓΙΟΣ ΝΙΚΟΛΑΟΣ,+302841023902,fixe,Services,,Crete,"Κριτσάς 18, Άγιος Νικόλαος, 72100",,,,nouveau,OSM courier,False
+SPEEDEX - ΙΕΡΑΠΕΤΡΑ,+302842025150,fixe,Services,,Crete,"Λασθένους 2, Ιεράπετρα, 72200",,,,nouveau,OSM courier,False
+GeniusBar,+302811811897,fixe,Cafe & Bar,,Crete,"Κρασσαδάκη Νικ. 3, Ηράκλειο, 71409",,,,nouveau,OSM cafe,False
+Βιόλα,+302841021266,fixe,Restauration,,Crete,"Κύπριων Αγωνιστών 15, Άγιος Νικόλαος, 72100",,,,nouveau,OSM restaurant,False
+Argo Cafe Tavern,+302821002910,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Το Καντούνι,+302821079582,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Raisakis Apts,+302821068655,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+LUCKY SUITES,+306985579707,mobile,Services,,Crete,"MACHIS POTAMON 15, Rethymno, 74100",,,,nouveau,OSM apartment,False
+Veranta,+302831401219,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+KYPROS Tavern,+302821091866,fixe,Restauration,,Crete,"El. Venizelou 2, Chania, 73300",,,,nouveau,OSM restaurant,False
+Sweet Corner Bakery & Café,+302821044055,fixe,Commerce,,Crete,,,,,nouveau,OSM coffee,False
+Ο Κήπος της Φροσύνης,+306986601049,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Dream View Villa Hersonissos,+306942435668,mobile,Services,,Crete,"Ionias, Χερσόνησος, 70014",,,,nouveau,OSM apartment,False
+ΤΑΒΕΡΝΑ ΜΑΔΑΡΕΣ,+302821092127,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Λούκουλος,+302821066320,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Πετρομυλοσ,+302831074857,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Porto Galini,+302832091284,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Γερμανός,+302842080591,fixe,Commerce,,Crete,Μιχαήλ Κόρακα 1,,,,nouveau,OSM mobile_phone,False
+Γερμανός,+302843029280,fixe,Commerce,,Crete,Αλεξάνδρου Παπαναστασίου 27,,,,nouveau,OSM mobile_phone,False
+Apollo Apartments,+302841071195,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Φαρμακειο Ι. Κρασακησ,+302897031900,fixe,Santé,,Crete,"Δημοκρατίας 113, Μάλια, 70007",,,,nouveau,OSM pharmacy,False
+Μιχάλης Κοσμάς,+302897033923,fixe,Santé,,Crete,"Δημοκρατίας, Μάλια, 70007",,,,nouveau,OSM pharmacy,False
+High HOPeS,+306977556000,mobile,Cafe & Bar,,Crete,"Χάνδακος 58, 71202",,,,nouveau,OSM bar,False
+Mirtos Inn,+306940689023,mobile,Services,,Crete,"Μύρτος, 72056",,,,nouveau,OSM apartment,False
+Cronos,+302831300351,fixe,Boulangerie,,Crete,,,,,nouveau,OSM pastry,False
+Ίριδα,+302810258839,fixe,Commerce,,Crete,Αλμυρού 16,,,,nouveau,OSM health_food,False
+Μόκα,+302831050315,fixe,Commerce,,Crete,Βοσπόρου 6,,,,nouveau,OSM coffee,False
+Mind Your Head,+302821033231,fixe,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+Evilion,+302821068390,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Βιολογική Αγορά,+302821069727,fixe,Commerce,,Crete,,,,,nouveau,OSM greengrocer,False
+Κλαψινάκης,+302831026899,fixe,Services,,Crete,"Δημακοπούλου, 74100",,,,nouveau,OSM tax_advisor,False
+ΒΙΒΛΙΑ Επι ΛἐΞη,+302825061930,fixe,Commerce,,Crete,,,,,nouveau,OSM books,False
+ΚΟΣΜΗΜΑ ΣΚΟΥΒΑΚΗΣ,+306974306685,mobile,Commerce,,Crete,,,,,nouveau,OSM gift,False
+erasmia suites,+30697709457,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Pediaris Family Doctor,+302825400204,fixe,Santé,,Crete,,,,,nouveau,OSM doctors,False
+Hamam Suites Sifaka,+306946272787,mobile,Services,,Crete,"Ιωσήφ Σήφακα 19, Χανιά, 73100",,,,nouveau,OSM guest_house,False
+Nanou Donuts House,+306944997515,mobile,Boulangerie,,Crete,,,,,nouveau,OSM pastry,False
+Carnivorous,+302821043977,fixe,Commerce,,Crete,,,,,nouveau,OSM butcher,False
+Κρητικό Εργαστήρι,+302821099369,fixe,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+Tellus,+302821091500,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+ΜΗΤΡΑΚΗ ΚΑΙΤΗ,+302821086734,fixe,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+Ράιζεν,+302821054100,fixe,Auto,,Crete,"Χάληδων 75, 73100",,,,nouveau,OSM car_rental,False
+Η Ταβέρνα Του Μηνά,+302834041457,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Beauty Salone & SPA,+302821008073,fixe,Beauté,,Crete,,,,,nouveau,OSM beauty,False
+Θεοδωράκης Ηλεκτρολογείο Συνεργείο Αυτοκινήτων,+302821097702,fixe,Auto,,Crete,Πολυρρήνιας 26,,,,nouveau,OSM car_repair,False
+Νικητάκης Auto House,+302821094292,fixe,Auto,,Crete,"Αναγνώστου Γογονή 40, 73100",,,,nouveau,OSM car_parts,False
+Tasos Seagull Apartments,+302821099007,fixe,Services,,Crete,"Λαφονησίου 15, Χανιά",,,,nouveau,OSM guest_house,False
+Εκ φύσεως,+302821053363,fixe,Commerce,,Crete,"Γκερόλα 13, Χανιά, 73100",,,,nouveau,OSM supermarket,False
+ΔΡΟΥΓΚΑ,+302821076462,fixe,Commerce,,Crete,"Αναγνώστη Σκαλίδη 15, Χανιά",,,,nouveau,OSM household_linen,False
+Ψήσου,+302821044999,fixe,Restauration,,Crete,"Παπανδρέου Α. 68, Χανιά, 73100",,,,nouveau,OSM fast_food,False
+Αδοντάκης - Adontakis,+302821051034,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 10, Χανιά, 73100",,,,nouveau,OSM clothes,False
+Πορτάπολις,+302821600010,fixe,Restauration,,Crete,"Μουσούρων 8, Χανιά",,,,nouveau,OSM ice_cream,False
+ΚΟΥΡΚΟΥΝΑΚΗΣ,+302821044025,fixe,Commerce,,Crete,,,,,nouveau,OSM general,False
+Το φορτηγό του Τζέρι,+302821008527,fixe,Boulangerie,,Crete,"Χάληδων 77, Χανιά, 73100",,,,nouveau,OSM pastry,False
+Porofarago,+306973728618,mobile,Services,,Crete,Agia Irini Gorge,,,,nouveau,OSM hotel,False
+Sofra Family Restaurant,+302897029846,fixe,Restauration,,Crete,"Νικολάου Γραμματικάκη 77, Μάλια, 70007",,,,nouveau,OSM restaurant,False
+Βιβλιοπωλείο Συργιανόγλου,+302834022378,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 129, Πέραμα, 74052",,,,nouveau,OSM stationery,False
+Γεώργιος Ελ. Γαρυφαλάκης,+302834023645,fixe,Santé,,Crete,,,,,nouveau,OSM dentist,False
+Cigars Chania,+302821002793,fixe,Commerce,,Crete,"Περίδου 27, Χανιά, 73135",,,,nouveau,OSM tobacco,False
+Φώτο Αστόρια,+302834022410,fixe,Services,,Crete,"Ελευθερίου Βενιζέλου 58, Πέραμα, 74052",,,,nouveau,OSM photo,False
+Κρεαταγορά Διοματάς,+302834023435,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 81, Πέραμα, 74052",,,,nouveau,OSM butcher,False
+Κρίνος,+302834022483,fixe,Services,,Crete,"Ελευθερίου Βενιζέλου 75, Πέραμα, 74052",,,,nouveau,OSM dry_cleaning,False
+Τζιμπλακάκη Δ. Γεωργία,+302834022290,fixe,Santé,,Crete,"Ελευθερίου Βενιζέλου 100, Πέραμα, 74052",,,,nouveau,OSM pharmacy,False
+Δρακούλης Γ. Μιχαήλ,+302834020720,fixe,Santé,,Crete,"Αρκαδίου 65, Πέραμα, 74052",,,,nouveau,OSM pharmacy,False
+Στεφανάκη Μαρία και Σία Ο.Ε,+302834022550,fixe,Santé,,Crete,"Νικολάου Μπιράκη 12, Πέραμα, 74052",,,,nouveau,OSM pharmacy,False
+Γαλήνη Apartments,+302842061864,fixe,Services,,Crete,Ιεράπετρας - Σητείας,,,,nouveau,OSM hotel,False
+Πλαγιά,+302810521131,fixe,Restauration,,Crete,"Palea EO Rethymnou-Irakliou, 71500",,,,nouveau,OSM restaurant,False
+Δίχαλο Ταβέρνα,+302897024000,fixe,Restauration,,Crete,"Agriana, 71201",,,,nouveau,OSM restaurant,False
+Candia Studios,+306981798258,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Hotel Vecchio,+302831054985,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Hotel Palladion,+302831071111,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Areti Suites,+302821063776,fixe,Services,,Crete,Καθιανά,,,,nouveau,OSM hotel,False
+Cafe Woody #1,+302834022630,fixe,Cafe & Bar,,Crete,"Ελευθερίου Βενιζέλου 113, Πέραμα, 74052",,,,nouveau,OSM cafe,False
+Οβελιστήριο - Ψησταριά Woody #2,+302834023410,fixe,Restauration,,Crete,"Ελευθερίου Βενιζέλου 111, Πέραμα, 74052",,,,nouveau,OSM restaurant,False
+Μαρής,+302834022702,fixe,Commerce,,Crete,"Ελευθερίου Βενιζέλου 109, Πέραμα, 74052",,,,nouveau,OSM butcher,False
+Περί Καλού,+302810330766,fixe,Commerce,,Crete,"Κόσμων 29, Ηράκλειο, 71201",,,,nouveau,OSM greengrocer,False
+Ikaros Studios,+306937490057,mobile,Services,,Crete,"Plakias, 74060, Griechenlan",,,,nouveau,OSM apartment,False
+Standby Take away & Delivery,+306982067179,mobile,Restauration,,Crete,,,,,nouveau,OSM fast_food,False
+Tholos Beach,+302842094793,fixe,Restauration,,Crete,Kavousi,,,,nouveau,OSM restaurant,False
+Skipper,+302897021211,fixe,Restauration,,Crete,70014,,,,nouveau,OSM restaurant,False
+Ταβερνα Γερακαρι,+302833051013,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM bar,False
+Cretan Aroma,+306979029483,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Golden Star,+3028250,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Nenedakis,+302825062900,fixe,Commerce,,Crete,,,,,nouveau,OSM butcher,False
+Olivia Shop,+302897031098,fixe,Commerce,,Crete,"Χερσονήσου - Λάτσιδας 175, Μάλια, 70007",,,,nouveau,OSM gift,False
+Dressvoice,+302821068300,fixe,Commerce,,Crete,"Κισσάμου - Χανίων, 73014",,,,nouveau,OSM clothes,False
+Skourias,+306948481093,mobile,Commerce,,Crete,"Paleochora, 73001",,,,nouveau,OSM jewelry,False
+Sola Luna,+302823041654,fixe,Commerce,,Crete,"Paleochora, 73001",,,,nouveau,OSM clothes,False
+Fish Spa Therapy Paleochora,+302823083023,fixe,Beauté,,Crete,"Paleochora, 73001",,,,nouveau,OSM beauty,False
+Jewellery Patsourakis,+302823041527,fixe,Commerce,,Crete,"Paleochora, 73001",,,,nouveau,OSM jewelry,False
+Zic Zac,+302823042098,fixe,Commerce,,Crete,"Paleochora, 73001",,,,nouveau,OSM clothes,False
+Ammos Paleochora Hotel,+306947286909,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Vape Port,+302821007005,fixe,Commerce,,Crete,,,,,nouveau,OSM e-cigarette,False
+Charōnitēs,+302897042786,fixe,Commerce,,Crete,,,,,nouveau,OSM electrical,False
+Gouves Sunsea studios,+306944537189,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Mr Coffee,+306972858746,mobile,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Taverna Koundourakis,+302831081283,fixe,Restauration,,Crete,"Epar.Od. Argiroupolis-Asi Gonias Springs of Argiroupoli, Argiropoli",,,,nouveau,OSM restaurant,False
+Georgia's Tastes,+302825092187,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Το Φράγμα,+306973628887,mobile,Restauration,,Crete,"Ρεθύμνου-Αμαρίου, Rethymno",,,,nouveau,OSM restaurant,False
+ΚΑΦΕΝΕΙΟ Ο ΤΕΜΠΕΛΗΣ,+302810229009,fixe,Restauration,,Crete,"Μιλάτου 6, 71202",,,,nouveau,OSM restaurant,False
+Needleworks,+302810336100,fixe,Commerce,,Crete,,,,,nouveau,OSM clothes,False
+Kapheneion,+302810344248,fixe,Cafe & Bar,,Crete,Idomeneos 21,,,,nouveau,OSM pub,False
+Fylenia's,+302821067232,fixe,Cafe & Bar,,Crete,"Λάκκοι, 730 05",,,,nouveau,OSM cafe,False
+Galley,+302841500703,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM pub,False
+Γεωπόνος Μελετήτης Προκοπίου,+302810310108,fixe,Commerce,,Crete,"Παρλαμά Μενελάου 106, Ηράκλειο, 714 10",,,,nouveau,OSM yes,False
+Molos Apartments,+302825091009,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Nicola’Studio,+306982477174,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Nautilus Studio,+306980807612,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Studio Mare,+306979322193,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Teacher’s Apartment,+306982477174,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Thalasso Resort,+306946269686,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Matala Tribe,+306955400962,mobile,Commerce,,Crete,,,,,nouveau,OSM gift,False
+Galini,+302831023060,fixe,Restauration,,Crete,"Αρκαδίου 252, 74100",,,,nouveau,OSM restaurant,False
+Cafe Posto,+302834052040,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Kings Cafe,+306988286399,mobile,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Το Μπριζολάκι,+306980095520,mobile,Restauration,,Crete,"Epar.Od. Dichalostratou-Leukogias 116, Mariou, 740 60",,,,nouveau,OSM restaurant,False
+Τρίαινα,+302810341883,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Kaimaki,+302842051039,fixe,Restauration,,Crete,Μύρτος,,,,nouveau,OSM ice_cream,False
+Andy's Holidays,+302825061394,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Vegera restaurant,+302821083777,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Πλώρη,+302842307282,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Villa Eirini,+306975534613,mobile,Services,,Crete,,,,,nouveau,OSM chalet,False
+Apiri,+302810342228,fixe,Restauration,,Crete,"Αγίων Δέκα 5, 712 01",,,,nouveau,OSM restaurant,False
+Περιφερειακή Ενότητα Χανίων,+302821340100,fixe,Services,,Crete,"Πλατεία Ελευθερίας 1, Χανιά, 73134",,,,nouveau,OSM government,False
+Indigo by cécile,+306982005479,mobile,Commerce,,Crete,,,,,nouveau,OSM gift,False
+Romantic house,+33674953759,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Hotel Mochlos,+306972644541,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Chez cécile home,+306982005479,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Ἡ Μουρνιά,+302810372094,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Avli,+306972266301,mobile,Restauration,,Crete,"Μύρτος, 72056",,,,nouveau,OSM restaurant,False
+Συμπόσιο,+302842051001,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Pearl Beach Road City Hotel Malia,+306944411248,mobile,Services,,Crete,"Δημοκρατίας 66, Μάλια, 70007",,,,nouveau,OSM hotel,False
+Arkadi Hotel,+302897029864,fixe,Services,,Crete,"Δημοκρατίας 18, Μάλια, 70007",,,,nouveau,OSM hotel,False
+Easy Rent,+306996364400,mobile,Auto,,Crete,"Δημοκρατίας, Μάλια, 70007",,,,nouveau,OSM car_rental,False
+eARTh's,+302897032947,fixe,Commerce,,Crete,"Νικολάου Γραμματικάκη, Μάλια, 70007",,,,nouveau,OSM other,False
+ExpertsGarden - Γεωργικά Εφόδια Ζωοτροφές,+302897033620,fixe,Commerce,,Crete,"Ελευθέριος Βενιζέλος 249, Μάλια, 70007",,,,nouveau,OSM garden_centre,False
+Coral Bar,+302897033487,fixe,Cafe & Bar,,Crete,"Νικολάου Γραμματικάκη, Μάλια, 70007",,,,nouveau,OSM bar,False
+Cacao Cafe,+302842028309,fixe,Cafe & Bar,,Crete,Γρά Λυγιά - Ανατολή,,,,nouveau,OSM cafe,False
+Επίτιμος Προξενείο της Ιρλανδίας,+302810215060,fixe,Services,,Crete,"Κνωσσού 278, 71409",,,,nouveau,OSM diplomatic,False
+Ουρανία Πατεράκη,+302842022512,fixe,Santé,,Crete,,,,,nouveau,OSM doctors,False
+Mama's Soul Kitchen,+302842080077,fixe,Restauration,,Crete,Δημοκρατίας 62,,,,nouveau,OSM restaurant,False
+Κουμάκης Ζαχαροπλαστείο,,fixe,Boulangerie,,Crete,,,,,nouveau,OSM pastry,False
+Christina studio's,+306940689023,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Cosy apartments,+306936627338,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Mirtilo luxury apartments,+306977999904,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Podilato Cafe,+306972500751,mobile,Cafe & Bar,,Crete,"Γέργερη, 70003",,,,nouveau,OSM cafe,False
+Happy Mini Market,+302821097117,fixe,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+Χειμωνανθός,+302821078822,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Μυθοι...κόν,+306944997899,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+ΤΟ ΜΑΓΑΖΑΚΙ που λέγαμε...,+302810781506,fixe,Restauration,,Crete,"Ελαία, 70008",,,,nouveau,OSM restaurant,False
+Παραδοσιακή Ταβέρνα Κοσμάς,+302810771525,fixe,Restauration,,Crete,"Σταμνοί, 70008",,,,nouveau,OSM restaurant,False
+Dimitris,+306945465133,mobile,Beauté,,Crete,"Μινώταυρου 12, Ηράκλειο, 71414",,,,nouveau,OSM massage,False
+Tasos,+302821061256,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Socrates,+302821038141,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Agora apartment,+306933487375,mobile,Services,,Crete,"Αννουσάκη 1, 73400",,,,nouveau,OSM hotel,False
+Agarathos,+302822023869,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Eva Frangk,+302815201265,fixe,Commerce,,Crete,,,,,nouveau,OSM jewelry,False
+Paleochora Apartments,+306932255071,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Libyan Sunrise Studios,+306975852425,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Δημοτικό Λιμενικό Ταμείο Ρεθύμνου,+302831022408,fixe,Services,,Crete,"Σοφοκλή Βενιζέλου 23, Ρέθυμνο, 74100",,,,nouveau,OSM port_authority,False
+Black Lantern,+302821062784,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM bar,False
+Glow,+302821062670,fixe,Beauté,,Crete,,,,,nouveau,OSM hairdresser,False
+Vitruvian Fitness Hall,+302810320900,fixe,Services,,Crete,"Παπανδρέου Ανδρ. 5, 71305",,,,nouveau,OSM fitness_centre,False
+Φούρνος Φασουλάκης,+302810286801,fixe,Boulangerie,,Crete,"Κνωσσού Λ. 5, 71306",,,,nouveau,OSM bakery,False
+ΙΑΤΡΕΙΟ ΜΙΚΡΩΝ ΖΩΩΝ Ιωάννης Φιλιππάκης,+302810325508,fixe,Santé,,Crete,"Ιωνίας Λ. 1, 71306",,,,nouveau,OSM veterinary,False
+Κώτσαρης,+302841051202,fixe,Santé,,Crete,,,,,nouveau,OSM pharmacy,False
+Dealeat,+302831041982,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Knossos Boutique,+302810761000,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Coco-Mat,+302810361510,fixe,Commerce,,Crete,"Κνωσσού 191, Ηράκλειο, 714 09",,,,nouveau,OSM bed,False
+Hammam Suites,+306946272787,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Sette Venti Boutique Hotel,+302821093835,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Kon Mari Boutique Suites,+306973691009,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Δεληγιάννης ΑΕ,+302810542850,fixe,Auto,,Crete,,,,,nouveau,OSM car,False
+Rex,+302831054579,fixe,Services,,Crete,,,,,nouveau,OSM laundry,False
+Οπτικά Θοδωρής Πάντ.Πετράκης,+306983690801,mobile,Santé,,Crete,"Πλατεία Ελευθερίου Βενιζέλου 4, 73400",,,,nouveau,OSM optician,False
+Κρητικός Φούρνος,+302810752815,fixe,Boulangerie,,Crete,"Ηρώων Πολυτεχνείου 34, 70100",,,,nouveau,OSM bakery,False
+Σκούμπι Ντουζ,+302810311044,fixe,Commerce,,Crete,"62 Μαρτύρων 71, Ηράκλειο",,,,nouveau,OSM pet_grooming,False
+Σαρρής,+302821090159,fixe,Auto,,Crete,"Σούδας 98, Σούδα, 73200",,,,nouveau,OSM car,False
+ANDREAS ANDREOU,+302821062490,fixe,Santé,,Crete,,,,,nouveau,OSM dentist,False
+Stylos Cafe,+302825041841,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Βιτώρης,+302892042968,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Tholos Home,+302831075033,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Paradise bar & grill,+306986749457,mobile,Restauration,,Crete,724 00,,,,nouveau,OSM restaurant,False
+Giannis Canteen (Καντίνα Γιάννης),+302810289083,fixe,Restauration,,Crete,"Σταδίου 120, 716 01",,,,nouveau,OSM restaurant,False
+COPYFIX - Το Φοιτητικό,+302810259030,fixe,Commerce,,Crete,"Μυλονογιάννη Γ. 4, Ηράκλειο, 714 10",,,,nouveau,OSM books,False
+BioPetrino,+302893031630,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Οι Αγάπες,+302810743198,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Olous,+302841044166,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Quizz Taverna,+30821038160,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mini Market «Χρομοναστήρι»,+302831075385,fixe,Commerce,,Crete,,,,,nouveau,OSM convenience,False
+Perasma,+302891092464,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Σκλαβενίτης,+302841026390,fixe,Commerce,,Crete,"Μελίνας Μερκούρη, Άγιος Νικόλαος, 72100",,,,nouveau,OSM supermarket,False
+Ελένη Σταθάκη,+302810380616,fixe,Santé,,Crete,Οδός Αγίων Πάντων 24,,,,nouveau,OSM pharmacy,False
+Σκλαβενίτης,+302810377800,fixe,Commerce,,Crete,"Ανδρέα Παπανδρέου 22, Αμμουδάρα, 71414",,,,nouveau,OSM supermarket,False
+Μαλεβιζώτικα,+302810721770,fixe,Boulangerie,,Crete,,,,,nouveau,OSM bakery,False
+Giannis' traditional house,+306937280321,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Windy place,+300833041000,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Σκλαβενίτης,+302810341631,fixe,Commerce,,Crete,"Ικάρου 20, Ηράκλειο, 71601",,,,nouveau,OSM supermarket,False
+Akrogiali Tavern,+302843026777,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Europa Resort,+302834051000,fixe,Services,,Crete,"Πάνορμος, 74057",,,,nouveau,OSM hotel,False
+Orange,+302831072082,fixe,Commerce,,Crete,Skaleta,,,,nouveau,OSM convenience,False
+Methexis,+302823041431,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Kastelli,+302834051220,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Aquis Silva Beach Hotel,+302897022850,fixe,Services,,Crete,"Eleftheriou Venizelou 193, 70014",,,,nouveau,OSM hotel,False
+Alfa Hotel,+302823041620,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+ΑΒ Βασιλόπουλος,+302810314414,fixe,Commerce,,Crete,"Μαιάνδρου & Πετρακογιώργη, Ηράκλειο, 71305",,,,nouveau,OSM supermarket,False
+ΑΒ Βασιλόπουλος,+302810300010+302810331068,fixe,Commerce,,Crete,"Ικάρου 26, Ηράκλειο, 71307",,,,nouveau,OSM supermarket,False
+ΠΕΡΙΣΤΕΡΑΚΗ ΑΦΟΙ,+302832031262,fixe,Commerce,,Crete,,,,,nouveau,OSM supermarket,False
+Ποροφάραγγο,+306973728618,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Anna's suites,+302825091211,fixe,Services,,Crete,,,,,nouveau,OSM apartment,False
+Iassis,+302821070800,fixe,Santé,,Crete,"Μάρκου Μπότσαρη 76, 73136",,,,nouveau,OSM hospital,False
+Σκλαβενίτης,+302821079734,fixe,Commerce,,Crete,"Μουρνιών 43, Χανιά, 73100",,,,nouveau,OSM supermarket,False
+Σπηλιαράκι,+302822051531,fixe,Restauration,,Crete,73400,,,,nouveau,OSM restaurant,False
+Αριάδνη,+302810211255,fixe,Commerce,,Crete,"Ούλωφ Πάλμε, Ηράκλιεο, 71409",,,,nouveau,OSM supermarket,False
+Νεράιδα της Λίμνης,+302825061776,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Matt Cafe,+302831071325,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM cafe,False
+Μητσακάκης,+302843022377,fixe,Restauration,,Crete,"Οδός Κωνσταντίνου Καραμανλή 6, Σητεία, 72300",,,,nouveau,OSM restaurant,False
+Myli Restaurant Café,+306945754305,mobile,Restauration,,Crete,"Leof. Machis Kritis 174, Rethymno, 74133",,,,nouveau,OSM restaurant,False
+Alena Apartments,+306976559231,mobile,Services,,Crete,"KORONEOU 13, Χανιά, 73136",,,,nouveau,OSM hotel,False
+όνειρο,+302825061672,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Σκλαβενίτης,+302842025817,fixe,Commerce,,Crete,"Κύπρου 21, Ιεράπετρα, 72200",,,,nouveau,OSM supermarket,False
+Χαλκιαδάκης ΜαΧ,+302892029006,fixe,Commerce,,Crete,"Ηράκλειο - Φαιστός, Μοίρες, 704 00",,,,nouveau,OSM supermarket,False
+Kavros Beach Hotel,+302111981531,fixe,Services,,Crete,"Kavros Beach, Kavros Georgioupolis, 73007",,,,nouveau,OSM hotel,False
+Roussolakos Apartments,+306932356825,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Kouremenos Beach Apartments,+306932356825,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+"Parasiris, News Cafe",+302810380151,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Souhlis,+302825061674,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mary,+302821060770,fixe,Services,,Crete,"Chania, 73014",,,,nouveau,OSM hotel,False
+Κήπος των Γεύσεων,+302810300358,fixe,Restauration,,Crete,"Σμύρνης Χρυσοστόμου 8, Ηράκλειο, 71500",,,,nouveau,OSM restaurant,False
+Separe Coffee&co,+302831028668,fixe,Cafe & Bar,,Crete,"Αρκαδίου 240, Ρέθυμνο, 74100",,,,nouveau,OSM cafe,False
+Eri Beach & Village,+3028970211801,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Γαργαδόρος,+302841022599,fixe,Restauration,,Crete,"Αναπαύσεως, Άγιος Νικόλαος, 72100",,,,nouveau,OSM restaurant,False
+Nostos,+302834094310,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Livadi,+306908615968,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Gorgona,+302834094216,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Σκλαβενίτης,+302810325570,fixe,Commerce,,Crete,"Κνωσσού 86, Ηράκλειο, 71307",,,,nouveau,OSM supermarket,False
+Sweet Dreams,+302821009097,fixe,Boulangerie,,Crete,"Χανιά - Αεροδρόμιο, Chania",,,,nouveau,OSM pastry,False
+Jia,+302841023891,fixe,Restauration,,Crete,Πασιφάης 1,,,,nouveau,OSM restaurant,False
+Oasis Hotel,+302831071774,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Elektra Beach Hotel,+302821020820,fixe,Services,,Crete,"Kalamaki, Kalamaki, 73100, Greece",,,,nouveau,OSM hotel,False
+Olympias Studio,+306974798940,mobile,Services,,Crete,"Pitsidia, 70200",,,,nouveau,OSM guest_house,False
+Veranta Restaurant,+306974851827,mobile,Restauration,,Crete,"Kapodistria, Agia Marina, 73100",,,,nouveau,OSM restaurant,False
+Ταβερνα του Γιάννη,+302810871451,fixe,Restauration,,Crete,Κυπαρίσσι,,,,nouveau,OSM restaurant,False
+Δουλουφάκης Οινοποιείο,+302810792017,fixe,Artisans,,Crete,"Δαφνές, 70011",,,,nouveau,OSM winery,False
+Στέκι του Κουρούπη,+302894041306,fixe,Restauration,,Crete,Γέργερη,,,,nouveau,OSM restaurant,False
+Καφένες,+302894031296,fixe,Restauration,,Crete,Νύβριτος,,,,nouveau,OSM restaurant,False
+Αχινός,+302841090505,fixe,Restauration,,Crete,"Ακτή Κούνδουρου, 72100",,,,nouveau,OSM restaurant,False
+Solon appartments,+302821062792,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Pinelopi Studios,+306986083155,mobile,Services,,Crete,,,,,nouveau,OSM apartment,False
+Porofarogo,+306973728618,mobile,Restauration,,Crete,Agia Irini Gorge,,,,nouveau,OSM restaurant,False
+Aptera beach,+306937195193,mobile,Services,,Crete,"Αρτέμιδος 2, ammoudara, 71414",,,,nouveau,OSM hotel,False
+Aptera beach restaurant,+306937195193,mobile,Restauration,,Crete,"Αρτέμιδος 2, ammoudara, 71414",,,,nouveau,OSM restaurant,False
+Chrysos Asterias,+302831061590,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Τσιχλής Ευάγγελος,+302841033292,fixe,Commerce,,Crete,,,,,nouveau,OSM hardware,False
+Samaria Village,+306932456017,mobile,Services,,Crete,,,,,nouveau,OSM chalet,False
+Vicenzos Cornaros,+302824022556,fixe,Restauration,,Crete,"ΠΕΟ Κισσάμου Χανίων 27, Kamisiana, Platanias, 73006",,,,nouveau,OSM restaurant,False
+ΑΒ Βασιλόπουλος,+302821083005+302821083390,fixe,Commerce,,Crete,"Δεληγιαννάκη 112 Α, ΧΑΝΙΑ, 73134",,,,nouveau,OSM supermarket,False
+Φουλεδάκης Δημήτριος,+302841031650,fixe,Santé,,Crete,,,,,nouveau,OSM pharmacy,False
+Ippocampos Beach Bar,+302821032019,fixe,Cafe & Bar,,Crete,,,,,nouveau,OSM bar,False
+Το Χάνι,+302821075795,fixe,Restauration,,Crete,Παρ. Κονδυλάκη,,,,nouveau,OSM restaurant,False
+Box Coffee And More,+302821020010,fixe,Cafe & Bar,,Crete,"Ελευθερίου Βενιζέλου 11, Χανιά, 73100",,,,nouveau,OSM cafe,False
+Stratos Beach Front and Sea View Apartments,+306974861369,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Ταβέρνα Φανταστικό,+306988442728,mobile,Restauration,,Crete,Maroulas,,,,nouveau,OSM restaurant,False
+Δρυγιές - Drygiés,+306977573593,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Mediterranean Dream,+306937053076,mobile,Services,,Crete,,,,,nouveau,OSM hotel,False
+Σπανουδάκης,+302834022029,fixe,Commerce,,Crete,"Μαργής και Νίκου Καζαντζάκη 13, Πέραμα, 74052",,,,nouveau,OSM supermarket,False
+Anemos Inn,+302811811091,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False
+Time2try Watersports,+306973069356,mobile,Commerce,,Crete,"Καρτερού, Iraklio, 71201",,,,nouveau,OSM water_sports,False
+ΜΕΛΤΕΜΑΚΙ RESTAURANT AND BEACH BAR,+306978335305,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ο Μύλος του Νικόλα,+302832051543,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Ta Petrina,+302897021976,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Yassou Kriti,+302825061323,fixe,Services,,Crete,"Kavros Beach, Kavros Georgioupolis, 73007",,,,nouveau,OSM hotel,False
+Αυλή Μπαρ - εστιατόριο,+302810240946,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Playa Paraiso,+302822041160,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Almiras Restaurant,+302821060083,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Nemo Restaurant,+306978554919,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Café 107,+306971654724,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Blue Sky Apartments,+302897033223,fixe,Services,,Crete,"Δημοκρατίας, Μάλια, 70007",,,,nouveau,OSM apartment,False
+Βίγλες,+302825092395,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Στρατολογική Υπηρεσία Κρήτης,+302813400112,fixe,Services,,Crete,"Καραϊσκάκη Γεωρ. 2, 71307",,,,nouveau,OSM military,False
+To Rizitiko,+302825071222,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Oscar Suites & Village,+302821068805,fixe,Services,,Crete,"Πλατανιάς, 73014",,,,nouveau,OSM hotel,False
+Πνευματικάκης οινοποιείο,+302822031740,fixe,Commerce,,Crete,"Παλαιά Εθνική Οδός 90, Drapanias, 73400",,,,nouveau,OSM wine,False
+Taverna Gialites,+306974643885,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Bogazi,+302843094200,fixe,Restauration,,Crete,"Μοχλος, 72057",,,,nouveau,OSM restaurant,False
+Σκλαβενίτης,+302821081719,fixe,Commerce,,Crete,"Χανιά, 73200",,,,nouveau,OSM supermarket,False
+Σκλαβενίτης,+302810239009,fixe,Commerce,,Crete,"Ιερολοχιτών & Σμπώκου, Ηράκλειο, 71305",,,,nouveau,OSM supermarket,False
+Daily Dose,+302891024453,fixe,Cafe & Bar,,Crete,Βενιζέλου Ελευθερίου,,,,nouveau,OSM cafe,False
+Elia Guesthouse,+302831029555,fixe,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Taverna Elia,+306988711936,mobile,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Topographer,+302821041424,fixe,Services,,Crete,,,,,nouveau,OSM architect,False
+Building Materials by Mavrakaki Arhontissa,+302821060447,fixe,Commerce,,Crete,,,,,nouveau,OSM hardware,False
+Metal Constructions by Paraskevopoulos,+302821062744,fixe,Commerce,,Crete,,,,,nouveau,OSM hardware,False
+Acacia Tou Aga,+302821062318,fixe,Restauration,,Crete,,,,,nouveau,OSM restaurant,False
+Road Runner Car Rental,+302821084844,fixe,Auto,,Crete,,,,,nouveau,OSM car_rental,False
+Villa Irini,+306906991867,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+disCrete Villa,+306977044199,mobile,Services,,Crete,,,,,nouveau,OSM guest_house,False
+Atali Grand Resort,+302834094141,fixe,Services,,Crete,,,,,nouveau,OSM hotel,False

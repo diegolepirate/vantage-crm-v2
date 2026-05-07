@@ -1,0 +1,269 @@
+"""
+Scrape Crete businesses WITHOUT a website but WITH a phone, from OpenStreetMap
+Overpass API. Output a CSV ready to import into the Vantage CRM `prospects`
+table (matches the existing schema: nom, numero, type_tel, famille, categorie,
+region, adresse, rating, avis, ...).
+
+Usage:  python scrape_crete.py
+Output: prospects_crete.csv  +  prospects_crete.sql
+"""
+
+import csv
+import json
+import re
+import sys
+import time
+import urllib.parse
+import urllib.request
+
+OVERPASS = "https://overpass-api.de/api/interpreter"
+
+# Crete bounding box (south, west, north, east)
+BBOX = (34.78, 23.40, 35.74, 26.32)
+
+# OSM tag -> CRM "famille" mapping
+FAMILY_MAP = {
+    # restaurant + food
+    "restaurant": "Restauration", "fast_food": "Restauration",
+    "ice_cream": "Restauration", "food_court": "Restauration",
+    # cafe & bar
+    "cafe": "Cafe & Bar", "bar": "Cafe & Bar", "pub": "Cafe & Bar",
+    "biergarten": "Cafe & Bar", "nightclub": "Cafe & Bar",
+    # bakery
+    "bakery": "Boulangerie", "pastry": "Boulangerie",
+    "confectionery": "Boulangerie",
+    # beauty
+    "hairdresser": "Beauté", "beauty": "Beauté", "cosmetics": "Beauté",
+    "perfumery": "Beauté", "tattoo": "Beauté", "massage": "Beauté",
+    "nails": "Beauté",
+    # health
+    "pharmacy": "Santé", "dentist": "Santé", "doctors": "Santé",
+    "doctor": "Santé", "veterinary": "Santé", "physiotherapist": "Santé",
+    "optician": "Santé", "optometrist": "Santé", "psychotherapist": "Santé",
+    "alternative": "Santé", "clinic": "Santé",
+    # auto
+    "car": "Auto", "car_repair": "Auto", "car_parts": "Auto",
+    "motorcycle": "Auto", "motorcycle_repair": "Auto",
+    "tyres": "Auto", "car_rental": "Auto", "car_wash": "Auto",
+    "fuel": "Auto", "driving_school": "Auto", "mechanic": "Auto",
+    "bicycle": "Auto",
+    # crafts (artisans)
+    "carpenter": "Artisans", "electrician": "Artisans",
+    "plumber": "Artisans", "painter": "Artisans", "tiler": "Artisans",
+    "blacksmith": "Artisans", "sawmill": "Artisans",
+    "upholsterer": "Artisans", "locksmith": "Artisans",
+    "hvac": "Artisans", "glaziery": "Artisans",
+    "metal_construction": "Artisans", "sailmaker": "Artisans",
+    "sculptor": "Artisans", "stonemason": "Artisans",
+    "shoemaker": "Artisans", "tailor": "Artisans", "watchmaker": "Artisans",
+    "winery": "Artisans", "brewery": "Artisans", "jeweller": "Artisans",
+    "photographer": "Artisans",
+    # services (offices etc.)
+    "accountant": "Services", "lawyer": "Services",
+    "insurance": "Services", "real_estate": "Services",
+    "travel_agent": "Services", "employment_agency": "Services",
+    "financial": "Services", "tax_advisor": "Services",
+    "architect": "Services", "telecommunication": "Services",
+    "laundry": "Services", "dry_cleaning": "Services",
+    "copyshop": "Services", "photo": "Services",
+    # tourism -> services
+    "hotel": "Services", "guest_house": "Services", "hostel": "Services",
+    "motel": "Services", "apartment": "Services", "chalet": "Services",
+    # leisure -> services
+    "fitness_centre": "Services", "sports_centre": "Services",
+}
+
+# everything else under shop/* not mapped above falls back to "Commerce".
+DEFAULT_FAMILY = "Commerce"
+
+QUERY = f"""
+[out:json][timeout:300];
+(
+  nwr["amenity"~"^(restaurant|cafe|bar|pub|fast_food|ice_cream|bakery|pharmacy|dentist|doctors|veterinary|car_rental|car_wash|fuel|driving_school|clinic|nightclub|biergarten)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["shop"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["craft"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["tourism"~"^(hotel|guest_house|hostel|motel|apartment|chalet)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["office"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["healthcare"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["leisure"~"^(fitness_centre|sports_centre)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+);
+out tags center;
+""".strip()
+
+
+def fetch():
+    print("[1/3] Querying Overpass (this can take 30-90s)...", flush=True)
+    data = urllib.parse.urlencode({"data": QUERY}).encode()
+    req = urllib.request.Request(OVERPASS, data=data, headers={
+        "User-Agent": "vantage-crm-prospect-builder/1.0",
+    })
+    t0 = time.time()
+    with urllib.request.urlopen(req, timeout=400) as r:
+        raw = r.read()
+    print(f"    received {len(raw)/1024:.1f} KB in {time.time()-t0:.1f}s", flush=True)
+    return json.loads(raw)
+
+
+def has_website(t):
+    for k in ("website", "contact:website", "url", "contact:url"):
+        if t.get(k):
+            return True
+    return False
+
+
+def get_phone(t):
+    for k in ("contact:phone", "phone", "contact:mobile", "mobile"):
+        if t.get(k):
+            return t[k]
+    return None
+
+
+def normalize_phone(p):
+    if not p:
+        return ""
+    p = p.split(";")[0].split(",")[0].strip()
+    p = re.sub(r"[^\d+]", "", p)
+    if p and not p.startswith("+"):
+        if p.startswith("00"):
+            p = "+" + p[2:]
+        elif p.startswith("30") and len(p) >= 12:
+            p = "+" + p
+        else:
+            # GR mobiles 69x, fixed 2x — assume Greece
+            p = "+30" + p
+    return p
+
+
+def phone_type(p):
+    # GR mobile prefixes start with +306 (e.g. 6912345678)
+    if p.startswith("+306") or p.startswith("306") or (p.startswith("6") and len(p) == 10):
+        return "mobile"
+    return "fixe"
+
+
+def family_for(t):
+    for tag in ("amenity", "shop", "craft", "tourism", "office", "healthcare", "leisure"):
+        v = t.get(tag)
+        if v and v in FAMILY_MAP:
+            return FAMILY_MAP[v], v
+    # shop fallback
+    if t.get("shop"):
+        return DEFAULT_FAMILY, t["shop"]
+    if t.get("office"):
+        return "Services", t["office"]
+    if t.get("healthcare"):
+        return "Santé", t["healthcare"]
+    return DEFAULT_FAMILY, t.get("amenity") or t.get("shop") or "other"
+
+
+def build_address(t):
+    parts = []
+    street = t.get("addr:street") or ""
+    house = t.get("addr:housenumber") or ""
+    if street:
+        parts.append((street + " " + house).strip())
+    city = t.get("addr:city") or t.get("addr:town") or t.get("addr:village") or ""
+    if city:
+        parts.append(city)
+    region = t.get("addr:province") or t.get("addr:state") or ""
+    if region:
+        parts.append(region)
+    pc = t.get("addr:postcode") or ""
+    if pc:
+        parts.append(pc)
+    return ", ".join([p for p in parts if p])
+
+
+def main():
+    js = fetch()
+    elems = js.get("elements", [])
+    print(f"[2/3] {len(elems)} raw OSM elements — filtering no-website + has-phone...", flush=True)
+
+    seen = set()
+    rows = []
+    for e in elems:
+        t = e.get("tags") or {}
+        name = t.get("name") or t.get("name:en") or t.get("name:el")
+        if not name:
+            continue
+        if has_website(t):
+            continue
+        phone = get_phone(t)
+        if not phone:
+            continue
+        # dedup by name + first 8 digits of phone
+        key = (name.strip().lower(), re.sub(r"\D", "", phone)[:8])
+        if key in seen:
+            continue
+        seen.add(key)
+
+        fam, sub = family_for(t)
+        norm = normalize_phone(phone)
+        rows.append({
+            "nom": name.strip(),
+            "numero": norm,
+            "type_tel": phone_type(norm),
+            "famille": fam,
+            "categorie": "",            # tier (A/B/C) left blank — to be enriched manually
+            "region": "Crete",
+            "adresse": build_address(t),
+            "rating": "",
+            "avis": "",
+            "vendeur": "",
+            "status": "nouveau",
+            "notes": f"OSM {sub}",
+            "blacklisted": False,
+        })
+
+    print(f"[3/3] {len(rows)} prospects with valid phone & no website", flush=True)
+
+    # CSV
+    csv_path = "prospects_crete.csv"
+    with open(csv_path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()) if rows else [
+            "nom", "numero", "type_tel", "famille", "categorie", "region",
+            "adresse", "rating", "avis", "vendeur", "status", "notes", "blacklisted",
+        ])
+        w.writeheader()
+        w.writerows(rows)
+
+    # SQL
+    sql_path = "prospects_crete.sql"
+
+    def esc(v):
+        if v is None or v == "":
+            return "NULL"
+        if isinstance(v, bool):
+            return "true" if v else "false"
+        return "'" + str(v).replace("'", "''") + "'"
+
+    with open(sql_path, "w", encoding="utf-8") as f:
+        f.write("-- Crete prospects: businesses without website, with phone\n")
+        f.write("-- Source: OpenStreetMap (Overpass API)\n")
+        f.write(f"-- Count: {len(rows)}\n\n")
+        for r in rows:
+            f.write(
+                "INSERT INTO prospects (nom, numero, type_tel, famille, categorie, "
+                "region, adresse, rating, avis, vendeur, status, notes, blacklisted) "
+                "VALUES ("
+                + ", ".join([
+                    esc(r["nom"]), esc(r["numero"]), esc(r["type_tel"]),
+                    esc(r["famille"]), esc(r["categorie"]), esc(r["region"]),
+                    esc(r["adresse"]), esc(r["rating"]), esc(r["avis"]),
+                    esc(r["vendeur"]), esc(r["status"]), esc(r["notes"]),
+                    esc(r["blacklisted"]),
+                ]) + ");\n"
+            )
+
+    # Family breakdown
+    breakdown = {}
+    for r in rows:
+        breakdown[r["famille"]] = breakdown.get(r["famille"], 0) + 1
+    print("\nBreakdown by famille:")
+    for k, v in sorted(breakdown.items(), key=lambda x: -x[1]):
+        print(f"  {k:14s} {v}")
+    print(f"\n[OK] {csv_path}  +  {sql_path}")
+
+
+if __name__ == "__main__":
+    main()
