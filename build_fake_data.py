@@ -104,7 +104,7 @@ for i, r in enumerate(rows, start=1):
         "type_tel": r["type_tel"],
         "famille": r["famille"],
         "categorie": r["categorie"] or "",
-        "region": "Crete",
+        "region": r.get("region") or "Autre",
         "vendeur": "",
         "status": "nouveau",
         "notes": r.get("notes", ""),
