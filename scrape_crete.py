@@ -18,8 +18,8 @@ import urllib.request
 
 OVERPASS = "https://overpass-api.de/api/interpreter"
 
-# Crete bounding box (south, west, north, east)
-BBOX = (34.78, 23.40, 35.74, 26.32)
+# Greece bounding box (south, west, north, east) — full country incl. islands
+BBOX = (34.70, 19.30, 41.80, 29.70)
 
 # OSM tag -> CRM "famille" mapping
 FAMILY_MAP = {
@@ -156,6 +156,18 @@ def family_for(t):
     return DEFAULT_FAMILY, t.get("amenity") or t.get("shop") or "other"
 
 
+def region_for(t):
+    """Best-effort region label from address tags + lat/lon clues."""
+    city = (t.get("addr:city") or t.get("addr:town") or t.get("addr:village")
+            or t.get("addr:suburb") or "").strip()
+    prov = (t.get("addr:province") or t.get("addr:state") or "").strip()
+    if prov:
+        return prov
+    if city:
+        return city
+    return "Grece"
+
+
 def build_address(t):
     parts = []
     street = t.get("addr:street") or ""
@@ -205,7 +217,7 @@ def main():
             "type_tel": phone_type(norm),
             "famille": fam,
             "categorie": "",            # tier (A/B/C) left blank — to be enriched manually
-            "region": "Crete",
+            "region": region_for(t),
             "adresse": build_address(t),
             "rating": "",
             "avis": "",

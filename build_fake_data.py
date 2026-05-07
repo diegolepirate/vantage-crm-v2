@@ -6,10 +6,28 @@ stats it needs to render correctly.
 import csv
 import json
 
+import random
+random.seed(42)
+
 with open("prospects_crete.csv", "r", encoding="utf-8") as f:
     rows = list(csv.DictReader(f))
 
-print(f"Loaded {len(rows)} real Crete prospects")
+print(f"Loaded {len(rows)} real prospects")
+# Cap at 15k for page-load speed while keeping full geographic coverage
+CAP = 15000
+if len(rows) > CAP:
+    # Stratified sample: keep proportional family distribution
+    by_fam = {}
+    for r in rows:
+        by_fam.setdefault(r["famille"], []).append(r)
+    sampled = []
+    for fam, group in by_fam.items():
+        n = max(1, int(round(len(group) * CAP / len(rows))))
+        random.shuffle(group)
+        sampled.extend(group[:n])
+    random.shuffle(sampled)
+    rows = sampled[:CAP]
+    print(f"Sampled down to {len(rows)} (stratified by famille)")
 
 # Map -> JS-friendly objects
 real_prospects = []
