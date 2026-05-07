@@ -14,7 +14,7 @@ with open("prospects_crete.csv", "r", encoding="utf-8") as f:
 
 print(f"Loaded {len(rows)} real prospects")
 # Cap at 15k for page-load speed while keeping full geographic coverage
-CAP = 15000
+CAP = 12000
 if len(rows) > CAP:
     # Stratified sample: keep proportional family distribution
     by_fam = {}

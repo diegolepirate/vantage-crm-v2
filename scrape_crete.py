@@ -76,16 +76,18 @@ FAMILY_MAP = {
 # everything else under shop/* not mapped above falls back to "Commerce".
 DEFAULT_FAMILY = "Commerce"
 
-QUERY = f"""
-[out:json][timeout:300];
+QUERY = """
+[out:json][timeout:600];
+// Restrict to Greece's actual administrative boundary — no neighbour spillover
+area["ISO3166-1"="GR"][admin_level=2]->.gr;
 (
-  nwr["amenity"~"^(restaurant|cafe|bar|pub|fast_food|ice_cream|bakery|pharmacy|dentist|doctors|veterinary|car_rental|car_wash|fuel|driving_school|clinic|nightclub|biergarten)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["shop"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["craft"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["tourism"~"^(hotel|guest_house|hostel|motel|apartment|chalet)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["office"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["healthcare"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
-  nwr["leisure"~"^(fitness_centre|sports_centre)$"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+  nwr["amenity"~"^(restaurant|cafe|bar|pub|fast_food|ice_cream|bakery|pharmacy|dentist|doctors|veterinary|car_rental|car_wash|fuel|driving_school|clinic|nightclub|biergarten)$"](area.gr);
+  nwr["shop"](area.gr);
+  nwr["craft"](area.gr);
+  nwr["tourism"~"^(hotel|guest_house|hostel|motel|apartment|chalet)$"](area.gr);
+  nwr["office"](area.gr);
+  nwr["healthcare"](area.gr);
+  nwr["leisure"~"^(fitness_centre|sports_centre)$"](area.gr);
 );
 out tags center;
 """.strip()
@@ -119,19 +121,31 @@ def get_phone(t):
 
 
 def normalize_phone(p):
+    """Return canonical +30NNNNNNNNNN if Greek, '' otherwise."""
     if not p:
         return ""
-    p = p.split(";")[0].split(",")[0].strip()
-    p = re.sub(r"[^\d+]", "", p)
-    if p and not p.startswith("+"):
-        if p.startswith("00"):
-            p = "+" + p[2:]
-        elif p.startswith("30") and len(p) >= 12:
-            p = "+" + p
-        else:
-            # GR mobiles 69x, fixed 2x — assume Greece
-            p = "+30" + p
-    return p
+    # Take first phone if multiple
+    p = re.split(r"[;,/]| or | & ", p)[0].strip()
+    digits = re.sub(r"[^\d+]", "", p)
+    if not digits:
+        return ""
+    # Normalise leading 00 -> +
+    if digits.startswith("00"):
+        digits = "+" + digits[2:]
+    # Reject any explicitly non-Greek country code
+    if digits.startswith("+") and not digits.startswith("+30"):
+        return ""
+    # Strip "+30" or leading "30" if present
+    if digits.startswith("+30"):
+        local = digits[3:]
+    elif digits.startswith("30") and len(digits) >= 12:
+        local = digits[2:]
+    else:
+        local = digits.lstrip("+")
+    # Greek phones are 10 digits starting with 2 (fixed) or 6 (mobile)
+    if len(local) != 10 or local[0] not in ("2", "6"):
+        return ""
+    return "+30" + local
 
 
 def phone_type(p):
@@ -203,14 +217,16 @@ def main():
         phone = get_phone(t)
         if not phone:
             continue
+        norm = normalize_phone(phone)
+        if not norm:                       # non-Greek or invalid -> drop
+            continue
         # dedup by name + first 8 digits of phone
-        key = (name.strip().lower(), re.sub(r"\D", "", phone)[:8])
+        key = (name.strip().lower(), re.sub(r"\D", "", norm)[:8])
         if key in seen:
             continue
         seen.add(key)
 
         fam, sub = family_for(t)
-        norm = normalize_phone(phone)
         rows.append({
             "nom": name.strip(),
             "numero": norm,
