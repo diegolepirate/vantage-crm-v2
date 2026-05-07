@@ -15,21 +15,19 @@
   function wp(it,w){var t=0,i;for(i=0;i<w.length;i++)t+=w[i];var r=Math.random()*t,c=0;for(i=0;i<it.length;i++){c+=w[i];if(r<=c)return it[i]}return it[it.length-1]}
   function rd(d){var x=new Date();x.setDate(x.getDate()-ri(0,d));x.setHours(ri(8,20),ri(0,59),ri(0,59));return x.toISOString()}
 
-  // Hydrate real prospects with realistic timeline + status mix
+  // Fresh leads: every prospect starts as "nouveau" (à contacter) — never called.
   var P = REAL_PROSPECTS.map(function(p){
-    var st = wp(ST, SW);
-    var v  = st === 'nouveau' ? (Math.random() > 0.7 ? pk(VD) : '') : pk(VD);
-    var cr = rd(120);
+    var cr = rd(15);
     return Object.assign({}, p, {
-      status: st,
-      vendeur: v,
-      notes: p.notes || pk(NT),
+      status: 'nouveau',
+      vendeur: '',
+      notes: p.notes || '',
       created_at: cr,
       updated_at: cr,
-      last_called_at: st !== 'nouveau' ? rd(30) : null,
-      total_calls: st === 'nouveau' ? 0 : ri(1, 12),
-      call_duration_total: st === 'nouveau' ? 0 : ri(30, 900),
-      call_date: st !== 'nouveau' ? rd(14) : null
+      last_called_at: null,
+      total_calls: 0,
+      call_duration_total: 0,
+      call_date: null
     });
   });
 

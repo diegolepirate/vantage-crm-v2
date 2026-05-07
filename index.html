@@ -1263,10 +1263,11 @@ class MockQuery{
       var col=this._orderCol,asc=this._orderAsc;
       result.sort(function(a,b){var va=a[col]||'',vb=b[col]||'';return va<vb?(asc?-1:1):va>vb?(asc?1:-1):0});
     }
+    // Compute count BEFORE pagination (matches real Supabase behaviour:
+    // count='exact' returns total matching rows, ignoring limit/range).
+    var count=this._countMode?result.length:null;
     if(this._rangeFrom!==null){result=result.slice(this._rangeFrom,this._rangeTo+1)}
     if(this._limitN!==null)result=result.slice(0,this._limitN);
-
-    var count=this._countMode?result.length:null;
 
     if(this._selectFields){
       var fields=this._selectFields;
