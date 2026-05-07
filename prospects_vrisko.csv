@@ -1,0 +1,911 @@
+nom,numero,type_tel,famille,categorie,region,adresse,rating,avis,vendeur,status,notes,blacklisted
+ΒΙΒΛΙΟΘΗΚΗ - ΠΑΝΤΕΛΗΣ ΙΩΑΝΝΙΔΗΣ ΕΠΕ,+302103637897,fixe,Restauration,,Αθήνα,"Πλατεία Φιλικής Εταιρίας 18Α, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+UNION,+302103680015,fixe,Restauration,,Αθήνα,"Διδότου 5, Αθήνα - Κολωνάκι, 10680, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BARAONDA - ΕΥΑΓΓΕΛΟΣ ΧΟΥΛΙΑΡΑΣ ΨΥΧΑΓΩΓΙΚΗ ΕΕ,+302106444308,fixe,Restauration,,Αθήνα,"Τσόχα Αν. 43, Αθήνα - Αμπελόκηποι, 11521, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+GB ROOF GARDEN - ΕΛΛΗΝΙΚΑ ΞΕΝΟΔΟΧΕΙΑ ΛΑΜΨΑ ΑΕ,+302103330000,fixe,Restauration,,Αθήνα,"Βασιλέως Γεωργίου Α 1, Εντός Ξενοδοχείου Grande Bretagne, Αθήνα - Πλατεία Συντάγματος, 10564, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+DAMA KOUPA - Α ΚΛΩΣΣΑΣ ΚΑΙ ΣΙΑ ΕΕ,+302103478592,fixe,Restauration,,Αθήνα,"Ακάμαντος 3, Αθήνα - Θησείο, 11851, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+METAPHOR - ΤΖΙΝΤΖΕΡ ΜΟΝΟΠΡΟΣΩΠΗ ΕΠΕ,+302106451169,fixe,Restauration,,Αθήνα,"Δορυλαίου 10-12, Αθήνα - Πλατεία Μαβίλη, 11521, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+COULEUR LOCALE - UNITED HOSPITALITY ALLIANCES UHA,+302167004917,fixe,Restauration,,Αθήνα,"Νορμανού 3, Εντός Στοάς, Αθήνα - Μοναστηράκι, 10555, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BY THE GLASS - ΦΩΤΕΙΝΗ ΠΑΝΤΖΙΑ ΚΑΙ ΣΙΑ ΟΕ,+302103232560,fixe,Restauration,,Αθήνα,"Σουρή Γ. 3, Στοά Ράλλη, Αθήνα, 10557, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ILISSIA - Ρ ΖΙΝΖΑΛΙΑΣ ΚΑΙ ΣΙΑ ΕΕ,+302110120441,fixe,Restauration,,Αθήνα,"Βασιλίσσης Σοφίας 22, Εντός Βυζαντινού και Χριστανικού Μουσείου, Αθήνα, 10675, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+Ο ΓΙΑΝΝΗΣ - Χ ΠΑΡΑΣΚΕΥΟΥΔΗ ΧΡ ΝΤΙΚΑΣ ΟΕ,+302108657524,fixe,Restauration,,Αθήνα,"Αχαρνών 258, Αθήνα - Άγιος Νικόλαος, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ZOE'S PREMIUM LATTERIA (Μπαντούκας Παναγιώτης),+302130344023,fixe,Restauration,,Αθήνα,"Ακαδημίας 37 & Ομήρου, Αθήνα, 10672, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+PARA SIEMPRE (Τσαπράλης Σωτήριος),+302107210155,fixe,Restauration,,Αθήνα,"Χάριτος 43, Αθήνα - Κολωνάκι, 10676, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΨΩΜΙ ΚΑΙ ΕΛΙΑ ΕΠΕ,+302107217884,fixe,Restauration,,Αθήνα,"Μερκούρη Σπύρου 19, Αθήνα, 11634, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΟΞO ΝΟΥ (Μανωλαράκη Μαρίνα Δ.),+302103801778,fixe,Restauration,,Αθήνα,"Μπενάκη Εμμανουήλ 63-65, Αθήνα - Εξάρχεια, 10681, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΑΜΒΡΟΣΙΑ,+302107278000,fixe,Restauration,,Αθήνα,"Μιχαλακοπούλου 50, Εντός Ξενοδοχείου Crowne Plaza Athens City Centre, Αθήνα - Ιλίσια, 11528, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΠΑΪΡΑΚΤΑΡΗΣ ΣΙΓΑΛΑΣ - ΜΠΑΪΡΑΚΤΑΡΗ ΑΔΕΛΦΟΙ ΤΟΥΡΙΣΤΙΚΕΣ ΤΕΧΝΙΚΕΣ ΒΙΟΜΗΧΑΝΙΚΕΣ ΕΜΠΟΡΙΚΕΣ ΚΑΙ ΓΕΩΡΓΙΚΕΣ ΕΠΙΧΕΙΡΗΣΕΙΣ ΑΕ,+302103220201,fixe,Restauration,,Αθήνα,"Πλατεία Μοναστηρακίου 2, Αθήνα, 10555, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+TRATTORIA ITALIA D'ONOFRIO (Ιωακειμίδης Ονούφριος Δ.),+302107252003,fixe,Restauration,,Αθήνα,"Βαρνούντος 6, Πλατεία Ελπίδος, Αθήνα - Φιλοπάππου, 11741, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MASK - MARVI CAFE IKE,+302103314676,fixe,Restauration,,Αθήνα,"Καλαμιώτου 16-18 & Ευαγγελιστρίας 33, Αθήνα - Πλατεία Αγίας Ειρήνης, 10560, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΑΡΑΔΟΣΙΑΚΟ (Χριστόπουλος Γεώργιος Π.),+302106421787,fixe,Restauration,,Αθήνα,"Πουλίου 8, Αθήνα - Αμπελόκηποι, 11523, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ATHENE - ΤΟΥΡΙΣΤΙΚΕΣ ΕΠΙΧΕΙΡΗΣΕΙΣ ΒΑΡΚΙΖΑΣ ΑΕ,+302103251430,fixe,Restauration,,Αθήνα,"Βουκουρεστίου 9 & Πανεπιστημίου, Αθήνα - Κολωνάκι, 10564, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MYSTIC PIZZA AND PASTA (Ανανιάδης Χαράλαμπος Π.),+302103839500,fixe,Restauration,,Αθήνα,"Μπενάκη Εμμανουήλ 76, Αθήνα - Εξάρχεια, 10681, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΠΑΔΑΚΗΣ - Μ ΜΑΝΩΛΑΚΗΣ ΚΑΙ ΣΙΑ ΕΕ,+302103608621,fixe,Restauration,,Αθήνα,"Βουκουρεστίου 47 & Φωκυλίδου 15, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+SKY LOUNGE ROOFTOP DINING BAR,+302103320100,fixe,Restauration,,Αθήνα,"Χαλκοκονδύλη 14 & 28ης Οκτωβρίου, Εντός Ξενοδοχείου Melia Athens, Αθήνα - Πλατεία Κάνιγγος, 10677, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MELIKRINI,+302155458787,fixe,Restauration,,Αθήνα,"Ασκληπιού 14, Αθήνα, 10680, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+SIMUL,+302107224737,fixe,Restauration,,Αθήνα,"Υψηλάντου 63, Αθήνα - Κολωνάκι, 11521, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+Φ2 ΚΑΦΕΜΑΓΕΙΡΑΣ - ΦΡΑΓΚΙΑΔΑΚΗΣ ΕΜΜΑΝΟΥΗΛ ΚΑΙ ΝΙΚΟΛΑΟΣ ΟΕ,+302105131745,fixe,Restauration,,Αθήνα,"Μύλων 11-13, Αθήνα - Κολωνός, 10444, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+COLONAKI TOPS (Κοροβέσης Περικλής Γ.),+302103638253,fixe,Restauration,,Αθήνα,"Πλατεία Φιλικής Εταιρίας 8, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+RED DOOR (Σουρλίγκας Χρήστος Δ.),+302103647712,fixe,Restauration,,Αθήνα,"Τσακάλωφ 6, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+COSMOPOLITAN (Δοϊρανλής Θεόδωρος),+302316007575,fixe,Restauration,,Θεσσαλονίκη,"Αριστοτέλους 1, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+SKY BAR - ΞΕΝΟΔΟΧΕΙΑ ΧΑΝΔΡΗΣ ΕΛΛΑΣ ΑΕ,+302310017000,fixe,Restauration,,Θεσσαλονίκη,"26ης Οκτωβρίου 48, Εντός Ξενοδοχείου The Met Hotel, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΕΣΣΕΡΑ ΠΙΠΕΡΙΑ - Α ΜΠΑΓΙΩΤΑΣ Γ ΜΑΣΛΑΡΙΝΟΣ ΟΕ,+302311826086,fixe,Restauration,,Θεσσαλονίκη,"Διογένους 29, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+FAMIGLIANO - ΓΕΥΣΤΙΚΕΣ ΔΙΑΔΡΟΜΕΣ ΕΠΕ,+302316008188,fixe,Restauration,,Θεσσαλονίκη,"Στρατηγού Τσιρογιάννη 5, Θεσσαλονίκη, 54621, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΑΡΓΟΦΑΓΕΙΟ (Κατσαντώνης Ιωάννης),+302310221755,fixe,Restauration,,Θεσσαλονίκη,"Απελλού 6, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΣΑΤΕΜΠΟ - ALFA AE,+302310246660,fixe,Restauration,,Θεσσαλονίκη,"Βιζύης Βύζαντος 3, Θεσσαλονίκη, 54636, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΠΙΝΑΚΟΘΗΚΗ ΜΩΡΩΝ,+302310264706,fixe,Restauration,,Θεσσαλονίκη,"Μελά Παύλου 17, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+FRAGKON CUISINE,+302310510033,fixe,Restauration,,Θεσσαλονίκη,"Φράγκων 3, Θεσσαλονίκη, 54626, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΣΟΥΠΕΣ ΠΑΤΣΑΣ 92 - ΑΝΔΡΕΑΣ ΜΠΑΛΛΗΣ ΚΑΙ ΣΙΑ ΟΕ,+302310314530,fixe,Restauration,,Θεσσαλονίκη,"25ης Μαρτίου 92, Θεσσαλονίκη - Χαριλάου, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+SEROS,+302310549090,fixe,Restauration,,Θεσσαλονίκη,"Μοναστηρίου 305-307, Εντός του Ξενοδοχείου Grand Hotel Palace, Θεσσαλονίκη, 54628, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΣΙΒΗΡΙΑ (Πόντρουσνιακ Τιμούρ),+302313006216,fixe,Restauration,,Θεσσαλονίκη,"Ιουστινιανού 12, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΟΙΝΟΜΑΓΕΙΡΕΙΟ (Τζήκας Θεμιστοκλής Χ.),+302310543191,fixe,Restauration,,Θεσσαλονίκη,"Παναγίας Φανερωμένης 43, Θεσσαλονίκη, 54632, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+REDIVIVA CUCINA POVERA - ΑΓΡΟΔΙΑΙΤΟΣ ΝΕΦΟΪΠΤΑΜΕΝΟΣ ΚΟΙΝΣΕΠ,+302313067400,fixe,Restauration,,Θεσσαλονίκη,"Παπαδοπούλου Αλεξάνδρας 70, Θεσσαλονίκη - Τσινάρι, 54633, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑΠΕΡΑΚΙ - ΕΞΑΙΡΕΤΙΚΗ ΓΑΣΤΡΟΝΟΜΙΑ ΘΕΣΣΑΛΟΝΙΚΗΣ ΙΚΕ,+302310826476,fixe,Restauration,,Θεσσαλονίκη,"Μεγάλου Αλεξάνδρου Λεωφ. 47, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΣΥΝΤΡΟΦΗ,+302310540260,fixe,Restauration,,Θεσσαλονίκη,"Δόξης 9, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+COQ AU ZEN (Βογιατζή Ειρήνη Ι.),+302310520119,fixe,Restauration,,Θεσσαλονίκη,"Βαλαωρίτη Αριστοτέλη 37, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΧΡΥΣΟ ΠΑΓΩΝΙ - ΤΣΑΡΟΥΧΙΔΟΥ ΚΑΙ ΣΙΑ ΟΕ,+302310265338,fixe,Restauration,,Θεσσαλονίκη,"Σβώλου Αλεξάνδρου 42, Θεσσαλονίκη, 54621, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MIA FETA FETA BAR - ΚΟΥΡΕΛΛΑΣ ΑΕ,+302310221120,fixe,Restauration,,Θεσσαλονίκη,"Μελά Παύλου 14, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑ ΜΠΑΚΑΛΙΑΡΑΚΙΑ ΤΟΥ ΑΡΙΣΤΟΥ - Δ ΚΑΙ Ν ΚΕΡΑΝΙΔΗΣ ΟΕ,+302310567111,fixe,Restauration,,Θεσσαλονίκη,"Ναυάρχου Κουντουριώτου 6 & Φωκαίας, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+3 ΚΑΙ Ο ΚΟΥΚΟΣ,+302315513255,fixe,Restauration,,Θεσσαλονίκη,"Φωτάκου 3, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΛΗΜΕΡΙ - ΓΚΟΓΚΟΣ ΑΘΑΝΑΣΙΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302310207407,fixe,Restauration,,Θεσσαλονίκη,"Μοιράρχου Κουφίτσα 3 & Ολύμπου 116, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΕΣΤΙΑΤΟΡΙΟ ΒΗΤΑ - ΚΟΝΙΟΡΔΟΥ ΧΡΥΣΑ ΚΑΙ ΣΙΑ ΟΕ,+302310421601,fixe,Restauration,,Θεσσαλονίκη,"Κοσμίδη Παντελή 4, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΨΑΡΟΚΑΤΑΣΤΑΣΗ ΣΤΗ ΦΡΙΤΕΖΑ - ΚΑΡΑΜΠΟΥΡΝΙΩΤΗΣ ΧΑΡΑΛΑΜΠΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302310900960,fixe,Restauration,,Θεσσαλονίκη,"Μικράς Ασίας 30, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΓΕΙΡΙΟ ΤΟ ΕΛΛΗΝΙΚΟΝ,+302311874255,fixe,Restauration,,Θεσσαλονίκη,"Διαγόρα 50, Θεσσαλονίκη - Τούμπα, 54351, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑ ΚΟΥΜΠΑΡΑΚΙΑ - ΒΕΤΤΑΣ ΧΡΗΣΤΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302310271905,fixe,Restauration,,Θεσσαλονίκη,"Εγνατία 140, Θεσσαλονίκη - Καμάρα, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΓΛΥΚΙΑ ΣΥΜΜΟΡΙΑ - ΠΑΠΑΓΕΩΡΓΙΟΥ Σ ΜΙΧΑΗΛΙΔΗΣ Γ ΟΕ,+302310260204,fixe,Restauration,,Θεσσαλονίκη,"Ζαλίκη Γρηγορίου 1, Όπισθεν Καραβάν Σαράϊ, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MAMA 'S TAPER (Σέμου Ελευθερία Σ.),+302310242524,fixe,Restauration,,Θεσσαλονίκη,"Κλεισούρας 11, Θεσσαλονίκη - Πλατεία Αριστοτέλους, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BLACKLIME - SV BLACKLIME ΙΚΕ,+302310260197,fixe,Restauration,,Θεσσαλονίκη,"Τσιμισκή 24 & Μητροπόλεως 31-33, Εντός Notos Galleries, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+Π 22 (Δήμου Νικολέττα Θ.),+302310244520,fixe,Restauration,,Θεσσαλονίκη,"Παλαιών Πατρών Γερμανού 22, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΛΙΑ ΑΘΗΝΑ (Γεωργακάκης Εμμανουήλ),+302310925810,fixe,Restauration,,Θεσσαλονίκη,"Ίμβρου 24, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+MAKARONINO (Τσατσούλης Πέτρος Δ.),+302310260653,fixe,Restauration,,Θεσσαλονίκη,"Προξένου Κορομηλά Λάμπρου 15, Θεσσαλονίκη, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+LET IT BE - LEKOSGROUP ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302310225577,fixe,Restauration,,Θεσσαλονίκη,"Αγίας Σοφίας 31, Θεσσαλονίκη, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΙΚΡΑΚΙ (Βούλγαρης Αντώνιος Γ.),+302310270517,fixe,Restauration,,Θεσσαλονίκη,"Προξένου Κορομηλά 2, Θεσσαλονίκη, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+THE COOKS CORNER,+302310928171,fixe,Restauration,,Θεσσαλονίκη,"Παπάφη Ιωάννη 156, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΙΩΑΝΝΙΔΗΣ ΓΕΩΡΓΙΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302310548248,fixe,Restauration,,Θεσσαλονίκη,"Γυμνασιάρχου Μυστακίδη 30, Θεσσαλονίκη - Χαριλάου, 54250, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+LET EAT BE - LEKOSGROUP ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302310515858,fixe,Restauration,,Θεσσαλονίκη,"Δωδεκανήσου 17, Θεσσαλονίκη, 54626, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΔΙΑ ΤΑΥΤΑ - ΚΟΓΙΟΣ ΚΥΡΑΝΑ ΚΑΙ ΣΙΑ ΟΕ,+302310260384,fixe,Restauration,,Θεσσαλονίκη,"Βατικιώτου 6-8, Θεσσαλονίκη - Πλατεία Άθωνος, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΗΕΑVEN'S SUSHI BAR,+302311261335,fixe,Restauration,,Θεσσαλονίκη,"Μελενίκου Κωνσταντίνου 13, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΠΑΡΜΠΑΛΕΞΗΣ - ΠΑΠΑΒΑΣΙΛΕΙΟΥ Α ΚΑΙ ΣΙΑ ΕΕ,+302310501313,fixe,Restauration,,Θεσσαλονίκη,"Λέοντος Σοφού 2 & Δωδεκανήσου, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΕΛΛΑΔΙΤΙΚΟ (Μπαρμπαλέξης Στυλιανός Α.),+302310816118,fixe,Restauration,,Θεσσαλονίκη,"Βασιλέως Γεωργίου 39, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+COOKFLIX - ΤΖΑΒΕΛΛΑΣ ΗΛΙΑΣ ΙΚΕ,+302310821531,fixe,Restauration,,Θεσσαλονίκη,"Κρήτης 34, Θεσσαλονίκη, 54645, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+HOT POT (Εσκιτζιάν Αράμ Α.),+302314007160,fixe,Restauration,,Θεσσαλονίκη,"Γιαννιτσών 61, Εντός Εμπορικού Κέντρου One Salonica, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΙΑ ΟΛΙΑ ΡΑΚΗ (Ρουμπίδης Στέφανος Π.),+302315556860,fixe,Restauration,,Θεσσαλονίκη,"Βόγα Κίμωνος 33 & Κατάκαλου 2, Θεσσαλονίκη - Νέα Παραλία, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+NEGROPONTE (Παπαδήμος Ιάκωβος),+302310523571,fixe,Restauration,,Θεσσαλονίκη,"Αιγύπτου 24 & Κατούνη 21, Θεσσαλονίκη - Λαδάδικα, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+HEMINGWAY (Κοασίδης Νικόλαος Β.),+302310281620,fixe,Restauration,,Θεσσαλονίκη,"Σβώλου Αλεξάνδρου 19, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+KAZAVITI (Ευαγγελίδης Γεώργιος),+302310553141,fixe,Restauration,,Θεσσαλονίκη,"Κατούνη 9, Θεσσαλονίκη - Λαδάδικα, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+VILLA BIANCA,+302314006444,fixe,Restauration,,Θεσσαλονίκη,"Βασιλίσσης Όλγας 180 & Σοφούλη Θεμιστοκλή, Ημιυπόγειο, Θεσσαλονίκη - Ντεπώ, 54646, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΝΤΑΝΓΚΑΡΑ (Τσοτάκης Χαράλαμπος Β.),+302310204452,fixe,Restauration,,Θεσσαλονίκη,"Αρμενοπούλου 26 & Πλατεία Αγίου Γεωργίου 7, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+DAISI (Σουλχανίδου Νατέλα Λ.),+302310271593,fixe,Restauration,,Θεσσαλονίκη,"Ολύμπου 75, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΣΕΡΡΑΪΚΟΝ (Χαλισιάνης Ιωάννης Α.),+302310849783,fixe,Restauration,,Θεσσαλονίκη,"Κωνσταντινουπόλεως 86, Έναντι Ιπποκρατείου, Θεσσαλονίκη, 54642, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+CASABLANCA SOCIAL CLUB - ΛΕΥΚΗ ΒΙΛΑ ΙΚΕ,+302311243609,fixe,Restauration,,Θεσσαλονίκη,"Λεωφόρος Βασιλίσσης Όλγας 18, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+VOUKAKRATO (Τσομπανίδης Νικόλαος Ι.),+302310220059,fixe,Restauration,,Θεσσαλονίκη,"Καλαποθάκη 6-8, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΡΑΜΥΘΙΑ ΤΟΥ ΔΡΟΜΟΥ (Γιαννούλα Σωτηρία Ε.),+302310814104,fixe,Restauration,,Θεσσαλονίκη,"Κωνσταντινουπόλεως 38, Θεσσαλονίκη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ROSTICCERIA (Parisi Gaetano),+302310206830,fixe,Restauration,,Θεσσαλονίκη,"Αρμενοπούλου 27, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+Ο ΓΥΡΟΣ ΤΗΣ ΕΛΛΑΔΟΣ - Ο ΓΥΡΟΣ ΤΗΣ ΕΛΛΑΔΟΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302315557427,fixe,Restauration,,Θεσσαλονίκη,"Βαφοπούλου 27, Θεσσαλονίκη, 54646, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΟΔΥΣΣΕΑΣ (Φραντζάνα Μερσίνα Χ.),+302310204326,fixe,Restauration,,Θεσσαλονίκη,"Κασσάνδρου 141 & Κλεισθένους, Θεσσαλονίκη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΓΕΙΡΕΣ ΕΛΛΗΝΙΚΑ ΕΣΤΙΑΤΟΡΙΑ ΙΚΕ,+302310264417,fixe,Restauration,,Θεσσαλονίκη,"Βασιλέως Ηρακλείου 42, Θεσσαλονίκη, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BAZAAR - Χ ΔΑΣΚΑΛΟΠΟΥΛΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302310241817,fixe,Restauration,,Θεσσαλονίκη,"Παπαμάρκου 34-36, Θεσσαλονίκη - Πλατεία Άθωνος, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΦΥΣΑΛΙΔΑ,+302310566009,fixe,Restauration,,Θεσσαλονίκη,"Παγγαίου 4, Θεσσαλονίκη - Λαδάδικα, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΑΚΑΔΗΜΙΑ ART RESTAURANT (Marko Elvis I.),+302310521803,fixe,Restauration,,Θεσσαλονίκη,"Αγίου Μηνά 3, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+PANAS HOLDING ΑΕ,+302310250959,fixe,Restauration,,Θεσσαλονίκη,"Βενιζέλου Ελευθερίου 23, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΤΑΨΙ ΤΗΣ ΜΑΜΑΣ (Σάχνο Τατιάνα),+302310989000,fixe,Restauration,,Θεσσαλονίκη,"Απόλλωνος 15, Θεσσαλονίκη - Κάτω Τούμπα, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+SALUMERIA DEL GRECO ΙΚΕ,+302310272988,fixe,Restauration,,Θεσσαλονίκη,"Ολύμπου 82, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΜΟΥΡΓΑ (Λουκάκης Ιωάννης),+302310268826,fixe,Restauration,,Θεσσαλονίκη,"Χριστοπούλου 12, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΕΛΙΑ ΛΕΜΟΝΙ - ΕΛΙΑ ΛΕΜΟΝΙ ΓΑΣΤΡΟΝΟΜΙΑ ΘΕΣΣΑΛΟΝΙΚΗΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302310888558,fixe,Restauration,,Θεσσαλονίκη,"Μπότσαρη Μάρκου 19Α, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BROTHERS IN LAW (Καντεράκη Ειρήνη Π.),+302310270707,fixe,Restauration,,Θεσσαλονίκη,"Μελά Παύλου 30, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+BRUSCO ΜΕΖΕ (Νάσρο Φάρες Χ.),+302310202828,fixe,Restauration,,Θεσσαλονίκη,"Πολυδώρου 61, Θεσσαλονίκη - Άνω Πόλη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+NARGIS - ΚΑΜΑΡΗΣ ΔΙΟΓΕΝΗΣ KAI ΣΙΑ ΕΕ,+302310228502,fixe,Restauration,,Θεσσαλονίκη,"Καπετάν Πατρίκη 18 & Σβώλου Αλεξάνδρου 21, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΕΛΙΑ ΛΕΜΟΝΙ - ΜΠΑΚΑΛ (Κατσούνη Αποστολία Χ.),+302313075500,fixe,Restauration,,Θεσσαλονίκη,"Καποδιστρίου 9 & Βαλαωρίτου Αριστοτέλη 38, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ERGON - ΑΓΟΡΑ ΤΡΟΦΙΜΩΝ ΙΚΕ,+302310288008,fixe,Restauration,,Θεσσαλονίκη,"Μελά Παύλου 42, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑΚΗΣ (Τσιακουρίδης Στυλιανός Σ.),+302310814607,fixe,Restauration,,Θεσσαλονίκη,"Βασιλίσσης Όλγας 6, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΒΡΕΓΜΕΝΗ ΓΑΤΑ - ΓΕΥΣΤΙΚΑ ΤΑΞΙΔΙΑ ΕΕ,+302310909999,fixe,Restauration,,Θεσσαλονίκη,"Απόλλωνος 4, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+CIVIL,+302610221414,fixe,Restauration,,Πάτρα,"Ρήγα Φεραίου 48 & κολοκοτρωνη, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+Η ΚΑΤΣΑΡΟΛΑ ΤΗΣ ΤΟΥΛΑΣ - ΚΩΝΣΤΑΝΤΑΤΟΥ ΑΦΟΙ ΟΕ,+302610271555,fixe,Restauration,,Πάτρα,"Ρήγα Φεραίου 49, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΨΑΘΑ - ΣΕΓΓΑΣ ΑΝΑΣΤΑΣΟΠΟΥΛΟΣ ΟΕ,+302610240073,fixe,Restauration,,Πάτρα,"Πλατεία Ομονοίας 13, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΥΘΡΑ (Κουτσομπελίτης Νικόλαος Ι.),+302610422006,fixe,Restauration,,Πάτρα,"Πανεπιστημίου 449 & Διγενή Ακρίτα, Πάτρα - Μποζαΐτικα, 26443, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΠΗΡΟΥΝΙ (Παναγιωτόπουλος Θεοφάνης Π.),+302613019223,fixe,Restauration,,Πάτρα,"Κανακάρη 233 & Τριών Ναυάρχων 55, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΟΛΑ ΣΤΟ ΤΑΨΙ,+302615503100,fixe,Restauration,,Πάτρα,"Κορίνθου 340, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΡΟΚΦΟΡ (Αμπατζίδης Τηλέμαχος Ι.),+302610009606,fixe,Restauration,,Πάτρα,"Τριών Ναυάρχων 60, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+MASSAROOM,+302610240280,fixe,Restauration,,Πάτρα,"Αγίου Ανδρέα 92 & Πατρέως, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΑΝΤΟΠΩΛΕΙΟ (Σακκάς Ιωάννης Γ.),+302610225928,fixe,Restauration,,Πάτρα,"Δανιηλίδος 37Α, Πάτρα, 26331, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+Η ΚΟΥΖΙΝΑ ΤΗΣ ΝΤΙΝΑΣ (Lumshi Rudina T.),+302610317193,fixe,Restauration,,Πάτρα,"Τριών Ναυάρχων 74-76, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΥΛΟΣ ΠΕΤΡΙΝΟ - ΜΠΑΛΑΣΟΠΟΥΛΟΣ ΑΘΑΝΑΣΙΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302610998450,fixe,Restauration,,Πάτρα,"Σελλά, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΦΑΓΙΟΥΜ (Νικολαΐδης Αμφικτύων Γ.),+302610270557,fixe,Restauration,,Πάτρα,"Ρούφου Βασιλείου 7, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+TERRA BISTRO (Κολοκυθάς Αναστάσιος Γ.),+302610313000,fixe,Restauration,,Πάτρα,"Ρήγα Φεραίου 152 & Κανάρη Κωνσταντίνου, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΦΑΕΙΝΟΝ (Σάκια Εγιόνα Ι.),+302610462033,fixe,Restauration,,Πάτρα,"Κωνσταντινουπόλεως 91, Πάτρα, 26223, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΔΙΔΥΜΟΙ (Κοντού Ευαγγελία Ε.),+302610432029,fixe,Restauration,,Πάτρα,"Κωνσταντινουπόλεως 28Α & Εγνατίας, Πάτρα, 26223, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΟΙ ΠΥΛΕΣ ΤΩΝ ΓΕΥΣΕΩΝ (Σπύρος Ηλίας),+302610310129,fixe,Restauration,,Πάτρα,"Υψηλών Αλωνιών 14, Πάτρα, 26224, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+SALTIE - SALTIE ΟΕ,+302611812988,fixe,Restauration,,Πάτρα,"Ακρωτηρίου 103, Πάτρα, 26334, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΚΑΝΤΖΟΧΟΙΡΟΣ (Αθανασόπουλος Κωνσταντίνος Γ.),+302610433693,fixe,Restauration,,Πάτρα,"Ηρώων Πολυτεχνείου 76, Πάτρα, 26442, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+BEETLE,+302616007203,fixe,Restauration,,Πάτρα,"Φιλοποίμενος 48, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΕΛΕΝΙΑ (Αργυροπούλου Κωνσταντίνα Δ.),+302611811922,fixe,Restauration,,Πάτρα,"Ερμού 117 & Ηφαίστου, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΑΛΑΜΑΡΑΚΙΑ Ο ΠΕΤΡΟΣ - ΔΙΓΓΕΛΟΠΟΥΛΟΣ Κ ΚΑΙ ΣΙΑ ΟΕ,+302610425102,fixe,Restauration,,Πάτρα,"Αώου 50, Πάτρα, 26442, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+BODEGAS (Ανδριόπουλος Ελευθέριος),+302610221113,fixe,Restauration,,Πάτρα,"Ρήγα Φεραίου 147, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+KITCHEN GRILL (Kraja Leonora F.),+302610451308,fixe,Restauration,,Πάτρα,"Ηρώων Πολυτεχνείου 58, Πάτρα, 26441, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΠΕΝΑΝΤΙ ΑΠΟ ΤΟ ΩΔΕΙΟ (Χαντζή Σοφία Ν.),+302610621004,fixe,Restauration,,Πάτρα,"Σωτηριάδου 27 & Παλαιών Πατρών Γερμανού, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+SALUMERIA (Μπίκινης Γεώργιος Ι.),+302610225930,fixe,Restauration,,Πάτρα,"Παντανάσσης 27, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΧΑΝΤΡΕΣ (Θεοδωρόπουλος Κωνσταντίνος Α.),+302610273184,fixe,Restauration,,Πάτρα,"Παρθενίου 19, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΔΩΝΙΣ (Μαυροκέφαλος Ελευθέριος),+302610333567,fixe,Restauration,,Πάτρα,"Πλατεία Υψηλών Αλωνίων 13Α, Πάτρα, 26224, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+LA LILA (Χασαποπούλου Έλλη),+302611104270,fixe,Restauration,,Πάτρα,"Ρήγα Φεραίου 155, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΟΦΡΙΤΟ,+302610421000,fixe,Restauration,,Πάτρα,"Νοταρά 60Α, Πάτρα, 26442, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΜΑΓΕΙΡΕΙΟΝ - ΕΛΛΗΝΩΝ ΓΕΥΣΕΙΣ (Κουρής Ιωάννης Φ.),+302610277675,fixe,Restauration,,Πάτρα,"Πλατεία Ομονοίας 30 & Γούναρη Δημητρίου 138, Πάτρα, 26224, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΥΡΙΑΚΟΣ ΒΕΡΡΑ ΓΕΥΣΕΙΣ (Μπαζάρογλου Κυριάκος Λ.),+302614004242,fixe,Restauration,,Πάτρα,"Ερμού 71, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΜΕΓΑΛΟ ΜΑΣ ΤΣΙΡΚΟ - ΑΣΤΙΚΟΣ ΣΥΝΕΤΑΙΡΙΣΜΟΣ Η ΑΚΡΟΒΑΣΙΑ ΣΥΝΠΕ,+302610312110,fixe,Restauration,,Πάτρα,"Αρχιεπισκόπου Κυρίλλου 14, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+TESSERA BISTROT - 4 ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302610220160,fixe,Restauration,,Πάτρα,"Πατρέως 69Α, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+PEPPER KITCHEN BAR (Βανδώρος Ανδρέας),+302610272987,fixe,Restauration,,Πάτρα,"Πουκεβίλ 5, Πάτρα, 26223, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+KEBABA (Ibrahim Deyako Ali A.),+302610220024,fixe,Restauration,,Πάτρα,"Παντανάσσης 77, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΥΡΙΑΚΟΣ ΒΕΡΡΑ ΓΕΥΣΕΙΣ (Μπαζάρογλου Κυριάκος Λ.),+302610331032,fixe,Restauration,,Πάτρα,"Αγίου Ιωάννου Πράτσικα 60-62 & Σαριπόλου, Πάτρα, 26333, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+TOMO'S OPEN KITCHEN BAR (Τομοποσίδης Γεώργιος Α.),+302610311141,fixe,Restauration,,Πάτρα,"Σαχτούρη 77, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΘΥΜΑΡΙ (Γιαννακόπουλος Ιωάννης),+302610525555,fixe,Restauration,,Πάτρα,"Ακρωτηρίου 337, Πάτρα, 26332, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΡΟΥΦΑ - ΣΥΝΕΡΓΑΤΙΚΟ ΜΑΓΕΙΡΕΙΟ ΙΚΕ,+302610623717,fixe,Restauration,,Πάτρα,"Πατρέως 83, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+PAPA DOPOULOS ΚΡΑΣΟΠΟΤΗΡΑΚΙ ΕΕ,+302610223699,fixe,Restauration,,Πάτρα,"Ερμού 108, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΑΓΙΑΝΑ,+302611810380,fixe,Restauration,,Πάτρα,"Νέα Εθνική Οδός Πατρών - Αθηνών 142, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΟΜΠΑΤΣΙΑΡΗ ΑΦΟΙ ΑΕ,+302610328345,fixe,Restauration,,Πάτρα,"Μεγάλου Αλεξάνδρου 1, Εντός ΑΤΕΙ, Πάτρα - Κουκούλι, 26333, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+MULTI STAR,+302610420084,fixe,Restauration,,Πάτρα,"Αώου 8, Πλησίον Delfini Hotel, Πάτρα - Τερψιθέα, 26442, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΜΑΛΙΑ (Πάσχου Λαμπρινή Γ.),+302610220294,fixe,Restauration,,Πάτρα,"Οθωνος - Αμαλίας 84, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΪΣΤΡΑΛΙ - ΑΛΕΞΑΝΔΡΟΠΟΥΛΟΙ ΑΦΟΙ Π ΟΕ,+302610931086,fixe,Restauration,,Πάτρα,"Ροδινή, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΣΑΣΟΥΡΑΣ (Παπανικολοπούλου Σοφία Δ.),+302610327070,fixe,Restauration,,Πάτρα,"Πατρών - Κλάους 91, Πάτρα, 26335, ΑΧΑΪΑΣ",,,,nouveau,Vrisko restaurant,False
+HERB'S GARDEN,+302810334971,fixe,Restauration,,Ηράκλειο,"Επιμενίδου 15, Εντός Ξενοδοχείου Lato Boutique, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+VENETO - ΒΑΚΧΟΣ ΑΕ,+302810223686,fixe,Restauration,,Ηράκλειο,"Επιμενίδου 9, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΓΙΑΚΟΥΜΗΣ (Γεωργαλής Ιωάννης Γ),+302810284039,fixe,Restauration,,Ηράκλειο,"Αρχιμανδρίτου Θεοδοσάκη Φωτίου 8 & Έβανς, Ηράκλειο, 71201, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+THE HOME (Αρετάκης Λεωνίδας Μ.),+302810811455,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία, Εντός Ξενοδοχείου Irini Hotel - Apartments, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΜΕΡΑΣΤΡΙ - Χ ΝΤΑΓΙΑΝΤΑΣ Α ΣΚΟΥΛΑ Ε ΣΥΓΓΕΛΑΚΗΣ ΟΕ,+302810221910,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Χρυσοστόμου 17, Ηράκλειο, 71306, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+AKTH MYKONAKI IKE,+302810762010,fixe,Restauration,,Ηράκλειο,"Χάνι Κοκκίνη, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΡΟΔΙ (Καραλή Νικολέττα Δ.),+302102714192,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Ηρακλείου 375, Νέο Ηράκλειο, 14122, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΞΕΡΟΛΙΘΙΑ ΚΑΙ ΕΛΙΑ - ΔΗΜΟΠΟΥΛΟΣ ΛΑΔΟΥΚΑΚΗΣ ΟΕ,+302810763193,fixe,Restauration,,Ηράκλειο,"Χάνι Κοκκίνη, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΜΠΑΛΤΑΣ - ΒΑΡΓΙΑΚΑΚΗΣ ΝΙΚΟΛΑΟΣ ΚΑΙ ΜΙΧΑΗΛ ΟΕ,+302810282356,fixe,Restauration,,Ηράκλειο,"Βενιζέλου Ελευθερίου 12, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΓΙΟΜΑ,+302810254034,fixe,Restauration,,Ηράκλειο,"Μερκούρη Μελίνας 39, Ηράκλειο - Μασταμπάς, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΣΠΟΡΑ,+302810232425,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Παπανδρέου Γεώργιου 64 & Λεωφόρος Ιωνίας 11, Ηράκλειο, 71306, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΔΗΜΗΤΡΙΟΥ (Δημητρίου Ιωάννης Δ.),+302102830500,fixe,Restauration,,Ηράκλειο,"Πολυτεχνείου 2, Νέο Ηράκλειο, 14122, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+IV LEONIS - HI AND IV LIONS ΑΕ,+302810286400,fixe,Restauration,,Ηράκλειο,"Ίδης 6, Ηράκλειο - Πλατεία Βενιζέλου Ελευθερίου, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΑΡΙΣΜΑΡΙ ΚΑΙ ΒΑΡΣΑΜΟ (Παχιαδάκη Ιωάννα Γ.),+302810300670,fixe,Restauration,,Ηράκλειο,"Καλοκαιρινού Λυσιμάχου 10, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΣΠΙΤΙΚΕΣ ΑΠΟΛΑΥΣΕΙΣ (Πετράκη Δημητρία Ε.),+302815103040,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Παπαναστασίου 94, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+PIAZZA PASTARELLA - Κ ΚΑΡΑΝΤΙΝΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302810252348,fixe,Restauration,,Ηράκλειο,"Καλοκαιρινού Λυσ. 9, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ALMI - ΓΡΑΜΜΑΤΙΚΑΚΗΣ ΟΕ,+302811813517,fixe,Restauration,,Ηράκλειο,"Μεραμβέλου 4Β, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΑΥΡΑ (Μαραγκάκης Δράκος Μ.),+302810220044,fixe,Restauration,,Ηράκλειο,"25ης Αυγούστου 4, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΠΕΣΚΕΣΙ (Μιχαλίτση Μαρία Β.),+302810288887,fixe,Restauration,,Ηράκλειο,"Καπετάν Χαραλάμπη 6-8, Πλησίον ΟΤΕ, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+SIMPLY BURGERS,+302152155683,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Ηρακλείου 357, Νέο Ηράκλειο, 14122, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+ΑΝΤΙΠΟΔΑΣ (Πιτσικάκης Ιωάννης Γ.),+302810343236,fixe,Restauration,,Ηράκλειο,"Κοραή Αδαμαντίου 13, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΑΘΑΛΗ - ΑΘΑΛΗ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302815200012,fixe,Restauration,,Ηράκλειο,"Κυδωνίας 15 & Καπετάν Χαραλάμπη, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+Ο ΜΑΓΟΣ - ΜΑΔΑΡΙΩΤΑΚΗΣ ΙΩΑΝΝΗΣ ΜΑΔΑΡΙΩΤΑΚΗΣ ΓΕΩΡΓΙΟΣ ΟΕ,+302810227850,fixe,Restauration,,Ηράκλειο,"Μιλάτου 6 & Μεραμπέλου, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+IL PAZZO - ΛΑΖΑΡΟΥ Α ΜΗΛΙΟΣ Π ΛΑΖΑΡΟΥ Π ΟΕ,+302810301838,fixe,Restauration,,Ηράκλειο,"Θεοτοκοπούλου Δομήνικου 26, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΜΑΓΕΙΡΕΥΟΝΤΑΣ ΜΕ ΑΓΑΠΗ (Σταθοπούλου Σοφία),+302810335119,fixe,Restauration,,Ηράκλειο,"Κορωναίου 21, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΕΝ ΠΛΩ - ΑΓΓΕΛΟΣ ΑΝΑΓΝΩΣΤΟΥ ΚΑΙ ΣΙΑ ΕΕ,+302810333338,fixe,Restauration,,Ηράκλειο,"Σπανάκη Στεργίου & Αιγαίου, Ηράκλειο, 71307, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΜΑΝΤΑΛΕΝΙΟΣ (Μαυρούδη Αγγελική),+302810284726,fixe,Restauration,,Ηράκλειο,"Μάχης Κρήτης 41, Ηράκλειο, 71303, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΙΠΠΟΚΑΜΠΟΣ - ΜΑΡΙΝΑΚΗΣ ΜΙΧΑΗΛ ΚΑΙ ΑΛΕΞΑΝΔΡΟΣ ΟΕ,+302810280240,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Βενιζέλου Σοφοκλή 3, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΥΠΑΡΙΣΣΙ (Σωμαράκης Ιωάννης Σ.),+302810871451,fixe,Restauration,,Ηράκλειο,"Κυπάρισσος, Προς Προφήτη Ηλία, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΟΤΟΝΟΣΤΙΜΙΕΣ ΟΠΩΣ ΠΑΛΙΑ (Ταμπουρατζής Ιωάννης Δ.),+302810390688,fixe,Restauration,,Ηράκλειο,"Μονής Οδηγήτριας 21, Ηράκλειο, 71201, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+EL TORO (Αρετάκης Λεωνίδας Μ.),+302810245688,fixe,Restauration,,Ηράκλειο,"Περδικάρη 3, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΟΥΖΙΝΑ - FOUR FOOD ΕΠΕ,+302810373000,fixe,Restauration,,Ηράκλειο,"Βενιζέλου Σοφοκλή 109, Ηράκλειο, 71303, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΒΟΥΡΒΟΥΛΑΔΙΚΟ - ΜΑΝΔΑΛΕΝΑΚΗΣ ΒΕΡΙΓΟΥ ΕΕ,+302810335323,fixe,Restauration,,Ηράκλειο,"Μονής Καρδιωτίσσης 71 & Ταξιάρχου Μαρκοπούλου 50, Ηράκλειο, 71201, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+Η ΒΑΡΔΙΑ (Τσικνάκης Θεόδωρος Κ.),+302810301513,fixe,Restauration,,Ηράκλειο,"Κτίριο Λιμεναρχείου, Ηράκλειο - Λιμάνι, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΟΤΟΝΕΟΝ,+302810232239,fixe,Restauration,,Ηράκλειο,"Δημοκρατίας 20 & Παπανδρέου Γεωργίου, Ηράκλειο, 71306, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+THE KIRIAKOS - ΚΑΝΑΤΕΛΙΑΣ ΜΙΧΑΛΗΣ ΚΑΙ ΣΤΕΦΑΝΟΣ ΟΕ,+302810222464,fixe,Restauration,,Ηράκλειο,"Δημοκρατίας 53, Ηράκλειο, 71306, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΑΝΑΤΕΛΙΑΣ - ΚΑΝΑΤΕΛΙΑΣ ΚΥΡΙΑΚΟΣ ΚΑΙ ΕΜΜΑΝΟΥΗΛ ΟΕ,+302810285770,fixe,Restauration,,Ηράκλειο,"Άρθουρ Έβανς 32 & Τσικριτζή, Ηράκλειο, 71201, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ND LYGARIA - ND LYGARIA TRAVEL SERVICES ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302810814089,fixe,Restauration,,Ηράκλειο,"Λυγαριά, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+SOCRATES (Καλογεράκης Εμμανουήλ),+302810811669,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία & ΤΘ 101, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+BRILLANT GOURMET,+302810334959,fixe,Restauration,,Ηράκλειο,"Επιμενίδου 15, Ηράκλειο, 71202, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+EL GRECO - ΚΟΥΤΕΝΤΑΚΗΣ Μ ΚΑΙ Α ΟΕ,+302810812080,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+YAMAS - ΑΠΟΣΤΟΛΑΚΗ Μ Ε ΑΞΕΤΕ,+302810811186,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία, Εντός Ξενοδοχείου Eva Mare, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΚΟΜΒΟΣ (Παπουτσάκης Δημήτριος Ι.),+302810316999,fixe,Restauration,,Ηράκλειο,"Παρλαμά Μενελάου 8, Ηράκλειο, 71304, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΑΦΡΟΨΑΡΟ (Αποστολίδου Γεωργία Μαρία Α.),+302102723000,fixe,Restauration,,Ηράκλειο,"Αντύπα Μαρίνου 62-66, Νέο Ηράκλειο, 14121, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko restaurant,False
+KALAMAKI MEAT BAR - Κ ΚΑΙ Μ ΕΛΛΗΝΙΚΑ ΕΣΤΙΑΤΟΡΙΑ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302810322322,fixe,Restauration,,Ηράκλειο,"Λεωφόρος Κνωσού 93, Ηράκλειο, 71307, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+ΑΚΡΟΠΟΛΙΣ - ΚΛΗΡΟΝΟΜΟΣ ΙΩΑΝΝΗΣ ΟΕ,+302810811632,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+KASAOULIO (Κοκοσαλάκης Γεώργιος Σ.),+302810262666,fixe,Restauration,,Ηράκλειο,"Λεωφόρος 62 Μαρτύρων 248, Ηράκλειο, 71303, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+SYMPOSIUM (Γιγουρτάκης Θεόκλητος Ε.),+302810811578,fixe,Restauration,,Ηράκλειο,"Αγία Πελαγία, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko restaurant,False
+KOI SUSHI BAR (Καραγεζίδη Άννα Τ.),+302821070278,fixe,Restauration,,Χανιά,"Κισσάμου 69, Χανιά, 73136, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+Ο ΘΑΝΟΣ (Μακρανδρέου Αθανάσιος Ι.),+302266071269,fixe,Restauration,,Χανιά,"Χάνια, Ερατεινή, 33058, ΦΩΚΙΔΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΟΥΣΕΣ - Κ ΜΕΛΙΣΣΙΝΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302821057073,fixe,Restauration,,Χανιά,"Πλατεία Ελευθερίου Βενιζέλου 18 & Κανεβάρου 2, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΓΑΛΗΝΗ (Arenbergerova Tereza L.),+306934347841,mobile,Restauration,,Χανιά,"Ακτή Κουντουριώτου 43, Χανιά - Λιμάνι, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+GIAKODIM (Chis Monika V.),+302821075555,fixe,Restauration,,Χανιά,"Κόρακα Μιχαήλ 24, Χανιά, 73135, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΟΙΝΟΠΟΙΕΙΟ (Μπιτσάκης Εμμανουήλ Α.),+302821059204,fixe,Restauration,,Χανιά,"Χατζημιχάλη Νταλιάνη 46, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΑΤΣΑΣ ΑΓΝΟΣ (Μαρμαριτσάκης Σταμάτιος Σ.),+302821044183,fixe,Restauration,,Χανιά,"Σφακιανάκη Κωνσταντίνου 4, Χανιά, 73135, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΙΧΕΛΑΣ (Μιχελάκης Εμμανουήλ Α.),+306985898867,mobile,Restauration,,Χανιά,"Δημοτική Αγορά 49-51, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΘΡΟΥΜΠΙ ΣΤΗ ΛΑΔΟΚΟΛΛΑ - ΜΙΚΕΛΑΤΟΣ Α ΦΡΑΝΤΖΕΣΚΟΣ Μ ΟΕ,+302821028175,fixe,Restauration,,Χανιά,"Νταλιάνη Χατζημιχάλη 74-76, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΜΑΡΙΔΑΚΙ - ΛΙΟΝΑΚΗΣ ΝΕΚΤΑΡΙΟΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302821008880,fixe,Restauration,,Χανιά,"Δασκαλογιάννη 33 & Σαρπάκη Καλλινίκου, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΙΝΕΑΚ (Τσάνταλη Κυριακή Β.),+302821506533,fixe,Restauration,,Χανιά,"Αποκορώνου 119, Χανιά, 73134, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΡΙΖΕΣ - ΜΠΑΛΗΣ ΑΠΟΣΤΟΛΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302821097129,fixe,Restauration,,Χανιά,"Κόρακα Μιχαήλ 21, Χανιά, 73135, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΡΙΣΜΑΡΙ,+302821074419,fixe,Restauration,,Χανιά,"Ακτή Κουντουριώτου 55, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΦΑΓΗΤΟ ΤΗΣ ΖΩΗΣ (Δασκαλάκης Στυλιανός Α),+302821044911,fixe,Restauration,,Χανιά,"Κισσάμου 93, Χανιά, 73136, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+BARRAKI (Τσιμογιάννης Αθανάσιος Π.),+306974935967,mobile,Restauration,,Χανιά,"Δρακοντοπούλων 3, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+CARTE POSTALE - ΜΠΟΖΩΝΑΚΗΣ ΚΑΙ ΣΙΑ ΟΕ (Νικολακάκης Ματθαίος),+302821111486,fixe,Restauration,,Χανιά,"Καλορίζικου Μιχαήλ 2, Χανιά, 73133, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+SUNSET,+302821039277,fixe,Restauration,,Χανιά,"Χωραφάκια, Χανιά, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΕΣΤΙΑΤΟΡΙΑ ΧΑΝΙΩΝ ΑΕ,+302821028330,fixe,Restauration,,Χανιά,"Χατζημιχάλη Γιάνναρη 64, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+PASTA AL MANO,+302821088887,fixe,Restauration,,Χανιά,"Πλατεία 1866 35, Χανιά, 73136, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΡΑΣΙΝΟ ΜΑΤΙ (Καμπέρης Κωνσταντίνος Κ.),+302821044150,fixe,Restauration,,Χανιά,"Αγίων Δέκα 25, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΚΑΛΑΜΑΚΙ - Μ ΜΙΧΕΛΑΚΗΣ ΚΑΙ ΣΙΑ ΕΕ,+302821033100,fixe,Restauration,,Χανιά,"Χανιά, Χανιά - Καλαμάκι, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΕΣΟΣΤΡΑΤΟ (Σπερελάκη Σταυρούλα Κ.),+302821072873,fixe,Restauration,,Χανιά,"Ζαμπελίου 37, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+MON ES - MONASTERY ESTATE CHANIA ΞΟΝΟΔΟΧΕΙΑΚΗ ΑΕ,+302821052129,fixe,Restauration,,Χανιά,"4η Πάροδος Σαρπάκη Καλλίνικου 40-42, Εντός του Ξενοδοχείου Monastery Estate Chania, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+SEMIRAMIS - ΑΠΟΣΤΟΛΑΚΗΣ ΠΑΤΕΡΑΚΗΣ ΟΕ,+302821098650,fixe,Restauration,,Χανιά,"Σκούφων 8, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΚΟΥΖΙΝΑ ΕΠΕ,+302821042391,fixe,Restauration,,Χανιά,"Δασκαλογιάννη 25, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+KAPARI - ΘΕΟΔΩΡΑΚΗΣ ΕΥΤΥΧΙΟΣ ΔΙΓΕΝΑΚΗΣ ΗΛΙΑΣ ΟΕ,+302821075003,fixe,Restauration,,Χανιά,"Ζυμβρακάκηδων 10, Χανιά, 73136, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΠΛΕ - ΗΛΙΑΚΗΣ ΚΑΝΔΑΡΑΚΗΣ ΟΕ,+302821059198,fixe,Restauration,,Χανιά,"Βενιζέλου Ελευθερίου 142, Χανιά, 73133, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΛΑΤΕΙΑ - ΚΑΜΗΛΑΚΗΣ ΚΑΙ ΣΙΑ ΟΕ,+302821040846,fixe,Restauration,,Χανιά,"Σουρμελή 32, Χανιά - Παλιό Λιμάνι, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ACHINIOS - ΕΜΜΑΝΟΥΗΛ ΔΙΓΕΝΑΚΗΣ ΚΑΙ ΣΙΑ ΕΕ,+302821088361,fixe,Restauration,,Χανιά,"Ακτή Παπανικολή Δημητρίου 14, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΛΑΓΑΝΟΝ (Βιδάκη Μαρία),+302821114808,fixe,Restauration,,Χανιά,"Δασκαλογιάννη 69, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+STOU PISSA (Πισσαδάκη Στελλάνθη Σ.),+306972887583,mobile,Restauration,,Χανιά,"Δημοτική Αγορά 58, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+Η ΚΟΥΖΙΝΑ ΤΗΣ ΜΑΜΑΣ - ΜΠΟΥΧΛΗ Ε ΜΑΝΩΛΕΔΑΚΗΣ Γ ΟΕ,+302821045120,fixe,Restauration,,Χανιά,"Χαλέπας 8, Χανιά, 73133, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΚΑΪΚΙ ΕΕ,+302821094466,fixe,Restauration,,Χανιά,"Ακτή Παπανικολή 5, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+AVOCADO,+302821600399,fixe,Restauration,,Χανιά,"Παπανδρέου Ανδρέα 72, Χανιά, 73134, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+OLIVIA'S - ΡΟΥΜΠΟΥ NILSEN ΟΕ,+302821084558,fixe,Restauration,,Χανιά,"Αγια Μαρίνα, Χανιά, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+COLOMBO (Φραγάκης Μιλτιάδης Μ.),+302821044310,fixe,Restauration,,Χανιά,"Εισοδίων 17-19, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΥΣΤΙΚΕΣ ΓΕΥΣΕΙΣ (Βασιλάκης Γεώργιος Ε.),+302821305654,fixe,Restauration,,Χανιά,"Κόρακα 24, Χανιά, 73135, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+Ο ΘΟΛΟΣ (Πυροβολάκης Χαράλαμπος Ε.),+302821046725,fixe,Restauration,,Χανιά,"Αγίων Δέκα 36, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΤΗΣ ΑΝΝΑΣ (Χαμηλάκης Πέτρος Ι.),+306973893619,mobile,Restauration,,Χανιά,"Χατζημιχάλη Νταλιάνη 21, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+9 ΜΠΟΦΟΡ (Κουρνιδάκης Σταύρος Σ.),+302821071527,fixe,Restauration,,Χανιά,"Σκίννερ 39, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΕΝΕΤΙΚΟΝ (Νικολαΐδης Γεώργιος Θ.),+302821088270,fixe,Restauration,,Χανιά,"Ζαμπελίου Σπυρίδωνος 57, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΗΓΑΔΙ ΤΟΥ ΤΟΥΡΚΟΥ (Μανουσαρίδου Ελίνα),+302821054547,fixe,Restauration,,Χανιά,"2η Πάροδος Σαρπάκη Καλλίνικου, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+MIRAI CITY - ΚΟΚΟΛΟΔΗΜΗΤΡΑΚΗΣ - ΒΑΡΟΥΞΑΚΗΣ ΕΠΕ,+302821040261,fixe,Restauration,,Χανιά,"Τσουδερών 83 & Χατζημιχάλη Νταγιάνη 11, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΝΤΟΥΝΙΑΣ (Τριλυράκης Στυλιανός Ι.),+302821065083,fixe,Restauration,,Χανιά,"Δράκονα Κυδωνίας, Χανιά, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΕΣΤΙΑΤΟΡΙΑ ΧΑΝΙΩΝ ΑΕ,+302821027750,fixe,Restauration,,Χανιά,"Χατζημιχάλη Γιάνναρη 62, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΑΪΑΜΙ,+302821020000,fixe,Restauration,,Χανιά,"Ακτή Μιαούλη Ανδρέα & Μεσολογγίου, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+AMPHORA - ΤΣΟΥΡΟΥΝΑΚΗΣ ΑΝΤΩΝΙΟΣ ΜΟΝΟΠΡΟΣΩΠΗ ΕΠΕ,+302821071976,fixe,Restauration,,Χανιά,"2η Πάροδος Θεοτοκοπούλου 20, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+IRIDA,+302821032261,fixe,Restauration,,Χανιά,"Χανιά, Χανιά - Καλαμάκι, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+LOTTOS (Μανιουδάκης Ιωάννης Β.),+302821060212,fixe,Restauration,,Χανιά,"Χανιά, Χανιά - Αγία Μαρίνα, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+MOTSARELLA DINER - ΣΚΑΛΙΔΑΚΗΣ ΣΤΑΥΡΟΣ ΕΕ,+302821056200,fixe,Restauration,,Χανιά,"Ηρώων Πολυτεχνείου 16, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΦΙΛΙΠΠΟΣ (Ματρακας Φίλιππος Θ.),+302821032240,fixe,Restauration,,Χανιά,"Νεάρχου, Χανιά - Άγιοι Απόστολοι, 73134, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+KARIATIS - ΚΑΡΑΠΑΤΑΚΗΣ ΙΩΑΝΝΗΣ ΚΑΙ ΣΙΑ ΟΕ,+302821055600,fixe,Restauration,,Χανιά,"Πλατεία Κατεχάκη 12, Χανιά, 73132, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+ΝΤΟΜΑΤΕΣ - ΕΣΤΙΑΣΗ ΕΝΕΤΙΚΟΥ ΛΙΜΑΝΙΟΥ ΕΕ,+302821405192,fixe,Restauration,,Χανιά,"Ακτή Κουντουριώτη 33, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+WOODSTOCK - ΚΑΤΡΑΤΖΟΓΛΟΥ ΓΕΩΡΓΙΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302821095772,fixe,Restauration,,Χανιά,"Ακτή Παπανικολή 2, Χανιά, 73131, ΧΑΝΙΩΝ",,,,nouveau,Vrisko restaurant,False
+DIMITRIS GARDEN (Σιμών Μιχαήλ Τ.),+302244031302,fixe,Restauration,,Ρόδος,"Λίνδος, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΟΥΖΟΚΑΜΩΜΑΤΑ (Μιαούλης Μιχαήλ Ε.),+302241062467,fixe,Restauration,,Ρόδος,"6ο χλμ Λεωφόρου Ρόδου - Καλλιθέας, Κοσκινού, 85150, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΡΧΟΝΤΙΚΟ ΔΗΜΗΤΡΗΣ (Θεοχάρης Δημήτριος Γ.),+302241038708,fixe,Restauration,,Ρόδος,"Σωκράτους 147, Ρόδος - Παλαιά Πόλη, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+Ο ΜΙΧΑΛΗΣ (Μοσχούς Αναστασία Μ.),+302241051387,fixe,Restauration,,Ρόδος,"Περνού 125, Αφάντου, 85103, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΣΠΡΟ (Γρηγορίου Στέφανος Δ.),+302241085107,fixe,Restauration,,Ρόδος,"Εντός Ξενοδοχείου Beach Break, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+BELMO PALACE (Μωραΐτη Ανθούλα),+302241025251,fixe,Restauration,,Ρόδος,"Δραγούμη Ίωνος 44 & 28ης Οκτωβρίου, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+MEDITERRANEO RISTORANTE ITALIANO (Michielon Marco M.),+302241076076,fixe,Restauration,,Ρόδος,"Στρατηγού Γρίβα 104, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΧΡΥΣΗ ΟΛΥΜΠΙΑΔΑ - ΠΕΡΙΔΗΣ ΙΩΑΝΝΗΣ ΑΕ,+302241020119,fixe,Restauration,,Ρόδος,"Ευδήμου 8-10 & Απελλού, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PATTY'S LOUNGE CAFE (Πανοπούλου Πατρίτσια Η.),+302241098103,fixe,Restauration,,Ρόδος,"Τέρμα Φερενίκης 28, Ιαλυσός, 85101, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PEPOS COOKERY (Ντινόρη Δέσποινα Ε.),+302241772865,fixe,Restauration,,Ρόδος,"Κόμβος - Όπισθεν Μεραρχίας, Κοσκινού - Αγγελή, 85150, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ZORBAS FAMILY RESTAURANT (Πετριδενας Νικόλαος Π.),+302241095225,fixe,Restauration,,Ρόδος,"Ποσειδώνος 3, Ιαλυσός, 85101, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+EVI EVAN RHODES (Κατσίκας Ευάγγελος),+302241082413,fixe,Restauration,,Ρόδος,"Δαματριά, Παραδείσι, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+TIMI'S PLACE (Ευθυμίου Ευθύμιος Χ.),+302244031539,fixe,Restauration,,Ρόδος,"Ακροπόλεως 191, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+Μαρουλάκης Νικόλαος Ε.,+302246041215,fixe,Restauration,,Ρόδος,"Έμπωνας, Έμπωνας, 85108, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΑΓΡΙΝΟ - Ζ ΙΩΑΚΕΙΜ ΚΑΙ ΣΙΑ ΟΕ,+302241031111,fixe,Restauration,,Ρόδος,"Τσαλδάρη Κωνσταντίνου 37, Ρόδος, 85133, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+STEFANY'S (Τσολάκος Θωμάς Ι.),+302244031656,fixe,Restauration,,Ρόδος,"Λίνδος, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+OVELIX (Χατζηαλεξίου Αλέξανδρος Χ.),+302241074210,fixe,Restauration,,Ρόδος,"Στρατηγού Γρίβα 57, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΣΑΜΠΙΚΟΣ (Φιλιππάκη Κωνσταντίνα Τ.),+302241085334,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+MEMFIS BBQ GRILL (Νικολάου - Χαΐρη Μαρία Ι.),+302241029530,fixe,Restauration,,Ρόδος,"Ιατρού Παπανικολάου Γεωργίου 21, Έναντι Καζίνου, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PAN AND VINO,+302241038755,fixe,Restauration,,Ρόδος,"Υπολοχαγού Διάκου Αλεξάνδρου 7, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΑΣΑΣΟΥΡΑ (Καράλλας Εμμανουήλ Σ.),+302241048109,fixe,Restauration,,Ρόδος,"28ης Οκτωβρίου, Μαριτσά, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+MATEO (Ballolli Astrit),+302241113509,fixe,Restauration,,Ρόδος,"Θεμιστοκλέους 1-3, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΝΤΙΝΟΣ (Αργύρης Νικόλαος Ν.),+302241031820,fixe,Restauration,,Ρόδος,"Δημοκρίτου 7-9, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΕΛΑΙ (Χατζησταμάτα Μιράντα),+302241042069,fixe,Restauration,,Ρόδος,"1ο χλμ Λεωφόρου Σορωνής - Διμυλιάς, Σορωνή, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+AT THOMAS (Σαρούκου Ανθούλα Σ.),+302241030806,fixe,Restauration,,Ρόδος,"Κισθινίου & Θησέως, Ρόδος, 85100, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+LINDOS GARDEN - ΓΚΙΑΤΑ ΜΑΡΙΟΥΣ ΚΑΙ ΣΙΑ ΕΕ,+302241302578,fixe,Restauration,,Ρόδος,"Ιπποδάμου 9-11, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PLIMIRI (Κωνσταντινίδης Αντώνιος Σ.),+302244046003,fixe,Restauration,,Ρόδος,"Γεννάδι, Γεννάδι - Πλημμύρι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ZEBRANO ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302241077125,fixe,Restauration,,Ρόδος,"Πλατεία Μεγάλου Αλεξάνδρου 1, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+YANNIS RESTAURANT (Μπαλάσκας Ιωάννης Μ.),+302241036535,fixe,Restauration,,Ρόδος,"Πλάτωνος 41, Ρόδος - Παλιά Πόλη, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+OPSARION - ΚΩΣΤΟΠΟΥΛΟΣ ΠΑΠΑΝΙΚΟΛΑΟΥ ΟΕ,+302241086510,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΛΕΞΗΣ,+302241029347,fixe,Restauration,,Ρόδος,"Σωκράτους 18, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΛΑΔΙΚΟ - ΠΕΛΛΟΥ Α ΤΣΕΛΙΟΥ Β ΟΕ (Βαγιανός Μιχαήλ),+302241085482,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι - Λαδικό, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ELYSEE (Τατάκης Ιωάννης Ε.),+302241075586,fixe,Restauration,,Ρόδος,"Ηρακλειδών 108, Ιαλυσός - Ιξιά, 85101, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+DEBBYS,+302241093600,fixe,Restauration,,Ρόδος,"Βενιζέλου Ελευθερίου, Ιαλυσός, 85101, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΓΙΩΡΓΟΣ ΚΑΙ ΜΑΡΙΑ ART OF FALAFEL (Ζούμπερης Γεώργιος Α.),+302241022282,fixe,Restauration,,Ρόδος,"Μανδηλαρά Νικηφόρου 16, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΝΘΟΚΗΠΟΣ - ΑΦΟΙ ΣΤΕΡΓΕΝΑΚΗ Γ ΔΟΥΛΟΣ ΟΕ,+302241071700,fixe,Restauration,,Ρόδος,"Πλατεία Ελευθερίας 7, Κρεμαστή, 85104, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+TERPSIS (Ιωαννίδης Ευάγγελος Α.),+302244048140,fixe,Restauration,,Ρόδος,"Πεύκοι, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+CASTELLAN (Χατζηγεωργίου Μαριάνθη Ι.),+302241085551,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΚΑΛΑΜΑΚΙ (Νικολίτσης Ελευθέριος Β.),+302241040242,fixe,Restauration,,Ρόδος,"Φάνες, Παραδείσι, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΔΗΜΗΤΡΑ (Γαλατάς Εμμανουήλ Μ.),+302241085058,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PHILIP'S (Καμπούρης Σταμάτιος),+302241090366,fixe,Restauration,,Ρόδος,"Βενιζέλου Ελευθερίου 18, Ιαλυσός, 85101, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+KONSTANTIN (Γεωργίου Εμμανουήλ Κ.),+302244032211,fixe,Restauration,,Ρόδος,"Κάλαθος, Αρχάγγελος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+GATTO BIANCO (Αντωνίου Δήμητρα Α.),+302244031704,fixe,Restauration,,Ρόδος,"Λίνδος, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΒΥΖΑΝΤΙΝΟ (Ζησιμάτος Μιχαήλ Γ.),+302244033056,fixe,Restauration,,Ρόδος,"Λίνδος, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+RUSTICO - ΠΑΝΤΗΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302241073400,fixe,Restauration,,Ρόδος,"Ιπποδάμου 3-5, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΕΤΡΙΝΟ (Καραολάνης Νικόλαος),+306987094745,mobile,Restauration,,Ρόδος,"Αρχάγγελος, Αρχάγγελος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΡΟΔΙ ΙΚΕ,+302241022246,fixe,Restauration,,Ρόδος,"Μενεκλέους 20, Παλαιά Πόλη, 85150, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+STEFANOS FAMILY (Τριαντενού Γεωργία Σ.),+302244031508,fixe,Restauration,,Ρόδος,"Κάλαθος, Αρχάγγελος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+NAVAL (Αννίνου Σοφία Ν.),+302241030005,fixe,Restauration,,Ρόδος,"Αυστραλίας 1, Ρόδος - Νέα Μαρίνα, 85132, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+DELIGHT (Αναστασιάδης Εμμανουήλ Γ.),+302244031677,fixe,Restauration,,Ρόδος,"Λίνδος, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ELENA (Κέλογλου Μιχαήλ Κ.),+302241041821,fixe,Restauration,,Ρόδος,"Σορωνή, Σορωνή - Παραλία, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+SEA HARMONY (Τόππος Τσαμπίκος Ν.),+302244032128,fixe,Restauration,,Ρόδος,"Κάλαθος, Αρχάγγελος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΜΑΛΙΑ - ΚΑΝΑΡΗΣ ΑΕ,+302244061365,fixe,Restauration,,Ρόδος,"Απολακκιά, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΝΟΣΤΑΛΓΙΑ,+302244048008,fixe,Restauration,,Ρόδος,"Πεύκοι, Εντός του Ξενοδοχείου Pefkos Beach, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΒΟΡΙΝΟ (Ρουμελιώτης Βασίλειος Κ.),+302241050244,fixe,Restauration,,Ρόδος,"Ψίνθος, Ρόδος, 85150, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+OSTRIA (Καπισίκης Μιχαήλ Γ.),+302244033011,fixe,Restauration,,Ρόδος,"Κάλαθος, Αρχάγγελος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΕΣΣΕΡΙΣ ΡΟΔΙΕΣ - Σ Χ ΔΙΑΚΟΠΕΣ ΟΕ,+302241130214,fixe,Restauration,,Ρόδος,"Καναδά 29 & Κολοκοτρώνη, Ρόδος, 85132, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΑΛΙΟ ΣΠΙΤΙ (Ηλιακόπουλος Παναγιώτης Μ.),+302241076699,fixe,Restauration,,Ρόδος,"20ο χλμ Ρόδου - Λίνδου, Αφάντου, 85103, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΟΥΡΕΛΛΑ (Σακελλάρη Χριστίνα Α.),+302244047324,fixe,Restauration,,Ρόδος,"Γεννάδι, Γεννάδι - Κιοτάρι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+CASA IL BORGO ΕΕ,+302241033981,fixe,Restauration,,Ρόδος,"Αμερικής 111, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΑΚΡΟΓΙΑΛΙ (Μαρουλλάκη Βασιλεία),+302241114429,fixe,Restauration,,Ρόδος,"Καλαβάρδα, Παραδείσι, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΓΙΑΡΕΝΗΣ (Μιχαλάκης Χρήστος Δ.),+302246091323,fixe,Restauration,,Ρόδος,"Απόλλωνα, Παραδείσι, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΡΟΑΥΛΙΟ - ΜΠΟΣΜΟΥ ΧΡΗΣΤΟΣ ΗΛΙΑΣ ΚΑΙ ΣΙΑ ΟΕ,+302241024980,fixe,Restauration,,Ρόδος,"Ηρώων Πολυτεχνείου 34 & 28ης Οκτωβρίου, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΥΓΟΥΣΤΙΝΟΣ (Jakaj Agostino M.),+302241021777,fixe,Restauration,,Ρόδος,"Βενιζέλου Σοφοκλή 52-54, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+PLAZA,+302241043411,fixe,Restauration,,Ρόδος,"Ιερού Λόχου 7, Εντός Ξενοδοχείου Best Western Plaza Hotel, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+SOUL KITCHEN,+302241306830,fixe,Restauration,,Ρόδος,"Λεμεσού 34, Ρόδος, 85133, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+LAMBI'S (Σταματάκης Χαράλαμπος Φ.),+302244048074,fixe,Restauration,,Ρόδος,"Αρχάγγελος, Αρχάγγελος - Πεύκος, 85102, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+JAMAICA - ΑΦΟΙ ΣΤΑΤΙΟΥ ΟΕ,+302241085221,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+LIGHT HOUSE (Γιαννά Θεμελίνα),+302244091071,fixe,Restauration,,Ρόδος,"Πρασονήσι, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+HIDDEN GARDEN,+302241051189,fixe,Restauration,,Ρόδος,"18ο χλμ Ρόδου - Λίνδου, Αφάντου, 85103, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ENIGMA (Πισσάκας Μιχαήλ Π.),+302244048210,fixe,Restauration,,Ρόδος,"Πεύκοι, Λίνδος, 85107, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+SPOZA LOUNGE BAR AND RESTAURANT (Μακιάρης Εμμανουήλ),+302244043557,fixe,Restauration,,Ρόδος,"Γεννάδι, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+CACTUS (Καφεντζή Μοσχούλα Γ.),+302241085053,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+Η ΚΟΥΖΙΝΑ ΤΗΣ ΜΑΜΑΣ (Μαμμωνά Άννα Ν.),+302244043547,fixe,Restauration,,Ρόδος,"Γεννάδι, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+Ο ΓΙΑΝΝΗΣ (Μουστάκης Γιάννης),+302241033393,fixe,Restauration,,Ρόδος,"Σοφούλη Θεμιστοκλή 130, Ρόδος, 85133, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+LA STRADA (Χρυσαφίνα Ελένη Ε.),+302244047112,fixe,Restauration,,Ρόδος,"Γεννάδι, Γεννάδι - Κιοτάρι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΑΝΩΛΗΣ (Στάτουλλας Εμμανουήλ Μ.),+302244061267,fixe,Restauration,,Ρόδος,"Απολακκιά, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+TRAVERSO (Χατζηβαλσάμης Ευάγγελος Δ.),+302241075443,fixe,Restauration,,Ρόδος,"Ορφανίδου 1, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΛΑΤΑΝΟΣ (Χριστοδούλου Εμμανουήλ Μ.),+302244046027,fixe,Restauration,,Ρόδος,"Λαχανιά, Γεννάδι, 85109, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+RHODES SPORT BAR AND FOOD,+302241076088,fixe,Restauration,,Ρόδος,"Κανελλοπούλου 10, Ρόδος, 85132, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+GRANDE MAGISTER (Κουδούνης Ελευθέριος Ι.),+302241092033,fixe,Restauration,,Ρόδος,"Ελευθερίας 92, Κρεμαστή, 85104, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+STEVE (Μοσχηδίου Στέργος Μ.),+302241087102,fixe,Restauration,,Ρόδος,"Λεωφόρος Φαληρακίου - Καλλιθέας, Φαληράκι, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΔΙΟΝΥΣΟΣ ΣΤΕΚΙ (Τζοΐτης Ιωάννης Δ.),+302241040100,fixe,Restauration,,Ρόδος,"Καλαβάρδα & 31ο χλμ Ρόδου - Καμείρου, Παραδείσι, 85106, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ANNIE'S VEGAN FOOD AND BAR (Swanston Anne Eliza R.),+306908882505,mobile,Restauration,,Ρόδος,"Πλατεία Δωριέως 1, Ρόδος, 85131, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+GALA (Γαλατάς Αναστάσιος Γ.),+302241085515,fixe,Restauration,,Ρόδος,"Φαληράκι, Φαληράκι - Παραλία, 85105, ΔΩΔΕΚΑΝΗΣΩΝ",,,,nouveau,Vrisko restaurant,False
+ΚΛΑΡΑΣ (Κλάρα Πιπίνα Κ.),+302410253771,fixe,Restauration,,Λάρισα,"Λαμπράκη Γρηγορίου 29, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΟΥΛΟΥΚΟΣ - ΣΟΥΛΟΥΚΟΣ Γ ΚΑΙ ΣΙΑ ΕΕ,+302411117777,fixe,Restauration,,Λάρισα,"Βόλου 58, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΜΠΙΖΕΛΙ (Στάικου Αγγελική Π.),+302410233383,fixe,Restauration,,Λάρισα,"Υψηλάντου 74 & Μακρή, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΠΑΡΑΜΥΘΙ (Ζήδρος Γρηγόριος Θ.),+302410283621,fixe,Restauration,,Λάρισα,"Κατσώνη Λάμπρου 8, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+B AND B (Κεναμίδης Λάζαρος),+302410254577,fixe,Restauration,,Λάρισα,"Παπακυριαζή 36, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΑΤΑΦΥΓΙΟ (Γκόλιας Ελευθέριος Β.),+302410611081,fixe,Restauration,,Λάρισα,"Στρατηγού Μακρυγιάννη 28, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+BRODWAY ΤΗΕ SPORT BAR ΙΚΕ,+302411103180,fixe,Restauration,,Λάρισα,"Κενταύρων 32, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+FLOYD FOOD BAR,+302413019483,fixe,Restauration,,Λάρισα,"Δευκαλίωνος 12, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+BOTTIGLION - ΚΑΛΑΪΤΖΗΣ ΙΩΑΝΝΗΣ ΚΑΛΕΝΔΕΡΗΣ ΒΑΣΙΛΕΙΟΣ ΟΕ,+302410531518,fixe,Restauration,,Λάρισα,"Πατρόκλου 14, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+COCOTTE,+302414012928,fixe,Restauration,,Λάρισα,"Παναγούλη Αλέκου 56, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΟΜΟΝΟΙΑ (Μπαλλιού Ανδρέας Ι.),+302410255368,fixe,Restauration,,Λάρισα,"Βύρωνος 20, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+FLUXUS CUISINE - ΘΩΜΟΣ ΣΑΜΑΡΑΣ ΟΕ,+302411103342,fixe,Restauration,,Λάρισα,"Πανός 8, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+MARGO - ΝΙΚΟΛΑΪΔΗΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+306937167589,mobile,Restauration,,Λάρισα,"Δευκαλίωνος 12, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+HOBO (Τσαντός Ιωάννης Σ.),+302410252080,fixe,Restauration,,Λάρισα,"Παλαιστίνης 6 & Λέσβου, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΟΥΛΟΥΚΟΣ - ΣΟΥΛΟΥΚΟΣ ΓΕΩΡΓΙΟΣ ΔΡΑΓΑΤΖΙΚΗ ΕΛΕΝΗ ΟΕ,+302410610544,fixe,Restauration,,Λάρισα,"Γαζή Ανθίμου 54, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΕΝ ΛΑΡΙΣΗ (Μήλιος Ιωάννης Κ.),+302410534303,fixe,Restauration,,Λάρισα,"Δωροθέου 1, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΟΥΛΟΥΚΟΣ - ΣΟΥΛΟΥΚΟΣ Γ ΚΑΙ ΣΙΑ ΕΕ,+302410255505,fixe,Restauration,,Λάρισα,"Παπαναστασίου 56, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+DOUMA VITAL FARM - ΦΑΡΜΑ ΝΤΟΥΜΑ ΜΟΝΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302414000369,fixe,Restauration,,Λάρισα,"Δραγούμη Ίωνος & Μελά Παύλου, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΚΑΜΑΤΡΑ (Θράβαλου Αφροδίτη Κ.),+302414003803,fixe,Restauration,,Λάρισα,"Βύρωνος 5, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+BD RICE NOODLE AND SUSHI,+302410418580,fixe,Restauration,,Λάρισα,"Μανωλάκη Κυριάκου 13-15, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΡΕΒΥΘΙ (Μανή Αγγελική Κ.),+302410535325,fixe,Restauration,,Λάρισα,"Διάκου Αθανασίου 7, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΤΑΘΜΟΣ Νο 2 (Πατσιούρας Παναγιώτης Γ.),+302410289107,fixe,Restauration,,Λάρισα,"Πλατεία ΟΣΕ 6, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΜΑΚΑΣ - ΓΙΑΝΚΑΣ B ΚΑΙ ΣΙΑ ΟΕ,+302410259190,fixe,Restauration,,Λάρισα,"Μεγάλου Αλεξάνδρου 23, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΝΙΑΒΗΣ - ΝΙΑΒΗΣ ΓΕΩΡΓΙΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302410571602,fixe,Restauration,,Λάρισα,"7ο χλμ Παλαιάς Εθνικής Οδού Λάρισας - Βόλου, Εντός Περιφερειακού Σταθμού ΚΤΕΛ, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΕΣΟΓΕΙΑΚΕΣ ΓΕΥΣΕΙΣ (Τσιγαράς Παναγιώτης Δ.),+302410621468,fixe,Restauration,,Λάρισα,"Παπαναστασίου Αλεξάνδρου 82, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+NOUS (Δριστέλλας Γεώργιος Δ.),+302410253531,fixe,Restauration,,Λάρισα,"Μανωλάκη 9-11, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+THE ALLEY,+302413019199,fixe,Restauration,,Λάρισα,"Φρίξου 3, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+DELIGHT (Αλεξοπούλου Αικατερίνη),+302411103906,fixe,Restauration,,Λάρισα,"Ιουστινιανού 18, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+BUKOWSKI - ΕΥΑΓΓΕΛΟΥ Κ ΜΠΕΚΙΩΤΗ Β ΟΕ,+302410536729,fixe,Restauration,,Λάρισα,"Πανός 11, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟΠ ΚΡΑΦΤ ΑΕ,+302411810798,fixe,Restauration,,Λάρισα,"Οικονόμου Εξ Οικονόμων 50, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΠΕΡΙ ΟΡΕΞΕΩΣ (Διακοπούλου Βασιλική Μ.),+302410230145,fixe,Restauration,,Λάρισα,"28ης Οκτωβρίου 28, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΡΕΤΙΡΕ - ΒΑΣΙΛΕΙΑΔΗΣ ΕΕ,+302416008413,fixe,Restauration,,Λάρισα,"Αντύπα Μαρίνου 2, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+FAT LADY (Τσεκούρας Χρήστος Β.),+306989888935,mobile,Restauration,,Λάρισα,"Αντύπα Μαρίνου 2, Λάρισα, 41448, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+ΠΕΡΙ ΟΡΕΞΕΩΣ (Παναγούλης Βασίλειος),+302410410932,fixe,Restauration,,Λάρισα,"Παπακυριαζή 46, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko restaurant,False
+BARACA OE,+302421181263,fixe,Restauration,,Βόλος,"Οικονομάκη Τάκη 17, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+EVELIN (Αθανασός Θεόδωρος Ν.),+302421030481,fixe,Restauration,,Βόλος,"Αργοναυτών 46, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΕΡΓΩΝ ΓΕΥΣΕΙΣ ΟΕ,+302421058855,fixe,Restauration,,Βόλος,"Κύπρου 91-93, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΡΩΜΑ ΚΟΥΖΙΝΑΣ - ΑΦΟΙ ΡΑΓΚΟΥ ΟΕ,+302421033003,fixe,Restauration,,Βόλος,"Οικονομάκη Τάκη 94Α, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+FILITSA SEASIDE (Βουγίου Τριανταφυλλιά Β.),+302428077190,fixe,Restauration,,Βόλος,"Άγιος Γεώργιος Νέας Αγχιάλου & Ποσειδώνος 13, Βόλος, 38500, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΡΕΤΗΣ ΓΕΥΣΕΙΣ (Μοντανάρη Αρετή Γ.),+302421035908,fixe,Restauration,,Βόλος,"Λώρη Κωνσταντίνου 36, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΛΕΤΑ (Καρανάσιος Κωνσταντίνος Χ.),+302421038004,fixe,Restauration,,Βόλος,"Φερρών 25, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+IL BUCO (Βαταμίδης Θεόδωρος),+302421310695,fixe,Restauration,,Βόλος,"Ιάσονος 131, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ANAMMA - ΑΚΤΗ ΑΝΑΥΡΟΥ ΙΚΕ,+302421034544,fixe,Restauration,,Βόλος,"Παραλία Αναύρου, Βόλος, 38222, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+LOLA AND LUNA,+302421057755,fixe,Restauration,,Βόλος,"Γάτσου N. 66, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+HOUTOS CATERING - ΧΟΥΤΟΣ ΚΕΤΕΡΙΝΓΚ ΑΕ,+302421022850,fixe,Restauration,,Βόλος,"2ας Νοεμβρίου & Βερναρδάκη, Βόλος, 38333, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΑΓΕΙΡΕΥΕΙΝ (Δρανδάκη Μαρία Α.),+302421044373,fixe,Restauration,,Βόλος,"Αναλήψεως 220, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΟΥΣΕΙΟ ΕΚΛΕΚΤΟΠΟΙΕΙΟΝ (Χατζηγεωργίου Δημήτριος Χ.),+302421076454,fixe,Restauration,,Βόλος,"Φερρών 17, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΛΓΕΡΙ (Βισβίκης Γεώργιος Ν.),+306984138182,mobile,Restauration,,Βόλος,"Μητροπολίτου Γρηγορίου 33, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+MAMAKAS - Β ΓΙΑΝΚΑΣ ΚΑΙ ΣΙΑ ΟΕ,+302421310598,fixe,Restauration,,Βόλος,"Κουμουνδούρου Αλεξάνδρου 21Α, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΠΙΤΙΚΕΣ ΓΕΥΣΕΙΣ,+302421032532,fixe,Restauration,,Βόλος,"28ης Οκτωβρίου 115 & Λώρη, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΧΑΣΟΜΕΡΙ (Gjinaizi Steljana J.),+302421034429,fixe,Restauration,,Βόλος,"Γαμβέττα 33, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑΛΑΔΙΑΝΟΣ ΝΙΚΟΛΑΟΣ ΚΑΛΑΜΙΔΑ ΕΛΕΝΗ ΕΣΤΙΑΤΟΡΙΟ,+302421038548,fixe,Restauration,,Βόλος,"Μελούνας 6, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΝΕΑ ΡΕΜΒΗ (Μπαλάσκας Κωνσταντίνος Π.),+302421052442,fixe,Restauration,,Βόλος,"Άγιος Ονούφριος & Αγίας Βαρβαρας 23, Βόλος, 38500, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko restaurant,False
+Η ΔΩΔΩΝΗ (Γάγας Κωνσταντίνος Β.),+302651021970,fixe,Restauration,,Ιωάννινα,"Γαριβάλδι 33, Ιωάννινα, 45221, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΠΙΤΙΚΕΣ ΑΠΟΛΑΥΣΕΙΣ (Παππάς Άγγελος Χ.),+302651020093,fixe,Restauration,,Ιωάννινα,"Δεσποτάτου Ηπείρου 30, Ιωάννινα, 45333, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΤΖΙΜΑΣ (Τζίμας Ιωάννης Ε.),+302651091003,fixe,Restauration,,Ιωάννινα,"7ο χλμ Εθνικής Οδού Ιωαννίνων - Αθηνών, Ιωάννινα, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+Ο ΚΥΡΙΟΣ ΤΖΟ - ΓΙΩΤΗΣ ΓΕΩΡΓΙΟΣ ΛΑΚΚΑ ΒΑΪΑ ΟΕ,+302651111542,fixe,Restauration,,Ιωάννινα,"Κωλέττη 11, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΥΣΤΙΛΛΗ ΜΑΓΕΙΡΕΙΟΝ - MYSTILI FOOD AND MORE ΕΕ,+302651031390,fixe,Restauration,,Ιωάννινα,"Πλατεία Πάργης 6, Ιωάννινα, 45332, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+LITHARITSIA - ΛΙΘΑΡΙΤΣΙΑ ΙΚΕ,+302651029500,fixe,Restauration,,Ιωάννινα,"Πάρκο Λιθαρίτσια, Ιωάννινα, 45221, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΦΟΙ ΚΟΜΠΟΤΣΙΑΡΗ ΑΕ,+302651045820,fixe,Restauration,,Ιωάννινα,"4ο χλμ Εθνικής Οδού Ιωαννίνων - Αθηνών, Εντός ΤΕΙ, Ιωάννινα, 45221, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΡΕΣΒΕΙΑ (Τέφα Γιαννούλα Γ.),+302651079366,fixe,Restauration,,Ιωάννινα,"Καραμανλή Κωνσταντίνου 17, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΠΙΤΙΚΗ ΚΟΥΖΙΝΑ ΤΣΕΣΜΕΤΖΗΣ,+302651300555,fixe,Restauration,,Ιωάννινα,"Ζέρβα Ναπολέοντος 47, Ιωάννινα, 45332, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΧΑΝΙ ΤΕΡΟΒΟΥ (Κίτσος Μιλτιάδης Ν.),+302654071245,fixe,Restauration,,Ιωάννινα,"Τέροβο, Ιωάννινα, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΖΑΧΑΡΗ ΚΑΙ ΑΛΑΤΙ (Νατσίκου Ελένη Ε.),+302651029211,fixe,Restauration,,Ιωάννινα,"Λεωφόρος Στρατηγού Μακρυγιάννη 2, Ιωάννινα, 45445, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΥΝΑΝΤΗΣΗ (Δήμος Βασίλειος Δ.),+302654071386,fixe,Restauration,,Ιωάννινα,"Τέροβο, Ιωάννινα - Χάνι, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+MAILO'S - 4PASTA EE,+302651022522,fixe,Restauration,,Ιωάννινα,"Αβέρωφ Γεωργίου 55, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΤΟΑ ΛΟΥΛΗ (Παππάς Δημήτριος Β.),+302651071322,fixe,Restauration,,Ιωάννινα,"Ανεξαρτησίας 78, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+IASIS - ΠΙΕΤΡΗΣ ΒΙΟΤΕΧΝΙΑ ΕΙΔΩΝ ΔΙΑΤΡΟΦΗΣ ΑΕ,+302651040420,fixe,Restauration,,Ιωάννινα,"Λεωφόρος Νιάρχου Σταύρου 1, Ιωάννινα, 45560, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΜΥΡΟΒΟΛΟΣ (Μπάρδας Βασίλειος Σ.),+302651078695,fixe,Restauration,,Ιωάννινα,"Στρατάρχου Παπάγου Αλεξάνδρου 28, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΙΠΕΡΙΤΣΑ (Νατσίκος Θεόδωρος Β.),+302651070609,fixe,Restauration,,Ιωάννινα,"Πλατεία Πάργης 6, Ιωάννινα, 45332, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΦΙΛΙΠΠΑΣ GASTRONOMY (Λιάσκας Ιωάννης),+306980584848,mobile,Restauration,,Ιωάννινα,"Στρατάρχου Παπάγου Αλεξάνδρου 6, Ιωάννινα - Μώλος, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΣΤΟΥ ΘΑΝΑΣΗ (Σαβαΐδης Αθανάσιος Δ.),+306937569580,mobile,Restauration,,Ιωάννινα,"Τρίστενο 1, Ιωάννινα, 45560, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΒΡΥΣΗ - ΕΛΕΝΗ ΓΕΩΡΓΙΤΣΗ ΧΑΡΙΚΛΕΙΑ ΤΖΟΒΑ ΟΕ,+302651047277,fixe,Restauration,,Ιωάννινα,"Νικολάτου Σάββα 59, Ιωάννινα, 45332, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ - ΦΟΙΤΗΤΙΚΗ ΛΕΣΧΗ - ΕΣΤΙΑΤΟΡΙΟ,+302651005385,fixe,Restauration,,Ιωάννινα,"Πανεπιστημιούπολη & ΤΘ 1186, Ιωάννινα, 45110, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΝΤΡΑΜΠΑΤΟΒΑ (Παγωτός Θεόδωρος),+302651081132,fixe,Restauration,,Ιωάννινα,"Ιωάννινα, Ιωάννινα - Ντραμπάτοβα, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΠΑΛΛΑΔΙΟΝ - ΣΟΥΡΕΛΗΣ ΑΕ,+306942411338,mobile,Restauration,,Ιωάννινα,"Μπότσαρη Νότη 1 & 28ης Οκτωβρίου, Εντός Palladion Hotel, Ιωάννινα, 45444, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΓΚΟΥΝΤΑΣ ΙΩΣΗΦ ΕΣΤΙΑΤΟΡΙΟ,+302651076110,fixe,Restauration,,Ιωάννινα,"Χατζής Πελλερέν 4, Ιωάννινα, 45221, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΑΛΕΑ (Τέφας Θωμάς Α.),+306988222985,mobile,Restauration,,Ιωάννινα,"Ιωάννινα & Ζυγομάλα Ανδρέα, Ιωάννινα, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΦΗΓΟΣ,+302651005468,fixe,Restauration,,Ιωάννινα,"Πανεπιστημιούπολη, Εντός Πανεπιστημίου Ιωαννίνων, Ιωάννινα, 45001, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΚΥΡΑ ΒΑΣΙΛΙΚΗ (Λιούμπος Ιωάννης Π.),+302651081081,fixe,Restauration,,Ιωάννινα,"Νήσος Ιωαννίνων, Ιωάννινα, 45500, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+CHICKEN HOUSE (Αλεξανδρής Γεώργιος Ι.),+302651079967,fixe,Restauration,,Ιωάννινα,"Δωδώνης 23, Ιωάννινα, 45221, ΙΩΑΝΝΙΝΩΝ",,,,nouveau,Vrisko restaurant,False
+ΔΗΜΗΤΡΑΣ ΚΑΤΣΑΡΟΛ (Κουκούτση Δήμητρα Θ.),+302721082821,fixe,Restauration,,Καλαμάτα,"Νέδοντος 62, Καλαμάτα, 24100, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΠΟΥΚΕΣ - Σ ΚΕΣΣΑΡΕΑΣ ΟΕ,+302721088118,fixe,Restauration,,Καλαμάτα,"Δημοσθένους 4, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΛΙΜΕΝΙ - ΣΓΑΝΤΖΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΑΙ ΣΙΑ ΟΕ (Σγάντζος Κωνσταντίνος Ι.),+302721095670,fixe,Restauration,,Καλαμάτα,"Χίου & Ποσειδώνος, Εντός Μαρίνας, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΙΠΠΟΚΑΜΠΟΣ - ΒΑΡΧΑΡΙΔΗΣ Χ ΛΥΜΠΕΡΟΠΟΥΛΟΣ Π ΟΕ,+302721114304,fixe,Restauration,,Καλαμάτα,"Ναυαρίνου 175, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΚΡΕΟΠΩΛΕΙΟΝ 29 (Μανιατέα Παναγιώτα Κ.),+302721028249,fixe,Restauration,,Καλαμάτα,"Φαρών 29, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+YAMAS GASTRO BAR,+302721022434,fixe,Restauration,,Καλαμάτα,"Ναυαρίνου 2, Εντός Ξενοδοχείου Elite City Resort, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+RISTO FRANCESCO SANTINI,+302721020220,fixe,Restauration,,Καλαμάτα,"Πλατεία Σιδηροδρομικού Σταθμού, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΥΡΩΝΙ - ΒΡΥΩΝΗΣ Δ ΚΑΡΕΛΑΣ Γ ΚΑΙ ΣΙΑ ΟΕ,+302721029992,fixe,Restauration,,Καλαμάτα,"Φαρών 135, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΜΠΛΕ ΚΑΝΑΡΙΝΙ (Βασιλειάδης Κωνσταντίνος Θ.),+302721043075,fixe,Restauration,,Καλαμάτα,"Κρήτης 34, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+FOXTROT (Χάντζιος Δημήτριος),+302721097343,fixe,Restauration,,Καλαμάτα,"Αριστομένους 55, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΛΙΑΚΕΑ,+302721058071,fixe,Restauration,,Καλαμάτα,"Μικρή Μαντίνεια, Καλαμάτα, 24150, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΚΑΠΗΛΕΙΟ (Μανιάτη Σταυρούλα),+302721402240,fixe,Restauration,,Καλαμάτα,"Κουτσομητοπούλου Παναγιώτη 1 & Πλατεία Όθωνος, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+TARTUFO 24,+302721080806,fixe,Restauration,,Καλαμάτα,"Ποσειδώνος 14, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΟΙΝΟΠΑΝΤΟΠΩΛΕΙΟΝ ΧΡΥΣΟΜΑΛΛΗ (Κουρκουτά Αγγελική),+302721082759,fixe,Restauration,,Καλαμάτα,"Υπαπαντής 32, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΛΥΔΙΑ (Atodiresei Lidia),+302721550557,fixe,Restauration,,Καλαμάτα,"Ψαρών 34, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΟ ΛΙΜΑΝΑΚΙ - ΧΑΙΔΟΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302721058420,fixe,Restauration,,Καλαμάτα,"Μικρή Μαντίνεια, Καλαμάτα, 24150, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ANAIS (Μπελογιάννης Γεώργιος Ν.),+302721400604,fixe,Restauration,,Καλαμάτα,"Ιατροπούλου 12, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΣΑΚΗΣ ΜΑΡΙΝΑ - ΚΑΠΠΟΣ Δ ΜΠΑΚΑΛΗΣ Σ ΟΕ,+302721087009,fixe,Restauration,,Καλαμάτα,"Σαλαμίνος 48, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΜΕ ΤΑ ΚΡΕΜΜΥΔΑΚΙΑ - ΓΙΑΝΝΑΚΟΠΟΥΛΟΣ ΚΩΝ ΝΙΚ ΟΕ,+302721091000,fixe,Restauration,,Καλαμάτα,"Υπαπαντής 10, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΘΑΛΑΣΣΑ,+302721026666,fixe,Restauration,,Καλαμάτα,"Ναυαρίνου 135, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΤΑ ΡΟΛΛΑ (Αθανασόπουλος Γεώργιος Ν.),+302721026218,fixe,Restauration,,Καλαμάτα,"Σπάρτης 53, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΝΑΥΤΙΛΟΣ ΙΚΕ,+302721082562,fixe,Restauration,,Καλαμάτα,"Ναυαρίνου 203, Καλαμάτα, 24132, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+MANGIONA - ΛΑΜΠΡΟΠΟΥΛΟΣ ΑΠΟΣΤΟΛΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302721098988,fixe,Restauration,,Καλαμάτα,"Χίου 1, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΝΟΤΙΑΣ - ΚΟΥΤΣΟΛΙΑΣ ΓΕΩΡΓΙΟΣ ΚΑΙ ΣΥΝΕΡΓΑΤΕΣ ΟΕ,+302721095280,fixe,Restauration,,Καλαμάτα,"Ποσειδώνος 4, Καλαμάτα, 24131, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΑΦΟΙ ΧΟΥΛΙΑΡΑ ΟΕ,+302721027390,fixe,Restauration,,Καλαμάτα,"Νέδοντος 61, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+ΠΑΛΙΑΚΟΝ,+302721024214,fixe,Restauration,,Καλαμάτα,"Αγίου Ιωάννη 3 & Διοσυθωμάτων, Καλαμάτα, 24133, ΜΕΣΣΗΝΙΑΣ",,,,nouveau,Vrisko restaurant,False
+O ΠΛΑΤΑΝΟΣ - Γ Ν ΓΙΑΝΝΑΚΟΠΟΥΛΟΣ Δ ΜΑΝΩΛΑΚΗΣ ΚΑΙ ΣΙΑ ΕΕ,+302103220666,fixe,Restauration,,Αθήνα,"Διογένους 4, Αθήνα - Πλάκα, 10556, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΜΙΧΑΛΗΣ ΚΟΥΤΡΟΥΛΗΣ (Κουτρούλης Γεώργιος),+302106913542,fixe,Restauration,,Αθήνα,"Βαρίκα 8, Αθήνα - Αμπελόκηποι, 11524, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΒΑΣΙΛΗΣ (Μπαλαούρας Βασίλειος Χ.),+302109234437,fixe,Restauration,,Αθήνα,"Σμίθ Φρειδερίκου 14, Όπισθεν Ξενοδοχείου Intercontinental, Αθήνα - Νέος Κόσμος, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΟΣΜΙΚΟ (Μπατσούλης Αντώνιος Χ.),+302103246984,fixe,Restauration,,Αθήνα,"Αδριανού 119, Αθήνα - Πλάκα, 10558, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΕΤΑΞΟΥ (Καραπέτη Ελένη),+302105229290,fixe,Restauration,,Αθήνα,"Πυθοδώρου 10 & Πιερίας, Αθήνα - Κολωνός, 10441, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΠΑΡΑΔΟΣΙΑΚΟ (Αγγελής Ιωάννης Μ.),+302102282504,fixe,Restauration,,Αθήνα,"Ματσούκα 4, Αθήνα - Άνω Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΤΡΙΦΥΛΛΙ (Voinescu Ανα Maria K.),+302106446585,fixe,Restauration,,Αθήνα,"Παναθηναϊκού 7, Αθήνα, 11521, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΤΑΒΕΡΝΑ ΤΟΥ ΨΥΡΡΗ (Μαλατέστας Εμμανουήλ Γ.),+302103214923,fixe,Restauration,,Αθήνα,"Αισχύλου 12, Αθήνα - Πλατεία Ψυρρή, 10554, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΗΠΕΙΡΟΣ (Καρατζένη Ουρανία Δ.),+302103240773,fixe,Restauration,,Αθήνα,"Φιλοποίμενος 4, Στοά Μανέττα - Εντός Βαρβάκειου Αγοράς, Αθήνα, 10551, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΚΡΗΤΙΚΟ ΣΤΕΚΙ (Σπανάκης Γρηγόριος Ε.),+306973989748,mobile,Restauration,,Αθήνα,"Κοίλης 20, Αθήνα - Άνω Πετράλωνα, 11852, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΚΩΣΤΑΣ (Σουλιώτης Γεώργιος Θ.),+306944145397,mobile,Restauration,,Αθήνα,"Εκάλης 7, Αθήνα - Παγκράτι, 11636, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+EVGENIA (Παπαγεωργίου Ευγενία),+302103214121,fixe,Restauration,,Αθήνα,"Βουλής 44Α, Αθήνα, 10557, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΣΤΑΥΡΟΣ,+302114088045,fixe,Restauration,,Αθήνα,"Ιβύκου 7, Έναντι Ιερού Ναού Αγίου Σπυρίδωνα, Αθήνα - Παγκράτι, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΒΟΣΚΟΠΟΥΛΑ (Ροπόδης Παναγιώτης),+302102222363,fixe,Restauration,,Αθήνα,"Σιβόρων 87, Αθήνα - Λαμπρινή, 11142, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΤΑΒΕΡΝΑ ΤΟΥ ΓΙΩΡΓΟΥ (Αναστασίου Γεώργιος Σ.),+302103217635,fixe,Restauration,,Αθήνα,"Σαρρή 22, Αθήνα - Ψυρρή, 10553, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΒΑΛΙΤΣΑ - ΓΕΩΡΓΟΥΛΑΚΗΣ Δ ΜΠΑΤΗΣ Ν ΟΕ,+302103470828,fixe,Restauration,,Αθήνα,"Δημοφώντος 80, Αθήνα, 11851, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΛΕΥΚΑ (Μπέσιος Βασίλειος Κ.),+302103614038,fixe,Restauration,,Αθήνα,"Μαυρομιχάλη 121 & Βουλγαροκτόνου, Αθήνα - Εξάρχεια, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΝΕΦΑΝΗ (Σαμπάνης Παναγιώτης),+302103222809,fixe,Restauration,,Αθήνα,"Μνησικλέους 24, Αθήνα - Πλάκα, 10556, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΠΑΪΡΑΚΤΑΡΗΣ,+302103213036,fixe,Restauration,,Αθήνα,"Πλατεία Μοναστηρακίου 2, Αθήνα, 10557, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΛΥΧΝΙΟΝ (Ζαρκαδούλας Κωνσταντίνος Α.),+302106990119,fixe,Restauration,,Αθήνα,"Ριανκούρ Λουίζης 17 & Φθιώτιδος 30, Αθήνα, 11523, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΘΑΝΑΣΗΣ (Σιούτης Αθανάσιος Θ.),+302102010165,fixe,Restauration,,Αθήνα,"Καβάφη 48, Αθήνα - Κάτω Πατήσια, 11143, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΦΑΓΟΠΟΤΙ (Πύργας Λάμπρος Ι.),+302109313777,fixe,Restauration,,Αθήνα,"Τιμοκρέοντος 17 & Ωκεανίδων 23, Αθήνα - Άγιος Σώστης, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΣΠΑΝΟΣ,+302108327381,fixe,Restauration,,Αθήνα,"Οικονόμου Αριστείδη 12, Αθήνα - Κάτω Πατήσια, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΚΟΥΤΟΥΚΙ ΤΟΥ ΜΑΡΑΘΩΝΙΤΗ (Κυμπουρόπουλος Δημήτριος Γ.),+302107017404,fixe,Restauration,,Αθήνα,"Βίνκελμαν 3, Αθήνα, 11632, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΑΜΑ ΜΕΖΕ (Παπαναστασόπουλος Γεώργιος Α.),+302105154274,fixe,Restauration,,Αθήνα,"Μύλων 75 & Δημοσθένους, Αθήνα - Ακαδημία Πλάτωνος, 10441, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΑΣΧΗΜΟΠΑΠΟ (Βούλγαρη Χαρίκλεια),+302103463282,fixe,Restauration,,Αθήνα,"Ιώνων 61, Αθήνα - Άνω Πετράλωνα, 11851, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΧΙΛΛΕΑΣ ΒΕΡΓΙΝΑ (Σεβαστόπουλος Αχιλλέας Γ.),+302103302136,fixe,Restauration,,Αθήνα,"Βαλτετσίου 62, Αθήνα - Κεντρική Πλατεία - Εξάρχεια, 10681, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΜΑΓΕΙΡΙΟ ΤΟΥ ΜΠΑΜΠΗ (Κόλλιας Βασίλειος Χ.),+302103456276,fixe,Restauration,,Αθήνα,"Πάτση Σπύρου 131, Αθήνα - Βοτανικός, 11855, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΓΙΟΥΒΕΤΣΑΚΙΑ - Λ ΚΑΛΥΒΩΚΑΣ ΚΑΙ ΣΙΑ ΕΕ,+302103227033,fixe,Restauration,,Αθήνα,"Αδριανού 144, Αθήνα - Πλάκα, 10558, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΣΑΝΤΟΡΙΝΙΟΣ (Σιγάλα Μαρία),+302103451629,fixe,Restauration,,Αθήνα,"Δωριέων 8, Αθήνα - Άνω Πετράλωνα, 11852, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΣΠΥΡΟΣ ΑΝΤΩΝΗΣ - ΑΛΕΞΙΟΥ Φ ΓΚΟΤΖΙΑ Π ΟΕ,+302102022358,fixe,Restauration,,Αθήνα,"Γαβριηλίδου 24, Αθήνα - Άνω Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+BALKAN (Νινιδάκης Ευάγγελος Ι.),+302105230717,fixe,Restauration,,Αθήνα,"Ακομινάτου 11-13, Αθήνα - Ομόνοια, 10437, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΑΡΑΒΙΤΗΣ - ΥΙΟΙ Θ ΛΙΝΑΡΔΟΥ ΟΕ,+302107215155,fixe,Restauration,,Αθήνα,"Αρκτίνου 35 & Παυσανίου 4, Έναντι Αγάλματος Τρούμαν, Αθήνα - Παγκράτι, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΑΠΑ ΜΙ - Γ ΜΑΝΕΤΑΣ Ε ΚΟΥΤΣΟΥΡΙΔΟΥ ΟΕ,+302103471165,fixe,Restauration,,Αθήνα,"Χαμοστέρνας 12 & Κειριαδών 160, Αθήνα, 11853, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΑΥΛΗ ΤΟΥ ΠΕΤΡΟΥ (Simion Petre S.),+302103423886,fixe,Restauration,,Αθήνα,"Λεωνίδου 86 & Πλαταιών, Αθήνα - Κεραμεικός, 10435, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΠΑΡΝΑΣΣΟΣ - Π ΠΑΠΑΣΤΕΡΙΑΔΗΣ ΟΕ,+302109215798,fixe,Restauration,,Αθήνα,"Μεναίχμου 2, Αθήνα - Νέος Κόσμος, 11743, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΑ ΣΚΑΛΑΚΙΑ - Χ ΜΠΕΤΣΙΚΟΣ ΚΑΙ ΣΙΑ ΟΕ (Μπέτσικος Χρήστος Ι.),+302105155367,fixe,Restauration,,Αθήνα,"Μαραθωνομάχων 57, Αθήνα - Ακαδημία Πλάτωνος, 10441, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΑΡΚΟΠΟΥΛΟ (Δρίτσας Σπυρίδων Σ.),+302105229157,fixe,Restauration,,Αθήνα,"Σερρών 41, Αθήνα, 10441, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Ο ΒΑΓΓΕΛΗΣ ΚΑΙ ΥΙΟΣ - ΜΠΑΤΣΟΥΛΗΣ ΒΑΓΓΕΛΗΣ ΚΑΙ ΥΙΟΣ ΟΕ (Μπατσούλης Ευάγγελος Ι.),+302108618754,fixe,Restauration,,Αθήνα,"Λάρνακος 8 & Αχαρνών 238, Αθήνα - Κάτω Πατήσια, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΙΒΩΤΟΣ (Καραγιάννης Δημήτριος Ε.),+302102113944,fixe,Restauration,,Αθήνα,"Ρίζου Ροΐλου 11, Αθήνα - Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΣΤΕΚΙ ΤΟΥ ΗΛΙΑ - ΠΟΛ ΚΟΛΟΒΗΣ ΚΑΙ ΣΙΑ ΕΕ,+302103458052,fixe,Restauration,,Αθήνα,"Επταχάλκου 5, Αθήνα - Θησείο, 11851, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΣΚΑΛΑΚΙΑ (Παπαγιάννης Βασίλειος Ε.),+302107229290,fixe,Restauration,,Αθήνα,"Αιγινήτου Διονυσίου 32, Αθήνα - Ιλίσια, 11528, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΠΑΡΑΔΟΣΙΑΚΟ - ΠΑΠΑΓΕΩΡΓΙΟΥ Ε ΚΑΙ ΣΙΑ ΟΕ,+302103243220,fixe,Restauration,,Αθήνα,"Απόλλωνος 4, Αθήνα, 10557, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΚΑΤΙ ΑΛΛΟ (Μπακατσέλου Ιωάννα Λ.),+302109223071,fixe,Restauration,,Αθήνα,"Χατζηχρήστου 12, Αθήνα - Ακρόπολη, 11742, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΡΗΣ (Cuci Romeo Μ.),+302103249615,fixe,Restauration,,Αθήνα,"Σοφοκλέους 17-19, Αθήνα, 10552, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΧΩΡΙΑΤΙΚΟ,+302107232017,fixe,Restauration,,Αθήνα,"Βασιλέως Γεωργίου Β 41, Αθήνα - Παγκράτι, 11634, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΑΒΕΡΝΑ Ο ΜΠΑΜΠΗΣ ΚΕΝΤΡΟ ΕΕ,+302103388045,fixe,Restauration,,Αθήνα,"Γεωργίου Ζαλοκώστα 6, Αθήνα, 10671, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΘΗΝΑ ΤΑΒΕΡΝΑ ΕΕ,+302109200280,fixe,Restauration,,Αθήνα,"Στρατηγού Μακρυγιάννη 3, Αθήνα - Αναφιώτικα, 11742, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΠΕΖΟΔΡΟΜΟΣ (Μάλλιος Θεοφάνης Κ.),+302107655592,fixe,Restauration,,Αθήνα,"Λάσκου Β. 31, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΒΑΤΡΑΧΟΝΗΣΙ (Μπαλάσκας Χρήστος),+302103478667,fixe,Restauration,,Αθήνα,"Δεκελέων 2 & Περσεφόνης 61, Αθήνα - Γκάζι, 11854, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΑΓΕΜΕΝΗ ΑΥΛΗ (Θεοφίλου Δημήτριος),+302107223195,fixe,Restauration,,Αθήνα,"Τελεσίλης 1, Αθήνα, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΣΥΛΟ (Γάκης Χρήστος Δ.),+302310201973,fixe,Restauration,,Θεσσαλονίκη,"Πανεπιστημίου 2, Θεσσαλονίκη - Ευαγγελίστρια, 54636, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΝΤΟΥΝΙΑΣ,+302316010490,fixe,Restauration,,Θεσσαλονίκη,"Αυγύπτου 21, Θεσσαλονίκη - Λαδάδικα, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΧΟΙΡΟΦΡΕΝΟ,+302311243655,fixe,Restauration,,Θεσσαλονίκη,"Ικαρίας 5, Θεσσαλονίκη - Άνω Τούμπα, 54351, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΓΙΩΡΓΟΣ (Γκανούδης Γεώργιος),+302310851958,fixe,Restauration,,Θεσσαλονίκη,"Κατσιμίδη 1-3, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+GREC - ΓΕΥΣΤΙΚΕΣ ΔΙΑΔΡΟΜΕΣ ΕΠΕ,+302316017820,fixe,Restauration,,Θεσσαλονίκη,"Αιγύπτου 21, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΠΛΑΤΑΝΟΣ (Μπιρμπίλης Εμμανουήλ),+302310817944,fixe,Restauration,,Θεσσαλονίκη,"Αετορράχης 64, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΙΒΩΤΟΣ ΤΩΝ ΓΕΥΣΕΩΝ - ΣΩΤΗΡΙΑΔΗΣ Θ ΤΣΕΡΑΜΗΣ Γ ΟΕ,+302310211711,fixe,Restauration,,Θεσσαλονίκη,"Πατριάρχου Ιωακείμ 26, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΡΥΠΙΑ ΠΟΤΗΡΙΑ (Παππάς Άγγελος Η.),+302310251485,fixe,Restauration,,Θεσσαλονίκη,"Προσφυγικής Αγοράς 18 & Ολύμπου 68, Θεσσαλονίκη - Πλατεία Μπιτ Παζάρ, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΚΡΟΝ - CAFE BISTRO DOMENICO ΙΚΕ,+302310555267,fixe,Restauration,,Θεσσαλονίκη,"Κατούνη 12 & Μητροπόλεως, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΑ ΠΕΥΚΑ (Πετρίδης Θεόδωρος Μ.),+302310928532,fixe,Restauration,,Θεσσαλονίκη,"Τσιαπάνου 54 - 56, Θεσσαλονίκη - Άνω Τούμπα, 54352, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΛΙΘΟΣ (Σεβαστίδου Βέρα),+302310521175,fixe,Restauration,,Θεσσαλονίκη,"Γιαννιτσών 41, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΑΣΑΛΑ (Χάλτσιου Σταυρούλα Ν.),+302310841646,fixe,Restauration,,Θεσσαλονίκη,"Βασιλίσσης Όλγας 92, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΚΟΝΑΚΙ (Λαζαρίδης Δημήτριος Α.),+302310213390,fixe,Restauration,,Θεσσαλονίκη,"Μωρέως 47 & Ακροπόλεως 20, Θεσσαλονίκη - Άνω Πόλη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΠΗΡΕ ΚΑΙ ΒΡΑΔΙΑΖΕΙ (Χατζηλεωνίδα Ελισάβετ Π.),+302310832926,fixe,Restauration,,Θεσσαλονίκη,"Ομήρου 7, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΔΟΞΑ (Παπαδόπουλος Αναστάσιος Γ.),+302310202608,fixe,Restauration,,Θεσσαλονίκη,"Αποστόλου Παύλου 25, Θεσσαλονίκη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΟΣΜΑΣ (Παρχαρίδου Σοφία Α.),+302310232082,fixe,Restauration,,Θεσσαλονίκη,"Πλάτωνος 15, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΑ ΒΛΑΧΙΚΑ - ΤΑΤΣΗΣ ΠΕΤΡΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302310415808,fixe,Restauration,,Θεσσαλονίκη,"Σοφούλη Θεμιστοκλή 74, Θεσσαλονίκη, 54655, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΗΓΑΝΙΕΣ ΚΑΙ ΣΧΑΡΕΣ - ΤΖΕΡΜΙΑ ΕΥΜΟΡΦΙΑ ΜΟΝΟΠΡΟΣΩΠΗ ΙΚΕ,+302310510284,fixe,Restauration,,Θεσσαλονίκη,"Κατούνη 3, Θεσσαλονίκη - Λαδάδικα, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΣΑΪΤΗΣ (Τσιμιρέκης Χρήστος Π.),+302310207196,fixe,Restauration,,Θεσσαλονίκη,"Κλαυθμώνος 59, Θεσσαλονίκη - Άνω Πόλη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Η ΡΟΥΓΑ (Ρέπας Μάρκος),+302310241727,fixe,Restauration,,Θεσσαλονίκη,"Καρύπη 28, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΚΡΟΝΟΣ (Χριστοδούλου Σωκράτης Χ.),+302310414730,fixe,Restauration,,Θεσσαλονίκη,"Βαφοπούλου 30, Θεσσαλονίκη, 54646, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΔΙΑΓΩΝΙΟΣ - ΤΣΙΜΠΕΡΗΣ ΣΑΡΑΣΙΔΗΣ ΟΕ,+302310262245,fixe,Restauration,,Θεσσαλονίκη,"Πλατεία Φαναριωτών 2 & Στρατηγού Καλλάρη 13, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+BERLIN (Γαϊτανίδης Ανδρέας Κ.),+302310739092,fixe,Restauration,,Θεσσαλονίκη,"Αμπελώνων 17-19, Θεσσαλονίκη, 54629, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΦΑΓΑΚΙ (Μήσκου Ελισάβετ Δ.),+302315005131,fixe,Restauration,,Θεσσαλονίκη,"Ολύμπου 62, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΑΠΕΙΡΩΤΑΝ (Λαμπρούσης Γεώργιος Φ.),+302310300159,fixe,Restauration,,Θεσσαλονίκη,"Γυμνασιάρχου Μικρού 32, Θεσσαλονίκη, 54250, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΤΟ ΚΑΠΗΛΕΙΟ ΤΟΥ ΠΛΑΣΤΑΡΑ (Πλασταράς Νικόλαος Π.),+302310213489,fixe,Restauration,,Θεσσαλονίκη,"Κύπρου 1Α & Τσιτσάνη Βασιλείου, Θεσσαλονίκη - Άνω Πόλη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΠΑΛΑΙΩΝ ΑΡΧΩΝ (Μαδεντζίδης Λουκάς),+302310227572,fixe,Restauration,,Θεσσαλονίκη,"Βενιζέλου Ελευθερίου 72, Θεσσαλονίκη, 54631, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΕΤΕΧΗ (Χατσατουριάν Νανούλι),+302310820892,fixe,Restauration,,Θεσσαλονίκη,"Δελφών 140, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΧΑΡΙΣΗΣ (Δαλκίδης Αναστάσιος Χ.),+302310787806,fixe,Restauration,,Θεσσαλονίκη,"Νεοχωρούδα, Θεσσαλονίκη, 54500, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Τσιάμη Ζωή Θ.,+302310508513,fixe,Restauration,,Θεσσαλονίκη,"Καζαντζάκη Νικολάου 2, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+ΜΠΑΧΤΣΕΣ (Δανιηλίδης Περικλής Σ.),+302310427339,fixe,Restauration,,Θεσσαλονίκη,"Βασιλίσσης Όλγας 211, Θεσσαλονίκη - Ντεπώ, 54646, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko taverna,False
+Δημόπουλος Χριστόφορος Κ.,+302107753847,fixe,Artisans,,Αθήνα,"Πρατίνου 55 & Αμασείας, Έναντι ΔΕΗ, Αθήνα - Παγκράτι, 11634, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τσιρογιάννης Νικόλαος Κ.,+302103423818,fixe,Artisans,,Αθήνα,"Αλκίφρονος 50, Αθήνα - Πετράλωνα, 11853, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γκρούτσης Ευάγγελος Π.,+306936800734,mobile,Artisans,,Αθήνα,"Χελντράιχ 25, Αθήνα - Νέος Κόσμος, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γαλάνης Απόστολος Χ.,+306970486399,mobile,Artisans,,Αθήνα,"Αθήνα, Αθήνα - Αμπελόκηποι, 11522, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ο ΘΕΜΗΣ (Μπουκουβάλας Ευθύμιος Β.),+302117251415,fixe,Artisans,,Αθήνα,"Χρηστομάνου Α. 56, Αθήνα - Σεπόλια, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΔΗΜΗΤΡΗΣ (Καρνάκης Δημήτριος),+302130404798,fixe,Artisans,,Αθήνα,"Ευβοίας 3, Αθήνα - Κυψέλη, 11362, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΚΟΙΝΟΠΡΑΞΙΑ ΓΕΩΡΓΟΗΛΕΚΤΤΡΟΛΟΓΙΚΗ ΙΚΕ,+302105201030,fixe,Artisans,,Αθήνα,"Μυλλέρου 16, Αθήνα, 10436, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Πολίτης Σωκράτης Γ.,+306945613723,mobile,Artisans,,Αθήνα,"Αριστείδου 6, Αθήνα, 10559, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παπαντωνίου Νικόλαος Σ.,+302108610606,fixe,Artisans,,Αθήνα,"Λάρνακος 9, Αθήνα, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Νικολόπουλος Γεώργιος Δ.,+302105132700,fixe,Artisans,,Αθήνα,"Χατζηαποστόλου 38-44, Αθήνα - Σεπόλια, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αποστολόπουλος Βασίλειος Γ.,+302108311295,fixe,Artisans,,Αθήνα,"Σταθάτου Όθωνος 7, Αθήνα - Κάτω Πατήσια, 11145, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπακούλας Χρήστος Α.,+302160006865,fixe,Artisans,,Αθήνα,"Ιπποκράτους 6, Αθήνα, 10679, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σταυρόπουλος Γεώργιος Μ.,+306944397380,mobile,Artisans,,Αθήνα,"Δαφνίδος 8-10, Αθήνα - Κυψέλη, 11364, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ραδιώτης Ευστάθιος Α.,+302108827319,fixe,Artisans,,Αθήνα,"Γιαννιτσών 27, Αθήνα, 11363, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σομπόνης Ανδρέας Κ.,+302103628402,fixe,Artisans,,Αθήνα,"Αναγνωστοπούλου 12, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ηλιάδης Μαργαρίτης,+302108239363,fixe,Artisans,,Αθήνα,"Αριστοτέλους 116, Αθήνα, 10434, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μουρούτης Νικόλαος Θ.,+302103471837,fixe,Artisans,,Αθήνα,"Δημοφώντος 134, Αθήνα - Άνω Πετράλωνα, 11852, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γούναρης Σταύρος Ι.,+306944616064,mobile,Artisans,,Αθήνα,"Σίνα 40, Αθήνα - Κολωνάκι, 10672, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+MANCOR ELECTRIC - ΜΑΝΙΝΑΚΗΣ ΝΙΚΟΛΑΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302106410557,fixe,Artisans,,Αθήνα,"Πανόρμου 9, Αθήνα - Αμπελόκηποι, 11522, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λύρας Μάρκος Σ.,+302106442960,fixe,Artisans,,Αθήνα,"Σόλωνος 20, Αθήνα, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αλεξόπουλος Αλέξανδρος Α.,+302130261984,fixe,Artisans,,Αθήνα,"Σούτσου Ι. 38-40, Αθήνα - Γκύζη, 11474, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Δημητρίου Βασίλειος Δ.,+302108674995,fixe,Artisans,,Αθήνα,"Σικίνου 2 & Φωκίωνος Νέγρη, Αθήνα - Κυψέλη, 11361, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μποζίκας Ευάγγελος Η.,+302106461862,fixe,Artisans,,Αθήνα,"Λυκαίου 44, Αθήνα - Γκύζη, 11476, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τακαβάκογλου Κωνσταντίνος Ε.,+302107011220,fixe,Artisans,,Αθήνα,"Ευμένους 7, Αθήνα, 11636, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Νανόπουλος Βασίλειος Π.,+306944532205,mobile,Artisans,,Αθήνα,"Μαδάρων 9, Αθήνα - Βοτανικός, 10447, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σερεπίσιος Χαράλαμπος Δ.,+302103636626,fixe,Artisans,,Αθήνα,"Ιπποκράτους 106, Αθήνα, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κολικονιάρης Αναστάσιος Σ.,+302103221926,fixe,Artisans,,Αθήνα,"Αγίας Φιλοθέης 11, Αθήνα, 10556, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κορδάτος Ταξιάρχης Γ.,+302103830134,fixe,Artisans,,Αθήνα,"Σουλτάνη 22, Αθήνα - Εξάρχεια, 10683, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παπακώστας Ιπποκράτης Κ.,+302108217015,fixe,Artisans,,Αθήνα,"Πιπίνου 82, Αθήνα - Άγιος Παντελεήμονας, 11251, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καλαφατέλης Ευάγγελος Γ.,+306978150530,mobile,Artisans,,Αθήνα,"Φρύνης 55, Αθήνα, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+KARABINIS SYSTEMS AND NETWORK MONΟΠΡΟΣΩΠΗ IKE,+302109020723,fixe,Artisans,,Αθήνα,"Αλκέτου 4, Αθήνα, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΕΥΑΓΓΕΛΟΣ ΖΩΗΣ ΚΑΙ ΣΙΑ ΟΕ,+302103615789,fixe,Artisans,,Αθήνα,"Ομήρου 44, Αθήνα, 10672, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Χαραλαμπίδης Σάββας Σ.,+302103424478,fixe,Artisans,,Αθήνα,"Αχαιών 17, Αθήνα, 11852, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+GLΤ ELECTRICAL APPLIANCES ΙΚΕ,+302105122158,fixe,Artisans,,Αθήνα,"Κλεομήδους 2, Αθήνα, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γκίκας Δημήτριος,+302108328942,fixe,Artisans,,Αθήνα,"Νερούτσου 19-21, Αθήνα, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+AK HLE EE,+302105132952,fixe,Artisans,,Αθήνα,"Καλαμά 24, Αθήνα - Σεπόλια, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λαζάρου Ιωάννης Ν.,+306946373242,mobile,Artisans,,Αθήνα,"Αντήνορος 16-18, Όπισθεν Κάραβελ, Αθήνα - Παγκράτι, 11634, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σταθακιός Αθανάσιος Κ.,+302102020668,fixe,Artisans,,Αθήνα,"Αγίας Ζώνης 116, Αθήνα, 11255, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Απέργης Σταμάτιος Π.,+302106914493,fixe,Artisans,,Αθήνα,"Λεωφόρος Μεσογείων 64, Αθήνα, 11527, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπέλλος Δημήτριος Χ.,+302107516243,fixe,Artisans,,Αθήνα,"Αετίου 9, Αθήνα, 11631, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κακαρώνης Αντώνιος Ε.,+302102023004,fixe,Artisans,,Αθήνα,"Πατησίων 274 & Σκιάθου, Αθήνα, 11255, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κετέογλου Μιχαήλ Ε.,+306944473488,mobile,Artisans,,Αθήνα,"Αθήνα, Αθήνα - Αμπελόκηποι, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+LS ELECTRIC (Λαγγουρέτος Σωτήριος Δ.),+302102024277,fixe,Artisans,,Αθήνα,"Ορφανίδου 23, Αθήνα - Άνω Πατήσια, 11142, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΡΕΥΜΑ ΚΑΙ ΦΩΣ (Φειδόπουλος Αντώνιος),+302114002676,fixe,Artisans,,Αθήνα,"Ηλιού Ηλία 84, Αθήνα, 11744, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γλογοβίτης Κωνσταντίνος Θ.,+306977287805,mobile,Artisans,,Αθήνα,"Ιπποδάμου 27, Αθήνα - Παγκράτι, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Στεφάνου Γεώργιος Π.,+302108831091,fixe,Artisans,,Αθήνα,"Κρέσνας 11, Αθήνα, 11362, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Πέτκος Ιωάννης Γ.,+302107233276,fixe,Artisans,,Αθήνα,"Παυσανίου 27, Αθήνα - Παγκράτι, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ajazi Genci K.,+302102285467,fixe,Artisans,,Αθήνα,"Σερίφου 2, Αθήνα, 11254, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+TENOR (Κούβδος Χρήστος Α.),+302109311544,fixe,Artisans,,Αθήνα,"Ευρυδάμαντος 28, Αθήνα - Νέος Κόσμος, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ασημακόπουλος Αθανάσιος Α.,+302107016665,fixe,Artisans,,Αθήνα,"Φιλολάου 75, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γουρδουβέλης Κωνσταντίνος,+302102012675,fixe,Artisans,,Αθήνα,"Πατησίων 245, Αθήνα - Πατήσια, 11254, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΤΕΚΑΜ ΓΕΝΙΚΗ ΑΕ,+302108316522,fixe,Artisans,,Αθήνα,"Γρηγορά Νικηφόρου 2-4, Αθήνα - Σεπόλια, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αναγνώστου Κωνσταντίνος Ν.,+302103603057,fixe,Artisans,,Αθήνα,"Αραχώβης 6, Αθήνα, 10680, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+TECHNOEX,+302111821590,fixe,Artisans,,Αθήνα,"Βυζαντίου Στεφάνου 39, Αθήνα, 11144, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γιαννικόπουλος Γεώργιος Α.,+306944573127,mobile,Artisans,,Αθήνα,"Ακροθώων 40 & Τραλλέων, Αθήνα, 11142, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Φραγκούλης Δημήτριος Π.,+302106443197,fixe,Artisans,,Αθήνα,"Αρματωλών και Κλεφτών 61 & Κόνιαρη, Όπισθεν Γήπεδου Παναθηναϊκού, Αθήνα - Αμπελόκηποι, 11521, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Πούλος Αθανάσιος Π.,+306937700774,mobile,Artisans,,Αθήνα,"Μαυρικίου 8, Αθήνα - Εξάρχεια, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΤΕΧΝΙΚΗ (Σακελλαράκης Κωνσταντίνος Γ.),+306944244050,mobile,Artisans,,Αθήνα,"Αγκύλης 40, Αθήνα - Νέος Κόσμος, 11743, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΚΙΟΥΚΗΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302106422921,fixe,Artisans,,Αθήνα,"Λαΐου Στυλιανού 23, Αθήνα - Αμπελόκηποι, 11522, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σμυρναίος Ιωάννης,+306972691454,mobile,Artisans,,Αθήνα,"Κρητών 23, Αθήνα - Νέος Κόσμος, 11744, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΛΑΜΠΡΟΠΟΥΛΟΣ ΔΗΜΗΤΡΙΟΣ ΚΑΙ ΓΕΩΡΓΙΟΣ ΟΕ,+302105147829,fixe,Artisans,,Αθήνα,"Ηρούς 1, Αθήνα - Κολωνός, 10442, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γιαννάτος Ιωάννης Ε.,+302108220793,fixe,Artisans,,Αθήνα,"Μετσόβου 2, Αθήνα - Μουσείο, 10682, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Δεμενεόπουλος Εμμανουήλ Γ.,+302109018140,fixe,Artisans,,Αθήνα,"Ντοντουέλ 5, Αθήνα - Νέος Κόσμος, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γρηγορόπουλος Αναστάσιος Γ.,+302107562452,fixe,Artisans,,Αθήνα,"Αθήνα, Αθήνα, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπακαυγάς Νικόλαος Ι.,+302108662441,fixe,Artisans,,Αθήνα,"Αγίου Μελετίου 85, Αθήνα, 11251, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ιωαννίδης Ιωάννης Δ.,+302310524651,fixe,Artisans,,Θεσσαλονίκη,"Καραολή και Δημητρίου 46 & Ολύμπου, Θεσσαλονίκη, 54630, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Πορταρίνος Στυλιανός Α.,+302310929023,fixe,Artisans,,Θεσσαλονίκη,"Πεστών 79, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ποιμενίδης Γεώργιος Γ.,+306977292748,mobile,Artisans,,Θεσσαλονίκη,"Μπότσαρη Μάρκου 19, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παλαμήδης Κωνσταντίνος Ι.,+302310318165,fixe,Artisans,,Θεσσαλονίκη,"Ωκεανίδων 4, Θεσσαλονίκη - Άγιος Ελευθέριος, 54250, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κισκίνης Ανδρέας Σ.,+302310271881,fixe,Artisans,,Θεσσαλονίκη,"Ερμού 44, Θεσσαλονίκη, 54623, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κονιαρης Δημήτριος Ν.,+302310935935,fixe,Artisans,,Θεσσαλονίκη,"Αμμοχώστου 16, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καρβουνίδης Νικόλαος Π.,+302310513222,fixe,Artisans,,Θεσσαλονίκη,"Απολλωνιάδος 37, Θεσσαλονίκη, 54632, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπαδινάκης Κωνσταντίνος,+302311211798,fixe,Artisans,,Θεσσαλονίκη,"Ερμού 9, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ντόγκοσης Στυλιανός Ν.,+306979954374,mobile,Artisans,,Θεσσαλονίκη,"Λαμπράκη 68, Θεσσαλονίκη - Κάτω Τούμπα, 54638, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λαζαρίδης Χρήστος Β.,+302310268591,fixe,Artisans,,Θεσσαλονίκη,"Κασσάνδρου 59, Θεσσαλονίκη, 54633, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κράββας Αλκιβιάδης Κ.,+302310529815,fixe,Artisans,,Θεσσαλονίκη,"Μοναστηρίου 27, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Νικηφοριάδου Άννα Λ.,+302310830082,fixe,Artisans,,Θεσσαλονίκη,"Κάτσαλη 5, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καζολέας Ηλίας Γ.,+302310200266,fixe,Artisans,,Θεσσαλονίκη,"Κυριάκου Μανωλάκη 13, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αντωνόπουλος Αθανάσιος Θ.,+306979017414,mobile,Artisans,,Θεσσαλονίκη,"Γραβιάς 24, Θεσσαλονίκη, 54645, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καραμητόπουλος Σοφοκλής Σ.,+302310307502,fixe,Artisans,,Θεσσαλονίκη,"Σιγάλα Μαρίνου 26, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αποστολόπουλος Γρηγόριος Γ.,+302310512223,fixe,Artisans,,Θεσσαλονίκη,"Γεωργίου Τσόντου 6, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Δελαντώνης Νικόλαος Α.,+302310226107,fixe,Artisans,,Θεσσαλονίκη,"Μακένζυ Κινγκ 4, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καλαϊτζίδης Ηλίας Α.,+306946681390,mobile,Artisans,,Θεσσαλονίκη,"Δημητσάνας 20, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σιαμέτης Ηλίας Σ.,+302310555102,fixe,Artisans,,Θεσσαλονίκη,"Φιλίππου 101, Θεσσαλονίκη - Ροτόντα, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καντόγλου Δημήτριος,+306942249400,mobile,Artisans,,Θεσσαλονίκη,"Ανατολικής Ρωμυλίας 32, Θεσσαλονίκη - Κάτω Τούμπα, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κυριακίδης Θεόδωρος Σ.,+306977247527,mobile,Artisans,,Θεσσαλονίκη,"Μπότσαρη Μάρκου 98, Θεσσαλονίκη - Τούμπα, 54644, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Δραγούτας Θεόδωρος Θ.,+302310886088,fixe,Artisans,,Θεσσαλονίκη,"Παπαναστασίου Αλέξανδρου 27, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σαρούκος Σπυρίδων Ν.,+302310218843,fixe,Artisans,,Θεσσαλονίκη,"Καραϊσκάκη 10, Θεσσαλονίκη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αντωνιάδης Αθανάσιος Χ.,+302310900114,fixe,Artisans,,Θεσσαλονίκη,"Διοσκούρων 4, Θεσσαλονίκη, 54642, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μανιας Ιωάννης Ν.,+302310938885,fixe,Artisans,,Θεσσαλονίκη,"Τριανταφυλλοπούλου 49, Θεσσαλονίκη, 54352, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παχυγιαννάκη Εριφύλη Α.,+302310841133,fixe,Artisans,,Θεσσαλονίκη,"Αγίας Τριάδος 21, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+TECHNOTEAM - ΠΑΣΧΑΛΗΣ Β ΧΑΡΙΤΟΥ Θ ΟΕ,+302310886666,fixe,Artisans,,Θεσσαλονίκη,"Κρήτης 10, Θεσσαλονίκη, 54645, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Χαριστός Μιχαήλ Ν.,+302310288485,fixe,Artisans,,Θεσσαλονίκη,"Μοργκεντάου 3, Θεσσαλονίκη, 54622, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Χαρίτος Αθανάσιος Ν.,+306944622492,mobile,Artisans,,Θεσσαλονίκη,"Καθηγητή Ανδριώτη 2, Θεσσαλονίκη - Άνω Τούμπα, 54351, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ART ELECTRIC (Θεοδώρου Αθανάσιος Α.),+302315310121,fixe,Artisans,,Θεσσαλονίκη,"Αποστόλου Παύλου 9, Θεσσαλονίκη, 54635, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ζωγόπουλος Διονύσιος Π.,+302310929710,fixe,Artisans,,Θεσσαλονίκη,"Χωνιάτη 2, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Άμποτ Ιούλιος Γ.,+302310835542,fixe,Artisans,,Θεσσαλονίκη,"Ανδρούτσου 6, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σαρούκος Σπυρίδων Ν.,+306989479536,mobile,Artisans,,Θεσσαλονίκη,"Λεωφόρος Βασιλίσσης Όλγας 41, Θεσσαλονίκη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κεχαγιάς Νικόλαος Γ.,+302310942907,fixe,Artisans,,Θεσσαλονίκη,"Μαλακοπής 10, Θεσσαλονίκη - Κάτω Τούμπα, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λαβασάς Αλέξανδρος Η.,+306977323689,mobile,Artisans,,Θεσσαλονίκη,"Κασσάνδρου 17, Θεσσαλονίκη, 54632, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κοκοροτσικος Θεμιστοκλής Σ.,+302310861627,fixe,Artisans,,Θεσσαλονίκη,"Βασιλέως Γεωργίου 42, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Βαρδίκος Νικόλαος Σ,+302310834712,fixe,Artisans,,Θεσσαλονίκη,"Περδίκκα 32, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γκαγκαβούζης Χαράλαμπος Β.,+302310426089,fixe,Artisans,,Θεσσαλονίκη,"Πλούτωνος 27, Θεσσαλονίκη, 54655, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΓΡΑΦΕΙΟ (Βασιλειάδης Χρήστος Σ.),+306937260246,mobile,Artisans,,Θεσσαλονίκη,"Ιασωνίδου Λεωνίδα 7, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπαμπαϊτης Άκης,+306957508801,mobile,Artisans,,Θεσσαλονίκη,"Μικράς Ασίας 3, Θεσσαλονίκη - Τούμπα, 54351, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τόλης Γεώργιος Κ.,+302310849332,fixe,Artisans,,Θεσσαλονίκη,"Σπάρτης 43, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τσιάγγος Απόστολος,+302310909293,fixe,Artisans,,Θεσσαλονίκη,"Καπετάν Ντόγρα 24, Θεσσαλονίκη, 54352, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λουμπέρης Παναγιώτης Σ.,+302310266423,fixe,Artisans,,Θεσσαλονίκη,"Βαλαωρίτου 14, Θεσσαλονίκη, 54626, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπουρνουξούζης Γεώργιος Π.,+302310207034,fixe,Artisans,,Θεσσαλονίκη,"Εξάρχη Λάζου 8, Θεσσαλονίκη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κωνσταντουδάκης Δημήτριος Κ.,+302310280385,fixe,Artisans,,Θεσσαλονίκη,"Μητροπόλεως 13, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Χαραλαμπίδης Θωμάς Δ.,+302310823981,fixe,Artisans,,Θεσσαλονίκη,"Κορομηλά 29, Θεσσαλονίκη, 54645, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σαρικάκης Κωνσταντίνος Ν.,+302310841318,fixe,Artisans,,Θεσσαλονίκη,"Κωνσταντινουπόλεως 26, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αγαθος Ιωάννης Α.,+302310286190,fixe,Artisans,,Θεσσαλονίκη,"Παστέρ 9, Θεσσαλονίκη, 54633, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΣΤΗΝ ΠΡΙΖΑ (Αναστασιάδης Σάββας Χ.),+306974713448,mobile,Artisans,,Θεσσαλονίκη,"Βοσπόρου 118 & Φιλύρα Ρώμου 13, Θεσσαλονίκη - Κάτω Τούμπα, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+FIXED ENERGY ΕΠΕ (Κασμετλής Δημήτριος),+302310944066,fixe,Artisans,,Θεσσαλονίκη,"Ανοίξεως 18, Θεσσαλονίκη, 54352, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παπαδόπουλος Διογένης Ν.,+302310828311,fixe,Artisans,,Θεσσαλονίκη,"Συνδίκα Πέτρου 50, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Περέζ Αλμπέρτο Σ.,+302310222402,fixe,Artisans,,Θεσσαλονίκη,"Καρύπη 4, Θεσσαλονίκη, 54624, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Χατζηαγγέλου Γεώργιος Κ.,+302311221068,fixe,Artisans,,Θεσσαλονίκη,"Πολυτεχνείου 23, 7ος Όροφος, Θεσσαλονίκη, 54626, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αποστόλου Αργύριος Α.,+302310230837,fixe,Artisans,,Θεσσαλονίκη,"Κασσάνδρου 85, Θεσσαλονίκη, 54633, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Σιταρίδης Παναγιώτης Ι.,+302310825293,fixe,Artisans,,Θεσσαλονίκη,"Πάροδος Διάκου Αθανασίου 18, Θεσσαλονίκη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τασούλας Παναγιώτης Α.,+302310862635,fixe,Artisans,,Θεσσαλονίκη,"Καραμανλή Κωνσταντίνου 62, Θεσσαλονίκη, 54642, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ζάχος Ευάγγελος Κ.,+302314013831,fixe,Artisans,,Θεσσαλονίκη,"Δροσίνη Γεωργίου 20, Θεσσαλονίκη - Χαριλάου, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπόλδης Χρήστος Σ.,+302310500175,fixe,Artisans,,Θεσσαλονίκη,"Αναγεννήσεως 4 & Προμηθέως 1, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ιωσηφίδης Κωνσταντίνος Α.,+302314310163,fixe,Artisans,,Θεσσαλονίκη,"Αγίου Δημητρίου 42, Θεσσαλονίκη, 54630, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μακρής Βασίλειος Κ.,+302310814489,fixe,Artisans,,Θεσσαλονίκη,"Χαλκιδικής 35, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μαρίνης Άγγελος Κ.,+302310546616,fixe,Artisans,,Θεσσαλονίκη,"Διοικητηρίου 46, Θεσσαλονίκη - Πλατεία Δημοκρατίας, 54630, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ΑΠΑΡΑΙΤΗΤΟ (Σταμπούλογλου Στέφανος Γ.),+302310246694,fixe,Artisans,,Θεσσαλονίκη,"Αγίου Δημητρίου 107, Θεσσαλονίκη, 54634, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Καθαρόπουλος Νικόλαος Ι.,+302310843160,fixe,Artisans,,Θεσσαλονίκη,"Δοϊράνης 13, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+SAFE PLUS - ΠΑΧΑΤΟΥΡΙΔΗΣ Ν ΚΑΙ ΣΙΑ ΟΕ,+302310843130,fixe,Artisans,,Θεσσαλονίκη,"Κλείτου 8, Θεσσαλονίκη, 54642, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μαλερος Ευστράτιος Χ.,+302310421830,fixe,Artisans,,Θεσσαλονίκη,"Μιχαήλ Ψελλού 20, Θεσσαλονίκη, 54655, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Δήμου Κωνσταντίνος Ν.,+302310322722,fixe,Artisans,,Θεσσαλονίκη,"Μαυρογένους Μάντω 8, Θεσσαλονίκη - Χαριλάου, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Πιτσαβας Κωνσταντίνος Ι.,+302310321463,fixe,Artisans,,Θεσσαλονίκη,"Νεμέας 19, Θεσσαλονίκη, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κρυσταλλίδης Γεώργιος Α.,+302310413011,fixe,Artisans,,Θεσσαλονίκη,"Καθηγητή Ρωσσίδου 3, Θεσσαλονίκη, 54655, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Τσεμτσής Ευάγγελος Α.,+302310921297,fixe,Artisans,,Θεσσαλονίκη,"Καππαδοκίας 31, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Στρίβας Σωτήριος Ν.,+302310937503,fixe,Artisans,,Θεσσαλονίκη,"Βιζύης 48, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Γραμμαλίδης Αιμίλιος Ν.,+302310545107,fixe,Artisans,,Θεσσαλονίκη,"Αισώπου 42, Θεσσαλονίκη, 54627, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Παπαργυρίου Νικόλαος Ι.,+306972283549,mobile,Artisans,,Θεσσαλονίκη,"Διοσκούρων 3, Θεσσαλονίκη - Χαριλάου, 54642, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Αβράμης Στυλιανός Κ.,+302310548197,fixe,Artisans,,Θεσσαλονίκη,"Λέοντος Σοφού 4, Θεσσαλονίκη, 54625, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Μπελλης Δημήτριος Γ.,+302310309298,fixe,Artisans,,Θεσσαλονίκη,"Κρήτης 87, Θεσσαλονίκη, 54655, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ιασωνίδης Δημήτριος Σ.,+306936865570,mobile,Artisans,,Θεσσαλονίκη,"Αγίας Τριάδος 11, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Ορφανός Ιωάννης Γ.,+302310306937,fixe,Artisans,,Θεσσαλονίκη,"Σισύφου 7, Θεσσαλονίκη, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+ELECTRON - ΤΣΙΡΠΙΝΟΠΟΥΛΟΣ ΝΙΚΟΛΑΟΣ ΚΑΙ ΣΙΑ ΕΕ,+302313118220,fixe,Artisans,,Θεσσαλονίκη,"Πέρδικα 32, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Διαμαντόπουλος Χαράλαμπος Β.,+302610330462,fixe,Artisans,,Πάτρα,"Μαιζώνος 253, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Τόγιας Ανδρέας Π.,+302610272533,fixe,Artisans,,Πάτρα,"Ζαΐμη 79, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Πυργιώτη Ελευθερία Χ.,+302610420000,fixe,Artisans,,Πάτρα,"Κορυδαλλέως 10, Πάτρα, 26443, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Πολυδωρόπουλος Ανδρέας Α.,+302610312934,fixe,Artisans,,Πάτρα,"Ισμήνης 12, Πάτρα, 26332, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Γεωργίου Γεώργιος Ι.,+302610424920,fixe,Artisans,,Πάτρα,"Πανεπιστημίου 455, Πάτρα, 26443, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Βάσσης Νικόλαος Θ.,+306977239053,mobile,Artisans,,Πάτρα,"Αλοννήσου 112, Πάτρα, 26334, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Καραμπέτσος Ζώης Χ.,+306944186964,mobile,Artisans,,Πάτρα,"Χανίων 35, Πάτρα, 26226, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Γρηγορόπουλος Γρηγόριος Β.,+306936119470,mobile,Artisans,,Πάτρα,"Αρχιεπισκόπου Ιεροθέου 109, Πάτρα, 26224, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Λαμπίρης Βασίλειος,+302610243961,fixe,Artisans,,Πάτρα,"Παλαιών Πατρών Γερμανο 75, Πάτρα, 26225, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Πέττας Φώτιος Γ.,+302610642475,fixe,Artisans,,Πάτρα,"Λεωφόρος Ηρακλέους 113, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Αγγελόπουλος Γεώργιος Π.,+306945332323,mobile,Artisans,,Πάτρα,"Καπετάν Ρίζου 15, Πάτρα, 26332, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Κωστούλιας Γεώργιος Δ.,+302610332956,fixe,Artisans,,Πάτρα,"Κοντογούρη Ν. 15, Πάτρα, 26333, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+ΜΕΡΜΕΛΑΣ ΠΑΝΑΓΙΩΤΗΣ ΦΡΑΝΤΖΗΣ ΕΥΘΥΜΙΟΣ ΟΕ,+306974483130,mobile,Artisans,,Πάτρα,"Δοϊράνης 26, Πάτρα, 26441, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Βουκελάτος Ευστάθιος Ν.,+302610623433,fixe,Artisans,,Πάτρα,"Αράτου 20, Πάτρα, 26221, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Ποταμιανός Αντώνιος Κ.,+302610332379,fixe,Artisans,,Πάτρα,"Σαχίνη 14, Πάτρα, 26332, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+ΕΡΓΟΗΛΕΚΤΡΙΚΗ (Αγγελόπουλος Αθανάσιος),+306932436520,mobile,Artisans,,Πάτρα,"Φιλίππου Ολυμπιάδος 37, Πάτρα, 26334, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Νικολακόπουλος Δημήτριος Β.,+302610642295,fixe,Artisans,,Πάτρα,"Καρυά Ελικίστρας, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Θεοδωρόπουλος Νικόλαος Σ.,+302610453958,fixe,Artisans,,Πάτρα,"Γρηγορά Νικηφόρου 14, Πάτρα, 26443, ΑΧΑΪΑΣ",,,,nouveau,Vrisko electrician,False
+Φιλιππάκης Ιωάννης Σ.,+302810318839,fixe,Artisans,,Ηράκλειο,"Ησιόδου 14, Ηράκλειο, 71307, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Λιλίτσης Θεόδωρος Δ.,+302810342767,fixe,Artisans,,Ηράκλειο,"Καπετάν Μπαντουβά Χρήστου 20, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Μπελαδάκης Πρόδρομος Ε.,+302815202442,fixe,Artisans,,Ηράκλειο,"Θερίσου 139, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Βικέντιος Νικόλαος,+306944223451,mobile,Artisans,,Ηράκλειο,"Φοίνικος 39, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Μαρκουτσάκης Ιωάννης Ε.,+306947605217,mobile,Artisans,,Ηράκλειο,"Ανθέων 30, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Σταυρακάκης Γεώργιος,+302810333478,fixe,Artisans,,Ηράκλειο,"Διακόνου Θεοδοσίου 13, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+SEN ΗΛΕΚΤΡΟΛΟΓΙΚΑ ΕΡΓΑ ΕΕ (Ντρέκος Σωκράτης Κ.),+306976701780,mobile,Artisans,,Ηράκλειο,"Σερρών 86Α, Ηράκλειο, 71307, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Παπακανδεράκης Στέφανος Σ.,+306974262769,mobile,Artisans,,Ηράκλειο,"Νέο Ηράκλειο, Νέο Ηράκλειο, 14100, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Λαλόπουλος Γεώργιος Θ.,+302102842309,fixe,Artisans,,Ηράκλειο,"Πολυτεχνείου 42, Νέο Ηράκλειο, 14121, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko electrician,False
+Κορνηλάκης Ιωάννης Δ.,+302810253200,fixe,Artisans,,Ηράκλειο,"Στεργιογιάννη 22, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Πατραμάνης Εμμανουήλ Μ.,+306944127387,mobile,Artisans,,Ηράκλειο,"Αμαλιάδας 5, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Τζανής Γεώργιος Ε.,+306934997975,mobile,Artisans,,Ηράκλειο,"Τύλισος, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Τσάπαλης Αντώνιος Κ.,+302810344120,fixe,Artisans,,Ηράκλειο,"Παλαιοκάπα 59Α, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Βενιανάκης Γεώργιος,+306978005956,mobile,Artisans,,Ηράκλειο,"Αρχιεπισκόπου Ευγενίου 13, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Μπερκής Μιχαήλ Ε.,+306947071508,mobile,Artisans,,Ηράκλειο,"Μπακογιάννη Παύλου 79, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+Δαμιανάκης Δημήτριος,+302810255502,fixe,Artisans,,Ηράκλειο,"Σκουλά Γεωργίου 69, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+ΜΑΥΡΟΥΔΗΣ ΚΩΝΣΤΑΝΤΙΝΟΣ ΚΑΙ ΣΙΑ ΟΕ,+302810261747,fixe,Artisans,,Ηράκλειο,"Αντωνιάδη 8, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko electrician,False
+FLOBI ELECTRIC (Braholli Flobert V.),+306980312315,mobile,Artisans,,Χανιά,"Χανιά, Χανιά, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko electrician,False
+Καπενεκάκης Μιχαήλ Β.,+306976977712,mobile,Artisans,,Χανιά,"Αγίου Βασιλείου 27Α, Χανιά, 73136, ΧΑΝΙΩΝ",,,,nouveau,Vrisko electrician,False
+Νεμπαυλάκης Εμμανουήλ,+306978007365,mobile,Artisans,,Χανιά,"Χανιά, Χανιά, 73100, ΧΑΝΙΩΝ",,,,nouveau,Vrisko electrician,False
+Τσαντήλας Δημήτριος Χ.,+306976055633,mobile,Artisans,,Λάρισα,"Γαριβάλδη 10, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΓΚΑΤΖΟΥΛΗΣ Α ΚΟΥΜΑΝΤΖΕΛΗΣ Α ΟΕ,+306974814397,mobile,Artisans,,Λάρισα,"Ερυθρού Σταυρού 4-6, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Πυρώτης Βασίλειος Χ.,+306944279340,mobile,Artisans,,Λάρισα,"Καΐρη Θεοφίλου 35, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κοτρώτσιος Αντώνιος Χ.,+302410234416,fixe,Artisans,,Λάρισα,"Ιπποδάμου 15, Λάρισα, 41448, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΝΙΟΝ - Δ ΤΣΑΝΤΙΛΗΣ Γ ΓΟΥΤΑΣ ΟΕ,+306932500874,mobile,Artisans,,Λάρισα,"Σούτσου Αλεξάνδρου 2, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παππάς Θεόδωρος Ε.,+306944662429,mobile,Artisans,,Λάρισα,"Τάσσου Α. 18, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Τσικρικάς Αθανάσιος Δ.,+306936954324,mobile,Artisans,,Λάρισα,"Κορνάρου Βιτζέντζου 1, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Δημοβέλης Δημήτριος Γ.,+302410549061,fixe,Artisans,,Λάρισα,"Ερυθρού Σταυρού 9-11, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΔΗΜ ΣΑΠΟΥΝΗΣ ΕΛ ΣΜΙΤΑΚΗΣ ΟΕ,+306972839824,mobile,Artisans,,Λάρισα,"Νικολούλη Στεργίου 2 & Τοπάζη, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κατράκης Κωνσταντίνος Θ.,+302410239611,fixe,Artisans,,Λάρισα,"Παναγούλη Αλέκου 85, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Γάκης Δημήτριος Θ.,+306974966461,mobile,Artisans,,Λάρισα,"Ακαρνανίας 45, Λάρισα, 41448, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Σφόρτσας Τηλέμαχος Ι.,+302410288289,fixe,Artisans,,Λάρισα,"25ης Μαρτίου 3, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Βαγενάς Αθανάσιος Ν.,+302410537741,fixe,Artisans,,Λάρισα,"Δεινοκράτους 17, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κεκελέκης Νικόλαος Γ.,+302410530067,fixe,Artisans,,Λάρισα,"Αμοργού 4, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κατσάμπελας Απόστολος Λ.,+302410623807,fixe,Artisans,,Λάρισα,"Πατριάρχη Γρηγορίου Ε 29, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΤΕΧΝΙΚΗ ΛΑΡΙΣΑΣ - ΠΑΠΑΚΩΣΤΑΣ Β ΚΑΙ Ι ΟΕ,+306974311195,mobile,Artisans,,Λάρισα,"Μουστακλή Σ. 9, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ELINS ΓΕΩΡΓΙΟΥ ΚΑΙ ΣΙΑ ΕΕ,+302411812590,fixe,Artisans,,Λάρισα,"Κοτσώνη 1 & Αστεριάδου, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΑΦΟΙ ΚΟΤΡΩΤΣΙΟΥ ΟΕ,+302410671494,fixe,Artisans,,Λάρισα,"4ο χλμ Περιφερειακής Οδού Λάρισας - Τρικάλων, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Λανταβός Σωτήρης Β.,+302410532461,fixe,Artisans,,Λάρισα,"Μανδηλαρά 29, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Τσουλούφας Δημήτριος Κ.,+302410257810,fixe,Artisans,,Λάρισα,"25ης Μαρτίου 4, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Ντέντε Βανγκιούς,+306947074849,mobile,Artisans,,Λάρισα,"Μιαούλη Ανδρέα 5, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Γκάντζιος Αθανάσιος Ν.,+306974248541,mobile,Artisans,,Λάρισα,"Λάρισα, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Τσούτσας Σπυρίδων Α.,+306999696424,mobile,Artisans,,Λάρισα,"Παπαζαχαρίου 50, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Ζηβής Λάζαρος Π.,+306937740919,mobile,Artisans,,Λάρισα,"6ο χλμ Λάρισας - Κοζάνης, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παπακώστας Ιωάννης Ε.,+302410627224,fixe,Artisans,,Λάρισα,"Σύρου 23, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Γεράσης Δημήτριος Γ.,+302410251731,fixe,Artisans,,Λάρισα,"Σκληρού Γ. 41, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κάσσος Βασίλειος Χ.,+302410621055,fixe,Artisans,,Λάρισα,"Μανδηλαρά 36, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Γκαντούνας Ηλίας,+302410615240,fixe,Artisans,,Λάρισα,"Μανδηλαρά 1Α, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παππάς Αθανάσιος Ν.,+302410239878,fixe,Artisans,,Λάρισα,"Ιάσονος 23, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κώτσιου Αντώνιος Β.,+302410239737,fixe,Artisans,,Λάρισα,"Αγιάς 41, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΔΥΝΑΜΙΚΗ ΟΕ - Κ ΤΑΣΙΟΥΛΑΣ Α ΜΑΛΤΕΖΑΣ Γ ΤΣΑΟΠΟΥΛΟΣ ΟΕ,+302410233543,fixe,Artisans,,Λάρισα,"Οδυσσέως 3, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κέντρας Αθανάσιος,+302410286519,fixe,Artisans,,Λάρισα,"Ηπείρου 122, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παπαθανασίου Αθανάσιος,+302410259831,fixe,Artisans,,Λάρισα,"Ερυθρού Σταυρού 30, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Δακτυλάς Δημήτριος Ε.,+302410537720,fixe,Artisans,,Λάρισα,"Διάκου Αθανασίου 15, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΗΤΑ ΕΝΕΡΓΕΙΑ (Γαρυφαλλόπουλος Δημήτριος),+302410615002,fixe,Artisans,,Λάρισα,"Ρούσβελτ 93, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Καπέτη Σοφία Χ.,+302410538915,fixe,Artisans,,Λάρισα,"Κούμα 10, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παπαθωμάς Ζήσης Δ.,+306936671903,mobile,Artisans,,Λάρισα,"Ακαρνανίας 38, Λάρισα, 41448, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Παπαγεωργίου Νικόλαος,+302410534005,fixe,Artisans,,Λάρισα,"Άνδρου 6, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Μίχος Χρήστος Δ.,+302414000051,fixe,Artisans,,Λάρισα,"Μανωλάκη 1, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Μπόλιας Γεώργιος,+302410288848,fixe,Artisans,,Λάρισα,"Μύρα, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Ευστρατίου Ευστράτιος Β.,+302410660430,fixe,Artisans,,Λάρισα,"Κολχίδος 21, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+ΚΟΤΡΩΤΣΙΟΥ ΑΦΟΙ ΟΕ,+302410671497,fixe,Artisans,,Λάρισα,"4ο χλμ Περιφερειακής Οδού Λάρισας - Τρικάλων, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Κονταξής Γεράσιμος Κ.,+302410288486,fixe,Artisans,,Λάρισα,"Κάλβου Ανδρέα 2, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Καραμπότας Δημήτριος Γ.,+306944832732,mobile,Artisans,,Λάρισα,"Ζαΐμη 8, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Τζήμας Αδάμος Γ.,+302410550012,fixe,Artisans,,Λάρισα,"Ιάσονος 23, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko electrician,False
+Καλογήρου Απόστολος,+306972324134,mobile,Artisans,,Βόλος,"Αναλήψεως 134Β, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+Αντωνίου Γαλάνης Ελευθέριος Α.,+306984045366,mobile,Artisans,,Βόλος,"Επαρχιακή Οδός Βόλου - Παλιουρίου 29, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+Μαουσίδης Σεραφείμ Ι.,+302421066311,fixe,Artisans,,Βόλος,"Λαρίσης 115, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+Ρομποτός Βασίλειος Ν.,+306972400492,mobile,Artisans,,Βόλος,"Ναυαρίνου 19, Βόλος, 38334, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+ΕΣΚΝ - ΕΙΔΙΚΟ ΣΩΦΡΟΝΙΣΤΙΚΟ ΚΑΤΑΣΤΗΜΑ ΝΕΩΝ ΒΟΛΟΥ - ΗΛΕΚΤΡΟΛΟΓΟΣ ΜΗΧΑΝΙΚΟΣ,+302421350902,fixe,Artisans,,Βόλος,"Μεταμορφώσεως 195, Βόλος, 38333, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+ΗΛΕΚΤΡΟΦΩΣ (Σαρρής Ιωάννης Χ.),+306972273662,mobile,Artisans,,Βόλος,"Κασσαβέτη 7, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+Καραγιαννέλος Ιωάννης Ε.,+306973566917,mobile,Artisans,,Βόλος,"Κασσαβέτη Ιερωνύμου 186, Βόλος, 38221, ΜΑΓΝΗΣΙΑΣ",,,,nouveau,Vrisko electrician,False
+ΥΙΟΙ ΙΩΑΝΝΗ Σ ΚΟΥΤΣΟΠΟΥΛΟΥ ΟΕ,+302105128845,fixe,Artisans,,Αθήνα,"Αυλώνος 89, Αθήνα - Σεπόλια, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Παππάς Ευάγγελος Χ.,+302107799609,fixe,Artisans,,Αθήνα,"Κορινθίας 13 & Σεβαστουπόλεως, Αθήνα, 11526, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Αράθυμος Ευάγγελος Ε.,+306977434121,mobile,Artisans,,Αθήνα,"Ασωπίου 12, Αθήνα - Γκύζη, 11473, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κίσσας Δημήτριος Χ.,+302107510218,fixe,Artisans,,Αθήνα,"Εκφαντίδου 31, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Λεβάντης Κωνσταντίνος,+306987060648,mobile,Artisans,,Αθήνα,"Προμπονά 15, Αθήνα - Άνω Πατήσια, 11143, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κορασίδης Στυλιανός Δ.,+302106437455,fixe,Artisans,,Αθήνα,"Ιπποκράτους 209, Αθήνα, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Αρχιμανδρίτης Σπυρίδων Η.,+302108658628,fixe,Artisans,,Αθήνα,"Φυλής 229, Αθήνα, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Καραθανάσης Αντώνιος Κ.,+306976605079,mobile,Artisans,,Αθήνα,"Ιοφώντος 8, Αθήνα - Παγκράτι, 11634, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γκούλης Βασίλειος Π.,+302102012040,fixe,Artisans,,Αθήνα,"Ηρακλείου 66, Αθήνα - Άνω Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Βαδάσης Αλέξιος Κ.,+302108834717,fixe,Artisans,,Αθήνα,"Ελλοπίας 7 & Βόδα Μιχαήλ 62, Αθήνα - Πλατεία Βικτωρίας, 10440, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δέμπι Δημητράκ Γ.,+302107756899,fixe,Artisans,,Αθήνα,"Ιλισίων 6, Αθήνα - Ιλίσια, 11528, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κατακουζηνός Γεώργιος Σ.,+302103637138,fixe,Artisans,,Αθήνα,"Δοξαπατρή 40, Αθήνα - Λυκαβητος, 11471, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γεωργίου Αθανάσιος Β.,+302102285735,fixe,Artisans,,Αθήνα,"Γαβριηλίδου 3, Αθήνα - Άνω Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΒΑΣ ΚΑΙ ΙΑΚ ΚΡΑΣΣΑΣ ΟΕ,+302103616828,fixe,Artisans,,Αθήνα,"Σκουφά 25, Αθήνα - Κολωνάκι, 10673, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ντόνης Δημήτριος Α.,+302130401226,fixe,Artisans,,Αθήνα,"Μελίσσου 15-19, Αθήνα - Παγκράτι, 11635, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ramizi Viktor,+306936331274,mobile,Artisans,,Αθήνα,"Αδώνιδος 7, Αθήνα, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ζήσης Χρήστος Β.,+302108671478,fixe,Artisans,,Αθήνα,"Καραγιάννη Λέλας 65, Αθήνα - Κυψέλη, 11361, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μπόκας Δημήτριος,+302109224359,fixe,Artisans,,Αθήνα,"Βεΐκου 75-77, Αθήνα - Κουκάκι, 11741, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κουκέλλης Παναγιώτης Γ.,+302107646119,fixe,Artisans,,Αθήνα,"Ιφικράτους 53, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δημητρόπουλος Βασίλειος Α.,+302103806476,fixe,Artisans,,Αθήνα,"Τσιμισκή 43, Αθήνα - Εξάρχεια - Νεάπολη, 11473, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Θεοδωρόπουλος Στέφανος Α.,+302102010801,fixe,Artisans,,Αθήνα,"Πάτμου 79, Αθήνα, 11144, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Χούτας Αλέξανδρος Β.,+302106911323,fixe,Artisans,,Αθήνα,"Τριφυλλίας 65, Αθήνα - Αμπελόκηποι, 11524, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κοσμίδης Στέφανος Κ.,+306942438024,mobile,Artisans,,Αθήνα,"Σφιγγός 92, Αθήνα - Άγιος Σώστης, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γρίβας Παναγιώτης Ι.,+302105133563,fixe,Artisans,,Αθήνα,"Ιωαννίνων 162-164, Αθήνα, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κούβελος Παναγιώτης,+302107246248,fixe,Artisans,,Αθήνα,"Σισίνη 23, Αθήνα, 11528, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ρεντζής Γεώργιος Α.,+306977706558,mobile,Artisans,,Αθήνα,"Αγίας Λαύρας 63, Αθήνα - Άνω Πατήσια, 11141, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+OIKIA SERVICE (Γιαννουλόπουλος Αθανάσιος),+302169008890,fixe,Artisans,,Αθήνα,"Σκιάθου 26, Αθήνα - Κάτω Πατήσια, 11254, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ζαρίκος Ιωάννης Φ.,+306936459814,mobile,Artisans,,Αθήνα,"Δασκαλογιάννη 5Α, Αθήνα - Λυκαβηττός, 11471, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ιντζιρτζής Ιωάννης Χ.,+302106410777,fixe,Artisans,,Αθήνα,"Ασκληπιού 173, Αθήνα - Λυκαβηττός, 11471, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ριζάδης Παναγιώτης Ι.,+306974368346,mobile,Artisans,,Αθήνα,"Αθήνα, Αθήνα - Σεπόλια, 10442, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Λακιός Χαράλαμπος Σ.,+306932668280,mobile,Artisans,,Αθήνα,"Ζυμπρακάκη 95-97, Αθήνα - Πατήσια, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Καράμπελας Κωνσταντίνος Θ.,+302103470983,fixe,Artisans,,Αθήνα,"Κειριαδών 125, Αθήνα - Κάτω Πετράλωνα, 11853, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ξενάκης Νικόλαος Δ.,+302108213730,fixe,Artisans,,Αθήνα,"Ιθάκης 3, Αθήνα - Κυψέλη, 11257, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΘΕΡΜΟΫΔΡΑΥΛΙΚΗ (Μαντζουράνης Βασίλειος Ν.),+302109219754,fixe,Artisans,,Αθήνα,"Σαρκουδίνου Μ. 3, Αθήνα - Νέος Κόσμος, 11745, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΛΥΚΟΥΔΗΣ CONSTRUCTIONS,+306949989676,mobile,Artisans,,Αθήνα,"Παπαντωνίου Ζαχαρία 27, Αθήνα - Άγιος Ελευθέριος, 11145, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μωυσιάδης Ιωσήφ Σ.,+302108232314,fixe,Artisans,,Αθήνα,"Άνδρου 2 & Πατησίων, Αθήνα, 11257, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΠΑΦΟΥ ΑΦΟΙ ΟΕ,+302108227856,fixe,Artisans,,Αθήνα,"Παξών 12, Αθήνα - Κυψέλη, 11362, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+SAVE WATER (Κυριάζος Ορέστης),+306931280537,mobile,Artisans,,Αθήνα,"Ιωαννίνων 91, Αθήνα - Σεπόλια, 10444, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μιχαλοστάμος Ανάργυρος Π.,+302108641671,fixe,Artisans,,Αθήνα,"Πάτμου 6, Αθήνα - Πλατεία Αμερικής - Κάτω Πατήσια, 11253, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Καναλάς Χρήστος Η.,+302155256370,fixe,Artisans,,Αθήνα,"Αμφείας 14, Αθήνα - Γκύζη, 11475, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ρεντούμης Αλέξανδρος Ι.,+302106930677,fixe,Artisans,,Αθήνα,"Κεδρηνού 68, Αθήνα - Αμπελόκηποι, 11522, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μητρόπουλος Αθανάσιος Ι.,+302102024075,fixe,Artisans,,Αθήνα,"Προμηθέως 63 & Επιδάμνου 39, Αθήνα - Κάτω Πατήσια, 11254, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Παπαϊωάννου Ραφαήλ Α.,+302106727274,fixe,Artisans,,Αθήνα,"Γιοβάνοβιτς 11, Αθήνα - Ελληνορώσων, 11525, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Τζαφέρης Αλέξανδρος,+306979126783,mobile,Artisans,,Αθήνα,"Αθήνα, Αθήνα - Σεπόλια, 10100, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κοντόπουλος Θεόδωρος Ν.,+302108652219,fixe,Artisans,,Αθήνα,"Σκύρου 15, Αθήνα - Κυψέλη, 11363, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κέκης Δημήτριος Ν.,+306944583058,mobile,Artisans,,Αθήνα,"Φθιώτιδος 43, Αθήνα, 11523, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μπουτσίνης Θεόφιλος Σ.,+302108654463,fixe,Artisans,,Αθήνα,"Βόδα Μιχαήλ 146, Αθήνα, 10446, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΥΔΡΑΥΛΙΚΟΤΕΧΝΙΚΗ ΚΑΛΥΨΗ (Αγριακονίτης Κωνσταντίνος Ι.),+302108618820,fixe,Artisans,,Αθήνα,"Μηθύμνης 25, Αθήνα - Πλατεία Αμερικής, 11257, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ταρνάρης Κωνσταντίνος Β.,+302107653655,fixe,Artisans,,Αθήνα,"Λάσκου Βασιλείου 1-3, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δρογγίτης Κωνσταντίνος Α.,+306944967575,mobile,Artisans,,Αθήνα,"Ιοκάστης 50 & Προποντίδος, Αθήνα - Κολωνός, 10444, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Βρούτσης Βασίλειος Γ.,+306947989733,mobile,Artisans,,Αθήνα,"Τρικούπη Χαριλάου 52, Αθήνα, 10680, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σταμέλος Ιωάννης Κ.,+302103830000,fixe,Artisans,,Αθήνα,"Σολωμού Διονυσίου 14, Αθήνα - Εξάρχεια, 10683, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Καλογερόπουλος Βασίλειος Ι.,+302102018116,fixe,Artisans,,Αθήνα,"Προμηθέως 13, Αθήνα - Κάτω Πατήσια, 11254, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μουράτης Γεώργιος Ν.,+306936820291,mobile,Artisans,,Αθήνα,"Ναυπλίου 63, Αθήνα - Κολωνός, 10441, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Φακόπουλος Χρυσόστομος Ν.,+302109239431,fixe,Artisans,,Αθήνα,"Ολυμπίου 17-19, Αθήνα, 11741, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Λάμπρου Σταύρος Δ.,+302108319642,fixe,Artisans,,Αθήνα,"Τερτίπη 63, Αθήνα - Κάτω Πατήσια, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κουμπούρος Μιχαήλ Ι.,+302102015775,fixe,Artisans,,Αθήνα,"Λεωφόρος Ιωνίας 244, Αθήνα, 11144, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σερέτης Κωνσταντίνος Α.,+306932400332,mobile,Artisans,,Αθήνα,"Δημοφώντος 101-103, Αθήνα - Άνω Πετράλωνα, 11852, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κώνστας Δημήτριος Κ.,+302108616406,fixe,Artisans,,Αθήνα,"Πύθωνος 37 & Φαιδριάδων, Αθήνα - Κυψέλη, 11364, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Περικλάκης Νικόλαος Σ.,+302106420682,fixe,Artisans,,Αθήνα,"Αιτωλίας 32-34, Αθήνα - Αμπελόκηποι, 11523, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γεωργίτσης Δημήτριος,+302107665101,fixe,Artisans,,Αθήνα,"Ιλιάδος 84-88, Αθήνα - Παγκράτι, 11632, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Αγγάνης Νικόλαος Η.,+302107519876,fixe,Artisans,,Αθήνα,"Ευμένους 28-30, Αθήνα - Παγκράτι, 11632, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κοντοστέργιος Απόστολος Γ.,+302106430194,fixe,Artisans,,Αθήνα,"Μουστοξύδη 15, Αθήνα - Πεδίο Άρεως, 11473, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Πανόπουλος Σίμων Π.,+306938444600,mobile,Artisans,,Αθήνα,"Δερβενίων 23 & Τρικούπη Χαριλάου, Αθήνα - Εξάρχεια, 10681, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γυφτάκης Παναγιώτης Γ.,+302108651461,fixe,Artisans,,Αθήνα,"Σταυροπούλου 6, Αθήνα - Πλατεία Αμερικής, 11252, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δ ΤΡΙΑΝΤΑΦΥΛΛΟΥ ΚΑΙ ΣΙΑ ΕΕ,+302111826506,fixe,Artisans,,Αθήνα,"Ξανθίππης 14-16, Αθήνα, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σαρίδης Σπύρος Θ.,+302107517138,fixe,Artisans,,Αθήνα,"Φιλολάου 44, Αθήνα, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Φραγκομίχαλος Γεώργιος Δ.,+302107011722,fixe,Artisans,,Αθήνα,"Φρύνης 42, Αθήνα - Παγκράτι, 11633, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Αντύπας Μιχαήλ Γ.,+306937197274,mobile,Artisans,,Αθήνα,"Πελλήνης 3, Αθήνα, 11251, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μπούτας Χρήστος Α.,+306970588685,mobile,Artisans,,Αθήνα,"Σημαντήρα 17, Αθήνα - Πατήσια, 10445, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μήτσης Βασίλης Σ.,+306972234778,mobile,Artisans,,Αθήνα,"Διγενή Ακρίτα 11, Αθήνα, 11472, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μαστοράκης Κωνσταντίνος Π.,+302106464396,fixe,Artisans,,Αθήνα,"Μομφεράτου Ι. 99, Αθήνα - Γκύζη, 11475, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ALFO SERVICE (Φώτης Αλέξανδρος Φ.),+302109211747,fixe,Artisans,,Αθήνα,"Ηρακλέους 7, Αθήνα - Νέος Κόσμος, 11743, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μαραγιάννης Απόστολος Α.,+302108827692,fixe,Artisans,,Αθήνα,"Καυκάσου 16, Αθήνα - Κυψέλη, 11362, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Λούτας Δημήτριος Ι.,+302105140842,fixe,Artisans,,Αθήνα,"Ρόδου 163, Αθήνα, 10443, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Βρούτσης Βασίλειος Γ.,+302103628440,fixe,Artisans,,Αθήνα,"Τρικούπη Χαριλάου 43, Αθήνα, 10680, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μαυρίδης Σπυρίδων Ι.,+306932912433,mobile,Artisans,,Αθήνα,"Βλάχου Γεωργίου 61, Αθήνα, 11525, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μπάγιας Ευστράτιος Σ.,+302109243950,fixe,Artisans,,Αθήνα,"Βεΐκου 22, Αθήνα, 11742, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Φιλιππίδης Μιχαήλ Ι.,+302106438629,fixe,Artisans,,Αθήνα,"Οιχαλίας 3-5, Αθήνα - Γκύζη, 11474, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μπαμπούρας Άλκης Γ.,+302177088888,fixe,Artisans,,Αθήνα,"Ιακωβάτων 32, Αθήνα, 11144, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Τσελέπης Δήμος Γ.,+302310862178,fixe,Artisans,,Θεσσαλονίκη,"Παπάφη 97, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Καρακίτσιος Αθανάσιος Ι.,+302310900894,fixe,Artisans,,Θεσσαλονίκη,"Απόλλωνος 43, Θεσσαλονίκη - Κάτω Τούμπα, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σαΐτης Χρήστος Π.,+302313016909,fixe,Artisans,,Θεσσαλονίκη,"Πεστών 42, Θεσσαλονίκη - Τούμπα, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Γκογκαλάτζε Ζουράμπ,+306977472882,mobile,Artisans,,Θεσσαλονίκη,"Αλεξανδρείας 22, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δανιηλόγλου Νικόλαος Γ.,+302310822327,fixe,Artisans,,Θεσσαλονίκη,"Παπάφη 11, Θεσσαλονίκη, 54638, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Βουτσάς Γρηγόριος Θ.,+302313011935,fixe,Artisans,,Θεσσαλονίκη,"Αγίας Τριάδας 12, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+TEXNIKO (Παπαδόπουλος Αθανάσιος Λ.),+306976080722,mobile,Artisans,,Θεσσαλονίκη,"Ανατολικής Θράκης 126, Θεσσαλονίκη - Τούμπα, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Πισκούλης Ηλίας Ι.,+302315319819,fixe,Artisans,,Θεσσαλονίκη,"Χαλεπά Γιαννούλη 2, Θεσσαλονίκη - Χαριλάου, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Λάλας Βασίλειος Σ.,+306944884171,mobile,Artisans,,Θεσσαλονίκη,"Παπαδιαμάντη Αλεξάνδρου 1, Θεσσαλονίκη, 54645, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΧΑΤΖΗΣΤΑΥΡΟΥ ΑΦΟΙ ΟΕ,+302310311832,fixe,Artisans,,Θεσσαλονίκη,"25ης Μαρτίου 56, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μαλιόγκας Βασίλειος Δ.,+302310926019,fixe,Artisans,,Θεσσαλονίκη,"Φαιάκων 29, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+NEROTHERM (Γαλανός Χρήστος Α.),+302310308777,fixe,Artisans,,Θεσσαλονίκη,"Μελενίκου 11, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΥΔΡΟΤΕΧΝΙΚΗ (Πλιόσκας Αθανάσιος Σ.),+302315525988,fixe,Artisans,,Θεσσαλονίκη,"Πλατεία Ιπποδρομίου 22, Θεσσαλονίκη, 54621, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Τζωρτζάκης Γεώργιος Χ.,+302310313528,fixe,Artisans,,Θεσσαλονίκη,"Πάλλη 8, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Χορμόβας Ευάγγελος,+306937209463,mobile,Artisans,,Θεσσαλονίκη,"Σαρανταπόρου 19, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σταμπολίδης Ιορδάνης Α.,+306944571200,mobile,Artisans,,Θεσσαλονίκη,"Βρυούλων 25, Θεσσαλονίκη, 54351, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΥΔΡΟΘΕΡΜΙΚΗ,+306975855774,mobile,Artisans,,Θεσσαλονίκη,"Πεντάλοφος, Θεσσαλονίκη, 54500, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Μοσχόπουλος Γεώργιος Κ.,+306972647148,mobile,Artisans,,Θεσσαλονίκη,"Παπάφη Ιωάννη 156, Θεσσαλονίκη - Κάτω Τούμπα, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σπανός Παναγιώτης Σ.,+302310852060,fixe,Artisans,,Θεσσαλονίκη,"Αρχαιολογικού Μουσείου 43, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Τσιάγγος Νικόλαος Ε.,+302310933223,fixe,Artisans,,Θεσσαλονίκη,"Στεφάνου Γρηγορίου 3, Θεσσαλονίκη, 54352, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Τσαμπαρλής Μιλτιάδης Κ.,+306973698628,mobile,Artisans,,Θεσσαλονίκη,"Στρατηγού Γενναδίου 37, Θεσσαλονίκη, 54249, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Παπαδόπουλος Ηλίας Π.,+302310900663,fixe,Artisans,,Θεσσαλονίκη,"Παλιγγενεσίας 3, Θεσσαλονίκη, 54454, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+ΤΕΧΝΟΚΟΣΜΟΣ (Κομνός Παναγιώτης Α.),+302310417171,fixe,Artisans,,Θεσσαλονίκη,"Σκεπαστού 9, Θεσσαλονίκη, 54636, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Karaj Sadik R.,+306978084991,mobile,Artisans,,Θεσσαλονίκη,"Αγίας Τριάδος 12, Θεσσαλονίκη, 54640, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ραχώνης Χαράλαμπος Π.,+306977252107,mobile,Artisans,,Θεσσαλονίκη,"Πύργου 16-18, Θεσσαλονίκη, 54453, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ντογκόσης Στυλιανός,+306972365938,mobile,Artisans,,Θεσσαλονίκη,"Πλαστήρα Νικολάου 70, Θεσσαλονίκη - Χαριλάου, 54250, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Χάσικος Πέτρος Θ.,+302310852180,fixe,Artisans,,Θεσσαλονίκη,"Νάστου 1, Θεσσαλονίκη, 54248, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δημητριάδης Αθανάσιος Α.,+306973227879,mobile,Artisans,,Θεσσαλονίκη,"Σαάδη Λεβή 4, Θεσσαλονίκη, 54641, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Κραβαρίτης Χρυσοβαλάντης Ανδρέας Ι.,+302310868623,fixe,Artisans,,Θεσσαλονίκη,"Παπάφη 16, Θεσσαλονίκη, 54639, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σφυριδάκης Γεώργιος Ε.,+302310524502,fixe,Artisans,,Θεσσαλονίκη,"Γλάδστωνος 25, Θεσσαλονίκη - Πλατεία Δημοκρατίας, 54630, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Παναγιώτου Ελευθέριος Α.,+306978805958,mobile,Artisans,,Θεσσαλονίκη,"Συνδίκα Πέτρου 31, Θεσσαλονίκη, 54643, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Ιωάννου Ιωάννης Γ.,+302310274348,fixe,Artisans,,Θεσσαλονίκη,"Σοφοκλέους 25, Θεσσαλονίκη, 54633, ΘΕΣΣΑΛΟΝΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Δάρμας Διονύσιος Δ.,+306937129203,mobile,Artisans,,Πάτρα,"Μιαούλη Ανδρέα 52, Πάτρα, 26222, ΑΧΑΪΑΣ",,,,nouveau,Vrisko plumber,False
+Σταματόπουλος Ορφέας Θ.,+306945732857,mobile,Artisans,,Πάτρα,"Φαβιέρου 41, Πάτρα, 26223, ΑΧΑΪΑΣ",,,,nouveau,Vrisko plumber,False
+Παπαγεωργόπουλος Δημήτρης,+306977638433,mobile,Artisans,,Πάτρα,"Αργυρά, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko plumber,False
+ΑΦΟΙ ΛΑΖΑΡΑΤΟΥ (Λαζαράτος Διονύσιος Γ.),+306932614001,mobile,Artisans,,Πάτρα,"Μυστρά 3, Πάτρα, 26441, ΑΧΑΪΑΣ",,,,nouveau,Vrisko plumber,False
+Μεντζίνης Παναγιώτης Σ.,+306977410184,mobile,Artisans,,Πάτρα,"Ελικίστρα, Πάτρα, 26500, ΑΧΑΪΑΣ",,,,nouveau,Vrisko plumber,False
+Καραβάς Εμμανουήλ Ι.,+306948303614,mobile,Artisans,,Ηράκλειο,"Πάροδος Ρωμανού Μελωδού, Νέο Ηράκλειο, 14122, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Σημαιάκης Κωνσταντίνος Α.,+302810320030,fixe,Artisans,,Ηράκλειο,"Καλογερίδη Στρατή 11, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+ΤΕΧΝΙΚΗ ΣΤΗΡΙΞΗ ΚΡΗΤΗΣ (Σακλαμπανάκης Εμμανουήλ Ν.),+302810222278,fixe,Artisans,,Ηράκλειο,"Νηρέως 5, Ηράκλειο, 71307, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Χριστοδουλάκης Δημήτριος Ε.,+306932985827,mobile,Artisans,,Ηράκλειο,"Θεοδούλου 2, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Κουρουγκιαβούρης Μάρκος Α.,+306937009306,mobile,Artisans,,Ηράκλειο,"Ρενιέρη 12, Ηράκλειο, 71201, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Δημητρίου Ιωάννης Γ.,+306977911695,mobile,Artisans,,Ηράκλειο,"Κλονάρη Δωροθέου 70, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Συγλέτος Γεώργιος Β.,+302810261104,fixe,Artisans,,Ηράκλειο,"Αγίου Μεθοδίου 7, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Μαρτάκης Δημήτριος Ν.,+302815003336,fixe,Artisans,,Ηράκλειο,"Αρχιεπισκόπου Ευγενίου 52, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Αρβανιτάκης Εμμανουήλ Σ.,+306945388074,mobile,Artisans,,Ηράκλειο,"Πανδάρεω 46, Ηράκλειο - Άγιος Ιωάννης, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Παναγιωτάκης Παναγιώτης Χ.,+306976576155,mobile,Artisans,,Ηράκλειο,"Δαμασκηνού 26, Ηράκλειο, 71305, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Πανουσόπουλος Αντώνιος Κ.,+306948241651,mobile,Artisans,,Ηράκλειο,"Κολοκοτρώνη 41, Νέο Ηράκλειο, 14121, ΑΤΤΙΚΗΣ",,,,nouveau,Vrisko plumber,False
+Αναπολιωτάκης Νικόλαος Γ.,+306977318410,mobile,Artisans,,Ηράκλειο,"Οικονομίδη Γεωργίου 1 & Αρχιεπισκόπου Ευγενίου, Ηράκλειο, 71409, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Δρακόπουλος Μαρίνος Χ.,+302810380856,fixe,Artisans,,Ηράκλειο,"Καρτερός Καλλιθέας & Αγίας Φωτεινής - ΤΘ 704, Ηράκλειο, 71500, ΗΡΑΚΛΕΙΟΥ",,,,nouveau,Vrisko plumber,False
+Δαμασιώτης Δημήτριος Γ.,+306993988706,mobile,Artisans,,Λάρισα,"Μαβίλη 15, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Τσιούλκας Αστέριος Ν.,+306970048088,mobile,Artisans,,Λάρισα,"Θεοτοκοπούλου 5, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Θεοδοσίου Αντώνιος Χ.,+302410611806,fixe,Artisans,,Λάρισα,"Κλεισούρας 11 & Ιωαννίνων, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Σαγώνας Κωνσταντίνος Ν.,+306977090471,mobile,Artisans,,Λάρισα,"Κεφαλληνίας 11, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Καραμούτης Χρήστος Δ.,+302410672612,fixe,Artisans,,Λάρισα,"Πολίτη Φωτίου 1 & Ασβεστοχωρίου, Λάρισα - Νέα Πολιτεία, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Δημότσιος Αναστάσιος Λ.,+302410571262,fixe,Artisans,,Λάρισα,"Βόλου 137 & Τσίρκα 1, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Νάτσιος Γεώργιος Ν.,+306983188141,mobile,Artisans,,Λάρισα,"Γκύζη 30, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Αγγελής Αλέξανδρος Κ.,+306944500367,mobile,Artisans,,Λάρισα,"Ηλώνης 8, Λάρισα, 41334, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Μπουρονίκος Νικόλαος Ι.,+306937707845,mobile,Artisans,,Λάρισα,"Παπαζαχαρίου 50, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Φρατζέσκος Βασίλειος,+306932869350,mobile,Artisans,,Λάρισα,"Ιστιαίας 16, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Ιγγλέζος Βασίλειος Χ.,+302410230918,fixe,Artisans,,Λάρισα,"Βουλγαροκτόνου 33, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Τσιάρας Βάιος Θ.,+302410550395,fixe,Artisans,,Λάρισα,"Ισθμιαίας 16, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Παπαδημητρίου Νέστορας Σ.,+306986535315,mobile,Artisans,,Λάρισα,"Μητροπούλου 31, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Καναράς Βασίλειος Δ.,+302410288081,fixe,Artisans,,Λάρισα,"Μητροπολίτου Αμβροσίου 17Α, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Λίτσιος Βασίλειος Ν.,+306977461716,mobile,Artisans,,Λάρισα,"Εμπεδοκλέους 30, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Παπαρίζος Κωνσταντίνος Γ.,+302410280791,fixe,Artisans,,Λάρισα,"Μίνωος 8, Λάρισα, 41336, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Κακαές Ευάγγελος Β.,+306938185287,mobile,Artisans,,Λάρισα,"Καρδίτσης 31, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Καραγιάννης Βασίλειος Κ.,+306945781262,mobile,Artisans,,Λάρισα,"Ανθέων 16, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+ΙΩΑΝΝΙΔΗΣ Γ ΚΥΡΙΛΙΔΗΣ Κ ΟΕ,+302410627010,fixe,Artisans,,Λάρισα,"Σίφνου 41, Λάρισα, 41335, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Μπλιάμπλιας Δημήτριος Ι.,+302413006488,fixe,Artisans,,Λάρισα,"Θεμίσωνος 27, Λάρισα, 41447, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Κισκίνης Γεώργιος Α.,+306973555162,mobile,Artisans,,Λάρισα,"Στρατηγού Φράγκου 34, Λάρισα, 41221, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Δρόσος Γεώργιος Ν.,+306932522626,mobile,Artisans,,Λάρισα,"Αλεξάνδρας 5, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Μετσοβίτης Κωνσταντίνος Γ.,+302410961109,fixe,Artisans,,Λάρισα,"Χάλκη, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Κυδώνας Γεώργιος Δ.,+306974816391,mobile,Artisans,,Λάρισα,"Δασοχώρι, Λάρισα, 41500, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Ντολλάνι Βασίλειος,+302411812570,fixe,Artisans,,Λάρισα,"23ης Οκτωβρίου 120, Λάρισα, 41223, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False
+Γ Ι ΤΣΙΛΙΚΟΠΟΥΛΟΣ ΚΑΙ Γ Σ ΤΣΙΛΙΚΟΠΟΥΛΟΣ IKE,+302410532472,fixe,Artisans,,Λάρισα,"Ζαΐμη 1, Λάρισα, 41222, ΛΑΡΙΣΑΣ",,,,nouveau,Vrisko plumber,False

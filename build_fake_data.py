@@ -9,10 +9,37 @@ import json
 import random
 random.seed(42)
 
-with open("prospects_crete.csv", "r", encoding="utf-8") as f:
-    rows = list(csv.DictReader(f))
+import os, re
 
-print(f"Loaded {len(rows)} real prospects")
+def load(path):
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+osm    = load("prospects_crete.csv")
+vrisko = load("prospects_vrisko.csv")
+print(f"OSM:    {len(osm)}")
+print(f"Vrisko: {len(vrisko)}")
+
+# Merge with phone-based dedup (same business in both sources -> keep one)
+seen = set()
+rows = []
+for src in (vrisko, osm):       # Vrisko first: paid listings have richer addr
+    for r in src:
+        # Use full normalized phone (12 digits = "30" + 10) as dedup key.
+        # Anything shorter collapses different businesses sharing area prefix.
+        key = re.sub(r"\D", "", r.get("numero",""))
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        # Strip source label so CRM treats every prospect identically
+        notes = (r.get("notes") or "").strip()
+        notes = re.sub(r"^(Vrisko|OSM)\s+\S+\s*", "", notes).strip()
+        r["notes"] = notes
+        rows.append(r)
+
+print(f"After dedup: {len(rows)} unique prospects")
 # Cap at 15k for page-load speed while keeping full geographic coverage
 CAP = 12000
 if len(rows) > CAP:
