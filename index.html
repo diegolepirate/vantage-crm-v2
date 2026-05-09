@@ -1081,7 +1081,7 @@ tr.row-rappeler{background:rgba(188,140,255,.06)!important}tr.row-rappeler td:fi
       <div class="topbar-user" id="userLabel"><input class="topbar-user-input" id="userNameInput" type="text" placeholder="Nom" onchange="saveDisplayName(this.value)" onblur="saveDisplayName(this.value)"><label class="topbar-user-label">Nom du guerrier</label></div>
       <span class="topbar-points" id="pointsLabel"></span>
       <span id="earningsLabel" class="topbar-earnings" style="font-size:.78rem;font-weight:700;color:#34d399;background:none;border:none;padding:4px 8px;border-radius:20px;transition:transform .3s,color .3s;cursor:default;display:inline-flex;align-items:center;gap:4px"><img src="assets/game-icons/icon-coins.png" width="80" height="80" loading="lazy" style="object-fit:contain;vertical-align:middle"> 0\u20AC</span>
-      <button class="btn btn-ghost btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-ghost btn-sm" style="display:none" onclick="exportCSV()">Export CSV</button>
       <button class="btn btn-ghost btn-sm" id="pdfBtn" style="display:none" onclick="generatePDFReport()">PDF Report</button>
       <button class="btn btn-ghost btn-sm" onclick="logout()">Deconnexion</button>
     </div>
@@ -1679,8 +1679,8 @@ async function enterApp(){
 // ========================================
 // TABS
 // ========================================
-const TABS_VENDOR=['prospects','projects','leaderboard','badges','notes','clients','map'];
-const TABS_ADMIN=['prospects','projects','leaderboard','badges','notes','clients','map','vendors','logs','blacklist'];
+const TABS_VENDOR=['prospects','projects','leaderboard','badges','clients','map'];
+const TABS_ADMIN=['prospects','projects','leaderboard','badges','clients','map','vendors','logs','blacklist'];
 const TAB_LABELS={prospects:'Prospects',projects:'Projets',leaderboard:'Classement',badges:'Badges',notes:'Book',clients:'Clients',map:'Map',vendors:'Vendeurs',logs:'Logs',blacklist:'Blacklist'};
 
 function buildTabs(){
