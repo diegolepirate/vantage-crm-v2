@@ -38,7 +38,13 @@ img{content-visibility:auto}
 /* === END PERF === */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d1117;--s1:#161b22;--s2:#21262d;--s3:#30363d;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--orange:#db6d28;--purple:#bc8cff;--white:#e6edf3;--gray:#8b949e;--dim:rgba(240,246,252,.04);--book-bg:#0A0A0F;--book-gold:#D4AF37;--book-card:#13131A;--book-sidebar:#0D0D14;--book-text:#F8F8FF}
-#bookPage{background:var(--book-bg)!important;color:var(--book-text);overflow-y:auto}
+/* ROOT FIX: .book-page (line 827) is display:flex with align-items:center which
+   vertically centers the entire page content. When that content is taller than
+   the viewport (it always is here — hero + work + pricing + contact + footer),
+   centering pushes the top of the content into NEGATIVE space, so users land
+   in the middle of the page (the card grid) instead of at the top (the hero).
+   Force block layout so content flows normally from the top. */
+#bookPage{background:var(--book-bg)!important;color:var(--book-text);overflow-y:auto;display:block!important;align-items:initial!important;justify-content:initial!important}
 #bookPage .uni-graph{background:var(--book-bg)!important;background-image:none!important}
 #bookPage .uni-sidebar{background:var(--book-sidebar)!important;border-right:1px solid rgba(255,255,255,.06)!important}
 #bookPage .uni-fluid-bg{display:none!important}
