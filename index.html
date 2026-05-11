@@ -150,7 +150,7 @@ img{content-visibility:auto}
   transform:none!important;margin:0 auto 28px;display:inline-flex;
 }
 #bookPage .agency-work-wrap{
-  padding:56px 24px 40px;text-align:center;max-width:none;margin:0;width:100%;
+  padding:104px 24px 40px;text-align:center;max-width:none;margin:0;width:100%;
 }
 /* Compare grid: full viewport width, 2 large cards per row (1 on small screens) */
 #bookPage #compareApp .cg-grid{grid-template-columns:repeat(4,1fr)!important;gap:24px!important;max-width:100%!important}
@@ -174,12 +174,12 @@ img{content-visibility:auto}
    Neutralize the legacy inline `overflow-y:auto` which turned #compareApp
    into an inner scroll-box and clipped the first row of cards. */
 #bookPage #compareApp{padding-top:8px!important;overflow:visible!important;height:auto!important;max-height:none!important}
-#bookPage #compareApp .cg-grid{padding-top:64px}
+#bookPage #compareApp .cg-grid{padding-top:8px}
 #bookPage #compareApp .cg-card{scroll-margin-top:180px}
 /* Filter bar — non-sticky so card rows never get clipped behind it on scroll.
    The first row stays fully visible at all times. */
-#bookPage #compareApp .cg-topbar{position:relative;background:transparent;padding:14px 0!important}
-#bookPage #compareApp .cg-pills{position:relative;background:transparent;padding:10px 0 14px!important;margin-bottom:24px}
+#bookPage #compareApp .cg-topbar{position:relative;background:transparent;padding:14px 0!important;display:flex!important;justify-content:center;width:100%}
+#bookPage #compareApp .cg-pills{position:relative;display:flex!important;flex-wrap:wrap;justify-content:center;background:transparent;margin:0 0 24px!important;padding:10px 0 14px!important;width:100%}
 
 /* Compare card restyle (per spec) */
 #bookPage .cg-card{background:#13131A!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:16px!important;transition:transform .25s,border-color .25s,box-shadow .25s}
